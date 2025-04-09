@@ -1,0 +1,45 @@
+.side-nav{
+  position: fixed;
+  bottom: 0;
+  background-color: #1DFF86;
+  top: var(--header-height);
+  width: var(--sidenav-width); /* variable is in the body */
+  padding-top: 2.5rem;
+}
+
+.side-nav__link-list{
+  display: flex;
+  gap: 0.4rem;
+  flex-direction: column;
+  color: var(--primary-color);
+}
+
+.side-nav__link{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  cursor: pointer;
+  padding: 1rem 0;
+  padding-left: 2.5rem;
+  transition: 0.2s;
+}
+
+.side-nav__link.focus{
+  background-color: rgb(9, 152, 76);
+}
+
+.side-nav__link:hover{
+  background-color: rgb(0, 105, 49);
+}
+
+.side-nav__link-icon{
+  --sidenav-link-icon: 26px;
+
+  height: var(--sidenav-link-icon);
+  width: var(--sidenav-link-icon);
+}
+
+.side-nav__link-label{
+  font-size: 1rem;
+  font-weight: 600;
+}

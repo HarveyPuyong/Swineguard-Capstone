@@ -29,6 +29,14 @@ html{
 }
 
 body{
+  --header-height: 60px;
+  --sidenav-width: 290px;
+
   font-family: "Poppins", sans-serif;
   height: 100%;
 }
+
+.sections-wrapper{
+  padding-left: var(--sidenav-width);
+}
+

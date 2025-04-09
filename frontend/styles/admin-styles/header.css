@@ -1,9 +1,9 @@
 header{
   display: flex;
   align-items: center;
-  height: 60px;
+  height: var(--header-height);
   background-color: var(--main-color);
-  padding: 0 3rem;
+  padding: 0 2.5rem;
   overflow: hidden;
 }
 
@@ -11,7 +11,7 @@ header{
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  margin-right: 4rem;
+  margin-right: 3rem;
 }
 
 .header__toggle-side-nav-icon .line{
@@ -57,7 +57,7 @@ header{
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  right: 10px;
+  right: 12px;
   width: var(--searc-icon-size);
   height: var(--searc-icon-size);
   z-index: 1;
@@ -80,7 +80,7 @@ header{
 
 header .admin-profile{
   display: flex;
-  gap: 0.5rem;
+  gap: 0.6rem;
   align-items: center;
   margin-right: 1.5rem;
 }
@@ -90,7 +90,7 @@ header .admin-profile__pic{
 
   height: var(--admin-pic-size);
   width: var(--admin-pic-size);
-  border-radius: 25px;
+  border-radius: 30px;
 }
 
 header .admin-profile__label{
