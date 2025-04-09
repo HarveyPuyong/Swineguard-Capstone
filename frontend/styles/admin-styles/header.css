@@ -1,0 +1,127 @@
+header{
+  display: flex;
+  align-items: center;
+  height: 60px;
+  background-color: var(--main-color);
+  padding: 0 3rem;
+  overflow: hidden;
+}
+
+.header__toggle-side-nav-icon{
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-right: 4rem;
+}
+
+.header__toggle-side-nav-icon .line{
+  height: 4px;
+  width: 32px;
+  background-color: white;
+}
+
+.header__swine-logo{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-right: 6rem;
+}
+
+.header__swine-logo-img{
+  --logo-img-size: 40px;
+
+  width: var(--logo-img-size);
+  height: var(--logo-img-size);
+}
+
+.header__swine-logo-label{
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.header__search{
+  position: relative;
+  display: flex;
+  width: 200px;
+  height: 30px;
+  background-color: #1DFF86;
+  border: 1px solid #FFFFFF;
+  border-radius: 10px;
+  margin-right: 40rem;
+}
+
+.header__search-icon{
+  --searc-icon-size: 18px;
+
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  width: var(--searc-icon-size);
+  height: var(--searc-icon-size);
+  z-index: 1;
+  cursor: pointer;
+}
+
+.header__search-input{
+  background-color: transparent;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  border: none;
+  padding-left: 1rem;
+  color: white;
+}
+
+.header__search-input::placeholder{
+  color: white;
+}
+
+header .admin-profile{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-right: 1.5rem;
+}
+
+header .admin-profile__pic{
+  --admin-pic-size: 36px;
+
+  height: var(--admin-pic-size);
+  width: var(--admin-pic-size);
+  border-radius: 25px;
+}
+
+header .admin-profile__label{
+  font-weight: 600;
+  color: white;
+}
+
+.header__arrow-down-icon{
+  --arrow-down-size: 18px;
+
+  width: var(--arrow-down-size);
+  height: var(--arrow-down-size);
+  margin-right: 6rem;
+  cursor: pointer;
+}
+
+.header__notification{
+  position: relative;
+  cursor: pointer;
+}
+
+.header__notification-icon{
+  --notification-icon-size: 30px;
+
+  width: var(--notification-icon-size);
+  height: var(--notification-icon-size);
+}
+
+.header__notification-number{
+  position: absolute;
+  top: -6px;
+  right: 4px;
+  color: red;
+}

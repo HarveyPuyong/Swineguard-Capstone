@@ -3,77 +3,233 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/admin-styles/header.css">
     <title>Admin</title>
   </head>
   <body>
      <!-- header -->
     <header>
-      <div class="hamburger-icon toggle-side-nav-icon">
-        <div></div>
-        <div></div>
-        <div></div>
+      <div class="header__toggle-side-nav-icon">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
       </div>
 
-      <div class="logo">
-        <img class="log__img" src="images-and-icons/icons/swineGuard-logo.png" alt="img-logo">
-        <p class="logo__label">Swine Guard</p>
+      <div class="header__swine-logo">
+        <img class="header__swine-logo-img" src="images-and-icons/icons/swineGuard-logo.png" alt="img-logo">
+        <p class="header__swine-logo-label">Swine Guard</p>
       </div>
 
-      <search>
-        <button class="search__icon" type="submit">🔍</button>
-        <input type="text" placeholder="Search...">   
-      </search>
+      <form class="header__search">
+        <img class="header__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+        <input class="header__search-input" type="text" placeholder="Search...">   
+      </form>
 
-      <div class="admin">
-        <img src="" alt="admin-profile-pic" class="profile__pic">
-        <p class="admin__label">ADMIN</p>
+      <div class="admin-profile">
+        <img class="admin-profile__pic" src="images-and-icons/images/money-admin-profile.jpg" alt="admin-profile-pic" >
+        <p class="admin-profile__label">ADMIN</p>
       </div>
-      <img src="" alt="arrow-down-icon" class="arrow-down-icon">
-      <img src="" alt="notification-icon" class="notification-icon">
+
+      <img class="header__arrow-down-icon" src="images-and-icons/icons/arrow-down-icon.png" alt="arrow-down-icon">
+      <div class="header__notification">
+        <img class="header__notification-icon" src="images-and-icons/icons/notification-icon.png" alt="notification-icon" >
+        <p class="header__notification-number">1</p>
+      </div>
+     
     </header>
 
-     <!-- side-nav -->
-    <nav class="side-nav">
-      <ul>
-        <li class="side-nav__link">
-          <img src="" alt="dashboard-icon" class="side-nav__icon">
-          <p class="side-nav__label">Dashboard</p>
-        </li class="side-nav__link">
-        <li class="side-nav__link">
-          <img src="" alt="database-icon" class="side-nav__icon">
-          <p class="side-nav__label">Database</p>
-        </li class="side-nav__link">
-        <li class="side-nav__link">
-          <img src="" alt="message-icon" class="side-nav__icon">
-          <p class="side-nav__label">Messages</p>
-        </li class="side-nav__link">
-        <li class="side-nav__link">
-          <img src="" alt="appointments-icon" class="side-nav__icon">
-          <p class="side-nav__label">Appointments</p>
-        </li class="side-nav__link">
-        <li class="side-nav__link">
-          <img src="" alt="inventory-icon" class="side-nav__icon">
-          <p class="side-nav__label">Inventory</p>
-        </li class="side-nav__link">
-        <li class="side-nav__link">
-          <img src="" alt="settings-icon" class="side-nav__icon">
-          <p class="side-nav__label">Settings</p>
-        </li class="side-nav__link">
-      </ul>
-    </nav>
-    
-    <!-- sections -->
     <main class="sections-container">
-      <section id="dashboard-section">No Content</section>
-      <section id="database-section">No Content</section>
-      <section id="messages-section">No Content</section>
-      <section id="appointments-section">
-        <h1 class="section__heading">All Appointmens</h1>
-        
-      </section>
-      <section id="inventory-section">No Content</section>
-      <section id="setting-section">No Content</section>
-    </main>
+      <!-- side-nav -->
+      <nav class="side-nav">
+        <ul class="side-nav__link-list">
+          <li class="side-nav__link">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/dashboard-icon.png" alt="dashboard-icon">
+            <p class="side-nav__link-label">Dashboard</p>
+          </li>
+          <li class="side-nav__link">
+            <im class="side-nav__link-icon" src="images-and-icons/icons/database-ioon.png" alt="database-icon">
+            <p class="side-nav__link-label">Database</p>
+          </li>
+          <li class="side-nav__link">
+            <i class="side-nav__link-icon" src="images-and-icons/icons/messages-icon.png" alt="message-icon">
+            <p class="side-nav__link-label">Messages</p>
+          </li>
+          <li class="side-nav__link">
+            <img sr class="side-nav__link-icon" src="images-and-icons/icons/appointment-icon.png" alt="appointments-icon">
+            <p class="side-nav__link-label">Appointments</p>
+          </li>
+          <li class="side-nav__link">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/inventory-icon.png" alt="inventory-icon">
+            <p class="side-nav__link-label">Inventory</p>
+          </li>
+          <li class="side-nav__link">
+            <im class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="settings-icon">
+            <p class="side-nav__link-label">Settings</p>
+          </li>
+        </ul>
+      </nav>
+    
 
+      <!-- sections -->
+      <div class="sections-wrapper">
+        <section id="dashboard-section">No Content</section>
+        <section id="database-section">No Content</section>
+        <section id="messages-section">No Content</section>
+        <section id="appointments-section">
+          <h1 class="section__heading">All Appointmens</h1>
+          <!-- Table -->
+          <table>
+            <caption class="table-heading">
+              <h1>
+                <span class="table-heading__month">March</span>
+                <span class="table-heading__year">2025</span>
+              </h1>
+              <div class="appointment-identifier appointment-identifier--vet">
+                <div class="appointment-identifier__circle"></div>
+                <p class="appointment-identifier__label">Vet Visit</p>
+              </div>
+              <div class="appointment-identifier appointment-identifier--home">
+                <div class="appointment-identifier__circle"></div>
+                <p class="appointment-identifier__label">Home Visit</p>
+              </div>
+            </caption>
+            <thead>
+              <tr>
+                <th> <!--Time-head--></th>
+                <th class="calendar-date">
+                  <span class="calendar-date__weekday">Mon</span>
+                  <span class="calendar-date__day">01</span>
+                </th>
+                <th class="calendar-date">
+                  <span class="calendar-date__weekday">Tue</span>
+                  <span class="calendar-date__day">02</span>
+                </th>
+                <th class="calendar-date">
+                  <span class="calendar-date__weekday">Wed</span>
+                  <span class="calendar-date__day">03</span>
+                </th>
+                <th class="calendar-date">
+                  <span class="calendar-date__weekday">Thu</span>
+                  <span class="calendar-date__day">04</span>
+                </th>
+                <th class="calendar-date">
+                  <span class="calendar-date__weekday">Fri</span>
+                  <span class="calendar-date__day">05</span>
+                </th>
+                <th class="calendar-date">
+                  <span class="calendar-date__weekday">Sat</span>
+                  <span class="calendar-date__day">06</span>
+                </th>
+                <th class="calendar-date">
+                  <span class="calendar-date__weekday">Sun</span>
+                  <span class="calendar-date__day">07</span>
+                </th>
+              </tr>
+            </thead>
+            <body>
+              <tr>
+                <tbody>
+                  <td>8am</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tbody>
+              </tr>
+              <tr>
+                <tbody>
+                  <td>9am</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tbody>
+              </tr>
+              <tr>
+                <tbody>
+                  <td>10am</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tbody>
+              </tr>
+              <tr>
+                <tbody>
+                  <td>11am</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tbody>
+              </tr>
+              <tr>
+                <tbody>
+                  <td>12am</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tbody>
+              </tr>
+              <tr>
+                <tbody>
+                  <td>1pm</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tbody>
+              </tr>
+              <tr>
+                <tbody>
+                  <td>2pm</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tbody>
+              </tr>
+              <tr>
+                <tbody>
+                  <td>3pm</td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tbody>
+              </tr>
+            </body>
+          </table>
+        </section>
+        <section id="inventory-section">No Content</section>
+        <section id="setting-section">No Content</section>
+      </div>
+    </main>
   </body>
 </html>

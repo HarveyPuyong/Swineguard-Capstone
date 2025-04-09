@@ -12,6 +12,10 @@
   box-sizing: border-box;
 }
 
+li{
+  list-style: none;
+}
+
 img{
   width: 100%;
 }
