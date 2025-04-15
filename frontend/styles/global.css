@@ -30,13 +30,25 @@ html{
 
 body{
   --header-height: 60px;
-  --sidenav-width: 290px;
+  --sidenav-width: 285px;
 
   font-family: "Poppins", sans-serif;
   height: 100%;
+  background-color: #D2D2D2;
 }
 
 .sections-wrapper{
   padding-left: var(--sidenav-width);
 }
 
+section{
+  --section-side-spacing: 1.5rem;
+  position: relative;
+  padding: 0 var(--section-side-spacing);
+}
+
+.section__heading{
+  color: var(--main-color);
+  font-size: 1.3rem;
+  padding-top: 1.5rem;
+}

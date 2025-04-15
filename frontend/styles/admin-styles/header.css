@@ -43,12 +43,12 @@ header{
 .header__search{
   position: relative;
   display: flex;
-  width: 200px;
+  width: 220px;
   height: 30px;
   background-color: #1DFF86;
   border: 1px solid #FFFFFF;
   border-radius: 10px;
-  margin-right: 40rem;
+  margin-right: 44rem;
 }
 
 .header__search-icon{
@@ -68,7 +68,7 @@ header{
   background-color: transparent;
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: 80%;
   border: none;
   padding-left: 1rem;
   color: white;
@@ -103,7 +103,7 @@ header .admin-profile__label{
 
   width: var(--arrow-down-size);
   height: var(--arrow-down-size);
-  margin-right: 6rem;
+  margin-right: 2rem;
   cursor: pointer;
 }
 

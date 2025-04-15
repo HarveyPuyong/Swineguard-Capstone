@@ -1,0 +1,215 @@
+.appointment-section .select-and-btn-container {
+  position: absolute;
+  right: var(--section-side-spacing);
+  top: -10px;
+  display: flex;
+  gap: 5px;
+  flex-direction: column;
+  width: 223px;
+}
+
+.appointment-section .select-and-btn-container__select-apointments-status,
+.appointment-section .select-and-btn-container__add-appointment-btn {
+  background-color: #2fc3746a;
+  padding: 0.6rem 0;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid var(--main-color);
+}
+
+.appointment-section .select-and-btn-container__select-apointments-status{
+  appearance: none; /* Removes default arrow */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+
+  /* Custom dropdown icon */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000000" d="M7 10l5 5 5-5H7z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 3px center;
+  background-size: 22px;
+}
+
+.manage-appointments-table {
+  --elements-gap: 1.7rem;
+  --firstname-width: 140px;
+  --lastname-width: 140px;
+  --contact-width: 150px;
+  --date-time-width: 210px;
+  --status-width: 130px;
+  --action-width: 145px;
+  --view-width: 50px;
+
+  width: 100%;
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 2.5rem;
+  overflow: hidden;
+  height: 32rem;
+  font-size: 0.9rem;
+}
+
+
+/* table head */
+.manage-appointments-table__thead {
+  display: flex;
+  gap: var(--elements-gap);
+  margin-bottom: 1rem;
+}
+
+.manage-appointments-table__thead .th {
+  font-weight: 500;
+  text-align: center;
+}
+
+.manage-appointments-table__thead .th.first-name {
+  width: var(--firstname-width);
+  max-width: var(--firstname-width);
+}
+.manage-appointments-table__thead .th.last-name {
+  width: var(--lastname-width);
+  max-width: var(--lastname-width);
+}
+.manage-appointments-table__thead .th.contact {
+  width: var(--contact-width);
+  max-width: var(--contact-width);
+}
+.manage-appointments-table__thead .th.date-time {
+  width: var(--date-time-width);
+  max-width: var(--date-time-width);
+}
+.manage-appointments-table__thead .th.status {
+  width: var(--status-width);
+  max-width: var(--status-width);
+}
+.manage-appointments-table__thead .th.action {
+  width: var(--action-width);
+  max-width: var(--action-width);
+}
+.manage-appointments-table__thead .th.view {
+  width: var(--view-width);
+  max-width: var(--view-width);
+}
+
+/* table body */
+.manage-appointments-table__tbody {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+  overflow: scroll;
+  max-height: 100%;
+  padding-bottom: 1rem;
+}
+
+.manage-appointments-table__tbody .appointment {
+  background-color: #D2D2D2;
+  padding: 0.7rem 0;
+  border-radius: 8px;
+}
+
+.manage-appointments-table__tbody .appointment__details {
+  display: flex;
+  align-items: center;
+  gap: var(--elements-gap);
+}
+
+.manage-appointments-table__tbody .td {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.manage-appointments-table__tbody .td.first-name {
+  width: var(--firstname-width);
+  max-width: var(--firstname-width);
+  word-break: break-all;
+}
+.manage-appointments-table__tbody .td.last-name {
+  width: var(--lastname-width);
+  max-width: var(--lastname-width);
+}
+.manage-appointments-table__tbody .td.contact {
+  width: var(--contact-width);
+  max-width: var(--contact-width);
+}
+.manage-appointments-table__tbody .td.date-time {
+  width: var(--date-time-width);
+  max-width: var(--date-time-width);
+}
+.manage-appointments-table__tbody .td.status {
+  width: var(--status-width);
+  max-width: var(--status-width);
+  border: 1px solid var(--main-color);
+  background-color: #1dff8722;
+  color: var(--main-color);
+  border-radius: 20px;
+  padding: 0.2rem 0;
+}
+.manage-appointments-table__tbody .td.action {
+  width: var(--action-width);
+  max-width: var(--action-width);
+}
+.manage-appointments-table__tbody .td.view {
+  width: var(--view-width);
+  max-width: var(--view-width);
+  color: #009947;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* action select */
+.manage-appointments-table__tbody .td.action .select-appointment-action{
+  width: 100%;
+  text-align: center;
+  border-radius: 20px;
+  padding: 0.2rem 0;
+  padding-right: 0rem;
+
+  appearance: none; /* Removes default arrow */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+
+  /* Custom dropdown icon */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000000" d="M7 10l5 5 5-5H7z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 3px center;
+  background-size: 22px;
+}
+
+
+
+
+/* appointment more details */
+.manage-appointments-table__tbody .appointment__more-details {
+  display: none;
+  margin-top: 2.3rem;
+  padding: 0 1.3rem;
+  height: 15rem;
+}
+
+.appointment__more-details-heading {
+  font-size: 1.25rem; /* 20px -> 1.25rem */
+  font-weight: 700;
+  color: #009947;
+  margin-bottom: 1.2rem;
+}
+
+.appointment__more-details-columns {
+  display: flex;
+  column-gap: 13rem;
+}
+
+.appointment__more-details-columns .column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.column__detail-label {
+  color: #009947;
+  margin-right: 0.2rem;
+}
+
+.column__detail-value {
+  color: rgba(0, 0, 0, 0.8);
+}

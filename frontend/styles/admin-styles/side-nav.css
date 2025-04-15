@@ -1,7 +1,7 @@
 .side-nav{
   position: fixed;
   bottom: 0;
-  background-color: #1DFF86;
+  background-color: #17e476;
   top: var(--header-height);
   width: var(--sidenav-width); /* variable is in the body */
   padding-top: 2.5rem;
