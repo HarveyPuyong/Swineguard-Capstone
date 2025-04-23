@@ -3,16 +3,17 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/global.css">
-    <link rel="stylesheet" href="styles/admin-styles/header.css">
-    <link rel="stylesheet" href="styles/admin-styles/side-nav.css">
-    <link rel="stylesheet" href="styles/admin-styles/sections-style/dashboard-section.css">
-    <link rel="stylesheet" href="styles/admin-styles/sections-style/database-section.css">
-    <link rel="stylesheet" href="styles/admin-styles/sections-style/messages-section.css">
-    <link rel="stylesheet" href="styles/admin-styles/sections-style/appointments-section.css">
-    <link rel="stylesheet" href="styles/admin-styles/sections-style/inventory-section.css">
-    <link rel="stylesheet" href="styles/admin-styles/sections-style/setting-section.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/side-nav.css">
+    <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
+    <link rel="stylesheet" href="styles/sections-style/database-section.css">
+    <link rel="stylesheet" href="styles/sections-style/messages-section.css">
+    <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
+    <link rel="stylesheet" href="styles/sections-style/inventory-section.css">
+    <link rel="stylesheet" href="styles/sections-style/setting-section.css">
     <title>Admin</title>
   </head>
   <body>
@@ -78,10 +79,10 @@
         </ul>
       </nav>
     
-
-      <!-- sections -->
       <div class="sections-wrapper">
-        <section id="dashboard-section">Content</section>
+        <!-- dashboard sections -->
+        <section id="dashboard-section">Content</section>  
+        <!-- database sections -->
         <section id="database-section">
           <h1 class="section__heading">Database</h1>   
           <div class="database-table"> <!-- Database table -->
@@ -91,53 +92,53 @@
                 <input class="control-panel__search-input" type="text" placeholder="Search...">   
               </div>
               <div class="control-panel__sort">
-                <p class="label">Sort by:</p>
-                <select name="select-sort-category" id="select-sort-category" class="select-sort-category">
+                <p class="control-panel__sort-label">Sort by:</p>
+                <select name="select-sort-category" id="select-sort-category" class="control-panel__sort-select-category">
                   <option value="name">Name</option>
                   <option value="age">Age</option>
                   <option value="address">address</option>
                 </select>
               </div>
               <div class="control-panel__add-farmer-btn">
-                <img src="" alt="add-farmer-btn" class="control-panel__add-farmer-btn-add-icon">
+                <i class="control-panel__add-farmer-btn-icon fas fa-plus"></i>
                 <p class="control-panel__add-farmer-btn-label">Add Farmer</p>
-              </div>
+              </div>              
+            </div>      
+            <div class="database-table__thead"> <!-- Table Head -->
+              <div class="th id">ID</div>
+              <div class="th name">Name</div>
+              <div class="th age">Age</div>
+              <div class="th sex">Sex</div>
+              <div class="th swine">Swine</div>
+              <div class="th address">Address</div>
+              <div class="th phone">Phone</div>
+              <div class="th email">Email</div>
+               <div class="th actions"> <!--Actions --> </div> 
             </div>
-            <div class="database-table__thead"> <!-- table head -->
-            <p class="th first-name">ID</p>
-            <p class="th last-name">Name</p>
-            <p class="th contact">Age</p>
-            <p class="th date-time">Sex</p>
-            <p class="th status">Swine</p>
-            <p class="th action">Address</p>
-            <p class="th toggle-more-details-btn ">Phone</p> 
-            <p class="th toggle-more-details-btn ">Email</p> 
-            <p class="th toggle-more-details-btn "> <!--show-buttons-icon thead--></p>  
-            </div>
-            <div class="database-table__tbody"> <!-- table body -->
+            <div class="database-table__tbody"> <!-- Table Body -->
               <div class="user">
-                <div class="td">LF123456</div>
-                <div class="td">
+                <div class="td id">LF123456</div>
+                <div class="td name">
                   <img src="" alt="user-photo" class="user__photo">
                   <p class="name">John Harvey</p>
                 </div>
-                <div class="td">25</div>
-                <div class="td">Male</div>
-                <div class="td">15</div>
-                <div class="td">Maligaya, Boac</div>
-                <div class="td">09123456789</div>
-                <div class="td">doe.john@gmail.com</div>
-                <div class="td">
-                  <img src="" alt="show-buttons-icon" class="user__show-buttons-icon">
-                  <div class="buttons-container">
+                <div class="td age">25</div>
+                <div class="td sex">Male</div>
+                <div class="td swine">15</div>
+                <div class="td address">Maligaya, Boac</div>
+                <div class="td phone">09123456789</div>
+                <div class="td email">doe.john@gmail.com</div>
+                <div class="td actions">
+                  <i class="actions__show-buttons-icon fas fa-ellipsis-v"></i>
+                  <div class="actions__buttons-container">
                     <button class="buttons-container__view-btn view-user-profile-btn">View</button>
-                    <button class="buttons-container__edit-btn
-                    edit-user-btn">Edit</button>
-                    <button class="buttons-container__delete-btn delete-user-btn"></button>
+                    <button class="buttons-container__edit-btn edit-user-btn">Edit</button>
+                    <button class="buttons-container__delete-btn delete-user-btn">Delete</button>
                   </div>
                 </div>
               </div>
             </div>
+            
           </div>
           <!-- Add farmer form -->
           <form class="add-farmer-form" id="add-farmer-form" action="">
@@ -264,7 +265,54 @@
             </form>
           </div>
         </section>
-        <section id="messages-section">No Content</section>
+        <!-- messages sections -->
+        <section id="messages-section">
+          <div class="sidebar-chat-panel">
+            <h1 class="section-heading">Messages</h1>
+            <div class="sidebar-chat-panel__search">
+              <img class="sidebar-chat-panel__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon">
+                <input class="sidebar-chat-panel__search-input" type="text" placeholder="Search...">  
+            </div>
+            <div class="chat-list">
+              <div class="chat-list__user">
+                <img class="chat-list__user-image" src="" alt="user-image" >
+                <p class="chat-list__user-name">John Harvey</p>
+                <p class="chat-list__user-message">Hello Goodmoring</p>
+                <p class="chat-list__user-last-active-time">2 min.</p>
+                <p class="chat-list__user-number-of-message">3</p>
+              </div>
+            </div>
+          </div>
+          <div class="chat-box">
+            <div class="chat-box__header">
+              <img src="" alt="user-img" class="chat-box__header-user-img">
+              <div class="chat-box__header-user-name-and-active-status">
+                <p class="chat-box__header-user-name">John Harvey</p>
+                <p class="chat-box__header-user-active-status">
+                  <div class="chat-box__header-user-active-status--dot"></div>
+                  <span class="chat-box__header-user-active-status--label">Active</span>
+                </p>
+              </div>
+              <i class="fas fa-ellipsis-v"></i> 
+
+            </div>
+            <div class="convo-list">
+              <div class="convo-list__user-chat">
+                <div class="convo-list__user-chat-details">
+                  <img src="" alt="user-image" class="convo-list__user-chat-details--img">
+                  <p class="convo-list__user-chat-details--name">John Harvey</p>
+                  <div class="convo-list__user-chat-details--time-sent">7:00 AM</div>
+                </div>
+                <p class="convo-list__user-chat-message">Hello Goodmorning</p>
+              </div>
+              <div class="convo-list__admin-chat">
+                <p class="convo-list__admin-chat-message">Hello This is veterenary Admin</p>
+                <p class="convo-list__admin-chat-time-sent">8:00 AM</p>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- appointments sections -->
         <section id="appointments-section" class="appointment-section">
           <h1 class="section__heading">Manage Appointmens</h1>
           <div class="select-and-btn-container">
@@ -358,7 +406,9 @@
             </div>
           </div>
         </section>
+        <!-- inventory sections -->
         <section id="inventory-section">No Content</section>
+        <!-- settings sections -->
         <section id="setting-section">No Content</section>
       </div>
     </main>

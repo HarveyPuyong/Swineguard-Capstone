@@ -74,6 +74,11 @@ header{
   color: white;
 }
 
+.header__search-input:focus {
+  outline: none;
+  box-shadow: none; 
+}
+
 .header__search-input::placeholder{
   color: white;
 }
