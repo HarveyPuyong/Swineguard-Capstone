@@ -1,3 +1,4 @@
+// Side nav switching section
 const sideNavLinks = document.querySelectorAll('.side-nav__link');
 const sections = document.querySelectorAll('section')
 

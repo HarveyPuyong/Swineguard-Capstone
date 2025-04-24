@@ -431,49 +431,51 @@
           <h1 class="section__heading">Setting</h1>
           <div class="setting-section__main-wrapper">
             <ul class="setting-nav">
-              <li>Profile</li>
-              <li>General</li>
-              <li>Notification</li>
+              <li class="setting-nav__link active">Profile</li>
+              <li class="setting-nav__link">General</li>
+              <li class="setting-nav__link">Notification</li>
             </ul>
-            <div class="setting-panel profile-panel">  <!--profile setting panel -->
+            <form class="setting-panel profile-panel">  <!--profile setting panel -->
               <div class="profile-panel__header">
                 <div class="profile-panel__admin-photo">
-                  <img src="" alt="admin-img" class="admin-photo--img">
-                  <label for="input-image" class="admin-photo--input-img-icon" title="Send an image">
+                  <img class="profile-panel__admin-photo--img" src="images-and-icons/images/money-admin-profile.jpg" alt="admin-img" >
+                  <label for="input-image" class="profile-panel__admin-photo--input-img-icon" title="Send an image">
                     <i class="far fa-plus"></i>
                   </label>
                   <input id="input-image" type="file" accept="image/*" style="display: none;">
                 </div>
-                <button class="profile-panel__edit-btn">
+                <button type="button" class="profile-panel__edit-btn">
                   <i class="profile-panel__edit-btn--icon fas fa-edit"></i> 
                   <span class="profile-panel__edit-btn--label">Edit</span>
                 </button>
               </div>        
-              <div class="profile-panel__id">
-                <p class="profile-panel__id--label profile-panel__label">ID</p>
-                <p class="profile-panel__id--value profile-panel__value">0912345678</p>
+              <div class="profile-panel__detail profile-panel__detail--id">
+                <p class="profile-panel__detail-label">ID</p>
+                <input readonly class="profile-panel__detail-value" value="0912345678">
               </div>
-              <div class="profile-panel__name">
-                <p class="profile-panel__name--label profile-panel__label">Name</p>
-                <p class="profile-panel__name--value profile-panel__value">Provincial Veterenary Office</p>
+              <div class="profile-panel__detail profile-panel__detail--name">
+                <p class="profile-panel__detail-label">Name</p>
+                <input readonly class="profile-panel__detail-value" value="Provincial Veterenary Office">
               </div>
-              <div class="profile-panel__contact">
-                <p class="profile-panel__contact--label profile-panel__label">Contact</p>
-                <p class="profile-panel__contact--value profile-panel__value">09123456789</p>
+              <div class="profile-panel__detail profile-panel__detail--contact">
+                <p class="profile-panel__detail-label">Contact</p>
+                <input readonly class="profile-panel__detail-value" value="09123456789">
               </div>
-              <div class="profile-panel__adress">
-                <p class="profile-panel__adress--label profile-panel__label">Adress</p>
-                <p class="profile-panel__adress--value profile-panel__value">Bangbangalon , Boac, Marinduque</p>
+              <div class="profile-panel__detail profile-panel__detail--adress">
+                <p class="profile-panel__detail-label">Adress</p>
+                <input readonly class="profile-panel__detail-value" value="Bangbangalon , Boac, Marinduque">
               </div>
-              <div class="profile-panel__email">
-                <p class="profile-panel__email--label profile-panel__label">Email</p>
-                <p class="profile-panel__email--value profile-panel__value">marinduque.pvet@gmail.com</p>
+              <div class="profile-panel__detail profile-panel__detail--email">
+                <p class="profile-panel__detail-label">Email</p>
+                <input readonly class="profile-panel__detail-value" value="marinduque.pvet@gmail.com">
               </div>
-              <div class="profile-panel__password">
-                <p class="profile-panel__password--label profile-panel__label">Password</p>
-                <p class="profile-panel__password--value profile-panel__value">Admin Password</p>
+              <div class="profile-panel__detail profile-panel__detail--password">
+                <p class="profile-panel__detail-label">Password</p>
+                <input readonly class="profile-panel__detail-value" value="Admin Password">
               </div>
-            </div>
+
+              <button type="submit" class="profile-panel__save-btn">Save Changes</button>
+            </form>
           </div>
         </section>
       </div>
