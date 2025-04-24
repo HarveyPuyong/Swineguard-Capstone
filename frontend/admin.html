@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/side-nav.css">
     <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
-    <link rel="stylesheet" href="styles/sections-style/database-section.css">
     <link rel="stylesheet" href="styles/sections-style/messages-section.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <link rel="stylesheet" href="styles/sections-style/inventory-section.css">
@@ -57,15 +56,11 @@
             <p class="side-nav__link-label">Dashboard</p>
           </li>
           <li class="side-nav__link">
-            <img class="side-nav__link-icon" src="images-and-icons/icons/database-icon.png" alt="database-icon">
-            <p class="side-nav__link-label">Database</p>
-          </li>
-          <li class="side-nav__link">
             <img class="side-nav__link-icon" src="images-and-icons/icons/messages-icon.png" alt="message-icon">
             <p class="side-nav__link-label">Messages</p>
           </li>
-          <li class="side-nav__link focus">
-            <img sr class="side-nav__link-icon" src="images-and-icons/icons/appointment-icon.png" alt="appointments-icon">
+          <li class="side-nav__link">
+            <img  class="side-nav__link-icon" src="images-and-icons/icons/appointment-icon.png" alt="appointments-icon">
             <p class="side-nav__link-label">Appointments</p>
           </li>
           <li class="side-nav__link">
@@ -82,202 +77,84 @@
       <div class="sections-wrapper">
         <!-- dashboard sections -->
         <section id="dashboard-section">Content</section>  
-        <!-- database sections -->
-        <section id="database-section">
-          <h1 class="section__heading">Database</h1>   
-          <div class="database-table"> <!-- Database table -->
-            <div class="database-table__control-panel">
-              <div class="control-panel__search">
-                <img class="control-panel__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon">
-                <input class="control-panel__search-input" type="text" placeholder="Search...">   
-              </div>
-              <div class="control-panel__sort">
-                <p class="control-panel__sort-label">Sort by:</p>
-                <select name="select-sort-category" id="select-sort-category" class="control-panel__sort-select-category">
-                  <option value="name">Name</option>
-                  <option value="age">Age</option>
-                  <option value="address">address</option>
-                </select>
-              </div>
-              <div class="control-panel__add-farmer-btn">
-                <i class="control-panel__add-farmer-btn-icon fas fa-plus"></i>
-                <p class="control-panel__add-farmer-btn-label">Add Farmer</p>
-              </div>              
-            </div>      
-            <div class="database-table__thead"> <!-- Table Head -->
-              <div class="th id">ID</div>
-              <div class="th name">Name</div>
-              <div class="th age">Age</div>
-              <div class="th sex">Sex</div>
-              <div class="th swine">Swine</div>
-              <div class="th address">Address</div>
-              <div class="th phone">Phone</div>
-              <div class="th email">Email</div>
-               <div class="th actions"> <!--Actions --> </div> 
-            </div>
-            <div class="database-table__tbody"> <!-- Table Body -->
-              <div class="user">
-                <div class="td id">LF123456</div>
-                <div class="td name">
-                  <img src="" alt="user-photo" class="user__photo">
-                  <p class="name">John Harvey</p>
-                </div>
-                <div class="td age">25</div>
-                <div class="td sex">Male</div>
-                <div class="td swine">15</div>
-                <div class="td address">Maligaya, Boac</div>
-                <div class="td phone">09123456789</div>
-                <div class="td email">doe.john@gmail.com</div>
-                <div class="td actions">
-                  <i class="actions__show-buttons-icon fas fa-ellipsis-v"></i>
-                  <div class="actions__buttons-container">
-                    <button class="buttons-container__view-btn view-user-profile-btn">View</button>
-                    <button class="buttons-container__edit-btn edit-user-btn">Edit</button>
-                    <button class="buttons-container__delete-btn delete-user-btn">Delete</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-          </div>
-          <!-- Add farmer form -->
-          <form class="add-farmer-form" id="add-farmer-form" action="">
-            <h2 class="add-farmer-form__heading">Add Farmer</h2>
-            <img src="" alt="cancel-btn" class="add-farmer-form__cancel-btn">
-            <div class="add-farmer-form__upload-photo">
-              <img class="add-farmer-form__upload-photo-image" src="" alt="user-photo">
-              <input type="file" id="upload-photo" name="photo" accept="image/*">
-              <!-- plus button in upload photo -->
-              <label for="upload-photo">
-                <img class="add-farmer-form__upload-photo-plus-icon" src="upload-icon.png" alt="Upload Photo">
-              </label>
-
-            </div>
-            <div class="add-farmer-form__inputs-group">
-              <label for="input-name">
-                Full Name
-                <input type="text" id="input-name">
-              </label>    
-              <label for="input-password">
-                Password
-                <input type="password" id="input-password">
-              </label>
-              <label for="input-age">
-                Age
-                <input type="text" id="input-age" pattern="\d{1,2}" maxlength="2" inputmode="numeric">
-              </label>            
-            </div>
-            <div class="add-farmer-form__inputs-group">
-              <label for="input-phone-number">
-                Phone Number
-                <input type="text" id="input-phone-number" name="phone" pattern="\d{11}" placeholder="09+" required>
-              </label>   
-              <label for="input-email">
-                Email
-                <input type="email" id="input-email" placeholder="example@gmail.com">
-              </label>
-              <label for="input-age">
-                Number Of Swine
-                <input type="number" id="input-age">
-              </label>            
-            </div>           
-            <button class="add-farmer-form__submit-btn" id="submit-btn">Save</button>
-            <button class="add-farmer-form__cancel-btn" id="cancel-btn">Cancel</button>
-          </form>
-          <!-- User profile -->
-          <div class="user-profile">
-             <div class="user-profile__card main-info"> <!-- user profile main-info card -->
-              <img src="" alt="user-photo" class="main-info__photo">
-              <p class="main-info__name">John Harvey</p>
-              <p class="main-info__id">LF123456</p>
-              <p class="main-info__email">harvey@gmail.com</p>
-            </div>
-            <form id="user-personal-info-form" class="user-profile__card personal-info">  <!-- user profile personal-info card -->
-              <div class="personal-info__header">
-                <h3 class="personal-info__header-heading">Personal Information</h3>
-                <button type="button" class="user-profile__edit-btn">
-                  <span class="user-profile__edit-btn-label">Edit</span>
-                  <img class="user-profile__edit-btn-icon" src="" alt="edit-btn-icon">
-                </button>
-              </div>
-              <div class="personal-info__details d-grid">
-                 <div class="personal-info__details-item"> <!-- name -->
-                  <span class="personal-info__details-label">Full Name</span>
-                  <p class="personal-info__details-value view-mode">John Harvey Puyong</p>
-                  <input class="personal-info__details-input editable-mode" id="input-name" type="text" >
-                </div>
-                <div class="personal-info__details-item"> <!-- sex -->
-                  <span class="personal-info__details-label">Sex</span>
-                  <p class="personal-info__details-value view-mode">Male</p>
-                  <input class="personal-info__details-input editable-mode" id="input-sex" type="text">
-                </div>
-                <div class="personal-info__details-item"> <!-- age -->
-                  <span class="personal-info__details-label">Age</span>
-                  <p class="personal-info__details-value view-mode">19</p>
-                  <input type="text" id="input-age" pattern="\d{1,2}" maxlength="2" inputmode="numeric">
-                </div>
-                <div class="personal-info__details-item"> <!-- phone number -->
-                  <span class="personal-info__details-label">Phone Number</span>
-                  <p class="personal-info__details-value view-mode">09123456789</p>
-                  <input type="tel" id="input-phone-number" pattern="[0-9]{11}" maxlength="11">
-                </div>
-                <div class="personal-info__details-item"> <!-- email address-->
-                  <span class="personal-info__details-label">Email</span>
-                  <p class="personal-info__details-value view-mode">harvey@gmail.com</p>
-                  <input class="personal-info__details-input editable-mode" id="input-email" type="email">
-                </div>
-                <div class="personal-info__details-item"> <!-- total swine-->
-                  <span class="personal-info__details-label">Total Swine</span>
-                  <p class="personal-info__details-value view-mode">25</p>
-                  <input class="personal-info__details-input editable-mode" id="input-number-of-swine" type="number">
-                </div>
-              </div>
-              <button type="button" class="user-profile__card-cancel-btn">Cancel</button>
-              <button type="submit" class="user-profile__card-save-btn">Save Changes</button>
-            </form>
-            <form id="user-adress-info-form" class="user-profile__card address-info"> <!-- user profile address-info card -->
-              <div class="address-info__header">
-                <h3 class="address-info__header-heading">Address</h3>
-                <button type="button" class="user-profile__edit-btn">
-                  <span class="user-profile__edit-btn-label">Edit</span>
-                  <img class="user-profile__edit-btn-icon" src="" alt="edit-btn-icon">
-                </button>
-              </div>
-              <div class="address-info__details">
-                <div class="address-info__details-item"> <!-- province-->
-                  <span class="address-info__details-label">Province</span>
-                  <p class="address-info__details-value view-mode">Marinduque</p>
-                  <input class="address-info__details-input editable-mode" id="input-province" type="text">
-                </div>
-                <div class="address-info__details-item"> <!-- municipal -->
-                  <span class="address-info__details-label">Municipal</span>
-                  <p class="address-info__details-value view-mode">Boac</p>
-                  <input class="address-info__details-input editable-mode" id="input-municipal" type="text">
-                </div>
-                <div class="address-info__details-item"> <!-- barangay -->
-                  <span class="address-info__details-label">Barangay</span>
-                  <p class="address-info__details-value view-mode">Maligaya</p>
-                  <input class="address-info__details-input editable-mode" id="input-barangay" type="text">
-                </div>
-              </div>
-              <button type="button" class="user-profile__card-cancel-btn">Cancel</button>
-              <button type="submit" class="user-profile__card-save-btn">Save Changes</button>
-            </form>
-          </div>
-        </section>
         <!-- messages sections -->
         <section id="messages-section">
           <div class="sidebar-chat-panel">
-            <h1 class="section-heading">Messages</h1>
+            <h1 class="section__heading">Messages</h1>
             <div class="sidebar-chat-panel__search">
               <img class="sidebar-chat-panel__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon">
                 <input class="sidebar-chat-panel__search-input" type="text" placeholder="Search...">  
             </div>
             <div class="chat-list">
               <div class="chat-list__user">
-                <img class="chat-list__user-image" src="" alt="user-image" >
-                <p class="chat-list__user-name">John Harvey</p>
-                <p class="chat-list__user-message">Hello Goodmoring</p>
+                <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                <p class="chat-list__user-name-and-message">
+                  <span class="chat-list__user-name">John Harvey</span>
+                  <span class="chat-list__user-message">Hello Goodmoring</span>
+                </p>  
+                <p class="chat-list__user-last-active-time">2 min.</p>
+                <p class="chat-list__user-number-of-message">3</p>
+              </div>
+              <div class="chat-list__user">
+                <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                <p class="chat-list__user-name-and-message">
+                  <span class="chat-list__user-name">John Harvey</span>
+                  <span class="chat-list__user-message">Hello Goodmoring</span>
+                </p>  
+                <p class="chat-list__user-last-active-time">2 min.</p>
+                <p class="chat-list__user-number-of-message">3</p>
+              </div>
+              <div class="chat-list__user">
+                <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                <p class="chat-list__user-name-and-message">
+                  <span class="chat-list__user-name">John Harvey</span>
+                  <span class="chat-list__user-message">Hello Goodmoring</span>
+                </p>  
+                <p class="chat-list__user-last-active-time">2 min.</p>
+                <p class="chat-list__user-number-of-message">3</p>
+              </div>
+              <div class="chat-list__user">
+                <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                <p class="chat-list__user-name-and-message">
+                  <span class="chat-list__user-name">John Harvey</span>
+                  <span class="chat-list__user-message">Hello Goodmoring</span>
+                </p>  
+                <p class="chat-list__user-last-active-time">2 min.</p>
+                <p class="chat-list__user-number-of-message">3</p>
+              </div>
+              <div class="chat-list__user">
+                <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                <p class="chat-list__user-name-and-message">
+                  <span class="chat-list__user-name">John Harvey</span>
+                  <span class="chat-list__user-message">Hello Goodmoring</span>
+                </p>  
+                <p class="chat-list__user-last-active-time">2 min.</p>
+                <p class="chat-list__user-number-of-message">3</p>
+              </div>
+              <div class="chat-list__user">
+                <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                <p class="chat-list__user-name-and-message">
+                  <span class="chat-list__user-name">John Harvey</span>
+                  <span class="chat-list__user-message">Hello Goodmoring</span>
+                </p>  
+                <p class="chat-list__user-last-active-time">2 min.</p>
+                <p class="chat-list__user-number-of-message">3</p>
+              </div>
+              <div class="chat-list__user">
+                <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                <p class="chat-list__user-name-and-message">
+                  <span class="chat-list__user-name">John Harvey</span>
+                  <span class="chat-list__user-message">Hello Goodmoring</span>
+                </p>  
+                <p class="chat-list__user-last-active-time">2 min.</p>
+                <p class="chat-list__user-number-of-message">3</p>
+              </div>
+              <div class="chat-list__user">
+                <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                <p class="chat-list__user-name-and-message">
+                  <span class="chat-list__user-name">John Harvey</span>
+                  <span class="chat-list__user-message">Hello Goodmoring</span>
+                </p>  
                 <p class="chat-list__user-last-active-time">2 min.</p>
                 <p class="chat-list__user-number-of-message">3</p>
               </div>
@@ -285,31 +162,108 @@
           </div>
           <div class="chat-box">
             <div class="chat-box__header">
-              <img src="" alt="user-img" class="chat-box__header-user-img">
+              <img  class="chat-box__header-user-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-img">
               <div class="chat-box__header-user-name-and-active-status">
                 <p class="chat-box__header-user-name">John Harvey</p>
                 <p class="chat-box__header-user-active-status">
-                  <div class="chat-box__header-user-active-status--dot"></div>
+                  <span class="chat-box__header-user-active-status--dot"></span>
                   <span class="chat-box__header-user-active-status--label">Active</span>
                 </p>
               </div>
-              <i class="fas fa-ellipsis-v"></i> 
-
+              <i class="chat-box__header-more-details-icon fas fa-ellipsis-v"></i> 
             </div>
             <div class="convo-list">
-              <div class="convo-list__user-chat">
+              <div class="convo-list__user-chat"> <!-- user chat -->
+                <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
                 <div class="convo-list__user-chat-details">
-                  <img src="" alt="user-image" class="convo-list__user-chat-details--img">
-                  <p class="convo-list__user-chat-details--name">John Harvey</p>
-                  <div class="convo-list__user-chat-details--time-sent">7:00 AM</div>
+                  <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                  <p class="convo-list__user-chat-details--name">John</p>
                 </div>
-                <p class="convo-list__user-chat-message">Hello Goodmorning</p>
+                <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
               </div>
-              <div class="convo-list__admin-chat">
-                <p class="convo-list__admin-chat-message">Hello This is veterenary Admin</p>
-                <p class="convo-list__admin-chat-time-sent">8:00 AM</p>
+              <div class="convo-list__admin-chat"> <!-- admin chat -->
+                <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
+                <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
+              </div>
+              <div class="convo-list__user-chat"> <!-- user chat -->
+                <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
+                <div class="convo-list__user-chat-details">
+                  <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                  <p class="convo-list__user-chat-details--name">John</p>
+                </div>
+                <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
+              </div>
+              <div class="convo-list__admin-chat"> <!-- admin chat -->
+                <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
+                <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
+              </div>
+              <div class="convo-list__user-chat"> <!-- user chat -->
+                <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
+                <div class="convo-list__user-chat-details">
+                  <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                  <p class="convo-list__user-chat-details--name">John</p>
+                </div>
+                <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
+              </div>
+              <div class="convo-list__admin-chat"> <!-- admin chat -->
+                <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
+                <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
+              </div>
+              <div class="convo-list__user-chat"> <!-- user chat -->
+                <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
+                <div class="convo-list__user-chat-details">
+                  <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                  <p class="convo-list__user-chat-details--name">John</p>
+                </div>
+                <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
+              </div>
+              <div class="convo-list__admin-chat"> <!-- admin chat -->
+                <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
+                <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
+              </div>
+              <div class="convo-list__user-chat"> <!-- user chat -->
+                <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
+                <div class="convo-list__user-chat-details">
+                  <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                  <p class="convo-list__user-chat-details--name">John</p>
+                </div>
+                <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
+              </div>
+              <div class="convo-list__admin-chat"> <!-- admin chat -->
+                <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
+                <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
+              </div>
+              <div class="convo-list__user-chat"> <!-- user chat -->
+                <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
+                <div class="convo-list__user-chat-details">
+                  <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                  <p class="convo-list__user-chat-details--name">John</p>
+                </div>
+                <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
+              </div>
+              <div class="convo-list__admin-chat"> <!-- admin chat -->
+                <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
+                <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
               </div>
             </div>
+            <form class="chat-box__chat-input-area"> <!-- chat input erea-->
+              <!-- Attachment icon and input -->
+              <label for="input-file" class="chat-input-area__input-file-icon" title="Attach a file">
+                <i class="fas fa-paperclip"></i>
+              </label>
+              <input id="input-file" type="file" style="display: none;">
+              <!-- Text message input -->
+              <input class="chat-input-area__input-message" type="text" placeholder="Type a Message" required>
+              <!-- Image icon and input -->
+              <label for="input-image" class="chat-input-area__input-image-icon" title="Send an image">
+                <i class="far fa-image"></i>
+              </label>
+              <input id="input-image" type="file" accept="image/*" style="display: none;">
+              <!-- Send button -->
+              <button class="chat-box__send-btn" type="submit" id="send-chat-btn" title="Send message">
+                <i class="fas fa-paper-plane"></i>
+              </button>
+            </form>
           </div>
         </section>
         <!-- appointments sections -->

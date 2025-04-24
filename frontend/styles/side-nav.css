@@ -24,7 +24,7 @@
   transition: 0.2s;
 }
 
-.side-nav__link.focus{
+.side-nav__link.active{
   background-color: rgb(9, 152, 76);
 }
 
