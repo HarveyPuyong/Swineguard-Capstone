@@ -7,8 +7,11 @@ sideNavLinks.forEach(nav => {
   nav.addEventListener('click', () => {
     sections.forEach(section => {
       const sectionId = section.id;
+
+      console.log(sections)
+
       if(navValue === sectionId) section.style.display = 'block';
-      else section.style.display = 'none'  
+      else section.style.display = 'none';
     });
 
     sideNavLinks.forEach(nav => nav.classList.remove('active'));
@@ -17,10 +20,7 @@ sideNavLinks.forEach(nav => {
 })
 
 
-
-
-
-
+// inventory switching table
 const inventoryNavLinks = document.querySelectorAll('.inventory-nav__link');
 const inventoryTables = document.querySelectorAll('.inventory-table');
 

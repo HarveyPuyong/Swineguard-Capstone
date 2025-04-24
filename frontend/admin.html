@@ -67,7 +67,7 @@
             <img class="side-nav__link-icon" src="images-and-icons/icons/inventory-icon.png" alt="inventory-icon">
             <p class="side-nav__link-label">Inventory</p>
           </li>
-          <li class="side-nav__link" data-value="setting-sections">
+          <li class="side-nav__link" data-value="setting-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="settings-icon">
             <p class="side-nav__link-label">Settings</p>
           </li>
@@ -81,7 +81,7 @@
         <!-- messages sections -->
         <section id="messages-section">
           <div class="messages-section__main-wrapper">
-            <div class="sidebar-chat-panel">
+            <div class="sidebar-chat-panel"> <!-- side-chat-panel -->
               <h1 class="section__heading">Messages</h1>
               <div class="sidebar-chat-panel__search">
                 <img class="sidebar-chat-panel__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon">
@@ -162,7 +162,7 @@
                 </div>
               </div>
             </div>
-            <div class="chat-box">
+            <div class="chat-box"> <!-- convo box -->
               <div class="chat-box__header">
                 <img  class="chat-box__header-user-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-img">
                 <div class="chat-box__header-user-name-and-active-status">
@@ -428,7 +428,53 @@
 
         <!-- settings sections -->
         <section id="setting-section">
-
+          <h1 class="section__heading">Setting</h1>
+          <div class="setting-section__main-wrapper">
+            <ul class="setting-nav">
+              <li>Profile</li>
+              <li>General</li>
+              <li>Notification</li>
+            </ul>
+            <div class="setting-panel profile-panel">  <!--profile setting panel -->
+              <div class="profile-panel__header">
+                <div class="profile-panel__admin-photo">
+                  <img src="" alt="admin-img" class="admin-photo--img">
+                  <label for="input-image" class="admin-photo--input-img-icon" title="Send an image">
+                    <i class="far fa-plus"></i>
+                  </label>
+                  <input id="input-image" type="file" accept="image/*" style="display: none;">
+                </div>
+                <button class="profile-panel__edit-btn">
+                  <i class="profile-panel__edit-btn--icon fas fa-edit"></i> 
+                  <span class="profile-panel__edit-btn--label">Edit</span>
+                </button>
+              </div>        
+              <div class="profile-panel__id">
+                <p class="profile-panel__id--label profile-panel__label">ID</p>
+                <p class="profile-panel__id--value profile-panel__value">0912345678</p>
+              </div>
+              <div class="profile-panel__name">
+                <p class="profile-panel__name--label profile-panel__label">Name</p>
+                <p class="profile-panel__name--value profile-panel__value">Provincial Veterenary Office</p>
+              </div>
+              <div class="profile-panel__contact">
+                <p class="profile-panel__contact--label profile-panel__label">Contact</p>
+                <p class="profile-panel__contact--value profile-panel__value">09123456789</p>
+              </div>
+              <div class="profile-panel__adress">
+                <p class="profile-panel__adress--label profile-panel__label">Adress</p>
+                <p class="profile-panel__adress--value profile-panel__value">Bangbangalon , Boac, Marinduque</p>
+              </div>
+              <div class="profile-panel__email">
+                <p class="profile-panel__email--label profile-panel__label">Email</p>
+                <p class="profile-panel__email--value profile-panel__value">marinduque.pvet@gmail.com</p>
+              </div>
+              <div class="profile-panel__password">
+                <p class="profile-panel__password--label profile-panel__label">Password</p>
+                <p class="profile-panel__password--value profile-panel__value">Admin Password</p>
+              </div>
+            </div>
+          </div>
         </section>
       </div>
     </main>

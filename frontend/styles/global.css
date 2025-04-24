@@ -43,6 +43,8 @@ body{
 
 section{
   --section-side-spacing: 1.5rem;
+
+  display: none;
   position: relative;
   padding: 0 var(--section-side-spacing);
 }

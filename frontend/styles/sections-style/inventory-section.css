@@ -1,7 +1,3 @@
-#inventory-section{
-  display: block;
-}
-
 .section__heading{
   padding-top: 10px;
   margin-bottom: 1.2rem;
@@ -46,6 +42,7 @@
   padding: 10px 20px;
   overflow-y: scroll;
   font-size: 0.9rem;
+  text-align: center;
 }
 
 .inventory-table--vitamins{
