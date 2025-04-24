@@ -1,3 +1,250 @@
 #inventory-section{
+  display: block;
+}
+
+.section__heading{
+  padding-top: 10px;
+  margin-bottom: 2rem;
+}
+
+.inventory-nav{
+  display: flex;
+  gap: 1rem;
+  margin-left: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.inventory-nav__link{
+  cursor: pointer;
+}
+
+.inventory-nav__link.active{
+  color: var(--main-color);
+
+}
+
+/* Table */
+.inventory-table {
+  --elements-gap: 1.7rem;
+  --left-side-space: 20px;
+
+  --batch-number-width: 110px;     /* Batch# */
+  --name-width: 160px;             /* Name */
+  --manufacturer-width: 150px;     /* Manufacturer */
+  --date-manufacture-width: 140px; /* Date of Mfr */
+  --dose-width: 80px;             /* Dose */
+  --quantity-width: 105px;         /* No. of Vax. */
+  --expiration-width: 140px;       /* Exp Date */
+  --status-width: 80px;           /* Status */
+  --actions-width: 20px;           /* Actions */
+
+  background-color: white;
+  width: 100%;
+  height: 32rem;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.209);
+  border-radius: 8px;
+  padding: 10px 20px;
+  overflow-y: scroll;
+  font-size: 0.9rem;
+}
+
+.inventory-table--vitamins{
   display: none;
 }
+
+/* Table control panel */
+.inventory-table__control-panel{
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  font-size: 0.9rem;
+  height: 33px;
+  padding-left: 1rem;
+}
+
+.control-panel__table-name{
+  color: var(--main-color);
+  font-size: 1.4rem;
+  margin-right: auto;
+}
+
+.control-panel__search{
+  position: relative;
+  background-color: #D9D9D9;
+  width: 200px;
+  border-radius: 5px;
+  height: 100%;
+}
+
+.control-panel__search-icon {
+  --size: 17px;
+
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  height: var(--size);
+  width: var(--size);
+  filter: brightness(0) saturate(0%) opacity(0.6); /* light gray look */
+}
+
+.control-panel__search-input{
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  width: 80%;
+  margin-left: 18%;
+}
+
+.control-panel__search-input:focus {
+  outline: none;
+  box-shadow: none; 
+}
+
+.control-panel__sort{
+  --border-color: #787878;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  border-radius: 5px;
+  height: 100%;
+  padding: 0 8px;
+}
+
+.control-panel__sort-label{
+  color: var(--border-color);
+}
+
+.control-panel__sort-select-category{
+  border: none;
+  padding: 0 5px;
+  color: rgb(114, 114, 114);
+}
+
+.control-panel__add-btn{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: white;
+  background-color: #2FC375;
+  border-radius: 5px;
+  height: 100%;
+  padding: 0 10px;
+  cursor: pointer;
+}
+
+
+/* table head */
+.inventory-table__thead {
+  display: flex;
+  gap: var(--elements-gap);
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, 0.349);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.349);
+  color: #787878;
+  margin-top: 10px;
+  padding: 15px;
+  padding-left: var(--left-side-space);
+}
+
+.inventory-table__thead .th--batch-number {
+  width: var(--batch-number-width);
+}
+
+.inventory-table__thead .th--name {
+  width: var(--name-width);
+}
+
+.inventory-table__thead .th--manufacturer {
+  width: var(--manufacturer-width);
+}
+
+.inventory-table__thead .th--date-manufacture {
+  width: var(--date-manufacture-width);
+}
+
+.inventory-table__thead .th--dose {
+  width: var(--dose-width);
+}
+
+.inventory-table__thead .th--quantity {
+  width: var(--quantity-width);
+}
+
+.inventory-table__thead .th--expiration {
+  width: var(--expiration-width);
+}
+
+.inventory-table__thead .th--status {
+  width: var(--status-width);
+}
+
+.inventory-table__thead .th--actions {
+  width: var(--actions-width);
+}
+
+
+/* Table body */
+.inventory-table__tbody{
+  width: 100%;
+}
+
+.inventory-table__tbody .table-body__table-row{
+  background-color: #D9D9D9;
+  display: flex;
+  gap: var(--elements-gap);
+  align-items: center;
+  width: 100%;
+  border-bottom: 1.5px solid rgba(22, 22, 22, 0.287);
+  padding: 15px;
+  padding-left: var(--left-side-space);
+  transition: 0.2s;
+}
+
+.inventory-table__tbody .table-body__table-row:hover{
+  background-color: #a3a3a3;
+}
+
+.inventory-table__tbody .td--batch-number {
+  width: var(--batch-number-width);
+}
+
+.inventory-table__tbody .td--name {
+  width: var(--name-width);
+}
+
+.inventory-table__tbody .td--manufacturer {
+  width: var(--manufacturer-width);
+}
+
+.inventory-table__tbody .td--date-manufacture {
+  width: var(--date-manufacture-width);
+}
+
+.inventory-table__tbody .td--dose {
+  width: var(--dose-width);
+}
+
+.inventory-table__tbody .td--quantity {
+  width: var(--quantity-width);
+}
+
+.inventory-table__tbody .td--expiration {
+  width: var(--expiration-width);
+}
+
+.inventory-table__tbody .td--status {
+  width: var(--status-width);
+}
+
+.inventory-table__tbody .td--actions {
+  width: var(--actions-width);
+  cursor: pointer;
+}
+
+.td--actions .buttons-container{
+  display: none;
+}
+
+
+

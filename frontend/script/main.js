@@ -1,27 +1,16 @@
-function appointmentsActionSelect() {
-   const appointmentsSelectAction = document.querySelectorAll('.manage-appointments-table .action select');
+const inventoryNavLinks = document.querySelectorAll('.inventory-nav__link');
+const inventoryTables = document.querySelectorAll('.inventory-table');
 
-  appointmentsSelectAction.forEach(select => {
-    select.addEventListener('change', () => {
-      function selectChangeColor(fontColor, borderColor, bgColor) {
-        select.style.border = `1px solid ${borderColor}`;
-        select.style.color = fontColor;
-        select.style.backgroundColor = bgColor;
-      }
+inventoryNavLinks.forEach(nav => {
+  nav.addEventListener('click', () => {
+    const navValue = nav.getAttribute('data-value');
 
-      const value = select.value;
-      if(value === 'accept'){
-        selectChangeColor('#3777FF', '#3777FF', 'rgba(55, 118, 255, 0.2)');
-      }else if(value === 'reschedule'){
-        selectChangeColor('#A48014', '#A48014', 'rgba(164, 128, 20, 0.2)');
-      }else{
-        selectChangeColor('black', 'black', 'white');
-      }
-    })
-
+    inventoryTables.forEach(table => {
+      const tableValue = table.getAttribute('data-value');
+      table.style.display = (navValue === tableValue) ? 'block' : 'none';
     });
-}
 
-appointmentsActionSelect();
-
-
+    inventoryNavLinks.forEach(link => link.classList.remove('active'));
+    nav.classList.add('active');
+  });
+});
