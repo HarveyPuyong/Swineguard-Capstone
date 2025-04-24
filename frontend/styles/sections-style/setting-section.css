@@ -100,34 +100,47 @@
 .profile-panel__detail{
   border-bottom: 1px solid rgba(0, 0, 0, 0.282);
   color: rgba(0, 0, 0, 0.8);
-  padding-bottom: 8px;
+  padding-bottom: 5px;
 }
 
 .profile-panel__detail-label{
   font-weight: 600;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
 }
 
 .profile-panel__detail-value{
   border: none;
   font-size: 0.87rem;
   width: 100%;
+  padding: 3px;
 }
 
-.profile-panel__detail-value:focus{
-  border: none;
-  outline: none;
+.profile-panel__detail-value.edit-mode{
+  width: 50%;
+  border: 1px solid rgba(0, 0, 0, 0.64);
+  border-radius: 5px;
 }
 
-.profile-panel__save-btn{
+.profile-panel__buttons{
   display: none;
+  gap: 10px;
   position: absolute;
   right: 28px;
   bottom: 13px;
-  background-color: var(--main-color);
+}
+
+.profile-panel__buttons button{
   border-radius: 5px;
   border: none;
   color: white;
   padding: 7px 10px;
   cursor: pointer;
+}
+
+.profile-panel__save-btn{
+  background-color: var(--main-color);
+}
+
+.profile-panel__cancel-btn{
+  background-color: red;
 }
