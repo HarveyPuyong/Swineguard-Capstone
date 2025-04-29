@@ -1,6 +1,9 @@
+#inventory-section{
+  display: block;
+}
 
 .section__heading{
-  padding-top: 10px;
+  padding-top: 5px;
   margin-bottom: 1.2rem;
 }
 
@@ -25,24 +28,27 @@
   --elements-gap: 1.7rem;
   --left-side-space: 20px;
 
-  --batch-number-width: 110px;     /* Batch# */
-  --name-width: 160px;             /* Name */
-  --manufacturer-width: 150px;     /* Manufacturer */
-  --date-manufacture-width: 140px; /* Date of Mfr */
-  --dose-width: 80px;             /* Dose */
-  --quantity-width: 105px;         /* No. of Vax. */
-  --expiration-width: 140px;       /* Exp Date */
-  --status-width: 80px;           /* Status */
-  --actions-width: 20px;           /* Actions */
+  --item-number-width: 100px;     /* Item# */
+  --name-width: 160px;            /* Name */
+  --description-width: 150px;     /* Description */
+  --amount-width: 65px;          /* Amount */
+  --dose-quantity: 58px;          /* Dose Quantity */
+  --dose-total: 90px;            /* Dose Value */
+  --expiration-width: 110px;      /* Exp Date */
+  --stock-status-width: 75px;     /* Stock Status */
+  --status-width: 20px;           /* Status */       
+  --actions-width: 20px;          /* Actions */
 
+  display: flex;
+  flex-direction: column;
   background-color: white;
   width: 100%;
   height: 33rem;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.209);
   border-radius: 8px;
   padding: 10px 20px;
-  overflow-y: scroll;
-  font-size: 0.9rem;
+  overflow-y: hidden;
+  font-size: 0.85rem;
   text-align: center;
 }
 
@@ -135,6 +141,8 @@
 /* table head */
 .inventory-table__thead {
   display: flex;
+  flex-shrink: 0;
+  align-items: center;
   gap: var(--elements-gap);
   width: 100%;
   border-top: 1px solid rgba(0, 0, 0, 0.349);
@@ -145,35 +153,39 @@
   padding-left: var(--left-side-space);
 }
 
-.inventory-table__thead .th--batch-number {
-  width: var(--batch-number-width);
+.inventory-table__thead .th--item-number {
+  width: var(--item-number-width);
 }
 
 .inventory-table__thead .th--name {
   width: var(--name-width);
 }
 
-.inventory-table__thead .th--manufacturer {
-  width: var(--manufacturer-width);
+.inventory-table__thead .th--description {
+  width: var(--description-width);
 }
 
-.inventory-table__thead .th--date-manufacture {
-  width: var(--date-manufacture-width);
+.inventory-table__thead .th--amount {
+  width: var(--amount-width);
 }
 
-.inventory-table__thead .th--dose {
-  width: var(--dose-width);
+.inventory-table__thead .th--dose-quantity {
+  width: var(--dose-quantity);
 }
 
-.inventory-table__thead .th--quantity {
-  width: var(--quantity-width);
+.inventory-table__thead .th--dose-total {
+  width: var(--dose-total);
 }
 
 .inventory-table__thead .th--expiration {
   width: var(--expiration-width);
 }
 
-.inventory-table__thead .th--status {
+.inventory-table__thead .th--stock-status {
+  width: var(--stock-status-width);
+}
+
+.inventory-table__thead .th-status {
   width: var(--status-width);
 }
 
@@ -185,6 +197,10 @@
 /* Table body */
 .inventory-table__tbody{
   width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+  flex-grow: 1;
+  overflow-y: auto;
 }
 
 .inventory-table__tbody .table-body__table-row{
@@ -203,35 +219,39 @@
   background-color: #a3a3a3;
 }
 
-.inventory-table__tbody .td--batch-number {
-  width: var(--batch-number-width);
+.inventory-table__tbody .td--item-number {
+  width: var(--item-number-width);
 }
 
 .inventory-table__tbody .td--name {
   width: var(--name-width);
 }
 
-.inventory-table__tbody .td--manufacturer {
-  width: var(--manufacturer-width);
+.inventory-table__tbody .td--description {
+  width: var(--description-width);
 }
 
-.inventory-table__tbody .td--date-manufacture {
-  width: var(--date-manufacture-width);
+.inventory-table__tbody .td--amount {
+  width: var(--amount-width);
 }
 
-.inventory-table__tbody .td--dose {
-  width: var(--dose-width);
+.inventory-table__tbody .td--dose-quantity {
+  width: var(--dose-quantity);
 }
 
-.inventory-table__tbody .td--quantity {
-  width: var(--quantity-width);
+.inventory-table__tbody .td--dose-total {
+  width: var(--dose-total);
 }
 
 .inventory-table__tbody .td--expiration {
   width: var(--expiration-width);
 }
 
-.inventory-table__tbody .td--status {
+.inventory-table__tbody .td--stock-status {
+  width: var(--stock-status-width);
+}
+
+.inventory-table__tbody .td-status {
   width: var(--status-width);
 }
 
