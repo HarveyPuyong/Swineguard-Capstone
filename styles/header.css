@@ -24,7 +24,7 @@ header{
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  margin-right: 6rem;
+  margin-right: 60rem;
 }
 
 .header__swine-logo-img{
@@ -38,48 +38,6 @@ header{
   white-space: nowrap;
   font-weight: 600;
   font-size: 1.1rem;
-}
-
-.header__search{
-  position: relative;
-  display: flex;
-  width: 220px;
-  height: 30px;
-  background-color: #1DFF86;
-  border: 1px solid #FFFFFF;
-  border-radius: 10px;
-  margin-right: 44rem;
-}
-
-.header__search-icon{
-  --searc-icon-size: 18px;
-
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  right: 12px;
-  width: var(--searc-icon-size);
-  height: var(--searc-icon-size);
-  z-index: 1;
-  cursor: pointer;
-}
-
-.header__search-input{
-  background-color: transparent;
-  position: absolute;
-  height: 100%;
-  width: 80%;
-  border: none;
-  padding-left: 1rem;
-  color: white;
-}
-
-.header__search-input:focus {
-  outline: none;
-  box-shadow: none; 
-}
-
-.header__search-input::placeholder{
   color: white;
 }
 

@@ -1,7 +1,7 @@
 .side-nav{
   position: fixed;
   bottom: 0;
-  background-color: #17e476;
+  background-color: #2FC375;
   top: var(--header-height);
   width: var(--sidenav-width); /* variable is in the body */
   padding-top: 2.5rem;
@@ -9,7 +9,7 @@
 
 .side-nav__link-list{
   display: flex;
-  gap: 0.4rem;
+  gap: 1rem;
   flex-direction: column;
   color: var(--primary-color);
 }
@@ -20,12 +20,14 @@
   gap: 1rem;
   cursor: pointer;
   padding: 1rem 0;
-  padding-left: 2.5rem;
+  padding-left: 0.2rem;
+  padding-bottom: 0.5rem;
+  margin-left: 2rem;
   transition: 0.2s;
 }
 
 .side-nav__link.active{
-  background-color: rgb(9, 152, 76);
+  border-bottom: 1px solid white;
 }
 
 .side-nav__link:hover{
@@ -33,13 +35,13 @@
 }
 
 .side-nav__link-icon{
-  --sidenav-link-icon: 26px;
+  --sidenav-link-icon: 22px;
 
   height: var(--sidenav-link-icon);
   width: var(--sidenav-link-icon);
 }
 
 .side-nav__link-label{
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 600;
 }

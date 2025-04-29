@@ -29,11 +29,6 @@
         <p class="header__swine-logo-label">Swine Guard</p>
       </div>
 
-      <div class="header__search">
-        <img class="header__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
-        <input class="header__search-input" type="text" placeholder="Search...">   
-      </div>
-
       <div class="admin-profile">
         <img class="admin-profile__pic" src="images-and-icons/images/money-admin-profile.jpg" alt="admin-profile-pic" >
         <p class="admin-profile__label">ADMIN</p>
@@ -271,7 +266,123 @@
         </section>
 
         <!-- appointments sections -->
-        <section id="appointments-section" class="appointment-section"> Ang idisplay mo sa appointment ay yung nasa code mo</section>
+        <section id="appointments-section" class="appointment-section">
+          <h1 class="section__heading">Manage Appointmens</h1>
+          <div class="appointment-section__search">
+            <i class="appointment-section__search-icon fas fa-search" src="images-and-icons/icons/search-icon.png" alt="search-icon"></i>
+            <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+          </div>
+          
+
+          <!-- filter-appointment and add appointments buttons -->
+          <div class="select-and-btn-container">
+            <select class="select-and-btn-container__filter-apointments-status" name="appointment-filter" id="appointment-filter">
+              <option value="">All</option>
+              <option value="completed">Completed</option>
+              <option value="ongoing">Accepted</option>
+              <option value="reschedule">Reschedule</option>
+              <option value="pending">Pending</option>
+            </select>
+            <button class="select-and-btn-container__add-appointment-btn add-appointment-btn">Add Appointment</button>
+          </div>
+
+          <!-- Add Appointments Form-->
+          <div class="add-appointment-container" id="add-appointment-container">
+            <img class="add-appointment-container__cancel-btn cancel-add-appointment-btn" src="images-and-icons/icons/cross-icon.png"></img>
+            <h2 class="add-appointment-container__heading">Add Appointment</h2>   
+            <!-- form -->   
+            <form class="add-appointments-form" id="add-appointments-form">
+              <h3 class="add-appointments-form__heading">Swine Information</h3>
+              <!-- appointment title, schedule and time group -->
+              <div class="group">
+                <select id="appointment-title" name="appointment-title"> <!-- all appointment options is render in data.js --> </select>
+                <input id="appointment-date" type="text" placeholder="Date" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
+                <input id="appointment-time" type="text" placeholder="Time" onfocus="(this.type='time')" onblur="if(!this.value)this.type='text'" />
+              </div>
+              <!-- swine type, heads, age and gender group-->
+              <div class="group">
+                <select id="swine-type" name="swine-type" > <!-- all swine-type options is render in data.js --> </select>
+                <input id="swine-count" type="number" min="0"  placeholder="Heads" required>
+                <input id="swine-age" type="number" min="0"  placeholder="Age/months" required><br>
+                <span>Swine Gender:</span>
+                <input  id="swine-female" type="number" placeholder="Female" required>
+                <input id="swine-male" type="number"  placeholder="Male" required>
+              </div>
+              <!-- textarea of swine symptoms message -->
+              <textarea class="swine-symptoms"  name="" id="swine-symptoms" placeholder="Write a note or swine symptoms..."></textarea>
+              <h3 class="add-appointments-form__heading">Client Information</h3>
+              <!-- fullname, municipality and barangay group -->
+              <div class="group">
+                <input id="full-name" type="text" placeholder="Full name" required>
+                <select id="municipality" name="">
+                  <option value="">Municipality</option> 
+                  <!-- all municipal options is render in data.js -->
+                </select>
+                <select id="barangay" name="" disabled>
+                    <option value="">Barangay</option>
+                     <!-- all barangay options is render in data.js -->
+                </select>
+              </div>
+              <!-- email and contact number group -->
+              <div class="group">
+                <input id="client-email" type="text" placeholder="Email">
+                <input id="client-phone" type="number"  placeholder="Phone" required><br>
+              </div>
+              <button class="submit-appointment-btn" type="submit">Add Appointment</button>
+            </form>
+          </div>
+
+          <!-- Appointment Table -->
+          <div class="manage-appointments-table">
+              <div class="manage-appointments-table__thead"> <!-- table head -->
+              <p class="th full-name">First Name</p>
+              <p class="th contact">Contact</p>
+              <p class="th date-time">Date & Time</p>
+              <p class="th status">Status</p>
+              <p class="th action">Action</p>
+              <p class="th toggle-more-details-btn "><!--View--></p> 
+            </div>
+            <div class="manage-appointments-table__tbody"> 
+                <!-- appointments table body render in addAppointment.js -->
+            </div>
+          </div>
+          
+          <!-------Appointment Accept Form------->        
+          <form class="appointment-accept-form">
+            <h2 class="appointment-accept-form__heading">Appointment Schedule</h2>
+            <div class="appointment-accept-form__details-columns">
+              <div class="column-left">
+                <label for="date-send">Date send</label>
+                <input type="text" id="date-send" readonly>
+                <label for="set-schedule">Set Schedule</label>
+                <input type="date" id="set-schedule" required>
+                <label for="set-time">Set Time</label>
+                <input type="time" id="set-time" required>
+              </div>
+              <div class="column-right">
+                <label for="medicine-list">Select Medicine</label>
+                <select name="medicine-list" id="medicine-list">
+                  <option value="">Medicine here</option>
+                </select>
+                <label for="medicine-amount">Medicine Amount</label>
+                <input type="number" id="medicine-amount" min="0" placeholder="Amount/mg here." required>
+                <label for="available-personnel">Avialable Personnel</label>
+                <select name="available-personnel" id="available-personnel">
+                    <option value="">Personnel</option>
+                </select>
+              </div>
+            </div>
+            <label for="vet-message">Message</label>
+            <textarea name="vet-message" id="vet-message"></textarea>
+            <div class="appointment-accept-form__buttons">
+              <a href="#" class="appointment-accept-form__check-sched-btn">Check Schedules</a>
+                <button class="appointment-accept-form__save-btn" type="submit">Save</button>
+                <button class="appointment-accept-form__cancel-btn" id="cancel-btn">Cancel</button>
+            </div>
+          </form>
+
+          <div class="modal-overlay hide" id="modal-overlay"></div>
+        </section>
 
         <!-- inventory sections -->
         <section id="inventory-section">
