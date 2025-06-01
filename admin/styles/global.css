@@ -29,7 +29,7 @@ html{
 }
 
 body{
-  --header-height: 60px;
+  --header-height: 58px;
   --sidenav-width: 285px;
 
   font-family: "Poppins", sans-serif;

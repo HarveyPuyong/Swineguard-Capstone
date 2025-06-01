@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/login.css">
+    <!-- Online Dependecies -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <header>
+        <div class="header__swine-logo">
+            <img class="header__swine-logo-img" src="images-and-icons/icons/swineGuard-logo.png" alt="img-logo">
+            <p class="header__swine-logo-label">Swine Guard</p>
+        </div>
+        <a class="header__view-website-btn" href="#" target="_blank">View Website</a>
+    </header>
+    <div class="main-wrapper">
+        <form id="admin-login-form">
+            <h1 class="form-heading">ADMIN</h1>
+            <input type="email" id="email-input" class="email-input" required placeholder="Email"><br>
+            <div class="password-input-field">
+                <input id="password-input" placeholder="Password" type="password" required>
+                <img class="toggle-password-eye" src="./images-and-icons/icons/password-eye.png" alt="toggle-password" id="togglePassword">
+                <div class="eye-slash"></div>
+            </div>
+            <button id="login-btn" type="submit">LOGIN</button>
+        </form>
+    </div>
+    <script src="./script/login.js"></script>
+</body>
+</html>

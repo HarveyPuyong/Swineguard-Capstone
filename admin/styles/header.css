@@ -1,10 +1,40 @@
 header{
   display: flex;
   align-items: center;
+  justify-content: space-between;
   height: var(--header-height);
   background-color: var(--main-color);
-  padding: 0 2.5rem;
+  padding: 0 3rem;
   overflow: hidden;
+}
+
+.header__swine-logo{
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-right: 60rem;
+}
+
+.header__swine-logo-img{
+  --logo-img-size: 33px;
+
+  width: var(--logo-img-size);
+  height: var(--logo-img-size);
+  border-radius: 3px;
+}
+
+.header__swine-logo-label{
+  white-space: nowrap;
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--primary-color);
+}
+
+.header__view-website-btn{
+  color: white;
+  font-size: 1rem;
+  font-weight: 600;
+  padding-right: 3rem;
 }
 
 .header__toggle-side-nav-icon{
@@ -18,27 +48,6 @@ header{
   height: 4px;
   width: 32px;
   background-color: white;
-}
-
-.header__swine-logo{
-  display: flex;
-  gap: 0.5rem;
-  align-items: center;
-  margin-right: 60rem;
-}
-
-.header__swine-logo-img{
-  --logo-img-size: 40px;
-
-  width: var(--logo-img-size);
-  height: var(--logo-img-size);
-}
-
-.header__swine-logo-label{
-  white-space: nowrap;
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: white;
 }
 
 header .admin-profile{
@@ -68,23 +77,4 @@ header .admin-profile__label{
   height: var(--arrow-down-size);
   margin-right: 2rem;
   cursor: pointer;
-}
-
-.header__notification{
-  position: relative;
-  cursor: pointer;
-}
-
-.header__notification-icon{
-  --notification-icon-size: 30px;
-
-  width: var(--notification-icon-size);
-  height: var(--notification-icon-size);
-}
-
-.header__notification-number{
-  position: absolute;
-  top: -6px;
-  right: 4px;
-  color: red;
 }

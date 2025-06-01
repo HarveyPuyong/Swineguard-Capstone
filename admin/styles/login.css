@@ -1,0 +1,85 @@
+body{
+  height: 100%;
+  width: 100%;
+  background-image: url('./../images-and-icons/images/veterenary-office.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+#admin-login-form{
+  background-color: #2fc374bf;
+  max-width: 600px;
+  text-align: center;
+  border-radius: 8px;
+  padding: 50px 70px;
+  margin-top: 85px;
+  margin-inline: auto;
+}
+
+.form-heading{
+  font-size: 2.1rem;
+  color: var(--primary-color);
+  margin-bottom: 50px;
+  margin-top: 0;
+}
+
+input,
+.password-input-field{
+  height: 45px;
+  margin-bottom: 15px;
+}
+
+input{
+  font-size: 1.1rem;
+  width: 100%;
+  border-radius: 5px;
+  border: none;
+  padding: 0px 18px;
+}
+
+.password-input-field{
+  position: relative;
+}
+
+.password-input-field #password-input{
+  height: 100%;
+}
+
+.toggle-password-eye{
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  cursor: pointer;
+}
+
+.password-input-field .eye-slash{
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 3%;
+  transform: translateY(-50%);
+  height: 2px;
+  width: 22px;
+  rotate: 30deg;
+  background-color: rgba(47, 47, 47, 0.742);
+}
+
+.password-input-field .eye-slash.active{
+  display: block;
+}
+
+
+#login-btn{
+  width: 100%;
+  border: none;
+  font-weight: 800;
+  font-size: 1.3rem;
+  border-radius: 5px;
+  color: #2FC374;
+  padding: 13px 50px;
+  margin-top: 20px;
+  cursor: pointer;
+}
