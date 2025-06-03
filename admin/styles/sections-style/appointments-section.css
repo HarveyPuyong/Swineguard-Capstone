@@ -1,54 +1,3 @@
-#appointments-section .section__heading{
-  margin-bottom: 8px;
-}
-
-.appointment-section__search{
-  position: relative;
-  display: flex;
-  width: 220px;
-  height: 30px;
-  background-color: #ffffff;
-  border: 1px solid #9A9A9A;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  color: #5D5D5D;
-}
-
-.appointment-section__search-icon{
-  --searc-icon-size: 18px;
-
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 12px;
-  width: var(--searc-icon-size);
-  height: var(--searc-icon-size);
-  z-index: 1;
-  cursor: pointer;
-  backdrop-filter: grayscale(50%);
-}
-
-.appointment-section__search-input{
-  background-color: transparent;
-  font-size: 0.9rem;
-  position: absolute;
-  height: 100%;
-  width: 95%;
-  border: none;
-  padding-left: 2.5rem;
-  color: #5D5D5D;
-}
-
-.appointment-section__search-input:focus {
-  outline: none;
-  box-shadow: none; 
-}
-
-.appointment-section__search-input::placeholder{
-  color: #5D5D5D;
-}
-
-
 .appointment-section .select-and-btn-container {
   position: absolute;
   right: var(--section-side-spacing);
@@ -85,9 +34,9 @@
   border: none;
   border-radius: 8px;
   padding: 1rem;
-  margin-top: 0.5rem;
+  margin-top: 2.5rem;
   overflow: hidden;
-  height: 32rem;
+  height: 35rem;
   font-size: 0.9rem;
 }
 
@@ -201,7 +150,7 @@
 
 /* appointment more details */
 .manage-appointments-table__tbody .appointment__more-details {
-  display: none;
+  display: block;
   position: relative;
   margin-top: 2.3rem;
   padding: 0 2rem;
@@ -351,10 +300,9 @@
   margin-top: 1rem;
 }
 
-
 /* Appointment Accept Form */
 .appointment-accept-form{
-  display: none;
+  display: block;
   position: absolute;
   top: 42%;
   left: 43%;

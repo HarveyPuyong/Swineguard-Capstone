@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appointments Coordinator Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/side-nav.css">
+    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
+  </head>
+  <body>
+    <header>
+        <div class="header__toggle-side-nav-icon">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="header__swine-logo">
+            <img class="header__swine-logo-img" src="images-and-icons/icons/swineGuard-logo.png" alt="img-logo">
+            <p class="header__swine-logo-label">Swine Guard</p>
+        </div>
+        <div class="header__admin-profile">
+          <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
+          <p class="header__admin-profile-label">Appointments Coordinator</p>
+          <i class="drop-down-icon fas fa-chevron-down "></i>
+        </div>
+    </header>
+    <main class="main-wrapper">
+      <!-- side-nav -->
+      <nav class="side-nav">
+        <ul class="side-nav__link-list">
+          <li class="side-nav__link active" data-value="dashboard-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/dashboard-icon.png" alt="dashboard-icon">
+            <p class="side-nav__link-label">Dashboard</p>
+          </li>
+          <li class="side-nav__link" data-value="appointments-section">
+            <img  class="side-nav__link-icon" src="images-and-icons/icons/appointment-icon.png" alt="appointments-icon">
+            <p class="side-nav__link-label">Appointments</p>
+          </li>
+          <li class="side-nav__link" data-value="messages-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/messages-icon.png" alt="message-icon">
+            <p class="side-nav__link-label">Messages</p>
+          </li>
+          <li class="side-nav__link" data-value="technician-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/inventory-icon.png" alt="technician-icon">
+            <p class="side-nav__link-label">Technician</p>
+          </li>
+          <li class="side-nav__link" data-value="setting-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="settings-icon">
+            <p class="side-nav__link-label">Settings</p>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sections-wrapper">
+        <!-- dashboard section -->
+        <section id="dashboard-section">
+          <h1 class="section__heading">Dashboards</h1>
+          <div class="appointment-dashboard dashboard">
+            <!-- dashboard totals appointments  -->
+            <div class="appointment-dashboard__total-appointments">
+              <img src="" alt="calendar-icon" class="appointment-dashboard__total-appointments-icon">
+              <p class="appointment-dashboard__total-appointments-label">
+                Total Appointments: 
+                <span class="total-appointments-value value">75</span>
+              </p>
+            </div>
+            <!-- dashboard completed appointments -->
+            <div class="appointment-dashboard__completed-appointments">
+              <p class="appointment-dashboard__completed-appointments-label">
+                Completed: 
+                <span class="completed-appointments-value value">45</span>
+              </p>
+              <div class="percent">
+                <div class="percent-fill" style="--percentage: 500"></div>
+                <div class="percent-label">60%</div>
+              </div>
+            </div>
+            <!-- dashboard pending appointments -->
+            <div class="appointment-dashboard__pending-appointments">
+              <p class="appointment-dashboard__pending-appointments-label">
+                Pending: 
+                <span class="pending-appointments-value value">18</span>
+              </p>
+              <div class="percent">
+                <div class="percent-fill" style="--percentage: 500"></div>
+                <div class="percent-label">60%</div>
+              </div>
+            </div>
+            <!-- dashboard ongoing appointments -->
+            <div class="appointment-dashboard__ongoing-appointments">
+              <p class="appointment-dashboard__ongoing-appointments-label">
+                Ongoing: 
+                <span class="ongoing-appointments-value value">45</span>
+              </p>
+              <div class="percent">
+                <div class="percent-fill" style="--percentage: 500"></div>
+                <div class="percent-label">60%</div>
+              </div>
+            </div>
+            <!-- dashboard reschedule appointments -->
+            <div class="appointment-dashboard__reschedule-appointment">
+              <p class="appointment-dashboard__reschedule-appointment-label">
+                Reschedule: 
+                <span class="reschedule-appointment-value value">45</span>
+              </p>
+              <div class="percent">
+                <div class="percent-fill" style="--percentage: 500"></div>
+                <div class="percent-label">60%</div>
+              </div>
+            </div>
+          </div>
+          <div class="ongoing-appointments">
+            <h1 class="ongoing-appointments__heading">Today Ongoing Appointment</h1>
+            <!-- Ongoing Appointment Table -->
+            <div class="ongoing-appointments-table">
+              <div class="ongoing-appointments-table__tbody"> <!-- table body -->
+                <div class="appointment">
+                  <div class="appointment__details">
+                    <p class="td appointment-name">Deworming</p>
+                    <p class="td phone">09123456789</p>
+                    <p class="td schedule">12-03-2025 at 10:00 AM</p>
+                    <p class="td status">Ongoing</p>
+                    <p class="td action">
+                      <select class="select-appointment-action" name="appointment-action" id="appointment-action">
+                        <option value="">Action</option>
+                        <option value="accept">Accept</option>
+                        <option value="reschedule">Reschedule</option>
+                        <option value="remove">Remove</option>
+                      </select>
+                    </p>
+                    <p data-value="show-more-details" class="td toggle-more-details-btn">View</p>  
+                  </div>
+                  <div class="appointment__more-details">
+                    <div class="appointment__more-details-heading">Appointment Details:</div>
+                    <div class="appointment__more-details-columns">      
+                      <div class="column left">
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment ID:</span>
+                          <span class="column__detail-value">10023450QPAL</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Name:</span>
+                          <span class="column__detail-value">John Doe</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Vaccination:</span>
+                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Date Sent:</span>
+                          <span class="column__detail-value">05-03-2025 at 10:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Address:</span>
+                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
+                        </p>
+                      </div>
+                      <div class="column right">
+                        <p class="column__detail">
+                          <span class="column__detail-label">Type:</span>
+                          <span class="column__detail-value">Piglet</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Amount:</span>
+                          <span class="column__detail-value">500 mg</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Heads:</span>
+                          <span class="column__detail-value">5</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Personnel:</span>
+                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Email:</span>
+                          <span class="column__detail-value">john.doe@gmail.com</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Phone:</span>
+                          <span class="column__detail-value appointment-date-send">09123456789</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="buttons-container">
+                      <button class="appointment-accept-btn btn">Accept</button>
+                      <button class="appointment-completed-btn btn" disabled>Completed</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- appointments section -->
+        <section id="appointments-section">
+          <!-- search and add-btn appointment -->
+          <div class="appointments-section__search-and-add-btn">
+            <div class="appointment-section__search">
+              <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+              <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+            </div>
+            <button class="appointment-section__add-btn">Add</button>
+          </div>
+          <!-- filter-apointments-status -->
+          <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
+              <option value="">All</option>
+              <option value="completed">Completed</option>
+              <option value="ongoing">Accepted</option>
+              <option value="reschedule">Reschedule</option>
+              <option value="pending">Pending</option>
+              <option value="archive">Archive</option>
+          </select>
+          <!-- view schedule, technecian and appointments btns -->
+          <button class="appointment-section__view-sched-btn">View Schedule</button>
+          <button class="appointment-section__view-technicians-btn">View Technician</button>
+          <button class="appointment-section__view-appointments-btn">View Appointment</button>
+          
+           <!-- Add Appointments Form-->
+          <div class="add-appointment-container" id="add-appointment-container">
+            <img class="add-appointment-container__cancel-btn cancel-btn" src="images-and-icons/icons/cross-icon.png"></img>
+            <h2 class="add-appointment-container__heading">Add Appointment</h2>   
+            <!-- form -->   
+            <form class="add-appointments-form" id="add-appointments-form">
+              <h3 class="add-appointments-form__heading">Client Information</h3>
+              <!-- fullname, municipality and barangay group -->
+              <div class="group">
+                <input id="first-name" type="text" placeholder="First name" required>
+                <input id="last-name" type="text" placeholder="Last name" required>
+                <select id="municipality" name="">
+                  <option value="">Municipality</option> 
+                  <!-- all municipal options is render in data.js -->
+                </select>
+                <select id="barangay" name="" disabled>
+                    <option value="">Barangay</option>
+                     <!-- all barangay options is render in data.js -->
+                </select>
+              </div>
+              <!-- email and contact number group -->
+              <div class="group">
+                <input id="client-email" type="text" placeholder="Email">
+                <input id="client-phone" type="number"  placeholder="Phone" required><br>
+              </div>
+              <h3 class="add-appointments-form__heading">Swine Information</h3>
+              <!-- appointment title, schedule and time group -->
+              <div class="group">
+                <select id="appointment-title" name="appointment-title">
+                  <option value="">Select Appointment</option>
+                  <option value="Iron Supplementation">Iron Supplementation</option>
+                  <option value="Deworming">Deworming</option>
+                  <option value="ASF Testing">ASF Testing</option>
+                  <option value="Blood Testing">Blood Testing</option>
+                  <option value="Health Surveillance">Health Surveillance</option>
+                  <option value="Postpartum Care">Postpartum Care</option>
+                  <option value="Surgical Castration">Surgical Castration</option>
+                </select>
+                <input id="appointment-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
+                <input id="appointment-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)this.type='text'" />
+              </div>
+              <!-- swine type, heads, age and gender group-->
+              <div class="group">
+                <select id="swine-type" name="swine-type">
+                  <option value="">Swine Type</option>
+                  <option value="piglet">Piglet</option>
+                  <option value="sow">Sow</option>
+                  <option value="gilt">Gilt</option>
+                  <option value="boar">Boar</option>
+                  <option value="barrow">Barrow</option>
+                </select>
+                <input id="swine-count" type="number" min="0"  placeholder="Heads" required>
+                <input id="swine-age" type="number" min="0"  placeholder="Age/months" required><br>
+                <span>Swine Gender:</span>
+                <input  id="swine-female" type="number" placeholder="Female" required>
+                <input id="swine-male" type="number"  placeholder="Male" required>
+              </div>
+              <!-- textarea of swine symptoms message -->
+              <textarea class="swine-symptoms"  name="" id="swine-symptoms" placeholder="Kindly write down the symptoms"></textarea>
+              <button class="submit-appointment-btn" type="submit">Add Appointment</button>
+            </form>
+          </div>
+          
+          <!-- Appointment Schedule Form -->   
+          <form class="appointment-schedule-form">
+            <h2 class="appointment-schedule-form__heading">Reschedule Appointment Form</h2>
+            <div class="appointment-schedule-form__details-columns">
+              <div class="column-left">
+                <label for="date-send">Date send</label>
+                <p id="date-send">05-03-2025 at 10:00 AM</p>
+                <label for="set-schedule">Set Date</label>
+                <input type="date" id="set-date" required>
+                <label for="set-time">Set Time</label>
+                <input type="time" id="set-time" required>
+              </div>
+              <div class="column-right">
+                <label for="medicine-list">Select Medicine</label>
+                <select name="medicine-list" id="medicine-list">
+                  <option value="">Medicine here</option>
+                </select>
+                <label for="medicine-amount">Medicine Amount</label>
+                <input type="number" id="medicine-amount" min="0" placeholder="Amount/mg here." required>
+                <label for="available-personnel">Avialable Personnel</label>
+                <select name="available-personnel" id="available-personnel">
+                    <option value="">Personnel</option>
+                </select>
+              </div>
+            </div>
+            <label for="vet-message">Message</label>
+            <textarea name="vet-message" id="vet-message"></textarea>
+            <div class="appointment-schedule-form__buttons">
+              <a href="#" class="appointment-schedule-form__check-sched-btn">Check Schedules</a>
+                <button class="appointment-schedule-form__confirm-btn" type="submit">Confirm</button>
+                <button class="appointment-schedule-form__cancel-btn" id="cancel-btn" type="button">Cancel</button>
+            </div>
+          </form>
+
+          <!-- Appointment Table -->
+          <div class="manage-appointments-table">
+              <div class="manage-appointments-table__thead"> <!-- table head -->
+              <p class="th first-name">First Name</p>
+              <p class="th last-name">Last Name</p>
+              <p class="th contact">Contact</p>
+              <p class="th date-time">Date & Time</p>
+              <p class="th status">Status</p>
+              <p class="th action">Action</p>
+              <p class="th toggle-more-details-btn "><!--View button head--></p> 
+            </div>
+            <div class="manage-appointments-table__tbody"> 
+              <div class="appointment">
+                <div class="appointment__details">
+                  <p class="td full-name">John Harvey</p>
+                  <p class="td contact">Puyong</p>
+                  <p class="td date-time">12-03-2025 at 10:00 AM</p>
+                  <p class="td status">Completed</p>
+                  <p class="td action">
+                    <select class="select-appointment-action" name="appointment-action" id="appointment-action">
+                      <option value="">Action</option>
+                      <option value="accept">Accept</option>
+                      <option value="reschedule">Reschedule</option>
+                      <option value="remove">Remove</option>
+                    </select>
+                  </p>
+                  <p data-value="show-more-details" class="td toggle-more-details-btn">View</p>  
+                </div>
+                <div class="appointment__more-details">
+                  <div class="appointment__more-details-heading">Appointment Details:</div>
+                  <div class="appointment__more-details-columns">
+                    <!-- more details left column -->
+                    <div class="column left">
+                      <p class="column__detail">
+                        <span class="column__detail-label">Appointment ID:</span>
+                        <span class="column__detail-value">10023450QPAL</span>
+                      </p>
+                      <p class="column__detail">
+                        <span class="column__detail-label">Appointment:</span>
+                        <span class="column__detail-value">Iron Supplementation</span>
+                      </p>
+                      <p class="column__detail">
+                        <span class="column__detail-label">Appointment Type:</span>
+                        <span class="column__detail-value">Visit</span>
+                      </p>
+                      <p class="column__detail">
+                        <span class="column__detail-label">Vaccination:</span>
+                        <span class="column__detail-value">Iron Dextran (FeDex)</span>
+                      </p>
+                      <p class="column__detail">
+                        <span class="column__detail-label">Date sent:</span>
+                        <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
+                      </p>
+                      <p class="column__detail">
+                        <span class="column__detail-label">Actual Schedule:</span>
+                        <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
+                      </p>
+                      <p class="column__detail">
+                        <span class="column__detail-label">Adress:</span>
+                        <span class="column__detail-value">Santol, Boac, Marinduqe</span>
+                      </p>
+                    </div>
+                    <!-- more details right column -->
+                    <div class="column right"> 
+                      <p class="column__detail">
+                        <span class="column__detail-label">Type:</span>
+                        <span class="column__detail-value">Piglet</span>
+                      </p>
+                      <p class="column__detail">
+                        <span class="column__detail-label">Amount:</span>
+                        <span class="column__detail-value">500mg</span>
+                      </p>
+                      <p class="column__detail">
+                        <span class="column__detail-label">Personnel:</span>
+                        <span class="column__detail-value">Doc. Josue M. Victoria</span>
+                      </p>
+                      <p class="column__detail">
+                        <span class="column__detail-label">Email:</span>
+                        <span class="column__detail-value">john.doe@gmail.com</span>
+                      </p>
+                      <p class="column__detail">
+                        <span class="column__detail-label">Phone:</span>
+                        <span class="column__detail-value">09123456789</span>
+                      </p>
+                    </div>
+                  </div>
+                  <button class="appointment-completed-btn btn">Completed</button>
+                  <button class="appointment-reschedule-btn btn">Set Schedule</button>
+                  <button class="appointment-restore-btn btn">Restore</button>
+                  <button class="appointment-delete-btn btn">Delete</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appointent Schedule Calendar -->
+          <div class="appointment-schedule-container">
+            <!-- service type identifier -->
+            <div class="appointment-schedule-container__type-identifier service-type-identifier">
+              <div class="appointment-schedule-container__type-identifier--dot"></div>
+              <p class="appointment-schedule-container__type-identifier--label">Service</p>
+            </div>
+            <!-- visit type identifier -->
+            <div class="appointment-schedule-container__type-identifier visit-type-identifier">
+              <div class="appointment-schedule-container__type-identifier--dot"></div>
+              <p class="appointment-schedule-container__type-identifier--label">Visit</p>
+            </div>
+            
+            <!-- Magamit ng fulleCalendar library, para sa calendar -->
+
+            <div class="appointment-schedule-container__type-total total-service-type">
+              <p class="appointment-schedule-container__type-total--label">Total Services</p>
+              <p class="appointment-schedule-container__type-total--value">57.<span class="percent-value">14%</span></p>
+            </div>
+            <div class="appointment-schedule-container__type-total total-Visit-type">
+              <p class="appointment-schedule-container__type-total--label">Total Visit</p>
+              <p class="appointment-schedule-container__type-total--value">42.<span class="percent-value">86%</span></p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

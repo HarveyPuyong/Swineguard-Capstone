@@ -29,12 +29,10 @@ html{
 }
 
 body{
-  --header-height: 58px;
-  --sidenav-width: 285px;
+  --header-height: 60px;
 
   font-family: "Poppins", sans-serif;
-  background-color: #D2D2D2;
-  overflow: hidden;
+  background-color: #D2D2D2;  
 }
 
 .sections-wrapper{
@@ -42,15 +40,16 @@ body{
 }
 
 section{
-  --section-side-spacing: 1.5rem;
+  --section-side-spacing: 100px;
 
-  display: none;
   position: relative;
   padding: 0 var(--section-side-spacing);
+  height:fit-content;
 }
 
 .section__heading{
   color: var(--main-color);
   font-size: 1.3rem;
-  padding-top: 1.5rem;
+  padding-top: 1.1rem;
+  margin: 0;
 }

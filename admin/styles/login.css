@@ -76,10 +76,10 @@ input{
   width: 100%;
   border: none;
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   border-radius: 5px;
   color: #2FC374;
-  padding: 13px 50px;
-  margin-top: 20px;
+  padding: 10px 50px;
+  margin-top: 25px;
   cursor: pointer;
 }

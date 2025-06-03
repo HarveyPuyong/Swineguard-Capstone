@@ -1,0 +1,34 @@
+#dashboard-section{
+  display: none;
+}
+
+.percent {
+  width: 100px;
+  height: 50px;
+  background: #eee;
+  border-top-left-radius: 100px;
+  border-top-right-radius: 100px;
+  overflow: hidden;
+  position: relative;
+}
+
+.percent-fill {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background: conic-gradient(
+    green calc(var(--percentage) * 1deg),
+    #ddd 0
+  );
+  transform: rotate(-90deg);
+  transform-origin: bottom center;
+}
+
+.percent-label {
+  position: absolute;
+  bottom: 5px;
+  width: 100%;
+  text-align: center;
+  font-weight: bold;
+}

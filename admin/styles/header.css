@@ -1,10 +1,9 @@
 header{
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  height: var(--header-height);
+  height: var(--header-height); /* nasa global.css yung variable neto */
   background-color: var(--main-color);
-  padding: 0 3rem;
+  padding: 0 2rem;
   overflow: hidden;
 }
 
@@ -12,7 +11,6 @@ header{
   display: flex;
   gap: 0.5rem;
   align-items: center;
-  margin-right: 60rem;
 }
 
 .header__swine-logo-img{
@@ -34,47 +32,49 @@ header{
   color: white;
   font-size: 1rem;
   font-weight: 600;
-  padding-right: 3rem;
+  padding-right:0rem;
+  margin-left: 1100px;
 }
 
 .header__toggle-side-nav-icon{
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  margin-right: 3rem;
+  margin-right: 2rem;
+  cursor: pointer;
 }
 
 .header__toggle-side-nav-icon .line{
-  height: 4px;
-  width: 32px;
+  height: 3px;
+  width: 30px;
   background-color: white;
 }
 
-header .admin-profile{
+.header__admin-profile{
   display: flex;
   gap: 0.6rem;
   align-items: center;
-  margin-right: 1.5rem;
+  margin-left: auto;
+  margin-right: 2rem;
 }
 
-header .admin-profile__pic{
-  --admin-pic-size: 36px;
+.header__admin-profile-pic{
+  --admin-pic-size: 32px;
 
   height: var(--admin-pic-size);
   width: var(--admin-pic-size);
   border-radius: 30px;
 }
 
-header .admin-profile__label{
+.header__admin-profile-label{
+  font-size: 0.9rem;
   font-weight: 600;
   color: white;
+  margin-right: 1px;
 }
 
-.header__arrow-down-icon{
-  --arrow-down-size: 18px;
-
-  width: var(--arrow-down-size);
-  height: var(--arrow-down-size);
-  margin-right: 2rem;
+.header__admin-profile .drop-down-icon{
+  font-size: 0.6rem;
+  color: white;
   cursor: pointer;
 }
