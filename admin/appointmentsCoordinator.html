@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="styles/dashboard.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <link rel="stylesheet" href="styles/sections-style/messages-section.css">
+    <link rel="stylesheet" href="styles/sections-style/technician-section.css">
+    <link rel="stylesheet" href="styles/sections-style/setting-section.css">
   </head>
   <body>
     <!-- ========== Header ========== -->
@@ -200,7 +202,7 @@
             </div>
           </div>
         </section>
-        <!-- ========== Appointment Section ========== -->
+        <!-- ========== Appointments Section ========== -->
         <section id="appointments-section">
           <!-- search and add-btn appointment -->
           <div class="appointments-section__search-and-add-btn">
@@ -220,7 +222,6 @@
               <option value="archive">Archive</option>
           </select>
           <!-- view schedule, technecian and appointments btns -->
-          <button class="appointment-section__view-sched-btn">View Schedule</button>
           <button class="appointment-section__view-technicians-btn">View Technician</button>
           <button class="appointment-section__view-appointments-btn">View Appointment</button>
           
@@ -441,7 +442,6 @@
             </div>
           </div>
         </section>
-
         <!-- ========== Messages Section ========== -->
         <section id="messages-section">
           <h1 class="section__heading">Messages</h1>
@@ -591,6 +591,84 @@
                 <input id="input-image" type="file" accept="image/*" style="display: none;">
               </form>
             </div>
+          </div>
+        </section>
+         <!-- ========== Technecians Section ========== -->
+        <section id="technicians-section">
+          <h1 class="section__heading">Technicians</h1>
+          button
+          <button class="technicians-section__view-sched-btn">View Schedules</button>
+          <div class="technician-list-container">
+            <div class="technician">
+              <div class="technician__profile">
+                <img src="" alt="technician-img" class="technician__profile-img">
+                <p class="technician__profile-name">John Harvey</p>
+                <p class="technician__profile-position">Technician |</p>
+              </div>
+              <div class="technician__task">
+                <h4 class="technician__task-heading">Task:</h4>
+                <div class="task-card">
+                  <div class="task-card__group">
+                    <p class="task-card__task-name">Deworming</p>
+                    <p class="task-card__task-location">Santol, Boac</p>
+                  </div>
+                  <p class="task-card__task-type">Service</p>
+                  <div class="task-card__group">
+                    <p class="task-card__task-date">May 9, 2025</p>
+                    <p class="task-card__task-time">11:30 AM</p>
+                  </div>
+                </div>
+                <p class="technician__task-availability-status">AVAILABLE</p>
+              </div>
+            </div>
+          </div>
+        </section>
+         <!-- ========== Settings Section ========== -->
+        <section id="setting-section">
+          <h1 class="section__heading">Setting</h1>
+          <div class="settings-container">
+            <div class="settings-container__header">
+              <p class="settings-container__header-heading">Profile</p>
+              <button class="settings-container__header-logout-btn">Logout</button>
+            </div>
+            <form class="settings-container__details-list">
+              <div class="admin-image">
+                <img src="" alt="Profile Picture" class="admin-image__image" />
+                <label class="admin-image__upload-btn">
+                  <input type="file" hidden />
+                  <i class="fas fa-upload"></i> Upload
+                </label>
+              </div>
+              <div class="profile-detail">
+                <label>ID</label>
+                <p>01235678</p>
+              </div>
+              <div class="profile-detail editable">
+                <label>Name</label>
+                <p>Appointment Coordinator</p>
+                <button type="button" class="edit-btn">Edit ✏️</button>
+              </div>
+              <div class="profile-detail editable">
+                <label>Contact</label>
+                <p>09123456789</p>
+                <button type="button" class="edit-btn">Edit ✏️</button>
+              </div>
+              <div class="profile-detail editable">
+                <label>Address</label>
+                <p>Bangbangalon , Boac, Marinduque</p>
+                <button type="button" class="edit-btn">Edit ✏️</button>
+              </div>
+              <div class="profile-detail editable">
+                <label>Email</label>
+                <p>pvet.staff2@gmail.com</p>
+                <button type="button" class="edit-btn">Edit ✏️</button>
+              </div>
+              <div class="profile-detail editable">
+                <label>Password</label>
+                <p>Admin Password</p>
+                <button type="button" class="edit-btn">Edit ✏️</button>
+              </div>
+            </form>
           </div>
         </section>
       </div>
