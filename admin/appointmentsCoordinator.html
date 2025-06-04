@@ -11,8 +11,10 @@
     <link rel="stylesheet" href="styles/side-nav.css">
     <link rel="stylesheet" href="styles/dashboard.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
+    <link rel="stylesheet" href="styles/sections-style/messages-section.css">
   </head>
   <body>
+    <!-- ========== Header ========== -->
     <header>
         <div class="header__toggle-side-nav-icon">
           <div class="line"></div>
@@ -29,8 +31,9 @@
           <i class="drop-down-icon fas fa-chevron-down "></i>
         </div>
     </header>
+
     <main class="main-wrapper">
-      <!-- side-nav -->
+      <!-- ========== Side nav ========== -->
       <nav class="side-nav">
         <ul class="side-nav__link-list">
           <li class="side-nav__link active" data-value="dashboard-section">
@@ -55,9 +58,9 @@
           </li>
         </ul>
       </nav>
-
+      
       <div class="sections-wrapper">
-        <!-- dashboard section -->
+        <!-- ========== Dashboard Section ========== -->
         <section id="dashboard-section">
           <h1 class="section__heading">Dashboards</h1>
           <div class="appointment-dashboard dashboard">
@@ -197,7 +200,7 @@
             </div>
           </div>
         </section>
-        <!-- appointments section -->
+        <!-- ========== Appointment Section ========== -->
         <section id="appointments-section">
           <!-- search and add-btn appointment -->
           <div class="appointments-section__search-and-add-btn">
@@ -435,6 +438,158 @@
             <div class="appointment-schedule-container__type-total total-Visit-type">
               <p class="appointment-schedule-container__type-total--label">Total Visit</p>
               <p class="appointment-schedule-container__type-total--value">42.<span class="percent-value">86%</span></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== Messages Section ========== -->
+        <section id="messages-section">
+          <h1 class="section__heading">Messages</h1>
+          <div class="profile-view">
+            <i class="profile-view__cross-btn fas fa-times"></i>
+            <img src="" alt="user image" class="profile-view__user-image">
+            <h2 class="profile-view__user-name">John Harvey</h2>
+            <p class="profile-view__user-email">harvey@gmail.com</p>
+            <button class="profile-view__back-btn">Back</button>
+          </div>
+          <div class="messages-section__main-wrapper">
+            <div class="sidebar-chat-panel"> <!-- side-chat-panel -->
+              <div class="sidebar-chat-panel__search">
+                <img class="sidebar-chat-panel__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon">
+                  <input class="sidebar-chat-panel__search-input" type="text" placeholder="Search...">  
+              </div>
+              <div class="chat-list">
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+              </div>
+            </div>
+            <div class="chat-box"> <!-- convo box -->
+              <div class="chat-box__header"> <!-- convo box header -->
+                <img class="chat-box__header-user-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-img">
+                <div class="chat-box__header-user-name-and-active-status">
+                  <p class="chat-box__header-user-name">John Harvey</p>
+                  <p class="chat-box__header-user-active-status">
+                    <span class="chat-box__header-user-active-status--dot"></span>
+                    <span class="chat-box__header-user-active-status--label">Active</span>
+                  </p>
+                </div>
+                <i class="chat-box__header-more-details-icon fas fa-phone"></i>
+                <i class="chat-box__header-more-details-icon fas fa-ellipsis-v"></i> 
+              </div>
+              <div class="convo-list"> <!-- convo box chat-->
+                <div class="convo-list__user-chat"> <!-- user chat -->
+                  <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
+                  <div class="convo-list__user-chat-details">
+                    <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                    <p class="convo-list__user-chat-details--name">John</p>
+                  </div>
+                  <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
+                </div>
+                <div class="convo-list__admin-chat"> <!-- admin chat -->
+                  <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
+                  <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
+                </div>
+                <div class="convo-list__user-chat"> <!-- user chat -->
+                  <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
+                  <div class="convo-list__user-chat-details">
+                    <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                    <p class="convo-list__user-chat-details--name">John</p>
+                  </div>
+                  <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
+                </div>
+                <div class="convo-list__admin-chat"> <!-- admin chat -->
+                  <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
+                  <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
+                </div>
+              </div>
+              <form class="chat-box__chat-input-area"> <!-- chat input erea-->
+                <!-- Attachment icon and input -->
+                <label for="input-file" class="chat-input-area__input-file-icon" title="Attach a file">
+                  <i class="fas fa-paperclip"></i>
+                </label>
+                <input id="input-file" type="file" style="display: none;">
+                <!-- Text message input -->
+                <input class="chat-input-area__input-message" type="text" placeholder="Type a Message" required>
+                <!-- Send button -->
+                <button class="chat-box__send-btn" type="submit" id="send-chat-btn" title="Send message">
+                  <i class="fas fa-paper-plane"></i>
+                </button>
+                <!-- Upload Images btn -->
+                <label for="input-image" class="chat-input-area__input-image-icon" title="Send an image">
+                  <i class="far fa-image"></i>
+                </label>
+                <input id="input-image" type="file" accept="image/*" style="display: none;">
+              </form>
             </div>
           </div>
         </section>

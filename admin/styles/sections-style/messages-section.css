@@ -1,3 +1,6 @@
+#messages-section{
+  /* display: none; */
+}
 
 .messages-section__main-wrapper{
   display: flex;

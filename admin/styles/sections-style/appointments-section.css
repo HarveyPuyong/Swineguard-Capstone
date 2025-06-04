@@ -1,3 +1,7 @@
+#appointments-section{
+  display: none;
+}
+
 .appointment-section .select-and-btn-container {
   position: absolute;
   right: var(--section-side-spacing);
