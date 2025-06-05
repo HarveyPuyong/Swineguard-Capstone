@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/side-nav.css">
-    <link rel="stylesheet" href="styles/dashboard.css">
+    <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <link rel="stylesheet" href="styles/sections-style/messages-section.css">
     <link rel="stylesheet" href="styles/sections-style/technician-section.css">
@@ -64,58 +64,61 @@
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
         <section id="dashboard-section">
-          <h1 class="section__heading">Dashboards</h1>
           <div class="appointment-dashboard dashboard">
-            <!-- dashboard totals appointments  -->
-            <div class="appointment-dashboard__total-appointments">
-              <img src="" alt="calendar-icon" class="appointment-dashboard__total-appointments-icon">
-              <p class="appointment-dashboard__total-appointments-label">
-                Total Appointments: 
-                <span class="total-appointments-value value">75</span>
-              </p>
-            </div>
-            <!-- dashboard completed appointments -->
-            <div class="appointment-dashboard__completed-appointments">
-              <p class="appointment-dashboard__completed-appointments-label">
-                Completed: 
-                <span class="completed-appointments-value value">45</span>
-              </p>
-              <div class="percent">
-                <div class="percent-fill" style="--percentage: 500"></div>
-                <div class="percent-label">60%</div>
+            <div class="dashboard__background"></div>
+            <h1 class="dashboard__heading">Dashboards</h1>
+            <div class="dashboard__cards-container">
+              <!-- dashboard totals appointments  -->
+              <div class="dashboard__card total-appointments">
+                <img class="dashboard__card-icon" src="images-and-icons/icons/appointment-icon.png" alt="calendar-icon" >
+                <p class="dashboard__card-label">
+                  Total Appointments: 
+                  <span class="dashboard__card-label--value">75</span>
+                </p>
               </div>
-            </div>
-            <!-- dashboard pending appointments -->
-            <div class="appointment-dashboard__pending-appointments">
-              <p class="appointment-dashboard__pending-appointments-label">
-                Pending: 
-                <span class="pending-appointments-value value">18</span>
-              </p>
-              <div class="percent">
-                <div class="percent-fill" style="--percentage: 500"></div>
-                <div class="percent-label">60%</div>
+              <!-- dashboard completed appointments -->
+              <div class="dashboard__card completed-appointments">
+                <p class="dashboard__card-label">
+                  Completed: 
+                  <span class="dashboard__card-label--value">45</span>
+                </p>
+                <div class="dashboard__card-percent">
+                  <div class="dashboard__card-percent--fill" style="--percentage: 500"></div>
+                  <div class="dashboard__dashboard__card-percent--value">60%</div>
+                </div>
               </div>
-            </div>
-            <!-- dashboard ongoing appointments -->
-            <div class="appointment-dashboard__ongoing-appointments">
-              <p class="appointment-dashboard__ongoing-appointments-label">
-                Ongoing: 
-                <span class="ongoing-appointments-value value">45</span>
-              </p>
-              <div class="percent">
-                <div class="percent-fill" style="--percentage: 500"></div>
-                <div class="percent-label">60%</div>
+              <!-- dashboard pending appointments -->
+              <div class="dashboard__card pending-appointments">
+                <p class="dashboard__card-label">
+                  Pending: 
+                  <span class="dashboard__card-label--value">18</span>
+                </p>
+                <div class="dashboard__card-percent">
+                  <div class="dashboard__card-percent--fill" style="--percentage: 500"></div>
+                  <div class="dashboard__card-percent--value">60%</div>
+                </div>
               </div>
-            </div>
-            <!-- dashboard reschedule appointments -->
-            <div class="appointment-dashboard__reschedule-appointment">
-              <p class="appointment-dashboard__reschedule-appointment-label">
-                Reschedule: 
-                <span class="reschedule-appointment-value value">45</span>
-              </p>
-              <div class="percent">
-                <div class="percent-fill" style="--percentage: 500"></div>
-                <div class="percent-label">60%</div>
+              <!-- dashboard ongoing appointments -->
+              <div class="dashboard__card ongoing-appointments">
+                <p class="dashboard__card-label">
+                  Ongoing: 
+                  <span class="dashboard__card-label--value">18</span>
+                </p>
+                <div class="dashboard__card-percent">
+                  <div class="dashboard__card-percent--fill" style="--percentage: 500"></div>
+                  <div class="dashboard__card-percent--value">60%</div>
+                </div>
+              </div>
+              <!-- dashboard reschedule appointments -->
+              <div class="dashboard__card reschedule-appointment">
+                <p class="dashboard__card-label">
+                  Reschedule: 
+                  <span class="dashboard__card-label--value">18</span>
+                </p>
+                <div class="dashboard__card-percent">
+                  <div class="dashboard__card-percent--fill" style="--percentage: 500"></div>
+                  <div class="dashboard__card-percent--value">60%</div>
+                </div>
               </div>
             </div>
           </div>
