@@ -1,0 +1,167 @@
+#dashboard-section{
+  --side-spacing: 30px;
+
+  display: block;
+  padding: 0;
+  margin-left: 80px;
+  background-color: white;
+}
+
+.dashboard{
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  padding-bottom: 100px;
+  z-index: 2;
+}
+
+.dashboard__background{
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  background-image: url('./../../images-and-icons/images/veterenary-office.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.8;
+  z-index: -1;
+}
+
+.dashboard__heading{
+  color: rgb(255, 255, 255);
+  padding-top: 20px;
+  margin: 0;
+  margin-left: var(--side-spacing);
+  margin-bottom: 50px;
+}
+
+.dashboard__cards-container{
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, auto);
+  gap: 20px;
+  padding-left: 130px;
+  padding-right: 100px;
+  overflow: hidden;
+}
+
+.dashboard__card{
+  position: relative;
+  height: 200px;
+  border: 1px solid #2FC375;
+  background-color: white;
+  border-radius: 3px;
+  padding: 20px 16px;
+}
+
+.dashboard__card.total-appointments{
+  grid-row: span 2;
+  background-color: #0F7E43;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard__card-icon{
+  width: 50px;
+}
+
+.dashboard__card-label{
+  font-weight: 500;
+}
+
+.dashboard__card-label--value{
+  font-weight: 700;
+}
+
+.dashboard__card-progress{
+  position: relative;
+  margin: 4px;
+  float:left;
+  text-align: center;
+}
+
+.dashboard__card-progress-barOverflow{
+  position: relative;
+  width: 180px;
+  height: 90px; /* Half circle (overflow) */
+  margin-bottom: -14px; /* bring the numbers up */
+  overflow: hidden;
+}
+
+.dashboard__card-progress-bar{
+  position: absolute;
+  top: 0; 
+  left: 0;
+  width: 180px;
+  height: 180px; 
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 10px solid #ccc;   
+  border-left-color: #0bf;
+}
+
+.dashboard__card-progress-txt{
+  font-size: 2rem;
+}
+
+/* Ongoing Apointemts Table */
+.ongoing-appointments-table-container{
+  padding: 0 var(--side-spacing);
+  padding-top: 17px;
+  padding-bottom: 80px;
+}
+
+.ongoing-appointments-table-container__heading{
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.ongoing-appointments-table{
+  width: 100%;
+}
+
+.ongoing-appointments-table .appointment .appointment__details{
+  display: flex;
+  text-align: center;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: #d2d2d2cc;
+  border-radius: 3px;
+  padding: 13px 50px;
+  font-size: 0.9rem;
+}
+
+.ongoing-appointments-table .td.status{
+  background-color: #4982fe4c;
+  color: #3777FF;
+  border: 1px solid #3777FF;
+  padding: 4px 0;
+  width: 120px;
+}
+
+.ongoing-appointments-table .td.action select{
+  background-color: #4982fe4c;
+  color: #3777FF;
+  border: 1px solid #3777FF;  
+  width: 125px;
+  padding: 2px 0;
+  padding-left: 10px;
+}
+
+.td.toggle-more-details-btn{
+  color: #009947;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ongoing-appointments-table .appointment__more-details {
+  background-color: #d2d2d2cc;
+  height: 19rem;
+  padding: 0 50px;
+  padding-top: 30px;
+}

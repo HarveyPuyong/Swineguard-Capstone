@@ -153,11 +153,12 @@
 }
 
 /* appointment more details */
-.manage-appointments-table__tbody .appointment__more-details {
+.appointment__more-details {
   display: block;
   position: relative;
-  margin-top: 2.3rem;
+  background-color: #d2d2d2cc;
   padding: 0 2rem;
+  padding-top: 2.3rem;
   height: 23rem;
 }
 
@@ -191,21 +192,36 @@
 
 .appointment__more-details .buttons-container{
   position: absolute;
-  bottom: 0;
+  right: 50px;
+  bottom: 30px;
   display: flex;
   gap: 0.7rem;
 }
 
 .appointment__more-details .btn{
-  padding: 4px 22px;
+  display: none;
+  padding: 4px 30px;
   border-radius: 20px;
   cursor: pointer;
 }
 
-.appointment-accept-btn{
+.appointment__more-details .completed-btn,
+.appointment__more-details .restore-btn{
   border: 1px solid #009947;
   background-color: #1dff8722;
   color: #009947;
+}
+
+.appointment__more-details .reschedule-btn{
+  border: 1px solid #7D7D7D;
+  background-color: #B0AEAF;
+  color: #1c1c1c;
+}
+
+.appointment__more-details .delete-btn{
+  border: 1px solid #990000;
+  background-color: #F2A5A5;
+  color: #990000;
 }
 
 

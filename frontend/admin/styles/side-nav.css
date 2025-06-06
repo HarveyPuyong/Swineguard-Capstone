@@ -3,20 +3,22 @@
 
   position: fixed;
   bottom: 0;
+  top: 0;
   background-color: #2FC375;
   top: var(--header-height);
   width: var(--sidenav-width); 
   padding-top: 20px;
   overflow: hidden;
+  z-index: 2;
 }
 
 .side-nav.active{
-  --sidenav-width: 285px;
+  --sidenav-width: 290px;
 }
 
 .side-nav__link-list{
   display: flex;
-  gap: 0.8rem;
+  gap: 0.5rem;
   flex-direction: column;
   color: var(--primary-color);
 }
@@ -27,14 +29,12 @@
   gap: 1rem;
   cursor: pointer;
   padding: 1rem 0;
-  padding-left: 0.2rem;
-  padding-bottom: 0.5rem;
-  margin-left: 2rem;
+  padding-left: 2rem;
   transition: 0.2s;
 }
 
 .side-nav__link.active{
-  border-bottom: 1px solid white;
+  background-color: rgb(0, 105, 49);
 }
 
 .side-nav__link:hover{

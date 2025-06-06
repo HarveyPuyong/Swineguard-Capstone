@@ -32,7 +32,8 @@ body{
   --header-height: 60px;
 
   font-family: "Poppins", sans-serif;
-  background-color: #D2D2D2;  
+  background-color: #D2D2D2; 
+  overflow-x: hidden; 
 }
 
 .sections-wrapper{
@@ -44,7 +45,7 @@ section{
 
   position: relative;
   padding: 0 var(--section-side-spacing);
-  height:fit-content;
+  margin-top: var(--header-height);
 }
 
 .section__heading{
