@@ -225,9 +225,9 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-        <section id="appointments-section">
+        <!-- Pending-work: Style the appointment schedule calendar -->
+        <section id="appointments-section">  
           <h1 class="section__heading">Appointments</h1>
-
           <!-- search and add-btn appointment -->
           <div class="appointments-section__search-and-add-btn">
             <div class="appointment-section__search">
@@ -456,10 +456,8 @@
             <div class="appointment-schedule-container__type-identifier visit-type-identifier">
               <div class="appointment-schedule-container__type-identifier--dot"></div>
               <p class="appointment-schedule-container__type-identifier--label">Visit</p>
-            </div>
-            
-            <!-- Magamit ng fulleCalendar library, para sa calendar -->
-
+            </div>          
+              <!-- Magamit ng fulleCalendar library, para sa calendar -->
             <div class="appointment-schedule-container__type-total total-service-type">
               <p class="appointment-schedule-container__type-total--label">Total Services</p>
               <p class="appointment-schedule-container__type-total--value">57.<span class="percent-value">14%</span></p>
@@ -475,9 +473,8 @@
         <section id="messages-section">
           <h1 class="section__heading">Messages</h1>
           <div class="profile-view">
-            <i class="profile-view__cross-btn fas fa-times"></i>
-            <img src="" alt="user image" class="profile-view__user-image">
-            <h2 class="profile-view__user-name">John Harvey</h2>
+            <img class="profile-view__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user image" >
+            <h2 class="profile-view__user-name">John Harvey Puyong</h2>
             <p class="profile-view__user-email">harvey@gmail.com</p>
             <button class="profile-view__back-btn">Back</button>
           </div>
@@ -563,62 +560,70 @@
               </div>
             </div>
             <div class="chat-box"> <!-- convo box -->
-              <div class="chat-box__header"> <!-- convo box header -->
-                <img class="chat-box__header-user-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-img">
-                <div class="chat-box__header-user-name-and-active-status">
-                  <p class="chat-box__header-user-name">John Harvey</p>
-                  <p class="chat-box__header-user-active-status">
-                    <span class="chat-box__header-user-active-status--dot"></span>
-                    <span class="chat-box__header-user-active-status--label">Active</span>
-                  </p>
-                </div>
-                <i class="chat-box__header-more-details-icon fas fa-phone"></i>
-                <i class="chat-box__header-more-details-icon fas fa-ellipsis-v"></i> 
+              <div class="chat-box__description"> <!-- convo box description-->
+                <h2>Open client messages</h2>
+                <p>Click the icon or messages in the left side of the screen.</p>
               </div>
-              <div class="convo-list"> <!-- convo box chat-->
-                <div class="convo-list__user-chat"> <!-- user chat -->
-                  <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
-                  <div class="convo-list__user-chat-details">
-                    <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
-                    <p class="convo-list__user-chat-details--name">John</p>
+               <div class="chat-box__main-contents">
+                  <div class="chat-box__header"> <!-- convo box header -->
+                    <img class="chat-box__header-user-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-img">
+                    <div class="chat-box__header-user-name-and-active-status">
+                      <p class="chat-box__header-user-name">John Harvey</p>
+                      <p class="chat-box__header-user-active-status">
+                        <span class="chat-box__header-user-active-status--dot"></span>
+                        <span class="chat-box__header-user-active-status--label">Active</span>
+                      </p>
+                    </div>
+                    <div class="chat-box__header-icons-container">
+                      <i class="chat-box__header-icon fas fa-phone"></i>
+                      <i class="chat-box__header-icon fas fa-ellipsis-v"></i> 
+                    </div>
                   </div>
-                  <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
-                </div>
-                <div class="convo-list__admin-chat"> <!-- admin chat -->
-                  <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
-                  <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
-                </div>
-                <div class="convo-list__user-chat"> <!-- user chat -->
-                  <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
-                  <div class="convo-list__user-chat-details">
-                    <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
-                    <p class="convo-list__user-chat-details--name">John</p>
+                  <div class="convo-list"> <!-- convo box chat-->
+                    <div class="convo-list__user-chat"> <!-- user chat -->
+                      <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
+                      <div class="convo-list__user-chat-details">
+                        <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                        <p class="convo-list__user-chat-details--name">John</p>
+                      </div>
+                      <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
+                    </div>
+                    <div class="convo-list__admin-chat"> <!-- admin chat -->
+                      <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
+                      <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
+                    </div>
+                    <div class="convo-list__user-chat"> <!-- user chat -->
+                      <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
+                      <div class="convo-list__user-chat-details">
+                        <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                        <p class="convo-list__user-chat-details--name">John</p>
+                      </div>
+                      <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
+                    </div>
+                    <div class="convo-list__admin-chat"> <!-- admin chat -->
+                      <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
+                      <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
+                    </div>
                   </div>
-                  <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
-                </div>
-                <div class="convo-list__admin-chat"> <!-- admin chat -->
-                  <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
-                  <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
-                </div>
-              </div>
-              <form class="chat-box__chat-input-area"> <!-- chat input erea-->
-                <!-- Attachment icon and input -->
-                <label for="input-file" class="chat-input-area__input-file-icon" title="Attach a file">
-                  <i class="fas fa-paperclip"></i>
-                </label>
-                <input id="input-file" type="file" style="display: none;">
-                <!-- Text message input -->
-                <input class="chat-input-area__input-message" type="text" placeholder="Type a Message" required>
-                <!-- Send button -->
-                <button class="chat-box__send-btn" type="submit" id="send-chat-btn" title="Send message">
-                  <i class="fas fa-paper-plane"></i>
-                </button>
-                <!-- Upload Images btn -->
-                <label for="input-image" class="chat-input-area__input-image-icon" title="Send an image">
-                  <i class="far fa-image"></i>
-                </label>
-                <input id="input-image" type="file" accept="image/*" style="display: none;">
-              </form>
+                  <form class="chat-box__chat-input-area"> <!-- chat input erea-->
+                    <!-- Attachment icon and input -->
+                    <label for="input-file" class="chat-input-area__input-file" title="Attach a file">
+                      <i class="icon fas fa-paperclip"></i>
+                    </label>
+                    <input id="input-file" type="file" style="display: none;">
+                    <!-- Text message input -->
+                    <input class="chat-input-area__input-message" type="text" placeholder="Type a Message" required>             
+                    <!-- Upload Images btn -->
+                    <label for="input-image" class="chat-input-area__input-image" title="Send an image">
+                      <i class="icon far fa-image"></i>
+                    </label>
+                    <input id="input-image" type="file" accept="image/*" style="display: none;">
+                    <!-- Send button -->
+                    <button class="chat-box__send-btn" type="submit" id="send-chat-btn" title="Send message">
+                      <i class="icon fas fa-paper-plane"></i>
+                    </button>
+                  </form>
+               </div>      
             </div>
           </div>
         </section>

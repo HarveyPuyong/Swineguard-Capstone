@@ -1,11 +1,12 @@
+/* Pending-work: Style the appointment schedule calendar */
 #appointments-section{
+  display: none; /* default display:block */
   position: relative;
-  display: block;
 }
 
 /* search and add button  */
 .appointments-section__search-and-add-btn{
-  display: flex;
+  display: none; /* default display:flex */
   gap: 10px;
   height: 33px;
   margin-left: 10px;
@@ -63,7 +64,7 @@
   right: 55px;
   top: 30px;
   display: flex;
-  gap: 10px;
+  gap: 8px;
   flex-direction: column;
 }
 
@@ -71,7 +72,7 @@
 #appointments-section .view-navigate-btn{
   width: 220px;
   border-radius: 8px;
-  padding: 8px 0;
+  padding: 10px 0;
   cursor: pointer;
 }
 
@@ -107,6 +108,7 @@
   --action-width: 170px;
   --view-width: 50px;
 
+  display: none;
   position: relative;
   width: 100%;
   background-color: white;
