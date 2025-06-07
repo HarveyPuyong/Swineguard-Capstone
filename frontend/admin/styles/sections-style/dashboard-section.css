@@ -1,7 +1,7 @@
 #dashboard-section{
   --side-spacing: 30px;
 
-  display: block;
+  display: none; /* default display:block */
   padding: 0;
   margin-left: 80px;
   background-color: white;

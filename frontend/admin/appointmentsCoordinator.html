@@ -223,8 +223,11 @@
             </div>
           </div>
         </section>
+
         <!-- ========== Appointments Section ========== -->
         <section id="appointments-section">
+          <h1 class="section__heading">Appointments</h1>
+
           <!-- search and add-btn appointment -->
           <div class="appointments-section__search-and-add-btn">
             <div class="appointment-section__search">
@@ -233,22 +236,25 @@
             </div>
             <button class="appointment-section__add-btn">Add</button>
           </div>
-          <!-- filter-apointments-status -->
-          <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
-              <option value="">All</option>
-              <option value="completed">Completed</option>
-              <option value="ongoing">Accepted</option>
-              <option value="reschedule">Reschedule</option>
-              <option value="pending">Pending</option>
-              <option value="archive">Archive</option>
-          </select>
-          <!-- view schedule, technecian and appointments btns -->
-          <button class="appointment-section__view-technicians-btn">View Technician</button>
-          <button class="appointment-section__view-appointments-btn">View Appointment</button>
-          
+
+          <!-- filter and view-btns container -->
+          <div class="filter-and-view-btns-container">
+            <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
+                <option value="">All</option>
+                <option value="completed">Completed</option>
+                <option value="ongoing">Accepted</option>
+                <option value="reschedule">Reschedule</option>
+                <option value="pending">Pending</option>
+                <option value="archive">Archive</option>
+            </select>
+            <button class="appointment-section__view-schedules-btn view-navigate-btn">View Schedules</button>
+            <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
+            <button class="appointment-section__view-appointments-btn view-navigate-btn">View Appointments</button>
+          </div>
+               
            <!-- Add Appointments Form-->
           <div class="add-appointment-container" id="add-appointment-container">
-            <img class="add-appointment-container__cancel-btn cancel-btn" src="images-and-icons/icons/cross-icon.png"></img>
+            <i class="add-appointment-container__cancel-btn cancel-btn fa-solid fa-xmark"></i>
             <h2 class="add-appointment-container__heading">Add Appointment</h2>   
             <!-- form -->   
             <form class="add-appointments-form" id="add-appointments-form">
@@ -271,7 +277,7 @@
                 <input id="client-email" type="text" placeholder="Email">
                 <input id="client-phone" type="number"  placeholder="Phone" required><br>
               </div>
-              <h3 class="add-appointments-form__heading">Swine Information</h3>
+              <h3 class="add-appointments-form__heading swine-info-heading">Swine Information</h3>
               <!-- appointment title, schedule and time group -->
               <div class="group">
                 <select id="appointment-title" name="appointment-title">
@@ -311,11 +317,9 @@
           
           <!-- Appointment Schedule Form -->   
           <form class="appointment-schedule-form">
-            <h2 class="appointment-schedule-form__heading">Reschedule Appointment Form</h2>
+            <h2 class="appointment-schedule-form__heading">Appointment Schedule Form</h2>
             <div class="appointment-schedule-form__details-columns">
               <div class="column-left">
-                <label for="date-send">Date send</label>
-                <p id="date-send">05-03-2025 at 10:00 AM</p>
                 <label for="set-schedule">Set Date</label>
                 <input type="date" id="set-date" required>
                 <label for="set-time">Set Time</label>
@@ -357,8 +361,9 @@
             <div class="manage-appointments-table__tbody"> 
               <div class="appointment">
                 <div class="appointment__details">
-                  <p class="td full-name">John Harvey</p>
-                  <p class="td contact">Puyong</p>
+                  <p class="td first-name">John Harvey</p>
+                  <p class="td last-name">Puyong</p>
+                  <p class="td contact">09123456789</p>
                   <p class="td date-time">12-03-2025 at 10:00 AM</p>
                   <p class="td status">Completed</p>
                   <p class="td action">
@@ -389,10 +394,6 @@
                         <span class="column__detail-value">Visit</span>
                       </p>
                       <p class="column__detail">
-                        <span class="column__detail-label">Vaccination:</span>
-                        <span class="column__detail-value">Iron Dextran (FeDex)</span>
-                      </p>
-                      <p class="column__detail">
                         <span class="column__detail-label">Date sent:</span>
                         <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
                       </p>
@@ -412,6 +413,10 @@
                         <span class="column__detail-value">Piglet</span>
                       </p>
                       <p class="column__detail">
+                        <span class="column__detail-label">Vaccination:</span>
+                        <span class="column__detail-value">Iron Dextran (FeDex)</span>
+                      </p>
+                      <p class="column__detail">
                         <span class="column__detail-label">Amount:</span>
                         <span class="column__detail-value">500mg</span>
                       </p>
@@ -429,10 +434,12 @@
                       </p>
                     </div>
                   </div>
-                  <button class="appointment-completed-btn btn">Completed</button>
-                  <button class="appointment-reschedule-btn btn">Set Schedule</button>
-                  <button class="appointment-restore-btn btn">Restore</button>
-                  <button class="appointment-delete-btn btn">Delete</button>
+                  <div class="buttons-container">
+                      <button class="completed-btn btn">Completed</button>
+                      <button class="reschedule-btn btn">Set Schedule</button>
+                      <button class="restore-btn btn">Restore</button>
+                      <button class="delete-btn btn">Delete</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -463,6 +470,7 @@
             </div>
           </div>
         </section>
+
         <!-- ========== Messages Section ========== -->
         <section id="messages-section">
           <h1 class="section__heading">Messages</h1>
@@ -614,6 +622,7 @@
             </div>
           </div>
         </section>
+
          <!-- ========== Technecians Section ========== -->
         <section id="technicians-section">
           <h1 class="section__heading">Technicians</h1>

@@ -41,16 +41,29 @@ body{
 }
 
 section{
-  --section-side-spacing: 100px;
+  --section-side-spacing: 120px;
 
   position: relative;
-  padding: 0 var(--section-side-spacing);
+  margin-left: 80px;
+  padding: 0 3rem;
   margin-top: var(--header-height);
 }
 
 .section__heading{
-  color: var(--main-color);
-  font-size: 1.3rem;
-  padding-top: 1.1rem;
+  color: black;
+  font-size: 1.5rem;
+  padding-top: 1.7rem;
   margin: 0;
+}
+
+select{
+  appearance: none; /* Removes default arrow */
+  -webkit-appearance: none; /* For Safari */
+  -moz-appearance: none; /* For Firefox */
+
+  /* Custom dropdown icon */
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000000" d="M7 10l5 5 5-5H7z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 5px center;
+  background-size: clamp(20px, 6vw, 25px) ;
 }
