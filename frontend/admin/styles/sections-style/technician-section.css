@@ -1,3 +1,106 @@
 #technicians-section{
-  display: none;
+  display: block;
+  padding-bottom: 30px;
+}
+
+.technicians-section__view-sched-btn{
+  position: absolute;
+  right: 55px;
+  top: 25px;
+  font-weight: 600;
+  width: 220px;
+  color: rgb(19, 19, 19);
+  border: 2px solid #9A9A9A;
+  border-radius: 8px;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.technician-list-container{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: white;
+  border: outset 2px solid black;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.276);
+  margin-top: 30px;
+  padding: 45px;;
+}
+
+.technician{
+  display: flex;
+  gap: 60px;
+  background-color: #d6d6d6;
+  padding: 30px 0px;
+  padding-left: 60px;
+  padding-right: 80px;
+  border-radius: 3px;
+}
+
+.technician__profile{
+  max-width: 108px;
+  text-align: center;
+}
+
+.technician__profile-img{
+  height: 107px;
+  margin-bottom: 3px;
+  border-radius: 2px;
+}
+
+.technician__profile-name{
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 0 2px;
+}
+
+.technician__profile-position{
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: #0F7E43;
+}
+
+.technician__task{
+  padding-top: 10px;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.technician__task-heading{
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+
+.task-card{
+  display: flex;
+  justify-content: space-between;
+  background-color: #2FC375;
+  color: #2B2B2B;
+  padding: 15px 25px;
+  margin-bottom: 10px;
+}
+
+.task-card__group{
+  display: flex;
+  flex-direction: column;
+  gap: 7px
+}
+
+.task-card__label,
+.task-card__task-type{
+  font-weight: 600;
+}
+
+.task-card__value{
+  font-weight: 400;
+}
+
+.technician__task-availability-status{
+  background-color: #848484;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 3px;
+  padding: 15px;
 }
