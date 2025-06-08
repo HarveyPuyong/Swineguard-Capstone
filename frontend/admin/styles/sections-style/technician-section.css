@@ -1,5 +1,5 @@
 #technicians-section{
-  display: block;
+  display: none; /* default display:block */
   padding-bottom: 30px;
 }
 

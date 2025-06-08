@@ -1,82 +1,117 @@
 #setting-section{
-  display: none;
+  display: block;
   font-size: 0.9rem;
 }
-.setting-section__main-wrapper{
-  display: flex;
-  gap: 1rem
+
+#setting-section .section__heading{
+  margin-bottom: 15px;
 }
 
-/* setting nav */
-.setting-nav{
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
-  min-width: 220px;
-  padding: 15px;
-}
-
-.setting-nav__link{
-  font-weight: 600;
-  padding: 12px 16px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.setting-nav__link:hover{
-  background-color: #bdbdbd4b;
-}
-
-.setting-nav__link.active{
-  background-color: #D9D9D9;
-}
-
-/* setting panel */
-.setting-panel{
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.settings-container{
   width: 100%;
   background-color: white;
   border-radius: 8px;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
-  height: 34.8rem;
-  padding: 25px 30px;
+  padding: 25px 35px;
 }
 
-.setting-panel.profile-panel{
-  position: relative;
-}
-
-.profile-panel__header{
+.settings-container__header{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.635);
   padding-right: 1rem;
   padding-bottom: 1rem;
-  margin-bottom: 0.3rem;
+  margin-bottom: 15px;
 }
 
-.profile-panel__admin-photo{
+.settings-container__header-heading{
+  font-size: 1.3rem;
+  font-weight: 600;
+}
+
+.settings-container__header-logout-btn{
+  border: 1px solid #FF0046;
+  border-radius: 5px;
+  background: #fe7a9d;
+  color: white;
+  font-weight: 600;
+  padding: 8px 25px;
+  cursor: pointer;
+}
+
+.settings-container .admin-image img{
   --size: 70px;
 
-  position: relative;
   height: var(--size);
   width: var(--size);
   border-radius: 50%;
   border: 1.5px solid rgb(26, 26, 26);
 }
 
-.profile-panel__admin-photo--img{
+.settings-container .admin-image__upload-btn{
+  --color: #787878;
+
+  cursor: pointer;
+  color: var(--color);
+  border: 1px solid var(--color);
+  border-radius: 4px;
+  padding: 3px 7px;
+}
+
+.settings-container__details-list{
+  display: flex;
+  flex-direction: column;
+  padding: 0 50px;
+}
+
+.settings-container__details-list .detail{
+  position: relative;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.282);
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+
+.settings-container__details-list .detail-label{
+  font-weight: 600;
+  margin-bottom: 3px;
+}
+
+.settings-container__details-list input.detail-value{
+  border: none;
+  font-size: 0.87rem;
+  width: 25%;
+}
+
+.settings-container__details-list input.detail-value:focus{
+  outline: none;
+  box-shadow: none; 
+  border: none;
+}
+
+
+.settings-container__details-list .edit-btn{
+  --color: #787878;
+
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  border-radius: 3px;
+  cursor: pointer;
+  color: var(--color);
+  border: 1px solid var(--color);
+  cursor: pointer;
+  margin-right: 10px;
+  padding: 3px 6px 2px 9px;
+}
+
+
+.settings-container__admin-photo--img{
   height: 100%;
   border-radius: inherit;
 }
 
-.profile-panel__admin-photo--input-img-icon{
+.settings-container__admin-photo--input-img-icon{
   position: absolute;
   bottom: -5px;
   right: 12px;
@@ -85,7 +120,7 @@
   cursor: pointer;
 }
 
-.profile-panel__edit-btn{
+.settings-container__edit-btn{
   height: fit-content;
   padding: 4px 15px;
   border-radius: 4px;
@@ -93,35 +128,28 @@
   cursor: pointer;
 }
 
-.profile-panel__edit-btn--icon{
+.settings-container__edit-btn--icon{
   color: rgba(0, 0, 0, 0.8);
 }
 
-.profile-panel__detail{
+.settings-container__detail{
   border-bottom: 1px solid rgba(0, 0, 0, 0.282);
   color: rgba(0, 0, 0, 0.8);
   padding-bottom: 5px;
 }
 
-.profile-panel__detail-label{
+.settings-container__detail-label{
   font-weight: 600;
   margin-bottom: 2px;
 }
 
-.profile-panel__detail-value{
-  border: none;
-  font-size: 0.87rem;
-  width: 100%;
-  padding: 3px;
-}
-
-.profile-panel__detail-value.edit-mode{
+.settings-container__detail-value.edit-mode{
   width: 50%;
   border: 1px solid rgba(0, 0, 0, 0.64);
   border-radius: 5px;
 }
 
-.profile-panel__buttons{
+.settings-container__buttons{
   display: none;
   gap: 10px;
   position: absolute;
@@ -129,7 +157,7 @@
   bottom: 13px;
 }
 
-.profile-panel__buttons button{
+.settings-container__buttons button{
   border-radius: 5px;
   border: none;
   color: white;
@@ -137,10 +165,10 @@
   cursor: pointer;
 }
 
-.profile-panel__save-btn{
+.settings-container__save-btn{
   background-color: var(--main-color);
 }
 
-.profile-panel__cancel-btn{
+.settings-container__cancel-btn{
   background-color: red;
 }
