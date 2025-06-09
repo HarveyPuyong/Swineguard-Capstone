@@ -1,5 +1,9 @@
 import sideNavFuntionality from "./sidenav.js";
-import { toggleAppointentDetails } from "./appointment.js";
+import { toggleAppointentDetails, appointmentStatusColor, filterAppointment, addAppointment, searchAppointment} from "./appointment.js";
 
 sideNavFuntionality();
+appointmentStatusColor();
+filterAppointment();
+addAppointment();
 toggleAppointentDetails();
+searchAppointment();

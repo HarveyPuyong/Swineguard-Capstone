@@ -241,12 +241,12 @@
             <!-- filter and view-btns container -->
             <div class="filter-and-view-btns-container">
               <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
-                  <option value="">All</option>
-                  <option value="completed">Completed</option>
-                  <option value="ongoing">Accepted</option>
-                  <option value="reschedule">Reschedule</option>
-                  <option value="pending">Pending</option>
-                  <option value="archive">Archive</option>
+                <option value="all">All</option>
+                <option value="completed">Completed</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="reschedule">Reschedule</option>
+                <option value="pending">Pending</option>
+                <option value="removed">Archive</option>
               </select>
               <button class="appointment-section__view-schedules-btn view-navigate-btn">View Schedules</button>
               <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
@@ -255,7 +255,7 @@
                 
             <!-- Add Appointments Form-->
             <div class="add-appointment-container" id="add-appointment-container">
-              <i class="add-appointment-container__cancel-btn cancel-btn fa-solid fa-xmark"></i>
+              <i class="add-appointment-container__close-form-btn close-form-btn fa-solid fa-xmark"></i>
               <h2 class="add-appointment-container__heading">Add Appointment</h2>   
               <!-- form -->   
               <form class="add-appointments-form" id="add-appointments-form">
@@ -344,13 +344,13 @@
               <div class="appointment-schedule-form__buttons">
                 <a href="#" class="appointment-schedule-form__check-sched-btn">Check Schedules</a>
                   <button class="appointment-schedule-form__confirm-btn" type="submit">Confirm</button>
-                  <button class="appointment-schedule-form__cancel-btn" id="cancel-btn" type="button">Cancel</button>
+                  <button class="appointment-schedule-form__close-btn close-form-btn" id="cancel-btn" type="button">Cancel</button>
               </div>
             </form>
 
             <!-- Appointment Table -->
             <div class="manage-appointments-table appointment-table">
-                <div class="manage-appointments-table__thead"> <!-- table head -->
+              <div class="manage-appointments-table__thead"> <!-- table head -->
                 <p class="th first-name">First Name</p>
                 <p class="th last-name">Last Name</p>
                 <p class="th contact">Contact</p>
@@ -366,7 +366,256 @@
                     <p class="td last-name">Puyong</p>
                     <p class="td contact">09123456789</p>
                     <p class="td date-time">12-03-2025 at 10:00 AM</p>
+                    <p class="td status">Ongoing</p>
+                    <p class="td action">
+                      <select class="select-appointment-action" name="appointment-action" id="appointment-action">
+                        <option value="">Action</option>
+                        <option value="accept">Accept</option>
+                        <option value="reschedule">Reschedule</option>
+                        <option value="remove">Remove</option>
+                      </select>
+                    </p>
+                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
+                  </div>
+                  <div class="appointment__more-details">
+                    <div class="appointment__more-details-heading">Appointment Details:</div>
+                    <div class="appointment__more-details-columns">
+                      <!-- more details left column -->
+                      <div class="column left">
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment ID:</span>
+                          <span class="column__detail-value">10023450QPAL</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment:</span>
+                          <span class="column__detail-value">Iron Supplementation</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment Type:</span>
+                          <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Date sent:</span>
+                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Actual Schedule:</span>
+                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Adress:</span>
+                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
+                        </p>
+                      </div>
+                      <!-- more details right column -->
+                      <div class="column right"> 
+                        <p class="column__detail">
+                          <span class="column__detail-label">Type:</span>
+                          <span class="column__detail-value">Piglet</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Vaccination:</span>
+                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Amount:</span>
+                          <span class="column__detail-value">500mg</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Personnel:</span>
+                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Email:</span>
+                          <span class="column__detail-value">john.doe@gmail.com</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Phone:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="completed-btn btn">Completed</button>
+                        <button class="reschedule-btn btn">Set Schedule</button>
+                        <button class="restore-btn btn">Restore</button>
+                        <button class="delete-btn btn">Delete</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="appointment">
+                  <div class="appointment__details">
+                    <p class="td first-name">Robert</p>
+                    <p class="td last-name">Magno</p>
+                    <p class="td contact">098725615621</p>
+                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
                     <p class="td status">Completed</p>
+                    <p class="td action">
+                      <select class="select-appointment-action" name="appointment-action" id="appointment-action">
+                        <option value="">Action</option>
+                        <option value="accept">Accept</option>
+                        <option value="reschedule">Reschedule</option>
+                        <option value="remove">Remove</option>
+                      </select>
+                    </p>
+                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
+                  </div>
+                  <div class="appointment__more-details">
+                    <div class="appointment__more-details-heading">Appointment Details:</div>
+                    <div class="appointment__more-details-columns">
+                      <!-- more details left column -->
+                      <div class="column left">
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment ID:</span>
+                          <span class="column__detail-value">10023450QPAL</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment:</span>
+                          <span class="column__detail-value">Iron Supplementation</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment Type:</span>
+                          <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Date sent:</span>
+                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Actual Schedule:</span>
+                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Adress:</span>
+                          <span class="column__detail-value">Santol, Gasan, Marinduqe</span>
+                        </p>
+                      </div>
+                      <!-- more details right column -->
+                      <div class="column right"> 
+                        <p class="column__detail">
+                          <span class="column__detail-label">Type:</span>
+                          <span class="column__detail-value">Piglet</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Vaccination:</span>
+                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Amount:</span>
+                          <span class="column__detail-value">500mg</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Personnel:</span>
+                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Email:</span>
+                          <span class="column__detail-value">john.doe@gmail.com</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Phone:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="completed-btn btn">Completed</button>
+                        <button class="reschedule-btn btn">Set Schedule</button>
+                        <button class="restore-btn btn">Restore</button>
+                        <button class="delete-btn btn">Delete</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="appointment">
+                  <div class="appointment__details">
+                    <p class="td first-name">John Harvey</p>
+                    <p class="td last-name">Puyong</p>
+                    <p class="td contact">09123456789</p>
+                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
+                    <p class="td status">Reschedule</p>
+                    <p class="td action">
+                      <select class="select-appointment-action" name="appointment-action" id="appointment-action">
+                        <option value="">Action</option>
+                        <option value="accept">Accept</option>
+                        <option value="reschedule">Reschedule</option>
+                        <option value="remove">Remove</option>
+                      </select>
+                    </p>
+                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
+                  </div>
+                  <div class="appointment__more-details">
+                    <div class="appointment__more-details-heading">Appointment Details:</div>
+                    <div class="appointment__more-details-columns">
+                      <!-- more details left column -->
+                      <div class="column left">
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment ID:</span>
+                          <span class="column__detail-value">10023450QPAL</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment:</span>
+                          <span class="column__detail-value">Iron Supplementation</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment Type:</span>
+                          <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Date sent:</span>
+                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Actual Schedule:</span>
+                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Adress:</span>
+                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
+                        </p>
+                      </div>
+                      <!-- more details right column -->
+                      <div class="column right"> 
+                        <p class="column__detail">
+                          <span class="column__detail-label">Type:</span>
+                          <span class="column__detail-value">Piglet</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Vaccination:</span>
+                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Amount:</span>
+                          <span class="column__detail-value">500mg</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Personnel:</span>
+                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Email:</span>
+                          <span class="column__detail-value">john.doe@gmail.com</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Phone:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="completed-btn btn">Completed</button>
+                        <button class="reschedule-btn btn">Set Schedule</button>
+                        <button class="restore-btn btn">Restore</button>
+                        <button class="delete-btn btn">Delete</button>
+                    </div>
+                  </div>
+                </div>
+                <div class="appointment">
+                  <div class="appointment__details">
+                    <p class="td first-name">John Harvey</p>
+                    <p class="td last-name">Puyong</p>
+                    <p class="td contact">09123456789</p>
+                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
+                    <p class="td status">Removed</p>
                     <p class="td action">
                       <select class="select-appointment-action" name="appointment-action" id="appointment-action">
                         <option value="">Action</option>

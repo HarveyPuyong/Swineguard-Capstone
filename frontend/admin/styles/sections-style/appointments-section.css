@@ -82,9 +82,17 @@
 }
 
 .filter-apointments-status{
-  background-color: #2fc3746a;
+  --color: #3777FF;
+  --BGcolor: #4982fe3c;
+
+  border: 1px solid var(--color);
+  color: var(--color);
+  background-color: var(--BGcolor);
   text-align: center;
-  border: 1px solid var(--main-color);
+}
+
+.filter-apointments-status:focus{
+  outline: var(--color);
 }
 
 .appointment-section__view-schedules-btn{
@@ -212,25 +220,17 @@
   max-width: var(--date-time-width);
 }
 .manage-appointments-table__tbody .td.status {
+  border: 1px solid var(--color);
+  color: var(--color);
+  background-color: var(--BGcolor);
   width: var(--status-width);
   max-width: var(--status-width);
-  border: 1px solid #009947;
-  background-color: #1dff8722;
-  color: #009947;
   border-radius: 20px;
   padding: 0.2rem 0;
 }
 .manage-appointments-table__tbody .td.action {
   width: var(--action-width);
   max-width: var(--action-width);
-}
-.manage-appointments-table__tbody .td.toggle-more-details-btn {
-  width: var(--view-width);
-  max-width: var(--view-width);
-  color: #009947;
-  text-decoration: underline;
-  cursor: pointer;
-  margin-left: 2rem;
 }
 
 /* action select */
@@ -240,6 +240,15 @@
   border-radius: 20px;
   padding: 0.2rem 0;
   padding-right: 0rem;
+}
+
+.manage-appointments-table__tbody .td.toggle-more-details-btn {
+  width: var(--view-width);
+  max-width: var(--view-width);
+  color: #009947;
+  text-decoration: underline;
+  cursor: pointer;
+  margin-left: 2rem;
 }
 
 /* appointment more details */
@@ -336,7 +345,7 @@
   padding: 20px 50px;
 }
 
-.add-appointment-container__cancel-btn{
+.add-appointment-container__close-form-btn{
   position: absolute;
   right: 5%;
   top: 5%;
@@ -410,8 +419,8 @@
   border: none;
   border-radius: 5px;
   padding: 10px 25px;
+  cursor: pointer;
 }
-
 
 /* Appointment Schedule Form */
 .appointment-schedule-form{
@@ -483,7 +492,7 @@
 }
 
 .appointment-schedule-form__confirm-btn,
-.appointment-schedule-form__cancel-btn{
+.appointment-schedule-form__close-btn{
   height: 30px;
   width: 100px;
   border-radius: 8px;
@@ -496,7 +505,7 @@
   color: #232C27;
 }
 
-.appointment-schedule-form__cancel-btn{
+.appointment-schedule-form__close-btn{
   background-color: #EECDCD;
   border: 1px solid #FF0000;
   color: #FF0000;
