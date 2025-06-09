@@ -1,12 +1,17 @@
 /* Pending-work: Style the appointment schedule calendar */
+
 #appointments-section{
   display: none; /* default display:block */
   position: relative;
 }
 
+.appointment-main-content{
+  display: block;
+}
+
 /* search and add button  */
 .appointments-section__search-and-add-btn{
-  display: none; /* default display:flex */
+  display: flex; /* default display:flex */
   gap: 10px;
   height: 33px;
   margin-left: 10px;
@@ -108,7 +113,7 @@
   --action-width: 170px;
   --view-width: 50px;
 
-  display: none;
+  display: block;
   position: relative;
   width: 100%;
   background-color: white;
@@ -117,7 +122,7 @@
   padding: 1rem;
   margin-top: 1.7rem;
   overflow: hidden;
-  height: 35rem;
+  height: fit-content;
   font-size: 0.9rem;
 }
 
@@ -238,14 +243,17 @@
 }
 
 /* appointment more details */
-.appointment__more-details {
-  display: block;
+.appointment__more-details{
+  display: none;
   position: relative;
   background-color: #d2d2d2cc;
   padding: 0 2rem;
   padding-top: 1.7rem;
   height: 19rem;
-  
+}
+
+.appointment__more-details.show{
+  display: block;
 }
 
 .appointment__more-details-heading {
@@ -492,4 +500,9 @@
   background-color: #EECDCD;
   border: 1px solid #FF0000;
   color: #FF0000;
+}
+
+/* Pending-work: Style the appointment schedule calendar */
+.appointment-schedule-container{
+  display: none;
 }

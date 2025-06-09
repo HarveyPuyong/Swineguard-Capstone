@@ -1,7 +1,7 @@
 #dashboard-section{
   --side-spacing: 30px;
 
-  display: none; /* default display:block */
+  display: block; /* default display:block */
   padding: 0;
   margin-left: 80px;
   background-color: white;
@@ -216,7 +216,7 @@
   cursor: pointer;
 }
 
-.ongoing-appointments-table .appointment__more-details {
+.ongoing-appointments-table .appointment__more-details{
   display: none;
   background-color: #d2d2d2cc;
   height: 19rem;
