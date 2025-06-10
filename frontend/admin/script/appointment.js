@@ -110,4 +110,11 @@ const searchAppointment = () => {
 };
 
 
-export {toggleAppointentDetails, appointmentStatusColor, filterAppointment, addAppointment, searchAppointment}
+export default function handleAppointmentFunctionality() {
+  appointmentStatusColor();
+  filterAppointment();
+  addAppointment();
+  toggleAppointentDetails();
+  searchAppointment();
+}
+
