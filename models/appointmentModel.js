@@ -28,6 +28,6 @@ const appointmentModel = new mongoose.Schema({
     dosage: { type: String, default: 'Not Set' },
     vetMessage: { type: String, default: 'No message yet' }
     
-}, { collection: 'appointment_tbl' });
+}, { collection: 'appointments' });
 
 module.exports = mongoose.model('Appointment', appointmentModel);

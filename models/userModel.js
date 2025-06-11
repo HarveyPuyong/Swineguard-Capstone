@@ -6,7 +6,7 @@ const userModel = new mongoose.Schema({
     lastName: { type: String, required: true },
     suffix: { type: String, required: false },
 
-    contact: { type: String, required: true },
+    contactNum: { type: String, required: true },
     barangay: { type: String, required: true },
     municipality: { type: String, required: true },
     
@@ -26,6 +26,6 @@ const userModel = new mongoose.Schema({
       default: []
     }
 
-}, { collection: 'user_tbl' });
+}, { collection: 'users' });
 
 module.exports = mongoose.model('User', userModel);

@@ -10,6 +10,6 @@ const messageModel = new mongoose.Schema({
     dateSend: {  type: Date, default:Date.now }
     
 
-}, { collection: 'message_tbl' });
+}, { collection: 'messages' });
 
 module.exports = mongoose.model('Message', messageModel);

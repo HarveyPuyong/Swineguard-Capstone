@@ -9,8 +9,11 @@ const {logger} =  require('./middlewares/logEvents');
 const errorHandler = require('./middlewares/errorHandler');
 const credentials = require('./middlewares/credentials');
 const corsOptions = require('./config/corsOptions');
+const dbConn = require('./config/dbConn');
 const PORT = process.env.PORT || 2500;
 
+
+dbConn.connectDB();
 
 app.use(logger);
 
@@ -25,9 +28,13 @@ app.use(cookieParser());
 app.use(errorHandler);
 
 app.get('/', (req, res) => {
-  res.send('Hello')
+  res.send('Kupal')
 });
 
-app.listen(PORT, () => {
-  console.log(`server is running on port: http://localhost:${PORT}`)
+app.use('/signup', require('./routes/signupClientRoute')); //kapag ga test ka, ito alagay mo sa url ng postman or thunder client👉 http://localhost:2500/signup "post" yung request
+
+
+mongoose.connection.once('open', () => {
+  console.log(`Connected to MongoDB database: ${mongoose.connection.name}`);
+  app.listen(PORT, () => console.log(`Server is listen to port: http//localhost:${PORT}`));
 });

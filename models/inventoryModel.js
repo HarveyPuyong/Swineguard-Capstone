@@ -16,6 +16,6 @@ const inventoryModel = new mongoose.Schema({
     updatedTime: { type: Date, default:Date.now },
     
 
-}, { collection: 'inventory_tbl' });
+}, { collection: 'inventories' });
 
 module.exports = mongoose.model('Inventory', inventoryModel);
