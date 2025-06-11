@@ -63,7 +63,7 @@
       
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-        <section id="dashboard-section">
+        <section id="dashboard-section" class="show">
           <div class="appointment-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
@@ -225,9 +225,8 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-        <!-- Pending-work: Style the appointment schedule calendar -->
-        <section id="appointments-section">
-          <div class="appointment-main-content">
+        <section id="appointments-section" class="hide">
+          <div class="appointment-table-content">
             <h1 class="section__heading">Appointments</h1>
             <!-- search and add-btn appointment -->
             <div class="appointments-section__search-and-add-btn">
@@ -239,7 +238,7 @@
             </div>
 
             <!-- filter and view-btns container -->
-            <div class="filter-and-view-btns-container">
+            <div class="filter-and-view-sched-container">
               <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
                 <option value="all">All</option>
                 <option value="completed">Completed</option>
@@ -249,8 +248,6 @@
                 <option value="removed">Archive</option>
               </select>
               <button class="appointment-section__view-schedules-btn view-navigate-btn">View Schedules</button>
-              <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
-              <button class="appointment-section__view-appointments-btn view-navigate-btn">View Appointments</button>
             </div>
                 
             <!-- Add Appointments Form-->
@@ -694,10 +691,15 @@
                 </div>
               </div>
             </div>
-          </div>  
+          </div>
+
           <!-- Appointent Schedule Calendar -->
-          <div class="appointment-schedule-container">
+          <div class="appointment-schedule-content">
             <h1 class="section__heading">Appointments Schedule</h1>
+            <div class="view-btns-container">
+              <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
+              <button class="appointment-section__view-appointments-btn view-navigate-btn">View Appointments</button>
+            </div>
             <!-- service type identifier -->
             <div class="appointment-schedule-container__type-identifier service-type-identifier">
               <div class="appointment-schedule-container__type-identifier--dot"></div>
@@ -721,7 +723,7 @@
         </section>
 
         <!-- ========== Messages Section ========== -->
-        <section id="messages-section">
+        <section id="messages-section" class="hide">
           <h1 class="section__heading">Messages</h1>
           <div class="profile-view">
             <img class="profile-view__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user image" >
@@ -880,7 +882,7 @@
         </section>
 
          <!-- ========== Technecians Section ========== -->
-        <section id="technicians-section">
+        <section id="technicians-section" class="hide">
           <h1 class="section__heading">Technicians</h1>
           <button class="technicians-section__view-sched-btn">View Schedules</button>
           <div class="technician-list-container">
@@ -956,7 +958,7 @@
         </section>
 
          <!-- ========== Settings Section ========== -->
-        <section id="setting-section">
+        <section id="setting-section" class="hide">
           <h1 class="section__heading">Setting</h1>
           <div class="settings-container">
             <div class="settings-container__header">

@@ -8,9 +8,11 @@ export default function sideNavFuntionality() {
     nav.addEventListener('click', () => {
       sections.forEach(section => {
         const sectionId = section.id;
-
-        if(navValue === sectionId) section.style.display = 'block';
-        else section.style.display = 'none';
+        if(navValue === sectionId){section.classList.add('show')} 
+        else{   
+          section.classList.remove('show');
+          section.classList.add('hide')
+        } 
       });
 
       sideNavLinks.forEach(nav => nav.classList.remove('active'));

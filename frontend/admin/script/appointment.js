@@ -109,6 +109,42 @@ const searchAppointment = () => {
   });
 };
 
+const viewBtnsFunctionality = () => {
+  const appointmentTableContent = document.querySelector('.appointment-table-content');
+  const appointmentSchedContent = document.querySelector('.appointment-schedule-content');
+  const appointmentsSection = document.getElementById('appointments-section');
+  const techniciansSection = document.getElementById('technicians-section');
+
+  // Fixed the go to technicians section button
+  const viewSchedBtn = document.querySelector('.appointment-section__view-schedules-btn, .technicians-section__view-sched-btn')
+    .addEventListener('click', () => {
+      appointmentsSection.classList.add('show');
+      appointmentsSection.classList.remove('hide');
+
+      techniciansSection.classList.add('hide');
+      techniciansSection.classList.remove('show');
+
+      appointmentTableContent.style.display = 'none';
+      appointmentSchedContent.style.display = 'block';
+      console.log('okay')
+  });
+
+  const viewTableBtn = document.querySelector('.appointment-section__view-appointments-btn')
+    .addEventListener('click', () => {
+      appointmentTableContent.style.display = 'block';
+      appointmentSchedContent.style.display = 'none';
+  });
+
+  const viewTechniciansBtn = document.querySelector('.appointment-section__view-technicians-btn')
+    .addEventListener('click', () => {
+      appointmentsSection.classList.add('hide');
+      appointmentsSection.classList.remove('show');
+      
+      techniciansSection.classList.add('show');
+      techniciansSection.classList.remove('hide');
+  })
+
+}
 
 export default function handleAppointmentFunctionality() {
   appointmentStatusColor();
@@ -116,5 +152,6 @@ export default function handleAppointmentFunctionality() {
   addAppointment();
   toggleAppointentDetails();
   searchAppointment();
+  viewBtnsFunctionality();
 }
 
