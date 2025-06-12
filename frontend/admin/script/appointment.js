@@ -1,3 +1,6 @@
+import { updateSideNav } from "./sidenav.js";
+
+
 const toggleAppointentDetails = () => {
   const appointments = document.querySelectorAll('.appointment-table .appointment');
   appointments.forEach(appointment => {
@@ -39,11 +42,11 @@ const changeColorStatus = (value, element) =>{
 }
 
 const appointmentStatusColor = () => {
-  const appointments = document.querySelectorAll('.appointment-table .appointment'); 
+  const appointments = document.querySelectorAll('.appointment-table .appointment');
   appointments.forEach(appointment => {
     const status = appointment.querySelector('.status');
     const statusValue =  status.innerText.toLowerCase();
-    changeColorStatus(statusValue, status)
+    changeColorStatus(statusValue, status);
   });
 }
 
@@ -115,18 +118,10 @@ const viewBtnsFunctionality = () => {
   const appointmentsSection = document.getElementById('appointments-section');
   const techniciansSection = document.getElementById('technicians-section');
 
-  // Fixed the go to technicians section button
-  const viewSchedBtn = document.querySelector('.appointment-section__view-schedules-btn, .technicians-section__view-sched-btn')
+  const viewSchedBtn = document.querySelector('.appointment-section__view-schedules-btn')
     .addEventListener('click', () => {
-      appointmentsSection.classList.add('show');
-      appointmentsSection.classList.remove('hide');
-
-      techniciansSection.classList.add('hide');
-      techniciansSection.classList.remove('show');
-
       appointmentTableContent.style.display = 'none';
       appointmentSchedContent.style.display = 'block';
-      console.log('okay')
   });
 
   const viewTableBtn = document.querySelector('.appointment-section__view-appointments-btn')
@@ -142,7 +137,8 @@ const viewBtnsFunctionality = () => {
       
       techniciansSection.classList.add('show');
       techniciansSection.classList.remove('hide');
-  })
+      updateSideNav();
+  });
 
 }
 

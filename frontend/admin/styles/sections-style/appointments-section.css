@@ -109,12 +109,12 @@
 /* appointments table */
 .manage-appointments-table {
   --elements-gap: 1.7rem;
-  --firstname-width: 160px;
-  --lastname-width: 160px;
-  --contact-width: 130px;
-  --date-time-width: 230px;
-  --status-width: 170px;
-  --action-width: 170px;
+  --firstname-width: 150px;
+  --lastname-width: 150px;
+  --appointment-name-width: 200px;
+  --date-time-width: 200px;
+  --status-width: 150px;
+  --action-width: 150px;
   --view-width: 50px;
 
   display: block;
@@ -150,9 +150,9 @@
   width: var(--lastname-width);
   max-width: var(--lastname-width);
 }
-.manage-appointments-table__thead .th.contact {
-  width: var(--contact-width);
-  max-width: var(--contact-width);
+.manage-appointments-table__thead .th.appointment-name {
+  width: var(--appointment-name-width);
+  max-width: var(--appointment-name-width);
 }
 .manage-appointments-table__thead .th.date-time {
   width: var(--date-time-width);
@@ -207,9 +207,9 @@
   width: var(--lastname-width);
   max-width: var(--lastname-width);
 }
-.manage-appointments-table__tbody .td.contact {
-  width: var(--contact-width);
-  max-width: var(--contact-width);
+.manage-appointments-table__tbody .td.appointment-name {
+  width: var(--appointment-name-width);
+  max-width: var(--appointment-name-width);
 }
 .manage-appointments-table__tbody .td.date-time {
   width: var(--date-time-width);

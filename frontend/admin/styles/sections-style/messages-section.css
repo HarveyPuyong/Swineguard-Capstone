@@ -16,6 +16,10 @@
   z-index: 3;
 }
 
+.profile-view.show{
+  display: flex;
+}
+
 .profile-view__user-image{
   width: 100px;
   border-radius: 50%;

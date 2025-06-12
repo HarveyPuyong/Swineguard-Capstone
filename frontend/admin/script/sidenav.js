@@ -1,4 +1,23 @@
-export default function sideNavFuntionality() {
+const updateSideNav = () => {
+  const sections = document.querySelectorAll('section');
+  const sideNavLinks = document.querySelectorAll('.side-nav__link');
+  sections.forEach(section => {
+    const activeSection = section.classList.contains('show');
+
+    if(activeSection){
+      sideNavLinks.forEach(nav => {
+        const navValue = nav.getAttribute('data-value');
+
+        
+        if(section.id === navValue) nav.classList.add('active')
+        else nav.classList.remove('active')
+      });
+    }
+  });
+}
+
+
+function sideNavFuntionality() {
   const sideNavLinks = document.querySelectorAll('.side-nav__link');
   const sections = document.querySelectorAll('section')
 
@@ -15,8 +34,10 @@ export default function sideNavFuntionality() {
         } 
       });
 
-      sideNavLinks.forEach(nav => nav.classList.remove('active'));
-      nav.classList.add('active')
+      updateSideNav();
     });
   });
 }
+
+
+export {updateSideNav, sideNavFuntionality}

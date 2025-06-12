@@ -12,6 +12,18 @@ const showChabox = () => {
 }
 
 
+const viewProfile = () => {
+  const userProfile = document.querySelector('#messages-section .profile-view');
+
+  const userImg = document.querySelector('.chat-box__header-user-img')
+    .addEventListener('click', () => userProfile.classList.add('show'));
+
+  const profileviewBackBtn = document.querySelector('.profile-view__back-btn')
+    .addEventListener('click', () => userProfile.classList.remove('show'))
+}
+
+
 export default function messageFunctionality() {
   showChabox();
+  viewProfile();
 }
