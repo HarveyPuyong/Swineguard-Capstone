@@ -1,5 +1,7 @@
 
-// Show and hide password 
+// ======================================
+// ========== Toggle Password Visibility
+// ======================================
 const passwordInput = document.getElementById('password-input');
 const togglePassword = document.querySelector('.toggle-password-eye');
 

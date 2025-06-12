@@ -1,5 +1,7 @@
-
-const showChabox = () => {
+// ======================================
+// ========== Show Convo Box
+// ======================================
+const showConvoBox = () => {
   const usersList = document.querySelectorAll('.sidebar-chat-panel .chat-list__user');
   usersList.forEach(user => {
     user.addEventListener('click', () => {
@@ -11,7 +13,9 @@ const showChabox = () => {
   });
 }
 
-
+// ======================================
+// ========== View Profile
+// ======================================
 const viewProfile = () => {
   const userProfile = document.querySelector('#messages-section .profile-view');
 
@@ -23,7 +27,10 @@ const viewProfile = () => {
 }
 
 
-export default function messageFunctionality() {
-  showChabox();
+// ======================================
+// ========== Main Function - Setup Messages Section
+// ======================================
+export default function setupMessagesSection() {
+  showConvoBox();
   viewProfile();
 }

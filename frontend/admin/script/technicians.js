@@ -1,5 +1,9 @@
-import { updateSideNav } from "./sidenav.js";
+import updateSidenav from "../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
 
+
+// ======================================
+// ========== View Appointments Schedule Calendar
+// ======================================
 const viewAppointmentSchedule = () => {
   const appointmentTableContent = document.querySelector('.appointment-table-content');
   const appointmentSchedContent = document.querySelector('.appointment-schedule-content');
@@ -17,11 +21,14 @@ const viewAppointmentSchedule = () => {
       appointmentTableContent.style.display = 'none';
       appointmentSchedContent.style.display = 'block';
 
-      updateSideNav();
+      updateSidenav();
   });
 }
 
 
-export default function handleTechnicianFunctionality() {
+// ======================================
+// ========== Main Function - Setup Technicians Section
+// ======================================
+export default function setupTechniciansSection() {
   viewAppointmentSchedule();
 }

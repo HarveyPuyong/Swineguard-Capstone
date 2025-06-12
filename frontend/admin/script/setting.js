@@ -1,3 +1,6 @@
+// ======================================
+// ========== Edit Admin Details
+// ======================================
 const editAdminDetails = () => {
   const editableDetails = document.querySelectorAll('.settings-container__details-list .admin-detail.editable');
 
@@ -30,6 +33,10 @@ const editAdminDetails = () => {
   });
 }
 
-export default function handleSettingsFunctionality() {
+
+// ======================================
+// ========== Main Function - Setup Settings Section
+// ======================================
+export default function setupSettingsSection() {
   editAdminDetails();
 }

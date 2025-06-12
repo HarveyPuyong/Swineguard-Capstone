@@ -1,6 +1,3 @@
-
-
-
 // inventory switching table
 const inventoryNavLinks = document.querySelectorAll('.inventory-nav__link');
 const inventoryTables = document.querySelectorAll('.inventory-table');

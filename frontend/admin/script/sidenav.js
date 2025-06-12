@@ -1,23 +1,6 @@
-const updateSideNav = () => {
-  const sections = document.querySelectorAll('section');
-  const sideNavLinks = document.querySelectorAll('.side-nav__link');
-  sections.forEach(section => {
-    const activeSection = section.classList.contains('show');
+import updateSidenav from "../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
 
-    if(activeSection){
-      sideNavLinks.forEach(nav => {
-        const navValue = nav.getAttribute('data-value');
-
-        
-        if(section.id === navValue) nav.classList.add('active')
-        else nav.classList.remove('active')
-      });
-    }
-  });
-}
-
-
-function sideNavFuntionality() {
+export default function sideNavFuntionality() {
   const sideNavLinks = document.querySelectorAll('.side-nav__link');
   const sections = document.querySelectorAll('section')
 
@@ -34,10 +17,10 @@ function sideNavFuntionality() {
         } 
       });
 
-      updateSideNav();
+      updateSidenav();
     });
   });
 }
 
 
-export {updateSideNav, sideNavFuntionality}
+
