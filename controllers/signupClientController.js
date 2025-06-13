@@ -53,7 +53,7 @@ const signupController = async (req, res) => {
     );
 
     // gumawa ako ng userName para lang alagay ko sa tokens
-    const userName = `${newClient.firstName}, ${newClient.lastName}`
+    const userName = `${newClient.firstName}, ${newClient.lastName}`;
 
     //nasa utils folder pala ngani yung generateAccessToke function, don ko nalagay yung mga reuseable functions
     const accessToken = generateAccessToken(process.env.ACCESS_TOKEN_SECRET,

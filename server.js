@@ -32,6 +32,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/signup', require('./routes/signupClientRoute')); //kapag ga test ka, ito alagay mo sa url ng postman or thunder client👉 http://localhost:2500/signup "post" yung request
+app.use('/login', require('./routes/loginClientRoute'));
 
 
 mongoose.connection.once('open', () => {
