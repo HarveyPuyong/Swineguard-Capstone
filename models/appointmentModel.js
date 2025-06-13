@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const appointmentModel = new mongoose.Schema({
+const appointmentSchema = new mongoose.Schema({
     appointmentTitle: { type: String, required: true },
     appointmentType: {type: String, required: true },
     swineType: { type: String, required: true },
@@ -30,4 +30,4 @@ const appointmentModel = new mongoose.Schema({
     
 }, { collection: 'appointments' });
 
-module.exports = mongoose.model('Appointment', appointmentModel);
+module.exports = mongoose.model('Appointment', appointmentSchema);

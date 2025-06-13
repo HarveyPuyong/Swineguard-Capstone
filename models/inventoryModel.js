@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const inventoryModel = new mongoose.Schema({
+const inventorySchema = new mongoose.Schema({
 
     itemName: { type: String, required: true },
     amount: { type: Number, required: true },
@@ -18,4 +18,4 @@ const inventoryModel = new mongoose.Schema({
 
 }, { collection: 'inventories' });
 
-module.exports = mongoose.model('Inventory', inventoryModel);
+module.exports = mongoose.model('Inventory', inventorySchema);
