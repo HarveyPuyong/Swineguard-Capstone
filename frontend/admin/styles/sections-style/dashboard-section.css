@@ -54,7 +54,7 @@
   overflow: hidden;
 }
 
-.dashboard__card.total-appointments{
+.dashboard__card.total-card{
   grid-row: span 2;
   background-color: #0F7E43;
   color: white;
@@ -112,19 +112,19 @@
   border: none;
 }
 
-.completed-appointments .dashboard__card-progress-value{
+.dashboard__card:nth-child(2) .dashboard__card-progress-value{
   background-color: #01ad51;
   width: 20%;
 }
-.pending-appointments .dashboard__card-progress-value{
+.dashboard__card:nth-child(3) .dashboard__card-progress-value{
   background-color: #424242;
   width: 30%;
 }
-.ongoing-appointments .dashboard__card-progress-value{
+.dashboard__card:nth-child(4) .dashboard__card-progress-value{
   background-color: #00a2ad;
   width: 60%;
 }
-.reschedule-appointments .dashboard__card-progress-value{
+.dashboard__card:nth-child(5) .dashboard__card-progress-value{
   background-color: #aeb101;
   width: 80%;
 }
@@ -148,16 +148,16 @@
   z-index: 10;
 }
 
-.completed-appointments .dashboard__card-progress-txt{
+.dashboard__card:nth-child(2) .dashboard__card-progress-txt{
   color: #01ad51;
 }
-.pending-appointments .dashboard__card-progress-txt{
+.dashboard__card:nth-child(3) .dashboard__card-progress-txt{
   color: #424242;
 }
-.ongoing-appointments .dashboard__card-progress-txt{
+.dashboard__card:nth-child(4) .dashboard__card-progress-txt{
   color: #00a2ad;
 }
-.reschedule-appointments .dashboard__card-progress-txt{
+.dashboard__card:nth-child(5) .dashboard__card-progress-txt{
   color: #aeb101;
 }
 

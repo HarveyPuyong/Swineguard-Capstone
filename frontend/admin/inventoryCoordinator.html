@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory Coordinator Page</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/side-nav.css">
+    <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
+    <link rel="stylesheet" href="styles/sections-style/setting-section.css">
+  </head>
+  <body>
+    <!-- ========== Header ========== -->
+    <header>
+        <div class="header__toggle-side-nav-icon">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="header__swine-logo">
+            <img class="header__swine-logo-img" src="images-and-icons/icons/swineGuard-logo.png" alt="img-logo">
+            <p class="header__swine-logo-label">Swine Guard</p>
+        </div>
+        <div class="header__admin-profile">
+          <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
+          <p class="header__admin-profile-label">Appointments Coordinator</p>
+          <i class="drop-down-icon fas fa-chevron-down "></i>
+        </div>
+    </header>
+    <main class="main-wrapper">
+      <!-- ========== Side nav ========== -->
+      <nav class="side-nav">
+        <ul class="side-nav__link-list">
+          <li class="side-nav__link active" data-value="dashboard-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/dashboard-icon.png" alt="dashboard-icon">
+            <p class="side-nav__link-label">Dashboard</p>
+          </li>
+          <li class="side-nav__link" data-value="inventory-section">
+            <img  class="side-nav__link-icon" src="images-and-icons/icons/appointment-icon.png" alt="inventory-icon">
+            <p class="side-nav__link-label">Inventory</p>
+          </li>
+          <li class="side-nav__link" data-value="setting-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="settings-icon">
+            <p class="side-nav__link-label">Settings</p>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- Gawin bukas, ayusin pa itong html structure -->
+      <div class="sections-wrapper">
+        <!-- ========== Dashboard Section ========== -->
+         <section id="dashboard-section" class="show">
+          <div class="inventory-dashboard dashboard">
+            <div class="dashboard__background"></div>
+            <h1 class="dashboard__heading">Dashboards</h1>
+            <div class="dashboard__cards-container">
+              <!-- totals stocks card -->
+              <div class="dashboard__card total-stocks total-card">
+                <img class="dashboard__card-icon" src="images-and-icons/icons/dashboard-icon.png" alt="calendar-icon">
+                <p class="dashboard__card-label">
+                  Total Stocks: 
+                  <span class="dashboard__card-label--value">750</span>
+                </p>
+              </div>
+              <!-- in-stocks card -->
+              <div class="dashboard__card In-stocks">
+                <p class="dashboard__card-label">
+                  In Stocks: 
+                  <span class="dashboard__card-label--value">45</span>
+                </p>
+                <div class="dashboard__card-progress-bar-container">
+                  <div class="dashboard__card-progress-bar">
+                    <div class="dashboard__card-progress-barOverflow"></div>
+                    <div class="dashboard__card-progress-value">10%</div>
+                  </div>
+                  <div class="dashboard__card-progress-slicer"></div>
+                  <p class="dashboard__card-progress-txt">10%</p>
+                </div>
+              </div>
+              <!-- out of stocks card -->
+              <div class="dashboard__card out-of-stocks">
+                <p class="dashboard__card-label">
+                  Out of Stocks: 
+                  <span class="dashboard__card-label--value">18</span>
+                </p>
+                <div class="dashboard__card-progress-bar-container">
+                  <div class="dashboard__card-progress-bar">
+                    <div class="dashboard__card-progress-barOverflow"></div>
+                    <div class="dashboard__card-progress-value"></div>
+                  </div>
+                  <div class="dashboard__card-progress-slicer"></div>
+                  <p class="dashboard__card-progress-txt">10%</p>
+                </div>
+              </div>
+              <!-- less stocks card -->
+              <div class="dashboard__card less-stocks">
+                <p class="dashboard__card-label">
+                  Less Stocks: 
+                  <span class="dashboard__card-label--value">18</span>
+                </p>
+                <div class="dashboard__card-progress-bar-container">
+                  <div class="dashboard__card-progress-bar">
+                    <div class="dashboard__card-progress-barOverflow"></div>
+                    <div class="dashboard__card-progress-value"></div>
+                  </div>
+                  <div class="dashboard__card-progress-slicer"></div>
+                  <p class="dashboard__card-progress-txt">10%</p>
+                </div>
+              </div>
+              <!-- expired stocks card -->
+              <div class="dashboard__card expired-stocks">
+                <p class="dashboard__card-label">
+                  Expired: 
+                  <span class="dashboard__card-label--value">18</span>
+                </p>
+                <div class="dashboard__card-progress-bar-container">
+                  <div class="dashboard__card-progress-bar">
+                    <div class="dashboard__card-progress-barOverflow"></div>
+                    <div class="dashboard__card-progress-value"></div>
+                  </div>
+                  <div class="dashboard__card-progress-slicer"></div>
+                  <p class="dashboard__card-progress-txt">10%</p>
+                </div>
+              </div>
+            </div>
+          </div>
+           <!-- less and out-of stock medicine table -->
+          <div class="less-stock-medicine-table-container">
+            <h1 class="less-stock-medicine-table-container__heading">Less and Out of Stock Medicine</h1>         
+            <div class="less-stock-medicine-table inventory-table">
+              <!-- table head -->
+              <div class="inventory-table__thead">
+                <p class="th id">ID</p>
+                <p class="th medicine-name">Medicine</p>
+                <p class="th medicine-dosage">Dosage</p>
+                <p class="th quantity">Quantity</p>
+                <p class="th exp-date">EXP. Date</p>
+                <p class="th status">Status</p>
+                <p class="th created-date">Created Date</p>
+                <p class="th updated-date">Updated Date</p>
+                <p class="th toggle-buttons-icon"></p>
+              </div>
+              <!-- table body -->
+              <div class="inventory-table__tbody"> 
+                <p class="td id">648f1b7c2a9f...</p>
+                <p class="td medicine-name">Coglapest</p>
+                <p class="td medicine-dosage">10mg</p>
+                <p class="td quantity">15</p>
+                <p class="td exp-date">01.01.2027</p>
+                <p class="td status">In Stock</p>
+                <p class="td created-date">01.01.2025</p>
+                <p class="td updated-date">02.01.2025</p>
+                <p class="td toggle-buttons-icon">
+                  <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
+                  <div class="buttons-container">
+                    <button id="restore-btn" type="button">Restore</button>
+                    <button id="delete-btn" type="button">Delete</button>
+                  </div>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== Inventory Section ========== -->
+        <section id="inventory-section" class="hide">
+        <h1 class="section__heading">Inventory</h1>
+        <!-- search and add-btn appointment -->
+        <div class="appointments-section__search-and-add-btn">
+          <div class="appointment-section__search">
+            <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+            <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+          </div>
+          <button class="appointment-section__add-btn">Add</button>
+        </div>
+
+        <!-- filter inventory -->
+        <select class="filter-inventory-status" name="appointment-inventory" id="inventory-filter">
+          <option value="all">All</option>
+          <option value="in-stock">In Stock</option>
+          <option value="less-stock">Less Stock</option>
+          <option value="out-of-stock">Out of Stock</option>
+          <option value="expired">Expired</option>
+          <option value="removed">Archive</option>
+        </select>
+
+        <!-- inventory table -->         
+        <div class="inventory-table">
+          <!-- table head -->
+          <div class="inventory-table__thead">
+            <p class="th id">ID</p>
+            <p class="th medicine-name">Medicine</p>
+            <p class="th medicine-dosage">Dosage</p>
+            <p class="th quantity">Quantity</p>
+            <p class="th exp-date">EXP. Date</p>
+            <p class="th status">Status</p>
+            <p class="th created-date">Created Date</p>
+            <p class="th updated-date">Updated Date</p>
+            <p class="th toggle-buttons-icon"></p>
+          </div>
+          <!-- table body -->
+          <div class="inventory-table__tbody"> 
+            <p class="td id">648f1b7c2a9f...</p>
+            <p class="td medicine-name">Coglapest</p>
+            <p class="td medicine-dosage">10mg</p>
+            <p class="td quantity">15</p>
+            <p class="td exp-date">01.01.2027</p>
+            <p class="td status">In Stock</p>
+            <p class="td created-date">01.01.2025</p>
+            <p class="td updated-date">02.01.2025</p>
+            <p class="td toggle-buttons-icon">
+              <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
+              <div class="buttons-container">
+                <button id="restore-btn" type="button">Restore</button>
+                <button id="delete-btn" type="button">Delete</button>
+              </div>
+            </p>
+          </div>
+        </div>
+        </section>
+
+         <!-- ========== Settings Section ========== -->
+        <section id="setting-section" class="hide">
+          <h1 class="section__heading">Setting</h1>
+          <div class="settings-container">
+            <div class="settings-container__header">
+              <p class="settings-container__header-heading">Profile</p>
+              <button class="settings-container__header-logout-btn">Logout</button>
+            </div>
+            <form class="settings-container__details-list">
+              <div class="admin-image detail">
+                <img src="images-and-icons/images/money-admin-profile.jpg" alt="Profile Picture"/>
+                <label class="admin-image__upload-btn">
+                  <input type="file" hidden />
+                  <i class="fas fa-upload"></i> Upload
+                </label>
+              </div>
+              <div class="admin-detail detail">
+                <p class="admin-detail-label">ID:</p>
+                <p class="admin-detail-value">01235678</p>
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Name:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Inventory Coordinator" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Contact:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="09123456789" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Address:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Bangbangalon , Boac, Marinduque" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Email:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="pvet.staff2@gmail.com" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Password:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Admin Password" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+            </form>
+          </div>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
