@@ -1,10 +1,12 @@
+require('dotenv').config();
+
 const Express = require('express');
 const app = Express();
 const path = require('path');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
-require('dotenv').config();
+
 const {logger} =  require('./middlewares/logEvents');
 const errorHandler = require('./middlewares/errorHandler');
 const credentials = require('./middlewares/credentials');
@@ -31,8 +33,17 @@ app.get('/', (req, res) => {
   res.send('Kupal')
 });
 
-app.use('/signup', require('./routes/signupClientRoute')); //kapag ga test ka, ito alagay mo sa url ng postman or thunder client👉 http://localhost:2500/signup "post" yung request
+// Signup Routing
+app.use('/signup', require('./routes/signupClientRoute')); 
+
+// Login routings
 app.use('/login', require('./routes/loginClientRoute'));
+
+//Messages Routing
+app.use('/send-message', require('./routes/messageRoute'));
+
+//Invtory routings
+app.use('/add-item', require('./routes/inventoryRoute'));
 
 
 mongoose.connection.once('open', () => {
