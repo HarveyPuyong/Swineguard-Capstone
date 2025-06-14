@@ -223,3 +223,17 @@
   padding: 0 50px;
   padding-top: 30px;
 }
+
+
+/* Less Stock Medicine Table */
+.less-stock-medicine-table-container{
+  padding: 0 var(--side-spacing);
+  padding-top: 17px;
+  padding-bottom: 20px;
+}
+
+.less-stock-medicine-table-container__heading{
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}

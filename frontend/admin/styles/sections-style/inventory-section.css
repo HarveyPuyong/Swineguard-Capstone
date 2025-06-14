@@ -1,43 +1,16 @@
-#inventory-section{
-  display: block;
-}
 
-.section__heading{
-  padding-top: 5px;
-  margin-bottom: 1.2rem;
-}
-
-.inventory-nav{
-  display: flex;
-  gap: 1rem;
-  margin-left: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.inventory-nav__link{
-  cursor: pointer;
-}
-
-.inventory-nav__link.active{
-  color: var(--main-color);
-
-}
-
-/* Table */
+/* Table container */
 .inventory-table {
+  --id: 150px;
+  --medicine-name: 170px;
+  --medicine-dosage: 100px;
+  --quantity: 80px;
+  --exp-date: 130px;
+  --status: 120px;
+  --created-date: 130px;
+  --updated-date: 130px;
+  --toggle-buttons-icon: 30px;
   --elements-gap: 1.7rem;
-  --left-side-space: 20px;
-
-  --item-number-width: 100px;     /* Item# */
-  --name-width: 160px;            /* Name */
-  --description-width: 150px;     /* Description */
-  --amount-width: 65px;          /* Amount */
-  --dose-quantity: 58px;          /* Dose Quantity */
-  --dose-total: 90px;            /* Dose Value */
-  --expiration-width: 110px;      /* Exp Date */
-  --stock-status-width: 75px;     /* Stock Status */
-  --status-width: 20px;           /* Status */       
-  --actions-width: 20px;          /* Actions */
 
   display: flex;
   flex-direction: column;
@@ -46,223 +19,130 @@
   height: 33rem;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.209);
   border-radius: 8px;
-  padding: 10px 20px;
   overflow-y: hidden;
-  font-size: 0.85rem;
+  font-size: 14.4px;
+  text-align: center;
+  padding: 20px 25px;
+  gap: 0.5rem;
+}
+
+
+.inventory-table__thead,
+.inventory-table__tbody-medicine {
+  display: flex;
+  gap: var(--elements-gap);
   text-align: center;
 }
 
-.inventory-table--vitamins{
-  display: none;
+.inventory-table__thead{
+  margin-bottom: 8px;
+  padding: 0 20px;
 }
 
-/* Table control panel */
-.inventory-table__control-panel{
+.inventory-table__tbody{
   display: flex;
-  gap: 20px;
-  align-items: center;
-  font-size: 0.9rem;
-  height: 33px;
-  padding-left: 1rem;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  scrollbar-width: thin;
 }
 
-.control-panel__table-name{
-  color: var(--main-color);
-  font-size: 1.4rem;
-  margin-right: auto;
-}
-
-.control-panel__search{
+.inventory-table__tbody-medicine{
   position: relative;
   background-color: #D9D9D9;
-  width: 200px;
-  border-radius: 5px;
-  height: 100%;
+  padding: 18px 20px;
+  overflow:visible;
 }
 
-.control-panel__search-icon {
-  --size: 17px;
-
-  position: absolute;
-  left: 5%;
-  top: 50%;
-  transform: translateY(-50%);
-  height: var(--size);
-  width: var(--size);
-  filter: brightness(0) saturate(0%) opacity(0.6); /* light gray look */
+.inventory-table__thead .th{
+  font-weight: 500;
 }
 
-.control-panel__search-input{
-  background-color: transparent;
-  border: none;
-  height: 100%;
-  width: 80%;
-  margin-left: 18%;
+.inventory-table .th.id,
+.inventory-table .td.id {
+  width: var(--id);
 }
 
-.control-panel__search-input:focus {
-  outline: none;
-  box-shadow: none; 
+.inventory-table .th.medicine-name,
+.inventory-table .td.medicine-name {
+  width: var(--medicine-name);
 }
 
-.control-panel__sort{
-  --border-color: #787878;
-  display: flex;
-  align-items: center;
-  border: 1px solid var(--border-color);
-  border-radius: 5px;
-  height: 100%;
-  padding: 0 8px;
+.inventory-table .th.medicine-dosage,
+.inventory-table .td.medicine-dosage {
+  width: var(--medicine-dosage);
 }
 
-.control-panel__sort-label{
-  color: var(--border-color);
+.inventory-table .th.quantity,
+.inventory-table .td.quantity {
+  width: var(--quantity);
 }
 
-.control-panel__sort-select-category{
-  border: none;
-  padding: 0 5px;
-  color: rgb(114, 114, 114);
+.inventory-table .th.exp-date,
+.inventory-table .td.exp-date {
+  width: var(--exp-date);
 }
 
-.control-panel__add-btn{
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  color: white;
-  background-color: #2FC375;
-  border-radius: 5px;
-  height: 100%;
-  padding: 0 10px;
+.inventory-table .th.status,
+.inventory-table .td.status {
+  width: var(--status);
+}
+
+.inventory-table .th.created-date,
+.inventory-table .td.created-date {
+  width: var(--created-date);
+}
+
+.inventory-table .th.updated-date,
+.inventory-table .td.updated-date {
+  width: var(--updated-date);
+}
+
+.inventory-table .th.toggle-buttons-icon,
+.inventory-table .td.toggle-buttons-icon {
+  width: var(--toggle-buttons-icon);
+}
+
+.toggle-buttons-icon{
   cursor: pointer;
 }
 
-
-/* table head */
-.inventory-table__thead {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  gap: var(--elements-gap);
-  width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, 0.349);
-  border-bottom: 1px solid rgba(0, 0, 0, 0.349);
-  color: #787878;
-  margin-top: 10px;
-  padding: 15px;
-  padding-left: var(--left-side-space);
-}
-
-.inventory-table__thead .th--item-number {
-  width: var(--item-number-width);
-}
-
-.inventory-table__thead .th--name {
-  width: var(--name-width);
-}
-
-.inventory-table__thead .th--description {
-  width: var(--description-width);
-}
-
-.inventory-table__thead .th--amount {
-  width: var(--amount-width);
-}
-
-.inventory-table__thead .th--dose-quantity {
-  width: var(--dose-quantity);
-}
-
-.inventory-table__thead .th--dose-total {
-  width: var(--dose-total);
-}
-
-.inventory-table__thead .th--expiration {
-  width: var(--expiration-width);
-}
-
-.inventory-table__thead .th--stock-status {
-  width: var(--stock-status-width);
-}
-
-.inventory-table__thead .th-status {
-  width: var(--status-width);
-}
-
-.inventory-table__thead .th--actions {
-  width: var(--actions-width);
-}
-
-
-/* Table body */
-.inventory-table__tbody{
-  width: 100%;
-  height: 100%;
-  overflow-y: scroll;
-  flex-grow: 1;
-  overflow-y: auto;
-}
-
-.inventory-table__tbody .table-body__table-row{
-  background-color: #D9D9D9;
-  display: flex;
-  gap: var(--elements-gap);
-  align-items: center;
-  width: 100%;
-  border-bottom: 1.5px solid rgba(22, 22, 22, 0.287);
-  padding: 15px;
-  padding-left: var(--left-side-space);
-  transition: 0.2s;
-}
-
-.inventory-table__tbody .table-body__table-row:hover{
-  background-color: #a3a3a3;
-}
-
-.inventory-table__tbody .td--item-number {
-  width: var(--item-number-width);
-}
-
-.inventory-table__tbody .td--name {
-  width: var(--name-width);
-}
-
-.inventory-table__tbody .td--description {
-  width: var(--description-width);
-}
-
-.inventory-table__tbody .td--amount {
-  width: var(--amount-width);
-}
-
-.inventory-table__tbody .td--dose-quantity {
-  width: var(--dose-quantity);
-}
-
-.inventory-table__tbody .td--dose-total {
-  width: var(--dose-total);
-}
-
-.inventory-table__tbody .td--expiration {
-  width: var(--expiration-width);
-}
-
-.inventory-table__tbody .td--stock-status {
-  width: var(--stock-status-width);
-}
-
-.inventory-table__tbody .td-status {
-  width: var(--status-width);
-}
-
-.inventory-table__tbody .td--actions {
-  width: var(--actions-width);
-  cursor: pointer;
-}
-
-.td--actions .buttons-container{
+.inventory-table__tbody-medicine .buttons-container{
   display: none;
+  position: absolute;
+  right: 75px;
+  top: -6.8px;
+  flex-direction: column;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  border: 2px solid #9A9A9A;
+  width: fit-content;
 }
 
+.inventory-table__tbody-medicine .buttons-container.show{
+  display: flex;
+}
 
+.inventory-table__tbody-medicine .buttons-container button{
+  color: black;
+  border: none;
+  padding: 3.1px 15px;
+  background-color: #ECECEC;
+  cursor: pointer;
+  transition: 0.1s;
+}
 
+.inventory-table__tbody-medicine .buttons-container button:hover{
+  background-color: #9A9A9A;
+}
+
+.inventory-table__tbody-medicine .buttons-container button:first-child{
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border-bottom: 1.6px solid #9A9A9A;;
+}
+.inventory-table__tbody-medicine .buttons-container button:nth-child(2){
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
