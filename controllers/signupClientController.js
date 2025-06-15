@@ -1,6 +1,6 @@
 const bcrypt =  require('bcrypt');
 const ROLE_LIST = require('./../config/role_list');
-const User = require('./../models/userModel');
+const UserDB = require('./../models/userModel');
 const {generateAccessToken, generateRefreshToken} = require('./../utils/generateTokens'); //na import yung generate tokens sa utils folder
 
 const signupController = async (req, res) => {
@@ -25,8 +25,8 @@ const signupController = async (req, res) => {
 
   try{
     const [duplicateFullname, duplicateEmail] = await Promise.all([
-      User.findOne({ firstName, middleName, lastName, suffix }).exec(), //binuo ko pala yung fullname hahahha
-      User.findOne({email}).exec(),
+      UserDB.findOne({ firstName, middleName, lastName, suffix }).exec(), //binuo ko pala yung fullname hahahha
+      UserDB.findOne({email}).exec(),
     ]);
 
     //kapag may duplicate na fullname at email ga error meesage
@@ -37,7 +37,7 @@ const signupController = async (req, res) => {
     const hashPassword = await bcrypt.hash(password, 10);
 
     //a create yung newClient sa usersCollection. kupal, ano mas okay na naming userDB o usersCollection?
-    const newClient = new User(
+    const newClient = new UserDB(
       {
         "firstName": firstName,
         "middleName": middleName,
