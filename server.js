@@ -33,17 +33,20 @@ app.get('/', (req, res) => {
   res.send('Kupal')
 });
 
-// Signup Routing
+// Signup routing
 app.use('/signup', require('./routes/signupClientRoute')); 
 
 // Login routings
 app.use('/login', require('./routes/loginClientRoute'));
 
-//Messages Routing
+//Messages routing
 app.use('/send-message', require('./routes/messageRoute'));
 
 //Invtory routings
 app.use('/add-item', require('./routes/inventoryRoute'));
+
+//Logout routing
+app.use('/logout', require('./routes/logoutRoute'));
 
 
 mongoose.connection.once('open', () => {
