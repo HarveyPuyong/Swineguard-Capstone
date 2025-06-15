@@ -3,7 +3,6 @@
 
   padding: 0;
   margin-left: 80px;
-  background-color: white;
 }
 
 .dashboard{
@@ -161,7 +160,7 @@
   color: #aeb101;
 }
 
-/* Ongoing Apointemts Table */
+/* Ongoing Apointemts Table Container */
 .ongoing-appointments-table-container{
   padding: 0 var(--side-spacing);
   padding-top: 17px;
@@ -172,56 +171,6 @@
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 20px;
-}
-
-.ongoing-appointments-table{
-  width: 100%;
-}
-
-.ongoing-appointments-table .appointment .appointment__details{
-  display: flex;
-  text-align: center;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  background-color: #d2d2d2cc;
-  border-radius: 3px;
-  padding: 13px 50px;
-  font-size: 0.9rem;
-}
-
-.ongoing-appointments-table .td.status{
-  --color: #3777FF;
-  --BGcolor: #4982fe3c;
-
-  border: 1px solid var(--color);
-  color: var(--color);
-  background-color: var(--BGcolor);
-  border-radius: 3px;
-  padding: 4px 0;
-  width: 120px;
-}
-
-.ongoing-appointments-table .td.action select{
-  border-radius: 3px;
-  background-color: transparent;
-  width: 130px;
-  padding: 2px 0;
-  padding-left: 13px;
-}
-
-.td.toggle-more-details-btn{
-  color: #009947;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.ongoing-appointments-table .appointment__more-details{
-  display: none;
-  background-color: #d2d2d2cc;
-  height: 19rem;
-  padding: 0 50px;
-  padding-top: 30px;
 }
 
 

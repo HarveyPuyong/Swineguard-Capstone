@@ -141,14 +141,23 @@
           <!-- Ongoing Appointment Table -->
           <div class="ongoing-appointments-table-container">
             <h1 class="ongoing-appointments-table-container__heading">Today Ongoing Appointment</h1>
-            <div class="ongoing-appointments-table appointment-table">
-              <div class="ongoing-appointments-table__tbody"> <!-- table body -->
+             <div class="ongoing-appointment-table appointment-table">
+              <div class="appointment-table__thead"> <!-- table head -->
+                <p class="th first-name">First Name</p>
+                <p class="th last-name">Last Name</p>
+                <p class="th appointment-name">Appointment</p>
+                <p class="th date-time">Date & Time</p>
+                <p class="th status">Status</p>
+                <p class="th action">Action</p>
+                <p class="th toggle-more-details-btn"><!--View button head--></p> 
+              </div>
+              <div class="appointment-table__tbody"> 
                 <div class="appointment">
                   <div class="appointment__details">
-                    <p class="td appointment-name">Deworming</p>
                     <p class="td first-name">John Harvey</p>
                     <p class="td last-name">Puyong</p>
-                    <p class="td schedule">12-03-2025 at 10:00 AM</p>
+                    <p class="td appointment-name">Iron Supplementation</p>
+                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
                     <p class="td status">Ongoing</p>
                     <p class="td action">
                       <select class="select-appointment-action" name="appointment-action" id="appointment-action">
@@ -158,61 +167,71 @@
                         <option value="remove">Remove</option>
                       </select>
                     </p>
-                    <p class="td toggle-more-details-btn">View</p>  
+                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
                   </div>
                   <div class="appointment__more-details">
                     <div class="appointment__more-details-heading">Appointment Details:</div>
-                    <div class="appointment__more-details-columns">      
+                    <div class="appointment__more-details-columns">
+                      <!-- more details left column -->
                       <div class="column left">
                         <p class="column__detail">
                           <span class="column__detail-label">Appointment ID:</span>
                           <span class="column__detail-value">10023450QPAL</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Email:</span>
-                          <span class="column__detail-value">john.doe@gmail.com</span>
+                          <span class="column__detail-label">Appointment Type:</span>
+                          <span class="column__detail-value">Visit</span>
                         </p>
                         <p class="column__detail">
                           <span class="column__detail-label">Contact:</span>
-                          <span class="column__detail-value appointment-date-send">09123456789</span>
+                          <span class="column__detail-value">09123456789</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Date Sent:</span>
-                          <span class="column__detail-value">05-03-2025 at 10:00 AM</span>
+                          <span class="column__detail-label">Date sent:</span>
+                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Address:</span>
+                          <span class="column__detail-label">Actual Schedule:</span>
+                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Adress:</span>
                           <span class="column__detail-value">Santol, Boac, Marinduqe</span>
                         </p>
                       </div>
-                      <div class="column right">
+                      <!-- more details right column -->
+                      <div class="column right"> 
                         <p class="column__detail">
                           <span class="column__detail-label">Type:</span>
                           <span class="column__detail-value">Piglet</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Vaccine:</span>
+                          <span class="column__detail-label">Vaccine</span>
                           <span class="column__detail-value">Iron Dextran (FeDex)</span>
                         </p>
                         <p class="column__detail">
                           <span class="column__detail-label">Amount:</span>
-                          <span class="column__detail-value">500 mg</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Heads:</span>
-                          <span class="column__detail-value">5</span>
+                          <span class="column__detail-value">500mg</span>
                         </p>
                         <p class="column__detail">
                           <span class="column__detail-label">Personnel:</span>
                           <span class="column__detail-value">Doc. Josue M. Victoria</span>
                         </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Email:</span>
+                          <span class="column__detail-value">john.doe@gmail.com</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Phone:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
                       </div>
                     </div>
                     <div class="buttons-container">
-                      <button class="completed-btn btn">Completed</button>
-                      <button class="reschedule-btn btn">Set Schedule</button>
-                      <button class="restore-btn btn">Restore</button>
-                      <button class="delete-btn btn">Delete</button>
+                        <button class="completed-btn btn">Completed</button>
+                        <button class="reschedule-btn btn">Set Schedule</button>
+                        <button class="restore-btn btn">Restore</button>
+                        <button class="delete-btn btn">Delete</button>
                     </div>
                   </div>
                 </div>
@@ -343,8 +362,8 @@
             </form>
 
             <!-- Appointment Table -->
-            <div class="manage-appointments-table appointment-table">
-              <div class="manage-appointments-table__thead"> <!-- table head -->
+            <div class="appointment-table">
+              <div class="appointment-table__thead"> <!-- table head -->
                 <p class="th first-name">First Name</p>
                 <p class="th last-name">Last Name</p>
                 <p class="th appointment-name">Appointment</p>
@@ -353,7 +372,7 @@
                 <p class="th action">Action</p>
                 <p class="th toggle-more-details-btn"><!--View button head--></p> 
               </div>
-              <div class="manage-appointments-table__tbody"> 
+              <div class="appointment-table__tbody"> 
                 <div class="appointment">
                   <div class="appointment__details">
                     <p class="td first-name">John Harvey</p>
