@@ -27,7 +27,7 @@
         </div>
         <div class="header__admin-profile">
           <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
-          <p class="header__admin-profile-label">Appointments Coordinator</p>
+          <p class="header__admin-profile-label">Inventory Coordinator</p>
           <i class="drop-down-icon fas fa-chevron-down "></i>
         </div>
     </header>
@@ -52,7 +52,8 @@
       
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-         <section id="dashboard-section" class="show">
+         <section id="dashboard-section" class="hide">
+          <!-- dashboard cards-->
           <div class="inventory-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
@@ -128,100 +129,139 @@
             </div>
           </div>
            <!-- less and out-of stock medicine table -->
-          <div class="less-stock-medicine-table-container">
-            <h1 class="less-stock-medicine-table-container__heading">Less and Out of Stock Medicine</h1>         
-            <div class="less-stock-medicine-table inventory-table">
-              <!-- table head -->
-              <div class="inventory-table__thead">
-                <p class="th id">ID</p>
-                <p class="th medicine-name">Medicine</p>
-                <p class="th medicine-dosage">Dosage</p>
-                <p class="th quantity">Quantity</p>
-                <p class="th exp-date">Status</p>
-                <p class="th status">EXP. Date</p>
-                <p class="th created-date">Created Date</p>
-                <p class="th updated-date">Updated Date</p>
-                <p class="th toggle-buttons-icon"></p>
-              </div>
-              <!-- table body -->
-              <div class="inventory-table__tbody"> 
-                <div class="inventory-table__tbody-medicine">
-                  <p class="td id">648f1b7c2a9f...</p>
-                  <p class="td medicine-name">Coglapest</p>
-                  <p class="td medicine-dosage">10mg</p>
-                  <p class="td quantity">15</p>
-                  <p class="td status">In Stock</p>
-                  <p class="td exp-date">12-03-2026</p>
-                  <p class="td created-date">12-03-2025</p>
-                  <p class="td updated-date">12-08-2025</p>
-                  <p class="td toggle-buttons-icon">
-                    <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
-                    <div class="buttons-container">
-                      <button id="restore-btn" type="button">Restore</button>
-                      <button id="delete-btn" type="button">Delete</button>
-                    </div>
-                  </p>
-                </div>
+          <div class="less-stock-medicine-table inventory-table">
+            <!-- table head -->
+            <div class="inventory-table__thead">
+              <p class="th id">ID</p>
+              <p class="th medicine-name">Medicine</p>
+              <p class="th medicine-dosage">Dosage</p>
+              <p class="th quantity">Quantity</p>
+              <p class="th status">Status</p>
+              <p class="th exp-date">EXP. Date</p>
+              <p class="th created-date">Created Date</p>
+              <p class="th updated-date">Updated Date</p>
+              <p class="th toggle-buttons-icon"></p>
+            </div>
+            <!-- table body -->
+            <div class="inventory-table__tbody"> 
+              <div class="inventory-table__tbody-medicine">
+                <p class="td id">648f1b7c2a9f...</p>
+                <p class="td medicine-name">Coglapest</p>
+                <p class="td medicine-dosage">10mg</p>
+                <p class="td quantity">15</p>
+                <p class="td status">In Stock</p>
+                <p class="td exp-date">12-03-2026</p>
+                <p class="td created-date">12-03-2025</p>
+                <p class="td updated-date">12-08-2025</p>
+                <p class="td toggle-buttons-icon">
+                  <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
+                  <div class="buttons-container">
+                    <button id="restore-btn" type="button">Restore</button>
+                    <button id="delete-btn" type="button">Delete</button>
+                  </div>
+                </p>
               </div>
             </div>
           </div>
         </section>
 
         <!-- ========== Inventory Section ========== -->
-        <section id="inventory-section" class="hide">
-        <h1 class="section__heading">Inventory</h1>
-        <!-- search and add-btn appointment -->
-        <div class="appointments-section__search-and-add-btn">
-          <div class="appointment-section__search">
-            <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
-            <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+        <section id="inventory-section" class="show">
+          <h1 class="section__heading">Inventory</h1>
+          <!-- search and add-btn -->
+          <div class="inventory-section__search-and-add-btn">
+            <div class="inventory-section__search">
+              <img class="inventory-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+              <input class="inventory-section__search-input" type="text" placeholder="Search...">   
+            </div>
+            <button class="inventory-section__add-btn">Add</button>
           </div>
-          <button class="appointment-section__add-btn">Add</button>
-        </div>
 
-        <!-- filter inventory -->
-        <select class="filter-inventory-status" name="appointment-inventory" id="inventory-filter">
-          <option value="all">All</option>
-          <option value="in-stock">In Stock</option>
-          <option value="less-stock">Less Stock</option>
-          <option value="out-of-stock">Out of Stock</option>
-          <option value="expired">Expired</option>
-          <option value="removed">Archive</option>
-        </select>
+          <!-- filter inventory -->
+          <select class="filter-inventory-status" name="inventory-filter" id="inventory-filter">
+            <option value="all">All</option>
+            <option value="in-stock">In Stock</option>
+            <option value="less-stock">Less Stock</option>
+            <option value="out-of-stock">Out of Stock</option>
+            <option value="expired">Expired</option>
+            <option value="removed">Archive</option>
+          </select>
 
-        <!-- inventory table -->         
-        <div class="inventory-table">
-          <!-- table head -->
-          <div class="inventory-table__thead">
-            <p class="th id">ID</p>
-            <p class="th medicine-name">Medicine</p>
-            <p class="th medicine-dosage">Dosage</p>
-            <p class="th quantity">Quantity</p>
-            <p class="th exp-date">EXP. Date</p>
-            <p class="th status">Status</p>
-            <p class="th created-date">Created Date</p>
-            <p class="th updated-date">Updated Date</p>
-            <p class="th toggle-buttons-icon"></p>
-          </div>
-          <!-- table body -->
-          <div class="inventory-table__tbody"> 
-            <p class="td id">648f1b7c2a9f...</p>
-            <p class="td medicine-name">Coglapest</p>
-            <p class="td medicine-dosage">10mg</p>
-            <p class="td quantity">15</p>
-            <p class="td exp-date">01.01.2027</p>
-            <p class="td status">In Stock</p>
-            <p class="td created-date">01.01.2025</p>
-            <p class="td updated-date">02.01.2025</p>
-            <p class="td toggle-buttons-icon">
-              <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
-              <div class="buttons-container">
-                <button id="restore-btn" type="button">Restore</button>
-                <button id="delete-btn" type="button">Delete</button>
+          <!-- add medicine form -->
+          <form id="add-medicine-form" class="add-medicine-form">
+            <h1 class="add-medicine-form__heading">Add Medicine Form</h1>
+            <label for="medicine-name-input">
+              Medicine Name <br>
+              <input id="medicine-name-input" placeholder="Enter medicine name here" type="text">
+            </label>         
+            <div class="add-medicine-form__group"> <!--  dosage input & select medicine type -->
+              <label for="dosage-input">
+                Dosage <br>
+                 <input id="dosage-input" placeholder="enter dosage here" type="number">
+              </label>              
+              <label for="select-medicine-type">
+                Type <br>
+                <select id="select-medicine-type" name="select-medicine-type">
+                  <option value="">Medicine Type</option>
+                  <option value="deworm">Deworm</option>
+                  <option value="iron supplement">Iron Supplement</option>
+                  <option value="antibiotic">Antibiotic</option>
+                  <option value="probiotic">Probiotic</option>
+                  <option value="anesthesia">Anesthesia</option>
+                </select>
+              </label>         
+            </div>
+            <div class="add-medicine-form__group">
+              <label for="medicine-quantity-input">
+                Quantity <br>
+                <input id="medicine-quantity-input" placeholder="Enter quantity here" type="number">
+              </label>        
+              <label for="expiration-date-input">
+                Expiration Date <br>
+                <input id="expiration-date-input" type="text" placeholder="Enter expiry date here" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'">
+              </label>
+            </div>
+            <div class="add-medicine-form__buttons-container">
+              <button id="cancel-btn" type="button">Cancel</button>
+              <button id="add-btn" type="submit">Add</button>
+            </div>
+          </form>          
+
+          <!-- inventory table -->         
+          <div class="inventory-table">
+            <!-- table head -->
+            <div class="inventory-table__thead">
+              <p class="th id">ID</p>
+              <p class="th medicine-name">Medicine</p>
+              <p class="th medicine-dosage">Dosage</p>
+              <p class="th quantity">Quantity</p>
+              <p class="th status">Status</p>
+              <p class="th exp-date">EXP. Date</p>
+              <p class="th created-date">Created Date</p>
+              <p class="th updated-date">Updated Date</p>
+              <p class="th toggle-buttons-icon"></p>
+            </div>
+            <!-- table body -->
+            <div class="inventory-table__tbody"> 
+              <div class="inventory-table__tbody-medicine">
+                <p class="td id">648f1b7c2a9f...</p>
+                <p class="td medicine-name">Coglapest</p>
+                <p class="td medicine-dosage">10mg</p>
+                <p class="td quantity">15</p>
+                <p class="td status">In Stock</p>
+                <p class="td exp-date">12-03-2026</p>
+                <p class="td created-date">12-03-2025</p>
+                <p class="td updated-date">12-08-2025</p>
+                <p class="td toggle-buttons-icon">
+                  <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
+                  <div class="buttons-container">
+                    <button id="restore-btn" type="button">Restore</button>
+                    <button id="delete-btn" type="button">Delete</button>
+                  </div>
+                </p>
               </div>
-            </p>
+            </div>
           </div>
-        </div>
         </section>
 
          <!-- ========== Settings Section ========== -->
