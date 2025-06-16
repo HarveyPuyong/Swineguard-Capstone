@@ -10,7 +10,7 @@ const logoutController = async(req, res) => {
 
   try{
     // find user base sa refreshToken
-    const foundUser = await UserDB.findOne({refreshToken: {$in: [refreshToken]} });
+    const foundUser = await UserDB.findOne({refreshToken: {$in: [refreshToken]} }).exec();
 
     // kapag walang na find na user, aclear pa din yung jwt sa cookies
     if(!foundUser) {

@@ -9,7 +9,7 @@ const adminLoginController = async(req, res) => {
 
   try{
     // find user
-     const foundUser = await UserDB.findOne({email});
+     const foundUser = await UserDB.findOne({email}).exec();
      if(!foundUser) return res.status(401).json({message: 'Admin not found'});
 
     //  na match yung password

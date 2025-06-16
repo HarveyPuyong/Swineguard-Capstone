@@ -1,6 +1,6 @@
 const Express = require('express');
-const route = Express.Router();
+const router = Express.Router();
 
-route.post('/', require('./../controllers/signupClientController'));
+router.post('/', require('./../controllers/signupClientController'));
 
-module.exports = route
+module.exports = router
