@@ -7,10 +7,10 @@ exports.AddItem = async (req, res) => {
     const itemDetails = [itemName, amount, quantity, expiryDate, description, createdBy];
 
     // Check the messages inputs
-    if (itemDetails.some(details => !details)) return res.status(400).json({ message: 'Kidly check your item details'});
+    if (itemDetails.some(details => !details)) return res.status(400).json({ message: 'Kindly check your item details'});
 
     try {
-        // Get sender from the authenticated user (decoded token) yung nasa verifyJWT.js
+
         const newItem = await inventoryDB.create (
             {
                 itemName, 

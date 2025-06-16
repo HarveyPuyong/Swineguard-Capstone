@@ -12,8 +12,8 @@ const inventorySchema = new mongoose.Schema({
     description: { type: String, required: true },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
 
-    createdTime: { type: Date, default:Date.now },
-    updatedTime: { type: Date, default:Date.now },
+    createdAt: { type: Date, default:Date.now },
+    updatedAt: { type: Date, default:Date.now },
     
 
 }, { collection: 'inventories' });
