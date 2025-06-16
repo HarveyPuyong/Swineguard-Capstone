@@ -3,7 +3,7 @@ const router = express.Router();
 const appointmentController = require('./../controllers/appointmentController');
 
 //CRUD Operation
-router.post('/request', appointmentController.requestAppointment); // Requesting appointments
+router.post('/add', appointmentController.addAppointment); // Requesting appointments
 router.put('/accept/:id', appointmentController.acceptAppointment); // Accepting appointments
 router.patch('/reschedule/:id', appointmentController.rescheduleAppointment); // Rescheduling appointments
 router.patch('/remove/:id', appointmentController.removeAppointment); // Removing appointments

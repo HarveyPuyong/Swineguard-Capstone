@@ -78,7 +78,6 @@ app.use('/appointment', require('./routes/appointmentRoute'));
 //Inventory routing
 app.use('/add-item', require('./routes/inventoryRoute'));
 
-
 //Logout routing
 app.use('/logout', require('./routes/logoutRoute'));
 

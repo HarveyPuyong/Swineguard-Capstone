@@ -1,33 +1,81 @@
 const appointmentDB = require('./../models/appointmentModel');
 
 // Request Apointments
-exports.requestAppointment = async (req, res) => {
+exports.addAppointment = async (req, res) => {
     const { 
         clientId, 
         swineId, 
-        appointmentTitle,
-        appointmentDate,
-        appointmentTime,
-        symptoms
+
+        clientName, 
+        contactNum, 
+        clientEmail,
+        municipality, 
+        barangay, 
+        
+        appointmentTitle, 
+        swineType, 
+        swineCount, 
+        appointmentDate, 
+        appointmentTime, 
+        swineSymptoms, 
+        swineAge, 
+        swineMale, 
+        swineFemale, 
+        appointmentStatus
+
     } = req.body;
+
+    // Validate only the REQUIRED fields based on schema
+    if (
+        !clientName ||
+        !contactNum ||
+        !appointmentTitle ||
+        !swineType ||
+        swineCount == null ||
+        swineSymptoms == null ||
+        swineAge == null ||
+        swineMale == null ||
+        swineFemale == null ||
+        !appointmentDate ||
+        !appointmentTime
+    ) {
+        return res.status(400).json({ message: 'Please fill out all required fields' });
+    }
             
     const appointmentData = {
         clientId, 
         swineId, 
-        appointmentTitle,
-        appointmentDate,
-        appointmentTime,
-        symptoms
+
+        clientName, 
+        contactNum, 
+        clientEmail,
+        municipality, 
+        barangay, 
+        
+        appointmentTitle, 
+        swineType, 
+        swineCount, 
+        appointmentDate, 
+        appointmentTime, 
+        swineSymptoms, 
+        swineAge, 
+        swineMale, 
+        swineFemale, 
+        appointmentStatus
+        
     };
 
      // Check the Appointment data
-    if (Object.values(appointmentData).some(data => !data)) return res.status(400).json({ message: 'Please fill out all required fields'});
+    //if (Object.values(appointmentData).some(data => !data)) return res.status(400).json({ message: 'Please fill out all required fields'});
 
     try {
         const requestAppointment = new appointmentDB({ ...appointmentData });
 
         await requestAppointment.save();
-        res.status(201).json({message: 'Appointment added successfully'});
+        res.status(201).json({
+            message: 'Appointment added successfully',
+            data: requestAppointment
+        });
 
     } catch (err) {
         res.status(500).json({ error: err.message });
