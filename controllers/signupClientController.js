@@ -36,8 +36,8 @@ const signupController = async (req, res) => {
     // hash password
     const hashPassword = await bcrypt.hash(password, 10);
 
-    //a create yung newClient sa usersCollection. kupal, ano mas okay na naming userDB o usersCollection?
-    const newClient = new UserDB(
+    //a create yung newUser sa usersCollection. kupal, ano mas okay na naming userDB o usersCollection?
+    const newUser = new UserDB(
       {
         "firstName": firstName,
         "middleName": middleName,
@@ -53,26 +53,26 @@ const signupController = async (req, res) => {
     );
 
     // gumawa ako ng userName para lang alagay ko sa tokens
-    const userName = `${newClient.firstName}, ${newClient.lastName}`;
+    const userName = `${newUser.firstName}, ${newUser.lastName}`;
 
     //nasa utils folder pala ngani yung generateAccessToke function, don ko nalagay yung mga reuseable functions
     const accessToken = generateAccessToken(process.env.ACCESS_TOKEN_SECRET,
                                             process.env.ACCESS_TOKEN_EXPIRY,
-                                            newClient._id,
+                                            newUser._id,
                                             userName,
-                                            newClient.roles
+                                            newUser.roles
     );
     
     //ito din nasa utils folder magkasama sila ng generate access token sa generateTokens.js
     const refreshToken = generateRefreshToken(process.env.REFRESH_TOKEN_SECRET,
                                               process.env.REFRESH_TOKEN_EXPIRY,
-                                              newClient._id, 
+                                              newUser._id, 
                                               userName,
     );
 
-    // na store yung generated refrechToken sa newClient
-    newClient.refreshToken = [refreshToken];
-    await newClient.save();
+    // na store yung generated refrechToken sa newUser
+    newUser.refreshToken = [refreshToken];
+    await newUser.save();
 
     //na store sa cookie yung refreshToken
     res.cookie('jwt', refreshToken,

@@ -8,15 +8,15 @@ const logoutController = async(req, res) => {
   const refreshToken = cookies.jwt;
 
   try{
-    const foundClient = await UserDB.findOne({refreshToken: {$in: [refreshToken]} });
+    const foundUser = await UserDB.findOne({refreshToken: {$in: [refreshToken]} });
 
-    if(!foundClient) {
+    if(!foundUser) {
       res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: process.env.NODE_ENV === 'production'});
       return res.status(403).json({message: "User not found or already logged out"});
     }
 
-    foundClient.refreshToken.pull(refreshToken);
-    await foundClient.save();
+    foundUser.refreshToken.pull(refreshToken);
+    await foundUser.save();
 
     res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: process.env.NODE_ENV === 'production'});
     return res.status(200).json({message: 'Successfully Logout'});
