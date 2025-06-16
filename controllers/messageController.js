@@ -13,7 +13,7 @@ const messageController = async (req, res) => {
         // Get sender from the authenticated user (decoded token) yung nasa verifyJWT.js
         //const sender = req.user.id; activate mo na lang ito kpg may frontend na kupal/ hahaha sige
 
-        const newMessage = await messageDB.create ({
+        const newMessage = new messageDB ({
             sender,
             receiver,
             content
