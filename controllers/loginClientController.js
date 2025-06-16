@@ -31,8 +31,8 @@ const clientLoginController = async(req, res) => {
                                               userName
     );
 
-    foundClient.refreshToken.push(refreshToken);
     if(foundClient.refreshToken.length >= 3) foundClient.refreshToken.shift();
+    foundClient.refreshToken.push(refreshToken);
 
     await foundClient.save();
 

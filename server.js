@@ -36,13 +36,16 @@ app.get('/', (req, res) => {
 // Signup routing
 app.use('/signup', require('./routes/signupClientRoute')); 
 
-// Login routings
+// Client login outings
 app.use('/login', require('./routes/loginClientRoute'));
+
+// Admin login routing
+app.use('/admin/login', require('./routes/loginAdminRoute'));
 
 //Messages routing
 app.use('/send-message', require('./routes/messageRoute'));
 
-//Invtory routings
+//Inventory routing
 app.use('/add-item', require('./routes/inventoryRoute'));
 
 //Logout routing
