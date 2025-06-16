@@ -95,7 +95,7 @@ app.use('/appointment', require('./routes/appointmentRoute'));
 //http://localhost:2500/appointment/delete/:id
 
 //Inventory routing
-app.use('/add-item', require('./routes/inventoryRoute'));
+app.use('/inventory', require('./routes/inventoryRoute')); //http://localhost:2500/inventory/add
 
 //Logout routing
 app.use('/logout', require('./routes/logoutRoute'));
