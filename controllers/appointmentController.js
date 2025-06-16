@@ -22,7 +22,6 @@ exports.addAppointment = async (req, res) => {
         swineMale, 
         swineFemale, 
         appointmentStatus
-
     } = req.body;
 
     // Validate only the REQUIRED fields based on schema
@@ -41,7 +40,9 @@ exports.addAppointment = async (req, res) => {
     ) {
         return res.status(400).json({ message: 'Please fill out all required fields' });
     }
+    if (swineCount !== (swineFemale + swineMale)){ return res.status(400).json({ message: 'Your swine count do not match with your male and female numbers' })};
             
+
     const appointmentData = {
         clientId, 
         swineId, 
@@ -62,20 +63,17 @@ exports.addAppointment = async (req, res) => {
         swineMale, 
         swineFemale, 
         appointmentStatus
-        
     };
 
-     // Check the Appointment data
-    //if (Object.values(appointmentData).some(data => !data)) return res.status(400).json({ message: 'Please fill out all required fields'});
-
     try {
-        const requestAppointment = new appointmentDB({ ...appointmentData });
+        const addAppointment = new appointmentDB({ ...appointmentData });
 
-        await requestAppointment.save();
+        await addAppointment.save();
         res.status(201).json({
             message: 'Appointment added successfully',
-            data: requestAppointment
+            data: addAppointment
         });
+
 
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -86,7 +84,7 @@ exports.addAppointment = async (req, res) => {
 // Accept appointment by Id Mark as Ongoing
 exports.acceptAppointment = async (req, res) => {
     
-    const { appointmentDate, appointmentTime, appointmentStatus, vetPersonnel, medicine, dosage, vetMessage } = req.body;
+    const { appointmentDate, appointmentTime, vetPersonnel, medicine, dosage, vetMessage } = req.body;
 
     const appointmentId = req.params.id;
 
@@ -97,7 +95,7 @@ exports.acceptAppointment = async (req, res) => {
     try {
         const update = await appointmentDB.findByIdAndUpdate(
             appointmentId,
-            { appointmentDate, appointmentTime, appointmentStatus, vetPersonnel, medicine, dosage, vetMessage },
+            { appointmentDate, appointmentTime, appointmentStatus: "ongoing", vetPersonnel, medicine, dosage, vetMessage },
             { new : true } 
         );
 

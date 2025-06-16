@@ -4,4 +4,4 @@ const inventoryController = require('../controllers/inventoryController');
 
 router.post('/add', inventoryController.AddItem);
 
-module.exports = router
+module.exports = router;

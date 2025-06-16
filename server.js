@@ -36,21 +36,40 @@ app.get('/', (req, res) => {
 // Signup routing
 app.use('/signup', require('./routes/signupClientRoute')); 
 
-// Client login outings
+// Client login routings
 app.use('/login', require('./routes/loginClientRoute'));
 
 // Admin login routing
 app.use('/admin/login', require('./routes/loginAdminRoute'));
 
+// Refresh token routing
+app.use('/refresh', require('./routes/refreshTokenRoute'));
+
 //Messages routing
 app.use('/send-message', require('./routes/messageRoute'));
-
 
 //Inventory routings
 app.use('/inventory', require('./routes/inventoryRoute'));
 
 //Appointments routings
 app.use('/appointment', require('./routes/appointmentRoute'));
+
+//http://localhost:2500/appointment/add ng appointment a copy paste mo dito 
+//  {   "clientName": "Shin Asakura",
+//     "contactNum": "09266495922",
+//     "municipality": "Boac",
+//     "barangay": "Santol",
+
+//     "appointmentTitle": "Iron Supplement",
+//     "swineType": "Piglet",
+//     "swineCount": 4,
+//     "swineSymptoms": "3 days of being born",
+//     "swineAge": "0",
+//     "swineMale": 3,
+//     "swineFemale": 1,
+
+//     "appointmentDate": "10-10-2025",
+//     "appointmentTime": "11:00"}
 
 //Ito yung mga link kupal Put ang gamit sa accept marami kase mababago sa loob
 //http://localhost:2500/appointment/accept/id ng appointment a copy paste mo dito 
@@ -69,11 +88,11 @@ app.use('/appointment', require('./routes/appointmentRoute'));
 // }
 
 // dito ay Patch ang gamit wala ka nang ilalagay sa body nito rekta change na agad yung status sa backend nito para iwas gamit ng dev tools sa webs
-//http://localhost:2500/appointment/reschedule/id 
-//http://localhost:2500/appointment/remove/id 
-//http://localhost:2500/appointment/restore/id
-//http://localhost:2500/appointment/complete/id
-//http://localhost:2500/appointment/delete/id
+//http://localhost:2500/appointment/reschedule/:id 
+//http://localhost:2500/appointment/remove/:id 
+//http://localhost:2500/appointment/restore/:id
+//http://localhost:2500/appointment/complete/:id
+//http://localhost:2500/appointment/delete/:id
 
 //Inventory routing
 app.use('/add-item', require('./routes/inventoryRoute'));
