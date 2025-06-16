@@ -33,14 +33,18 @@ app.get('/', (req, res) => {
   res.send('Kupal')
 });
 
-// Signup Routing
+// Signup routing
 app.use('/signup', require('./routes/signupClientRoute')); 
 
-// Login routings
+// Client login outings
 app.use('/login', require('./routes/loginClientRoute'));
 
-//Messages Routing
+// Admin login routing
+app.use('/admin/login', require('./routes/loginAdminRoute'));
+
+//Messages routing
 app.use('/send-message', require('./routes/messageRoute'));
+
 
 //Inventory routings
 app.use('/inventory', require('./routes/inventoryRoute'));
@@ -70,6 +74,13 @@ app.use('/appointment', require('./routes/appointmentRoute'));
 //http://localhost:2500/appointment/restore/id
 //http://localhost:2500/appointment/complete/id
 //http://localhost:2500/appointment/delete/id
+
+//Inventory routing
+app.use('/add-item', require('./routes/inventoryRoute'));
+
+
+//Logout routing
+app.use('/logout', require('./routes/logoutRoute'));
 
 
 mongoose.connection.once('open', () => {

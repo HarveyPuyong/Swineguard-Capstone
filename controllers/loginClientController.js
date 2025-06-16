@@ -10,31 +10,31 @@ const clientLoginController = async(req, res) => {
 
 
   try{
-    const foundClient = await UserDB.findOne({email}).exec();
-    if(!foundClient) return res.status(404).json({message: "User not Found"});
+    const foundUser = await UserDB.findOne({email}).exec();
+    if(!foundUser) return res.status(404).json({message: "User not Found"});
 
-    const matchPassword = await bcrypt.compare(password, foundClient.password);
+    const matchPassword = await bcrypt.compare(password, foundUser.password);
     if(!matchPassword) return res.status(400).json({message: "Incorrect Password"});
 
-    const userName = `${foundClient.firstName}, ${foundClient.lastName}`;
+    const userName = `${foundUser.firstName}, ${foundUser.lastName}`;
 
     const accessToken = generateAccessToken(process.env.ACCESS_TOKEN_SECRET,
                                             process.env.ACCESS_TOKEN_EXPIRY,
-                                            foundClient._id,
+                                            foundUser._id,
                                             userName,
-                                            foundClient.roles
+                                            foundUser.roles
     );
 
     const refreshToken = generateRefreshToken(process.env.REFRESH_TOKEN_SECRET,
                                               process.env.REFRESH_TOKEN_EXPIRY,
-                                              foundClient._id,
+                                              foundUser._id,
                                               userName
     );
 
-    foundClient.refreshToken.push(refreshToken);
-    if(foundClient.refreshToken.length >= 3) foundClient.refreshToken.shift();
+    if(foundUser.refreshToken.length >= 3) foundUser.refreshToken.shift();
+    foundUser.refreshToken.push(refreshToken);
 
-    await foundClient.save();
+    await foundUser.save();
 
     //na store sa cookie yung refreshToken
     res.cookie('jwt', refreshToken,
