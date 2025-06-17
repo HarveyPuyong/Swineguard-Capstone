@@ -52,7 +52,7 @@
       
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-         <section id="dashboard-section" class="hide">
+         <section id="dashboard-section" class="show">
           <!-- dashboard cards-->
           <div class="inventory-dashboard dashboard">
             <div class="dashboard__background"></div>
@@ -128,45 +128,48 @@
               </div>
             </div>
           </div>
-           <!-- less and out-of stock medicine table -->
-          <div class="less-stock-medicine-table inventory-table">
-            <!-- table head -->
-            <div class="inventory-table__thead">
-              <p class="th id">ID</p>
-              <p class="th medicine-name">Medicine</p>
-              <p class="th medicine-dosage">Dosage</p>
-              <p class="th quantity">Quantity</p>
-              <p class="th status">Status</p>
-              <p class="th exp-date">EXP. Date</p>
-              <p class="th created-date">Created Date</p>
-              <p class="th updated-date">Updated Date</p>
-              <p class="th toggle-buttons-icon"></p>
-            </div>
-            <!-- table body -->
-            <div class="inventory-table__tbody"> 
-              <div class="inventory-table__tbody-medicine">
-                <p class="td id">648f1b7c2a9f...</p>
-                <p class="td medicine-name">Coglapest</p>
-                <p class="td medicine-dosage">10mg</p>
-                <p class="td quantity">15</p>
-                <p class="td status">In Stock</p>
-                <p class="td exp-date">12-03-2026</p>
-                <p class="td created-date">12-03-2025</p>
-                <p class="td updated-date">12-08-2025</p>
-                <p class="td toggle-buttons-icon">
-                  <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
-                  <div class="buttons-container">
-                    <button id="restore-btn" type="button">Restore</button>
-                    <button id="delete-btn" type="button">Delete</button>
-                  </div>
-                </p>
+          <!-- less and out-of stock medicine table -->
+          <div class="less-stock-medicine-table-container">
+            <h1 class="less-stock-medicine-table-container__heading">Less and Out of Stock Medicine</h1>
+            <div class="less-stock-medicine-table inventory-table">
+              <!-- table head -->
+              <div class="inventory-table__thead">
+                <p class="th id">ID</p>
+                <p class="th medicine-name">Medicine</p>
+                <p class="th medicine-dosage">Dosage</p>
+                <p class="th quantity">Quantity</p>
+                <p class="th status">Status</p>
+                <p class="th exp-date">EXP. Date</p>
+                <p class="th created-date">Created Date</p>
+                <p class="th updated-date">Updated Date</p>
+                <p class="th toggle-buttons-icon"></p>
+              </div>
+              <!-- table body -->
+              <div class="inventory-table__tbody"> 
+                <div class="medicine">
+                  <p class="td id">648f1b7c2a9f...</p>
+                  <p class="td medicine-name">Coglapest</p>
+                  <p class="td medicine-dosage">10mg</p>
+                  <p class="td quantity">15</p>
+                  <p class="td status">In Stock</p>
+                  <p class="td exp-date">12-03-2026</p>
+                  <p class="td created-date">12-03-2025</p>
+                  <p class="td updated-date">12-08-2025</p>
+                  <p class="td toggle-buttons-icon">
+                    <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
+                    <div class="buttons-container">
+                      <button id="restore-btn" type="button">Restore</button>
+                      <button id="delete-btn" type="button">Delete</button>
+                    </div>
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
         <!-- ========== Inventory Section ========== -->
-        <section id="inventory-section" class="show">
+        <section id="inventory-section" class="hide">
           <h1 class="section__heading">Inventory</h1>
           <!-- search and add-btn -->
           <div class="inventory-section__search-and-add-btn">
@@ -243,12 +246,80 @@
             </div>
             <!-- table body -->
             <div class="inventory-table__tbody"> 
-              <div class="inventory-table__tbody-medicine">
+              <div class="medicine">
                 <p class="td id">648f1b7c2a9f...</p>
                 <p class="td medicine-name">Coglapest</p>
                 <p class="td medicine-dosage">10mg</p>
                 <p class="td quantity">15</p>
-                <p class="td status">In Stock</p>
+                <p class="td status" data-status-value="in-stock">In Stock</p>
+                <p class="td exp-date">12-03-2026</p>
+                <p class="td created-date">12-03-2025</p>
+                <p class="td updated-date">12-08-2025</p>
+                <p class="td toggle-buttons-icon">
+                  <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
+                  <div class="buttons-container">
+                    <button id="restore-btn" type="button">Restore</button>
+                    <button id="delete-btn" type="button">Delete</button>
+                  </div>
+                </p>
+              </div>
+              <div class="medicine">
+                <p class="td id">648f1b7c2a9f...</p>
+                <p class="td medicine-name">Coglapest</p>
+                <p class="td medicine-dosage">10mg</p>
+                <p class="td quantity">15</p>
+                <p class="td status" data-status-value="less-stock">Less Stock</p>
+                <p class="td exp-date">12-03-2026</p>
+                <p class="td created-date">12-03-2025</p>
+                <p class="td updated-date">12-08-2025</p>
+                <p class="td toggle-buttons-icon">
+                  <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
+                  <div class="buttons-container">
+                    <button id="restore-btn" type="button">Restore</button>
+                    <button id="delete-btn" type="button">Delete</button>
+                  </div>
+                </p>
+              </div>
+              <div class="medicine">
+                <p class="td id">648f1b7c2a9f...</p>
+                <p class="td medicine-name">Coglapest</p>
+                <p class="td medicine-dosage">10mg</p>
+                <p class="td quantity">15</p>
+                <p class="td status" data-status-value="out-of-stock">Out-of-Stock</p>
+                <p class="td exp-date">12-03-2026</p>
+                <p class="td created-date">12-03-2025</p>
+                <p class="td updated-date">12-08-2025</p>
+                <p class="td toggle-buttons-icon">
+                  <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
+                  <div class="buttons-container">
+                    <button id="restore-btn" type="button">Restore</button>
+                    <button id="delete-btn" type="button">Delete</button>
+                  </div>
+                </p>
+              </div>
+              <div class="medicine">
+                <p class="td id">648f1b7c2a9f...</p>
+                <p class="td medicine-name">Coglapest</p>
+                <p class="td medicine-dosage">10mg</p>
+                <p class="td quantity">15</p>
+                <p class="td status" data-status-value="expired">Expired</p>
+                <p class="td exp-date">12-03-2026</p>
+                <p class="td created-date">12-03-2025</p>
+                <p class="td updated-date">12-08-2025</p>
+                <p class="td toggle-buttons-icon">
+                  <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
+                  <div class="buttons-container">
+                    <button id="restore-btn" type="button">Restore</button>
+                    <button id="delete-btn" type="button">Delete</button>
+                  </div>
+                </p>
+              </div>
+              <div class="medicine">
+                <p class="td id">648f1b7c2a9f...</p>
+                <p class="td medicine-name">Coglapest</p>
+                <p class="td medicine-dosage">10mg</p>
+                <p class="td quantity">15</p>
+                <p class="td status" data-status-value="removed">Removed</p>
                 <p class="td exp-date">12-03-2026</p>
                 <p class="td created-date">12-03-2025</p>
                 <p class="td updated-date">12-08-2025</p>
@@ -339,5 +410,7 @@
         </section>
       </div>
     </main>
+
+    <script type="module" src="script/inventory-coordinator-main.js"></script>
   </body>
 </html>

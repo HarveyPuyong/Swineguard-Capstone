@@ -82,8 +82,8 @@
 }
 
 .filter-apointments-status{
-  --color: #3777FF;
-  --BGcolor: #4982fe3c;
+  --color: var(--main-color);
+  --BGcolor: rgba(29, 255, 135, 0.67);
 
   border: 1px solid var(--color);
   color: var(--color);

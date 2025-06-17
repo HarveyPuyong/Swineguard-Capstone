@@ -183,7 +183,7 @@
 
 
 .inventory-table__thead,
-.inventory-table__tbody-medicine {
+.inventory-table__tbody .medicine{
   display: flex;
   gap: var(--elements-gap);
 }
@@ -202,9 +202,9 @@
   scrollbar-width: thin;
 }
 
-.inventory-table__tbody-medicine{
+.inventory-table__tbody .medicine{
   position: relative;
-  background-color: #D9D9D9;
+  background-color: var(--bgColor);
   padding: 18px 20px;
   overflow:visible;
 }
@@ -262,7 +262,7 @@
   cursor: pointer;
 }
 
-.inventory-table__tbody-medicine .buttons-container{
+.inventory-table__tbody .medicine .buttons-container{
   display: none;
   position: absolute;
   right: 75px;
@@ -274,11 +274,11 @@
   width: fit-content;
 }
 
-.inventory-table__tbody-medicine .buttons-container.show{
+.inventory-table__tbody .medicine .buttons-container.show{
   display: flex;
 }
 
-.inventory-table__tbody-medicine .buttons-container button{
+.inventory-table__tbody .medicine .buttons-container button{
   color: black;
   border: none;
   padding: 3.1px 15px;
@@ -287,16 +287,16 @@
   transition: 0.1s;
 }
 
-.inventory-table__tbody-medicine .buttons-container button:hover{
+.inventory-table__tbody .medicine .buttons-container button:hover{
   background-color: #9A9A9A;
 }
 
-.inventory-table__tbody-medicine .buttons-container button:first-child{
+.inventory-table__tbody .medicine .buttons-container button:first-child{
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
   border-bottom: 1.6px solid #9A9A9A;;
 }
-.inventory-table__tbody-medicine .buttons-container button:nth-child(2){
+.inventory-table__tbody .medicine .buttons-container button:nth-child(2){
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: 8px;
 }

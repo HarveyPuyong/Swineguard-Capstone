@@ -115,20 +115,20 @@ const toggleAppointentMoreDetails = () => {
 // ======================================
 // ========== Set Status Color
 // ======================================
-const setStatusColor = (value, element) =>{
-    if (value === 'pending') {
+const setStatusColor = (statusValue, element) =>{
+    if (statusValue === 'pending') {
       element.style.setProperty('--color', 'rgb(37, 37, 37)');
       element.style.setProperty('--BGcolor', 'rgba(0, 0, 0, 0.19)');
-    } else if (value === 'ongoing') {
+    } else if (statusValue === 'ongoing') {
       element.style.setProperty('--color', 'rgb(55, 119, 255)');
       element.style.setProperty('--BGcolor', 'rgba(73, 130, 254, 0.24)');
-    } else if (value === 'completed') {
+    } else if (statusValue === 'completed') {
       element.style.setProperty('--color', 'rgb(0, 153, 71)');
       element.style.setProperty('--BGcolor', 'rgba(29, 255, 135, 0.13)');
-    } else if (value === 'reschedule') {
+    } else if (statusValue === 'reschedule') {
       element.style.setProperty('--color', 'rgb(153, 115, 0)');
       element.style.setProperty('--BGcolor', 'rgba(255, 191, 0, 0.30)');
-    } else if (value === 'removed'){
+    } else if (statusValue === 'removed'){
       element.style.setProperty('--color', 'rgb(210, 17, 17)'); 
       element.style.setProperty('--BGcolor', 'rgba(226, 35, 35, 0.21)');
     } else{
@@ -144,7 +144,7 @@ const changeAppointmentStatusColor = () => {
   const appointments = document.querySelectorAll('.appointment-table .appointment');
   appointments.forEach(appointment => {
     const status = appointment.querySelector('.status');
-    const statusValue =  status.innerText.toLowerCase();
+    const statusValue =  status.getAttribute('data-status-value');
     setStatusColor(statusValue, status);
   });
 }
