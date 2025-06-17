@@ -9,7 +9,8 @@
   width: var(--sidenav-width); 
   padding-top: 20px;
   overflow: hidden;
-  z-index: 2;
+  z-index: 999;
+  transition: width 0.5s;
 }
 
 .side-nav.active{
