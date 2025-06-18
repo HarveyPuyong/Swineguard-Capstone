@@ -5,8 +5,13 @@
 }
 
 .appointment-table-content{
+  display: none;
+}
+
+.appointment-table-content.show{
   display: block;
 }
+
 
 /* search and add button  */
 .appointments-section__search-and-add-btn{
@@ -309,9 +314,9 @@
 }
 
 
-/* Add appointent container */
+/* Add appointent form container */
 .add-appointment-container{
-  display: none; /* default display:block */
+  display: none; 
   position: fixed;
   top: 52%;
   left: 50%;
@@ -323,6 +328,10 @@
   border-radius: 10px;
   z-index: 1;
   padding: 20px 50px;
+}
+
+.add-appointment-container.show{
+  display: block
 }
 
 .add-appointment-container__close-form-btn{
@@ -494,4 +503,7 @@
 /* Pending-work: Style the appointment schedule calendar */
 .appointment-schedule-content{
   display: none;
+}
+.appointment-schedule-content.show{
+  display: block;
 }

@@ -18,9 +18,8 @@ const viewAppointmentSchedule = () => {
       appointmentsSection.classList.add('show');
       appointmentsSection.classList.remove('hide');
 
-      appointmentTableContent.style.display = 'none';
-      appointmentSchedContent.style.display = 'block';
-
+      appointmentTableContent.classList.remove('show');
+      appointmentSchedContent.classList.add('show');
       updateSidenav();
   });
 }

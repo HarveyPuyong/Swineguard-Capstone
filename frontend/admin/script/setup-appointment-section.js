@@ -5,7 +5,7 @@ import updateSidenav from "../utils/updateSidenav.js"; // Import the updateSiden
 // ======================================
 const searchAppointment = () => {
   const input = document.querySelector('.appointment-section__search-input');
-  const appointments = document.querySelectorAll('.appointment');
+  const appointments = document.querySelectorAll('.appointment-table .appointment');
 
   if (!input || appointments.length === 0) return;
 
@@ -41,17 +41,15 @@ const filterAppointments = () => {
     const selectedValue = selectStatus.value.toLowerCase();
     setStatusColor(selectedValue, selectStatus);
 
-    document.querySelectorAll('.appointment-table .appointment .td.status')
+    document.querySelectorAll('#appointments-section .appointment-table .appointment .td.status')
       .forEach(status => {
-        const statusValue = status.innerText.toLowerCase();
+        const statusValue = status.getAttribute('data-status-value');
         const appointment = status.parentElement.parentElement;
         appointment.style.display = 'none';
 
         if(selectedValue === 'all'){
-          const appointment = status.parentElement.parentElement;
           appointment.style.display = 'block';
         } else if (selectedValue === statusValue) {
-          const appointment = status.parentElement.parentElement;
           appointment.style.display = 'block';
         }
     });
@@ -69,14 +67,15 @@ const viewBtnsFunctionality = () => {
 
   const viewSchedBtn = document.querySelector('.appointment-section__view-schedules-btn')
     .addEventListener('click', () => {
-      appointmentTableContent.style.display = 'none';
-      appointmentSchedContent.style.display = 'block';
+      appointmentTableContent.classList.remove('show');
+      appointmentSchedContent.classList.add('show');
   });
 
   const viewTableBtn = document.querySelector('.appointment-section__view-appointments-btn')
     .addEventListener('click', () => {
-      appointmentTableContent.style.display = 'block';
-      appointmentSchedContent.style.display = 'none';
+      appointmentTableContent.classList.add('show');
+      appointmentSchedContent.classList.remove('show');
+      console.log('okay')
   });
 
   const viewTechniciansBtn = document.querySelector('.appointment-section__view-technicians-btn')
@@ -132,8 +131,8 @@ const setStatusColor = (statusValue, element) =>{
       element.style.setProperty('--color', 'rgb(210, 17, 17)'); 
       element.style.setProperty('--BGcolor', 'rgba(226, 35, 35, 0.21)');
     } else{
-      element.style.setProperty('--color', 'var(--main-color)');
-      element.style.setProperty('--BGcolor', 'rgba(29, 255, 135, 0.67)');
+      element.style.setProperty('--color', 'black');
+      element.style.setProperty('--BGcolor', 'white');
     }
 }
 
@@ -150,16 +149,16 @@ const changeAppointmentStatusColor = () => {
 }
 
 // ======================================
-// ========== Add Appointment
+// ==========Toggle Popup Add Appointment Form
 // ======================================
-const addAppointment = () => {
-  const addAppointmentForm = document.querySelector('.add-appointment-container');
+const toggleAddAppointmentForm = () => {
+  const formContainer = document.querySelector('.add-appointment-container');
 
-  const addAppointmentBtn = document.querySelector('.appointment-section__add-btn')
-    .addEventListener('click', () => addAppointmentForm.style.display = 'block');
+  const showFormBtn = document.querySelector('.appointment-section__add-btn')
+    .addEventListener('click', () => formContainer.classList.add('show'));
 
   const closeFormBtn = document.querySelector('.add-appointment-container__close-form-btn')
-    .addEventListener('click', () => addAppointmentForm.style.display = 'none');
+    .addEventListener('click', () => formContainer.classList.remove('show'));
 }
 
 
@@ -169,7 +168,7 @@ const addAppointment = () => {
 export default function setupAppointmentSection() {
   changeAppointmentStatusColor();
   filterAppointments();
-  addAppointment();
+  toggleAddAppointmentForm();
   toggleAppointentMoreDetails();
   searchAppointment();
   viewBtnsFunctionality();
