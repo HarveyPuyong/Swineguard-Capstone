@@ -153,9 +153,6 @@
   --bg-color: #B0DDC5;
 }
 
-
-
-
 /* Table container */
 .inventory-table {
   --id: 150px;
@@ -173,7 +170,9 @@
   flex-direction: column;
   background-color: white;
   width: 100%;
-  height: 30rem;
+  height: fit-content;
+  min-height: 200px;
+  max-height: 490px;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.209);
   border-radius: 8px;
   overflow-y: hidden;
@@ -182,7 +181,6 @@
   padding: 20px 25px;
   gap: 0.5rem;
 }
-
 
 .inventory-table__thead,
 .inventory-table__tbody .medicine{

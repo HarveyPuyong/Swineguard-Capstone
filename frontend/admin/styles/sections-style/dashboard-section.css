@@ -61,7 +61,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
+
 
 .dashboard__card-icon{
   width: 50px;
@@ -75,7 +77,8 @@
 
 .dashboard__card-label--value{
   font-weight: 600;
-  font-size: 1.3em;
+  font-size: 1.4em;
+  margin-left: 5px;
 }
 
 .dashboard__card-progress-bar-container{
@@ -160,28 +163,14 @@
   color: #aeb101;
 }
 
-/* Ongoing Apointemts Table Container */
-.ongoing-appointments-table-container{
+/* Table Container */
+.dashboard-section__table-container{
   padding: 0 var(--side-spacing);
   padding-top: 17px;
-  padding-bottom: 80px;
+  padding-bottom: 30px;
 }
 
-.ongoing-appointments-table-container__heading{
-  font-size: 1.5rem;
-  font-weight: 500;
-  margin-bottom: 20px;
-}
-
-
-/* Less Stock Medicine Table */
-.less-stock-medicine-table-container{
-  padding: 0 var(--side-spacing);
-  padding-top: 17px;
-  padding-bottom: 20px;
-}
-
-.less-stock-medicine-table-container__heading{
+.dashboard-section__table-container-heading{
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 20px;

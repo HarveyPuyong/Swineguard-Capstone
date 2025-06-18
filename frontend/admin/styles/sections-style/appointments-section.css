@@ -125,13 +125,15 @@
   display: block;
   position: relative;
   width: 100%;
+  height: fit-content;
+  min-height: 200px;
+  max-height: 480px;
   background-color: white;
   border: none;
   border-radius: 8px;
   padding: 1rem;
   margin-top: 1.7rem;
   overflow: hidden;
-  height: fit-content;
   font-size: 0.9rem;
 }
 
