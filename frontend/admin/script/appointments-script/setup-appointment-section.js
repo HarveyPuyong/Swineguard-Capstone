@@ -1,4 +1,4 @@
-import updateSidenav from "../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
+import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
 
 // ======================================
 // ========== Search Appointments
