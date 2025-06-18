@@ -13,9 +13,6 @@ const userSchema = new mongoose.Schema({
     email: { type: String, required: true },
     password: { type: String, required: true },
 
-    createdTime: { type: Date, default:Date.now },
-    updatedTime: { type: Date, default:Date.now },
-
     roles: {
       type: [String],
       default: ['user']
@@ -26,6 +23,6 @@ const userSchema = new mongoose.Schema({
       default: []
     }
 
-}, { collection: 'users' });
+}, { collection: 'users', timestamps: true });
 
 module.exports = mongoose.model('User', userSchema);

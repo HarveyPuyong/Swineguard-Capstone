@@ -10,12 +10,8 @@ const inventorySchema = new mongoose.Schema({
     itemStatus: { type: String, default: 'In Stock' },
 
     description: { type: String, required: true },
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-
-    createdAt: { type: Date, default:Date.now },
-    updatedAt: { type: Date, default:Date.now },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
     
-
-}, { collection: 'inventories' });
+}, { collection: 'inventories', timestamps: true });
 
 module.exports = mongoose.model('Inventory', inventorySchema);

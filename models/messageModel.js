@@ -15,7 +15,6 @@ const messageSchema = new mongoose.Schema({
     
     content: { type: String, required: true },
     dateSend: {  type: Date, default:Date.now }
-    
 
 }, { collection: 'messages' });
 

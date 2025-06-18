@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const appointmentSchema = new mongoose.Schema({
 
     breed: { type: String, required: true },
-    age: { type: Number, required: true },
+    type: { type: String, required: true },
+    birthdate: { type: String, required: true },
     sex: { type: String, required: true },
     weight: { type: Number, required: true },
     healthStatus: { type: String, default: 'healthy' },
@@ -12,11 +13,9 @@ const appointmentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User', 
         required: true 
-    },
-    createdAt: { type: Date, default:Date.now},
-    updatedAt: { type: Date, default:Date.now},
+    }
 
     
-}, { collection: 'swines' });
+}, { collection: 'swines', timestamps: true });
 
 module.exports = mongoose.model('Swine', appointmentSchema);

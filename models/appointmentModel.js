@@ -34,12 +34,9 @@ const appointmentSchema = new mongoose.Schema({
     vetPersonnel: { type: String, default: 'Not Set' },
     medicine: { type: String, default: 'Not Set' },
     dosage: { type: String, default: 'Not Set' },
-    vetMessage: { type: String, default: 'No message yet' },
-
-    createdAt: { type: Date, default:Date.now},
-    updatedAt: { type: Date, default:Date.now},
+    vetMessage: { type: String, default: 'No message yet' }
 
     
-}, { collection: 'appointments' });
+}, { collection: 'appointments', timestamps: true });
 
 module.exports = mongoose.model('Appointment', appointmentSchema);
