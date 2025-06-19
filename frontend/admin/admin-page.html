@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <link rel="stylesheet" href="styles/sections-style/inventory-section.css">
+    <link rel="stylesheet" href="styles/sections-style/technician-section.css">
+    <link rel="stylesheet" href="styles/sections-style/setting-section.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Admin Page</title>
@@ -57,6 +59,10 @@
           <li class="side-nav__link" data-value="inventory-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/inventory-icon.png" alt="inventory-icon">
             <p class="side-nav__link-label">Inventory</p>
+          </li>
+          <li class="side-nav__link" data-value="technicians-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/technician-icon.png" alt="technician-icon">
+            <p class="side-nav__link-label">Technicians</p>
           </li>
           <li class="side-nav__link" data-value="setting-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="setting-icon">
@@ -575,7 +581,7 @@
         </section>
 
          <!-- ========== Inventory Section ========== -->
-        <section id="inventory-section" class="show">
+        <section id="inventory-section" class="hide">
           <!-- Inventory Section: Table contents -->
           <div class="inventory-section__table-contents">
             <h1 class="section__heading">Inventory</h1>
@@ -667,7 +673,156 @@
             </div>
           </div>       
         </section>
-          
+
+        <!-- ========== Technecians Section ========== -->
+        <section id="technicians-section" class="show">
+          <h1 class="section__heading">Technicians</h1>
+          <button class="technicians-section__view-sched-btn">View Schedules</button>
+          <div class="technician-list-container">
+            <div class="technician">
+              <div class="technician__profile">
+                <img class="technician__profile-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="technician-img">
+                <p class="technician__profile-name">John Harvey Puyong</p>
+                <p class="technician__profile-position">Technician |</p>
+              </div>
+              <div class="technician__task">
+                <h4 class="technician__task-heading">Task:</h4>
+                <div class="task-card">
+                  <div class="task-card__group">
+                    <p class="task-card__task-name">
+                      <span class="task-card__label">Task:</span>
+                      <span class="task-card__value">Deworming</span>
+                    </p>
+                    <p class="task-card__task-location">
+                      <span class="task-card__label">Location:</span>
+                      <span class="task-card__value">Santol, Boac</span>          
+                    </p>
+                  </div>
+                  <p class="task-card__task-type">Service</p>
+                  <div class="task-card__group">
+                    <p class="task-card__task-date">
+                      <span class="task-card__label">Date:</span>
+                      <span class="task-card__value">May 9, 2025</span> 
+                    </p>
+                    <p class="task-card__task-time">
+                      <span class="task-card__label">Time:</span>
+                      <span class="task-card__value">11:30 AM</span>                       
+                    </p>
+                  </div>
+                </div>
+                <p class="technician__task-availability-status">AVAILABLE</p>
+              </div>
+            </div>
+            <div class="technician">
+              <div class="technician__profile">
+                <img class="technician__profile-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="technician-img">
+                <p class="technician__profile-name">Robert Magno</p>
+                <p class="technician__profile-position">Technician ||</p>
+              </div>
+              <div class="technician__task">
+                <h4 class="technician__task-heading">Task:</h4>
+                <div class="task-card">
+                  <div class="task-card__group">
+                    <p class="task-card__task-name">
+                      <span class="task-card__label">Task:</span>
+                      <span class="task-card__value">Deworming</span>
+                    </p>
+                    <p class="task-card__task-location">
+                      <span class="task-card__label">Location:</span>
+                      <span class="task-card__value">Santol, Boac</span>          
+                    </p>
+                  </div>
+                  <p class="task-card__task-type">Service</p>
+                  <div class="task-card__group">
+                    <p class="task-card__task-date">
+                      <span class="task-card__label">Date:</span>
+                      <span class="task-card__value">May 9, 2025</span> 
+                    </p>
+                    <p class="task-card__task-time">
+                      <span class="task-card__label">Time:</span>
+                      <span class="task-card__value">11:30 AM</span>                       
+                    </p>
+                  </div>
+                </div>
+                <p class="technician__task-availability-status">NOT AVAILABLE</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== Settings Section ========== -->
+        <section id="setting-section" class="hide">
+          <h1 class="section__heading">Setting</h1>
+          <div class="settings-container">
+            <div class="settings-container__header">
+              <p class="settings-container__header-heading">Profile</p>
+              <button class="settings-container__header-logout-btn">Logout</button>
+            </div>
+            <form class="settings-container__details-list">
+              <div class="admin-image detail">
+                <img src="images-and-icons/images/money-admin-profile.jpg" alt="Profile Picture"/>
+                <label class="admin-image__upload-btn">
+                  <input type="file" hidden />
+                  <i class="fas fa-upload"></i> Upload
+                </label>
+              </div>
+              <div class="admin-detail detail">
+                <p class="admin-detail-label">ID:</p>
+                <p class="admin-detail-value">01235678</p>
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Name:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Administrator" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Contact:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="09123456789" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Address:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Bangbangalon , Boac, Marinduque" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Email:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="pvet.staff2@gmail.com" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Password:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Admin Password" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+            </form>
+          </div>
+        </section>        
       </div>
     </main>
 
