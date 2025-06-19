@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <link rel="stylesheet" href="styles/sections-style/inventory-section.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Admin Page</title>
   </head>
   <body>
@@ -56,7 +58,7 @@
             <img class="side-nav__link-icon" src="images-and-icons/icons/inventory-icon.png" alt="inventory-icon">
             <p class="side-nav__link-label">Inventory</p>
           </li>
-          <li class="side-nav__link" data-value="setting-icon">
+          <li class="side-nav__link" data-value="setting-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="setting-icon">
             <p class="side-nav__link-label">Setting</p>
           </li>
@@ -104,6 +106,7 @@
               </div>
             </div>
           </div>
+
           <!-- Ongoing Appointment Table -->
           <div class="dashboard-section__table-container">
             <h1 class="dashboard-section__table-container-heading">Today Ongoing Appointment</h1>
@@ -195,6 +198,7 @@
               </div>
             </div>
           </div>
+
           <!-- Less and out-of stock inventory table -->
           <div class="dashboard-section__table-container">
             <h1 class="dashboard-section__table-container-heading">Less and Out of Stock Medicine</h1>
@@ -229,7 +233,7 @@
         </section>
 
         <!-- ========== Users Section ========== -->
-        <section id="users-section" class="show">
+        <section id="users-section" class="hide">
           <h1 class="section__heading">Users</h1>
           <!-- user search -->
           <div class="users-section__search">
@@ -432,7 +436,7 @@
             </div>
           </div>
 
-          <!-- reser user credentials form -->
+          <!-- reset user credentials form -->
           <div class="reset-user-credentials-form">
             <label for="new-email-input">New Email</label> <br>
             <input id="new-email-input" type="email">
@@ -448,6 +452,222 @@
           </div>
         </section>
 
+        <!-- ========== Swines Section ========== -->
+        <section id="swines-section" class="hide">
+          <!-- Swine Section: Table contents -->
+          <div class="swines-section__table-contents">
+            <h1 class="section__heading">Swines Table</h1>
+            <!-- swines search -->
+            <div class="swines-section__search">
+                  <img class="swines-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+                  <input class="swines-section__search-input" type="text" placeholder="Search...">   
+            </div>
+
+            <!-- filter swines -->
+            <select class="filter-swines" name="swines-filter" id="swines-filter">
+              <option value="all">All</option>
+              <option value="piglet">Piglet</option>
+              <option value="barrow">Barrow</option>
+              <option value="gilt">Gilt</option>
+              <option value="sow">Sow</option>
+              <option value="boar">Boar</option>
+            </select>
+
+            <!-- generate-report and view-graph buttons -->
+            <div class="swines-section__buttons-container">
+              <button class="generate-report-btn">Generate Report</button>
+              <button class="view-graph">View Graphs</button>
+            </div>
+
+            <!-- swines table -->
+            <div class="swines-table">
+              <div class="swines-table__thead"> <!-- table head -->
+                <p class="th type">Type</p>
+                <p class="th breed">Breed</p>
+                <p class="th age">Age</p>
+                <p class="th sex">Sex</p>
+                <p class="th weight">Weight</p>
+                <p class="th health-status">Status</p>
+                <p class="th owner">Owner</p>
+                <p class="th created-date">Created Date</p>
+                <p class="th updated-date">Updated Date</p>
+                <p class="th toggle-more-details-btn">View</p>
+              </div>
+              <div class="swines-table__tbody">  <!-- table body -->
+                <div class="swine">
+                  <div class="swine__details">
+                    <p class="td type">Barrow</p>
+                    <p class="td breed">High Breed</p>
+                    <p class="td age">6months</p>
+                    <p class="td sex">male</p>
+                    <p class="td weight">60kg</p>
+                    <p class="td health-status">Healthy</p>
+                    <p class="td owner">Robert Mgano</p>
+                    <p class="td created-date">01.01.2025</p>
+                    <p class="td updated-date">5.01.2025</p>
+                    <button class="th toggle-more-details-btn">View</button> 
+                  </div>
+                  <div class="swine__more-details">
+                    <div class="swine__more-details-heading">Appointment Details:</div>
+                    <div class="swine__more-details-columns">
+                      <!-- more details left column -->
+                      <div class="column left">
+                        <p class="column__detail">
+                          <span class="column__detail-label">Swine ID:</span>
+                          <span class="column__detail-value">10023450QPAL</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Type:</span>
+                          <span class="column__detail-value">Barrow</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Breed:</span>
+                          <span class="column__detail-value">High Breed</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Age:</span>
+                          <span class="column__detail-value">6months</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Sex:</span>
+                          <span class="column__detail-value">male</span>
+                        </p>
+                      </div>
+                      <!-- more details right column -->
+                      <div class="column right"> 
+                        <p class="column__detail">
+                          <span class="column__detail-label">Health Status:</span>
+                          <span class="column__detail-value">Healthy</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Weight:</span>
+                          <span class="column__detail-value">60kg</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Owner:</span>
+                          <span class="column__detail-value">Robert Magno</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Location:</span>
+                          <span class="column__detail-value">Maligaya, Boac, Marinduque</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Medication:</span>
+                          <span class="column__detail-value">Deworming</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Swine Section: Graph contents -->
+          <div class="swine-section__graph-contents">
+            <h1 class="section__heading">Swines Graph</h1>
+          </div>
+
+          <!-- Swine Section: Generate reports contents -->
+          <div class="swine-section__report-contents">
+            <h1 class="section__heading">Generate Swine Reports</h1>
+          </div>
+        </section>
+
+         <!-- ========== Inventory Section ========== -->
+        <section id="inventory-section" class="show">
+          <!-- Inventory Section: Table contents -->
+          <div class="inventory-section__table-contents">
+            <h1 class="section__heading">Inventory</h1>
+
+            <!-- inventory search -->
+            <div class="inventory-section__search">
+              <img class="inventory-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+              <input class="inventory-section__search-input" type="text" placeholder="Search...">   
+            </div>
+
+            <!-- filter-inventory and generate-report-btn container -->
+            <div class="inventory-section__select-and-btn-container">
+              <select class="filter-inventory-status" name="inventory-filter" id="inventory-filter">
+                <option value="all">All</option>
+                <option value="in-stock">In Stock</option>
+                <option value="less-stock">Less Stock</option>
+                <option value="out-of-stock">Out of Stock</option>
+                <option value="expired">Expired</option>
+                <option value="removed">Archive</option>
+              </select>
+              <button class="inventory-section__generate-report-btn">Generate Report</button>
+            </div>
+
+            <!-- inventory table -->
+            <div class="inventory-table">
+              <!-- table head -->
+              <div class="inventory-table__thead">
+                <p class="th id">ID</p>
+                <p class="th medicine-name">Medicine</p>
+                <p class="th medicine-dosage">Dosage</p>
+                <p class="th quantity">Quantity</p>
+                <p class="th status">Status</p>
+                <p class="th exp-date">EXP. Date</p>
+                <p class="th created-date">Created Date</p>
+                <p class="th updated-date">Updated Date</p>
+                <p class="th toggle-buttons-icon"></p>
+              </div>
+              <!-- table body -->
+              <div class="inventory-table__tbody"> 
+                <div class="medicine">
+                  <p class="td id">648f1b7c2a9f...</p>
+                  <p class="td medicine-name">Coglapest</p>
+                  <p class="td medicine-dosage">10mg</p>
+                  <p class="td quantity">15</p>
+                  <p class="td status" data-status-value="in-stock">In Stock</p>
+                  <p class="td exp-date">12-03-2026</p>
+                  <p class="td created-date">12-03-2025</p>
+                  <p class="td updated-date">12-08-2025</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inventory Section: Generate reports contents -->
+          <div class="inventory-section__report-contents">
+            <h1 class="section__heading">Generate Monthly Report</h1>
+
+            <!-- select-month, back-to-table-btn and download-btn  container -->
+            <div class="inventory-section__select-and-btn-container">
+              <select class="inventory-section__select-month" id="inventory-section__select-month" name="select-month">
+                <option value="all">All</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+              </select>
+              <button class="inventory-section__back-to-table-btn">Back to table</button>
+              <button class="inventory-section__download-report-btn">Download</button>
+            </div>
+
+            <!-- report contents description -->
+            <h1 class="report-contents__description">Select Month in the filter to generate report of certain Month.</h1>
+
+            <!-- report container -->
+            <div class="report-container">
+              <h2 class="report-container__month">April</h2>
+              <p class="report-container__caption"></p>
+
+              <!-- report vhart-->
+              <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
+            </div>
+          </div>       
+        </section>
+          
       </div>
     </main>
 
