@@ -465,7 +465,7 @@
         </section>
 
         <!-- ========== Swines Section ========== -->
-        <section id="swines-section" class="hide">
+        <section id="swines-section" class="show">
           <!-- Swine Section: Table contents -->
           <div class="swines-section__table-contents">
             <h1 class="section__heading">Swines Table</h1>
@@ -581,13 +581,46 @@
           </div>
 
           <!-- Swine Section: Generate reports contents -->
-          <div class="swine-section__report-contents">
-            <h1 class="section__heading">Generate Swine Reports</h1>
+          <div class="swine-section__report-contents reports-content">
+            <h1 class="section__heading">Generate Monthly Report</h1>
+            <!-- select-month, back-to-table-btn and download-btn  container -->
+            <div class="report-contents__select-and-btn-container">
+              <select class="swine-section__select-month" id="swine-section__select-month" name="select-month">
+                <option value="all">All</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+              </select>
+              <button class="swine-section__back-to-table-btn">Back to table</button>
+              <button class="swine-section__download-report-btn">Download</button>
+            </div>
+
+            <!-- report contents description -->
+            <h1 class="report-contents__description">Select Month in the filter to generate report of certain Month.</h1>
+
+            <!-- report container -->
+            <div class="report-container">
+              <h2 class="report-container__month">April</h2>
+              <p class="report-container__caption">Total Appointments</p>
+              <!-- report donut chart-->
+              <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
+              <!-- report table -->
+              <div id="swines-report-table"></div>
+            </div>
           </div>
         </section>
 
         <!-- ========== Appointments Section ========== -->
-        <section id="appointments-section" class="show">
+        <section id="appointments-section" class="hide">
           <!-- Appointment Section: Table contents -->
           <div class="appointment-table-content show">
             <h1 class="section__heading">Appointments</h1>
@@ -768,7 +801,7 @@
               <!-- report horizontal bar chart -->
               <canvas id="appointmentsChart" width="400" height="300"></canvas>
               <!-- report table -->
-               <div id="appointment-report-table"></div>
+              <div id="appointment-report-table"></div>
             </div>
           </div>
         </section>

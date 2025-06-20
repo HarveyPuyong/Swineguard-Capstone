@@ -72,7 +72,7 @@ new Chart(horizontalBarChart, {
 });
 
 
-  // report tabel: imodify pa yung styling neto at naming
+  // appointment report tabel: imodify pa yung styling neto at naming
  const tableData = [
     { barangay: "Mogpog", total: 120, deworming: 41, castration: 20, iron: 41, wound: 12, checkup: 6 },
     { barangay: "Boac", total: 189, deworming: 95, castration: 37, iron: 42, wound: 3, checkup: 9 },
@@ -95,3 +95,32 @@ new Chart(horizontalBarChart, {
       { title: "Check-up", field: "checkup", hozAlign: "center" }
     ]
   });
+
+
+
+
+  // swines report tabel: imodify pa yung styling neto at naming
+ const swinesTable = [
+    { barangay: "Mogpog", total: 120, deworming: 41, castration: 20, iron: 41, wound: 12, checkup: 6 },
+    { barangay: "Boac", total: 189, deworming: 95, castration: 37, iron: 42, wound: 3, checkup: 9 },
+    { barangay: "Balancan", total: 23, deworming: 7, castration: 2, iron: 10, wound: 3, checkup: 1 },
+    { barangay: "Bintakay", total: 6, deworming: 1, castration: 4, iron: 0, wound: 1, checkup: 0 },
+  ];
+
+  
+  const swineTable = new Tabulator("#swines-report-table", {
+    data: swinesTable,
+    layout: "fitColumns", // Fit columns to width of table
+    responsiveLayout: true,
+    columns: [
+      { title: "Barangay", field: "barangay" },
+      { title: "No. of Appointments", field: "total", hozAlign: "center" },
+      { title: "Deworming", field: "deworming", hozAlign: "center" },
+      { title: "Castration", field: "castration", hozAlign: "center" },
+      { title: "Iron Supplement", field: "iron", hozAlign: "center" },
+      { title: "Wound Treatment", field: "wound", hozAlign: "center" },
+      { title: "Check-up", field: "checkup", hozAlign: "center" }
+    ]
+  });
+
+
