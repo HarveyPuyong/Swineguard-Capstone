@@ -71,7 +71,7 @@ const viewBtnsFunctionality = () => {
       appointmentSchedContent.classList.add('show');
   });
 
-  const viewTableBtn = document.querySelector('.appointment-section__view-appointments-btn')
+  const viewTableBtn = document.querySelector('.appointment-section__view-appointments-table-btn')
     .addEventListener('click', () => {
       appointmentTableContent.classList.add('show');
       appointmentSchedContent.classList.remove('show');

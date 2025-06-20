@@ -14,7 +14,13 @@
     <link rel="stylesheet" href="styles/sections-style/technician-section.css">
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
 
+    <!--embeded chart cdn -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- embeded table -->
+    <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+
     <title>Admin Page</title>
   </head>
   <body>
@@ -580,6 +586,193 @@
           </div>
         </section>
 
+        <!-- ========== Appointments Section ========== -->
+        <section id="appointments-section" class="show">
+          <!-- Appointment Section: Table contents -->
+          <div class="appointment-table-content show">
+            <h1 class="section__heading">Appointments</h1>
+
+            <!-- search appointment -->
+            <div class="appointment-section__search">
+              <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+              <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+            </div>
+
+            <!-- filter and view-sched container -->
+            <div class="filter-and-view-sched-container">
+              <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
+                <option value="all">All</option>
+                <option value="completed">Completed</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="reschedule">Reschedule</option>
+                <option value="pending">Pending</option>
+                <option value="removed">Archive</option>
+              </select>
+              <button class="appointment-section__view-schedules-btn view-navigate-btn">View Schedules</button>
+            </div>
+
+            <!-- generate-report-btn -->
+            <button class="appointments-section__generate-report-btn">Generate Report</button>
+                          
+            <!-- Appointment Table -->
+            <div class="appointment-table">
+              <div class="appointment-table__thead"> <!-- table head -->
+                <p class="th first-name">First Name</p>
+                <p class="th last-name">Last Name</p>
+                <p class="th appointment-name">Appointment</p>
+                <p class="th date-time">Date & Time</p>
+                <p class="th status">Status</p>
+                <p class="th toggle-more-details-btn"><!--View button head--></p> 
+              </div>
+              <div class="appointment-table__tbody"> 
+                <div class="appointment">
+                  <div class="appointment__details">
+                    <p class="td first-name">John Harvey</p>
+                    <p class="td last-name">Puyong</p>
+                    <p class="td appointment-name">Iron Supplementation</p>
+                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
+                    <p class="td status" data-status-value="ongoing">Ongoing</p>
+                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
+                  </div>
+                  <div class="appointment__more-details">
+                    <div class="appointment__more-details-heading">Appointment Details:</div>
+                    <div class="appointment__more-details-columns">
+                      <!-- more details left column -->
+                      <div class="column left">
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment ID:</span>
+                          <span class="column__detail-value">10023450QPAL</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment Type:</span>
+                          <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Contact:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Date sent:</span>
+                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Actual Schedule:</span>
+                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Adress:</span>
+                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
+                        </p>
+                      </div>
+                      <!-- more details right column -->
+                      <div class="column right"> 
+                        <p class="column__detail">
+                          <span class="column__detail-label">Type:</span>
+                          <span class="column__detail-value">Piglet</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Vaccine</span>
+                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Amount:</span>
+                          <span class="column__detail-value">500mg</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Personnel:</span>
+                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Email:</span>
+                          <span class="column__detail-value">john.doe@gmail.com</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Phone:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="completed-btn btn">Completed</button>
+                        <button class="reschedule-btn btn">Set Schedule</button>
+                        <button class="restore-btn btn">Restore</button>
+                        <button class="delete-btn btn">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appointment Section: Schedule calendar contents -->
+          <div class="appointment-schedule-content">
+            <h1 class="section__heading">Appointments Schedule</h1>
+            <div class="view-btns-container">
+              <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
+              <button class="appointment-section__view-appointments-table-btn view-navigate-btn">View Table</button>
+            </div>
+            <!-- service type identifier -->
+            <div class="appointment-schedule-container__type-identifier service-type-identifier">
+              <div class="appointment-schedule-container__type-identifier--dot"></div>
+              <p class="appointment-schedule-container__type-identifier--label">Service</p>
+            </div>
+            <!-- visit type identifier -->
+            <div class="appointment-schedule-container__type-identifier visit-type-identifier">
+              <div class="appointment-schedule-container__type-identifier--dot"></div>
+              <p class="appointment-schedule-container__type-identifier--label">Visit</p>
+            </div>          
+              <!-- Magamit ng fulleCalendar library, para sa calendar -->
+            <div class="appointment-schedule-container__type-total total-service-type">
+              <p class="appointment-schedule-container__type-total--label">Total Services</p>
+              <p class="appointment-schedule-container__type-total--value">57.<span class="percent-value">14%</span></p>
+            </div>
+            <div class="appointment-schedule-container__type-total total-Visit-type">
+              <p class="appointment-schedule-container__type-total--label">Total Visit</p>
+              <p class="appointment-schedule-container__type-total--value">42.<span class="percent-value">86%</span></p>
+            </div>
+          </div>
+
+          <!-- Appointment Section: Generate reports contents -->
+          <div class="appointment-section__report-contents reports-content">
+            <h1 class="section__heading">Generate Monthly Report</h1>
+            <!-- select-month, back-to-table-btn and download-btn  container -->
+            <div class="report-contents__select-and-btn-container">
+              <select class="appointment-section__select-month" id="appointment-section__select-month" name="select-month">
+                <option value="all">All</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+              </select>
+              <button class="appointment-section__back-to-table-btn">Back to table</button>
+              <button class="appointment-section__download-report-btn">Download</button>
+            </div>
+
+            <!-- report contents description -->
+            <h1 class="report-contents__description">Select Month in the filter to generate report of certain Month.</h1>
+
+            <!-- report container -->
+            <div class="report-container">
+              <h2 class="report-container__month">April</h2>
+              <p class="report-container__caption">Total Appointments</p>
+              <!-- report donut chart-->
+              <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
+              <!-- report horizontal bar chart -->
+              <canvas id="appointmentsChart" width="400" height="300"></canvas>
+              <!-- report table -->
+               <div id="appointment-report-table"></div>
+            </div>
+          </div>
+        </section>
+
          <!-- ========== Inventory Section ========== -->
         <section id="inventory-section" class="hide">
           <!-- Inventory Section: Table contents -->
@@ -636,11 +829,11 @@
           </div>
 
           <!-- Inventory Section: Generate reports contents -->
-          <div class="inventory-section__report-contents">
+          <div class="inventory-section__report-contents reports-content">
             <h1 class="section__heading">Generate Monthly Report</h1>
 
             <!-- select-month, back-to-table-btn and download-btn  container -->
-            <div class="inventory-section__select-and-btn-container">
+            <div class="report-contents__select-and-btn-container">
               <select class="inventory-section__select-month" id="inventory-section__select-month" name="select-month">
                 <option value="all">All</option>
                 <option value="january">January</option>
@@ -667,15 +860,14 @@
             <div class="report-container">
               <h2 class="report-container__month">April</h2>
               <p class="report-container__caption"></p>
-
-              <!-- report vhart-->
+              <!-- report chart-->
               <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
             </div>
           </div>       
         </section>
 
         <!-- ========== Technecians Section ========== -->
-        <section id="technicians-section" class="show">
+        <section id="technicians-section" class="hide">
           <h1 class="section__heading">Technicians</h1>
           <button class="technicians-section__view-sched-btn">View Schedules</button>
           <div class="technician-list-container">
