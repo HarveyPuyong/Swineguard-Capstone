@@ -67,7 +67,7 @@
       
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-        <section id="dashboard-section" class="show">
+        <section id="dashboard-section" class="hide">
           <div class="appointment-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
@@ -245,9 +245,9 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-        <section id="appointments-section" class="hide">
+        <section id="appointments-section" class="show">
           <!-- Appointment Section: Table contents -->
-          <div class="appointment-table-content show">
+          <div class="appointment-table-content hide">
             <h1 class="section__heading">Appointments</h1>
             <!-- search and add-btn appointment -->
             <div class="appointments-section__search-and-add-btn">
@@ -714,36 +714,41 @@
             </div>
           </div>
 
-
           <!-- Appointment Section: Schedule calendar contents -->
-          <div class="appointment-schedule-content">
+          <div class="appointment-schedule-content show">
             <h1 class="section__heading">Appointments Schedule</h1>
             <div class="view-btns-container">
               <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
               <button class="appointment-section__view-appointments-table-btn view-navigate-btn">View Table</button>
             </div>
-            <!-- service type identifier -->
-            <div class="appointment-schedule-container__type-identifier service-type-identifier">
-              <div class="appointment-schedule-container__type-identifier--dot"></div>
-              <p class="appointment-schedule-container__type-identifier--label">Service</p>
-            </div>
-            <!-- visit type identifier -->
-            <div class="appointment-schedule-container__type-identifier visit-type-identifier">
-              <div class="appointment-schedule-container__type-identifier--dot"></div>
-              <p class="appointment-schedule-container__type-identifier--label">Visit</p>
-            </div>
 
-            <!-- appointments calendar -->
-            <div id='appointment-schedule-calendar'></div>
+            <div class="appointment-schedule-container">
+              <!-- appointment total services and visit -->
+               <div class="appointment-schedule-total-container">
+                <div class="appointment-schedule-container__total total-service-type">
+                  <p class="appointment-schedule-container__total--label">Total Services:</p>
+                  <p class="appointment-schedule-container__total--value">57.<span class="percent-value">14%</span></p>
+                </div>
+                <div class="appointment-schedule-container__total total-visit-type">
+                  <p class="appointment-schedule-container__total--label">Total Visit:</p>
+                  <p class="appointment-schedule-container__total--value">42.<span class="percent-value">86%</span></p>
+                </div>
+               </div>
 
-            <!-- appointment total services and visit -->
-            <div class="appointment-schedule-container__type-total total-service-type">
-              <p class="appointment-schedule-container__type-total--label">Total Services</p>
-              <p class="appointment-schedule-container__type-total--value">57.<span class="percent-value">14%</span></p>
-            </div>
-            <div class="appointment-schedule-container__type-total total-Visit-type">
-              <p class="appointment-schedule-container__type-total--label">Total Visit</p>
-              <p class="appointment-schedule-container__type-total--value">42.<span class="percent-value">86%</span></p>
+              <!-- types identifier container -->
+              <div class="appointment-schedule-container__type-identifier-container">
+                <div class="appointment-schedule-container__type-identifier service-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Service</p>
+                </div>
+                <div class="appointment-schedule-container__type-identifier visit-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Visit</p>
+                </div>
+              </div>
+          
+              <!-- appointments calendar -->
+              <div id='appointment-schedule-calendar' class="appointment-schedule-container__calendar"></div>
             </div>
           </div>
         </section>

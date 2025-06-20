@@ -161,20 +161,37 @@ const toggleAddAppointmentForm = () => {
     .addEventListener('click', () => formContainer.classList.remove('show'));
 }
 
-
-//appointment schedule calendar
-  document.addEventListener('DOMContentLoaded', function() {
-    var calendarEl = document.getElementById('appointment-schedule-calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      events: [
-        { title: 'Health Surveillance', date: '2025-05-01' },
-        { title: 'Castration', date: '2025-05-02' },
-        { title: 'Check Ups', date: '2025-05-09' }
-      ]
-    });
-    calendar.render();
+// ======================================
+// ==========Schedule Calendar
+// ======================================
+const calendarTable = () => {
+  const appointmentCalendarElement = document.getElementById('appointment-schedule-calendar');
+  
+  const calendar = new FullCalendar.Calendar(appointmentCalendarElement, {
+    initialView: 'dayGridMonth',
+    events: [
+      { title: 'Health Surveillance', date: '2025-05-01' },
+      { title: 'Castration', date: '2025-05-02' },
+      { title: 'Check Ups', date: '2025-05-09' },
+      { title: 'Health Surveillance', date: '2025-05-02' },
+      { title: 'Castration', date: '2025-05-04' },
+      { title: 'Check Ups', date: '2025-05-10' },
+      { title: 'Health Surveillance', date: '2025-05-03' },
+      { title: 'Castration', date: '2025-05-10' },
+      { title: 'Check Ups', date: '2025-05-11' },
+      { title: 'Check Ups', date: '2025-05-11' },
+      { title: 'Check Ups', date: '2025-05-11' },
+      { title: 'Check Ups', date: '2025-05-11' },
+      { title: 'Castration', date: '2025-05-10' },
+      { title: 'Check Upss', date: '2025-05-11' },
+      { title: 'Check Upsss', date: '2025-05-11' },
+      { title: 'Check Upsss', date: '2025-05-11' },
+      { title: 'Check Upssss', date: '2025-05-11' },
+    ]
   });
+  calendar.render();
+}
+    
 
 
 // ======================================
@@ -187,5 +204,6 @@ export default function setupAppointmentSection() {
   toggleAppointentMoreDetails();
   searchAppointment();
   viewBtnsFunctionality();
+  calendarTable();
 }
 

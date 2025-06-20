@@ -749,28 +749,34 @@
               <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
               <button class="appointment-section__view-appointments-table-btn view-navigate-btn">View Table</button>
             </div>
-            <!-- service type identifier -->
-            <div class="appointment-schedule-container__type-identifier service-type-identifier">
-              <div class="appointment-schedule-container__type-identifier--dot"></div>
-              <p class="appointment-schedule-container__type-identifier--label">Service</p>
-            </div>
-            <!-- visit type identifier -->
-            <div class="appointment-schedule-container__type-identifier visit-type-identifier">
-              <div class="appointment-schedule-container__type-identifier--dot"></div>
-              <p class="appointment-schedule-container__type-identifier--label">Visit</p>
-            </div>
 
-            <!-- appointments calendar -->
-            <div id='appointment-schedule-calendar'></div>
+            <div class="appointment-schedule-container">
+              <!-- appointment total services and visit -->
+               <div class="appointment-schedule-total-container">
+                <div class="appointment-schedule-container__total total-service-type">
+                  <p class="appointment-schedule-container__total--label">Total Services:</p>
+                  <p class="appointment-schedule-container__total--value">57.<span class="percent-value">14%</span></p>
+                </div>
+                <div class="appointment-schedule-container__total total-visit-type">
+                  <p class="appointment-schedule-container__total--label">Total Visit:</p>
+                  <p class="appointment-schedule-container__total--value">42.<span class="percent-value">86%</span></p>
+                </div>
+               </div>
 
-            <!-- appointment total services and visit -->
-            <div class="appointment-schedule-container__type-total total-service-type">
-              <p class="appointment-schedule-container__type-total--label">Total Services</p>
-              <p class="appointment-schedule-container__type-total--value">57.<span class="percent-value">14%</span></p>
-            </div>
-            <div class="appointment-schedule-container__type-total total-Visit-type">
-              <p class="appointment-schedule-container__type-total--label">Total Visit</p>
-              <p class="appointment-schedule-container__type-total--value">42.<span class="percent-value">86%</span></p>
+              <!-- types identifier container -->
+              <div class="appointment-schedule-container__type-identifier-container">
+                <div class="appointment-schedule-container__type-identifier service-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Service</p>
+                </div>
+                <div class="appointment-schedule-container__type-identifier visit-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Visit</p>
+                </div>
+              </div>
+          
+              <!-- appointments calendar -->
+              <div id='appointment-schedule-calendar' class="appointment-schedule-container__calendar"></div>
             </div>
           </div>
 

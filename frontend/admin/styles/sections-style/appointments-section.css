@@ -72,7 +72,7 @@
 #appointments-section .view-btns-container{
   position: absolute;
   right: 55px;
-  top: 30px;
+  top: 20px;
   display: flex;
   gap: 8px;
   flex-direction: column;
@@ -84,6 +84,12 @@
   border-radius: 8px;
   padding: 10px 0;
   cursor: pointer;
+}
+
+#appointments-section .view-navigate-btn{
+  border: 1px solid #0F7E43;
+  background-color: #2FC375;
+  color: white;
 }
 
 .filter-apointments-status{
@@ -108,7 +114,6 @@
 .appointment-section__view-schedules-btn{
   display: block;
 }
-
 
 
 /* appointments table */
@@ -502,10 +507,166 @@
   color: #FF0000;
 }
 
-/* Pending-work: Style the appointment schedule calendar */
+/* Appointment Schedule Calendar Contents */
 .appointment-schedule-content{
   display: none;
+  padding-bottom: 30px;
 }
 .appointment-schedule-content.show{
   display: block;
+}
+
+.appointment-schedule-container{
+  position: relative;
+  background-color: white;
+  border-radius: 5px;
+  border: 2px solid #9A9A9A;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  padding: 25px;
+  margin-top: 70px;
+}
+
+.appointment-schedule-total-container{
+  position: absolute;
+  left: 25px;
+  display: flex;
+  gap: 30px;
+  background-color: rgba(128, 128, 128, 0.292);
+  border-radius: 5px;
+  padding: 12px 20px;
+}
+
+.appointment-schedule-container__total{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.appointment-schedule-container__total.total-service-type{
+  --color: #28ce78;
+}
+.appointment-schedule-container__total.total-visit-type{
+  --color: #4397CC;
+}
+
+.appointment-schedule-container__total--label{
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: rgb(86, 86, 86);
+}
+
+.appointment-schedule-container__total--value{
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color);
+}
+
+.appointment-schedule-container__total--value .percent-value{
+  font-size: 1.2rem;
+}
+
+.appointment-schedule-container__type-identifier-container{
+  position: absolute;
+  right: 50px;
+  top: 40px;
+  display: flex;
+  align-items: center;
+  gap: 40px
+}
+
+.appointment-schedule-container__type-identifier{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.appointment-schedule-container__type-identifier.service-type-identifier{
+  --color: #28ce78;
+}
+.appointment-schedule-container__type-identifier.visit-type-identifier{
+  --color: #4397CC;
+}
+
+.appointment-schedule-container__type-identifier--dot{
+  --size: 10px;
+
+  height: var(--size);
+  width: var(--size);
+  border-radius: 50%;
+  background-color: var(--color);
+}
+
+.appointment-schedule-container__type-identifier--label{
+  color: var(--color);
+  font-weight: 500;
+}
+
+/* Schedule Calendar Container */
+#appointment-schedule-calendar {
+  position: relative;
+  max-height: 560px;
+  margin-top: 120px;
+}
+
+.fc-toolbar-title{
+  padding-left: 130px;
+}
+
+/* Prev and Next Buttons Group */
+.fc-button-group {
+  position: absolute !important;
+  left: 0px;
+  display: flex;
+  gap: 2px;
+}
+
+
+/* Day Header Cells (Sun, Mon, Tue...) */
+.fc .fc-col-header-cell {
+  outline: 1px solid #4e4e4e;
+  outline-offset: -1px;
+  background-color: black;
+  color: white
+}
+
+/* Day Header Text Styling */
+.fc-col-header-cell-cushion {
+  font-weight: 600;
+}
+
+/* Body Cell */
+.fc-scrollgrid-sync-inner {
+  padding: 10px 0;
+}
+
+/* Day Cells (each date box) border */
+.fc .fc-daygrid-day {
+  border: 1px solid #3a3a3a;
+}
+
+/* Inner Frame of Day Cells */
+.fc .fc-daygrid-day-frame {
+  padding: 10px;
+}
+
+/* Date Number (1, 2, 3...) in day cell */
+.fc-daygrid-day-number {
+  font-weight: 600;
+}
+
+/*  Event Styling */
+.fc-event {
+  background-color: #4caf50 !important;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  padding: 5px;
+  margin-bottom: 2px;
+  cursor: pointer;
+}
+
+/* Event Title Text */
+.fc-event-title {
+  font-size: 0.85rem;
 }
