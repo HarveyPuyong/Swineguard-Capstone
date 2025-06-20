@@ -14,14 +14,19 @@
     <link rel="stylesheet" href="styles/sections-style/technician-section.css">
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
 
-    <!--embeded chart cdn -->
+    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-    <!-- embeded table -->
+    <!-- FullCalendar CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+    <!-- Tabulator CDN (table library with no jQuery needed) -->
     <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
     <script src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
 
     <title>Admin Page</title>
+
   </head>
   <body>
      <!-- ========== Header ========== -->
@@ -465,7 +470,7 @@
         </section>
 
         <!-- ========== Swines Section ========== -->
-        <section id="swines-section" class="show">
+        <section id="swines-section" class="hide">
           <!-- Swine Section: Table contents -->
           <div class="swines-section__table-contents">
             <h1 class="section__heading">Swines Table</h1>
@@ -620,7 +625,7 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-        <section id="appointments-section" class="hide">
+        <section id="appointments-section" class="show">
           <!-- Appointment Section: Table contents -->
           <div class="appointment-table-content show">
             <h1 class="section__heading">Appointments</h1>
@@ -738,7 +743,7 @@
           </div>
 
           <!-- Appointment Section: Schedule calendar contents -->
-          <div class="appointment-schedule-content">
+          <div class="appointment-schedule-content show">
             <h1 class="section__heading">Appointments Schedule</h1>
             <div class="view-btns-container">
               <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
@@ -753,8 +758,12 @@
             <div class="appointment-schedule-container__type-identifier visit-type-identifier">
               <div class="appointment-schedule-container__type-identifier--dot"></div>
               <p class="appointment-schedule-container__type-identifier--label">Visit</p>
-            </div>          
-              <!-- Magamit ng fulleCalendar library, para sa calendar -->
+            </div>
+
+            <!-- appointments calendar -->
+            <div id='appointment-schedule-calendar'></div>
+
+            <!-- appointment total services and visit -->
             <div class="appointment-schedule-container__type-total total-service-type">
               <p class="appointment-schedule-container__type-total--label">Total Services</p>
               <p class="appointment-schedule-container__type-total--value">57.<span class="percent-value">14%</span></p>

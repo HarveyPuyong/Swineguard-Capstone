@@ -124,3 +124,17 @@ new Chart(horizontalBarChart, {
   });
 
 
+
+  //appointment schedule calendar
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('appointment-schedule-calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      events: [
+        { title: 'Health Surveillance', date: '2025-05-01' },
+        { title: 'Castration', date: '2025-05-02' },
+        { title: 'Check Ups', date: '2025-05-09' }
+      ]
+    });
+    calendar.render();
+  });
