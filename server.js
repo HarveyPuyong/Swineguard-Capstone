@@ -36,6 +36,9 @@ app.get('/', (req, res) => {
 // Signup routing
 app.use('/signup', require('./routes/signupClientRoute')); 
 
+// Edit and Update user credentials
+app.use('/user', require('./routes/userRoute'));
+
 // Client login routings
 app.use('/login', require('./routes/loginClientRoute'));
 
