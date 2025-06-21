@@ -75,7 +75,6 @@ const viewBtnsFunctionality = () => {
     .addEventListener('click', () => {
       appointmentTableContent.classList.add('show');
       appointmentSchedContent.classList.remove('show');
-      console.log('okay')
   });
 
   const viewTechniciansBtn = document.querySelector('.appointment-section__view-technicians-btn')
