@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="styles/side-nav.css">
     <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
     <link rel="stylesheet" href="styles/sections-style/users-section.css">
+    <link rel="stylesheet" href="styles/sections-style/swines-section.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <link rel="stylesheet" href="styles/sections-style/inventory-section.css">
     <link rel="stylesheet" href="styles/sections-style/technician-section.css">
@@ -250,11 +251,11 @@
         </section>
 
         <!-- ========== Users Section ========== -->
-        <section id="users-section" class="show">
+        <section id="users-section" class="hide">
           <h1 class="section__heading">Users</h1>
 
           <!-- Users Section: Table contents -->
-          <div class="user-section__table-contents show">
+          <div class="user-section__table-contents">
             <!-- user search -->
             <div class="users-section__search">
                   <img class="users-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
@@ -307,7 +308,7 @@
           </div>
 
           <!-- Users Section: User fullview  -->
-          <div class="user-profile-full-view">
+          <div class="user-profile-full-view show">
             <button class="user-profile-full-view__back-btn">Back</button>
 
             <div class="user-profile-full-view__container main-info-container">  <!-- main-info-container -->
@@ -386,6 +387,7 @@
                   <p class="th sex">Sex</p>
                   <p class="th weight">Weight</p>
                   <p class="th health-status">Status</p>
+                  <p class="th owner">Owner</p>
                   <p class="th created-date">Created Date</p>
                   <p class="th updated-date">Updated Date</p>
                   <p class="th toggle-more-details-btn"><!--th for toggle icon --></p>
@@ -399,6 +401,7 @@
                       <p class="td sex">male</p>
                       <p class="td weight">60kg</p>
                       <p class="td health-status">Healthy</p>
+                      <p class="td owner">Robert Magno</p>
                       <p class="td created-date">01.01.2025</p>
                       <p class="td updated-date">5.01.2025</p>
                       <button class="td toggle-more-details-btn">View</button> 
@@ -484,7 +487,7 @@
         </section>
 
         <!-- ========== Swines Section ========== -->
-        <section id="swines-section" class="hide">
+        <section id="swines-section" class="show">
           <!-- Swine Section: Table contents -->
           <div class="swines-section__table-contents">
             <h1 class="section__heading">Swines Table</h1>
@@ -522,7 +525,7 @@
                 <p class="th owner">Owner</p>
                 <p class="th created-date">Created Date</p>
                 <p class="th updated-date">Updated Date</p>
-                <p class="th toggle-more-details-btn">View</p>
+                <p class="th toggle-more-details-btn"><!--th for toggle icon --></p>
               </div>
               <div class="swines-table__tbody">  <!-- table body -->
                 <div class="swine">
@@ -533,13 +536,13 @@
                     <p class="td sex">male</p>
                     <p class="td weight">60kg</p>
                     <p class="td health-status">Healthy</p>
-                    <p class="td owner">Robert Mgano</p>
+                    <p class="td owner">Robert Magno</p>
                     <p class="td created-date">01.01.2025</p>
                     <p class="td updated-date">5.01.2025</p>
-                    <button class="th toggle-more-details-btn">View</button> 
+                    <button class="td toggle-more-details-btn">View</button> 
                   </div>
                   <div class="swine__more-details">
-                    <div class="swine__more-details-heading">Appointment Details:</div>
+                    <div class="swine__more-details-heading">Swine Details:</div>
                     <div class="swine__more-details-columns">
                       <!-- more details left column -->
                       <div class="column left">
@@ -594,13 +597,13 @@
             </div>
           </div>
 
-          <!-- Swine Section: Graph contents -->
-          <div class="swine-section__graph-contents">
-            <h1 class="section__heading">Swines Graph</h1>
+          <!-- Swine Section: Mapping contents -->
+          <div class="swine-section__mapping-contents">
+            <h1 class="section__heading">Swines Mapping</h1>
           </div>
 
           <!-- Swine Section: Generate reports contents -->
-          <div class="swine-section__report-contents reports-content">
+          <div class="swine-section__report-contents reports-content show">
             <h1 class="section__heading">Generate Monthly Report</h1>
             <!-- select-month, back-to-table-btn and download-btn  container -->
             <div class="report-contents__select-and-btn-container">
@@ -619,17 +622,17 @@
                 <option value="november">November</option>
                 <option value="december">December</option>
               </select>
-              <button class="swine-section__back-to-table-btn">Back to table</button>
+              <button class="swine-section__back-to-table-btn show">Back to table</button>
               <button class="swine-section__download-report-btn">Download</button>
             </div>
 
             <!-- report contents description -->
-            <h1 class="report-contents__description">Select Month in the filter to generate report of certain Month.</h1>
+            <h1 class="report-contents__description">Select Month in the filter to <br> generate report of certain Month.</h1>
 
             <!-- report container -->
-            <div class="report-container">
+            <div class="report-container show">
               <h2 class="report-container__month">April</h2>
-              <p class="report-container__caption">Total Appointments</p>
+              <p class="report-container__caption">Total swines for this month</p>
               <!-- report donut chart-->
               <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
               <!-- report table -->
