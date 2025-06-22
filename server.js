@@ -29,9 +29,14 @@ app.use(cookieParser());
 
 app.use(errorHandler);
 
+//Pang Test Lang ito boi
+app.use(Express.static(path.join(__dirname, 'test')));
 app.get('/', (req, res) => {
-  res.send('Kupal')
+  res.sendFile(path.join(__dirname, 'test', 'message.html'));// Ito yung message nya
 });
+// app.get('/', (req, res) => {
+//   res.send('message.html') // I want to open the test/message.html here
+// });
 
 // Signup routing
 app.use('/signup', require('./routes/signupClientRoute')); 
@@ -49,7 +54,7 @@ app.use('/admin/login', require('./routes/loginAdminRoute'));
 app.use('/refresh', require('./routes/refreshTokenRoute'));
 
 //Messages routing
-app.use('/send-message', require('./routes/messageRoute'));
+app.use('/message', require('./routes/messageRoute'));
 
 //Inventory routings
 app.use('/inventory', require('./routes/inventoryRoute'));
@@ -69,5 +74,5 @@ app.use('/logout', require('./routes/logoutRoute'));
 
 mongoose.connection.once('open', () => {
   console.log(`Connected to MongoDB database: ${mongoose.connection.name}`);
-  app.listen(PORT, () => console.log(`Server is listen to port: http//localhost:${PORT}`));
+  app.listen(PORT, () => console.log(`Server is listen to port: http://localhost:${PORT}`));
 });

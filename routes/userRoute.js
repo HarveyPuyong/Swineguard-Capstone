@@ -3,7 +3,9 @@ const router = express.Router();
 
 const userController = require('./../controllers/userController');
 
-router.put('/edit/:id', userController.editUserDetails);
+router.post('/add/technician', userController.addTechnician); // Add Technicians
+router.put('/edit/:id', userController.editUserDetails);// Edit user details
+router.get('/data', userController.fetchUserData); // Get all user details
 
 module.exports = router;
 
