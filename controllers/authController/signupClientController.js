@@ -1,7 +1,7 @@
 const bcrypt =  require('bcrypt');
-const ROLE_LIST = require('./../config/role_list');
-const UserDB = require('./../models/userModel');
-const {generateAccessToken, generateRefreshToken} = require('./../utils/generateTokens'); //na import yung generate tokens sa utils folder
+const ROLE_LIST = require('../../config/role_list');
+const UserDB = require('../../models/userModel');
+const {generateAccessToken, generateRefreshToken} = require('../../utils/generateTokens'); //na import yung generate tokens sa utils folder
 
 const signupController = async (req, res) => {
   // nakuha yung json laman ng req.body

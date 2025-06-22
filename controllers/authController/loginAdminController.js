@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
-const UserDB = require('./../models/userModel');
-const ROLE_LIST = require('./../config/role_list');
-const {generateAccessToken, generateRefreshToken} = require('./../utils/generateTokens');
+const UserDB = require('../../models/userModel');
+const ROLE_LIST = require('../../config/role_list');
+const {generateAccessToken, generateRefreshToken} = require('../../utils/generateTokens');
 
 const adminLoginController = async(req, res) => {
   const {email, password} = req.body;
@@ -57,7 +57,9 @@ const adminLoginController = async(req, res) => {
        }
      );
 
-     return res.status(200).json({message: 'Successfully login', accessToken});
+     return res.status(200).json({message: 'Successfully login',
+                                  accessToken,
+                                  roles: foundUser.roles});
   }catch(err) {
     console.log( `Error: ${err.message}`);
     return res.status(500).json({message: "An unexpected error occurred. Please try again later"})
