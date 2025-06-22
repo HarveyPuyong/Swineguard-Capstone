@@ -35,7 +35,10 @@ app.get('/', (req, res) => {
   return res.redirect('/client/auth.html');
 });
 
+// Auth Routing
 app.use('/auth', require('./routes/authRoute'));
+
+app.use('/', require('./routes/userRoute'));
 
 // Refresh token routing
 app.use('/refresh', require('./routes/refreshTokenRoute'));
