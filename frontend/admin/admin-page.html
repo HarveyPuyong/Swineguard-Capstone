@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/side-nav.css">
+    <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
+    <link rel="stylesheet" href="styles/sections-style/users-section.css">
+    <link rel="stylesheet" href="styles/sections-style/swines-section.css">
+    <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
+    <link rel="stylesheet" href="styles/sections-style/inventory-section.css">
+    <link rel="stylesheet" href="styles/sections-style/technician-section.css">
+    <link rel="stylesheet" href="styles/sections-style/setting-section.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FullCalendar CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+    <!-- Tabulator CDN (table library with no jQuery needed) -->
+    <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <title>Admin Page</title>
+  </head>
+  <body>
+     <!-- ========== Header ========== -->
+    <header>
+        <div class="header__toggle-side-nav-icon">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="header__swine-logo">
+            <img class="header__swine-logo-img" src="images-and-icons/icons/swineGuard-logo.png" alt="img-logo">
+            <p class="header__swine-logo-label">Swine Guard</p>
+        </div>
+        <div class="header__admin-profile">
+          <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
+          <p class="header__admin-profile-label">Appointments Coordinator</p>
+          <i class="drop-down-icon fas fa-chevron-down "></i>
+        </div>
+    </header>
+
+    <main class="main-wrapper">
+      <!-- ========== Side nav ========== -->
+      <nav class="side-nav">
+        <ul class="side-nav__link-list">
+          <li class="side-nav__link active" data-value="dashboard-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/dashboard-icon.png" alt="dashboard-icon">
+            <p class="side-nav__link-label">Dashboard</p>
+          </li>
+          <li class="side-nav__link" data-value="users-section">
+            <img  class="side-nav__link-icon" src="images-and-icons/icons/user-icon.png" alt="man-icon">
+            <p class="side-nav__link-label">User</p>
+          </li>
+          <li class="side-nav__link" data-value="swines-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/pig-icon.png" alt="pig-icon">
+            <p class="side-nav__link-label">Swines</p>
+          </li>
+          <li class="side-nav__link" data-value="appointments-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/appointment-icon.png" alt="appointment-icon">
+            <p class="side-nav__link-label">Appointments</p>
+          </li>
+          <li class="side-nav__link" data-value="inventory-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/inventory-icon.png" alt="inventory-icon">
+            <p class="side-nav__link-label">Inventory</p>
+          </li>
+          <li class="side-nav__link" data-value="technicians-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/technician-icon.png" alt="technician-icon">
+            <p class="side-nav__link-label">Technicians</p>
+          </li>
+          <li class="side-nav__link" data-value="setting-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="setting-icon">
+            <p class="side-nav__link-label">Setting</p>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sections-wrapper">
+        <!-- ========== Dashboard Section ========== -->
+        <section id="dashboard-section" class="hide">
+          <div class="admin-dashboard dashboard">
+            <div class="dashboard__background"></div>
+            <h1 class="dashboard__heading">Dashboards</h1>
+            <div class="dashboard__cards-container">
+              <!-- totals users card -->
+              <div class="dashboard__card total-users total-card">
+                <img class="dashboard__card-icon" src="images-and-icons/icons/user-icon.png" alt="user-icon" >
+                <p class="dashboard__card-label">
+                  Total Users: 
+                  <span class="dashboard__card-label--value">75</span>
+                </p>
+              </div>
+              <!-- totals appointments card -->
+              <div class="dashboard__card total-appointments total-card">
+                <img class="dashboard__card-icon" src="images-and-icons/icons/appointment-icon.png" alt="calendar-icon" >
+                <p class="dashboard__card-label">
+                  Total Appointments: 
+                  <span class="dashboard__card-label--value">75</span>
+                </p>
+              </div>
+              <!-- totals inventory card -->
+              <div class="dashboard__card total-inventory total-card">
+                <img class="dashboard__card-icon" src="images-and-icons/icons/inventory-icon.png" alt="inventory-icon" >
+                <p class="dashboard__card-label">
+                  Total Inventory: 
+                  <span class="dashboard__card-label--value">75</span>
+                </p>
+              </div>
+              <!-- totals swines card -->
+              <div class="dashboard__card total-swines total-card">
+                <img class="dashboard__card-icon" src="images-and-icons/icons/pig-icon.png" alt="pig-icon" >
+                <p class="dashboard__card-label">
+                  Totalal Swines: 
+                  <span class="dashboard__card-label--value">75</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ongoing Appointment Table -->
+          <div class="dashboard-section__table-container">
+            <h1 class="dashboard-section__table-container-heading">Today Ongoing Appointment</h1>
+             <div class="ongoing-appointment-table appointment-table">
+              <div class="appointment-table__thead"> <!-- table head -->
+                <p class="th first-name">First Name</p>
+                <p class="th last-name">Last Name</p>
+                <p class="th appointment-name">Appointment</p>
+                <p class="th date-time">Date & Time</p>
+                <p class="th status">Status</p>
+                <p class="th toggle-more-details-btn"><!--View button head--></p> 
+              </div>
+              <div class="appointment-table__tbody"> 
+                <div class="appointment">
+                  <div class="appointment__details">
+                    <p class="td first-name">John Harvey</p>
+                    <p class="td last-name">Puyong</p>
+                    <p class="td appointment-name">Iron Supplementation</p>
+                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
+                    <p class="td status" data-status-value="ongoing">Ongoing</p>
+                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
+                  </div>
+                  <div class="appointment__more-details">
+                    <div class="appointment__more-details-heading">Appointment Details:</div>
+                    <div class="appointment__more-details-columns">
+                      <!-- more details left column -->
+                      <div class="column left">
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment ID:</span>
+                          <span class="column__detail-value">10023450QPAL</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment Type:</span>
+                          <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Contact:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Date sent:</span>
+                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Actual Schedule:</span>
+                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Adress:</span>
+                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
+                        </p>
+                      </div>
+                      <!-- more details right column -->
+                      <div class="column right"> 
+                        <p class="column__detail">
+                          <span class="column__detail-label">Type:</span>
+                          <span class="column__detail-value">Piglet</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Vaccine</span>
+                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Amount:</span>
+                          <span class="column__detail-value">500mg</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Personnel:</span>
+                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Email:</span>
+                          <span class="column__detail-value">john.doe@gmail.com</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Phone:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="completed-btn btn">Completed</button>
+                        <button class="reschedule-btn btn">Set Schedule</button>
+                        <button class="restore-btn btn">Restore</button>
+                        <button class="delete-btn btn">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Less and out-of stock inventory table -->
+          <div class="dashboard-section__table-container">
+            <h1 class="dashboard-section__table-container-heading">Less and Out of Stock Medicine</h1>
+            <div class="less-stock-medicine-table inventory-table">
+              <!-- table head -->
+              <div class="inventory-table__thead">
+                <p class="th id">ID</p>
+                <p class="th medicine-name">Medicine</p>
+                <p class="th medicine-dosage">Dosage</p>
+                <p class="th quantity">Quantity</p>
+                <p class="th status">Status</p>
+                <p class="th exp-date">EXP. Date</p>
+                <p class="th created-date">Created Date</p>
+                <p class="th updated-date">Updated Date</p>
+                <p class="th toggle-buttons-icon"></p>
+              </div>
+              <!-- table body -->
+              <div class="inventory-table__tbody"> 
+                <div class="medicine">
+                  <p class="td id">648f1b7c2a9f...</p>
+                  <p class="td medicine-name">Coglapest</p>
+                  <p class="td medicine-dosage">10mg</p>
+                  <p class="td quantity">15</p>
+                  <p class="td status" data-status-value="in-stock">In Stock</p>
+                  <p class="td exp-date">12-03-2026</p>
+                  <p class="td created-date">12-03-2025</p>
+                  <p class="td updated-date">12-08-2025</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== Users Section ========== -->
+        <section id="users-section" class="hide">
+          <h1 class="section__heading">Users</h1>
+
+          <!-- Users Section: Table contents -->
+          <div class="user-section__table-contents">
+            <!-- user search -->
+            <div class="users-section__search">
+                  <img class="users-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+                  <input class="users-section__search-input" type="text" placeholder="Search...">   
+            </div>
+
+            <!-- filter user  -->
+            <select class="filter-users" name="users-filter" id="users-filter">
+              <option value="all">All</option>
+              <option value="mogpog">Mogpog</option>
+              <option value="boac">Boac</option>
+              <option value="gasan">Gasan</option>
+              <option value="buenavista">Buenavista</option>
+              <option value="sta-Cruz">Sta. Cruz</option>
+              <option value="torrijos">Torrijos</option>
+            </select>
+
+            <!-- users table -->
+            <div class="users-table">
+              <div class="users-table__thead"> <!-- table head -->
+                <p class="th first-name">First Name</p>
+                <p class="th middle-name">MI</p>
+                <p class="th last-name">Last Name</p>
+                <p class="th municipality">Municipality</p>
+                <p class="th barangay">Barangay</p>
+                <p class="th contact">Contact</p>
+                <p class="th email">Email</p>
+                <p class="th toggle-buttons"><!--View button head--></p> 
+              </div>
+              <div class="users-table__tbody">
+                <div class="user">
+                  <p class="td first-name">Robert</p>
+                  <p class="td middle-name">Qpal</p>
+                  <p class="td last-name">Magno</p>
+                  <p class="td municipality">Buenavista</p>
+                  <p class="td barangay">Balaring</p>
+                  <p class="td contact">09123456789</p>
+                  <p class="td email">email@gmail.com</p>
+                  <div class="td toggle-buttons">
+                    <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
+                    <div class="buttons-container">
+                      <button class="view-user-profile-btn">View</button>
+                      <button class="reset-user-credential-btn">Reset</button>
+                      <button class="remove-user-btn">Remove</button>
+                    </div>
+                  </div> 
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Users Section: User fullview  -->
+          <div class="user-profile-full-view show">
+            <button class="user-profile-full-view__back-btn">Back</button>
+
+            <div class="user-profile-full-view__container main-info-container">  <!-- main-info-container -->
+              <div class="main-info-container__user-pic">
+                <img class="main-info-container__user-pic--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-picture">
+                <label class="main-info-container__user-pic--upload" title="change photo">
+                  <input type="file" hidden />
+                  <i class="fas fa-camera icon"></i> 
+                </label>
+              </div>
+
+              <div class="main-info-container__details">
+                <h4 class="main-info-container__user-name">Robert Magno</h4>
+                <p class="main-info-container__user-id">qpal09sjshsyw</p>
+                <p class="main-info-container__user-email">qpal@gmail.com</p>
+              </div>
+
+               <button class="reset-user-credential-btn">Reset Credentials</button>   
+            </div>
+
+            <div class="user-profile-full-view__container personal-info-container">  <!-- personal-info-container -->
+              <h2 class="user-profile-full-view__container-heading">Personal Information</h2>
+              <div class="personal-info-container__details user-details">
+                <p class="detail">
+                  <span class="detail-label">Full Name:</span>
+                  <span class="detail-value">Robert Qpal Magno</span>
+                </p>
+                <p class="detail">
+                  <span class="detail-label">Sex:</span>
+                  <span class="detail-value">Male</span>
+                </p>
+                <p class="detail">
+                  <span class="detail-label">Age:</span>
+                  <span class="detail-value">5</span>
+                </p>
+                <p class="detail">
+                  <span class="detail-label">Phone Number:</span>
+                  <span class="detail-value">09123456789</span>
+                </p>
+                <p class="detail">
+                  <span class="detail-label">Email:</span>
+                  <span class="detail-value">email@gmail.com</span>
+                </p>
+                <p class="detail">
+                  <span class="detail-label">Total Swines:</span>
+                  <span class="detail-value">100</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="user-profile-full-view__container address-info-container">  <!-- adress-info-container -->
+              <h2 class="user-profile-full-view__container-heading">Adress</h2>
+              <div class="address-info-container__details user-details">
+                <p class="detail">
+                  <span class="detail-label">Province:</span>
+                  <span class="detail-value">Marinduque</span>
+                </p>
+                <p class="detail">
+                  <span class="detail-label">Municipality:</span>
+                  <span class="detail-value">Gasan</span>
+                </p>
+                <p class="detail">
+                  <span class="detail-label">Barangay:</span>
+                  <span class="detail-value">Tanza</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="user-profile-full-view__container swines-info-container">  <!-- swines-info-container -->
+              <h2 class="user-profile-full-view__container-heading">Swines</h2>
+              <div class="swines-table">
+                <div class="swines-table__thead"> <!-- table head -->
+                  <p class="th type">Type</p>
+                  <p class="th breed">Breed</p>
+                  <p class="th age">Age</p>
+                  <p class="th sex">Sex</p>
+                  <p class="th weight">Weight</p>
+                  <p class="th health-status">Status</p>
+                  <p class="th owner">Owner</p>
+                  <p class="th created-date">Created Date</p>
+                  <p class="th updated-date">Updated Date</p>
+                  <p class="th toggle-more-details-btn"><!--th for toggle icon --></p>
+                </div>
+                <div class="swines-table__tbody">  <!-- table body -->
+                  <div class="swine">
+                    <div class="swine__details">
+                      <p class="td type">Barrow</p>
+                      <p class="td breed">High Breed</p>
+                      <p class="td age">6months</p>
+                      <p class="td sex">male</p>
+                      <p class="td weight">60kg</p>
+                      <p class="td health-status">Healthy</p>
+                      <p class="td owner">Robert Magno</p>
+                      <p class="td created-date">01.01.2025</p>
+                      <p class="td updated-date">5.01.2025</p>
+                      <button class="td toggle-more-details-btn">View</button> 
+                    </div>
+                    <div class="swine__more-details">
+                      <div class="swine__more-details-heading">Swine Details:</div>
+                      <div class="swine__more-details-columns">
+                        <!-- more details left column -->
+                        <div class="column left">
+                          <p class="column__detail">
+                            <span class="column__detail-label">Swine ID:</span>
+                            <span class="column__detail-value">10023450QPAL</span>
+                          </p>
+                          <p class="column__detail">
+                            <span class="column__detail-label">Type:</span>
+                            <span class="column__detail-value">Barrow</span>
+                          </p>
+                          <p class="column__detail">
+                            <span class="column__detail-label">Breed:</span>
+                            <span class="column__detail-value">High Breed</span>
+                          </p>
+                          <p class="column__detail">
+                            <span class="column__detail-label">Age:</span>
+                            <span class="column__detail-value">6months</span>
+                          </p>
+                          <p class="column__detail">
+                            <span class="column__detail-label">Sex:</span>
+                            <span class="column__detail-value">male</span>
+                          </p>
+                        </div>
+                        <!-- more details right column -->
+                        <div class="column right"> 
+                          <p class="column__detail">
+                            <span class="column__detail-label">Health Status:</span>
+                            <span class="column__detail-value">Healthy</span>
+                          </p>
+                          <p class="column__detail">
+                            <span class="column__detail-label">Weight:</span>
+                            <span class="column__detail-value">60kg</span>
+                          </p>
+                          <p class="column__detail">
+                            <span class="column__detail-label">Owner:</span>
+                            <span class="column__detail-value">Robert Magno</span>
+                          </p>
+                          <p class="column__detail">
+                            <span class="column__detail-label">Location:</span>
+                            <span class="column__detail-value">Maligaya, Boac, Marinduque</span>
+                          </p>
+                          <p class="column__detail">
+                            <span class="column__detail-label">Medication:</span>
+                            <span class="column__detail-value">Deworming</span>
+                          </p>
+                        </div>
+                      </div>
+                    </div>                  
+                  </div>
+                </div>
+              </div> 
+            </div>
+          </div>
+
+          <!-- reset user credentials form -->
+          <div class="reset-user-credentials-form">
+            <h1 class="reset-user-credentials-form__heading">Reset Credentitals Form</h1>
+            <label for="new-email-input">
+              New Email: 
+              <input id="new-email-input" type="email">
+            </label>         
+            <label for="new-password-input">
+              New Password: 
+              <input id="new-password-input" type="password">
+            </label>   
+            <label for="confirm-password-input">
+              Confirm Password: 
+              <input id="confirm-password-input" type="password">
+            </label> 
+
+            <div class="reset-user-credentials-form__buttons-container">
+              <button class="apply-changer-btn" type="submit">Apply Changes</button>
+              <button class="cancel-btn" type="button">Cancel</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== Swines Section ========== -->
+        <section id="swines-section" class="show">
+          <!-- Swine Section: Table contents -->
+          <div class="swines-section__table-contents">
+            <h1 class="section__heading">Swines Table</h1>
+            <!-- swines search -->
+            <div class="swines-section__search">
+                  <img class="swines-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+                  <input class="swines-section__search-input" type="text" placeholder="Search...">   
+            </div>
+
+            <!-- filter swines -->
+            <select class="filter-swines" name="swines-filter" id="swines-filter">
+              <option value="all">All</option>
+              <option value="piglet">Piglet</option>
+              <option value="barrow">Barrow</option>
+              <option value="gilt">Gilt</option>
+              <option value="sow">Sow</option>
+              <option value="boar">Boar</option>
+            </select>
+
+            <!-- generate-report and view-graph buttons -->
+            <div class="swines-section__buttons-container">
+              <button class="generate-report-btn">Generate Report</button>
+              <button class="view-graph">View Graphs</button>
+            </div>
+
+            <!-- swines table -->
+            <div class="swines-table">
+              <div class="swines-table__thead"> <!-- table head -->
+                <p class="th type">Type</p>
+                <p class="th breed">Breed</p>
+                <p class="th age">Age</p>
+                <p class="th sex">Sex</p>
+                <p class="th weight">Weight</p>
+                <p class="th health-status">Status</p>
+                <p class="th owner">Owner</p>
+                <p class="th created-date">Created Date</p>
+                <p class="th updated-date">Updated Date</p>
+                <p class="th toggle-more-details-btn"><!--th for toggle icon --></p>
+              </div>
+              <div class="swines-table__tbody">  <!-- table body -->
+                <div class="swine">
+                  <div class="swine__details">
+                    <p class="td type">Barrow</p>
+                    <p class="td breed">High Breed</p>
+                    <p class="td age">6months</p>
+                    <p class="td sex">male</p>
+                    <p class="td weight">60kg</p>
+                    <p class="td health-status">Healthy</p>
+                    <p class="td owner">Robert Magno</p>
+                    <p class="td created-date">01.01.2025</p>
+                    <p class="td updated-date">5.01.2025</p>
+                    <button class="td toggle-more-details-btn">View</button> 
+                  </div>
+                  <div class="swine__more-details">
+                    <div class="swine__more-details-heading">Swine Details:</div>
+                    <div class="swine__more-details-columns">
+                      <!-- more details left column -->
+                      <div class="column left">
+                        <p class="column__detail">
+                          <span class="column__detail-label">Swine ID:</span>
+                          <span class="column__detail-value">10023450QPAL</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Type:</span>
+                          <span class="column__detail-value">Barrow</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Breed:</span>
+                          <span class="column__detail-value">High Breed</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Age:</span>
+                          <span class="column__detail-value">6months</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Sex:</span>
+                          <span class="column__detail-value">male</span>
+                        </p>
+                      </div>
+                      <!-- more details right column -->
+                      <div class="column right"> 
+                        <p class="column__detail">
+                          <span class="column__detail-label">Health Status:</span>
+                          <span class="column__detail-value">Healthy</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Weight:</span>
+                          <span class="column__detail-value">60kg</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Owner:</span>
+                          <span class="column__detail-value">Robert Magno</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Location:</span>
+                          <span class="column__detail-value">Maligaya, Boac, Marinduque</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Medication:</span>
+                          <span class="column__detail-value">Deworming</span>
+                        </p>
+                      </div>
+                    </div>
+                  </div>                  
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Swine Section: Mapping contents -->
+          <div class="swine-section__mapping-contents">
+            <h1 class="section__heading">Swines Mapping</h1>
+          </div>
+
+          <!-- Swine Section: Generate reports contents -->
+          <div class="swine-section__report-contents reports-content show">
+            <h1 class="section__heading">Generate Monthly Report</h1>
+            <!-- select-month, back-to-table-btn and download-btn  container -->
+            <div class="report-contents__select-and-btn-container">
+              <select class="swine-section__select-month" id="swine-section__select-month" name="select-month">
+                <option value="all">All</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+              </select>
+              <button class="swine-section__back-to-table-btn show">Back to table</button>
+              <button class="swine-section__download-report-btn">Download</button>
+            </div>
+
+            <!-- report contents description -->
+            <h1 class="report-contents__description">Select Month in the filter to <br> generate report of certain Month.</h1>
+
+            <!-- report container -->
+            <div class="report-container show">
+              <h2 class="report-container__month">April</h2>
+              <p class="report-container__caption">Total swines for this month</p>
+              <!-- report donut chart-->
+              <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
+              <!-- report table -->
+              <div id="swines-report-table"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== Appointments Section ========== -->
+        <section id="appointments-section" class="hide">
+          <!-- Appointment Section: Table contents -->
+          <div class="appointment-table-content show">
+            <h1 class="section__heading">Appointments</h1>
+
+            <!-- search appointment -->
+            <div class="appointment-section__search">
+              <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+              <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+            </div>
+
+            <!-- filter and view-sched container -->
+            <div class="filter-and-view-sched-container">
+              <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
+                <option value="all">All</option>
+                <option value="completed">Completed</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="reschedule">Reschedule</option>
+                <option value="pending">Pending</option>
+                <option value="removed">Archive</option>
+              </select>
+              <button class="appointment-section__view-schedules-btn view-navigate-btn">View Schedules</button>
+            </div>
+
+            <!-- generate-report-btn -->
+            <button class="appointments-section__generate-report-btn">Generate Report</button>
+                          
+            <!-- Appointment Table -->
+            <div class="appointment-table">
+              <div class="appointment-table__thead"> <!-- table head -->
+                <p class="th first-name">First Name</p>
+                <p class="th last-name">Last Name</p>
+                <p class="th appointment-name">Appointment</p>
+                <p class="th date-time">Date & Time</p>
+                <p class="th status">Status</p>
+                <p class="th toggle-more-details-btn"><!--View button head--></p> 
+              </div>
+              <div class="appointment-table__tbody"> 
+                <div class="appointment">
+                  <div class="appointment__details">
+                    <p class="td first-name">John Harvey</p>
+                    <p class="td last-name">Puyong</p>
+                    <p class="td appointment-name">Iron Supplementation</p>
+                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
+                    <p class="td status" data-status-value="ongoing">Ongoing</p>
+                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
+                  </div>
+                  <div class="appointment__more-details">
+                    <div class="appointment__more-details-heading">Appointment Details:</div>
+                    <div class="appointment__more-details-columns">
+                      <!-- more details left column -->
+                      <div class="column left">
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment ID:</span>
+                          <span class="column__detail-value">10023450QPAL</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Appointment Type:</span>
+                          <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Contact:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Date sent:</span>
+                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Actual Schedule:</span>
+                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Adress:</span>
+                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
+                        </p>
+                      </div>
+                      <!-- more details right column -->
+                      <div class="column right"> 
+                        <p class="column__detail">
+                          <span class="column__detail-label">Type:</span>
+                          <span class="column__detail-value">Piglet</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Vaccine</span>
+                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Amount:</span>
+                          <span class="column__detail-value">500mg</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Personnel:</span>
+                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Email:</span>
+                          <span class="column__detail-value">john.doe@gmail.com</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Phone:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
+                      </div>
+                    </div>
+                    <div class="buttons-container">
+                        <button class="completed-btn btn">Completed</button>
+                        <button class="reschedule-btn btn">Set Schedule</button>
+                        <button class="restore-btn btn">Restore</button>
+                        <button class="delete-btn btn">Delete</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Appointment Section: Schedule calendar contents -->
+          <div class="appointment-schedule-content show">
+            <h1 class="section__heading">Appointments Schedule</h1>
+            <div class="view-btns-container">
+              <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
+              <button class="appointment-section__view-appointments-table-btn view-navigate-btn">View Table</button>
+            </div>
+
+            <div class="appointment-schedule-container">
+              <!-- appointment total services and visit -->
+               <div class="appointment-schedule-total-container">
+                <div class="appointment-schedule-container__total total-service-type">
+                  <p class="appointment-schedule-container__total--label">Total Services:</p>
+                  <p class="appointment-schedule-container__total--value">57.<span class="percent-value">14%</span></p>
+                </div>
+                <div class="appointment-schedule-container__total total-visit-type">
+                  <p class="appointment-schedule-container__total--label">Total Visit:</p>
+                  <p class="appointment-schedule-container__total--value">42.<span class="percent-value">86%</span></p>
+                </div>
+               </div>
+
+              <!-- types identifier container -->
+              <div class="appointment-schedule-container__type-identifier-container">
+                <div class="appointment-schedule-container__type-identifier service-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Service</p>
+                </div>
+                <div class="appointment-schedule-container__type-identifier visit-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Visit</p>
+                </div>
+              </div>
+          
+              <!-- appointments calendar -->
+              <div id='appointment-schedule-calendar' class="appointment-schedule-container__calendar"></div>
+            </div>
+          </div>
+
+          <!-- Appointment Section: Generate reports contents -->
+          <div class="appointment-section__report-contents reports-content">
+            <h1 class="section__heading">Generate Monthly Report</h1>
+            <!-- select-month, back-to-table-btn and download-btn  container -->
+            <div class="report-contents__select-and-btn-container">
+              <select class="appointment-section__select-month" id="appointment-section__select-month" name="select-month">
+                <option value="all">All</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+              </select>
+              <button class="appointment-section__back-to-table-btn">Back to table</button>
+              <button class="appointment-section__download-report-btn">Download</button>
+            </div>
+
+            <!-- report contents description -->
+            <h1 class="report-contents__description">Select Month in the filter to generate report of certain Month.</h1>
+
+            <!-- report container -->
+            <div class="report-container">
+              <h2 class="report-container__month">April</h2>
+              <p class="report-container__caption">Total Appointments</p>
+              <!-- report donut chart-->
+              <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
+              <!-- report horizontal bar chart -->
+              <canvas id="appointmentsChart" width="400" height="300"></canvas>
+              <!-- report table -->
+              <div id="appointment-report-table"></div>
+            </div>
+          </div>
+        </section>
+
+         <!-- ========== Inventory Section ========== -->
+        <section id="inventory-section" class="hide">
+          <!-- Inventory Section: Table contents -->
+          <div class="inventory-section__table-contents">
+            <h1 class="section__heading">Inventory</h1>
+
+            <!-- inventory search -->
+            <div class="inventory-section__search">
+              <img class="inventory-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+              <input class="inventory-section__search-input" type="text" placeholder="Search...">   
+            </div>
+
+            <!-- filter-inventory and generate-report-btn container -->
+            <div class="inventory-section__select-and-btn-container">
+              <select class="filter-inventory-status" name="inventory-filter" id="inventory-filter">
+                <option value="all">All</option>
+                <option value="in-stock">In Stock</option>
+                <option value="less-stock">Less Stock</option>
+                <option value="out-of-stock">Out of Stock</option>
+                <option value="expired">Expired</option>
+                <option value="removed">Archive</option>
+              </select>
+              <button class="inventory-section__generate-report-btn">Generate Report</button>
+            </div>
+
+            <!-- inventory table -->
+            <div class="inventory-table">
+              <!-- table head -->
+              <div class="inventory-table__thead">
+                <p class="th id">ID</p>
+                <p class="th medicine-name">Medicine</p>
+                <p class="th medicine-dosage">Dosage</p>
+                <p class="th quantity">Quantity</p>
+                <p class="th status">Status</p>
+                <p class="th exp-date">EXP. Date</p>
+                <p class="th created-date">Created Date</p>
+                <p class="th updated-date">Updated Date</p>
+                <p class="th toggle-buttons-icon"></p>
+              </div>
+              <!-- table body -->
+              <div class="inventory-table__tbody"> 
+                <div class="medicine">
+                  <p class="td id">648f1b7c2a9f...</p>
+                  <p class="td medicine-name">Coglapest</p>
+                  <p class="td medicine-dosage">10mg</p>
+                  <p class="td quantity">15</p>
+                  <p class="td status" data-status-value="in-stock">In Stock</p>
+                  <p class="td exp-date">12-03-2026</p>
+                  <p class="td created-date">12-03-2025</p>
+                  <p class="td updated-date">12-08-2025</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Inventory Section: Generate reports contents -->
+          <div class="inventory-section__report-contents reports-content">
+            <h1 class="section__heading">Generate Monthly Report</h1>
+
+            <!-- select-month, back-to-table-btn and download-btn  container -->
+            <div class="report-contents__select-and-btn-container">
+              <select class="inventory-section__select-month" id="inventory-section__select-month" name="select-month">
+                <option value="all">All</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+              </select>
+              <button class="inventory-section__back-to-table-btn">Back to table</button>
+              <button class="inventory-section__download-report-btn">Download</button>
+            </div>
+
+            <!-- report contents description -->
+            <h1 class="report-contents__description">Select Month in the filter to generate report of certain Month.</h1>
+
+            <!-- report container -->
+            <div class="report-container">
+              <h2 class="report-container__month">April</h2>
+              <p class="report-container__caption"></p>
+              <!-- report chart-->
+              <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
+            </div>
+          </div>       
+        </section>
+
+        <!-- ========== Technecians Section ========== -->
+        <section id="technicians-section" class="hide">
+          <h1 class="section__heading">Technicians</h1>
+          <button class="technicians-section__view-sched-btn">View Schedules</button>
+          <div class="technician-list-container">
+            <div class="technician">
+              <div class="technician__profile">
+                <img class="technician__profile-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="technician-img">
+                <p class="technician__profile-name">John Harvey Puyong</p>
+                <p class="technician__profile-position">Technician |</p>
+              </div>
+              <div class="technician__task">
+                <h4 class="technician__task-heading">Task:</h4>
+                <div class="task-card">
+                  <div class="task-card__group">
+                    <p class="task-card__task-name">
+                      <span class="task-card__label">Task:</span>
+                      <span class="task-card__value">Deworming</span>
+                    </p>
+                    <p class="task-card__task-location">
+                      <span class="task-card__label">Location:</span>
+                      <span class="task-card__value">Santol, Boac</span>          
+                    </p>
+                  </div>
+                  <p class="task-card__task-type">Service</p>
+                  <div class="task-card__group">
+                    <p class="task-card__task-date">
+                      <span class="task-card__label">Date:</span>
+                      <span class="task-card__value">May 9, 2025</span> 
+                    </p>
+                    <p class="task-card__task-time">
+                      <span class="task-card__label">Time:</span>
+                      <span class="task-card__value">11:30 AM</span>                       
+                    </p>
+                  </div>
+                </div>
+                <p class="technician__task-availability-status">AVAILABLE</p>
+              </div>
+            </div>
+            <div class="technician">
+              <div class="technician__profile">
+                <img class="technician__profile-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="technician-img">
+                <p class="technician__profile-name">Robert Magno</p>
+                <p class="technician__profile-position">Technician ||</p>
+              </div>
+              <div class="technician__task">
+                <h4 class="technician__task-heading">Task:</h4>
+                <div class="task-card">
+                  <div class="task-card__group">
+                    <p class="task-card__task-name">
+                      <span class="task-card__label">Task:</span>
+                      <span class="task-card__value">Deworming</span>
+                    </p>
+                    <p class="task-card__task-location">
+                      <span class="task-card__label">Location:</span>
+                      <span class="task-card__value">Santol, Boac</span>          
+                    </p>
+                  </div>
+                  <p class="task-card__task-type">Service</p>
+                  <div class="task-card__group">
+                    <p class="task-card__task-date">
+                      <span class="task-card__label">Date:</span>
+                      <span class="task-card__value">May 9, 2025</span> 
+                    </p>
+                    <p class="task-card__task-time">
+                      <span class="task-card__label">Time:</span>
+                      <span class="task-card__value">11:30 AM</span>                       
+                    </p>
+                  </div>
+                </div>
+                <p class="technician__task-availability-status">NOT AVAILABLE</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== Settings Section ========== -->
+        <section id="setting-section" class="hide">
+          <h1 class="section__heading">Setting</h1>
+          <div class="settings-container">
+            <div class="settings-container__header">
+              <p class="settings-container__header-heading">Profile</p>
+              <button class="settings-container__header-logout-btn">Logout</button>
+            </div>
+            <form class="settings-container__details-list">
+              <div class="admin-image detail">
+                <img src="images-and-icons/images/money-admin-profile.jpg" alt="Profile Picture"/>
+                <label class="admin-image__upload-btn">
+                  <input type="file" hidden />
+                  <i class="fas fa-upload"></i> Upload
+                </label>
+              </div>
+              <div class="admin-detail detail">
+                <p class="admin-detail-label">ID:</p>
+                <p class="admin-detail-value">01235678</p>
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Name:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Administrator" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Contact:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="09123456789" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Address:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Bangbangalon , Boac, Marinduque" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Email:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="pvet.staff2@gmail.com" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Password:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Admin Password" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
+              </div>
+            </form>
+          </div>
+        </section>        
+      </div>
+    </main>
+
+    <script type="module" src="script/Admin-page-main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,378 @@
+.swines-section__table-contents{
+  display: none;
+}
+.swines-section__table-contents.show{
+  display: block;
+}
+
+
+/* swines search */
+.swines-section__search{
+  position: relative;
+  border: 1.5px solid #555555;
+  background-color: white;
+  max-width: 300px;
+  height: 100%;
+  border-radius: 10px;
+  padding: 4px 0;
+  margin-top: 35px;
+}
+
+.swines-section__search-icon{
+  --size: 19px;
+
+  position: absolute;
+  left: 5%;
+  top: 50%;
+  transform: translateY(-50%);
+  height: var(--size);
+  width: var(--size);
+  filter: brightness(0) saturate(0%) opacity(0.6);
+  cursor: pointer;
+}
+
+.swines-section__search-input{
+  background-color: transparent;
+  border: none;
+  height: 100%;
+  width: 88%;
+  padding-left: 50px;
+  color: black;
+}
+
+.swines-section__search-input:focus {
+  outline: none;
+  box-shadow: none; 
+}
+
+
+/* swines filter */
+#swines-section .filter-swines{
+  position: absolute;
+  right: 55px;
+  top: 30px;
+
+  width: 220px;
+  border-radius: 8px;
+  border: 1px solid black;
+  color: var(--color);
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.filter-swines:focus{
+  outline: 1px solid black;
+}
+
+
+.swines-section__buttons-container{
+  position: absolute;
+  right: 55px;
+  top: 80px;
+  display: flex;
+  gap: 13px
+}
+
+.swines-section__buttons-container button{
+  width: 220px;
+  border-radius: 8px;
+  border: 1px solid black;
+  background-color: white;
+  color: var(--color);
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.swines-table {
+  --elements-gap: 1.3rem;
+  --type-width: 90px;
+  --breed-width: 120px;
+  --age-width: 80px;
+  --sex-width: 80px;
+  --weight-width: 80px;
+  --health-status-width: 110px;
+  --owner-width: 150px;
+  --created-date-width: 120px;
+  --updated-date-width: 120px;
+  --toggle-more-details-width: 85px;
+
+  display: block;
+  position: relative;
+  width: 100%;
+  height: fit-content;
+  min-height: 200px;
+  max-height: 500px;
+  background-color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 1rem;
+  padding-top: 1.5rem;
+  margin-top: 20px;
+  overflow: hidden;
+  font-size: 0.9rem;
+}
+
+.swines-table__thead {
+  display: flex;
+  gap: var(--elements-gap);
+  margin-bottom: 1rem;
+  padding: 0 20px;
+}
+
+.swines-table__tbody {
+  display: flex;
+  flex-direction: column;
+  row-gap: 14px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  padding-bottom: 1rem;
+  min-height: 120px;
+  max-height: 450px;
+  background-color: rgb(250, 250, 250);
+}
+
+.swines-table__thead .th {
+  font-weight: 600;
+  text-align: left;
+}
+
+.swines-table__tbody .td{
+  text-align: left;
+  color: rgba(0, 0, 0, 0.8);
+  word-break: break-all;
+}
+
+.swines-table__tbody .swine{
+  background-color: #dddddd;
+  border-radius: 5px;
+  padding: 0.8rem 20px;
+}
+
+.swines-table__tbody .swine__details{
+  display: flex;
+  align-items: center;
+  gap: var(--elements-gap);
+}
+
+.swines-table__thead .th.type,
+.swines-table__tbody .td.type {
+  width: var(--type-width);
+  max-width: var(--type-width);
+}
+
+.swines-table__thead .th.breed,
+.swines-table__tbody .td.breed {
+  width: var(--breed-width);
+  max-width: var(--breed-width);
+}
+
+.swines-table__thead .th.age,
+.swines-table__tbody .td.age {
+  width: var(--age-width);
+  max-width: var(--age-width);
+}
+
+.swines-table__thead .th.sex,
+.swines-table__tbody .td.sex {
+  width: var(--sex-width);
+  max-width: var(--sex-width);
+}
+
+.swines-table__thead .th.weight,
+.swines-table__tbody .td.weight {
+  width: var(--weight-width);
+  max-width: var(--weight-width);
+}
+
+.swines-table__thead .th.health-status,
+.swines-table__tbody .td.health-status {
+  width: var(--health-status-width);
+  max-width: var(--health-status-width);
+}
+
+.swines-table__thead .th.owner,
+.swines-table__tbody .td.owner {
+  width: var(--owner-width);
+  max-width: var(--owner-width);
+}
+
+.swines-table__thead .th.created-date,
+.swines-table__tbody .td.created-date {
+  width: var(--created-date-width);
+  max-width: var(--created-date-width);
+}
+
+.swines-table__thead .th.updated-date,
+.swines-table__tbody .td.updated-date {
+  width: var(--updated-date-width);
+  max-width: var(--updated-date-width);
+}
+
+.swines-table__thead .th.toggle-more-details-btn,
+.swines-table__tbody .td.toggle-more-details-btn {
+  width: var(--toggle-more-details-width);
+  max-width: var(--toggle-more-details-width);
+}
+
+.swines-table__tbody .td.toggle-more-details-btn {
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.481);
+  font-size: 0.85rem;
+  font-weight: 500;
+  background: transparent;
+  padding: 3px 0;
+  text-align: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.swines-table__tbody .td.toggle-more-details-btn:hover {
+  background-color: rgb(244, 244, 244);
+}
+
+/* swine more details */
+.swine__more-details{
+  display: none;
+  position: relative;
+  padding-top: 1.7rem;
+  height: 13rem;
+}
+
+.swine__more-details.show{
+  display: block;
+}
+
+.swine__more-details-heading {
+  font-size: 1.25rem; /* 20px -> 1.25rem */
+  font-weight: 700;
+  color: #009947;
+  margin-bottom: 1.2rem;
+}
+
+.swine__more-details-columns {
+  display: flex;
+  column-gap: 13rem;
+  margin-bottom: 2rem;
+}
+
+.swine__more-details-columns .column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.column__detail-label {
+  color: #009947;
+  margin-right: 0.2rem;
+}
+
+.column__detail-value {
+  color: rgba(0, 0, 0, 0.8);
+}
+
+
+
+
+/* Swines Mapping Content */
+.swine-section__mapping-contents{
+  display: none;
+}
+
+.swine-section__mapping-contents.show{
+  display: block
+}
+
+
+
+
+/* Swines Report Content */
+.swine-section__report-contents{
+  display: none;
+}
+
+.swine-section__report-contents.show{
+  display: block;
+}
+
+.report-contents__select-and-btn-container{
+  position: absolute;
+  right: 55px;
+  top: 20px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 8px
+}
+
+.report-contents__select-and-btn-container button,
+.report-contents__select-and-btn-container .swine-section__select-month{
+  width: 220px;
+  border-radius: 8px;
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+}
+
+.report-contents__select-and-btn-container .swine-section__select-month{
+  border: 1px solid black;
+}
+
+.swine-section__back-to-table-btn{
+  display: none;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.swine-section__back-to-table-btn.show{
+  display: block;
+}
+
+.swine-section__download-report-btn{
+  display: none;
+  background-color: #2FC375;
+  color: white;
+  border: 1px solid #0F7E43;
+}
+
+.swine-section__download-report-btn.show{
+  display: block;
+}
+
+
+/* Description */
+#swines-section .report-contents__description{
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #888888;
+  font-size: 2.3rem;
+  line-height: 1.3em;
+}
+
+#swines-section .report-contents__description.show{
+  display: block;
+}
+
+
+/* Report Container */
+#swines-section .report-container{
+  display: none;
+  margin-top: 60px;
+}
+
+#swines-section .report-container.show{
+  display: block;
+}
+
+.report-container__month{
+  margin-bottom: 12px;
+}
+
+.report-container__caption{
+  font-size: 1.3rem;
+  font-weight: 500;
+  color: #000000c3;
+}

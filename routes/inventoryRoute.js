@@ -7,6 +7,7 @@ router.put('/edit/:id', inventoryController.editItem); // Edit items http://loca
 router.patch('/remove/:id', inventoryController.removeItem); // Remove items http://localhost:2500/inventory/remove/id
 router.patch('/restore/:id', inventoryController.restoreItem); // Restore items http://localhost:2500/inventory/restore/id
 router.delete('/delete/:id', inventoryController.deleteItem); // Delete items http://localhost:2500/inventory/delete/id
+router.get('/all', inventoryController.getAllItem); // Get all items http://localhost:2500/inventory/all
 
 module.exports = router;
 

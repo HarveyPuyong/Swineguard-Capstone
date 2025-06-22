@@ -29,35 +29,29 @@ app.use(cookieParser());
 
 app.use(errorHandler);
 
+
 //Pang Test Lang ito boi
 app.use(Express.static(path.join(__dirname, 'test')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'test', 'message.html'));// Ito yung message nya
+
+app.use(Express.static(path.join(__dirname, 'frontend')));
+
+app.get('/', (req, res) => {
+  return res.redirect('/client/auth.html');
+
 });
 // app.get('/', (req, res) => {
 //   res.send('message.html') // I want to open the test/message.html here
 // });
 
-// Signup routing
-app.use('/signup', require('./routes/signupClientRoute')); 
-
-// Edit and Update user credentials
-app.use('/user', require('./routes/userRoute'));
-
-// Client login routings
-app.use('/login', require('./routes/loginClientRoute'));
-
-// Admin login routing
-app.use('/admin/login', require('./routes/loginAdminRoute'));
+app.use('/auth', require('./routes/authRoute'));
 
 // Refresh token routing
 app.use('/refresh', require('./routes/refreshTokenRoute'));
 
 //Messages routing
 app.use('/message', require('./routes/messageRoute'));
-
-//Inventory routings
-app.use('/inventory', require('./routes/inventoryRoute'));
 
 //Appointments routings
 app.use('/appointment', require('./routes/appointmentRoute'));
@@ -69,7 +63,7 @@ app.use('/inventory', require('./routes/inventoryRoute'));
 app.use('/swine', require('./routes/swineRoute'));
 
 //Logout routing
-app.use('/logout', require('./routes/logoutRoute'));
+app.use('/auth', require('./routes/logoutRoute'));
 
 
 mongoose.connection.once('open', () => {

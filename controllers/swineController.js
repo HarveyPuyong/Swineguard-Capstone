@@ -65,3 +65,13 @@ exports.editSwine = async (req, res) => {
         });
     }
 }
+
+// Get all Swine
+exports.getSwine = async (req, res) => {
+    try {
+        const swines = await swineDB.find();
+        res.status(200).json(swines);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}

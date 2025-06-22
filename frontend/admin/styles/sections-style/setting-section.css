@@ -1,10 +1,9 @@
 #setting-section{
-  display: none;
   font-size: 0.9rem;
 }
 
 #setting-section .section__heading{
-  margin-bottom: 15px;
+  margin-bottom: 12px;
 }
 
 .settings-container{
@@ -12,7 +11,7 @@
   background-color: white;
   border-radius: 8px;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.25);
-  padding: 25px 35px;
+  padding: 20px 35px;
 }
 
 .settings-container__header{
@@ -30,9 +29,9 @@
 }
 
 .settings-container__header-logout-btn{
-  border: 1px solid #FF0046;
+  border: 1px solid #ff0011;
   border-radius: 5px;
-  background: #fe7a9d;
+  background: #fe7a9b;
   color: white;
   font-weight: 600;
   padding: 8px 25px;
@@ -40,7 +39,7 @@
 }
 
 .settings-container .admin-image img{
-  --size: 70px;
+  --size: 60px;
 
   height: var(--size);
   width: var(--size);
@@ -55,7 +54,12 @@
   color: var(--color);
   border: 1px solid var(--color);
   border-radius: 4px;
-  padding: 3px 7px;
+  padding: 2px 10px;
+}
+
+.admin-image__upload-btn i{
+  font-size: 15px;
+  margin-right: 5px;
 }
 
 .settings-container__details-list{
@@ -68,107 +72,84 @@
   position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, 0.282);
   margin-bottom: 10px;
-  padding-bottom: 10px;
+  padding-bottom: 5px;
 }
 
-.settings-container__details-list .detail-label{
+.settings-container__details-list .detail:first-child{
+  padding-bottom: 15px;
+}
+
+.settings-container__details-list .admin-detail-label{
   font-weight: 600;
   margin-bottom: 3px;
 }
 
-.settings-container__details-list input.detail-value{
+.settings-container__details-list .admin-detail-value{
   border: none;
   font-size: 0.87rem;
+  font-weight: 500;
   width: 25%;
+  padding: 3px;
+  border-radius: 5px;
+  color: rgba(0, 0, 0, 0.643);
 }
 
-.settings-container__details-list input.detail-value:focus{
+.settings-container__details-list .admin-detail-value:focus{
   outline: none;
   box-shadow: none; 
   border: none;
 }
 
+.settings-container__details-list .admin-detail-value.editable{
+  border: 1px solid black;
+}
 
-.settings-container__details-list .edit-btn{
-  --color: #787878;
+.settings-container__details-list .admin-detail-value.editable:focus{
+  outline: 1px solid black;
+  border: 1px solid black;
+}
 
+
+.admin-detail__btns-container{
+  display: flex;
+  justify-content: end;
+  width: 40%;
   position: absolute;
   top: 50%;
   right: 0;
   transform: translateY(-50%);
+}
+
+.admin-detail__btns-container button{
+  display: none;
   border-radius: 3px;
   cursor: pointer;
-  color: var(--color);
-  border: 1px solid var(--color);
+  color: white;
+  border: none;
   cursor: pointer;
   margin-right: 10px;
-  padding: 3px 6px 2px 9px;
+  padding: 4px 0px 3px 0px;
+  width: 90px;
 }
 
-
-.settings-container__admin-photo--img{
-  height: 100%;
-  border-radius: inherit;
+.admin-detail__btns-container button.show{
+  display: block;
 }
 
-.settings-container__admin-photo--input-img-icon{
-  position: absolute;
-  bottom: -5px;
-  right: 12px;
-  font-size: 1.1rem;
-  color: rgb(17, 17, 17);
-  cursor: pointer;
+.admin-detail__btns-container button.edit-btn{
+  background-color: rgba(125, 125, 125, 0.094);
+  color: #787878;
+  border: 1px solid #787878;
 }
 
-.settings-container__edit-btn{
-  height: fit-content;
-  padding: 4px 15px;
-  border-radius: 4px;
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  cursor: pointer;
+.admin-detail__btns-container button.save-btn{
+  background-color: var(--main-color);
 }
 
-.settings-container__edit-btn--icon{
-  color: rgba(0, 0, 0, 0.8);
-}
-
-.settings-container__detail{
-  border-bottom: 1px solid rgba(0, 0, 0, 0.282);
-  color: rgba(0, 0, 0, 0.8);
-  padding-bottom: 5px;
-}
-
-.settings-container__detail-label{
-  font-weight: 600;
-  margin-bottom: 2px;
-}
-
-.settings-container__detail-value.edit-mode{
-  width: 50%;
-  border: 1px solid rgba(0, 0, 0, 0.64);
-  border-radius: 5px;
-}
-
-.settings-container__buttons{
-  display: none;
-  gap: 10px;
-  position: absolute;
-  right: 28px;
-  bottom: 13px;
-}
-
-.settings-container__buttons button{
-  border-radius: 5px;
-  border: none;
-  color: white;
-  padding: 7px 10px;
-  cursor: pointer;
+.admin-detail__btns-container button.cancel-btn{
+  background-color: red;
 }
 
 .settings-container__save-btn{
   background-color: var(--main-color);
-}
-
-.settings-container__cancel-btn{
-  background-color: red;
 }

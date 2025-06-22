@@ -14,6 +14,10 @@
     <link rel="stylesheet" href="styles/sections-style/messages-section.css">
     <link rel="stylesheet" href="styles/sections-style/technician-section.css">
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
+
+    <!-- FullCalendar CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
   </head>
   <body>
     <!-- ========== Header ========== -->
@@ -51,7 +55,7 @@
             <p class="side-nav__link-label">Messages</p>
           </li>
           <li class="side-nav__link" data-value="technicians-section">
-            <img class="side-nav__link-icon" src="images-and-icons/icons/inventory-icon.png" alt="technician-icon">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/technician-icon.png" alt="technician-icon">
             <p class="side-nav__link-label">Technician</p>
           </li>
           <li class="side-nav__link" data-value="setting-section">
@@ -63,13 +67,13 @@
       
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-        <section id="dashboard-section">
+        <section id="dashboard-section" class="show">
           <div class="appointment-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
             <div class="dashboard__cards-container">
               <!-- totals appointments card -->
-              <div class="dashboard__card total-appointments">
+              <div class="dashboard__card total-appointments total-card">
                 <img class="dashboard__card-icon" src="images-and-icons/icons/appointment-icon.png" alt="calendar-icon" >
                 <p class="dashboard__card-label">
                   Total Appointments: 
@@ -138,17 +142,27 @@
               </div>
             </div>
           </div>
-          <div class="ongoing-appointments-table-container">
-            <h1 class="ongoing-appointments-table-container__heading">Today Ongoing Appointment</h1>
-            <!-- Ongoing Appointment Table -->
-            <div class="ongoing-appointments-table appointment-table">
-              <div class="ongoing-appointments-table__tbody"> <!-- table body -->
+          <!-- Ongoing Appointment Table -->
+          <div class="dashboard-section__table-container">
+            <h1 class="dashboard-section__table-container-heading">Today Ongoing Appointment</h1>
+             <div class="ongoing-appointment-table appointment-table">
+              <div class="appointment-table__thead"> <!-- table head -->
+                <p class="th first-name">First Name</p>
+                <p class="th last-name">Last Name</p>
+                <p class="th appointment-name">Appointment</p>
+                <p class="th date-time">Date & Time</p>
+                <p class="th status">Status</p>
+                <p class="th action">Action</p>
+                <p class="th toggle-more-details-btn"><!--View button head--></p> 
+              </div>
+              <div class="appointment-table__tbody"> 
                 <div class="appointment">
                   <div class="appointment__details">
-                    <p class="td appointment-name">Deworming</p>
-                    <p class="td phone">09123456789</p>
-                    <p class="td schedule">12-03-2025 at 10:00 AM</p>
-                    <p class="td status">Ongoing</p>
+                    <p class="td first-name">John Harvey</p>
+                    <p class="td last-name">Puyong</p>
+                    <p class="td appointment-name">Iron Supplementation</p>
+                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
+                    <p class="td status" data-status-value="ongoing">Ongoing</p>
                     <p class="td action">
                       <select class="select-appointment-action" name="appointment-action" id="appointment-action">
                         <option value="">Action</option>
@@ -157,19 +171,55 @@
                         <option value="remove">Remove</option>
                       </select>
                     </p>
-                    <p class="td toggle-more-details-btn">View</p>  
+                    <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
                   </div>
                   <div class="appointment__more-details">
                     <div class="appointment__more-details-heading">Appointment Details:</div>
-                    <div class="appointment__more-details-columns">      
+                    <div class="appointment__more-details-columns">
+                      <!-- more details left column -->
                       <div class="column left">
                         <p class="column__detail">
                           <span class="column__detail-label">Appointment ID:</span>
                           <span class="column__detail-value">10023450QPAL</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Name:</span>
-                          <span class="column__detail-value">John Doe</span>
+                          <span class="column__detail-label">Appointment Type:</span>
+                          <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Contact:</span>
+                          <span class="column__detail-value">09123456789</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Date sent:</span>
+                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Actual Schedule:</span>
+                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Adress:</span>
+                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
+                        </p>
+                      </div>
+                      <!-- more details right column -->
+                      <div class="column right"> 
+                        <p class="column__detail">
+                          <span class="column__detail-label">Type:</span>
+                          <span class="column__detail-value">Piglet</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Vaccine</span>
+                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Amount:</span>
+                          <span class="column__detail-value">500mg</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Personnel:</span>
+                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
                         </p>
                         <p class="column__detail">
                           <span class="column__detail-label">Email:</span>
@@ -177,45 +227,15 @@
                         </p>
                         <p class="column__detail">
                           <span class="column__detail-label">Phone:</span>
-                          <span class="column__detail-value appointment-date-send">09123456789</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Date Sent:</span>
-                          <span class="column__detail-value">05-03-2025 at 10:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Address:</span>
-                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
-                        </p>
-                      </div>
-                      <div class="column right">
-                        <p class="column__detail">
-                          <span class="column__detail-label">Type:</span>
-                          <span class="column__detail-value">Piglet</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Vaccination:</span>
-                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Amount:</span>
-                          <span class="column__detail-value">500 mg</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Heads:</span>
-                          <span class="column__detail-value">5</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Personnel:</span>
-                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
+                          <span class="column__detail-value">09123456789</span>
                         </p>
                       </div>
                     </div>
                     <div class="buttons-container">
-                      <button class="completed-btn btn">Completed</button>
-                      <button class="reschedule-btn btn">Set Schedule</button>
-                      <button class="restore-btn btn">Restore</button>
-                      <button class="delete-btn btn">Delete</button>
+                        <button class="completed-btn btn">Completed</button>
+                        <button class="reschedule-btn btn">Set Schedule</button>
+                        <button class="restore-btn btn">Restore</button>
+                        <button class="delete-btn btn">Delete</button>
                     </div>
                   </div>
                 </div>
@@ -225,9 +245,9 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-        <!-- Pending-work: Style the appointment schedule calendar -->
-        <section id="appointments-section">
-          <div class="appointment-main-content">
+        <section id="appointments-section" class="hide">
+          <!-- Appointment Section: Table contents -->
+          <div class="appointment-table-content show">
             <h1 class="section__heading">Appointments</h1>
             <!-- search and add-btn appointment -->
             <div class="appointments-section__search-and-add-btn">
@@ -238,8 +258,8 @@
               <button class="appointment-section__add-btn">Add</button>
             </div>
 
-            <!-- filter and view-btns container -->
-            <div class="filter-and-view-btns-container">
+            <!-- filter and view-sched container -->
+            <div class="filter-and-view-sched-container">
               <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
                 <option value="all">All</option>
                 <option value="completed">Completed</option>
@@ -249,8 +269,6 @@
                 <option value="removed">Archive</option>
               </select>
               <button class="appointment-section__view-schedules-btn view-navigate-btn">View Schedules</button>
-              <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
-              <button class="appointment-section__view-appointments-btn view-navigate-btn">View Appointments</button>
             </div>
                 
             <!-- Add Appointments Form-->
@@ -283,7 +301,7 @@
                 <div class="group">
                   <select id="appointment-title" name="appointment-title">
                     <option value="">Select Appointment</option>
-                    <option value="Iron Supplementation">Iron Supplementation</option>
+                    <option value="Iron Supplementation">09123456789</option>
                     <option value="Deworming">Deworming</option>
                     <option value="ASF Testing">ASF Testing</option>
                     <option value="Blood Testing">Blood Testing</option>
@@ -349,24 +367,24 @@
             </form>
 
             <!-- Appointment Table -->
-            <div class="manage-appointments-table appointment-table">
-              <div class="manage-appointments-table__thead"> <!-- table head -->
+            <div class="appointment-table">
+              <div class="appointment-table__thead"> <!-- table head -->
                 <p class="th first-name">First Name</p>
                 <p class="th last-name">Last Name</p>
-                <p class="th contact">Contact</p>
+                <p class="th appointment-name">Appointment</p>
                 <p class="th date-time">Date & Time</p>
                 <p class="th status">Status</p>
                 <p class="th action">Action</p>
                 <p class="th toggle-more-details-btn"><!--View button head--></p> 
               </div>
-              <div class="manage-appointments-table__tbody"> 
+              <div class="appointment-table__tbody"> 
                 <div class="appointment">
                   <div class="appointment__details">
                     <p class="td first-name">John Harvey</p>
                     <p class="td last-name">Puyong</p>
-                    <p class="td contact">09123456789</p>
+                    <p class="td appointment-name">Iron Supplementation</p>
                     <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status">Ongoing</p>
+                    <p class="td status" data-status-value="ongoing">Ongoing</p>
                     <p class="td action">
                       <select class="select-appointment-action" name="appointment-action" id="appointment-action">
                         <option value="">Action</option>
@@ -375,7 +393,7 @@
                         <option value="remove">Remove</option>
                       </select>
                     </p>
-                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
+                    <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
                   </div>
                   <div class="appointment__more-details">
                     <div class="appointment__more-details-heading">Appointment Details:</div>
@@ -387,12 +405,12 @@
                           <span class="column__detail-value">10023450QPAL</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Appointment:</span>
-                          <span class="column__detail-value">Iron Supplementation</span>
-                        </p>
-                        <p class="column__detail">
                           <span class="column__detail-label">Appointment Type:</span>
                           <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Contact:</span>
+                          <span class="column__detail-value">09123456789</span>
                         </p>
                         <p class="column__detail">
                           <span class="column__detail-label">Date sent:</span>
@@ -414,7 +432,7 @@
                           <span class="column__detail-value">Piglet</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Vaccination:</span>
+                          <span class="column__detail-label">Vaccine</span>
                           <span class="column__detail-value">Iron Dextran (FeDex)</span>
                         </p>
                         <p class="column__detail">
@@ -447,9 +465,9 @@
                   <div class="appointment__details">
                     <p class="td first-name">Robert</p>
                     <p class="td last-name">Magno</p>
-                    <p class="td contact">098725615621</p>
+                    <p class="td appointment-name">Vaccination1</p>
                     <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status">Completed</p>
+                    <p class="td status" data-status-value="completed">Completed</p>
                     <p class="td action">
                       <select class="select-appointment-action" name="appointment-action" id="appointment-action">
                         <option value="">Action</option>
@@ -458,7 +476,7 @@
                         <option value="remove">Remove</option>
                       </select>
                     </p>
-                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
+                    <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
                   </div>
                   <div class="appointment__more-details">
                     <div class="appointment__more-details-heading">Appointment Details:</div>
@@ -470,12 +488,12 @@
                           <span class="column__detail-value">10023450QPAL</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Appointment:</span>
-                          <span class="column__detail-value">Iron Supplementation</span>
-                        </p>
-                        <p class="column__detail">
                           <span class="column__detail-label">Appointment Type:</span>
                           <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Contact:</span>
+                          <span class="column__detail-value">09123456789</span>
                         </p>
                         <p class="column__detail">
                           <span class="column__detail-label">Date sent:</span>
@@ -497,7 +515,7 @@
                           <span class="column__detail-value">Piglet</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Vaccination:</span>
+                          <span class="column__detail-label">Vaccine</span>
                           <span class="column__detail-value">Iron Dextran (FeDex)</span>
                         </p>
                         <p class="column__detail">
@@ -530,9 +548,9 @@
                   <div class="appointment__details">
                     <p class="td first-name">John Harvey</p>
                     <p class="td last-name">Puyong</p>
-                    <p class="td contact">09123456789</p>
+                    <p class="td appointment-name">Vaccination</p>
                     <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status">Reschedule</p>
+                    <p class="td status" data-status-value="reschedule">Reschedule</p>
                     <p class="td action">
                       <select class="select-appointment-action" name="appointment-action" id="appointment-action">
                         <option value="">Action</option>
@@ -541,7 +559,7 @@
                         <option value="remove">Remove</option>
                       </select>
                     </p>
-                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
+                    <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
                   </div>
                   <div class="appointment__more-details">
                     <div class="appointment__more-details-heading">Appointment Details:</div>
@@ -553,12 +571,12 @@
                           <span class="column__detail-value">10023450QPAL</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Appointment:</span>
-                          <span class="column__detail-value">Iron Supplementation</span>
-                        </p>
-                        <p class="column__detail">
                           <span class="column__detail-label">Appointment Type:</span>
                           <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Contact:</span>
+                          <span class="column__detail-value">09123456789</span>
                         </p>
                         <p class="column__detail">
                           <span class="column__detail-label">Date sent:</span>
@@ -580,7 +598,7 @@
                           <span class="column__detail-value">Piglet</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Vaccination:</span>
+                          <span class="column__detail-label">Vaccine</span>
                           <span class="column__detail-value">Iron Dextran (FeDex)</span>
                         </p>
                         <p class="column__detail">
@@ -613,9 +631,9 @@
                   <div class="appointment__details">
                     <p class="td first-name">John Harvey</p>
                     <p class="td last-name">Puyong</p>
-                    <p class="td contact">09123456789</p>
+                    <p class="td appointment-name">Vaccination</p>
                     <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status">Removed</p>
+                    <p class="td status" data-status-value="removed">Removed</p>
                     <p class="td action">
                       <select class="select-appointment-action" name="appointment-action" id="appointment-action">
                         <option value="">Action</option>
@@ -624,7 +642,7 @@
                         <option value="remove">Remove</option>
                       </select>
                     </p>
-                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
+                    <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
                   </div>
                   <div class="appointment__more-details">
                     <div class="appointment__more-details-heading">Appointment Details:</div>
@@ -636,12 +654,12 @@
                           <span class="column__detail-value">10023450QPAL</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Appointment:</span>
-                          <span class="column__detail-value">Iron Supplementation</span>
-                        </p>
-                        <p class="column__detail">
                           <span class="column__detail-label">Appointment Type:</span>
                           <span class="column__detail-value">Visit</span>
+                        </p>
+                        <p class="column__detail">
+                          <span class="column__detail-label">Contact:</span>
+                          <span class="column__detail-value">09123456789</span>
                         </p>
                         <p class="column__detail">
                           <span class="column__detail-label">Date sent:</span>
@@ -663,7 +681,7 @@
                           <span class="column__detail-value">Piglet</span>
                         </p>
                         <p class="column__detail">
-                          <span class="column__detail-label">Vaccination:</span>
+                          <span class="column__detail-label">Vaccine</span>
                           <span class="column__detail-value">Iron Dextran (FeDex)</span>
                         </p>
                         <p class="column__detail">
@@ -694,34 +712,49 @@
                 </div>
               </div>
             </div>
-          </div>  
-          <!-- Appointent Schedule Calendar -->
-          <div class="appointment-schedule-container">
+          </div>
+
+          <!-- Appointment Section: Schedule calendar contents -->
+          <div class="appointment-schedule-content">
             <h1 class="section__heading">Appointments Schedule</h1>
-            <!-- service type identifier -->
-            <div class="appointment-schedule-container__type-identifier service-type-identifier">
-              <div class="appointment-schedule-container__type-identifier--dot"></div>
-              <p class="appointment-schedule-container__type-identifier--label">Service</p>
+            <div class="view-btns-container">
+              <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
+              <button class="appointment-section__view-appointments-table-btn view-navigate-btn">View Table</button>
             </div>
-            <!-- visit type identifier -->
-            <div class="appointment-schedule-container__type-identifier visit-type-identifier">
-              <div class="appointment-schedule-container__type-identifier--dot"></div>
-              <p class="appointment-schedule-container__type-identifier--label">Visit</p>
-            </div>          
-              <!-- Magamit ng fulleCalendar library, para sa calendar -->
-            <div class="appointment-schedule-container__type-total total-service-type">
-              <p class="appointment-schedule-container__type-total--label">Total Services</p>
-              <p class="appointment-schedule-container__type-total--value">57.<span class="percent-value">14%</span></p>
-            </div>
-            <div class="appointment-schedule-container__type-total total-Visit-type">
-              <p class="appointment-schedule-container__type-total--label">Total Visit</p>
-              <p class="appointment-schedule-container__type-total--value">42.<span class="percent-value">86%</span></p>
+
+            <div class="appointment-schedule-container">
+              <!-- appointment total services and visit -->
+               <div class="appointment-schedule-total-container">
+                <div class="appointment-schedule-container__total total-service-type">
+                  <p class="appointment-schedule-container__total--label">Total Services:</p>
+                  <p class="appointment-schedule-container__total--value">57.<span class="percent-value">14%</span></p>
+                </div>
+                <div class="appointment-schedule-container__total total-visit-type">
+                  <p class="appointment-schedule-container__total--label">Total Visit:</p>
+                  <p class="appointment-schedule-container__total--value">42.<span class="percent-value">86%</span></p>
+                </div>
+               </div>
+
+              <!-- types identifier container -->
+              <div class="appointment-schedule-container__type-identifier-container">
+                <div class="appointment-schedule-container__type-identifier service-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Service</p>
+                </div>
+                <div class="appointment-schedule-container__type-identifier visit-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Visit</p>
+                </div>
+              </div>
+          
+              <!-- appointments calendar -->
+              <div id='appointment-schedule-calendar' class="appointment-schedule-container__calendar"></div>
             </div>
           </div>
         </section>
 
         <!-- ========== Messages Section ========== -->
-        <section id="messages-section">
+        <section id="messages-section" class="hide">
           <h1 class="section__heading">Messages</h1>
           <div class="profile-view">
             <img class="profile-view__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user image" >
@@ -880,7 +913,7 @@
         </section>
 
          <!-- ========== Technecians Section ========== -->
-        <section id="technicians-section">
+        <section id="technicians-section" class="hide">
           <h1 class="section__heading">Technicians</h1>
           <button class="technicians-section__view-sched-btn">View Schedules</button>
           <div class="technician-list-container">
@@ -956,7 +989,7 @@
         </section>
 
          <!-- ========== Settings Section ========== -->
-        <section id="setting-section">
+        <section id="setting-section" class="hide">
           <h1 class="section__heading">Setting</h1>
           <div class="settings-container">
             <div class="settings-container__header">
@@ -971,34 +1004,59 @@
                   <i class="fas fa-upload"></i> Upload
                 </label>
               </div>
-              <div class="profile-detail detail">
-                <p class="detail-label">ID:</p>
-                <p class="detail-value">01235678</p>
+              <div class="admin-detail detail">
+                <p class="admin-detail-label">ID:</p>
+                <p class="admin-detail-value">01235678</p>
               </div>
-              <div class="profile-detail detail editable">
-                <p class="detail-label">Name:</p class="detail-label">
-                <input class="detail-value" value="Appointment Coordinator" readonly></input>
-                <button type="button" class="edit-btn">Edit ✏️</button>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Name:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Appointment Coordinator" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
               </div>
-              <div class="profile-detail detail editable">
-                <p class="detail-label">Contact:</p class="detail-label">
-                <input class="detail-value" value="09123456789" readonly></input>
-                <button type="button" class="edit-btn">Edit ✏️</button>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Contact:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="09123456789" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
               </div>
-              <div class="profile-detail detail editable">
-                <p class="detail-label">Address:</p class="detail-label">
-                <input class="detail-value" value="Bangbangalon , Boac, Marinduque" readonly></input>
-                <button type="button" class="edit-btn">Edit ✏️</button>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Address:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Bangbangalon , Boac, Marinduque" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
               </div>
-              <div class="profile-detail detail editable">
-                <p class="detail-label">Email:</p class="detail-label">
-                <input class="detail-value" value="pvet.staff2@gmail.com" readonly></input>
-                <button type="button" class="edit-btn">Edit ✏️</button>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Email:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="pvet.staff2@gmail.com" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
               </div>
-              <div class="profile-detail detail editable">
-                <p class="detail-label">Password:</p class="detail-label">
-                <input class="detail-value" value="Admin Password" readonly></input>
-                <button type="button" class="edit-btn">Edit ✏️</button>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Password:</p class="admin-detail-label">
+                <input class="admin-detail-value" value="Admin Password" readonly></input>
+                <div class="admin-detail__btns-container">
+                  <button type="button" class="edit-btn show">Edit ✏️</button>
+                  <button type="submit" class="save-btn">Save</button>
+                  <button type="button" class="cancel-btn">Cancel</button>
+                </div>
+                
               </div>
             </form>
           </div>
@@ -1006,6 +1064,6 @@
       </div>
     </main>
 
-    <script type="module" src="script/appoinmentCoordinatorMain.js"></script>
+    <script type="module" src="script/AC-page-main.js"></script>
   </body>
 </html>

@@ -50,6 +50,14 @@ section{
   margin-top: var(--header-height);
 }
 
+section.hide{
+  display: none;
+}
+
+section.show{
+  display: block;
+}
+
 .section__heading{
   color: black;
   font-size: 1.5rem;

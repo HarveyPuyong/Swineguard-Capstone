@@ -1,6 +1,8 @@
+import updateSidenav from "../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
+
 export default function sideNavFuntionality() {
   const sideNavLinks = document.querySelectorAll('.side-nav__link');
-  const sections = document.querySelectorAll('section')
+  const sections = document.querySelectorAll('section');
 
   sideNavLinks.forEach(nav => {
     const navValue = nav.getAttribute('data-value');
@@ -8,13 +10,17 @@ export default function sideNavFuntionality() {
     nav.addEventListener('click', () => {
       sections.forEach(section => {
         const sectionId = section.id;
-
-        if(navValue === sectionId) section.style.display = 'block';
-        else section.style.display = 'none';
+        if(navValue === sectionId){section.classList.add('show')}
+        else{   
+          section.classList.remove('show');
+          section.classList.add('hide');
+        } 
       });
 
-      sideNavLinks.forEach(nav => nav.classList.remove('active'));
-      nav.classList.add('active')
+      updateSidenav();
     });
   });
 }
+
+
+
