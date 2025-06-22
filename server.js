@@ -1,0 +1,73 @@
+require('dotenv').config();
+
+const Express = require('express');
+const app = Express();
+const path = require('path');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
+
+const {logger} =  require('./middlewares/logEvents');
+const errorHandler = require('./middlewares/errorHandler');
+const credentials = require('./middlewares/credentials');
+const corsOptions = require('./config/corsOptions');
+const dbConn = require('./config/dbConn');
+const PORT = process.env.PORT || 2500;
+
+
+dbConn.connectDB();
+
+app.use(logger);
+
+app.use(credentials);
+
+app.use(cors(corsOptions));
+
+app.use(Express.json());
+
+app.use(cookieParser());
+
+app.use(errorHandler);
+
+app.get('/', (req, res) => {
+  res.send('Kupal')
+});
+
+// Signup routing
+app.use('/signup', require('./routes/signupClientRoute')); 
+
+// Edit and Update user credentials
+app.use('/user', require('./routes/userRoute'));
+
+// Client login routings
+app.use('/login', require('./routes/loginClientRoute'));
+
+// Admin login routing
+app.use('/admin/login', require('./routes/loginAdminRoute'));
+
+// Refresh token routing
+app.use('/refresh', require('./routes/refreshTokenRoute'));
+
+//Messages routing
+app.use('/send-message', require('./routes/messageRoute'));
+
+//Inventory routings
+app.use('/inventory', require('./routes/inventoryRoute'));
+
+//Appointments routings
+app.use('/appointment', require('./routes/appointmentRoute'));
+
+//Inventory routing
+app.use('/inventory', require('./routes/inventoryRoute'));
+
+// Swine routing
+app.use('/swine', require('./routes/swineRoute'));
+
+//Logout routing
+app.use('/logout', require('./routes/logoutRoute'));
+
+
+mongoose.connection.once('open', () => {
+  console.log(`Connected to MongoDB database: ${mongoose.connection.name}`);
+  app.listen(PORT, () => console.log(`Server is listen to port: http//localhost:${PORT}`));
+});

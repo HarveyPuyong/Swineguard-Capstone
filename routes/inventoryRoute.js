@@ -1,0 +1,32 @@
+const express = require('express');
+const router = express.Router();
+const inventoryController = require('../controllers/inventoryController');
+
+router.post('/add', inventoryController.AddItem); // Add items http://localhost:2500/inventory/add
+router.put('/edit/:id', inventoryController.editItem); // Edit items http://localhost:2500/inventory/edit/id
+router.patch('/remove/:id', inventoryController.removeItem); // Remove items http://localhost:2500/inventory/remove/id
+router.patch('/restore/:id', inventoryController.restoreItem); // Restore items http://localhost:2500/inventory/restore/id
+router.delete('/delete/:id', inventoryController.deleteItem); // Delete items http://localhost:2500/inventory/delete/id
+
+module.exports = router;
+
+// Ito ay para sa Edit:
+// {
+//     "id": "6852db8903771bc8c24d0a70",
+//     "itemName": "Iron Dextran-100",
+//     "amount": "100",
+//     "quantity": "150",
+//     "expiryDate": "10-12-2037",
+//     "description": "Iron Supplement",
+//     "createdBy": "684c6cb98b6b69f642d4289f"
+// }
+
+//Ito naman ay sa Add:
+// {
+//     "itemName": "Iron Dextran-100",
+//     "amount": "100",
+//     "quantity": "150",
+//     "expiryDate": "10-12-2037",
+//     "description": "Iron Supplement",
+//     "createdBy": "684c6cb98b6b69f642d4289f"
+// }
