@@ -1,5 +1,5 @@
 
-//Ito ay para lamang sa pag verify ng token at hindi maccess ng iba yung mga deatils sa database natin
+//Ito ay para lamang sa pag verify ng token at hindi maccess ng iba yung mga details sa database natin
 const jwt = require('jsonwebtoken');
 
 const verifyJWT = (req, res, next) => {

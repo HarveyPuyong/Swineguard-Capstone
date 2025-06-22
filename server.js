@@ -34,16 +34,14 @@ app.use(errorHandler);
 app.use(Express.static(path.join(__dirname, 'test')));
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'test', 'message.html'));// Ito yung message nya
+});
 
 app.use(Express.static(path.join(__dirname, 'frontend')));
 
 app.get('/', (req, res) => {
-  return res.redirect('/client/auth.html');
+  return res.redirect('/admin/login.html');
 
 });
-// app.get('/', (req, res) => {
-//   res.send('message.html') // I want to open the test/message.html here
-// });
 
 app.use('/auth', require('./routes/authRoute'));
 
