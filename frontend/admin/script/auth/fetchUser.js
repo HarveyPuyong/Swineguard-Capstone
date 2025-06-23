@@ -1,11 +1,11 @@
 const fetchUser = async () => {
-  // get accessToken to localStorage
-  const accessToken = localStorage.getItem('accessToken');
+  let accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
     window.location.href = 'login.html';
     return;
   }
 
+  
   try {
     const response = await axios.get('http://localhost:2500/admin-profile', {
       headers: { Authorization: `Bearer ${accessToken}` },
@@ -16,34 +16,36 @@ const fetchUser = async () => {
 
   } catch (err) {
     const errStatus = err.response?.status;
-    // if expired na ang accessToken, a call yung refreshToken para magbigay ng bagong accessToken at asend ulit sa user
+
+    // 🔁 If acess token is expired, hihingi ng bagong aaccess token gamit ang refreshToken
     if (errStatus === 403) {
       try {
-        const response = await axios.get('http://localhost:2500/refresh', {
+        const refreshResponse = await axios.post('http://localhost:2500/refresh', null, {
           withCredentials: true
         });
 
-        const newAccessToken = response.data.accessToken;
+        const newAccessToken = refreshResponse.data.accessToken;
         localStorage.setItem('accessToken', newAccessToken);
-      
-        const retry = await axios.get('http://localhost:2500/admin-profile', {
+
+        const retryResponse = await axios.get('http://localhost:2500/admin-profile', {
           headers: { Authorization: `Bearer ${newAccessToken}` },
           withCredentials: true
         });
 
-        return retry.data.userInfo;
+        return retryResponse.data.userInfo;
 
-      } catch (refreshErr) {
+      } catch (refreshError) {
+        console.error("Token refresh failed", refreshError);
         localStorage.removeItem('accessToken');
-        window.location.href = 'admin-page.html';
+        window.location.href = 'login.html';
+        return;
       }
 
-    // if Unauthorized yung nag login
     } else if (errStatus === 401) {
-      localStorage.removeItem('accessToken');
-      window.location.href = 'admin-page.html';
+      localStorage.removeItem('accessToken'); 
+      window.location.href = 'login.html';
     } else {
-      console.log(err);
+      console.error(err);
       const errMessage = err.response?.data?.message || 'Something went wrong';
       alert(errMessage);
     }
