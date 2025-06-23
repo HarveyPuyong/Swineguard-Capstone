@@ -1,5 +1,6 @@
 import displaySetting from "./display-setting.js";
 import editAdminDetails from "./edit-setting.js";
+import handleLogout from "../auth/logout.js";
 
 
 // ======================================
@@ -7,6 +8,8 @@ import editAdminDetails from "./edit-setting.js";
 // ======================================
 export default async function setupSettingsSection() {
   await displaySetting();
-  
   editAdminDetails();
+
+  document.querySelector('.settings-container__header-logout-btn')
+    .addEventListener('click', async() => await handleLogout());
 }

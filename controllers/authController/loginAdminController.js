@@ -43,18 +43,16 @@ const adminLoginController = async(req, res) => {
                                                userName
      );
 
-    //  kapag yung refrehtoken ay greater than 3 na, matatagtag yung nasa unang refreshToken at a push ang bagong token sa array
-     if(foundUser.refreshToken.length >= 3) foundUser.refreshToken.shift();
      foundUser.refreshToken.push(refreshToken);
 
      await foundUser.save();
     
      res.cookie('jwt', refreshToken,
        {httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'None',
+        secure: process.env.NODE_ENV === 'production', //abaguhin yung NODE_ENV = production sa .env kapag naka host na
+        sameSite: 'Lax', //change sa 'None' kapag naka host na
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-       }
+        }
      );
 
      return res.status(200).json({message: 'Successfully login',

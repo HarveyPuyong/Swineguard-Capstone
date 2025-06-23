@@ -20,7 +20,7 @@ const fetchUser = async () => {
     // 🔁 If acess token is expired, hihingi ng bagong aaccess token gamit ang refreshToken
     if (errStatus === 403) {
       try {
-        const refreshResponse = await axios.post('http://localhost:2500/refresh', null, {
+        const refreshResponse = await axios.get('http://localhost:2500/refresh', {
           withCredentials: true
         });
 
@@ -37,7 +37,6 @@ const fetchUser = async () => {
       } catch (refreshError) {
         console.error("Token refresh failed", refreshError);
         localStorage.removeItem('accessToken');
-        window.location.href = 'login.html';
         return;
       }
 
