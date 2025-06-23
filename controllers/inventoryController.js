@@ -4,11 +4,31 @@ const mongoose = require('mongoose');
 //Add Item to the collections
 exports.AddItem = async (req, res) => {
 
-    const {itemName, amount, quantity, expiryDate, description, createdBy} = req.body;
-    const itemDetails = {itemName, amount, quantity, expiryDate, description, createdBy};
+    const {itemName, dosage, quantity, expiryDate, description, createdBy} = req.body;
+    
+    // Check for emojis
+    const containsEmoji = (str) => {
+        const emojiRegex = /[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/u;
+        return emojiRegex.test(str);
+    };
 
+    // Check for emojis in itemName and description
+    if (containsEmoji(itemName) || containsEmoji(description)) {
+        return res.status(400).json({ message: 'Item name and description must not contain emojis.' });
+    }
+
+    // Validate item dosage and quantity
+    if(!isValidNumber(dosage) || !isValidNumber(quantity)) return res.status(400).json({ message: 'Item dosage and quantity must be valid numbers greater than 0' });
+
+    // ✅ Convert to numbers after validation
+    const numericDosage = Number(dosage);
+    const numericQuantity = Number(quantity);
+
+    const itemDetails = {itemName, dosage: numericDosage, quantity: numericQuantity, expiryDate, description, createdBy};
+    
     // Check the messages inputs
-    if (Object.values(itemDetails).some(details => !details)) return res.status(400).json({ message: 'Kindly check your item details'});
+    if (Object.values(itemDetails).some(details => details === undefined || details === null || details === '')) return res.status(400).json({ message: 'Kindly check your item details'});
+
 
     try {
 
@@ -33,7 +53,7 @@ exports.AddItem = async (req, res) => {
 // Edit Items
 exports.editItem = async (req, res) => {
     const { id } = req.params;
-    const { itemName, amount, quantity, expiryDate, description, createdBy } = req.body;
+    const { itemName, dosage, quantity, expiryDate, description, createdBy } = req.body;
 
     // Validate ObjectId
     if (!mongoose.Types.ObjectId.isValid(id)) {
@@ -41,14 +61,22 @@ exports.editItem = async (req, res) => {
     }
 
     // Validate input fields
-    if ([itemName, amount, quantity, expiryDate, description, createdBy].some(field => field === undefined || field === null)) {
+    if ([itemName, dosage, quantity, expiryDate, description, createdBy].some(field => field === undefined || field === null)) {
         return res.status(400).json({ message: 'Kindly check your item details' });
     }
+
+    if(!isValidNumber(dosage) || !isValidNumber(quantity)) return res.status(400).json({ message: 'Item dosage and quantity must be valid numbers greater than 0' });
+
+    // ✅ Convert to numbers after validation
+    const numericDosage = Number(dosage);
+    const numericQuantity = Number(quantity);
+
+    const itemDetails = {itemName, dosage: numericDosage, quantity: numericQuantity, expiryDate: new Date(expiryDate), description, createdBy};
 
     try {
         const updatedItem = await inventoryDB.findByIdAndUpdate(
             id,
-            { itemName, amount, quantity, expiryDate: new Date(expiryDate), description, createdBy },
+            { ...itemDetails },
             { new: true }
         );
 
@@ -173,3 +201,14 @@ exports.getAllItem = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+// Validate inputs letters and negative numbers are not allowed
+function isValidNumber (value) {
+    if (typeof value !== 'string') return false; // Only allow strings
+
+    // Reject exponential, letters, negatives, etc.
+    if (!/^\d+(\.\d+)?$/.test(value)) return false;
+
+    const number = Number(value);
+    return !isNaN(number) && isFinite(number) && number > 0;
+};

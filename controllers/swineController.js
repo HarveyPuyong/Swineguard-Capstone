@@ -4,10 +4,25 @@ const swineDB = require('./../models/swineModel');
 exports.addSwine = async (req, res) => {
 
     const {breed, type, birthdate, sex, weight, clientId} = req.body;
-    const swineData = {breed, type, birthdate, sex, weight, clientId};
 
-    // Check the messages inputs
-    if (Object.values(swineData).some(data => !data)) return res.status(400).json({ message: 'Kindly check your swine data'});
+    // Validate birthdate of swine
+    if (new Date(birthdate) > new Date()) {
+        return res.status(400).json({ message: 'Birthdate cannot be in the future.' });
+    }
+
+    // Validate swine weight
+    if(!isValidNumber(weight)) return res.status(400).json({ message: 'Swine weight must be valid numbers greater than 0' });
+
+    // ✅ Convert to numbers after validation
+    const numericWeight = Number(weight);
+
+    const swineData = {breed, type, birthdate, sex, weight: numericWeight, clientId};
+
+    // Validate input fields
+    if (Object.values(swineData).some(field => field === undefined || field === null)) {
+        return res.status(400).json({ message: 'Kindly check your swine details' });
+    }
+
 
     try {
 
@@ -33,19 +48,28 @@ exports.addSwine = async (req, res) => {
 exports.editSwine = async (req, res) => {
     const { id } = req.params;
 
-    const {breed, type, birthdate, sex, weight} = req.body;
-    const swineData = {breed, type, birthdate, sex, weight};
-    
+    const {type, weight, healthStatus, cause} = req.body;
+
+
+    // Validate swine weight
+    if(!isValidNumber(weight)) return res.status(400).json({ message: 'Swine weight must be valid numbers greater than 0' });
+
+    // ✅ Convert to numbers after validation
+    const numericWeight = Number(weight);
+
+    const swineData = {type, weight: numericWeight, healthStatus, cause};
+
     // Validate input fields
     if (Object.values(swineData).some(field => field === undefined || field === null)) {
         return res.status(400).json({ message: 'Kindly check your swine details' });
     }
+
     if(!id) return res.status(400).json({message: "Swine id not found."});
 
     try {
         const updatedSwineData = await swineDB.findByIdAndUpdate(
             id,
-            { breed, type, birthdate, sex, weight },
+            { ...swineData },
             { new: true }
         );
 
@@ -75,3 +99,15 @@ exports.getSwine = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
+
+// Validate inputs letters and negative numbers are not allowed
+function isValidNumber (value) {
+    if (typeof value !== 'string') return false; // Only allow strings
+
+    // Reject exponential, letters, negatives, etc.
+    if (!/^\d+(\.\d+)?$/.test(value)) return false;
+
+    const number = Number(value);
+    return !isNaN(number) && isFinite(number) && number > 0;
+};
+

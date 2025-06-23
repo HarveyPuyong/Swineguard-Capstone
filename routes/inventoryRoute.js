@@ -13,9 +13,8 @@ module.exports = router;
 
 // Ito ay para sa Edit:
 // {
-//     "id": "6852db8903771bc8c24d0a70",
 //     "itemName": "Iron Dextran-100",
-//     "amount": "100",
+//     "dosage": "100",
 //     "quantity": "150",
 //     "expiryDate": "10-12-2037",
 //     "description": "Iron Supplement",
@@ -25,7 +24,7 @@ module.exports = router;
 //Ito naman ay sa Add:
 // {
 //     "itemName": "Iron Dextran-100",
-//     "amount": "100",
+//     "dosage": "100",
 //     "quantity": "150",
 //     "expiryDate": "10-12-2037",
 //     "description": "Iron Supplement",

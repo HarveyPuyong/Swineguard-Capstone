@@ -24,6 +24,15 @@ exports.addAppointment = async (req, res) => {
         appointmentStatus
     } = req.body;
 
+    // Validate text only and not allow emojis
+    const nameRegex = /^[A-Za-z\s\-'.]+$/;
+
+    if (!nameRegex.test(firstName) || !nameRegex.test(lastName) || 
+        (middleName && !nameRegex.test(middleName)) || 
+        (suffix && !nameRegex.test(suffix))) {
+        return res.status(400).json({ message: 'Name fields must only contain letters, spaces, hyphens, apostrophes, or periods. Numbers and emojis are not allowed.' });
+    }
+
     // Validate only the REQUIRED fields based on schema
     if (
         !clientName ||
