@@ -7,8 +7,6 @@ import editAdminDetails from "./edit-setting.js";
 // ======================================
 export default async function setupSettingsSection() {
   await displaySetting();
-
-  document.addEventListener('DOMContentLoaded', () => {
-    editAdminDetails();
-  });
+  
+  editAdminDetails();
 }
