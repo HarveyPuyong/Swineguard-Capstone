@@ -27,8 +27,6 @@ app.use(Express.json());
 
 app.use(cookieParser());
 
-app.use(errorHandler);
-
 app.use(Express.static(path.join(__dirname, 'frontend')));
 
 app.get('/', (req, res) => {
@@ -38,7 +36,8 @@ app.get('/', (req, res) => {
 // Auth Routing
 app.use('/auth', require('./routes/authRoute'));
 
-app.use('/', require('./routes/userRoute'));
+//Logout routing
+app.use('/logout', require('./routes/logoutRoute'));
 
 // Refresh token routing
 app.use('/refresh', require('./routes/refreshTokenRoute'));
@@ -55,8 +54,11 @@ app.use('/inventory', require('./routes/inventoryRoute'));
 // Swine routing
 app.use('/swine', require('./routes/swineRoute'));
 
-//Logout routing
-app.use('/auth', require('./routes/logoutRoute'));
+// Get user routing
+app.use('/', require('./routes/userRoute'));
+
+
+app.use(errorHandler);
 
 
 mongoose.connection.once('open', () => {

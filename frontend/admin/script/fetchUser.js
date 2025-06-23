@@ -42,7 +42,6 @@ const fetchUser = async () => {
     } else if (errStatus === 401) {
       localStorage.removeItem('accessToken');
       window.location.href = 'admin-page.html';
-
     } else {
       console.log(err);
       const errMessage = err.response?.data?.message || 'Something went wrong';
