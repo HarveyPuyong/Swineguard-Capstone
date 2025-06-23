@@ -1,4 +1,4 @@
-import fetchUser from '../fetchUser.js';
+import fetchUser from './../auth/fetchUser.js';
 
 const displaySetting = async() => {
   try {
