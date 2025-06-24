@@ -1,4 +1,4 @@
-const displayAppointments = async() => {
+const renderAppointments = async() => {
   try {
     const response = await axios.get('http://localhost:2500/appointment/all', {withCredentials: true});
 
@@ -14,7 +14,10 @@ const displayAppointments = async() => {
             <p class="td last-name">${appointment.clientLastname}</p>
             <p class="td appointment-name">${appointment.appointmentTitle}</p>
             <p class="td date-time">${appointment.appointmentDate} at ${appointment.appointmentTime}</p>
-            <p class="td status" data-status-value=${appointment.appointmentStatus}>${appointment.appointmentStatus}</p>
+            <p class="td status status--${appointment.appointmentStatus.toLowerCase()}"
+                                data-status-value=${appointment.appointmentStatus.toLowerCase()}>
+                                ${appointment.appointmentStatus}
+            </p>
             <p class="td action">
               <select class="select-appointment-action" name="appointment-action" id="appointment-action">
                 <option value="">Action</option>
@@ -95,10 +98,14 @@ const displayAppointments = async() => {
       .forEach(table => {
         const tableBody = table.querySelector('.appointment-table__tbody');
         tableBody.innerHTML = appointmentTableHTML;
-      });
+    });
+
+    /// Custom event na magagamit lang pagkatapos ma render lahat ng appointment data
+    // — ginagamit ito para gumana ang search filter at ibang functionality na kelangan ng data
+    document.dispatchEvent(new Event('renderAppointments')); 
   } catch (error) {
     console.log(error)
   }
 }
 
-export default displayAppointments;
+export default renderAppointments;

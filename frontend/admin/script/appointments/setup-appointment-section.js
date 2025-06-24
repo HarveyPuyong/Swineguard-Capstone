@@ -1,60 +1,92 @@
 import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
-import displayAppointments from "./display-appointment.js";
+import renderAppointments from "./display-appointment.js";
 
 // ======================================
 // ========== Search Appointments
 // ======================================
 const searchAppointment = () => {
-  const input = document.querySelector('.appointment-section__search-input');
-  const appointments = document.querySelectorAll('.appointment-table .appointment');
+  //custom event 'renderAppointments' na magagamit lang kapag naka render na yung appointment data
+  document.addEventListener('renderAppointments', () => {
+    const input = document.querySelector('.appointment-section__search-input');
+    const appointments = document.querySelectorAll('.appointment-table .appointment');
 
-  if (!input || appointments.length === 0) return;
+    if (!input || appointments.length === 0) return;
 
-  input.addEventListener('input', () => {
-    const query = input.value.trim().toLowerCase();
+    input.addEventListener('input', () => {
+      const query = input.value.trim().toLowerCase();
 
-    appointments.forEach(appointment => {
-      const firstName = appointment.querySelector('.first-name')?.textContent.toLowerCase() || '';
-      const lastName = appointment.querySelector('.last-name')?.textContent.toLowerCase() || '';
-      const contact = appointment.querySelector('.contact')?.textContent.toLowerCase() || '';
-      const email = appointment.querySelector('.column.right .column__detail-value:nth-last-child(1)')?.textContent.toLowerCase() || '';
-      const address = [...appointment.querySelectorAll('.column.left .column__detail')].find(p =>
-        p.textContent.includes('Adress')
-      )?.querySelector('.column__detail-value')?.textContent.toLowerCase() || '';
-      const actualSchedule = [...appointment.querySelectorAll('.column.left .column__detail')].find(p =>
-        p.textContent.includes('Actual Schedule')
-      )?.querySelector('.column__detail-value')?.textContent.toLowerCase() || '';
+      appointments.forEach(appointment => {
+        console.log(appointment)
+        const firstName = appointment.querySelector('.first-name')?.textContent.toLowerCase() || '';
+        const lastName = appointment.querySelector('.last-name')?.textContent.toLowerCase() || '';
+        const contact = appointment.querySelector('.contact')?.textContent.toLowerCase() || '';
+        const email = appointment.querySelector('.column.right .column__detail-value:nth-last-child(1)')?.textContent.toLowerCase() || '';
+        const address = [...appointment.querySelectorAll('.column.left .column__detail')].find(p =>
+          p.textContent.includes('Adress')
+        )?.querySelector('.column__detail-value')?.textContent.toLowerCase() || '';
+        const actualSchedule = [...appointment.querySelectorAll('.column.left .column__detail')].find(p =>
+          p.textContent.includes('Actual Schedule')
+        )?.querySelector('.column__detail-value')?.textContent.toLowerCase() || '';
 
-      const searchableText = `${firstName} ${lastName} ${contact} ${email} ${address} ${actualSchedule}`;
+        const searchableText = `${firstName} ${lastName} ${contact} ${email} ${address} ${actualSchedule}`;
 
-      appointment.style.display = searchableText.includes(query) ? 'block' : 'none';
+        appointment.style.display = searchableText.includes(query) ? 'block' : 'none';
+      });
     });
-  });
+  })
 };
+
+
+// ======================================
+// ========== Set Filter Appointment Color
+// ======================================
+const setFilterColor = (statusValue, element) =>{
+    if (statusValue === 'pending') {
+      element.style.setProperty('--color', 'rgb(37, 37, 37)');
+      element.style.setProperty('--BGcolor', 'rgba(0, 0, 0, 0.19)');
+    } else if (statusValue === 'ongoing') {
+      element.style.setProperty('--color', 'rgb(55, 119, 255)');
+      element.style.setProperty('--BGcolor', 'rgba(73, 130, 254, 0.24)');
+    } else if (statusValue === 'completed') {
+      element.style.setProperty('--color', 'rgb(0, 153, 71)');
+      element.style.setProperty('--BGcolor', 'rgba(29, 255, 135, 0.13)');
+    } else if (statusValue === 'reschedule') {
+      element.style.setProperty('--color', 'rgb(153, 115, 0)');
+      element.style.setProperty('--BGcolor', 'rgba(255, 191, 0, 0.30)');
+    } else if (statusValue === 'removed'){
+      element.style.setProperty('--color', 'rgb(210, 17, 17)'); 
+      element.style.setProperty('--BGcolor', 'rgba(226, 35, 35, 0.21)');
+    } else{
+      element.style.setProperty('--color', 'black');
+      element.style.setProperty('--BGcolor', 'white');
+    }
+}
 
 // ======================================
 // ========== Filter Appointments
 // ======================================
 const filterAppointments = () => {
-  const selectStatus = document.querySelector('.filter-apointments-status');
+  document.addEventListener('renderAppointments', () => {
+    const selectStatus = document.querySelector('.filter-apointments-status');
 
-  selectStatus.addEventListener('change', () => {
-    const selectedValue = selectStatus.value.toLowerCase();
-    setStatusColor(selectedValue, selectStatus);
+    selectStatus.addEventListener('change', () => {
+      const selectedValue = selectStatus.value.toLowerCase();
+      setFilterColor(selectedValue, selectStatus);
 
-    document.querySelectorAll('#appointments-section .appointment-table .appointment .td.status')
-      .forEach(status => {
-        const statusValue = status.getAttribute('data-status-value');
-        const appointment = status.parentElement.parentElement;
-        appointment.style.display = 'none';
+      document.querySelectorAll('#appointments-section .appointment-table .appointment .td.status')
+        .forEach(status => {
+          const statusValue = status.getAttribute('data-status-value');
+          const appointment = status.parentElement.parentElement;
+          appointment.style.display = 'none';
 
-        if(selectedValue === 'all'){
-          appointment.style.display = 'block';
-        } else if (selectedValue === statusValue) {
-          appointment.style.display = 'block';
-        }
+          if(selectedValue === 'all'){
+            appointment.style.display = 'block';
+          } else if (selectedValue === statusValue) {
+            appointment.style.display = 'block';
+          }
+      });
     });
-  });
+  })
 }
 
 // ======================================
@@ -111,42 +143,6 @@ const toggleAppointentMoreDetails = () => {
   });
 }
 
-// ======================================
-// ========== Set Status Color
-// ======================================
-const setStatusColor = (statusValue, element) =>{
-    if (statusValue === 'pending') {
-      element.style.setProperty('--color', 'rgb(37, 37, 37)');
-      element.style.setProperty('--BGcolor', 'rgba(0, 0, 0, 0.19)');
-    } else if (statusValue === 'ongoing') {
-      element.style.setProperty('--color', 'rgb(55, 119, 255)');
-      element.style.setProperty('--BGcolor', 'rgba(73, 130, 254, 0.24)');
-    } else if (statusValue === 'completed') {
-      element.style.setProperty('--color', 'rgb(0, 153, 71)');
-      element.style.setProperty('--BGcolor', 'rgba(29, 255, 135, 0.13)');
-    } else if (statusValue === 'reschedule') {
-      element.style.setProperty('--color', 'rgb(153, 115, 0)');
-      element.style.setProperty('--BGcolor', 'rgba(255, 191, 0, 0.30)');
-    } else if (statusValue === 'removed'){
-      element.style.setProperty('--color', 'rgb(210, 17, 17)'); 
-      element.style.setProperty('--BGcolor', 'rgba(226, 35, 35, 0.21)');
-    } else{
-      element.style.setProperty('--color', 'black');
-      element.style.setProperty('--BGcolor', 'white');
-    }
-}
-
-// ======================================
-// ========== Change Appointment Status Color
-// ======================================
-const changeAppointmentStatusColor = () => {
-  const appointments = document.querySelectorAll('.appointment-table .appointment');
-  appointments.forEach(appointment => {
-    const status = appointment.querySelector('.status');
-    const statusValue =  status.getAttribute('data-status-value');
-    setStatusColor(statusValue, status);
-  });
-}
 
 // ======================================
 // ==========Toggle Popup Add Appointment Form
@@ -198,12 +194,11 @@ const calendarTable = () => {
 // ========== Main Function - Setup Appointments Section
 // ======================================
 export default function setupAppointmentSection () {
-  displayAppointments();
-  changeAppointmentStatusColor();
+  renderAppointments();
   filterAppointments();
+  searchAppointment();
   toggleAddAppointmentForm();
   toggleAppointentMoreDetails();
-  searchAppointment();
   viewBtnsFunctionality();
   calendarTable();
 }

@@ -200,6 +200,43 @@
   padding: 0.2rem 0;
 }
 
+/* Status: pending */
+.appointment-table__tbody .td.status--pending {
+  --color: rgb(37, 37, 37);
+  --BGcolor: rgba(0, 0, 0, 0.19);
+}
+
+/* Status: ongoing */
+.appointment-table__tbody .td.status--ongoing {
+  --color: rgb(55, 119, 255);
+  --BGcolor: rgba(73, 130, 254, 0.24);
+}
+
+/* Status: completed */
+.appointment-table__tbody .td.status--completed {
+  --color: rgb(0, 153, 71);
+  --BGcolor: rgba(29, 255, 135, 0.13);
+}
+
+/* Status: reschedule */
+.appointment-table__tbody .td.status--reschedule {
+  --color: rgb(153, 115, 0);
+  --BGcolor: rgba(255, 191, 0, 0.30);
+}
+
+/* Status: removed */
+.appointment-table__tbody .td.status--removed {
+  --color: rgb(210, 17, 17);
+  --BGcolor: rgba(226, 35, 35, 0.21);
+}
+
+/* Status: default/fallback */
+.appointment-table__tbody .td.status--default {
+  --color: black;
+  --BGcolor: white;
+}
+
+
 .appointment-table__thead .th.action,
 .appointment-table__tbody .td.action {
   width: var(--action-width);
