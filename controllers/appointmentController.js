@@ -6,7 +6,8 @@ exports.addAppointment = async (req, res) => {
         clientId, 
         swineId, 
 
-        clientName, 
+        clientFirstname, 
+        clientLastname, 
         contactNum, 
         clientEmail,
         municipality, 
@@ -21,22 +22,25 @@ exports.addAppointment = async (req, res) => {
         swineAge, 
         swineMale, 
         swineFemale, 
-        appointmentStatus
+        appointmentStatus,
+        appointmentType
     } = req.body;
 
     // Validate only the REQUIRED fields based on schema
     if (
-        !clientName ||
+        !clientFirstname ||
+        !clientLastname ||
         !contactNum ||
         !appointmentTitle ||
+        !appointmentDate ||
+        !appointmentTime ||
+        !appointmentStatus ||
         !swineType ||
         swineCount == null ||
         swineSymptoms == null ||
         swineAge == null ||
         swineMale == null ||
-        swineFemale == null ||
-        !appointmentDate ||
-        !appointmentTime
+        swineFemale == null
     ) {
         return res.status(400).json({ message: 'Please fill out all required fields' });
     }
@@ -47,22 +51,23 @@ exports.addAppointment = async (req, res) => {
         clientId, 
         swineId, 
 
-        clientName, 
+        clientFirstname, clientLastname, 
         contactNum, 
         clientEmail,
         municipality, 
         barangay, 
         
         appointmentTitle, 
-        swineType, 
-        swineCount, 
         appointmentDate, 
         appointmentTime, 
+        appointmentStatus,
+        appointmentType,
         swineSymptoms, 
         swineAge, 
         swineMale, 
         swineFemale, 
-        appointmentStatus
+        swineType, 
+        swineCount, 
     };
 
     try {

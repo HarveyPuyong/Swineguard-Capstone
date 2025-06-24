@@ -1,4 +1,5 @@
 import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
+import displayAppointments from "./display-appointment.js";
 
 // ======================================
 // ========== Search Appointments
@@ -196,7 +197,8 @@ const calendarTable = () => {
 // ======================================
 // ========== Main Function - Setup Appointments Section
 // ======================================
-export default function setupAppointmentSection() {
+export default function setupAppointmentSection () {
+  displayAppointments();
   changeAppointmentStatusColor();
   filterAppointments();
   toggleAddAppointmentForm();
