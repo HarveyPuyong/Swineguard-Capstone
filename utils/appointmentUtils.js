@@ -1,6 +1,7 @@
 const appointmentDB = require('./../models/appointmentModel');
 const MAX_SWINE_PER_DAY = 30;
 
+// Check Date and Swine Limit for Day
 async function checkSwineCountLimit(appointmentDate, swineCount) {
     const dateStart = new Date(appointmentDate);
     dateStart.setHours(0, 0, 0, 0);
@@ -38,17 +39,6 @@ async function checkSwineCountLimit(appointmentDate, swineCount) {
 }
 
 // Check the Time
-// function isValidAppointmentTime(appointmentTime) {
-//     const [hour, minute] = appointmentTime.split(':').map(Number);
-//     if (isNaN(hour) || isNaN(minute)) return false;
-
-//     const timeInMinutes = hour * 60 + minute;
-//     const startTime = 7 * 60 + 30;  // 7:30 AM
-//     const endTime = 16 * 60 + 30;  // 4:30 PM
-
-//     return timeInMinutes >= startTime && timeInMinutes <= endTime;
-// }
-
 async function isValidAppointmentTime(appointmentDate, appointmentTime, municipality) {
     // Basic time format validation
     const [hour, minute] = appointmentTime.split(':').map(Number);
