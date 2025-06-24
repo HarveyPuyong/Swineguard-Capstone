@@ -1,5 +1,7 @@
+import addressesData from '../../static-data/addresses.js';
 import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
-import renderAppointments from "./display-appointment.js";
+import handleRenderAppointments from "./display-appointment.js";
+import handleAddAppointment from "./add-appointment.js";
 
 // ======================================
 // ========== Search Appointments
@@ -122,26 +124,40 @@ const viewBtnsFunctionality = () => {
 
 }
 
-// ======================================
-// ========== Toggle Appointment More-Details 
-// ======================================
-const toggleAppointentMoreDetails = () => {
-  const appointments = document.querySelectorAll('.appointment-table .appointment');
-  appointments.forEach(appointment => {
-    const toggleBtn = appointment.querySelector('.toggle-more-details-btn');
-    const moreDetails = appointment.querySelector('.appointment__more-details');
 
-    toggleBtn.addEventListener('click', () => {
-      toggleBtn.classList.toggle('active');
+// ======================================
+// ========== Add Static Data to add-appointment-form
+// ======================================
+const setupAddAppointmentForm = () => {
+  const municipalitySelect = document.querySelector("#add-appointments-form #municipality");
+  const barangaySelect = document.querySelector("#add-appointments-form #barangay");
 
-      if(toggleBtn.classList.contains('active')){
-        moreDetails.classList.add('show')
-      }else{
-        moreDetails.classList.remove('show')
-      }
-    });
+  const municipals = Object.keys(addressesData);
+
+  municipals.forEach(municipal => {
+      const option = document.createElement("option");
+      option.value = municipal;
+      option.textContent = municipal;
+      municipalitySelect.appendChild(option);
   });
-}
+
+  
+  municipalitySelect.addEventListener("change", () => {
+    const selectedMunicipality = municipalitySelect.value;
+
+    if (selectedMunicipality && addressesData[selectedMunicipality]) {
+      addressesData[selectedMunicipality].forEach(barangay => {
+        const option = document.createElement("option");
+        option.value = barangay;
+        option.textContent = barangay;
+        barangaySelect.appendChild(option);
+      });
+      barangaySelect.disabled = false;
+    } else {
+      barangaySelect.disabled = true;
+    }
+  });
+};
 
 
 // ======================================
@@ -156,6 +172,31 @@ const toggleAddAppointmentForm = () => {
   const closeFormBtn = document.querySelector('.add-appointment-container__close-form-btn')
     .addEventListener('click', () => formContainer.classList.remove('show'));
 }
+
+
+// ======================================
+// ========== Toggle Appointment More-Details 
+// ======================================
+const toggleAppointentMoreDetails = () => {
+  document.addEventListener('renderAppointments', () => {
+    const appointments = document.querySelectorAll('.appointment-table .appointment');
+      appointments.forEach(appointment => {
+        const toggleBtn = appointment.querySelector('.toggle-more-details-btn');
+        const moreDetails = appointment.querySelector('.appointment__more-details');
+
+        toggleBtn.addEventListener('click', () => {
+          toggleBtn.classList.toggle('active');
+
+          if(toggleBtn.classList.contains('active')){
+            moreDetails.classList.add('show')
+          }else{
+            moreDetails.classList.remove('show')
+          }
+        });
+      });
+  })
+}
+
 
 // ======================================
 // ==========Schedule Calendar
@@ -194,9 +235,11 @@ const calendarTable = () => {
 // ========== Main Function - Setup Appointments Section
 // ======================================
 export default function setupAppointmentSection () {
-  renderAppointments();
+  handleAddAppointment();
+  handleRenderAppointments();
   filterAppointments();
   searchAppointment();
+  setupAddAppointmentForm();
   toggleAddAppointmentForm();
   toggleAppointentMoreDetails();
   viewBtnsFunctionality();

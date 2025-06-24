@@ -22,7 +22,6 @@ exports.addAppointment = async (req, res) => {
         swineAge, 
         swineMale, 
         swineFemale, 
-        appointmentStatus,
         appointmentType
     } = req.body;
 
@@ -34,7 +33,6 @@ exports.addAppointment = async (req, res) => {
         !appointmentTitle ||
         !appointmentDate ||
         !appointmentTime ||
-        !appointmentStatus ||
         !swineType ||
         swineCount == null ||
         swineSymptoms == null ||
@@ -60,7 +58,6 @@ exports.addAppointment = async (req, res) => {
         appointmentTitle, 
         appointmentDate, 
         appointmentTime, 
-        appointmentStatus,
         appointmentType,
         swineSymptoms, 
         swineAge, 

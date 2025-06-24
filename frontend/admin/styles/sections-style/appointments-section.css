@@ -130,12 +130,12 @@
   width: 100%;
   height: fit-content;
   min-height: 200px;
-  max-height: 480px;
+  max-height: 600px;
   background-color: white;
   border: none;
   border-radius: 8px;
   padding: 1rem;
-  margin-top: 1.7rem;
+  margin-top: 1.2rem;
   overflow: hidden;
   font-size: 0.9rem;
 }
@@ -151,7 +151,10 @@
   flex-direction: column;
   row-gap: 0.5rem;
   overflow-y: scroll;
-  max-height: 100%;
+  scrollbar-width: thin;
+  min-height: 120px;
+  max-height: 425px;
+  padding-bottom: 1rem;
   padding-bottom: 1rem;
 }
 
@@ -425,14 +428,26 @@
   background-color: #13bb6153;
   border: none;
   font-size: 0.85rem;
+  font-weight: 600;
   padding: 15px 10px;
   width: 100%;
+  color: black
+}
+
+.add-appointments-form #appointment-date,
+.add-appointments-form #appointment-time{
+  width: 50%;
+}
+
+.add-appointments-form #swine-count{
+  width: 50%;
 }
 
 .add-appointments-form input::placeholder,
 .add-appointments-form select,
 .add-appointments-form textarea::placeholder{
-  color: rgb(23, 23, 23);
+  color: rgba(23, 23, 23, 0.78);
+  font-weight: 500;
 }
 
 .add-appointments-form textarea.swine-symptoms{

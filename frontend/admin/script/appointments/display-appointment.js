@@ -1,4 +1,4 @@
-const renderAppointments = async() => {
+const handleRenderAppointments = async() => {
   try {
     const response = await axios.get('http://localhost:2500/appointment/all', {withCredentials: true});
 
@@ -108,4 +108,4 @@ const renderAppointments = async() => {
   }
 }
 
-export default renderAppointments;
+export default handleRenderAppointments;

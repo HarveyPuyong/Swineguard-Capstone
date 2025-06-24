@@ -21,6 +21,9 @@
 
     <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+     <!-- Sweet Alert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <!-- ========== Header ========== -->
@@ -285,32 +288,34 @@
                 <div class="group">
                   <input id="first-name" type="text" placeholder="First name" required>
                   <input id="last-name" type="text" placeholder="Last name" required>
-                  <select id="municipality" name="">
+                  <select id="municipality" name="select-municipal">
                     <option value="">Municipality</option> 
-                    <!-- all municipal options is render in data.js -->
                   </select>
-                  <select id="barangay" name="" disabled>
-                      <option value="">Barangay</option>
-                      <!-- all barangay options is render in data.js -->
+                  <select id="barangay" name="select-barangay" disabled>
+                    <option value="">Barangay</option>
                   </select>
                 </div>
                 <!-- email and contact number group -->
                 <div class="group">
                   <input id="client-email" type="text" placeholder="Email">
-                  <input id="client-phone" type="number"  placeholder="Phone" required><br>
+                  <input id="client-phone" type="tel" placeholder="Phone: 09+" required pattern="09[0-9]{9}" maxlength="11"title="Must start with 09 and be exactly 11 digits"><br>
                 </div>
                 <h3 class="add-appointments-form__heading swine-info-heading">Swine Information</h3>
                 <!-- appointment title, schedule and time group -->
                 <div class="group">
                   <select id="appointment-title" name="appointment-title">
                     <option value="">Select Appointment</option>
-                    <option value="Iron Supplementation">09123456789</option>
                     <option value="Deworming">Deworming</option>
                     <option value="ASF Testing">ASF Testing</option>
                     <option value="Blood Testing">Blood Testing</option>
                     <option value="Health Surveillance">Health Surveillance</option>
                     <option value="Postpartum Care">Postpartum Care</option>
                     <option value="Surgical Castration">Surgical Castration</option>
+                  </select>
+                  <select id="appointment-type" name="appointment-type">
+                    <option value="">Select Appointment Type</option>
+                    <option value="visit">Vist</option>
+                    <option value="consult">Service</option>
                   </select>
                   <input id="appointment-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
                   <input id="appointment-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)this.type='text'" />
@@ -328,8 +333,8 @@
                   <input id="swine-count" type="number" min="0"  placeholder="Heads" required>
                   <input id="swine-age" type="number" min="0"  placeholder="Age/months" required><br>
                   <span>Swine Gender:</span>
-                  <input  id="swine-female" type="number" placeholder="Female" required>
-                  <input id="swine-male" type="number"  placeholder="Male" required>
+                  <input  id="swine-female" type="number" min="0" placeholder="Number of Female" required>
+                  <input id="swine-male" type="number" min="0" placeholder="Number of Male" required>
                 </div>
                 <!-- textarea of swine symptoms message -->
                 <textarea class="swine-symptoms"  name="" id="swine-symptoms" placeholder="Kindly write down the symptoms"></textarea>
