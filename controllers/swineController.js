@@ -1,4 +1,5 @@
 const swineDB = require('./../models/swineModel');
+const mongoose = require('mongoose');
 
 // Add Swine
 exports.addSwine = async (req, res) => {
@@ -48,8 +49,15 @@ exports.addSwine = async (req, res) => {
 exports.editSwine = async (req, res) => {
     const { id } = req.params;
 
-    const {type, weight, healthStatus, cause} = req.body;
+    const {breed, type, birthdate, sex, weight, status, cause} = req.body;
 
+    // Validate object Id
+    if (!isValidSwineId(id)) return res.status(400).json({ message: "Invalid Swine ID." });
+
+    // Validate birthdate of swine
+    if (new Date(birthdate) > new Date()) {
+        return res.status(400).json({ message: 'Birthdate cannot be in the future.' });
+    }
 
     // Validate swine weight
     if(!isValidNumber(weight)) return res.status(400).json({ message: 'Swine weight must be valid numbers greater than 0' });
@@ -57,7 +65,7 @@ exports.editSwine = async (req, res) => {
     // ✅ Convert to numbers after validation
     const numericWeight = Number(weight);
 
-    const swineData = {type, weight: numericWeight, healthStatus, cause};
+    const swineData = {breed, type, birthdate, sex, weight: numericWeight, status, cause};
 
     // Validate input fields
     if (Object.values(swineData).some(field => field === undefined || field === null)) {
@@ -90,6 +98,82 @@ exports.editSwine = async (req, res) => {
     }
 }
 
+// Remove Swine 
+exports.removeSwine = async (req, res) => {
+    const {id} = req.params;
+
+    // Validate Object Id
+    if(!isValidSwineId(id)) return res.status(400).json({ message: "Invalid Swine Id." });
+    try {
+        const removedSwine = await swineDB.findByIdAndUpdate(
+            id,
+            { status: "removed" },
+            { new: true }
+        );
+
+        if (!removedSwine) { return res.status(404).json({ message: 'Swine not found.' }); }
+
+        res.status(200).json({
+            message: " Swine removed successfully.",
+            swine: removedSwine
+        });
+
+    } catch (err) {
+        console.error(`Error: ${err}`);
+        return res.status(500).json({ message: "Something went wrong when removing swine." });
+    }
+
+}
+
+// Restore Swine
+exports.restoreSwine = async (req, res) => {
+    const { id } = req.params;
+    
+    // Validate Object Id / Swine Id
+    if (!isValidSwineId(id)) return res.status(400).json({ message: 'Invalid Swine Id.' });
+
+    try {
+        const restoredSwine = await swineDB.findByIdAndUpdate (
+            id,
+            { status: 'active' },
+            {new: true}
+        );
+
+        if (!restoredSwine) return res.status(404).json({ message: "Swine not found." });
+
+        res.status(200).json({
+            message: 'Swine restored successfully.',
+            swine: restoredSwine
+        });
+
+    } catch (err) {
+        console.error(`Error: ${err}`);
+        return res.status(500).json({ message: 'Something went wrong while restoring swine.'});
+    }
+
+}
+
+// Delete Swine
+exports.deleteSwine = async (req, res) => {
+
+    const {id} = req.params;
+
+    //Validate Object Id
+    if(!isValidSwineId(id)) return res.status(400).json({ message: "Invalid Swine Id." });
+
+    try {
+        const deletedSwine = await swineDB.findByIdAndDelete(id);
+
+        if(!deletedSwine) return res.status(404).json({ message: "Swine not found." });
+
+        res.status(200).json({ message: "Swine deleted successfully", swine: deletedSwine });
+
+    } catch (err) {
+        console.error(`Error: ${err}`);
+        return res.status(500).json({ message: "Something went wrong while deleting Swine." });
+    }
+}
+
 // Get all Swine
 exports.getSwine = async (req, res) => {
     try {
@@ -111,3 +195,7 @@ function isValidNumber (value) {
     return !isNaN(number) && isFinite(number) && number > 0;
 };
 
+// Check item Id
+function isValidSwineId(id) {
+    return mongoose.Types.ObjectId.isValid(id);
+}

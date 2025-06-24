@@ -55,10 +55,8 @@ exports.editItem = async (req, res) => {
     const { id } = req.params;
     const { itemName, dosage, quantity, expiryDate, description, createdBy } = req.body;
 
-    // Validate ObjectId
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid item ID.' });
-    }
+    // Validate object Id
+    if (!checkItemId(id)) return res.status(400).json({ message: "Invalid Item ID." });
 
     // Validate input fields
     if ([itemName, dosage, quantity, expiryDate, description, createdBy].some(field => field === undefined || field === null)) {
@@ -101,10 +99,10 @@ exports.editItem = async (req, res) => {
 exports.removeItem = async (req, res) => {
     const {id} = req.params;
 
-    // Validate ObjectId
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid item ID.' });
-    }
+    // Validate object Id
+    if (!checkItemId(id)){ 
+        return res.status(400).json({ message: "Invalid Item ID." })
+    };
 
     try {
         const removedItem = await inventoryDB.findByIdAndUpdate(
@@ -135,10 +133,8 @@ exports.removeItem = async (req, res) => {
 exports.restoreItem = async (req, res) => {
     const {id} = req.params;
 
-    // Validate ObjectId
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid item ID.' });
-    }
+    // Validate object Id
+    if (!checkItemId(id)) return res.status(400).json({ message: "Invalid Item ID." });
 
     try {
         const restoreItem = await inventoryDB.findByIdAndUpdate(
@@ -170,10 +166,8 @@ exports.deleteItem = async (req, res) => {
 
     const { id } = req.params;
 
-    // Validate ObjectId
-    if (!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(400).json({ message: 'Invalid item ID.' });
-    }
+    // Validate object Id
+    if (!checkItemId(id)) return res.status(400).json({ message: "Invalid Item ID." });
 
     try {
         const deletedItem = await inventoryDB.findByIdAndDelete(id);
@@ -212,3 +206,8 @@ function isValidNumber (value) {
     const number = Number(value);
     return !isNaN(number) && isFinite(number) && number > 0;
 };
+
+// Check item Id
+function checkItemId (id) {
+    return mongoose.Types.ObjectId.isValid(id);
+}
