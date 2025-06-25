@@ -5,6 +5,9 @@ import handleRenderAppointments from "./display-appointment.js";
 import handleAcceptAppointment from "./accept-appointment.js";
 import handleRescheduleAppointment from './reschedule-appointment.js'
 import handleRemoveAppointment from "./remove-appointment.js"
+import {handleCompleteAppointment,
+        handleRestoreAppointment,
+        handleDeleteAppointment,} from "./complete-restore-delete-appointment.js"
 
 
 // ======================================
@@ -188,18 +191,21 @@ const toggleAcceptAppointmentForm = (actionSelect) => {
 
   acceptAppointmentForm.classList.add('show')
 
-  const closeFormBtn = document.querySelector('.appointment-schedule-form__close-btn')
-    .addEventListener('click', () => {
+  const closeFormBtn = document.querySelector('.appointment-schedule-form__close-btn');
+  if (!closeFormBtn) return;
+
+  closeFormBtn.addEventListener('click', () => {
       acceptAppointmentForm.classList.remove('show');
-      actionSelect.value = ''
+      if(actionSelect) actionSelect.value = '' 
   });
 }
 
 
 // ======================================
-// ========== Appointment Actions
+// ========== Appointment Select Actions.
+//            Dito ko cinall lahat ng handleFuntions (Accept, Reschedule, Remove) 
 // ======================================
-const handleAppointmentActions = () => {
+const handleAppointmentSelectActions = () => {
    document.addEventListener('renderAppointments', () => {
     const appointments = document.querySelectorAll('.appointment-table .appointment');
 
@@ -218,6 +224,41 @@ const handleAppointmentActions = () => {
           handleRemoveAppointment(appointmentId)
         }
       });
+    });
+  });
+}
+
+
+// ======================================
+// ========== Appointment Buttons Actions.
+//            Dito ko cinall lahat ng handleFuntions (Restore, Delete, Complete, Set-Schedule) 
+// ======================================
+const handleAppointmentButtonsActions = () => {
+   document.addEventListener('renderAppointments', () => {
+    const appointments = document.querySelectorAll('.appointment-table .appointment');
+
+    appointments.forEach(appointment => {
+      const buttons = appointment.querySelectorAll(`.appointment__more-details .buttons-container button`);
+
+      buttons.forEach(button =>{
+        const appointmentId = button.dataset.appointmentId;
+
+        button.addEventListener('click', () => {
+          if(button.id === 'restore-btn') {
+            handleRestoreAppointment(appointmentId)
+          } 
+          else if(button.id === 'delete-btn') {
+            handleDeleteAppointment(appointmentId)
+          }
+          else if(button.id === 'set-schedule-btn') {
+            toggleAcceptAppointmentForm(null);
+            handleAcceptAppointment(appointmentId);
+          }
+          else if(button.id === 'completed-btn') {
+            handleCompleteAppointment(appointmentId)
+          }
+        });
+      })
     });
   });
 }
@@ -285,7 +326,8 @@ const calendarTable = () => {
 export default function setupAppointmentSection () {
   handleAddAppointment();
   handleRenderAppointments();
-  handleAppointmentActions();
+  handleAppointmentSelectActions();
+  handleAppointmentButtonsActions();
   filterAppointments();
   searchAppointment();
   setupAddAppointmentForm();

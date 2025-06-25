@@ -83,10 +83,10 @@ const handleRenderAppointments = async() => {
               </div>
             </div>
             <div class="buttons-container">
-                <button class="completed-btn btn">Completed</button>
-                <button class="set-schedule-btn btn">Set Schedule</button>
-                <button class="restore-btn btn">Restore</button>
-                <button class="delete-btn btn">Delete</button>
+                <button data-appointment-id=${appointment._id} id="completed-btn" class="completed-btn btn">Completed</button>
+                <button data-appointment-id=${appointment._id} id="set-schedule-btn" class="set-schedule-btn btn">Set Schedule</button>
+                <button data-appointment-id=${appointment._id} id="restore-btn" class="restore-btn btn">Restore</button>
+                <button data-appointment-id=${appointment._id} id="delete-btn" class="delete-btn btn">Delete</button>
             </div>
           </div>
         </div>
