@@ -1,24 +1,17 @@
 const inventoryDB = require('../models/inventoryModel');
 const mongoose = require('mongoose');
+const {isValidNumber, isInvalidInput, checkExpiryDate} = require('./../utils/inventoryUtils');
 
 //Add Item to the collections
 exports.AddItem = async (req, res) => {
 
     const {itemName, dosage, quantity, expiryDate, description, createdBy} = req.body;
     
-    // Check for emojis
-    const containsEmoji = (str) => {
-        const emojiRegex = /[\u{1F600}-\u{1F64F}]|[\u{1F300}-\u{1F5FF}]|[\u{1F680}-\u{1F6FF}]|[\u{2600}-\u{26FF}]|[\u{2700}-\u{27BF}]/u;
-        return emojiRegex.test(str);
-    };
-
     // Check for emojis in itemName and description
-    if (containsEmoji(itemName) || containsEmoji(description)) {
-        return res.status(400).json({ message: 'Item name and description must not contain emojis.' });
-    }
+    if (isInvalidInput(itemName, description)) return res.status(400).json({ message: 'Item name and description must not be empty or contain emojis.' });
 
     // Validate item dosage and quantity
-    if(!isValidNumber(dosage) || !isValidNumber(quantity)) return res.status(400).json({ message: 'Item dosage and quantity must be valid numbers greater than 0' });
+    if(!isValidNumber(dosage) || !isValidNumber(quantity)) return res.status(400).json({ message: 'Item dosage and quantity must be valid numbers and greater than 0' });
 
     // ✅ Convert to numbers after validation
     const numericDosage = Number(dosage);
@@ -29,6 +22,8 @@ exports.AddItem = async (req, res) => {
     // Check the messages inputs
     if (Object.values(itemDetails).some(details => details === undefined || details === null || details === '')) return res.status(400).json({ message: 'Kindly check your item details'});
 
+    // Check Expiration Date
+    if (checkExpiryDate(expiryDate)) return res.status(400).json({ message: 'Past and current dates are not allowed for expiration date.' });
 
     try {
 
@@ -63,12 +58,20 @@ exports.editItem = async (req, res) => {
         return res.status(400).json({ message: 'Kindly check your item details' });
     }
 
-    if(!isValidNumber(dosage) || !isValidNumber(quantity)) return res.status(400).json({ message: 'Item dosage and quantity must be valid numbers greater than 0' });
+    // Check for emojis in itemName and description
+    if (isInvalidInput(itemName, description)) return res.status(400).json({ message: 'Item name and description must not be empty or contain emojis.' });
+
+    // Validate dosage and numbers
+    if(!isValidNumber(dosage) || !isValidNumber(quantity)) return res.status(400).json({ message: 'Item dosage and quantity must be valid numbers and greater than 0' });
 
     // ✅ Convert to numbers after validation
     const numericDosage = Number(dosage);
     const numericQuantity = Number(quantity);
 
+    // Check Expiration Date
+    if (checkExpiryDate(expiryDate)) return res.status(400).json({ message: 'Past and current dates are not allowed for expiration date.' });
+       
+    // Object of Item details
     const itemDetails = {itemName, dosage: numericDosage, quantity: numericQuantity, expiryDate: new Date(expiryDate), description, createdBy};
 
     try {
@@ -195,17 +198,6 @@ exports.getAllItem = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 }
-
-// Validate inputs letters and negative numbers are not allowed
-function isValidNumber (value) {
-    if (typeof value !== 'string') return false; // Only allow strings
-
-    // Reject exponential, letters, negatives, etc.
-    if (!/^\d+(\.\d+)?$/.test(value)) return false;
-
-    const number = Number(value);
-    return !isNaN(number) && isFinite(number) && number > 0;
-};
 
 // Check item Id
 function checkItemId (id) {

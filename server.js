@@ -29,13 +29,6 @@ app.use(cookieParser());
 
 app.use(errorHandler);
 
-
-//Pang Test Lang ito boi
-app.use(Express.static(path.join(__dirname, 'test')));
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'test', 'message.html'));// Ito yung message nya
-});
-
 app.use(Express.static(path.join(__dirname, 'frontend')));
 
 app.get('/', (req, res) => {
@@ -63,6 +56,13 @@ app.use('/swine', require('./routes/swineRoute'));
 //Logout routing
 app.use('/auth', require('./routes/logoutRoute'));
 
+//Pang Test Lang ito boi
+app.use('/test', Express.static(path.join(__dirname, 'test')));
+
+// Optional: serve message.html directly at a route
+app.get('/message', (req, res) => {
+  res.sendFile(path.join(__dirname, 'test', 'message.html'));
+});
 
 mongoose.connection.once('open', () => {
   console.log(`Connected to MongoDB database: ${mongoose.connection.name}`);
