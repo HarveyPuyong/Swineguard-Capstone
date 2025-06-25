@@ -1,6 +1,6 @@
 const Express = require('express');
 const router = Express.Router();
 
-router.post('/', require('./../controllers/refreshTokenController'));
+router.get('/', require('./../controllers/refreshTokenController'));
 
 module.exports = router;

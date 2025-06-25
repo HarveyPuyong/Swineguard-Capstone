@@ -13,9 +13,9 @@ loginForm.addEventListener('submit', async(e) => {
       {withCredentials: true}
     );
 
-    console.log(response.data);
-
     if(response.status === 200){
+      localStorage.setItem('accessToken', response.data.accessToken);
+
       if(response.data.roles.includes('admin')) window.location.href = 'admin-page.html';
       if(response.data.roles.includes('appointmentCoordinator')) window.location.href = 'appointments-coordinator.html'
       if(response.data.roles.includes('inventoryCoordinator')) window.location.href = 'inventory-coordinator.html'

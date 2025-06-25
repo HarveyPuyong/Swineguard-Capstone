@@ -3,6 +3,7 @@ const router = express.Router();
 const ROLE_LIST = require('./../config/role_list');
 const verifyRoles = require('./../middlewares/verifyRoles');
 const verifyJWT = require('./../middlewares/verifyJWT');
+const userController = require('./../controllers/userController');
 
 
 

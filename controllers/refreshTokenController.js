@@ -10,7 +10,7 @@ const refreshTokenController = async(req, res) => {
   const refreshToken = cookies.jwt;
 
   try{
-    const foundUser = await UserDB.findOne({refreshToken: {$in: [refreshToken]} }).exec();
+    const foundUser = await UserDB.findOne({refreshToken: {$in: [refreshToken]} });
     if(!foundUser) return res.status(400).json({message: "User not found"});
 
     const userName = `${foundUser.firstName} ${foundUser.lastName}`;

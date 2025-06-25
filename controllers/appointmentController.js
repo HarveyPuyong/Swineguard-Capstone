@@ -8,7 +8,8 @@ exports.addAppointment = async (req, res) => {
         clientId, 
         swineId, 
 
-        clientName, 
+        clientFirstname, 
+        clientLastname, 
         contactNum, 
         clientEmail,
         municipality, 
@@ -22,8 +23,8 @@ exports.addAppointment = async (req, res) => {
         swineSymptoms, 
         swineAge, 
         swineMale, 
-        swineFemale,
-        appointmentType
+        swineFemale, 
+        appointmentStatus
     } = req.body;
 
     // Validate text only and not allow emojis
@@ -38,11 +39,14 @@ exports.addAppointment = async (req, res) => {
 
     // Validate only the REQUIRED fields based on schema
     if (
-        !clientName ||
+        !clientFirstname ||
+        !clientLastname ||
         !contactNum ||
         !barangay ||
         !municipality ||
         !appointmentTitle ||
+        !appointmentDate ||
+        !appointmentTime ||
         !swineType ||
         !swineSymptoms ||
         swineCount == null ||
@@ -50,8 +54,7 @@ exports.addAppointment = async (req, res) => {
         swineMale == null ||
         swineFemale == null ||
         !appointmentDate ||
-        !appointmentTime ||
-        !validTypes.includes(appointmentType)
+        !appointmentTime
     ) {
         return res.status(400).json({ message: 'Please fill out all required fields' });
     }
@@ -89,22 +92,21 @@ exports.addAppointment = async (req, res) => {
         clientId, 
         swineId, 
 
-        clientName, 
+        clientFirstname, clientLastname, 
         contactNum, 
         clientEmail,
         municipality, 
         barangay, 
         
         appointmentTitle, 
-        swineType, 
-        swineCount, 
         appointmentDate, 
         appointmentTime, 
+        appointmentType,
         swineSymptoms, 
         swineAge, 
         swineMale, 
-        swineFemale,
-        appointmentType
+        swineFemale, 
+        appointmentStatus
     };
 
     try {
@@ -181,7 +183,7 @@ exports.acceptAppointment = async (req, res) => {
         // Proceed to updating to accept appointment
         const update = await appointmentDB.findByIdAndUpdate(
             appointmentId,
-            { appointmentDate, appointmentTime, appointmentStatus: "ongoing", appointmentType, vetPersonnel, medicine, dosage, vetMessage },
+            { appointmentDate, appointmentTime, appointmentStatus: "ongoing", vetPersonnel, medicine, dosage, vetMessage },
             { new : true } 
         );
 
@@ -203,11 +205,8 @@ exports.rescheduleAppointment = async (req, res) => {
     try {
         const { id } = req.params;
 
-        // Check Object Id if exist or valid
-        if(!isValidAppointmentId(id)) return res.status(400).json({ message: 'Invalid Appointment Id.' });
-
         const update = await appointmentDB.findByIdAndUpdate(
-            id,
+            appointmentId,
             { appointmentStatus: "reschedule" },
             { new: true }
         );

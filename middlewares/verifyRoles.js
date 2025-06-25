@@ -1,6 +1,5 @@
 const verifyRoles = (...allowedRoles) => {
   return (req, res, next) => {
-    // na check kung may roles sa req o naka array type ang roles
     if(!req.user?.roles || !Array.isArray(req.user.roles)){
       return res.status(403).json({"message": "Access denied: roles missing"});
     } 

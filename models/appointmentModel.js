@@ -13,7 +13,8 @@ const appointmentSchema = new mongoose.Schema({
         required: false,
     },
 
-    clientName: { type: String, required: true },
+    clientFirstname: { type: String, required: true },
+    clientLastname: { type: String, required: true },
     contactNum: { type: String, required: true },
     municipality: { type: String, require: true},
     barangay: { type: String, require: true},
@@ -35,7 +36,9 @@ const appointmentSchema = new mongoose.Schema({
     vetPersonnel: { type: String, default: 'not set' },
     medicine: { type: String, default: 'not set' },
     dosage: { type: String, default: 'not set' },
-    vetMessage: { type: String, default: 'no set' }
+    vetMessage: { type: String, default: 'no set' },
+    vetPersonnel: { type: String, default: 'not Set' },
+    vetMessage: { type: String, default: 'no message yet' }
 
     
 }, { collection: 'appointments', timestamps: true });

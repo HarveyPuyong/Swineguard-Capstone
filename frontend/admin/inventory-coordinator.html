@@ -12,6 +12,12 @@
     <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
     <link rel="stylesheet" href="styles/sections-style/inventory-section.css">
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
+
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Sweet Alert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <!-- ========== Header ========== -->
@@ -343,70 +349,8 @@
               <p class="settings-container__header-heading">Profile</p>
               <button class="settings-container__header-logout-btn">Logout</button>
             </div>
-            <form class="settings-container__details-list">
-              <div class="admin-image detail">
-                <img src="images-and-icons/images/money-admin-profile.jpg" alt="Profile Picture"/>
-                <label class="admin-image__upload-btn">
-                  <input type="file" hidden />
-                  <i class="fas fa-upload"></i> Upload
-                </label>
-              </div>
-              <div class="admin-detail detail">
-                <p class="admin-detail-label">ID:</p>
-                <p class="admin-detail-value">01235678</p>
-              </div>
-              <div class="admin-detail detail editable">
-                <p class="admin-detail-label">Name:</p class="admin-detail-label">
-                <input class="admin-detail-value" value="Inventory Coordinator" readonly></input>
-                <div class="admin-detail__btns-container">
-                  <button type="button" class="edit-btn show">Edit ✏️</button>
-                  <button type="submit" class="save-btn">Save</button>
-                  <button type="button" class="cancel-btn">Cancel</button>
-                </div>
-                
-              </div>
-              <div class="admin-detail detail editable">
-                <p class="admin-detail-label">Contact:</p class="admin-detail-label">
-                <input class="admin-detail-value" value="09123456789" readonly></input>
-                <div class="admin-detail__btns-container">
-                  <button type="button" class="edit-btn show">Edit ✏️</button>
-                  <button type="submit" class="save-btn">Save</button>
-                  <button type="button" class="cancel-btn">Cancel</button>
-                </div>
-                
-              </div>
-              <div class="admin-detail detail editable">
-                <p class="admin-detail-label">Address:</p class="admin-detail-label">
-                <input class="admin-detail-value" value="Bangbangalon , Boac, Marinduque" readonly></input>
-                <div class="admin-detail__btns-container">
-                  <button type="button" class="edit-btn show">Edit ✏️</button>
-                  <button type="submit" class="save-btn">Save</button>
-                  <button type="button" class="cancel-btn">Cancel</button>
-                </div>
-                
-              </div>
-              <div class="admin-detail detail editable">
-                <p class="admin-detail-label">Email:</p class="admin-detail-label">
-                <input class="admin-detail-value" value="pvet.staff2@gmail.com" readonly></input>
-                <div class="admin-detail__btns-container">
-                  <button type="button" class="edit-btn show">Edit ✏️</button>
-                  <button type="submit" class="save-btn">Save</button>
-                  <button type="button" class="cancel-btn">Cancel</button>
-                </div>
-                
-              </div>
-              <div class="admin-detail detail editable">
-                <p class="admin-detail-label">Password:</p class="admin-detail-label">
-                <input class="admin-detail-value" value="Admin Password" readonly></input>
-                <div class="admin-detail__btns-container">
-                  <button type="button" class="edit-btn show">Edit ✏️</button>
-                  <button type="submit" class="save-btn">Save</button>
-                  <button type="button" class="cancel-btn">Cancel</button>
-                </div>
-                
-              </div>
-            </form>
-          </div>
+            <form class="settings-container__details-list"><!-- Content render to setup-setting-section.js--></form>
+          </div> 
         </section>
       </div>
     </main>

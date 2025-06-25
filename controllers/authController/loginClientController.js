@@ -31,7 +31,6 @@ const clientLoginController = async(req, res) => {
                                               userName
     );
 
-    if(foundUser.refreshToken.length >= 3) foundUser.refreshToken.shift();
     foundUser.refreshToken.push(refreshToken);
 
     await foundUser.save();
@@ -41,10 +40,10 @@ const clientLoginController = async(req, res) => {
       {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production', //abaguhin yung NODE_ENV = production sa .env kapag naka host na
-        sameSite: 'None',
+        sameSite: 'Lax', //change sa 'None' kapag naka host na
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7 days
-      }
-    );
+        }
+     );
     
     return res.status(200).json({message: `User ${userName} is successfully login`, accessToken});
   }catch(err){

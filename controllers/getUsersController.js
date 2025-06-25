@@ -2,6 +2,7 @@ const UserDB = require('../models/userModel');
 
 const getUser = async (req, res) => {
   const userInfo = req?.user;
+  console.log(userInfo)
   if(!userInfo) return res.status(401).json({"message": "Unauthorized"});
   
   try{
