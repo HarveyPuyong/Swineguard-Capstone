@@ -1,3 +1,6 @@
+import {formattedDate, formatTo12HourTime} from '../../utils/formated-date-time.js'
+
+
 const handleRenderAppointments = async() => {
   try {
     const response = await axios.get('http://localhost:2500/appointment/all', {withCredentials: true});
@@ -7,13 +10,14 @@ const handleRenderAppointments = async() => {
     let appointmentTableHTML = '';
 
     data.forEach(appointment => {
+      console.log(appointment)
       appointmentTableHTML +=  `
         <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
           <div class="appointment__details">
             <p class="td first-name">${appointment.clientFirstname}</p>
             <p class="td last-name">${appointment.clientLastname}</p>
             <p class="td appointment-name">${appointment.appointmentTitle}</p>
-            <p class="td date-time">${appointment.appointmentDate} at ${appointment.appointmentTime}</p>
+            <p class="td date-time">${formattedDate(appointment.appointmentDate)} at ${formatTo12HourTime(appointment.appointmentTime)}</p>
             <p class="td status status--${appointment.appointmentStatus.toLowerCase()}"
                                 data-status-value=${appointment.appointmentStatus.toLowerCase()}>
                                 ${appointment.appointmentStatus}

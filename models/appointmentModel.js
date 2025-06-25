@@ -16,9 +16,9 @@ const appointmentSchema = new mongoose.Schema({
     clientFirstname: { type: String, required: true },
     clientLastname: { type: String, required: true },
     contactNum: { type: String, required: true },
-    municipality: { type: String,},
-    barangay: { type: String,},
-    clientEmail: { type: String, default: 'No email' },
+    municipality: { type: String, require: true},
+    barangay: { type: String, require: true},
+    clientEmail: { type: String, default: 'no email' },
 
     appointmentTitle: { type: String, required: true },
     swineType: { type: String, required: true },
@@ -28,7 +28,7 @@ const appointmentSchema = new mongoose.Schema({
     swineMale: { type: Number, required: true },
     swineFemale: { type: Number, required: true },
     
-    appointmentDate: { type: String, required: true },
+    appointmentDate: { type: Date, required: true },
     appointmentTime: { type: String, required: true },
 
     appointmentStatus: { type: String, default: 'pending' },
@@ -36,7 +36,11 @@ const appointmentSchema = new mongoose.Schema({
     vetPersonnel: { type: String, default: 'Not Set' },
     medicine: { type: String, default: 'Not Set' },
     dosage: { type: String, default: 'Not Set' },
-    vetMessage: { type: String, default: 'No message yet' }
+    vetMessage: { type: String, default: 'No message yet' },
+    vetPersonnel: { type: String, default: 'not set' },
+    medicine: { type: String, default: 'not set' },
+    dosage: { type: String, default: 'not set' },
+    vetMessage: { type: String, default: 'no set' }
 
     
 }, { collection: 'appointments', timestamps: true });

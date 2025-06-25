@@ -7,7 +7,8 @@ const appointmentSchema = new mongoose.Schema({
     birthdate: { type: String, required: true },
     sex: { type: String, required: true },
     weight: { type: Number, required: true },
-    healthStatus: { type: String, default: 'healthy' },
+    status: { type: String, default: 'healthy' },
+    cause: { type: String, default: 'none' },
 
     clientId: {
         type: mongoose.Schema.Types.ObjectId, 
