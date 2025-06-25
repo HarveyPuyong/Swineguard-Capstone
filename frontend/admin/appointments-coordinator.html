@@ -347,21 +347,39 @@
               <h2 class="appointment-schedule-form__heading">Appointment Schedule Form</h2>
               <div class="appointment-schedule-form__details-columns">
                 <div class="column-left">
-                  <label for="set-schedule">Set Date</label>
-                  <input type="date" id="set-date" required>
+                  <label for="set-date">Set Date</label>
+                  <input id="set-date" type="date" required>
                   <label for="set-time">Set Time</label>
-                  <input type="time" id="set-time" required>
+                  <input id="set-time" type="time" required>
+                  <label for="appointment-type">Appointment Type</label>
+                  <select name="appointment-type" id="appointment-type">
+                    <option value="visit">Visit</option>
+                    <option value="Service">Service</option>
+                  </select>
                 </div>
                 <div class="column-right">
                   <label for="medicine-list">Select Medicine</label>
                   <select name="medicine-list" id="medicine-list">
-                    <option value="">Medicine here</option>
+                    <option value="">Select Medicine</option>
+                    <option value="iron-dextran-fedex">Iron Dextran (FeDex)</option>
+                    <option value="fenbendazole-fenbendazole">Fenbendazole</option>
+                    <option value="ivermectin-ivermectin">Ivermectin</option>
+                    <option value="vitamin-b12-vitamin-b12">Vitamin B12</option>
+                    <option value="immunocastration-immunocastration">Immunocastration</option>
+                    <option value="antibiotics-antibiotics">Antibiotics</option>
+                    <option value="espiporc-flupan-h1n1-espiporc-flupan-h1n1">Espiporc FLUpan H1N1</option>
                   </select>
-                  <label for="medicine-amount">Medicine Amount</label>
+                  <label for="medicine-amount">Medicine Dosage</label>
                   <input type="number" id="medicine-amount" min="0" placeholder="Amount/mg here." required>
                   <label for="available-personnel">Avialable Personnel</label>
                   <select name="available-personnel" id="available-personnel">
-                      <option value="">Personnel</option>
+                    <option value="">Personnel</option>
+                    <option value="Doc. Josue M. Victoria">Doc. Josue M. Victoria</option>
+                    <option value="Mr. Eugene Anthony J. Rozal DWM">Mr. Eugene Anthony J. Rozal DWM</option>
+                    <option value="Mr. Glenn Q. Deligero">Mr. Glenn Q. Deligero</option>
+                    <option value="Mr. Hilario O. Lanete">Mr. Hilario O. Lanete</option>
+                    <option value="Mr. Randolfo A. Largo">Mr. Randolfo A. Largo</option>
+                    <option value="Mr. Eddie Mar R. Laylay">Mr. Eddie Mar R. Laylay</option>
                   </select>
                 </div>
               </div>

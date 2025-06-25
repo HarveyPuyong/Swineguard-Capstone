@@ -1,7 +1,8 @@
 import addressesData from '../../static-data/addresses.js';
 import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
-import handleRenderAppointments from "./display-appointment.js";
 import handleAddAppointment from "./add-appointment.js";
+import handleRenderAppointments from "./display-appointment.js";
+import handleAcceptAppointment from "./accept-appointment.js";
 
 // ======================================
 // ========== Search Appointments
@@ -64,6 +65,7 @@ const setFilterColor = (statusValue, element) =>{
     }
 }
 
+
 // ======================================
 // ========== Filter Appointments
 // ======================================
@@ -91,8 +93,9 @@ const filterAppointments = () => {
   })
 }
 
+
 // ======================================
-// ========== View Buttons Functionality
+// ========== View (Appointment Table Content, Technicians Section, Appointment Calendar Schedule) Buttons Functionality
 // ======================================
 const viewBtnsFunctionality = () => {
   const appointmentTableContent = document.querySelector('.appointment-table-content');
@@ -175,6 +178,44 @@ const toggleAddAppointmentForm = () => {
 
 
 // ======================================
+// ==========Toggle Popup Accept Appointment Form
+// ======================================
+const toggleAcceptAppointmentForm = (actionSelect) => {
+  const acceptAppointmentForm = document.querySelector('.appointment-schedule-form');
+
+  acceptAppointmentForm.classList.add('show')
+
+  const closeFormBtn = document.querySelector('.appointment-schedule-form__close-btn')
+    .addEventListener('click', () => {
+      acceptAppointmentForm.classList.remove('show');
+      actionSelect.value = ''
+  });
+}
+
+
+// ======================================
+// ========== Appointment Actions
+// ======================================
+const handleAppointmentActions = () => {
+   document.addEventListener('renderAppointments', () => {
+    const appointments = document.querySelectorAll('.appointment-table .appointment');
+
+    appointments.forEach(appointment => {
+      const actionSelect = appointment.querySelector('.select-appointment-action');
+      actionSelect.addEventListener('change', () => {
+        const appointmentId = actionSelect.dataset.appointmentId;
+
+        if(actionSelect.value === 'accept'){
+          toggleAcceptAppointmentForm(actionSelect);
+          handleAcceptAppointment(appointmentId);
+        }
+      });
+    });
+  });
+}
+
+
+// ======================================
 // ========== Toggle Appointment More-Details 
 // ======================================
 const toggleAppointentMoreDetails = () => {
@@ -230,13 +271,13 @@ const calendarTable = () => {
 }
     
 
-
 // ======================================
 // ========== Main Function - Setup Appointments Section
 // ======================================
 export default function setupAppointmentSection () {
   handleAddAppointment();
   handleRenderAppointments();
+  handleAppointmentActions();
   filterAppointments();
   searchAppointment();
   setupAddAppointmentForm();

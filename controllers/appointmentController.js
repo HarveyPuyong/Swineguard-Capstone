@@ -86,7 +86,7 @@ exports.addAppointment = async (req, res) => {
 // Accept appointment by Id Mark as Ongoing
 exports.acceptAppointment = async (req, res) => {
     
-    const { appointmentDate, appointmentTime, vetPersonnel, medicine, dosage, vetMessage } = req.body;
+    const { appointmentDate, appointmentTime, appointmentType, vetPersonnel, medicine, dosage, vetMessage } = req.body;
 
     const appointmentId = req.params.id;
 
@@ -97,7 +97,7 @@ exports.acceptAppointment = async (req, res) => {
     try {
         const update = await appointmentDB.findByIdAndUpdate(
             appointmentId,
-            { appointmentDate, appointmentTime, appointmentStatus: "ongoing", vetPersonnel, medicine, dosage, vetMessage },
+            { appointmentDate, appointmentTime, appointmentType, appointmentStatus: "ongoing", medicine, dosage, vetPersonnel, vetMessage },
             { new : true } 
         );
 

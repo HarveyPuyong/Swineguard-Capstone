@@ -19,12 +19,12 @@ const handleRenderAppointments = async() => {
                                 ${appointment.appointmentStatus}
             </p>
             <p class="td action">
-              <select class="select-appointment-action" name="appointment-action" id="appointment-action">
+              <select class="select-appointment-action" data-appointment-id=${appointment._id} name="appointment-action" id="appointment-action">
                 <option value="">Action</option>
                 <option value="accept">Accept</option>
                 <option value="reschedule">Reschedule</option>
                 <option value="remove">Remove</option>
-              </select>
+              </select> 
             </p>
             <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
           </div>

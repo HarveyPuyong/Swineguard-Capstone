@@ -470,7 +470,7 @@
 
 /* Appointment Schedule Form */
 .appointment-schedule-form{
-  display: none; /* default display:block */
+  display: none; 
   position: fixed;
   top: 53%;
   left: 50%;
@@ -481,6 +481,10 @@
   border-radius: 8px;
   z-index: 999;
   padding: 1rem 2rem;
+}
+
+.appointment-schedule-form.show{
+  display: block;
 }
 
 .appointment-schedule-form__heading{

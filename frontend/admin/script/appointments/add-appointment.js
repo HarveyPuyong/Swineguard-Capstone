@@ -1,5 +1,6 @@
 import popupAlert from './../../utils/popupAlert.js'
 
+
 const handleAddAppointment = () => {
   // Sanitize all inputs text type
   const inputs = document.querySelectorAll('#add-appointments-form input[type="text"]:not(#client-email):not(#appointment-date):not(#appointment-time)')
