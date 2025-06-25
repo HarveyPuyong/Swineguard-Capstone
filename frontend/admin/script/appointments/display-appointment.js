@@ -10,7 +10,6 @@ const handleRenderAppointments = async() => {
     let appointmentTableHTML = '';
 
     data.forEach(appointment => {
-      console.log(appointment)
       appointmentTableHTML +=  `
         <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
           <div class="appointment__details">
