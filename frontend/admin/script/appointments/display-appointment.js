@@ -8,7 +8,7 @@ const handleRenderAppointments = async() => {
 
     data.forEach(appointment => {
       appointmentTableHTML +=  `
-        <div class="appointment" data-id=${appointment._id}>
+        <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
           <div class="appointment__details">
             <p class="td first-name">${appointment.clientFirstname}</p>
             <p class="td last-name">${appointment.clientLastname}</p>
@@ -84,7 +84,7 @@ const handleRenderAppointments = async() => {
             </div>
             <div class="buttons-container">
                 <button class="completed-btn btn">Completed</button>
-                <button class="reschedule-btn btn">Set Schedule</button>
+                <button class="set-schedule-btn btn">Set Schedule</button>
                 <button class="restore-btn btn">Restore</button>
                 <button class="delete-btn btn">Delete</button>
             </div>

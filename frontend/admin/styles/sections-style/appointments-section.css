@@ -339,20 +339,23 @@
   cursor: pointer;
 }
 
-.appointment__more-details .completed-btn,
-.appointment__more-details .restore-btn{
+.appointment.status-ongoing .completed-btn,
+.appointment.status-reschedule .set-schedule-btn{
+  display: block;
   border: 1px solid #009947;
   background-color: #1dff8722;
   color: #009947;
 }
 
-.appointment__more-details .reschedule-btn{
+.appointment.status-removed .restore-btn{
+  display: block;
   border: 1px solid #7D7D7D;
   background-color: #B0AEAF;
   color: #1c1c1c;
 }
 
-.appointment__more-details .delete-btn{
+.appointment.status-removed .delete-btn{
+  display: block;
   border: 1px solid #990000;
   background-color: #F2A5A5;
   color: #990000;
