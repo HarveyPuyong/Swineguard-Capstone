@@ -1,4 +1,4 @@
-const UserDB = require('./../models/userModel');
+const UserDB = require('../../models/userModel');
 const jwt = require('jsonwebtoken');
 
 const logoutController = async(req, res) => {

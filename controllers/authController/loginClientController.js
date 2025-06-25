@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
-const {generateAccessToken, generateRefreshToken} = require('./../utils/generateTokens.js');
-const UserDB = require('./../models/userModel');
+const {generateAccessToken, generateRefreshToken} = require('../../utils/generateTokens.js');
+const UserDB = require('../../models/userModel.js');
 
 
 const clientLoginController = async(req, res) => {

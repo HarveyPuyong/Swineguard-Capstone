@@ -1,10 +1,8 @@
 #dashboard-section{
   --side-spacing: 30px;
 
-  display: block; /* default display:block */
   padding: 0;
   margin-left: 80px;
-  background-color: white;
 }
 
 .dashboard{
@@ -55,7 +53,7 @@
   overflow: hidden;
 }
 
-.dashboard__card.total-appointments{
+.dashboard__card.total-card{
   grid-row: span 2;
   background-color: #0F7E43;
   color: white;
@@ -63,7 +61,9 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
+
 
 .dashboard__card-icon{
   width: 50px;
@@ -77,7 +77,8 @@
 
 .dashboard__card-label--value{
   font-weight: 600;
-  font-size: 1.3em;
+  font-size: 1.4em;
+  margin-left: 5px;
 }
 
 .dashboard__card-progress-bar-container{
@@ -113,19 +114,19 @@
   border: none;
 }
 
-.completed-appointments .dashboard__card-progress-value{
+.dashboard__card:nth-child(2) .dashboard__card-progress-value{
   background-color: #01ad51;
   width: 20%;
 }
-.pending-appointments .dashboard__card-progress-value{
+.dashboard__card:nth-child(3) .dashboard__card-progress-value{
   background-color: #424242;
   width: 30%;
 }
-.ongoing-appointments .dashboard__card-progress-value{
+.dashboard__card:nth-child(4) .dashboard__card-progress-value{
   background-color: #00a2ad;
   width: 60%;
 }
-.reschedule-appointments .dashboard__card-progress-value{
+.dashboard__card:nth-child(5) .dashboard__card-progress-value{
   background-color: #aeb101;
   width: 80%;
 }
@@ -149,78 +150,28 @@
   z-index: 10;
 }
 
-.completed-appointments .dashboard__card-progress-txt{
+.dashboard__card:nth-child(2) .dashboard__card-progress-txt{
   color: #01ad51;
 }
-.pending-appointments .dashboard__card-progress-txt{
+.dashboard__card:nth-child(3) .dashboard__card-progress-txt{
   color: #424242;
 }
-.ongoing-appointments .dashboard__card-progress-txt{
+.dashboard__card:nth-child(4) .dashboard__card-progress-txt{
   color: #00a2ad;
 }
-.reschedule-appointments .dashboard__card-progress-txt{
+.dashboard__card:nth-child(5) .dashboard__card-progress-txt{
   color: #aeb101;
 }
 
-/* Ongoing Apointemts Table */
-.ongoing-appointments-table-container{
+/* Table Container */
+.dashboard-section__table-container{
   padding: 0 var(--side-spacing);
   padding-top: 17px;
-  padding-bottom: 80px;
+  padding-bottom: 30px;
 }
 
-.ongoing-appointments-table-container__heading{
+.dashboard-section__table-container-heading{
   font-size: 1.5rem;
   font-weight: 500;
   margin-bottom: 20px;
-}
-
-.ongoing-appointments-table{
-  width: 100%;
-}
-
-.ongoing-appointments-table .appointment .appointment__details{
-  display: flex;
-  text-align: center;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  background-color: #d2d2d2cc;
-  border-radius: 3px;
-  padding: 13px 50px;
-  font-size: 0.9rem;
-}
-
-.ongoing-appointments-table .td.status{
-  --color: #3777FF;
-  --BGcolor: #4982fe3c;
-
-  border: 1px solid var(--color);
-  color: var(--color);
-  background-color: var(--BGcolor);
-  border-radius: 3px;
-  padding: 4px 0;
-  width: 120px;
-}
-
-.ongoing-appointments-table .td.action select{
-  border-radius: 3px;
-  background-color: transparent;
-  width: 130px;
-  padding: 2px 0;
-  padding-left: 13px;
-}
-
-.td.toggle-more-details-btn{
-  color: #009947;
-  text-decoration: underline;
-  cursor: pointer;
-}
-
-.ongoing-appointments-table .appointment__more-details{
-  display: none;
-  background-color: #d2d2d2cc;
-  height: 19rem;
-  padding: 0 50px;
-  padding-top: 30px;
 }

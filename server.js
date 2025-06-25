@@ -29,30 +29,20 @@ app.use(cookieParser());
 
 app.use(errorHandler);
 
+app.use(Express.static(path.join(__dirname, 'frontend')));
+
 app.get('/', (req, res) => {
-  res.send('Kupal')
+  return res.redirect('/admin/login.html');
+
 });
 
-// Signup routing
-app.use('/signup', require('./routes/signupClientRoute')); 
-
-// Edit and Update user credentials
-app.use('/user', require('./routes/userRoute'));
-
-// Client login routings
-app.use('/login', require('./routes/loginClientRoute'));
-
-// Admin login routing
-app.use('/admin/login', require('./routes/loginAdminRoute'));
+app.use('/auth', require('./routes/authRoute'));
 
 // Refresh token routing
 app.use('/refresh', require('./routes/refreshTokenRoute'));
 
 //Messages routing
-app.use('/send-message', require('./routes/messageRoute'));
-
-//Inventory routings
-app.use('/inventory', require('./routes/inventoryRoute'));
+app.use('/message', require('./routes/messageRoute'));
 
 //Appointments routings
 app.use('/appointment', require('./routes/appointmentRoute'));
@@ -64,10 +54,17 @@ app.use('/inventory', require('./routes/inventoryRoute'));
 app.use('/swine', require('./routes/swineRoute'));
 
 //Logout routing
-app.use('/logout', require('./routes/logoutRoute'));
+app.use('/auth', require('./routes/logoutRoute'));
 
+//Pang Test Lang ito boi
+app.use('/test', Express.static(path.join(__dirname, 'test')));
+
+// Optional: serve message.html directly at a route
+app.get('/message', (req, res) => {
+  res.sendFile(path.join(__dirname, 'test', 'message.html'));
+});
 
 mongoose.connection.once('open', () => {
   console.log(`Connected to MongoDB database: ${mongoose.connection.name}`);
-  app.listen(PORT, () => console.log(`Server is listen to port: http//localhost:${PORT}`));
+  app.listen(PORT, () => console.log(`Server is listen to port: http://localhost:${PORT}`));
 });
