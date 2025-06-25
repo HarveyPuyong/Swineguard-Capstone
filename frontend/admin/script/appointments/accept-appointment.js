@@ -27,7 +27,7 @@ const handleAcceptAppointment = (appointmentId) => {
       
     } catch(err) {
       console.log(err);
-      const errMessage = err.response.data?.message;
+      const errMessage = err.response.data?.message || err.response.data?.error;
       popupAlert('error', 'Error!', errMessage);
     }
   });

@@ -120,10 +120,10 @@ exports.acceptAppointment = async (req, res) => {
 // Reschedule appointment
 exports.rescheduleAppointment = async (req, res) => {
     try {
-        const { id } = req.params;
+        const appointmentId = req.params.id;
 
         const update = await appointmentDB.findByIdAndUpdate(
-            id,
+            appointmentId,
             { appointmentStatus: "reschedule" },
             { new: true }
         );

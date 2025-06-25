@@ -3,6 +3,9 @@ import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSi
 import handleAddAppointment from "./add-appointment.js";
 import handleRenderAppointments from "./display-appointment.js";
 import handleAcceptAppointment from "./accept-appointment.js";
+import handleRescheduleAppointment from './reschedule-appointment.js'
+import handleRemoveAppointment from "./remove-appointment.js"
+
 
 // ======================================
 // ========== Search Appointments
@@ -208,6 +211,11 @@ const handleAppointmentActions = () => {
         if(actionSelect.value === 'accept'){
           toggleAcceptAppointmentForm(actionSelect);
           handleAcceptAppointment(appointmentId);
+        } else if(actionSelect.value === 'reschedule'){
+          handleRescheduleAppointment(appointmentId);
+        }
+        else if(actionSelect.value === 'remove'){
+          handleRemoveAppointment(appointmentId)
         }
       });
     });
