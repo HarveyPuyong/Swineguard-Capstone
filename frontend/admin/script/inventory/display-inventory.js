@@ -1,4 +1,5 @@
-import {formattedDate, formatTo12HourTime} from '../../utils/formated-date-time.js'
+import {formattedDate, formatTo12HourTime} from '../../utils/formated-date-time.js';
+import formatItemStatus from './../../utils/formatItemStatus.js'
 
 
 const handleRenderInventory = async() => {
@@ -11,11 +12,11 @@ const handleRenderInventory = async() => {
     
     inventories.forEach(item => {
       inventoryTableHTML+= `
-        <div class="medicine status-${item.itemStatus.toLowerCase().replace(/\s+/g, '-')}" data-item-id=${item._id}>
+        <div class="medicine status-${formatItemStatus(item.itemStatus)}" data-item-id=${item._id}>
             <p class="td medicine-name">${item.itemName}t</p>
             <p class="td medicine-dosage">${item.dosage}</p>
             <p class="td quantity">${item.quantity}</p>
-            <p class="td status" data-status-value=${item.itemStatus.toLowerCase().replace(/\s+/g, '-')}>
+            <p class="td status" data-status-value=${formatItemStatus(item.itemStatus)}>
               ${item.itemStatus}
             </p>
             <p class="td exp-date">${formattedDate(item.expiryDate)}</p>

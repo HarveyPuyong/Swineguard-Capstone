@@ -306,11 +306,17 @@
   transition: 0.1s;
 }
 
-.inventory-table__tbody .medicine.status-in-stock #edit-btn{
+.inventory-table__tbody .medicine.status-in-stock #edit-btn,
+.inventory-table__tbody .medicine.status-less-stock #edit-btn,
+.inventory-table__tbody .medicine.status-out-of-stock #edit-btn,
+.inventory-table__tbody .medicine.status-expired #edit-btn {
   display: block;
 }
 
-.inventory-table__tbody .medicine.status-in-stock #remove-btn{
+.inventory-table__tbody .medicine.status-in-stock #remove-btn,
+.inventory-table__tbody .medicine.status-less-stock #remove-btn,
+.inventory-table__tbody .medicine.status-out-of-stock #remove-btn,
+.inventory-table__tbody .medicine.status-expired #remove-btn {
   display: block;
 }
 
