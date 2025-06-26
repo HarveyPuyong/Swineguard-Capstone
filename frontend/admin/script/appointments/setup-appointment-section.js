@@ -114,6 +114,7 @@ const viewBtnsFunctionality = () => {
     .addEventListener('click', () => {
       appointmentTableContent.classList.remove('show');
       appointmentSchedContent.classList.add('show');
+      appointmentCalendar();
   });
 
   const viewTableBtn = document.querySelector('.appointment-section__view-appointments-table-btn')
@@ -303,6 +304,5 @@ export default function setupAppointmentSection () {
   toggleAddAppointmentForm();
   toggleAppointentMoreDetails();
   viewBtnsFunctionality();
-  appointmentCalendar();
 }
 

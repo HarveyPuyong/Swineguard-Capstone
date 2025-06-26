@@ -664,7 +664,23 @@
 #appointment-schedule-calendar {
   position: relative;
   max-height: 580px;
-  margin-top: 120px;
+  margin-top: 85px;
+}
+
+/* Target the scrollable container inside FullCalendar */
+.fc-scroller {
+  scrollbar-width: thin; 
+  scrollbar-color: #aaa transparent;
+}
+
+.fc-scroller::-webkit-scrollbar {
+  width: 6px; 
+  height: 6px;
+}
+
+.fc-scroller::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 4px;
 }
 
 .fc-toolbar-title{
