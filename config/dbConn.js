@@ -1,6 +1,6 @@
 // Alam mo naman na yata kung ano ito hahahaha
 const mongoose = require('mongoose');
-const mongoURI = process.env.USERDB_URI || 'mongodb://localhost:27017/swineguard_db';
+const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db';
 const connectDB = async() => {
   try{
     await mongoose.connect(mongoURI);
