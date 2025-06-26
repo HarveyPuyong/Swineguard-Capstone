@@ -4,7 +4,7 @@ const handleEditSettings = (userId) => {
   const form = document.querySelector('#settings-form');
 
   form.addEventListener('submit',  async(e) => {
-    e.preventDefault();
+    e.target.preventDefault();
 
     const fullName = document.querySelector('#settings-form #fullname-input').value.trim();
     const [firstName = '', middleName = '', lastName = ''] = fullName.split(' ').map(part => part.trim());
@@ -29,7 +29,7 @@ const handleEditSettings = (userId) => {
 
     } catch (err) {
       console.log(err)
-      const errMessage = err.response.data?.message || err.response.data?.error;
+      const errMessage = err.response?.data?.message || err.response?.data?.error;
       popupAlert('error', 'Error!', errMessage);
     }
   });
