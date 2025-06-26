@@ -45,7 +45,7 @@ const handleAddAppointment = () => {
 
     } catch (error) {
       console.log(error);
-      const errMessage = error.response.data?.message;
+      const errMessage = error.response.data?.message || error.response.data?.error;
       popupAlert('error', 'Error!', errMessage);
     }
   })

@@ -114,21 +114,18 @@
   border: none;
 }
 
+/* JavaScript sets the width based on the calculated percentage */
 .dashboard__card:nth-child(2) .dashboard__card-progress-value{
   background-color: #01ad51;
-  width: 20%;
 }
 .dashboard__card:nth-child(3) .dashboard__card-progress-value{
   background-color: #424242;
-  width: 30%;
 }
 .dashboard__card:nth-child(4) .dashboard__card-progress-value{
   background-color: #00a2ad;
-  width: 60%;
 }
 .dashboard__card:nth-child(5) .dashboard__card-progress-value{
   background-color: #aeb101;
-  width: 80%;
 }
 
 .dashboard__card-progress-slicer{

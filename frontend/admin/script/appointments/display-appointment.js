@@ -1,3 +1,6 @@
+import {formattedDate, formatTo12HourTime} from '../../utils/formated-date-time.js'
+
+
 const handleRenderAppointments = async() => {
   try {
     const response = await axios.get('http://localhost:2500/appointment/all', {withCredentials: true});
@@ -13,7 +16,7 @@ const handleRenderAppointments = async() => {
             <p class="td first-name">${appointment.clientFirstname}</p>
             <p class="td last-name">${appointment.clientLastname}</p>
             <p class="td appointment-name">${appointment.appointmentTitle}</p>
-            <p class="td date-time">${appointment.appointmentDate} at ${appointment.appointmentTime}</p>
+            <p class="td date-time">${formattedDate(appointment.appointmentDate)} at ${formatTo12HourTime(appointment.appointmentTime)}</p>
             <p class="td status status--${appointment.appointmentStatus.toLowerCase()}"
                                 data-status-value=${appointment.appointmentStatus.toLowerCase()}>
                                 ${appointment.appointmentStatus}
@@ -94,15 +97,12 @@ const handleRenderAppointments = async() => {
     });
 
 
-    const appointmentsTables = document.querySelectorAll('.appointment-table')
-      .forEach(table => {
-        const tableBody = table.querySelector('.appointment-table__tbody');
-        tableBody.innerHTML = appointmentTableHTML;
-    });
+    const appointmentsTable = document.querySelector('#appointments-section .appointment-table__tbody').innerHTML = appointmentTableHTML
 
     /// Custom event na magagamit lang pagkatapos ma render lahat ng appointment data
     // — ginagamit ito para gumana ang search filter at ibang functionality na kelangan ng data
     document.dispatchEvent(new Event('renderAppointments')); 
+
   } catch (error) {
     console.log(error)
   }

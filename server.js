@@ -59,8 +59,6 @@ app.use('/swine', require('./routes/swineRoute'));
 app.use('/', require('./routes/userRoute'));
 
 
-app.use(errorHandler);
-
 //Pang Test Lang ito boi
 app.use('/test', Express.static(path.join(__dirname, 'test')));
 
@@ -68,6 +66,9 @@ app.use('/test', Express.static(path.join(__dirname, 'test')));
 app.get('/message', (req, res) => {
   res.sendFile(path.join(__dirname, 'test', 'message.html'));
 });
+
+
+app.use(errorHandler);
 
 mongoose.connection.once('open', () => {
   console.log(`Connected to MongoDB database: ${mongoose.connection.name}`);

@@ -3,11 +3,12 @@ import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSi
 import handleAddAppointment from "./add-appointment.js";
 import handleRenderAppointments from "./display-appointment.js";
 import handleAcceptAppointment from "./accept-appointment.js";
-import handleRescheduleAppointment from './reschedule-appointment.js'
-import handleRemoveAppointment from "./remove-appointment.js"
+import handleRescheduleAppointment from './reschedule-appointment.js';
+import handleRemoveAppointment from "./remove-appointment.js";
 import {handleCompleteAppointment,
         handleRestoreAppointment,
-        handleDeleteAppointment,} from "./complete-restore-delete-appointment.js"
+        handleDeleteAppointment,} from "./complete-restore-delete-appointment.js";
+import appointmentCalendar from "./appointment-calendar.js"
 
 
 // ======================================
@@ -113,6 +114,7 @@ const viewBtnsFunctionality = () => {
     .addEventListener('click', () => {
       appointmentTableContent.classList.remove('show');
       appointmentSchedContent.classList.add('show');
+      appointmentCalendar();
   });
 
   const viewTableBtn = document.querySelector('.appointment-section__view-appointments-table-btn')
@@ -286,38 +288,6 @@ const toggleAppointentMoreDetails = () => {
       });
   })
 }
-
-
-// ======================================
-// ==========Schedule Calendar
-// ======================================
-const calendarTable = () => {
-  const appointmentCalendarElement = document.getElementById('appointment-schedule-calendar');
-  
-  const calendar = new FullCalendar.Calendar(appointmentCalendarElement, {
-    initialView: 'dayGridMonth',
-    events: [
-      { title: 'Health Surveillance', date: '2025-05-01' },
-      { title: 'Castration', date: '2025-05-02' },
-      { title: 'Check Ups', date: '2025-05-09' },
-      { title: 'Health Surveillance', date: '2025-05-02' },
-      { title: 'Castration', date: '2025-05-04' },
-      { title: 'Check Ups', date: '2025-05-10' },
-      { title: 'Health Surveillance', date: '2025-05-03' },
-      { title: 'Castration', date: '2025-05-10' },
-      { title: 'Check Ups', date: '2025-05-11' },
-      { title: 'Check Ups', date: '2025-05-11' },
-      { title: 'Check Ups', date: '2025-05-11' },
-      { title: 'Check Ups', date: '2025-05-11' },
-      { title: 'Castration', date: '2025-05-10' },
-      { title: 'Check Upss', date: '2025-05-11' },
-      { title: 'Check Upsss', date: '2025-05-11' },
-      { title: 'Check Upsss', date: '2025-05-11' },
-      { title: 'Check Upssss', date: '2025-05-11' },
-    ]
-  });
-  calendar.render();
-}
     
 
 // ======================================
@@ -334,6 +304,5 @@ export default function setupAppointmentSection () {
   toggleAddAppointmentForm();
   toggleAppointentMoreDetails();
   viewBtnsFunctionality();
-  calendarTable();
 }
 

@@ -24,13 +24,16 @@ exports.addAppointment = async (req, res) => {
         swineAge, 
         swineMale, 
         swineFemale, 
-        appointmentStatus
+=========
+        swineFemale,
+>>>>>>>>> Temporary merge branch 2
+        appointmentType
     } = req.body;
 
     // Validate text only and not allow emojis
     const nameRegex = /^[A-Za-z\s\-'.]+$/;
 
-    if (!nameRegex.test(clientName) ) {
+    if (!nameRegex.test(clientFirstname) || !nameRegex.test(clientLastname) ) {
         return res.status(400).json({ message: 'Name fields must only contain letters, spaces, hyphens, apostrophes, or periods. Numbers and emojis are not allowed.' });
     }
 
@@ -54,7 +57,9 @@ exports.addAppointment = async (req, res) => {
         swineMale == null ||
         swineFemale == null ||
         !appointmentDate ||
-        !appointmentTime
+        !appointmentTime ||
+        !validTypes.includes(appointmentType)
+>>>>>>>>> Temporary merge branch 2
     ) {
         return res.status(400).json({ message: 'Please fill out all required fields' });
     }
@@ -102,11 +107,19 @@ exports.addAppointment = async (req, res) => {
         appointmentDate, 
         appointmentTime, 
         appointmentType,
+        swineType,       
+        swineCount,      
         swineSymptoms, 
         swineAge, 
         swineMale, 
+<<<<<<<<< Temporary merge branch 1
         swineFemale, 
-        appointmentStatus
+        swineType, 
+        swineCount, 
+=========
+        swineFemale,
+        appointmentType
+>>>>>>>>> Temporary merge branch 2
     };
 
     try {
@@ -183,7 +196,11 @@ exports.acceptAppointment = async (req, res) => {
         // Proceed to updating to accept appointment
         const update = await appointmentDB.findByIdAndUpdate(
             appointmentId,
-            { appointmentDate, appointmentTime, appointmentStatus: "ongoing", vetPersonnel, medicine, dosage, vetMessage },
+<<<<<<<<< Temporary merge branch 1
+            { appointmentDate, appointmentTime, appointmentType, appointmentStatus: "ongoing", medicine, dosage, vetPersonnel, vetMessage },
+=========
+            { appointmentDate, appointmentTime, appointmentStatus: "ongoing", appointmentType, vetPersonnel, medicine, dosage, vetMessage },
+>>>>>>>>> Temporary merge branch 2
             { new : true } 
         );
 
@@ -203,7 +220,10 @@ exports.acceptAppointment = async (req, res) => {
 // Reschedule appointment
 exports.rescheduleAppointment = async (req, res) => {
     try {
-        const { id } = req.params;
+        const appointmentId = req.params.id;
+
+        // Check Object Id if exist or valid
+        if(!isValidAppointmentId(id)) return res.status(400).json({ message: 'Invalid Appointment Id.' });
 
         const update = await appointmentDB.findByIdAndUpdate(
             appointmentId,
