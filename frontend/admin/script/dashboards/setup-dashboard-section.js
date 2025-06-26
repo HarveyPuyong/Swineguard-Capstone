@@ -1,4 +1,5 @@
-import appointmentsDashboard from './appointment-dashboards.js'
+import appointmentsDashboard from './appointment-dashboards.js';
+import displayOngoingAppointments from './displayOngoingAppointments.js'
 
 
 // ======================================
@@ -6,4 +7,5 @@ import appointmentsDashboard from './appointment-dashboards.js'
 // ======================================
 export default function setupDashboardSection () {
   appointmentsDashboard();
+  displayOngoingAppointments();
 }

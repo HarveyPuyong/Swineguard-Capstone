@@ -97,15 +97,12 @@ const handleRenderAppointments = async() => {
     });
 
 
-    const appointmentsTables = document.querySelectorAll('.appointment-table')
-      .forEach(table => {
-        const tableBody = table.querySelector('.appointment-table__tbody');
-        tableBody.innerHTML = appointmentTableHTML;
-    });
+    const appointmentsTable = document.querySelector('#appointments-section .appointment-table__tbody').innerHTML = appointmentTableHTML
 
     /// Custom event na magagamit lang pagkatapos ma render lahat ng appointment data
     // — ginagamit ito para gumana ang search filter at ibang functionality na kelangan ng data
     document.dispatchEvent(new Event('renderAppointments')); 
+
   } catch (error) {
     console.log(error)
   }
