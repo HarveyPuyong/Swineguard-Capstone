@@ -5,7 +5,6 @@ const fetchUser = async () => {
     return;
   }
 
-  
   try {
     const response = await axios.get('http://localhost:2500/admin-profile', {
       headers: { Authorization: `Bearer ${accessToken}` },

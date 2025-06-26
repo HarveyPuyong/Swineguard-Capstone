@@ -1,37 +1,38 @@
-const editAdminDetails = () => {
-  const container = document.querySelector('.settings-container__details-list');
+import popupAlert from "../../utils/popupAlert.js";
 
-  container.addEventListener('click', (e) => {
-    const detail = e.target.closest('.admin-detail');
-    if (!detail) return;
+const handleEditSettings = (userId) => {
+  const form = document.querySelector('#settings-form');
 
-    const editBtn = detail.querySelector('.edit-btn');
-    const saveBtn = detail.querySelector('.save-btn');
-    const cancelBtn = detail.querySelector('.cancel-btn');
-    const detailInput = detail.querySelector('.admin-detail-value');
+  form.addEventListener('submit',  async(e) => {
+    e.preventDefault();
 
-    // Handle edit button
-    if (e.target.closest('.edit-btn')) {
-      detailInput.dataset.original = detailInput.value;
+    const fullName = document.querySelector('#settings-form #fullname-input').value.trim();
+    const [firstName = '', middleName = '', lastName = ''] = fullName.split(' ').map(part => part.trim());
 
-      editBtn.classList.remove('show');
-      saveBtn.classList.add('show');
-      cancelBtn.classList.add('show');
-      detailInput.removeAttribute('readonly');
-      detailInput.classList.add('editable');
-    }
+    const address = document.querySelector('#settings-form #adress-input').value.trim();
+    const [barangay = '', municipality = ''] = address.split(',').map(part => part.trim());
 
-    // Handle cancel button
-    if (e.target.closest('.cancel-btn')) {
-      detailInput.value = detailInput.dataset.original;
+    const contactNum = document.querySelector('#settings-form #contact-input').value.trim();
+    const email = document.querySelector('#settings-form #email-input').value.trim();
 
-      editBtn.classList.add('show');
-      saveBtn.classList.remove('show');
-      cancelBtn.classList.remove('show');
-      detailInput.setAttribute('readonly', 'readonly');
-      detailInput.classList.remove('editable');
+
+    // settings form date
+    const settingsFormData = {firstName, middleName, lastName, contactNum, barangay, municipality, email};
+
+    console.log(settingsFormData)
+    try{
+      const response = await axios.put(`http://localhost:2500/edit/${userId}`, settingsFormData, {withCredentials: true});
+
+      if(response.status === 200){
+        popupAlert('success', 'Success!', 'Successfully update the setting').then(() => window.location.reload())
+      }
+
+    } catch (err) {
+      console.log(err)
+      const errMessage = err.response.data?.message || err.response.data?.error;
+      popupAlert('error', 'Error!', errMessage);
     }
   });
 };
 
-export default editAdminDetails;
+export default handleEditSettings;
