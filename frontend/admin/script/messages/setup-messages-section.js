@@ -15,6 +15,7 @@
 
 import fetchUser from './../auth/fetchUser.js';
 import { fetchMessages, fetchClient } from '../auth/fetchMessage.js';
+import setupResponseMessageHandler from './reply-message.js';
 
 const showConvoBox = () => {
   const chatListContainer = document.querySelector('.chat-list');
@@ -34,7 +35,7 @@ const showConvoBox = () => {
     chatboxDescription.style.display = 'none';
     chatboxConvo.style.display = 'block';
 
-    // Fetch everything needed
+    // Fetch Data kasama na yung message, details nung user 
     const [coordinator, messages, clients] = await Promise.all([
       fetchUser(),
       fetchMessages(),
@@ -46,7 +47,7 @@ const showConvoBox = () => {
     const fullName = `${client.firstName} ${client.middleName} ${client.lastName}`;
     const profileImage = 'images-and-icons/images/example-user-profile-pic.jpg'; // or from DB
 
-    // Filter messages between AC and that client
+    // Filter messages ipapakita lang yung sa AC staff at Client
     const conversation = messages
       .filter(msg =>
         (msg.sender === acId && msg.receiver === clientId) ||
@@ -102,6 +103,9 @@ const showConvoBox = () => {
         `;
       }
     });
+
+    // Get sender Id and receiver Id:
+    setupResponseMessageHandler(acId, client);
   });
 };
 
@@ -111,15 +115,6 @@ const showConvoBox = () => {
 // ======================================
 // ========== View Profile
 // ======================================
-// const viewProfile = () => {
-//   const userProfile = document.querySelector('#messages-section .profile-view');
-
-//   const userImg = document.querySelector('.chat-box__header-user-img')
-//     .addEventListener('click', () => userProfile.classList.add('show'));
-
-//   const profileviewBackBtn = document.querySelector('.profile-view__back-btn')
-//     .addEventListener('click', () => userProfile.classList.remove('show'))
-// }
 
 const viewProfile = () => {
   const userProfile = document.querySelector('#messages-section .profile-view');

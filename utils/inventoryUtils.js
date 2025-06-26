@@ -29,9 +29,6 @@ function isValidNumber (value) {
     return !isNaN(number) && isFinite(number) && number > 0;
 }
 
-// Check input
-function checkTextInput(){
 
-}
 
 module.exports = {isValidNumber, isInvalidInput, checkExpiryDate};

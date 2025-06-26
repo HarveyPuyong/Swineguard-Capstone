@@ -343,11 +343,15 @@
                     <!-- Entire user Chat Here -->
 
                   </div>
+
                   
-
-
                   <!-- Admin Response Form -->
-                  <form class="chat-box__chat-input-area"> <!-- chat input erea-->
+                  <form class="chat-box__chat-input-area" id="message-form"> <!-- chat input erea-->
+
+                      <!-- Hidden IDs -->
+                      <input type="hidden" id="sender-id" name="senderId">
+                      <input type="hidden" id="receiver-id" name="receiverId">
+
                     <!-- Attachment icon and input -->
                     <label for="input-file" class="chat-input-area__input-file" title="Attach a file">
                       <i class="icon fas fa-paperclip"></i>

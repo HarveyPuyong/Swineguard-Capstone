@@ -33,17 +33,10 @@ const appointmentSchema = new mongoose.Schema({
 
     appointmentStatus: { type: String, default: 'pending' },
     appointmentType: { type: String, required: true },
-<<<<<<<<< Temporary merge branch 1
-    vetPersonnel: { type: String, default: 'Not Set' },
-    medicine: { type: String, default: 'Not Set' },
-    dosage: { type: String, default: 'Not Set' },
-    vetMessage: { type: String, default: 'No message yet' }
-=========
     vetPersonnel: { type: String, default: 'not set' },
     medicine: { type: String, default: 'not set' },
     dosage: { type: String, default: 'not set' },
     vetMessage: { type: String, default: 'no set' }
->>>>>>>>> Temporary merge branch 2
 
     
 }, { collection: 'appointments', timestamps: true });

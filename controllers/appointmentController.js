@@ -24,9 +24,6 @@ exports.addAppointment = async (req, res) => {
         swineAge, 
         swineMale, 
         swineFemale, 
-=========
-        swineFemale,
->>>>>>>>> Temporary merge branch 2
         appointmentType
     } = req.body;
 
@@ -59,7 +56,6 @@ exports.addAppointment = async (req, res) => {
         !appointmentDate ||
         !appointmentTime ||
         !validTypes.includes(appointmentType)
->>>>>>>>> Temporary merge branch 2
     ) {
         return res.status(400).json({ message: 'Please fill out all required fields' });
     }
@@ -112,14 +108,9 @@ exports.addAppointment = async (req, res) => {
         swineSymptoms, 
         swineAge, 
         swineMale, 
-<<<<<<<<< Temporary merge branch 1
         swineFemale, 
         swineType, 
-        swineCount, 
-=========
-        swineFemale,
-        appointmentType
->>>>>>>>> Temporary merge branch 2
+        swineCount,
     };
 
     try {
@@ -196,11 +187,10 @@ exports.acceptAppointment = async (req, res) => {
         // Proceed to updating to accept appointment
         const update = await appointmentDB.findByIdAndUpdate(
             appointmentId,
-<<<<<<<<< Temporary merge branch 1
             { appointmentDate, appointmentTime, appointmentType, appointmentStatus: "ongoing", medicine, dosage, vetPersonnel, vetMessage },
-=========
+
             { appointmentDate, appointmentTime, appointmentStatus: "ongoing", appointmentType, vetPersonnel, medicine, dosage, vetMessage },
->>>>>>>>> Temporary merge branch 2
+
             { new : true } 
         );
 

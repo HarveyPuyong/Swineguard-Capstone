@@ -1,6 +1,7 @@
 import fetchUser from './../auth/fetchUser.js';
 import { fetchMessages, fetchClient } from '../auth/fetchMessage.js';
 
+
 const Messages = async () => {
   try {
     const coordinator = await fetchUser();
@@ -46,7 +47,7 @@ const Messages = async () => {
       latestMessages.push({
         client,
         lastMsg: conversation[0],
-        count: conversation.length
+        count: conversation.filter(msg => msg.sender === client._id).length
       });
     });
 
