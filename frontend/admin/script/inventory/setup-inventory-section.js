@@ -1,4 +1,5 @@
 import handleRenderInventory from "./display-inventory.js";
+import handleAddItem from "./add-item.js";
 
 // ======================================
 // ========== Search Inventory
@@ -132,6 +133,7 @@ const toggleAddMedicineForm = () => {
 
 export default function setupInventorySection() {
   handleRenderInventory();
+  handleAddItem();
   searchInventory();
   filterInventory();
   toggleAddMedicineForm();
