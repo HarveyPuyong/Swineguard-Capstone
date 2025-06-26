@@ -11,19 +11,23 @@ const handleRenderInventory = async() => {
     
     inventories.forEach(item => {
       inventoryTableHTML+= `
-        <div class="medicine">
+        <div class="medicine status-${item.itemStatus.toLowerCase().replace(/\s+/g, '-')}" data-item-id=${item._id}>
             <p class="td medicine-name">${item.itemName}t</p>
             <p class="td medicine-dosage">${item.dosage}</p>
             <p class="td quantity">${item.quantity}</p>
-            <p class="td status" data-status-value="in-stock">${item.itemStatus}</p>
+            <p class="td status" data-status-value=${item.itemStatus.toLowerCase().replace(/\s+/g, '-')}>
+              ${item.itemStatus}
+            </p>
             <p class="td exp-date">${formattedDate(item.expiryDate)}</p>
             <p class="td created-date">${formattedDate(item.createdAt)}</p>
             <p class="td updated-date">${formattedDate(item.updatedAt)}</p>
             <div class="td toggle-buttons-icon">
               <i class="icon fas fa-ellipsis-v"></i>
               <div class="buttons-container">
-                <button id="restore-btn" type="button">Restore</button>
-                <button id="delete-btn" type="button">Delete</button>
+                <button id="edit-btn" data-item-id=${item._id} type="button">Edit</button>
+                <button id="remove-btn" data-item-id=${item._id} type="button">Remove</button>
+                <button id="restore-btn" data-item-id=${item._id} type="button">Restore</button>
+                <button id="delete-btn" data-item-id=${item._id} type="button">Delete</button>
               </div>
             </div>
           </div>

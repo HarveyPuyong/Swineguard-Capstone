@@ -195,7 +195,7 @@
 
 .inventory-table__tbody{
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   gap: 10px;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -297,6 +297,7 @@
 }
 
 .inventory-table__tbody .medicine .buttons-container button{
+  display: none;
   color: black;
   border: none;
   padding: 3.1px 15px;
@@ -304,6 +305,23 @@
   cursor: pointer;
   transition: 0.1s;
 }
+
+.inventory-table__tbody .medicine.status-in-stock #edit-btn{
+  display: block;
+}
+
+.inventory-table__tbody .medicine.status-in-stock #remove-btn{
+  display: block;
+}
+
+.inventory-table__tbody .medicine.status-removed #restore-btn{
+  display: block;
+}
+
+.inventory-table__tbody .medicine.status-removed #delete-btn{
+  display: block;
+}
+
 
 .inventory-table__tbody .medicine .buttons-container button:hover{
   background-color: #9A9A9A;

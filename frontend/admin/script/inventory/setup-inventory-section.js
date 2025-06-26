@@ -1,5 +1,6 @@
 import handleRenderInventory from "./display-inventory.js";
 import handleAddItem from "./add-item.js";
+import {handleRemoveItem, handleRestoreItem, handleDeleteItem} from "./remove-restore-delete-item.js";
 
 // ======================================
 // ========== Search Inventory
@@ -100,7 +101,7 @@ const changeStatusColor = () => {
 
 
 // ======================================
-// ========== Toggle medicine buttons container to show delete and restore button
+// ========== Toggle item buttons container
 // ======================================
 const toggleMedicineButtonsContainer = () => {
   document.addEventListener('renderInventory', () => {
@@ -116,6 +117,29 @@ const toggleMedicineButtonsContainer = () => {
   });
 }
 
+
+// ======================================
+// ========== Item Buttons Actions.
+//            Dito ko cinall lahat ng handleFuntions (Remove, Restore, Delete, Edit) 
+// ======================================
+const handleItemButtonsActions = () => {
+  document.addEventListener('renderInventory', () => {
+    const items = document.querySelectorAll('.inventory-table__tbody .medicine');
+    
+    items.forEach(item => {
+      const buttons = item.querySelectorAll('.buttons-container button');
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          const itemId = button.dataset.itemId;
+
+          if(button.id === 'remove-btn') handleRemoveItem(itemId);
+          else if(button.id === 'restore-btn') handleRestoreItem(itemId)
+          else if(button.id === 'delete-btn') handleDeleteItem(itemId)
+        })
+      }); 
+    })
+  });
+}
 
 // ======================================
 // ==========Toggle Popup Add Medicine Form
@@ -134,6 +158,7 @@ const toggleAddMedicineForm = () => {
 export default function setupInventorySection() {
   handleRenderInventory();
   handleAddItem();
+  handleItemButtonsActions();
   searchInventory();
   filterInventory();
   toggleAddMedicineForm();
