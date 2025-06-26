@@ -103,7 +103,7 @@
 
 .add-medicine-form__heading{
   text-align: center;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
 .add-medicine-form label{
@@ -156,13 +156,13 @@
 /* Table container */
 .inventory-table {
   --id: 150px;
-  --medicine-name: 150px;
+  --medicine-name: 200px;
   --medicine-dosage: 90px;
   --quantity: 80px;
-  --exp-date: 125px;
-  --status: 120px;
-  --created-date: 125px;
-  --updated-date: 125px;
+  --exp-date: 145px;
+  --status: 150px;
+  --created-date: 145px;
+  --updated-date: 145px;
   --toggle-buttons-icon: 30px;
   --elements-gap: 1.5rem;
 
