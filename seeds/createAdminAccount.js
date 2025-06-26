@@ -44,32 +44,10 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
                 roles: [ROLE_LIST.Admin]
             }
         );
-
-        // gumawa ako ng userName para lang alagay ko sa tokens
-        const userName = `${newAdmin.firstName}, ${newAdmin.lastName}`
     
-        //nasa utils folder pala ngani yung generateAccessToke function, don ko nalagay yung mga reuseable functions
-        const accessToken = generateAccessToken(process.env.ACCESS_TOKEN_SECRET,
-                                                process.env.ACCESS_TOKEN_EXPIRY,
-                                                newAdmin._id,
-                                                userName,
-                                                newAdmin.roles
-        );
-        
-        //ito din nasa utils folder magkasama sila ng generate access token sa generateTokens.js
-        const refreshToken = generateRefreshToken(process.env.REFRESH_TOKEN_SECRET,
-                                                    process.env.REFRESH_TOKEN_EXPIRY,
-                                                    newAdmin._id, 
-                                                    userName,
-        );
-    
-        // na store yung generated refrechToken sa newClient
-        newAdmin.refreshToken = [refreshToken];
-
         await newAdmin.save();
 
         console.log('✅ Admin account created successfully.');
-        console.log('Admin Access Token: ', accessToken);
     } 
 
 
@@ -93,31 +71,9 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
             }
         );
 
-        // gumawa ako ng userName para lang alagay ko sa tokens
-        const userName = `${newAdmin_AC.firstName}, ${newAdmin_AC.lastName}`
-    
-        //nasa utils folder pala ngani yung generateAccessToke function, don ko nalagay yung mga reuseable functions
-        const accessToken = generateAccessToken(process.env.ACCESS_TOKEN_SECRET,
-                                                process.env.ACCESS_TOKEN_EXPIRY,
-                                                newAdmin_AC._id,
-                                                userName,
-                                                newAdmin_AC.roles
-        );
-        
-        //ito din nasa utils folder magkasama sila ng generate access token sa generateTokens.js
-        const refreshToken = generateRefreshToken(process.env.REFRESH_TOKEN_SECRET,
-                                                    process.env.REFRESH_TOKEN_EXPIRY,
-                                                    newAdmin_AC._id, 
-                                                    userName,
-        );
-    
-        // na store yung generated refrechToken sa newClient
-        newAdmin_AC.refreshToken = [refreshToken];
-
         await newAdmin_AC.save();
 
         console.log('✅ Appointment Coordinator account created successfully.');
-        console.log('AC Admin Access Token: ', accessToken);
     } 
 
 
@@ -141,32 +97,9 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
             }
         );
 
-        // gumawa ako ng userName para lang alagay ko sa tokens
-        const userName = `${newAdmin_IC.firstName}, ${newAdmin_IC.lastName}`
-    
-        //nasa utils folder pala ngani yung generateAccessToke function, don ko nalagay yung mga reuseable functions
-        const accessToken = generateAccessToken(process.env.ACCESS_TOKEN_SECRET,
-                                                process.env.ACCESS_TOKEN_EXPIRY,
-                                                newAdmin_IC._id,
-                                                userName,
-                                                newAdmin_IC.roles
-        );
-        
-        //ito din nasa utils folder magkasama sila ng generate access token sa generateTokens.js
-        const refreshToken = generateRefreshToken(process.env.REFRESH_TOKEN_SECRET,
-                                                    process.env.REFRESH_TOKEN_EXPIRY,
-                                                    newAdmin_IC._id, 
-                                                    userName,
-        );
-    
-        // na store yung generated refrechToken sa newClient
-        newAdmin_IC.refreshToken = [refreshToken];
-
         await newAdmin_IC.save();
 
         console.log('✅ Inventory Coordinator account created successfully.');
-        console.log('IC Admin Access Token: ', accessToken);
-
     }  else {
         console.log('⚠️ Account already exists');
     }

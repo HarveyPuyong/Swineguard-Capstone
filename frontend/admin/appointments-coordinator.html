@@ -21,6 +21,9 @@
 
     <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+     <!-- Sweet Alert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <!-- ========== Header ========== -->
@@ -74,76 +77,7 @@
           <div class="appointment-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
-            <div class="dashboard__cards-container">
-              <!-- totals appointments card -->
-              <div class="dashboard__card total-appointments total-card">
-                <img class="dashboard__card-icon" src="images-and-icons/icons/appointment-icon.png" alt="calendar-icon" >
-                <p class="dashboard__card-label">
-                  Total Appointments: 
-                  <span class="dashboard__card-label--value">75</span>
-                </p>
-              </div>
-              <!-- completed appointments card -->
-              <div class="dashboard__card completed-appointments">
-                <p class="dashboard__card-label">
-                  Completed: 
-                  <span class="dashboard__card-label--value">45</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value"></div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-              <!-- pending appointments card -->
-              <div class="dashboard__card pending-appointments">
-                <p class="dashboard__card-label">
-                  Pending: 
-                  <span class="dashboard__card-label--value">18</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value"></div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-              <!-- ongoing appointments card -->
-              <div class="dashboard__card ongoing-appointments">
-                <p class="dashboard__card-label">
-                  Ongoing: 
-                  <span class="dashboard__card-label--value">18</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value"></div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-              <!-- reschedule appointments card -->
-              <div class="dashboard__card reschedule-appointments">
-                <p class="dashboard__card-label">
-                  Reschedule: 
-                  <span class="dashboard__card-label--value">18</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value"></div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-            </div>
+            <div class="dashboard__cards-container"> <!-- Dashboards cards render in dashboards/appointment-dashboard.js --></div>
           </div>
           <!-- Ongoing Appointment Table -->
           <div class="dashboard-section__table-container">
@@ -158,91 +92,7 @@
                 <p class="th action">Action</p>
                 <p class="th toggle-more-details-btn"><!--View button head--></p> 
               </div>
-              <div class="appointment-table__tbody"> 
-                <div class="appointment">
-                  <div class="appointment__details">
-                    <p class="td first-name">John Harvey</p>
-                    <p class="td last-name">Puyong</p>
-                    <p class="td appointment-name">Iron Supplementation</p>
-                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status" data-status-value="ongoing">Ongoing</p>
-                    <p class="td action">
-                      <select class="select-appointment-action" name="appointment-action" id="appointment-action">
-                        <option value="">Action</option>
-                        <option value="accept">Accept</option>
-                        <option value="reschedule">Reschedule</option>
-                        <option value="remove">Remove</option>
-                      </select>
-                    </p>
-                    <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
-                  </div>
-                  <div class="appointment__more-details">
-                    <div class="appointment__more-details-heading">Appointment Details:</div>
-                    <div class="appointment__more-details-columns">
-                      <!-- more details left column -->
-                      <div class="column left">
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment ID:</span>
-                          <span class="column__detail-value">10023450QPAL</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment Type:</span>
-                          <span class="column__detail-value">Visit</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Contact:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Date sent:</span>
-                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Actual Schedule:</span>
-                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Adress:</span>
-                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
-                        </p>
-                      </div>
-                      <!-- more details right column -->
-                      <div class="column right"> 
-                        <p class="column__detail">
-                          <span class="column__detail-label">Type:</span>
-                          <span class="column__detail-value">Piglet</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Vaccine</span>
-                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Amount:</span>
-                          <span class="column__detail-value">500mg</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Personnel:</span>
-                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Email:</span>
-                          <span class="column__detail-value">john.doe@gmail.com</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Phone:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div class="buttons-container">
-                        <button class="completed-btn btn">Completed</button>
-                        <button class="reschedule-btn btn">Set Schedule</button>
-                        <button class="restore-btn btn">Restore</button>
-                        <button class="delete-btn btn">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="appointment-table__tbody"><!--Ongoing appointments render in dashboard/displayOngoingAppointments.js--></div>
             </div>
           </div>
         </section>
@@ -285,32 +135,34 @@
                 <div class="group">
                   <input id="first-name" type="text" placeholder="First name" required>
                   <input id="last-name" type="text" placeholder="Last name" required>
-                  <select id="municipality" name="">
+                  <select id="municipality" name="select-municipal">
                     <option value="">Municipality</option> 
-                    <!-- all municipal options is render in data.js -->
                   </select>
-                  <select id="barangay" name="" disabled>
-                      <option value="">Barangay</option>
-                      <!-- all barangay options is render in data.js -->
+                  <select id="barangay" name="select-barangay" disabled>
+                    <option value="">Barangay</option>
                   </select>
                 </div>
                 <!-- email and contact number group -->
                 <div class="group">
                   <input id="client-email" type="text" placeholder="Email">
-                  <input id="client-phone" type="number"  placeholder="Phone" required><br>
+                  <input id="client-phone" type="tel" placeholder="Phone: 09+" required pattern="09[0-9]{9}" maxlength="11"title="Must start with 09 and be exactly 11 digits"><br>
                 </div>
                 <h3 class="add-appointments-form__heading swine-info-heading">Swine Information</h3>
                 <!-- appointment title, schedule and time group -->
                 <div class="group">
                   <select id="appointment-title" name="appointment-title">
                     <option value="">Select Appointment</option>
-                    <option value="Iron Supplementation">09123456789</option>
                     <option value="Deworming">Deworming</option>
                     <option value="ASF Testing">ASF Testing</option>
                     <option value="Blood Testing">Blood Testing</option>
                     <option value="Health Surveillance">Health Surveillance</option>
                     <option value="Postpartum Care">Postpartum Care</option>
                     <option value="Surgical Castration">Surgical Castration</option>
+                  </select>
+                  <select id="appointment-type" name="appointment-type">
+                    <option value="">Select Appointment Type</option>
+                    <option value="visit">Visit</option>
+                    <option value="service">Service</option>
                   </select>
                   <input id="appointment-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
                   <input id="appointment-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)this.type='text'" />
@@ -328,8 +180,8 @@
                   <input id="swine-count" type="number" min="0"  placeholder="Heads" required>
                   <input id="swine-age" type="number" min="0"  placeholder="Age/months" required><br>
                   <span>Swine Gender:</span>
-                  <input  id="swine-female" type="number" placeholder="Female" required>
-                  <input id="swine-male" type="number"  placeholder="Male" required>
+                  <input  id="swine-female" type="number" min="0" placeholder="Number of Female" required>
+                  <input id="swine-male" type="number" min="0" placeholder="Number of Male" required>
                 </div>
                 <!-- textarea of swine symptoms message -->
                 <textarea class="swine-symptoms"  name="" id="swine-symptoms" placeholder="Kindly write down the symptoms"></textarea>
@@ -342,21 +194,39 @@
               <h2 class="appointment-schedule-form__heading">Appointment Schedule Form</h2>
               <div class="appointment-schedule-form__details-columns">
                 <div class="column-left">
-                  <label for="set-schedule">Set Date</label>
-                  <input type="date" id="set-date" required>
+                  <label for="set-date">Set Date</label>
+                  <input id="set-date" type="date" required>
                   <label for="set-time">Set Time</label>
-                  <input type="time" id="set-time" required>
+                  <input id="set-time" type="time" required>
+                  <label for="appointment-type">Appointment Type</label>
+                  <select name="appointment-type" id="appointment-type">
+                    <option value="visit">Visit</option>
+                    <option value="Service">Service</option>
+                  </select>
                 </div>
                 <div class="column-right">
                   <label for="medicine-list">Select Medicine</label>
                   <select name="medicine-list" id="medicine-list">
-                    <option value="">Medicine here</option>
+                    <option value="">Select Medicine</option>
+                    <option value="iron-dextran-fedex">Iron Dextran (FeDex)</option>
+                    <option value="fenbendazole-fenbendazole">Fenbendazole</option>
+                    <option value="ivermectin-ivermectin">Ivermectin</option>
+                    <option value="vitamin-b12-vitamin-b12">Vitamin B12</option>
+                    <option value="immunocastration-immunocastration">Immunocastration</option>
+                    <option value="antibiotics-antibiotics">Antibiotics</option>
+                    <option value="espiporc-flupan-h1n1-espiporc-flupan-h1n1">Espiporc FLUpan H1N1</option>
                   </select>
-                  <label for="medicine-amount">Medicine Amount</label>
+                  <label for="medicine-amount">Medicine Dosage</label>
                   <input type="number" id="medicine-amount" min="0" placeholder="Amount/mg here." required>
                   <label for="available-personnel">Avialable Personnel</label>
                   <select name="available-personnel" id="available-personnel">
-                      <option value="">Personnel</option>
+                    <option value="">Personnel</option>
+                    <option value="Doc. Josue M. Victoria">Doc. Josue M. Victoria</option>
+                    <option value="Mr. Eugene Anthony J. Rozal DWM">Mr. Eugene Anthony J. Rozal DWM</option>
+                    <option value="Mr. Glenn Q. Deligero">Mr. Glenn Q. Deligero</option>
+                    <option value="Mr. Hilario O. Lanete">Mr. Hilario O. Lanete</option>
+                    <option value="Mr. Randolfo A. Largo">Mr. Randolfo A. Largo</option>
+                    <option value="Mr. Eddie Mar R. Laylay">Mr. Eddie Mar R. Laylay</option>
                   </select>
                 </div>
               </div>
@@ -380,340 +250,7 @@
                 <p class="th action">Action</p>
                 <p class="th toggle-more-details-btn"><!--View button head--></p> 
               </div>
-              <div class="appointment-table__tbody"> 
-                <div class="appointment">
-                  <div class="appointment__details">
-                    <p class="td first-name">John Harvey</p>
-                    <p class="td last-name">Puyong</p>
-                    <p class="td appointment-name">Iron Supplementation</p>
-                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status" data-status-value="ongoing">Ongoing</p>
-                    <p class="td action">
-                      <select class="select-appointment-action" name="appointment-action" id="appointment-action">
-                        <option value="">Action</option>
-                        <option value="accept">Accept</option>
-                        <option value="reschedule">Reschedule</option>
-                        <option value="remove">Remove</option>
-                      </select>
-                    </p>
-                    <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
-                  </div>
-                  <div class="appointment__more-details">
-                    <div class="appointment__more-details-heading">Appointment Details:</div>
-                    <div class="appointment__more-details-columns">
-                      <!-- more details left column -->
-                      <div class="column left">
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment ID:</span>
-                          <span class="column__detail-value">10023450QPAL</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment Type:</span>
-                          <span class="column__detail-value">Visit</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Contact:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Date sent:</span>
-                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Actual Schedule:</span>
-                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Adress:</span>
-                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
-                        </p>
-                      </div>
-                      <!-- more details right column -->
-                      <div class="column right"> 
-                        <p class="column__detail">
-                          <span class="column__detail-label">Type:</span>
-                          <span class="column__detail-value">Piglet</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Vaccine</span>
-                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Amount:</span>
-                          <span class="column__detail-value">500mg</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Personnel:</span>
-                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Email:</span>
-                          <span class="column__detail-value">john.doe@gmail.com</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Phone:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div class="buttons-container">
-                        <button class="completed-btn btn">Completed</button>
-                        <button class="reschedule-btn btn">Set Schedule</button>
-                        <button class="restore-btn btn">Restore</button>
-                        <button class="delete-btn btn">Delete</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="appointment">
-                  <div class="appointment__details">
-                    <p class="td first-name">Robert</p>
-                    <p class="td last-name">Magno</p>
-                    <p class="td appointment-name">Vaccination1</p>
-                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status" data-status-value="completed">Completed</p>
-                    <p class="td action">
-                      <select class="select-appointment-action" name="appointment-action" id="appointment-action">
-                        <option value="">Action</option>
-                        <option value="accept">Accept</option>
-                        <option value="reschedule">Reschedule</option>
-                        <option value="remove">Remove</option>
-                      </select>
-                    </p>
-                    <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
-                  </div>
-                  <div class="appointment__more-details">
-                    <div class="appointment__more-details-heading">Appointment Details:</div>
-                    <div class="appointment__more-details-columns">
-                      <!-- more details left column -->
-                      <div class="column left">
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment ID:</span>
-                          <span class="column__detail-value">10023450QPAL</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment Type:</span>
-                          <span class="column__detail-value">Visit</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Contact:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Date sent:</span>
-                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Actual Schedule:</span>
-                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Adress:</span>
-                          <span class="column__detail-value">Santol, Gasan, Marinduqe</span>
-                        </p>
-                      </div>
-                      <!-- more details right column -->
-                      <div class="column right"> 
-                        <p class="column__detail">
-                          <span class="column__detail-label">Type:</span>
-                          <span class="column__detail-value">Piglet</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Vaccine</span>
-                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Amount:</span>
-                          <span class="column__detail-value">500mg</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Personnel:</span>
-                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Email:</span>
-                          <span class="column__detail-value">john.doe@gmail.com</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Phone:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div class="buttons-container">
-                        <button class="completed-btn btn">Completed</button>
-                        <button class="reschedule-btn btn">Set Schedule</button>
-                        <button class="restore-btn btn">Restore</button>
-                        <button class="delete-btn btn">Delete</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="appointment">
-                  <div class="appointment__details">
-                    <p class="td first-name">John Harvey</p>
-                    <p class="td last-name">Puyong</p>
-                    <p class="td appointment-name">Vaccination</p>
-                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status" data-status-value="reschedule">Reschedule</p>
-                    <p class="td action">
-                      <select class="select-appointment-action" name="appointment-action" id="appointment-action">
-                        <option value="">Action</option>
-                        <option value="accept">Accept</option>
-                        <option value="reschedule">Reschedule</option>
-                        <option value="remove">Remove</option>
-                      </select>
-                    </p>
-                    <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
-                  </div>
-                  <div class="appointment__more-details">
-                    <div class="appointment__more-details-heading">Appointment Details:</div>
-                    <div class="appointment__more-details-columns">
-                      <!-- more details left column -->
-                      <div class="column left">
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment ID:</span>
-                          <span class="column__detail-value">10023450QPAL</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment Type:</span>
-                          <span class="column__detail-value">Visit</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Contact:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Date sent:</span>
-                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Actual Schedule:</span>
-                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Adress:</span>
-                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
-                        </p>
-                      </div>
-                      <!-- more details right column -->
-                      <div class="column right"> 
-                        <p class="column__detail">
-                          <span class="column__detail-label">Type:</span>
-                          <span class="column__detail-value">Piglet</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Vaccine</span>
-                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Amount:</span>
-                          <span class="column__detail-value">500mg</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Personnel:</span>
-                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Email:</span>
-                          <span class="column__detail-value">john.doe@gmail.com</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Phone:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div class="buttons-container">
-                        <button class="completed-btn btn">Completed</button>
-                        <button class="reschedule-btn btn">Set Schedule</button>
-                        <button class="restore-btn btn">Restore</button>
-                        <button class="delete-btn btn">Delete</button>
-                    </div>
-                  </div>
-                </div>
-                <div class="appointment">
-                  <div class="appointment__details">
-                    <p class="td first-name">John Harvey</p>
-                    <p class="td last-name">Puyong</p>
-                    <p class="td appointment-name">Vaccination</p>
-                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status" data-status-value="removed">Removed</p>
-                    <p class="td action">
-                      <select class="select-appointment-action" name="appointment-action" id="appointment-action">
-                        <option value="">Action</option>
-                        <option value="accept">Accept</option>
-                        <option value="reschedule">Reschedule</option>
-                        <option value="remove">Remove</option>
-                      </select>
-                    </p>
-                    <p class="td toggle-more-details-btn" data-value="toggle-more-details">View</p>  
-                  </div>
-                  <div class="appointment__more-details">
-                    <div class="appointment__more-details-heading">Appointment Details:</div>
-                    <div class="appointment__more-details-columns">
-                      <!-- more details left column -->
-                      <div class="column left">
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment ID:</span>
-                          <span class="column__detail-value">10023450QPAL</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment Type:</span>
-                          <span class="column__detail-value">Visit</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Contact:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Date sent:</span>
-                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Actual Schedule:</span>
-                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Adress:</span>
-                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
-                        </p>
-                      </div>
-                      <!-- more details right column -->
-                      <div class="column right"> 
-                        <p class="column__detail">
-                          <span class="column__detail-label">Type:</span>
-                          <span class="column__detail-value">Piglet</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Vaccine</span>
-                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Amount:</span>
-                          <span class="column__detail-value">500mg</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Personnel:</span>
-                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Email:</span>
-                          <span class="column__detail-value">john.doe@gmail.com</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Phone:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div class="buttons-container">
-                        <button class="completed-btn btn">Completed</button>
-                        <button class="reschedule-btn btn">Set Schedule</button>
-                        <button class="restore-btn btn">Restore</button>
-                        <button class="delete-btn btn">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="appointment-table__tbody"><!-- Content render in display-appointment.js --></div>
             </div>
           </div>
 
@@ -994,7 +531,13 @@
          <!-- ========== Settings Section ========== -->
         <section id="setting-section" class="hide">
           <h1 class="section__heading">Setting</h1>
-          <div class="settings-container"><!-- Naka render sa setup-setting-section.js ang content--></div> 
+          <div class="settings-container">
+            <div class="settings-container__header">
+              <p class="settings-container__header-heading">Profile</p>
+              <button class="settings-container__header-logout-btn">Logout</button>
+            </div>
+            <form class="settings-container__details-list"><!-- Content render to setup-setting-section.js--></form>
+          </div> 
         </section>
       </div>
     </main>

@@ -14,7 +14,13 @@ const logoutController = async(req, res) => {
 
     // kapag walang na find na user, aclear pa din yung jwt sa cookies
     if(!foundUser) {
-      res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: process.env.NODE_ENV === 'production'});
+      res.clearCookie('jwt',
+         {httpOnly: true,
+          secure: process.env.NODE_ENV === 'production', //abaguhin yung NODE_ENV = production sa .env kapag naka host na
+          sameSite: 'Lax', //change sa 'None' kapag naka host na
+         }
+      );
+
       return res.status(403).json({message: "User not found or already logged out"});
     }
 
@@ -23,7 +29,13 @@ const logoutController = async(req, res) => {
     await foundUser.save();
 
     // a clear yung token sa cookies
-    res.clearCookie('jwt', {httpOnly: true, sameSite: 'None', secure: process.env.NODE_ENV === 'production'});
+    res.clearCookie('jwt',
+         {httpOnly: true,
+          secure: process.env.NODE_ENV === 'production', //abaguhin yung NODE_ENV = production sa .env kapag naka host na
+          sameSite: 'Lax', //change sa 'None' kapag naka host na
+         }
+    );
+    
     return res.status(200).json({message: 'Successfully Logout'});
   }catch(err) {
     console.log(`Error: ${err.message}`);

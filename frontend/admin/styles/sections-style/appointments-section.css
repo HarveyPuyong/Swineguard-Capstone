@@ -130,12 +130,12 @@
   width: 100%;
   height: fit-content;
   min-height: 200px;
-  max-height: 480px;
+  max-height: 600px;
   background-color: white;
   border: none;
   border-radius: 8px;
   padding: 1rem;
-  margin-top: 1.7rem;
+  margin-top: 1.2rem;
   overflow: hidden;
   font-size: 0.9rem;
 }
@@ -151,7 +151,10 @@
   flex-direction: column;
   row-gap: 0.5rem;
   overflow-y: scroll;
-  max-height: 100%;
+  scrollbar-width: thin;
+  min-height: 120px;
+  max-height: 425px;
+  padding-bottom: 1rem;
   padding-bottom: 1rem;
 }
 
@@ -199,6 +202,43 @@
   border-radius: 20px;
   padding: 0.2rem 0;
 }
+
+/* Status: pending */
+.appointment-table__tbody .td.status--pending {
+  --color: rgb(37, 37, 37);
+  --BGcolor: rgba(0, 0, 0, 0.19);
+}
+
+/* Status: ongoing */
+.appointment-table__tbody .td.status--ongoing {
+  --color: rgb(55, 119, 255);
+  --BGcolor: rgba(73, 130, 254, 0.24);
+}
+
+/* Status: completed */
+.appointment-table__tbody .td.status--completed {
+  --color: rgb(0, 153, 71);
+  --BGcolor: rgba(29, 255, 135, 0.13);
+}
+
+/* Status: reschedule */
+.appointment-table__tbody .td.status--reschedule {
+  --color: rgb(153, 115, 0);
+  --BGcolor: rgba(255, 191, 0, 0.30);
+}
+
+/* Status: removed */
+.appointment-table__tbody .td.status--removed {
+  --color: rgb(210, 17, 17);
+  --BGcolor: rgba(226, 35, 35, 0.21);
+}
+
+/* Status: default/fallback */
+.appointment-table__tbody .td.status--default {
+  --color: black;
+  --BGcolor: white;
+}
+
 
 .appointment-table__thead .th.action,
 .appointment-table__tbody .td.action {
@@ -299,20 +339,23 @@
   cursor: pointer;
 }
 
-.appointment__more-details .completed-btn,
-.appointment__more-details .restore-btn{
+.appointment.status-ongoing .completed-btn,
+.appointment.status-reschedule .set-schedule-btn{
+  display: block;
   border: 1px solid #009947;
   background-color: #1dff8722;
   color: #009947;
 }
 
-.appointment__more-details .reschedule-btn{
+.appointment.status-removed .restore-btn{
+  display: block;
   border: 1px solid #7D7D7D;
   background-color: #B0AEAF;
   color: #1c1c1c;
 }
 
-.appointment__more-details .delete-btn{
+.appointment.status-removed .delete-btn{
+  display: block;
   border: 1px solid #990000;
   background-color: #F2A5A5;
   color: #990000;
@@ -388,14 +431,26 @@
   background-color: #13bb6153;
   border: none;
   font-size: 0.85rem;
+  font-weight: 600;
   padding: 15px 10px;
   width: 100%;
+  color: black
+}
+
+.add-appointments-form #appointment-date,
+.add-appointments-form #appointment-time{
+  width: 50%;
+}
+
+.add-appointments-form #swine-count{
+  width: 50%;
 }
 
 .add-appointments-form input::placeholder,
 .add-appointments-form select,
 .add-appointments-form textarea::placeholder{
-  color: rgb(23, 23, 23);
+  color: rgba(23, 23, 23, 0.78);
+  font-weight: 500;
 }
 
 .add-appointments-form textarea.swine-symptoms{
@@ -418,7 +473,7 @@
 
 /* Appointment Schedule Form */
 .appointment-schedule-form{
-  display: none; /* default display:block */
+  display: none; 
   position: fixed;
   top: 53%;
   left: 50%;
@@ -429,6 +484,10 @@
   border-radius: 8px;
   z-index: 999;
   padding: 1rem 2rem;
+}
+
+.appointment-schedule-form.show{
+  display: block;
 }
 
 .appointment-schedule-form__heading{
@@ -508,7 +567,7 @@
 /* Appointment Schedule Calendar Contents */
 .appointment-schedule-content{
   display: none;
-  padding-bottom: 30px;
+  padding-bottom: 10px;
 }
 .appointment-schedule-content.show{
   display: block;
@@ -521,8 +580,9 @@
   border: 2px solid #9A9A9A;
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.2);
   width: 100%;
+  min-height: 300px;
   padding: 25px;
-  margin-top: 70px;
+  margin-top: 64px;
 }
 
 .appointment-schedule-total-container{
@@ -603,8 +663,24 @@
 /* Schedule Calendar Container */
 #appointment-schedule-calendar {
   position: relative;
-  max-height: 560px;
-  margin-top: 120px;
+  max-height: 580px;
+  margin-top: 85px;
+}
+
+/* Target the scrollable container inside FullCalendar */
+.fc-scroller {
+  scrollbar-width: thin; 
+  scrollbar-color: #aaa transparent;
+}
+
+.fc-scroller::-webkit-scrollbar {
+  width: 6px; 
+  height: 6px;
+}
+
+.fc-scroller::-webkit-scrollbar-thumb {
+  background-color: #aaa;
+  border-radius: 4px;
 }
 
 .fc-toolbar-title{
@@ -655,13 +731,43 @@
 
 /*  Event Styling */
 .fc-event {
-  background-color: #4caf50 !important;
   color: white;
   border-radius: 5px;
   border: none;
   padding: 5px;
   margin-bottom: 2px;
   cursor: pointer;
+}
+
+
+.fc .custom-event {
+  display: flex !important;
+  gap: 3px;
+  justify-content: center !important;
+  flex-direction: column !important;
+  font-size: 0.8rem;
+  width: 155px;
+  padding: 8px 6px !important;
+  border-radius: 3px;
+  word-break: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.fc .custom-event.appointment-type-visit{
+  background-color: #208323 !important;
+}
+.fc .custom-event.appointment-type-visit{
+  background-color: #1e6794 !important;
+}
+
+.fc .custom-event .label{
+  font-weight: 600;
+}
+
+
+.fc-daygrid-event-dot{
+  display: none;
 }
 
 /* Event Title Text */

@@ -15,36 +15,38 @@ router.get('/all', appointmentController.getAllAppointments); //Get all Appointm
 module.exports = router;
 
 //http://localhost:2500/appointment/add ng appointment a copy paste mo dito 
-//  {   "clientName": "Shin Asakura",
+//  {   
+//     "clientName": "Robert Sakamoto",
 //     "contactNum": "09266495922",
-//     "municipality": "Boac",
-//     "barangay": "Santol",
+//     "municipality": "Gasan",
+//     "barangay": "Mahunig",
 
 //     "appointmentTitle": "Iron Supplement",
 //     "swineType": "Piglet",
-//     "swineCount": 4,
+//     "swineCount": 1,
 //     "swineSymptoms": "3 days of being born",
-//     "swineAge": "0",
-//     "swineMale": 3,
+//     "swineAge": 0,
+//     "swineMale": 0,
 //     "swineFemale": 1,
 
-//     "appointmentDate": "10-10-2025",
-//     "appointmentTime": "11:00"}
+//     "appointmentDate": "06-24-2025",
+//     "appointmentTime": "09:30",
+//     "appointmentType": "service"
+// }
 
 //Ito yung mga link kupal Put ang gamit sa accept marami kase mababago sa loob
 //http://localhost:2500/appointment/accept/id ng appointment a copy paste mo dito 
 
 //ganto itsura ng url sa testing
 //http://localhost:2500/appointment/accept/684fe1b50bafb6af4c9043bb
-
-// { para sa accept ito ah
-//     "appointmentDate": "09-09-2025",
-//     "appointmentTime": "10:30",
-//     "appointmentStatus": "ongoing",
-//     "vetPersonnel": "Dr. Dela Cruz",
+// {
+//     "appointmentDate": "06-24-2025",
+//     "appointmentTime": "07:30",
+//     "appointmentType": "service",
+//     "vetPersonnel": "Dr. Kupal Cruz",
 //     "medicine": "Ivermectin",
 //     "dosage": "100",
-//     "vetMessage": "Administer every 12 hours"
+//     "vetMessage": "Kupal ka ba Boss?"
 // }
 
 // dito ay Patch ang gamit wala ka nang ilalagay sa body nito rekta change na agad yung status sa backend nito para iwas gamit ng dev tools sa webs

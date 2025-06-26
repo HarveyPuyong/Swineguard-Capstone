@@ -3,6 +3,7 @@ const ROLE_LIST = {
   "User": "user",
   "AppointmentCoordinator": "appointmentCoordinator",
   "InventoryCoordinator": "inventoryCoordinator",
+  "Technician": "technician",
 }
 
 module.exports = ROLE_LIST;

@@ -27,24 +27,24 @@ app.use(Express.json());
 
 app.use(cookieParser());
 
-app.use(errorHandler);
-
 app.use(Express.static(path.join(__dirname, 'frontend')));
 
 app.get('/', (req, res) => {
-  return res.redirect('/client/auth.html');
+  return res.redirect('/admin/login.html');
+
 });
 
 // Auth Routing
 app.use('/auth', require('./routes/authRoute'));
 
-app.use('/', require('./routes/userRoute'));
+//Logout routing
+app.use('/logout', require('./routes/logoutRoute'));
 
 // Refresh token routing
 app.use('/refresh', require('./routes/refreshTokenRoute'));
 
 //Messages routing
-app.use('/send-message', require('./routes/messageRoute'));
+app.use('/message', require('./routes/messageRoute'));
 
 //Appointments routings
 app.use('/appointment', require('./routes/appointmentRoute'));
@@ -55,9 +55,20 @@ app.use('/inventory', require('./routes/inventoryRoute'));
 // Swine routing
 app.use('/swine', require('./routes/swineRoute'));
 
-//Logout routing
-app.use('/auth', require('./routes/logoutRoute'));
+// Get user routing
+app.use('/', require('./routes/userRoute'));
 
+
+//Pang Test Lang ito boi
+app.use('/test', Express.static(path.join(__dirname, 'test')));
+
+// Optional: serve message.html directly at a route
+app.get('/message', (req, res) => {
+  res.sendFile(path.join(__dirname, 'test', 'message.html'));
+});
+
+
+app.use(errorHandler);
 
 mongoose.connection.once('open', () => {
   console.log(`Connected to MongoDB database: ${mongoose.connection.name}`);

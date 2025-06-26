@@ -1,4 +1,4 @@
-import fetchUser from '../fetchUser.js';
+import fetchUser from './../auth/fetchUser.js';
 
 const displaySetting = async() => {
   try {
@@ -9,11 +9,6 @@ const displaySetting = async() => {
     } = await fetchUser();
 
     const settingHTML = `
-      <div class="settings-container__header">
-        <p class="settings-container__header-heading">Profile</p>
-        <button class="settings-container__header-logout-btn">Logout</button>
-      </div>
-      <form class="settings-container__details-list">
         <div class="admin-image detail">
           <img src="images-and-icons/images/money-admin-profile.jpg" alt="Profile Picture" />
           <label class="admin-image__upload-btn">
@@ -75,10 +70,9 @@ const displaySetting = async() => {
             <button type="button" class="cancel-btn">Cancel</button>
           </div>
         </div>
-      </form>
     `;
 
-    document.querySelector('.settings-container').innerHTML = settingHTML;
+    document.querySelector('.settings-container__details-list').innerHTML = settingHTML;
 
   } catch (err) {
     console.error("Error loading user info:", err);

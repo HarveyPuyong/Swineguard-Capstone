@@ -15,6 +15,9 @@
 
     <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!-- Sweet Alert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
   <body>
     <!-- ========== Header ========== -->
@@ -341,7 +344,13 @@
          <!-- ========== Settings Section ========== -->
         <section id="setting-section" class="hide">
           <h1 class="section__heading">Setting</h1>
-          <div class="settings-container"><!-- Naka render sa setup-setting-section.js ang content--></div> 
+          <div class="settings-container">
+            <div class="settings-container__header">
+              <p class="settings-container__header-heading">Profile</p>
+              <button class="settings-container__header-logout-btn">Logout</button>
+            </div>
+            <form class="settings-container__details-list"><!-- Content render to setup-setting-section.js--></form>
+          </div> 
         </section>
       </div>
     </main>
