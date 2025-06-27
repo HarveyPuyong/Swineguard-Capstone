@@ -1,3 +1,6 @@
+import handleRenderItems from './display-item.js';
+import handleAddItem from './add-item.js';
+
 // ======================================
 // ========== Search Inventory
 // ======================================
@@ -122,10 +125,14 @@ const toggleAddMedicineForm = () => {
 }
 
 
-export default function setupInventorySection() {
+export default async function setupInventorySection() {
+  await handleRenderItems();
   searchInventory();
   filterInventory();
   toggleAddMedicineForm();
   changeStatusColor();
   toggleMedicineButtonsContainer();
+  handleAddItem();
 }
+
+
