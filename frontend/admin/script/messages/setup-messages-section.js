@@ -75,6 +75,7 @@ const showConvoBox = () => {
         </div>
       `;
       document.querySelector('.chat-box__header').innerHTML = headerDetails;
+      document.dispatchEvent(new Event('renderConvoHeader')); 
 
 
     // Render the conversation
@@ -114,13 +115,19 @@ const showConvoBox = () => {
 // ======================================
 
 const viewProfile = () => {
-  const userProfile = document.querySelector('#messages-section .profile-view');
+  document.addEventListener('renderConvoHeader',  () => {
+    const userProfile = document.querySelector('#messages-section .profile-view');
+    const userImg = document.querySelector('.chat-box__header-user-img');
+    const backBtn = document.querySelector('.profile-view__back-btn');
 
-  const userImg = document.querySelector('.chat-box__header-user-img')
-    .addEventListener('click', () => userProfile.classList.add('show'));
+    if (userImg && userProfile) {
+      userImg.addEventListener('click', () => userProfile.classList.add('show'));
+    }
 
-  const profileviewBackBtn = document.querySelector('.profile-view__back-btn')
-    .addEventListener('click', () => userProfile.classList.remove('show'))
+    if (backBtn && userProfile) {
+      backBtn.addEventListener('click', () => userProfile.classList.remove('show'));
+    }
+  })
 }
 
 

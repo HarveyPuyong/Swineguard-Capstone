@@ -1,3 +1,4 @@
+
 .profile-view{
   display: none; /* default display: flex */
   position: fixed;
@@ -13,7 +14,7 @@
   width: 500px;
   height: 300px;
   padding: 30px 10px;
-  z-index: 3;
+  z-index: 100000;
 }
 
 .profile-view.show{
@@ -277,6 +278,7 @@
   padding-left: 35px;
   padding-right: 34px;
   padding-bottom: 10px;
+  height: 388px;
   max-height: 72%;
   overflow: scroll;
   scrollbar-width: none;
@@ -367,13 +369,15 @@
   chat-input-area 
 */
 .chat-box__chat-input-area{
-  position: relative;
+  position: absolute;
+  bottom: 5%;
   align-items: center;
   width: 87%;
   background-color: #D9D9D9;
   border-radius: 5px;
   padding: 15px 20px;
   margin-inline: 35px;
+  z-index: 100;
 }
 
 .chat-box__chat-input-area label,

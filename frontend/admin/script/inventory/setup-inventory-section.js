@@ -221,4 +221,7 @@ export default function setupInventorySection() {
   toggleAddMedicineForm();
   changeStatusColor();
   toggleMedicineButtonsContainer();
+  handleAddItem();
 }
+
+

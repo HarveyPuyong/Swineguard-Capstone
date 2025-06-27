@@ -9,6 +9,7 @@ import {handleCompleteAppointment,
         handleRestoreAppointment,
         handleDeleteAppointment,} from "./complete-restore-delete-appointment.js";
 import appointmentCalendar from "./appointment-calendar.js"
+import populateMedicine from "../../utils/populate-medicine.js"
 
 
 // ======================================
@@ -399,5 +400,6 @@ export default function setupAppointmentSection () {
   toggleAddAppointmentForm();
   toggleAppointentMoreDetails();
   viewBtnsFunctionality();
+  populateMedicine();
 }
 

@@ -47,11 +47,11 @@ const handleRenderAppointments = async() => {
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Date sent:</span>
-                  <span class="column__detail-value appointment-date-send">${appointment.createdAt}</span>
+                  <span class="column__detail-value appointment-date-send">${formattedDate(appointment.createdAt)}</span>
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Actual Schedule:</span>
-                  <span class="column__detail-value">${appointment.appointmentDate} at ${appointment.appointmentTime}</span>
+                  <span class="column__detail-value">${formattedDate(appointment.appointmentDate)} at ${formatTo12HourTime(appointment.appointmentTime)}</span>
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Adress:</span>
@@ -63,6 +63,10 @@ const handleRenderAppointments = async() => {
                 <p class="column__detail">
                   <span class="column__detail-label">Swine Type:</span>
                   <span class="column__detail-value">${appointment.swineType}</span>
+                </p>
+                <p class="column__detail">
+                  <span class="column__detail-label">Swine Count:</span>
+                  <span class="column__detail-value">${appointment.swineCount}</span>
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Vaccine</span>
