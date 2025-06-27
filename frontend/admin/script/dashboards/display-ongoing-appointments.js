@@ -1,4 +1,4 @@
-  import { formattedDate, formatTo12HourTime } from '../../utils/formated-date-time.js';
+import { formattedDate, formatTo12HourTime } from '../../utils/formated-date-time.js';
 
 const displayOngoingAppointments = async() => {
   try {
@@ -97,7 +97,11 @@ const displayOngoingAppointments = async() => {
     });
 
 
-    const ongoingAppointmentsTable = document.querySelector('.ongoing-appointment-table .appointment-table__tbody').innerHTML = appointmentTableHTML;
+    const ongoingAppointmentsTable = document.querySelector('.ongoing-appointment-table .appointment-table__tbody');
+
+    if(ongoingAppointmentsTable){
+      ongoingAppointmentsTable.innerHTML = appointmentTableHTML
+    } 
     
   } catch (error) {
     console.log(error);

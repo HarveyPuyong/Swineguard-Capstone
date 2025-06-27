@@ -7,13 +7,14 @@ const {generateAccessToken, generateRefreshToken} = require('./../utils/generate
 exports.editUserDetails = async (req, res) => {
     const { id } = req.params;
     const  {
-        firstName, middleName, lastName, suffix,
-        contactNum, barangay, municipality,
-        email, password
+        firstName, middleName, lastName, contactNum,
+        barangay, municipality, email
     } = req.body;
 
+    console.log(id)
+
     // Check the id is it is exist
-    if (!id) return res.statuas(400).json({ message: 'User Id not found.' });
+    if (!id) return res.status(400).json({ message: 'User Id not found.' });
 
     // Define regex patterns
     const namePattern = /^[A-Za-z\s\-']+$/; // letters, spaces, hyphens, apostrophes
@@ -36,14 +37,13 @@ exports.editUserDetails = async (req, res) => {
     // Required fields check
     const requiredFields = [firstName, middleName, lastName, contactNum, barangay, municipality, email];
     if (requiredFields.some(field => !field || field.trim() === '')) {
-        return res.status(400).json({ message: 'Please fill out all required fields.' });
+        return res.status(400).json({ message: 'Please fill out all required fields.'});
     }
 
     // Validate name fields
     if (!isValidString(firstName, 2, 30)) return res.status(400).json({ message: 'Invalid first name.' });
     if (middleName && !isValidString(middleName, 1, 30)) return res.status(400).json({ message: 'Invalid middle name.' });
     if (!isValidString(lastName, 2, 30)) return res.status(400).json({ message: 'Invalid last name.' });
-    if (suffix && !isValidString(suffix, 1, 10)) return res.status(400).json({ message: 'Invalid suffix.' });
 
     // Validate contact number
     if (!contactPattern.test(contactNum)) {
@@ -55,20 +55,11 @@ exports.editUserDetails = async (req, res) => {
         return res.status(400).json({ message: 'Invalid email format.' });
     }
 
-    // Optional: Validate password strength if user wants to change it
-    let hashedPassword = undefined;
-    if (password) {
-        if (password.length < 6) return res.status(400).json({ message: 'Password must be at least 6 characters long.' });
-        hashedPassword = await bcrypt.hash(password, 10);
-    }
-
     try {
         
         const updatedUser = await userDB.findByIdAndUpdate(id, {
-            firstName, middleName, lastName, suffix,
-            contactNum, barangay, municipality,
-            email,
-            ...(hashedPassword && { password: hashedPassword })
+            firstName, middleName, lastName, contactNum,
+            barangay, municipality, email
         }, { new: true });
 
         if (!updatedUser) return res.status(404).json({ message: 'User not found.' });
@@ -79,7 +70,6 @@ exports.editUserDetails = async (req, res) => {
         console.error(err);
         res.status(500).json({ message: 'Server error while updating user.' });
     }
-
 }
 
 // Fetch User Data

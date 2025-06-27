@@ -1,27 +1,33 @@
+import handleRenderInventory from "./display-inventory.js";
+import handleAddItem from "./add-item.js";
+import {handleRemoveItem, handleRestoreItem, handleDeleteItem} from "./remove-restore-delete-item.js";
+
 // ======================================
 // ========== Search Inventory
 // ======================================
 const searchInventory = () => {
-  const input = document.querySelector('.inventory-section__search-input');
-  const medicines = document.querySelectorAll('.inventory-table .medicine');
+  document.addEventListener('renderInventory', () => {
+    const input = document.querySelector('.inventory-section__search-input');
+    const medicines = document.querySelectorAll('.inventory-table .medicine');
 
-  if (!input || medicines.length === 0) return;
+    if (!input || medicines.length === 0) return;
 
-  input.addEventListener('input', () => {
-    const query = input.value.trim().toLowerCase();
+    input.addEventListener('input', () => {
+      const query = input.value.trim().toLowerCase();
 
-    medicines.forEach(medicine => {
-      const medicineId = medicine.querySelector('.id')?.textContent.toLowerCase() || '';
-      const medicineName = medicine.querySelector('.medicine-name')?.textContent.toLowerCase() || '';
-      const dosage = medicine.querySelector('.medicine-dosage')?.textContent.toLowerCase() || '';
-      const quantity = medicine.querySelector('.quantity')?.textContent.toLowerCase() || '';
-      const expDate =  medicine.querySelector('.exp-date')?.textContent.toLowerCase() || '';
-      const createdDate =  medicine.querySelector('.created-date')?.textContent.toLowerCase() || '';
-      const updatedDate =  medicine.querySelector('.updated-date')?.textContent.toLowerCase() || '';
+      medicines.forEach(medicine => {
+        const medicineId = medicine.querySelector('.id')?.textContent.toLowerCase() || '';
+        const medicineName = medicine.querySelector('.medicine-name')?.textContent.toLowerCase() || '';
+        const dosage = medicine.querySelector('.medicine-dosage')?.textContent.toLowerCase() || '';
+        const quantity = medicine.querySelector('.quantity')?.textContent.toLowerCase() || '';
+        const expDate =  medicine.querySelector('.exp-date')?.textContent.toLowerCase() || '';
+        const createdDate =  medicine.querySelector('.created-date')?.textContent.toLowerCase() || '';
+        const updatedDate =  medicine.querySelector('.updated-date')?.textContent.toLowerCase() || '';
 
-      const searchableText = `${medicineId} ${medicineName} ${dosage} ${quantity} ${expDate} ${createdDate} ${updatedDate}`;
+        const searchableText = `${medicineId} ${medicineName} ${dosage} ${quantity} ${expDate} ${createdDate} ${updatedDate}`;
 
-      medicine.style.display = searchableText.includes(query) ? 'flex' : 'none';
+        medicine.style.display = searchableText.includes(query) ? 'flex' : 'none';
+      });
     });
   });
 };
@@ -81,32 +87,59 @@ const setStatusColor = (statusValue, element) => {
 // ========== Change Inventory Status Color
 // ======================================
 const changeStatusColor = () => {
-  const items = document.querySelectorAll('.inventory-table__tbody .medicine');
+  document.addEventListener('renderInventory', () => {
+    const items = document.querySelectorAll('.inventory-table__tbody .medicine');
 
-  items.forEach(item => {
-    const status = item.querySelector('.td.status');
-    const statusValue = status.getAttribute('data-status-value');
+    items.forEach(item => {
+      const status = item.querySelector('.td.status');
+      const statusValue = status.getAttribute('data-status-value');
 
-    setStatusColor(statusValue, status);
+      setStatusColor(statusValue, status);
+    });
   });
 }
 
 
 // ======================================
-// ========== Toggle medicine buttons container to show delete and restore button
+// ========== Toggle item buttons container
 // ======================================
 const toggleMedicineButtonsContainer = () => {
-  const medicines = document.querySelectorAll('.inventory-table__tbody .medicine');
+  document.addEventListener('renderInventory', () => {
+    const medicines = document.querySelectorAll('.inventory-table__tbody .medicine');
 
-  medicines.forEach(medicine => {
-    const buttonsContainer = medicine.querySelector('.buttons-container');
-    const toggleIcon = medicine.querySelector('.toggle-buttons-icon')
-      .addEventListener('click', () => {
-        buttonsContainer.classList.toggle('show')
-      });
+    medicines.forEach(medicine => {
+      const buttonsContainer = medicine.querySelector('.buttons-container');
+      const toggleIcon = medicine.querySelector('.toggle-buttons-icon')
+        .addEventListener('click', () => {
+          buttonsContainer.classList.toggle('show')
+        });
+    });
   });
 }
 
+
+// ======================================
+// ========== Item Buttons Actions.
+//            Dito ko cinall lahat ng handleFuntions (Remove, Restore, Delete, Edit) 
+// ======================================
+const handleItemButtonsActions = () => {
+  document.addEventListener('renderInventory', () => {
+    const items = document.querySelectorAll('.inventory-table__tbody .medicine');
+    
+    items.forEach(item => {
+      const buttons = item.querySelectorAll('.buttons-container button');
+      buttons.forEach(button => {
+        button.addEventListener('click', () => {
+          const itemId = button.dataset.itemId;
+
+          if(button.id === 'remove-btn') handleRemoveItem(itemId);
+          else if(button.id === 'restore-btn') handleRestoreItem(itemId)
+          else if(button.id === 'delete-btn') handleDeleteItem(itemId)
+        })
+      }); 
+    })
+  });
+}
 
 // ======================================
 // ==========Toggle Popup Add Medicine Form
@@ -123,6 +156,9 @@ const toggleAddMedicineForm = () => {
 
 
 export default function setupInventorySection() {
+  handleRenderInventory();
+  handleAddItem();
+  handleItemButtonsActions();
   searchInventory();
   filterInventory();
   toggleAddMedicineForm();

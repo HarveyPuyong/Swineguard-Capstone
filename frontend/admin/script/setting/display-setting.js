@@ -2,11 +2,10 @@ import fetchUser from './../auth/fetchUser.js';
 
 const displaySetting = async() => {
   try {
-    const {
-      _id, firstName, middleName, lastName,
-      contactNum, email,
-      barangay, municipality
-    } = await fetchUser();
+    const { _id, firstName, middleName, lastName,
+            contactNum, email, barangay, municipality
+           } = await fetchUser();
+
 
     const settingHTML = `
         <div class="admin-image detail">
@@ -23,40 +22,40 @@ const displaySetting = async() => {
 
         <div class="admin-detail detail editable">
           <p class="admin-detail-label">Name:</p>
-          <input class="admin-detail-value" value="${firstName} ${middleName} ${lastName}" readonly />
+          <input class="admin-detail-value" id="fullname-input" value="${firstName} ${middleName} ${lastName}" readonly />
           <div class="admin-detail__btns-container">
             <button type="button" class="edit-btn show">Edit ✏️</button>
-            <button type="submit" class="save-btn">Save</button>
+            <button type="submit" class="save-btn" data-user-id=${_id}>Save</button>
             <button type="button" class="cancel-btn">Cancel</button>
           </div>
         </div>
 
         <div class="admin-detail detail editable">
           <p class="admin-detail-label">Contact:</p>
-          <input class="admin-detail-value" value="${contactNum}" readonly />
+          <input class="admin-detail-value" id="contact-input" value="${contactNum}" readonly />
           <div class="admin-detail__btns-container">
             <button type="button" class="edit-btn show">Edit ✏️</button>
-            <button type="submit" class="save-btn">Save</button>
+            <button type="submit" class="save-btn" data-user-id=${_id}>Save</button>
             <button type="button" class="cancel-btn">Cancel</button>
           </div>
         </div>
 
         <div class="admin-detail detail editable">
           <p class="admin-detail-label">Address:</p>
-          <input class="admin-detail-value" value="${barangay}, ${municipality}, Marinduque" readonly />
+          <input class="admin-detail-value" id="adress-input" value="${barangay}, ${municipality}, Marinduque" readonly />
           <div class="admin-detail__btns-container">
             <button type="button" class="edit-btn show">Edit ✏️</button>
-            <button type="submit" class="save-btn">Save</button>
+            <button type="submit" class="save-btn" data-user-id=${_id}>Save</button>
             <button type="button" class="cancel-btn">Cancel</button>
           </div>
         </div>
 
         <div class="admin-detail detail editable">
           <p class="admin-detail-label">Email:</p>
-          <input class="admin-detail-value" value="${email}" readonly />
+          <input class="admin-detail-value" id="email-input" value="${email}" readonly />
           <div class="admin-detail__btns-container">
             <button type="button" class="edit-btn show">Edit ✏️</button>
-            <button type="submit" class="save-btn">Save</button>
+            <button type="submit" class="save-btn data-user-id=${_id}">Save</button>
             <button type="button" class="cancel-btn">Cancel</button>
           </div>
         </div>
@@ -66,13 +65,15 @@ const displaySetting = async() => {
           <input class="admin-detail-value" value="Admin Password" readonly />
           <div class="admin-detail__btns-container">
             <button type="button" class="edit-btn show">Edit ✏️</button>
-            <button type="submit" class="save-btn">Save</button>
+            <button type="submit" class="save-btn" data-user-id=${_id}>Save</button>
             <button type="button" class="cancel-btn">Cancel</button>
           </div>
         </div>
     `;
 
-    document.querySelector('.settings-container__details-list').innerHTML = settingHTML;
+    document.querySelector('#settings-form').innerHTML = settingHTML;
+
+    document.dispatchEvent(new Event('renderSettings')); 
 
   } catch (err) {
     console.error("Error loading user info:", err);

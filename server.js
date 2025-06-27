@@ -58,7 +58,6 @@ app.use('/swine', require('./routes/swineRoute'));
 // Get user routing
 app.use('/', require('./routes/userRoute'));
 
-
 //Pang Test Lang ito boi
 app.use('/test', Express.static(path.join(__dirname, 'test')));
 

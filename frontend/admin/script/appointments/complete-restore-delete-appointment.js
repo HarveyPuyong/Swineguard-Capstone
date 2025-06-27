@@ -16,7 +16,6 @@ const handleCompleteAppointment = async(appointmentId) => {
       const errMessage = err.response.data?.message || err.response.data?.error;
       popupAlert('error', 'Error!', errMessage);
   }
-
 }
 
 
@@ -35,7 +34,6 @@ const handleRestoreAppointment = async(appointmentId) => {
       const errMessage = err.response.data?.message || err.response.data?.error;
       popupAlert('error', 'Error!', errMessage);
   }
-
 }
 
 
