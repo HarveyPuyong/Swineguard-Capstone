@@ -6,7 +6,8 @@ const handleRenderInventory = async() => {
   try {
     const response = await axios.get('http://localhost:2500/inventory/all', {withCredentials: true});
 
-    const inventories = response?.data;
+    const data = response?.data;
+    const inventories = data.slice().reverse(); 
 
     let inventoryTableHTML = '';
     

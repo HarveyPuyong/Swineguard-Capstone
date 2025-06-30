@@ -154,7 +154,7 @@
 
 .appointment-table__tbody {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   row-gap: 0.5rem;
   overflow-y: scroll;
   scrollbar-width: thin;

@@ -6,10 +6,11 @@ const handleRenderAppointments = async() => {
     const response = await axios.get('http://localhost:2500/appointment/all', {withCredentials: true});
 
     const data = response?.data;
+    const appointments = data.slice().reverse(); 
 
     let appointmentTableHTML = '';
 
-    data.forEach(appointment => {
+    appointments.forEach(appointment => {
       appointmentTableHTML +=  `
         <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
           <div class="appointment__details">
