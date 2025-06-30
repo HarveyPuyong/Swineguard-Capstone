@@ -1,6 +1,5 @@
 import displaySetting from "./display-setting.js";
 import handleEditSettings from "./edit-setting.js";
-import handleLogout from "../auth/logout.js";
 
 
 const handleDetailButtons = () => {
@@ -36,37 +35,8 @@ const handleDetailButtons = () => {
       });
     })
   })
-  // const container = document.querySelector('.settings-container__details-list');
-
-  // container.addEventListener('click', (e) => {
-  //   const detail = e.target.closest('.admin-detail');
-  //   if (!detail) return;
-
-
-
-  //   // Handle edit button
-  //   if (e.target.closest('.edit-btn')) {
-
-  //   }
-
-  //   // Handle cancel button
-  //   if (e.target.closest('.cancel-btn')) {
-  //     detailInput.value = detailInput.dataset.original;
-
-  //     
-  //   }
-
-  //   // Handle save button
-  //   if (e.target.closest('.save-btn')){
-
-  //   }
-  // });
 };
 
-const logout = () => {
-  document.querySelector('.settings-container__header-logout-btn')
-    .addEventListener('click', async() => await handleLogout());
-}
 
 // ======================================
 // ========== Main Function - Setup Settings Section
@@ -74,5 +44,4 @@ const logout = () => {
 export default function setupSettingsSection() {
   displaySetting();
   handleDetailButtons();
-  logout();
 }
