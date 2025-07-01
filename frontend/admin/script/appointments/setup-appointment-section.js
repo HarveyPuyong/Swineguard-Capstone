@@ -205,7 +205,7 @@ const toggleAcceptAppointmentForm = (actionSelect) => {
 
 // ======================================
 // ========== Appointment Select Actions.
-//            Dito ko cinall lahat ng handleFuntions (Accept, Reschedule, Remove) 
+//            Dito ko cinall ang mga handleFuntions na (Accept, Reschedule, Remove) Appointment
 // ======================================
 const handleAppointmentSelectActions = () => {
    document.addEventListener('renderAppointments', () => {
@@ -214,6 +214,7 @@ const handleAppointmentSelectActions = () => {
     appointments.forEach(appointment => {
       const actionSelect = appointment.querySelector('.select-appointment-action');
       actionSelect.addEventListener('change', () => {
+        const selectedOption = actionSelect.selectedOptions[0];
         const appointmentId = actionSelect.dataset.appointmentId;
 
         if(actionSelect.value === 'accept'){
@@ -227,6 +228,29 @@ const handleAppointmentSelectActions = () => {
         }
       });
     });
+  });
+}
+
+
+// ======================================
+// ========== Handle to Disabled Action Options Based on the Apointment Status
+// ======================================
+const handleDisabledActionOptions = () => {
+  document.addEventListener('renderAppointments', () => {
+     const appointments = document.querySelectorAll('.appointment-table .appointment');
+
+     appointments.forEach(appointment => {
+      const appointmentStatusValue = appointment.querySelector('.td.status').dataset.statusValue;
+
+      const actionOptions = appointment.querySelectorAll('.select-appointment-action option');
+      actionOptions.forEach(option => {
+        const optionValue = option.value
+
+        if(appointmentStatusValue === 'ongoing' && optionValue === 'accept')      option.disabled = true;
+        else if(appointmentStatusValue === 'removed' && optionValue === 'remove') option.disabled = true
+        else if(appointmentStatusValue === 'completed')                           option.disabled = true
+      });
+     });
   });
 }
 
@@ -297,6 +321,7 @@ export default function setupAppointmentSection () {
   handleAddAppointment();
   handleRenderAppointments();
   handleAppointmentSelectActions();
+  handleDisabledActionOptions();
   handleAppointmentButtonsActions();
   filterAppointments();
   searchAppointment();
