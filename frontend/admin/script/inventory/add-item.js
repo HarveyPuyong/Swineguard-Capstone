@@ -1,5 +1,6 @@
 import popupAlert from './../../utils/popupAlert.js'
 import fetchUser from './../auth/fetchUser.js';
+import handleRenderInventory from './display-inventory.js';
 
 const handleAddItem = () => {
   const addItemForm = document.querySelector('#add-medicine-form');
@@ -27,7 +28,12 @@ const handleAddItem = () => {
     try{
       const response = await axios.post('http://localhost:2500/inventory/add', itemFormData, {withCredentials: true});
 
-      if(response.status === 201) popupAlert('success', 'Success!', 'Add item successfully').then(() => window.location.reload())
+      if(response.status === 201) popupAlert('success', 'Success!', 'Add item successfully')
+        .then(() => {
+          addItemForm.reset();
+          addItemForm.classList.remove('show');
+          handleRenderInventory();
+        });
 
     } catch(error){
       console.log(error);

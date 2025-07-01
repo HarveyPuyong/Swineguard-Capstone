@@ -1,4 +1,5 @@
-import popupAlert from '../../utils/popupAlert.js'
+import popupAlert from '../../utils/popupAlert.js';
+import handleRenderInventory from './display-inventory.js';
 
 
 // ======================================
@@ -9,8 +10,10 @@ const handleRemoveItem = async(itemId) => {
     const response = await axios.patch(`http://localhost:2500/inventory/remove/${itemId}`, {}, {withCredentials: true});
 
     if(response.status === 200){
-      popupAlert('success', 'Success!', 'Item removed successfully').then(() => window.location.reload());
-      console.log('removed')
+      popupAlert('success', 'Success!', 'Item removed successfully')
+        .then(() => {
+          handleRenderInventory();
+        });
     }
 
   } catch(err){
@@ -29,7 +32,10 @@ const handleRestoreItem = async(itemId) => {
       const response = await axios.patch(`http://localhost:2500/inventory/restore/${itemId}`, {}, {withCredentials: true});
   
       if(response.status === 200){
-        popupAlert('success', 'Success!', 'Item restore successfully').then(() => window.location.reload());
+        popupAlert('success', 'Success!', 'Item restore successfully').
+          then(() => {
+            handleRenderInventory();
+          });
       }
   
   } catch(err){
@@ -48,7 +54,10 @@ const handleDeleteItem = async(itemId) => {
       const response = await axios.delete(`http://localhost:2500/inventory/delete/${itemId}`, {}, {withCredentials: true});
   
       if(response.status === 200){
-        popupAlert('success', 'Success!', 'Item Deleted successfully').then(() => window.location.reload());
+        popupAlert('success', 'Success!', 'Item Deleted successfully')
+          .then(() => {
+            handleRenderInventory();
+          });
       }
   
   } catch(err){
