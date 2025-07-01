@@ -1,4 +1,5 @@
-import popupAlert from '../../utils/popupAlert.js'
+import popupAlert from '../../utils/popupAlert.js';
+import handleRenderAppointments from './display-appointment.js';
 
 
 // ======================================
@@ -9,7 +10,8 @@ const handleCompleteAppointment = async(appointmentId) => {
       const response = await axios.patch(`http://localhost:2500/appointment/complete/${appointmentId}`, {}, {withCredentials: true});
   
       if(response.status === 200){
-        popupAlert('success', 'Success!', 'Appointment Completed successfully').then(() => window.location.reload());
+        popupAlert('success', 'Success!', 'Appointment Completed successfully').
+          then(() => handleRenderAppointments());
       }
   
   } catch(err){
@@ -27,7 +29,8 @@ const handleRestoreAppointment = async(appointmentId) => {
       const response = await axios.patch(`http://localhost:2500/appointment/restore/${appointmentId}`, {}, {withCredentials: true});
   
       if(response.status === 200){
-        popupAlert('success', 'Success!', 'Appointment restore successfully').then(() => window.location.reload());
+        popupAlert('success', 'Success!', 'Appointment restore successfully')
+          .then(() => handleRenderAppointments()());;
       }
   
   } catch(err){
@@ -45,7 +48,8 @@ const handleDeleteAppointment = async(appointmentId) => {
       const response = await axios.delete(`http://localhost:2500/appointment/delete/${appointmentId}`, {}, {withCredentials: true});
   
       if(response.status === 200){
-        popupAlert('success', 'Success!', 'Appointment Deleted successfully').then(() => window.location.reload());
+        popupAlert('success', 'Success!', 'Appointment Deleted successfully')
+          .then(() => handleRenderAppointments()());;
       }
   
   } catch(err){
