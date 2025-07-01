@@ -141,7 +141,6 @@
             <div class="less-stock-medicine-table inventory-table">
               <!-- table head -->
               <div class="inventory-table__thead">
-                <p class="th id">ID</p>
                 <p class="th medicine-name">Medicine</p>
                 <p class="th medicine-dosage">Dosage</p>
                 <p class="th quantity">Quantity</p>
@@ -154,7 +153,6 @@
               <!-- table body -->
               <div class="inventory-table__tbody"> 
                 <div class="medicine">
-                  <p class="td id">648f1b7c2a9f...</p>
                   <p class="td medicine-name">Coglapest</p>
                   <p class="td medicine-dosage">10mg</p>
                   <p class="td quantity">15</p>
@@ -185,6 +183,20 @@
               <input class="inventory-section__search-input" type="text" placeholder="Search...">   
             </div>
             <button class="inventory-section__add-btn">Add</button>
+          </div>
+
+          <!-- inventory sorting-->
+          <div class="inventory-sorting">
+            <p class="inventory-sorting__label">Sort by:</p>
+            <select class="inventory-sorting__select" name="inventory-sorting" id="inventory-sorting-select">
+              <option value="default">Default</option>
+              <option value="medicine-name">Medicine Name</option>
+              <option value="dosage">Dosage</option>
+              <option value="quantity">Quantity</option>
+              <option value="expiration-date">Exp. Date</option>
+              <option value="created-date">Created Date</option>
+              <option value="updated-date">Updated Date</option>
+            </select>
           </div>
 
           <!-- filter inventory -->

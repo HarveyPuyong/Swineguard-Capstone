@@ -59,6 +59,62 @@ const filterInventory = () => {
 
 
 // ======================================
+// ========== Inventory Sorting
+// ======================================
+const inventorySorting = () => {
+  document.addEventListener('renderInventory', () => {
+    const sortingSelect = document.querySelector('.inventory-sorting__select');
+    const inventoryTable = document.querySelector('#inventory-section .inventory-table__tbody');
+
+    if (!sortingSelect || !inventoryTable) return;
+
+    // Save original order
+    const originalInventory = Array.from(inventoryTable.children);
+
+    sortingSelect.addEventListener('change', () => {
+      const selectedSort = sortingSelect.value;
+      let sortedInventories;
+
+      if (selectedSort === 'default') {
+        // Restore to original order
+        inventoryTable.innerHTML = '';
+        originalInventory.forEach(item => inventoryTable.appendChild(item));
+        return;
+      }
+
+      const inventories = Array.from(inventoryTable.querySelectorAll('.medicine'));
+
+      const getText = (el, selector) => el.querySelector(selector)?.textContent.trim().toLowerCase() || '';
+      const parseDate = (el, selector) => new Date(el.querySelector(selector)?.textContent.trim());
+
+      sortedInventories = inventories.sort((a, b) => {
+        switch (selectedSort) {
+          case 'medicine-name':
+            return getText(a, '.medicine-name').localeCompare(getText(b, '.medicine-name'));
+          case 'dosage':
+            return getText(a, '.medicine-dosage').localeCompare(getText(b, '.medicine-dosage'));
+          case 'quantity':
+            return parseInt(getText(a, '.quantity')) - parseInt(getText(b, '.quantity'));
+          case 'expiration-date':
+            return parseDate(a, '.exp-date') - parseDate(b, '.exp-date');
+          case 'created-date':
+            return parseDate(a, '.created-date') - parseDate(b, '.created-date');
+          case 'updated-date':
+            return parseDate(a, '.updated-date') - parseDate(b, '.updated-date');
+          default:
+            return 0;
+        }
+      });
+
+      // Re-render sorted inventories
+      inventoryTable.innerHTML = '';
+      sortedInventories.forEach(item => inventoryTable.appendChild(item));
+    });
+  });
+};
+
+
+// ======================================
 // ========== Set Status Color
 // ======================================
 const setStatusColor = (statusValue, element) => {
@@ -161,6 +217,7 @@ export default function setupInventorySection() {
   handleItemButtonsActions();
   searchInventory();
   filterInventory();
+  inventorySorting();
   toggleAddMedicineForm();
   changeStatusColor();
   toggleMedicineButtonsContainer();

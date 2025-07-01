@@ -56,6 +56,40 @@
   cursor: pointer;
 }
 
+
+/* inventory sorting */
+.inventory-sorting{
+  position: absolute;
+  right: 290px;
+  top: 30px;
+  display: flex;
+  gap: 15px;
+  width: 250px;
+  border-radius: 8px;
+  padding: 10px 0;
+  padding-left: 10px;
+  border: 1px solid #0F7E43;
+  background-color: #2FC375;
+  color: white;
+}
+
+.inventory-sorting__label{
+  font-weight: 600;
+}
+
+.inventory-sorting__select{
+  border: none;
+  width: 65%;
+  cursor: pointer;
+  background-color: transparent;
+  color: rgb(61, 61, 61);
+}
+.inventory-sorting__select:focus{
+  outline: none;
+  border: none;
+}
+
+/* inventory filter */
 .filter-inventory-status{
    --color: black; 
   --BGcolor: white;

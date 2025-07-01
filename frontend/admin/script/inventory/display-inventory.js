@@ -14,7 +14,7 @@ const handleRenderInventory = async() => {
     inventories.forEach(item => {
       inventoryTableHTML+= `
         <div class="medicine status-${formatItemStatus(item.itemStatus)}" data-item-id=${item._id}>
-            <p class="td medicine-name">${item.itemName}t</p>
+            <p class="td medicine-name">${item.itemName}</p>
             <p class="td medicine-dosage">${item.dosage}</p>
             <p class="td quantity">${item.quantity}</p>
             <p class="td status" data-status-value=${formatItemStatus(item.itemStatus)}>

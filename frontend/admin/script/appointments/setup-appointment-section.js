@@ -111,8 +111,17 @@ const appointmentsSorting = () => {
 
     if (!sortingSelect || !appointmentTable) return;
 
+    const originalAppointments = Array.from(appointmentTable.children);
+
     sortingSelect.addEventListener('change', () => {
       const selectedSort = sortingSelect.value;
+      
+      if (selectedSort === 'default') {
+        appointmentTable.innerHTML = '';
+        originalAppointments.forEach(app => appointmentTable.appendChild(app));
+        return;
+      }
+
       const appointments = Array.from(appointmentTable.querySelectorAll('.appointment'));
 
       const sortedAppointments = appointments.sort((a, b) => {
@@ -144,7 +153,7 @@ const appointmentsSorting = () => {
           return aDate - bDate;
         }
 
-        if (selectedSort === 'adress') {
+        if (selectedSort === 'address') {
           const aAddress = a.querySelector('.column.left .column__detail:nth-child(5) .column__detail-value')?.textContent.trim().toLowerCase();
           const bAddress = b.querySelector('.column.left .column__detail:nth-child(5) .column__detail-value')?.textContent.trim().toLowerCase();
           return aAddress.localeCompare(bAddress);
