@@ -1,4 +1,5 @@
-import popupAlert from './../../utils/popupAlert.js'
+import popupAlert from './../../utils/popupAlert.js';
+import handleRenderAppointments from './display-appointment.js';
 
 
 const handleAddAppointment = () => {
@@ -40,7 +41,12 @@ const handleAddAppointment = () => {
       const response = await axios.post('http://localhost:2500/appointment/add', appointmentFormData, {withCredentials: true});
 
       if(response.status === 201){
-        popupAlert('success', 'Success!', 'New appointment has been created successfully').then(() => window.location.reload())   
+        popupAlert('success', 'Success!', 'New appointment has been created successfully').
+          then(() => {
+            addAppointmentForm.reset();
+            addAppointmentForm.parentNode.classList.remove('show');
+            handleRenderAppointments();
+          });
       }
 
     } catch (error) {
