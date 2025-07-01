@@ -74,7 +74,7 @@
       
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-        <section id="dashboard-section" class="show">
+        <section id="dashboard-section" class="hide">
           <div class="appointment-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
@@ -99,7 +99,7 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-        <section id="appointments-section" class="hide">
+        <section id="appointments-section" class="show">
           <!-- Appointment Section: Table contents -->
           <div class="appointment-table-content show">
             <h1 class="section__heading">Appointments</h1>
@@ -110,6 +110,17 @@
                 <input class="appointment-section__search-input" type="text" placeholder="Search...">   
               </div>
               <button class="appointment-section__add-btn">Add</button>
+            </div>
+
+            <!-- appointment sorting-->
+            <div class="appointment-sorting">
+              <p class="appointment-sorting__label">Sort by:</p>
+              <select class="appointment-sorting__select" name="appointment-sorting" id="appointment-sorting-select">
+                <option value="">Select</option>
+                <option value="last-name">Last name</option>
+                <option value="date">Date</option>
+                <option value="adress">Address</option>
+              </select>
             </div>
 
             <!-- filter and view-sched container -->

@@ -102,6 +102,66 @@ const filterAppointments = () => {
 
 
 // ======================================
+// ========== Appointment Sorting
+// ======================================
+const appointmentsSorting = () => {
+  document.addEventListener('renderAppointments', () => {
+    const sortingSelect = document.querySelector('.appointment-sorting__select');
+    const appointmentTable = document.querySelector('#appointments-section .appointment-table__tbody'); 
+
+    if (!sortingSelect || !appointmentTable) return;
+
+    sortingSelect.addEventListener('change', () => {
+      const selectedSort = sortingSelect.value;
+      const appointments = Array.from(appointmentTable.querySelectorAll('.appointment'));
+
+      const sortedAppointments = appointments.sort((a, b) => {
+        if (selectedSort === 'last-name') {
+          const aValue = a.querySelector('.last-name')?.textContent.trim().toLowerCase();
+          const bValue = b.querySelector('.last-name')?.textContent.trim().toLowerCase();
+          return aValue.localeCompare(bValue);
+        }
+
+        if (selectedSort === 'date') {
+          const parseDateTime = (text) => {
+            const [datePart, timePart] = text.split(' at ');
+            if (!datePart || !timePart) return new Date(0); 
+
+            const [time, modifier] = timePart.trim().split(' ');
+            let [hours, minutes] = time.split(':').map(Number);
+            if (modifier === 'PM' && hours < 12) hours += 12;
+            if (modifier === 'AM' && hours === 12) hours = 0;
+
+            const isoDateTime = `${datePart.trim()}T${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
+            return new Date(isoDateTime);
+          };
+
+          const aDateText = a.querySelector('.date-time')?.textContent.trim();
+          const bDateText = b.querySelector('.date-time')?.textContent.trim();
+          const aDate = parseDateTime(aDateText);
+          const bDate = parseDateTime(bDateText);
+
+          return aDate - bDate;
+        }
+
+        if (selectedSort === 'adress') {
+          const aAddress = a.querySelector('.column.left .column__detail:nth-child(5) .column__detail-value')?.textContent.trim().toLowerCase();
+          const bAddress = b.querySelector('.column.left .column__detail:nth-child(5) .column__detail-value')?.textContent.trim().toLowerCase();
+          return aAddress.localeCompare(bAddress);
+        }
+
+        return 0;
+      });
+
+      appointmentTable.innerHTML = '';
+      sortedAppointments.forEach(appointment => appointmentTable.appendChild(appointment));
+    });
+  });
+};
+
+
+
+// ======================================
 // ========== View (Appointment Table Content, Technicians Section, Appointment Calendar Schedule) Buttons Functionality
 // ======================================
 const viewBtnsFunctionality = () => {
@@ -324,6 +384,7 @@ export default function setupAppointmentSection () {
   handleDisabledActionOptions();
   handleAppointmentButtonsActions();
   filterAppointments();
+  appointmentsSorting();
   searchAppointment();
   setupAddAppointmentForm();
   toggleAddAppointmentForm();

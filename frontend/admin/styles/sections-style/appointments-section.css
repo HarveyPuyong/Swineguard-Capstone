@@ -96,9 +96,40 @@
   top: 48.8px
 }
 
+.appointment-sorting{
+  position: absolute;
+  right: 290px;
+  top: 67.5px;
+  display: flex;
+  gap: 15px;
+  width: 205px;
+  border-radius: 8px;
+  padding: 10px 0;
+  padding-left: 10px;
+  border: 1px solid #0F7E43;
+  background-color: #2FC375;
+  color: white;
+}
+
+.appointment-sorting__label{
+  font-weight: 600;
+}
+
+.appointment-sorting__select{
+  border: none;
+  width: 59.6%;
+  cursor: pointer;
+  background-color: transparent;
+  color: rgb(61, 61, 61);
+}
+.appointment-sorting__select:focus{
+  outline: none;
+  border: none;
+}
+
 .filter-apointments-status{
-  --color: var(--main-color);
-  --BGcolor: rgba(29, 255, 135, 0.67);
+  --color: black;
+  --BGcolor: white;
 
   border: 1px solid var(--color);
   color: var(--color);
