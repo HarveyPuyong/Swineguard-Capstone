@@ -1,4 +1,5 @@
 import popupAlert from "../../utils/popupAlert.js";
+import displaySetting from "./display-setting.js";
 
 const handleEditSettings = () => {
   document.addEventListener('renderSettings', () => {
@@ -26,7 +27,7 @@ const handleEditSettings = () => {
 
         if (response.status === 200) {
           popupAlert('success', 'Success!', 'Successfully updated the settings')
-            .then(() => window.location.reload());
+            .then(() => displaySetting());
         }
 
       } catch (err) {
