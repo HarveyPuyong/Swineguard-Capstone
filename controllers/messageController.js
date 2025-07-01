@@ -1,4 +1,6 @@
 const messageDB = require('../models/messageModel');
+const { isValidInput } = require('./../utils/verifyInput');
+const { verifySenderReceiverId, verifyAppointmentId, verifyItemId } = require('./../utils/verifyId');
 
 // Send Messages
 exports.sendMessage = async (req, res) => {
@@ -7,11 +9,16 @@ exports.sendMessage = async (req, res) => {
     const messageInputs = [sender, receiver, content];
 
     // Check the messages inputs
-    if (messageInputs.some(input => !input)) return res.status(400).json({ message: 'Please input a message'});
+    if (!isValidInput(content)) return res.status(400).json({ message: 'Please input a longer message'});
+
+    if(messageInputs.some(input => !input)) return res.status(400).json({ message: 'Please input a longer message'});
+
+    // check user ID
+    // const isValidId = await verifySenderReceiverId(sender, receiver);
+    // if(!isValidId) return res.status(400).json({ message: 'Sender and Receiver Id are not Exist'});
 
     try {
-        // Get sender from the authenticated user (decoded token) yung nasa verifyJWT.js
-        //const sender = req.user.id; activate mo na lang ito kpg may frontend na kupal/ hahaha sige
+        // Check if sender and receiver id exist
 
         const newMessage = new messageDB ({
             sender,
@@ -48,6 +55,9 @@ exports.getUserMessages = async (req, res) => {
     const {id} = req.params;// message id
     try {
         const messages = await messageDB.find({ sender: id });
+
+        if (!messages) return res.status(404).json({ message: "Message not found." });
+
         res.status(200).json(messages);
     } catch (error) {
         res.status(500).json({ message: error.message });

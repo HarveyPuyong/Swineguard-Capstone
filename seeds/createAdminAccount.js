@@ -38,6 +38,7 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
                 municipality: "Boac",
                 barangay: "Bangbangalon",
                 contactNum: "09503505396",
+                birthday: "01-01-1999",
 
                 email: adminEmail, 
                 password: hashedPassword,
@@ -64,6 +65,7 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
                 municipality: "Gasan",
                 barangay: "Mahunig",
                 contactNum: "09266495922",
+                birthday: "01-01-1999",
 
                 email: AC_staff_Email, 
                 password: hashed_ACstaff_password,
@@ -90,6 +92,7 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
                 municipality: "Boac",
                 barangay: "Maligaya",
                 contactNum: "09266495922",
+                birthday: "01-01-1999",
 
                 email: IC_staff_Email, 
                 password: hashed_ICstaff_password,

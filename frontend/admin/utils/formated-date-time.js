@@ -15,4 +15,18 @@ function formatTo12HourTime(time24) {
   return `${hour12}:${minuteStr.padStart(2, '0')} ${period}`;
 }
 
-export {formattedDate, formatTo12HourTime};
+// function formattedDate (date) {
+
+//   // Convert date string to local date object
+//   const dateObj = new Date(date);
+
+//   // Format the date
+//   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+//   const formattedDate = dateObj.toLocaleDateString('en-US', options);
+
+//   // Combine everything
+//   const display = `Schedule: ${formattedDate} `;
+//   console.log(display);
+// }
+
+export {formattedDate, formatTo12HourTime };

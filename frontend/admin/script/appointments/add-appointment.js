@@ -33,7 +33,8 @@ const handleAddAppointment = () => {
         swineCount: Number(document.querySelector('#swine-count').value),
         swineFemale: Number(document.querySelector('#swine-female').value),
         swineMale: Number(document.querySelector('#swine-male').value),
-        swineSymptoms: document.querySelector('#swine-symptoms').value.trim()
+        swineSymptoms: document.querySelector('#swine-symptoms').value.trim(),
+        appointmentStatus: 'ongoing'
       };
 
 

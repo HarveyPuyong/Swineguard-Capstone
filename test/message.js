@@ -1,10 +1,10 @@
-const messageBox = document.getElementById('message-box');
+const messageBox = document.querySelector('.convo-list');
 
 async function getuserMsg() {
     try {
         const [messagesRes, usersRes] = await Promise.all([
             axios.get('http://localhost:2500/message/all'),
-            axios.get('http://localhost:2500/user/data')
+            axios.get('http://localhost:2500/data')
         ]);
 
         const messages = messagesRes.data;
