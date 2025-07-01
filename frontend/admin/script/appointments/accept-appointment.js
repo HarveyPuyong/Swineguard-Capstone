@@ -1,4 +1,5 @@
-import popupAlert from './../../utils/popupAlert.js'
+import popupAlert from './../../utils/popupAlert.js';
+import handleRenderAppointments from './display-appointment.js'
 
 
 const handleAcceptAppointment = (appointmentId) => {
@@ -22,7 +23,12 @@ const handleAcceptAppointment = (appointmentId) => {
       const response = await axios.put(`http://localhost:2500/appointment/accept/${appointmentId}`, appointmentData, {withCredentials: true});
 
       if(response.status === 200){
-        popupAlert('success', 'Succes!', 'Appointment Accepted').then(() => window.location.reload())
+        popupAlert('success', 'Succes!', 'Appointment Accepted')
+          .then(() => { 
+            acceptAppointmentForm.reset();
+            acceptAppointmentForm.classList.remove('show')
+            handleRenderAppointments();
+          })
       }
       
     } catch(err) {
