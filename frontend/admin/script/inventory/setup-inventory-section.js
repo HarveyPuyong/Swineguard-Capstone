@@ -1,5 +1,6 @@
 import handleRenderInventory from "./display-inventory.js";
 import handleAddItem from "./add-item.js";
+import handleEditItem from "./edit-item.js";
 import {handleRemoveItem, handleRestoreItem, handleDeleteItem} from "./remove-restore-delete-item.js";
 
 // ======================================
@@ -188,7 +189,17 @@ const handleItemButtonsActions = () => {
         button.addEventListener('click', () => {
           const itemId = button.dataset.itemId;
 
-          if(button.id === 'remove-btn') handleRemoveItem(itemId);
+          if(button.id === 'edit-btn') {
+            const editForm = document.querySelector('#edit-medicine-form');
+            editForm.classList.add('show'); 
+
+            const closeFormBtn = document.querySelector('#edit-medicine-form .cancel-btn');             
+            closeFormBtn.addEventListener('click', () => editForm.classList.remove('show'));
+
+            const itemId = button.dataset.itemId;
+            handleEditItem(itemId)
+          }
+          else if(button.id === 'remove-btn') handleRemoveItem(itemId);
           else if(button.id === 'restore-btn') handleRestoreItem(itemId)
           else if(button.id === 'delete-btn') handleDeleteItem(itemId)
         })
@@ -206,7 +217,7 @@ const toggleAddMedicineForm = () => {
   const showFormBtn = document.querySelector('.inventory-section__add-btn')
     .addEventListener('click', () => form.classList.add('show'));
 
-  const closeFormBtn = document.querySelector('.add-medicine-form__buttons-container .cancel-btn')
+  const closeFormBtn = document.querySelector('#add-medicine-form .cancel-btn')
     .addEventListener('click', () => form.classList.remove('show'))
 }
 

@@ -116,7 +116,7 @@
           <!-- filter inventory -->
           <select class="filter-inventory-status" name="inventory-filter" id="inventory-filter">
             <option value="all">All</option>
-            <option value="In Stock">In Stock</option>
+            <option value="in-stock">In Stock</option>
             <option value="less-stock">Less Stock</option>
             <option value="out-of-stock">Out of Stock</option>
             <option value="expired">Expired</option>
@@ -124,29 +124,29 @@
           </select>
 
           <!-- add medicine form -->
-          <form id="add-medicine-form" class="add-medicine-form">
-            <h1 class="add-medicine-form__heading">Add Medicine Form</h1>
+          <form id="add-medicine-form" class="add-medicine-form medicine-form">
+            <h1 class="medicine-form__heading">Add Medicine Form</h1>
 
             <label for="medicine-name-input">
               Medicine Name <br>
-              <input id="medicine-name-input" placeholder="Enter medicine name here" type="text" required>
+              <input id="medicine-name-input" class="medicine-name-input" placeholder="Enter medicine name here" type="text" required>
             </label>
 
             <label for="medicine-description-input">
               Description <br>
-              <input id="medicine-description-input" placeholder="Enter medicine description here" type="text" required>
+              <input id="medicine-description-input" class="medicine-description-input" placeholder="Enter medicine description here" type="text" required>
             </label>
 
-            <div class="add-medicine-form__group">
+            <div class="medicine-form__group">
               <!-- dosage input & select medicine type -->
               <label for="dosage-input">
                 Dosage <br>
-                <input id="dosage-input" placeholder="Enter dosage here" type="number" required>
+                <input id="dosage-input" class="dosage-input" placeholder="Enter dosage here" type="number" required>
               </label>
 
               <label for="select-medicine-type">
                 Type <br>
-                <select id="select-medicine-type" name="select-medicine-type" required>
+                <select id="select-medicine-type" name="select-medicine-type" class="select-medicine-type" required>
                   <option value="">Medicine Type</option>
                   <option value="deworm">Deworm</option>
                   <option value="iron supplement">Iron Supplement</option>
@@ -157,25 +157,66 @@
               </label>
             </div>
 
-            <div class="add-medicine-form__group">
+            <div class="medicine-form__group">
               <label for="medicine-quantity-input">
                 Quantity <br>
-                <input id="medicine-quantity-input" placeholder="Enter quantity here" type="number" required>
+                <input id="medicine-quantity-input" class="medicine-quantity-input" placeholder="Enter quantity here" type="number" required>
               </label>
 
               <label for="expiration-date-input">
                 Expiration Date <br>
-                <input id="expiration-date-input" type="text" placeholder="Enter expiry date here"
+                <input id="expiration-date-input" class="expiration-date-input" type="text" placeholder="Enter expiry date here"
                   onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" required>
               </label>
             </div>
 
-            <div class="add-medicine-form__buttons-container">
+            <div class="medicine-form__buttons-container">
               <button class="cancel-btn" type="button">Cancel</button>
               <button class="add-btn" type="submit">Add</button>
             </div>
           </form>
-          
+
+          <!-- edit medicine form -->
+          <form id="edit-medicine-form" class="edit-medicine-form medicine-form">
+            <h1 class="medicine-form__heading">Edit Medicine Form</h1>
+
+            <label for="medicine-name-input">
+              Medicine Name <br>
+              <input id="medicine-name-input" class="medicine-name-input" placeholder="Enter medicine name here" type="text" required>
+            </label>
+
+            <label for="medicine-description-input">
+              Description <br>
+              <input id="medicine-description-input" class="medicine-description-input" placeholder="Enter medicine description here" type="text" required>
+            </label>
+
+            <div class="medicine-form__group">
+              <!-- dosage input -->
+              <label for="dosage-input">
+                Dosage <br>
+                <input id="dosage-input" class="dosage-input" placeholder="Enter dosage here" type="number" required>
+              </label>
+            </div>
+
+            <div class="medicine-form__group">
+              <label for="medicine-quantity-input">
+                Quantity <br>
+                <input id="medicine-quantity-input" class="medicine-quantity-input" placeholder="Enter quantity here" type="number" required>
+              </label>
+
+              <label for="expiration-date-input">
+                Expiration Date <br>
+                <input id="expiration-date-input" class="expiration-date-input" type="text" placeholder="Enter expiry date here"
+                  onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" required>
+              </label>
+            </div>
+
+            <div class="medicine-form__buttons-container">
+              <button class="cancel-btn" type="button">Cancel</button>
+              <button class="update-btn" type="submit">Update</button>
+            </div>
+          </form>
+       
           <!-- inventory table -->         
           <div class="inventory-table">
             <!-- table head -->

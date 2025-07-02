@@ -18,12 +18,12 @@ const handleAddItem = () => {
     }
 
     const itemFormData = {
-      itemName: document.querySelector('#medicine-name-input').value.trim(),
-      dosage: document.querySelector('#dosage-input').value.trim(),
-      quantity: document.querySelector('#medicine-quantity-input').value.trim(),
-      type: document.querySelector('#select-medicine-type').value,
-      expiryDate: document.querySelector('#expiration-date-input').value,
-      description: document.querySelector('#medicine-description-input').value.trim(),
+      itemName: document.querySelector('#add-medicine-form .medicine-name-input').value.trim(),
+      dosage: document.querySelector('#add-medicine-form .dosage-input').value.trim(),
+      quantity: document.querySelector('#add-medicine-form .medicine-quantity-input').value.trim(),
+      type: document.querySelector('#add-medicine-form .select-medicine-type').value,
+      expiryDate: document.querySelector('#add-medicine-form .expiration-date-input').value,
+      description: document.querySelector('#add-medicine-form .medicine-description-input').value.trim(),
       createdBy: userInfo._id
     };
 
