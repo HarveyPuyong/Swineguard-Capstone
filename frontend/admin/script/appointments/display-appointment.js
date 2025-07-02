@@ -1,9 +1,10 @@
-import {formattedDate, formatTo12HourTime} from '../../utils/formated-date-time.js'
+import {formattedDate, formatTo12HourTime} from '../../utils/formated-date-time.js';
+import api from '../../utils/axiosConfig.js';
 
 
 const handleRenderAppointments = async() => {
   try {
-    const response = await axios.get('http://localhost:2500/appointment/all', {withCredentials: true});
+    const response = await api.get('/appointment/all', {withCredentials: true});
 
     const data = response?.data;
     const appointments = data.slice().reverse(); 

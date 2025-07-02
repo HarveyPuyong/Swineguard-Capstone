@@ -1,5 +1,6 @@
 import popupAlert from './../../utils/popupAlert.js';
 import handleRenderAppointments from './display-appointment.js';
+import api from './../../utils/axiosConfig.js'
 
 
 const handleAddAppointment = () => {
@@ -38,7 +39,7 @@ const handleAddAppointment = () => {
 
 
     try {
-      const response = await axios.post('http://localhost:2500/appointment/add', appointmentFormData, {withCredentials: true});
+      const response = await api.post('/appointment/add', appointmentFormData);
 
       if(response.status === 201){
         popupAlert('success', 'Success!', 'New appointment has been created successfully').

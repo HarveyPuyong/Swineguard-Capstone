@@ -64,76 +64,7 @@
           <div class="inventory-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
-            <div class="dashboard__cards-container">
-              <!-- totals stocks card -->
-              <div class="dashboard__card total-stocks total-card">
-                <img class="dashboard__card-icon" src="images-and-icons/icons/stocks-icon.png" alt="calendar-icon">
-                <p class="dashboard__card-label">
-                  Total Stocks: 
-                  <span class="dashboard__card-label--value">750</span>
-                </p>
-              </div>
-              <!-- in-stocks card -->
-              <div class="dashboard__card In-stocks">
-                <p class="dashboard__card-label">
-                  In Stocks: 
-                  <span class="dashboard__card-label--value">45</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value">10%</div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-              <!-- out of stocks card -->
-              <div class="dashboard__card out-of-stocks">
-                <p class="dashboard__card-label">
-                  Out of Stocks: 
-                  <span class="dashboard__card-label--value">18</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value"></div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-              <!-- less stocks card -->
-              <div class="dashboard__card less-stocks">
-                <p class="dashboard__card-label">
-                  Less Stocks: 
-                  <span class="dashboard__card-label--value">18</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value"></div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-              <!-- expired stocks card -->
-              <div class="dashboard__card expired-stocks">
-                <p class="dashboard__card-label">
-                  Expired: 
-                  <span class="dashboard__card-label--value">18</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value"></div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-            </div>
+            <div class="dashboard__cards-container"> <!-- Cards render in script/dashboard --></div>
           </div>
           <!-- Less and out-of stock inventory table -->
           <div class="dashboard-section__table-container">
@@ -151,24 +82,7 @@
                 <p class="th toggle-buttons-icon"></p>
               </div>
               <!-- table body -->
-              <div class="inventory-table__tbody"> 
-                <div class="medicine">
-                  <p class="td medicine-name">Coglapest</p>
-                  <p class="td medicine-dosage">10mg</p>
-                  <p class="td quantity">15</p>
-                  <p class="td status" data-status-value="in-stock">In Stock</p>
-                  <p class="td exp-date">12-03-2026</p>
-                  <p class="td created-date">12-03-2025</p>
-                  <p class="td updated-date">12-08-2025</p>
-                  <div class="td toggle-buttons-icon">
-                    <i class="icon fas fa-ellipsis-v"></i>
-                    <div class="buttons-container">
-                      <button id="restore-btn" type="button">Restore</button>
-                      <button id="delete-btn" type="button">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="inventory-table__tbody"><!-- Medicines render in script/dashboard --></div>
             </div>
           </div>
         </section>

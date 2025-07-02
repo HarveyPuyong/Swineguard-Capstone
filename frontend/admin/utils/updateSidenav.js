@@ -1,6 +1,7 @@
 export default function updateSidenav() {
   const sections = document.querySelectorAll('section');
   const sideNavLinks = document.querySelectorAll('.side-nav__link');
+  
   sections.forEach(section => {
     const activeSection = section.classList.contains('show');
 

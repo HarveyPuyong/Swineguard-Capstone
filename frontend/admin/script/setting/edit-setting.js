@@ -1,5 +1,6 @@
 import popupAlert from "../../utils/popupAlert.js";
 import displaySetting from "./display-setting.js";
+import api from '../../utils/axiosConfig.js'; 
 
 const handleEditSettings = () => {
   document.addEventListener('renderSettings', () => {
@@ -23,7 +24,9 @@ const handleEditSettings = () => {
 
 
       try {
-        const response = await axios.put(`http://localhost:2500/edit/${userId}`, settingsFormData, { withCredentials: true });
+        const token = localStorage.getItem('accessToken');
+
+        const response = await api.put(`/edit/${userId}`, settingsFormData);
 
         if (response.status === 200) {
           popupAlert('success', 'Success!', 'Successfully updated the settings')
