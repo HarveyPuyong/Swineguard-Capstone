@@ -1,109 +1,81 @@
+import api from '../../utils/axiosConfig.js';
+
 const fetchMessages = async () => {
-  let accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
     window.location.href = 'login.html';
     return;
   }
 
-  
   try {
-    const response = await axios.get('http://localhost:2500/message/all', {
-      headers: { Authorization: `Bearer ${accessToken}` },
-      withCredentials: true
-    });
-
-    //console.log(response.data);
+    const response = await api.get('/message/all');
     return response.data;
 
   } catch (err) {
     const errStatus = err.response?.status;
 
-    // 🔁 If acess token is expired, hihingi ng bagong aaccess token gamit ang refreshToken
     if (errStatus === 403) {
       try {
-        const refreshResponse = await axios.get('http://localhost:2500/refresh', {
-          withCredentials: true
-        });
-
+        const refreshResponse = await api.get('/refresh');
         const newAccessToken = refreshResponse.data.accessToken;
         localStorage.setItem('accessToken', newAccessToken);
 
-        const retryResponse = await axios.get('http://localhost:2500/message/all', {
-          headers: { Authorization: `Bearer ${newAccessToken}` },
-          withCredentials: true
-        });
-
-        //console.log(refreshResponse.data);
+        const retryResponse = await api.get('/message/all');
         return retryResponse.data;
 
       } catch (refreshError) {
         console.error("Token refresh failed", refreshError);
         localStorage.removeItem('accessToken');
-        return;
+        window.location.href = 'login.html';
       }
 
     } else if (errStatus === 401) {
-      localStorage.removeItem('accessToken'); 
+      localStorage.removeItem('accessToken');
       window.location.href = 'login.html';
+
     } else {
       console.error(err);
-      const errMessage = err.response?.data?.message || 'Something went wrong';
-      alert(errMessage);
+      alert(err.response?.data?.message || 'Something went wrong');
     }
   }
 };
 
 const fetchClient = async () => {
-  let accessToken = localStorage.getItem('accessToken');
+  const accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
     window.location.href = 'login.html';
     return;
   }
 
-  
   try {
-    const response = await axios.get('http://localhost:2500/data', {
-      headers: { Authorization: `Bearer ${accessToken}` },
-      withCredentials: true
-    });
-
-    //console.log(response.data);
+    const response = await api.get('/data');
     return response.data;
 
   } catch (err) {
     const errStatus = err.response?.status;
 
-    // 🔁 If acess token is expired, hihingi ng bagong aaccess token gamit ang refreshToken
     if (errStatus === 403) {
       try {
-        const refreshResponse = await axios.get('http://localhost:2500/refresh', {
-          withCredentials: true
-        });
-
+        const refreshResponse = await api.get('/refresh');
         const newAccessToken = refreshResponse.data.accessToken;
         localStorage.setItem('accessToken', newAccessToken);
 
-        const retryResponse = await axios.get('http://localhost:2500/data', {
-          headers: { Authorization: `Bearer ${newAccessToken}` },
-          withCredentials: true
-        });
-
-        //console.log(retryResponse.data);
+        const retryResponse = await api.get('/data');
         return retryResponse.data;
 
       } catch (refreshError) {
         console.error("Token refresh failed", refreshError);
         localStorage.removeItem('accessToken');
-        return;
+        window.location.href = 'login.html';
       }
 
     } else if (errStatus === 401) {
-      localStorage.removeItem('accessToken'); 
+      localStorage.removeItem('accessToken');
       window.location.href = 'login.html';
+
     } else {
       console.error(err);
-      const errMessage = err.response?.data?.message || 'Something went wrong';
-      alert(errMessage);
+      alert(err.response?.data?.message || 'Something went wrong');
     }
   }
 };

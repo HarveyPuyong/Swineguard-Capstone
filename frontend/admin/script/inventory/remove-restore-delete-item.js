@@ -1,70 +1,74 @@
 import popupAlert from '../../utils/popupAlert.js';
 import handleRenderInventory from './display-inventory.js';
-
+import api from '../../utils/axiosConfig.js'; 
+import inventoryDashboard from '../dashboards/inventory-dashboard.js';
 
 // ======================================
 // ==========Handle Remove Item
 // ======================================
-const handleRemoveItem = async(itemId) => {
-  try{
-    const response = await axios.patch(`http://localhost:2500/inventory/remove/${itemId}`, {}, {withCredentials: true});
+const handleRemoveItem = async (itemId) => {
+  try {
+    const response = await api.patch(`/inventory/remove/${itemId}`); 
 
-    if(response.status === 200){
+    if (response.status === 200) {
       popupAlert('success', 'Success!', 'Item removed successfully')
         .then(() => {
           handleRenderInventory();
+          inventoryDashboard();
         });
     }
 
-  } catch(err){
-      console.log(err)
-      const errMessage = err.response?.data?.message || err.response?.data?.error;
-      popupAlert('error', 'Error!', errMessage);
+  } catch (err) {
+    console.log(err);
+    const errMessage = err.response?.data?.message || err.response?.data?.error;
+    popupAlert('error', 'Error!', errMessage);
   }
-}
+};
 
 
 // ======================================
 // ==========Handle Restore Item
 // ======================================
-const handleRestoreItem = async(itemId) => {
-  try{
-      const response = await axios.patch(`http://localhost:2500/inventory/restore/${itemId}`, {}, {withCredentials: true});
-  
-      if(response.status === 200){
-        popupAlert('success', 'Success!', 'Item restore successfully').
-          then(() => {
-            handleRenderInventory();
-          });
-      }
-  
-  } catch(err){
-      console.log(err)
-      const errMessage = err.response?.data?.message || err.response?.data?.error;
-      popupAlert('error', 'Error!', errMessage);
+const handleRestoreItem = async (itemId) => {
+  try {
+    const response = await api.patch(`/inventory/restore/${itemId}`);
+
+    if (response.status === 200) {
+      popupAlert('success', 'Success!', 'Item restored successfully')
+        .then(() => {
+          handleRenderInventory();
+           inventoryDashboard();
+        });
+    }
+
+  } catch (err) {
+    console.log(err);
+    const errMessage = err.response?.data?.message || err.response?.data?.error;
+    popupAlert('error', 'Error!', errMessage);
   }
-}
+};
 
 
 // ======================================
 // ==========Handle Delete Item
 // ======================================
-const handleDeleteItem = async(itemId) => {
-  try{
-      const response = await axios.delete(`http://localhost:2500/inventory/delete/${itemId}`, {}, {withCredentials: true});
-  
-      if(response.status === 200){
-        popupAlert('success', 'Success!', 'Item Deleted successfully')
-          .then(() => {
-            handleRenderInventory();
-          });
-      }
-  
-  } catch(err){
-      console.log(err)
-      const errMessage = err.response?.data?.message || err.response?.data?.error;
-      popupAlert('error', 'Error!', errMessage);
-  }
-}
+const handleDeleteItem = async (itemId) => {
+  try {
+    const response = await api.delete(`/inventory/delete/${itemId}`);
 
-export {handleRemoveItem, handleRestoreItem, handleDeleteItem}
+    if (response.status === 200) {
+      popupAlert('success', 'Success!', 'Item deleted successfully')
+        .then(() => {
+          handleRenderInventory();
+          inventoryDashboard();
+        });
+    }
+
+  } catch (err) {
+    console.log(err);
+    const errMessage = err.response?.data?.message || err.response?.data?.error;
+    popupAlert('error', 'Error!', errMessage);
+  }
+};
+
+export { handleRemoveItem, handleRestoreItem, handleDeleteItem };

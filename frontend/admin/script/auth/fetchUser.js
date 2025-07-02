@@ -1,3 +1,5 @@
+import api from '../../utils/axiosConfig.js';
+
 const fetchUser = async () => {
   let accessToken = localStorage.getItem('accessToken');
   if (!accessToken) {
@@ -6,10 +8,7 @@ const fetchUser = async () => {
   }
 
   try {
-    const response = await axios.get('http://localhost:2500/admin-profile', {
-      headers: { Authorization: `Bearer ${accessToken}` },
-      withCredentials: true
-    });
+    const response = await api.get('/admin-profile');
 
     return response.data.userInfo;
 
@@ -19,17 +18,12 @@ const fetchUser = async () => {
     // 🔁 If acess token is expired, hihingi ng bagong aaccess token gamit ang refreshToken
     if (errStatus === 403) {
       try {
-        const refreshResponse = await axios.get('http://localhost:2500/refresh', {
-          withCredentials: true
-        });
+        const refreshResponse = await api.get('/refresh');
 
         const newAccessToken = refreshResponse.data.accessToken;
         localStorage.setItem('accessToken', newAccessToken);
 
-        const retryResponse = await axios.get('http://localhost:2500/admin-profile', {
-          headers: { Authorization: `Bearer ${newAccessToken}` },
-          withCredentials: true
-        });
+        const retryResponse = await api.get('/admin-profile');
 
         return retryResponse.data.userInfo;
 

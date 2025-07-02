@@ -1,8 +1,9 @@
 import { formattedDate, formatTo12HourTime } from '../../utils/formated-date-time.js';
+import api from '../../utils/axiosConfig.js';
 
 const displayOngoingAppointments = async() => {
   try {
-    const response = await axios.get('http://localhost:2500/appointment/all', { withCredentials: true });
+    const response = await api.get('/appointment/all');
 
     const allAppointments = response?.data;
     const ongoingAppointments = allAppointments .filter(appointment => appointment.appointmentStatus === 'ongoing')

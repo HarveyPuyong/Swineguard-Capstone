@@ -1,4 +1,5 @@
 const loginForm = document.querySelector('#admin-login-form');
+import api from '../../utils/axiosConfig.js';
 
 loginForm.addEventListener('submit', async(e) => {
   e.preventDefault();
@@ -8,9 +9,7 @@ loginForm.addEventListener('submit', async(e) => {
   if(!password || !email) alert('All inputs are required');
 
   try{
-    const response = await axios.post('http://localhost:2500/auth/admin-login', 
-      {email, password},
-      {withCredentials: true}
+    const response = await api.post('/auth/admin-login', {email, password}
     );
 
     if(response.status === 200){

@@ -1,5 +1,6 @@
 import popupAlert from './../../utils/popupAlert.js';
-import handleRenderAppointments from './display-appointment.js'
+import handleRenderAppointments from './display-appointment.js';
+import api from '../../utils/axiosConfig.js';
 
 
 const handleAcceptAppointment = (appointmentId) => {
@@ -20,7 +21,7 @@ const handleAcceptAppointment = (appointmentId) => {
 
 
     try{
-      const response = await axios.put(`http://localhost:2500/appointment/accept/${appointmentId}`, appointmentData, {withCredentials: true});
+      const response = await api.put(`/appointment/accept/${appointmentId}`, appointmentData);
 
       if(response.status === 200){
         popupAlert('success', 'Succes!', 'Appointment Accepted')

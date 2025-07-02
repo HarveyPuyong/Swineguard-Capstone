@@ -1,4 +1,5 @@
-import popupAlert from '../../utils/popupAlert.js'
+import popupAlert from '../../utils/popupAlert.js';
+import api from '../../utils/axiosConfig.js';
 
 function setupResponseMessageHandler(senderId, receiverId) {
   const form = document.getElementById('message-form');
@@ -18,15 +19,10 @@ function setupResponseMessageHandler(senderId, receiverId) {
     try {
       const token = localStorage.getItem('accessToken');
 
-      await axios.post('http://localhost:2500/message/send', {
+      await api.post('message/send', {
         sender: senderId,
         receiver: receiverId,
         content: content
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
-        },
-        withCredentials: true 
       });
 
       popupAlert('success', 'Success!', 'Message sent.').then(() => window.location.reload());

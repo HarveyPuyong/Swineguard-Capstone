@@ -1,12 +1,11 @@
 import { formattedDate, formatTo12HourTime } from './../../utils/formated-date-time.js';
+import api from '../../utils/axiosConfig.js';
 
 const appointmentCalendar = async () => {
   const appointmentCalendarElement = document.getElementById('appointment-schedule-calendar');
 
   try {
-    const response = await axios.get('http://localhost:2500/appointment/all', {
-      withCredentials: true
-    });
+    const response = await api.get('/appointment/all');
     const data = response?.data;
 
     // appointments custom event

@@ -7,8 +7,8 @@ const userController = require('./../controllers/userController');
 
 
 
-router.post('/add/technician', userController.addTechnician); // Add Technicians
-router.put('/edit/:id', userController.editUserDetails);// Edit user details
+router.post('/add/technician', verifyJWT, userController.addTechnician); // Add Technicians
+router.put('/edit/:id', verifyJWT, userController.editUserDetails);// Edit user details
 
 router.get('/data',verifyJWT, userController.fetchUserData); // Get all user details
 

@@ -1,21 +1,4 @@
-// const handleLogout = async() => {
-//   try {
-//     const response = await axios.post('http://localhost:2500/logout', {}, {withCredentials: true});
-
-//     if(response.status === 200){
-//       localStorage.removeItem('accessToken');
-//       window.location.href = 'login.html'
-//     }
-
-//   } catch (err) {
-//     console.log(err);
-//     alert(err.response?.data?.message || err.message);
-//   }
-// }
-
-
-// export default handleLogout;
-
+import api from '../../utils/axiosConfig.js';
 
 const handleLogout = async () => {
   const result = await Swal.fire({
@@ -29,7 +12,7 @@ const handleLogout = async () => {
 
   if (result.isConfirmed) {
     try {
-      const response = await axios.post('http://localhost:2500/logout', {}, { withCredentials: true });
+      const response = await api.post('/logout', {});
 
       if (response.status === 200) {
         localStorage.removeItem('accessToken');
