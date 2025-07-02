@@ -26,6 +26,11 @@ const handleUpdateButtons = () => {
       editBtn.classList.add('show')
       cancelBtn.classList.remove('show');
       saveBtn.classList.remove('show');
+
+      editableDetails.forEach(detail => {
+        detail.setAttribute('readonly', 'readonly');
+        detail.classList.remove('editable');
+      });
     });
   });
 };
