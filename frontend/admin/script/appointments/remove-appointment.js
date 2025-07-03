@@ -1,6 +1,7 @@
 import popupAlert from '../../utils/popupAlert.js';
 import handleRenderAppointments from './display-appointment.js';
 import api from '../../utils/axiosConfig.js';
+import appointmentsDashboard from '../dashboards/appointment-dashboards.js';
 
 const handleRemoveAppointment = async(appointmentId) => {
   try{
@@ -8,7 +9,10 @@ const handleRemoveAppointment = async(appointmentId) => {
 
     if(response.status === 200){
       popupAlert('success', 'Success!', 'Appointment removed successfully')
-        .then(() => handleRenderAppointments());
+        .then(() => {
+          handleRenderAppointments();
+          appointmentsDashboard();
+        });
     }
 
   } catch(err){

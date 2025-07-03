@@ -1,6 +1,7 @@
 import popupAlert from './../../utils/popupAlert.js';
 import handleRenderAppointments from './display-appointment.js';
 import api from '../../utils/axiosConfig.js';
+import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
 
 
 const handleAcceptAppointment = (appointmentId) => {
@@ -29,6 +30,7 @@ const handleAcceptAppointment = (appointmentId) => {
             acceptAppointmentForm.reset();
             acceptAppointmentForm.classList.remove('show')
             handleRenderAppointments();
+            appointmentsDashboard();
           })
       }
       

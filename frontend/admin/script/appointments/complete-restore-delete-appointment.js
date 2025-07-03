@@ -1,6 +1,7 @@
 import popupAlert from '../../utils/popupAlert.js';
 import handleRenderAppointments from './display-appointment.js';
 import api from '../../utils/axiosConfig.js';
+import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
 
 
 // ======================================
@@ -12,7 +13,10 @@ const handleCompleteAppointment = async(appointmentId) => {
   
       if(response.status === 200){
         popupAlert('success', 'Success!', 'Appointment Completed successfully').
-          then(() => handleRenderAppointments());
+          then(() => {
+            handleRenderAppointments();
+            appointmentsDashboard();
+          });
       }
   
   } catch(err){
@@ -31,7 +35,10 @@ const handleRestoreAppointment = async(appointmentId) => {
   
       if(response.status === 200){
         popupAlert('success', 'Success!', 'Appointment restore successfully')
-          .then(() => handleRenderAppointments()());;
+          .then(() => {
+            handleRenderAppointments();
+            appointmentsDashboard();
+          });;
       }
   
   } catch(err){
@@ -50,7 +57,10 @@ const handleDeleteAppointment = async(appointmentId) => {
   
       if(response.status === 200){
         popupAlert('success', 'Success!', 'Appointment Deleted successfully')
-          .then(() => handleRenderAppointments()());;
+          .then(() => {
+            handleRenderAppointments()
+            appointmentsDashboard();
+          });;
       }
   
   } catch(err){

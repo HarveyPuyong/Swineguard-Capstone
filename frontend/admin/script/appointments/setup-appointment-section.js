@@ -316,9 +316,10 @@ const handleDisabledActionOptions = () => {
       actionOptions.forEach(option => {
         const optionValue = option.value
 
-        if(appointmentStatusValue === 'ongoing' && optionValue === 'accept')      option.disabled = true;
+        if(appointmentStatusValue === 'ongoing' && optionValue === 'accept') option.disabled = true
+        else if(appointmentStatusValue === 'reschedule' && optionValue === 'reschedule') option.disabled = true
         else if(appointmentStatusValue === 'removed' && optionValue === 'remove') option.disabled = true
-        else if(appointmentStatusValue === 'completed')                           option.disabled = true
+        else if(appointmentStatusValue === 'completed') option.disabled = true
       });
      });
   });

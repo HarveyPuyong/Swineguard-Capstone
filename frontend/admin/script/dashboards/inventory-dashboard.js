@@ -1,5 +1,5 @@
 import toPercent from "../../utils/toPercent.js";
-import formatItemStatus from './../../utils/formatItemStatus.js';
+import formatItemStatus from './../../utils/format-item-status.js';
 import api from '../../utils/axiosConfig.js';
 
 

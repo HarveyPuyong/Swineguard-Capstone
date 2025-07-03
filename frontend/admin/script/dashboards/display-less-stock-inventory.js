@@ -1,5 +1,5 @@
-import renderInventoryTable from '../../utils/inventoryTable.js';
-import formatItemStatus from '../../utils/formatItemStatus.js';
+import renderInventoryTable from '../../utils/inventory-table.js';
+import formatItemStatus from '../../utils/format-item-status.js';
 import api from '../../utils/axiosConfig.js';
 
 const displayLessStockInventory = async () => {
