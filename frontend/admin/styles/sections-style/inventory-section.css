@@ -273,6 +273,11 @@
   width: var(--medicine-dosage);
 }
 
+.medicine-dosage-label{
+  font-size: 0.75rem;
+  color: rgba(5, 5, 5, 0.684);
+}
+
 .inventory-table .th.quantity,
 .inventory-table .td.quantity {
   width: var(--quantity);

@@ -10,7 +10,7 @@ function renderInventoryTable(inventories, table, dispatchEvent) {
       inventoryTableHTML+= `
         <div class="medicine status-${status}" data-item-id=${item._id}>
             <p class="td medicine-name">${item.itemName}</p>
-            <p class="td medicine-dosage">${item.dosage}</p>
+            <p class="td medicine-dosage">${item.dosage} <span class="medicine-dosage-label">(mg)<span></p>
             <p class="td quantity">${item.quantity}</p>
             <p class="td status" data-status-value=${status}>
               ${item.itemStatus}

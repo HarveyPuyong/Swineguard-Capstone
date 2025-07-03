@@ -2,6 +2,7 @@ import popupAlert from '../../utils/popupAlert.js';
 import handleRenderInventory from './display-inventory.js';
 import api from '../../utils/axiosConfig.js'; 
 import inventoryDashboard from '../dashboards/inventory-dashboard.js';
+import displayLessStockInventory from '../dashboards/display-less-stock-inventory.js'
 
 // ======================================
 // ==========Handle Remove Item
@@ -15,6 +16,7 @@ const handleRemoveItem = async (itemId) => {
         .then(() => {
           handleRenderInventory();
           inventoryDashboard();
+          displayLessStockInventory()
         });
     }
 
@@ -38,6 +40,7 @@ const handleRestoreItem = async (itemId) => {
         .then(() => {
           handleRenderInventory();
            inventoryDashboard();
+           displayLessStockInventory()
         });
     }
 
@@ -61,6 +64,7 @@ const handleDeleteItem = async (itemId) => {
         .then(() => {
           handleRenderInventory();
           inventoryDashboard();
+          displayLessStockInventory();
         });
     }
 

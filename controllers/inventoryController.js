@@ -227,7 +227,10 @@ exports.getAllItem = async (req, res) => {
             items.map(async item => {
                 let newStatus = 'in-stock';
 
-                if (new Date(item.expiryDate) <= currentDate) {
+                // 💡 If the item was marked as removed, don't change it
+                if (item.itemStatus === 'removed') {
+                    newStatus = 'removed';
+                } else if (new Date(item.expiryDate) <= currentDate) {
                     newStatus = 'expired';
                 } else if (item.quantity === 0) {
                     newStatus = 'out-of-stock';
@@ -248,7 +251,8 @@ exports.getAllItem = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
-}
+};
+
 
 
 // Check item Id
