@@ -109,7 +109,7 @@ exports.addAppointment = async (req, res) => {
         swineSymptoms, 
         swineAge, 
         swineMale, 
-        swineFemale,
+        swineFemale
     };
 
     try {
@@ -209,7 +209,7 @@ exports.rescheduleAppointment = async (req, res) => {
         const {id} = req.params;
 
         // Check Object Id if exist or valid
-        if(!isValidAppointmentId(appointmentId)) return res.status(400).json({ message: 'Invalid Appointment Id.' });
+        if(!isValidAppointmentId(id)) return res.status(400).json({ message: 'Invalid Appointment Id.' });
 
         const update = await appointmentDB.findByIdAndUpdate(
             id,
