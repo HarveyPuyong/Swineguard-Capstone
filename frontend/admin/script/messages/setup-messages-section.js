@@ -14,6 +14,7 @@
 // }
 
 import fetchUser from './../auth/fetchUser.js';
+import messages from './../messages/messageHandler.js'
 import { fetchMessages, fetchClient } from '../auth/fetchMessage.js';
 import setupResponseMessageHandler from './reply-message.js';
 
@@ -22,6 +23,8 @@ const showConvoBox = () => {
 
   chatListContainer.addEventListener('click', async (e) => {
     const userDiv = e.target.closest('.chat-list__user');
+    console.log(userDiv)
+    console.log(userDiv.dataset.clientId)
     if (!userDiv) return;
 
     const clientId = userDiv.dataset.clientId;
@@ -45,7 +48,7 @@ const showConvoBox = () => {
     const acId = coordinator._id;
     const client = clients.find(c => c._id === clientId);
     const fullName = `${client.firstName} ${client.middleName} ${client.lastName}`;
-    const profileImage = 'images-and-icons/images/example-user-profile-pic.jpg'; // or from DB
+    const profileImage = 'images-and-icons/images/example-user-profile-pic.jpg'; 
 
     // Filter messages ipapakita lang yung sa AC staff at Client
     const conversation = messages
@@ -113,7 +116,6 @@ const showConvoBox = () => {
 // ======================================
 // ========== View Profile
 // ======================================
-
 const viewProfile = () => {
   document.addEventListener('renderConvoHeader',  () => {
     const userProfile = document.querySelector('#messages-section .profile-view');
@@ -135,6 +137,7 @@ const viewProfile = () => {
 // ========== Main Function - Setup Messages Section
 // ======================================
 export default function setupMessagesSection() {
+  messages();
   showConvoBox();
   viewProfile();
 }

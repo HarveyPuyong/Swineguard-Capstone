@@ -9,7 +9,6 @@ const Messages = async () => {
     const users = await fetchClient();
 
     const chatListContainer = document.querySelector('.chat-list');
-    chatListContainer.innerHTML = '';
 
     const acId = coordinator._id;
     //console.log('✅ Logged-in AC ID:', acId);
@@ -64,12 +63,6 @@ const Messages = async () => {
       const chatHTML = `
         <div class="chat-list__user" data-client-id="${client._id}">
           <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
-          <p class="chat-list__user-name-and-message">
-            <span class="chat-list__user-name">${fullName}</span>
-            <span class="chat-list__user-message">${shortMsg}</span>
-          </p>  
-          <p class="chat-list__user-last-active-time">${timeSent}</p>
-          <p class="chat-list__user-number-of-message">${count}</p>
         </div>
       `;
 
