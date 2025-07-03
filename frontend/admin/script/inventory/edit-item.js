@@ -28,10 +28,10 @@ const handleEditItem = (itemId) => {
 
     try {
       const response = await api.put(`/inventory/edit/${itemId}`, itemFormData);
-      console.log(response)
+      const itemName = response.data.item.itemName
 
       if (response.status === 200) {
-        popupAlert('success', 'Success!', 'Edit item successfully')
+        popupAlert('success', 'Success!', `Item ${itemName} is edited successfully`)
           .then(() => {
             editItemForm.reset();
             editItemForm.classList.remove('show');

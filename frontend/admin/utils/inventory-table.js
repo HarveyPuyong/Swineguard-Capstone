@@ -1,7 +1,7 @@
 import {formattedDate} from './formated-date-time.js';
 import formatItemStatus from './format-item-status.js';
 
-function renderInventoryTable(inventories, table) {
+function renderInventoryTable(inventories, table, dispatchEvent) {
     let inventoryTableHTML = '';
     
     inventories.forEach(item => {
@@ -34,7 +34,7 @@ function renderInventoryTable(inventories, table) {
     
     if(table) table.innerHTML = inventoryTableHTML;
 
-    document.dispatchEvent(new Event('renderInventory')); 
+    document.dispatchEvent(new Event(dispatchEvent)); 
 }
 
 export default renderInventoryTable;

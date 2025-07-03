@@ -27,7 +27,6 @@ const searchAppointment = () => {
       const query = input.value.trim().toLowerCase();
 
       appointments.forEach(appointment => {
-        console.log(appointment)
         const firstName = appointment.querySelector('.first-name')?.textContent.toLowerCase() || '';
         const lastName = appointment.querySelector('.last-name')?.textContent.toLowerCase() || '';
         const contact = appointment.querySelector('.contact')?.textContent.toLowerCase() || '';

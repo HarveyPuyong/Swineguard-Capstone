@@ -30,8 +30,11 @@ const handleAddItem = () => {
     try {
       const response = await api.post('/inventory/add', itemFormData);
 
+      const message = response.data.message;
+      const itemName = response.data.item.itemName
+
       if (response.status === 201) {
-        popupAlert('success', 'Success!', 'Add item successfully')
+        popupAlert('success', 'Success!', `${itemName} ${message}`)
           .then(() => {
             addItemForm.reset();
             addItemForm.classList.remove('show');
