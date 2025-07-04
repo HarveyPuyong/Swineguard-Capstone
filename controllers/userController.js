@@ -1,10 +1,9 @@
 const userDB = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const ROLE_LIST = require('./../config/role_list');
-const {generateAccessToken, generateRefreshToken} = require('./../utils/generateTokens');
 
 // Edit User Details
-exports.editUserDetails = async (req, res) => {
+const editUserDetails = async (req, res) => {
     const { id } = req.params;
     const  {
         firstName, middleName, lastName, contactNum,
@@ -72,18 +71,9 @@ exports.editUserDetails = async (req, res) => {
     }
 }
 
-// Fetch User Data
-exports.fetchUserData = async (req, res) => {
-    try {
-        const users = await userDB.find({ roles: { $nin: ['technician', 'admin'] } });
-        res.status(200).json(users);
-    } catch (error) {
-        res.status(500).json({ message: error.message });
-    }
-}
 
 // Add Technician
-exports.addTechnician = async (req, res) => {
+const addTechnician = async (req, res) => {
     // nakuha yung json laman ng req.body
     const {firstName, middleName,lastName, suffix,
             municipality, barangay, contactNum } = req.body;
@@ -142,3 +132,6 @@ exports.addTechnician = async (req, res) => {
         });
     }
 }
+
+
+module.exports = {editUserDetails, addTechnician}

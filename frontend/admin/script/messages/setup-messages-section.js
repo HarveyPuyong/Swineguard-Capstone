@@ -15,9 +15,14 @@
 
 import fetchUser from './../auth/fetchUser.js';
 import messages from './../messages/messageHandler.js'
-import { fetchMessages, fetchClient } from '../auth/fetchMessage.js';
+import fetchMessages from './fetch-messages.js';
+import fetchSenderReceiver from './fetch-sender-receiver.js';
 import setupResponseMessageHandler from './reply-message.js';
 
+
+// ======================================
+// ========== Show Convo Box
+// ======================================
 const showConvoBox = () => {
   const chatListContainer = document.querySelector('.chat-list');
 
@@ -42,7 +47,7 @@ const showConvoBox = () => {
     const [coordinator, messages, clients] = await Promise.all([
       fetchUser(),
       fetchMessages(),
-      fetchClient()
+      fetchSenderReceiver()
     ]);
 
     const acId = coordinator._id;
@@ -78,7 +83,6 @@ const showConvoBox = () => {
         </div>
       `;
       document.querySelector('.chat-box__header').innerHTML = headerDetails;
-      document.dispatchEvent(new Event('renderConvoHeader')); 
 
 
     // Render the conversation
@@ -106,6 +110,8 @@ const showConvoBox = () => {
           </div>
         `;
       }
+
+      document.dispatchEvent(new Event('renderMessages')); 
     });
 
     // Get sender Id and receiver Id:
@@ -113,11 +119,12 @@ const showConvoBox = () => {
   });
 }
 
+
 // ======================================
 // ========== View Profile
 // ======================================
 const viewProfile = () => {
-  document.addEventListener('renderConvoHeader',  () => {
+  document.addEventListener('renderMessages',  () => {
     const userProfile = document.querySelector('#messages-section .profile-view');
     const userImg = document.querySelector('.chat-box__header-user-img');
     const backBtn = document.querySelector('.profile-view__back-btn');
@@ -136,8 +143,11 @@ const viewProfile = () => {
 // ======================================
 // ========== Main Function - Setup Messages Section
 // ======================================
-export default function setupMessagesSection() {
+function setupMessagesSection() {
   messages();
   showConvoBox();
   viewProfile();
 }
+
+
+export {setupMessagesSection, showConvoBox}

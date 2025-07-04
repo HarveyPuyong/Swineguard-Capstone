@@ -1,20 +1,18 @@
-import fetchUser from './../auth/fetchUser.js';
-import { fetchMessages, fetchClient } from '../auth/fetchMessage.js';
-
+import fetchUser from '../auth/fetchUser.js';
+import fetchSenderReceiver from './fetch-sender-receiver.js'
+import fetchMessages from './fetch-messages.js';
 
 const Messages = async () => {
   try {
     const coordinator = await fetchUser();
     const messages = await fetchMessages();
-    const users = await fetchClient();
+    const users = await fetchSenderReceiver();
 
     const chatListContainer = document.querySelector('.chat-list');
 
     const acId = coordinator._id;
-    //console.log('✅ Logged-in AC ID:', acId);
 
     const clientUsers = users.filter(u => u.roles.includes('user'));
-    //console.log('✅ Clients:', clientUsers.map(c => `${c.firstName} (${c._id})`));
 
     const relevantMessages = messages.filter(msg =>
       clientUsers.some(client => (
@@ -23,14 +21,11 @@ const Messages = async () => {
       ))
     );
 
-    //console.log('✅ Relevant Messages:', relevantMessages);
-
     if (relevantMessages.length === 0) {
       chatListContainer.innerHTML = `<p class="text-center">No client messages found.</p>`;
       return;
     }
 
-    // Group by client
     const latestMessages = [];
 
     clientUsers.forEach(client => {
@@ -63,6 +58,12 @@ const Messages = async () => {
       const chatHTML = `
         <div class="chat-list__user" data-client-id="${client._id}">
           <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+           <p class="chat-list__user-name-and-message">
+            <span class="chat-list__user-name">${fullName}</span>
+            <span class="chat-list__user-message">${shortMsg}</span>
+          </p>  
+          <p class="chat-list__user-last-active-time">${timeSent}</p>
+          <p class="chat-list__user-number-of-message">${count}</p>
         </div>
       `;
 

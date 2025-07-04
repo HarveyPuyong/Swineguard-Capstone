@@ -1,5 +1,6 @@
 import popupAlert from '../../utils/popupAlert.js';
 import api from '../../utils/axiosConfig.js';
+import {showConvoBox} from './setup-messages-section.js'
 
 function setupResponseMessageHandler(senderId, receiverId) {
   const form = document.getElementById('message-form');
@@ -25,10 +26,9 @@ function setupResponseMessageHandler(senderId, receiverId) {
         content: content
       });
 
-      popupAlert('success', 'Success!', 'Message sent.').then(() => window.location.reload());
+      popupAlert('success', 'Success!', 'Message sent.').then(() => showConvoBox());
       console.log('✅ Message sent!');
 
-      // Clear input field after sending
       document.querySelector('.chat-input-area__input-message').value = '';
     } catch (err) {
       console.error('❌ Failed to send message:', err);
