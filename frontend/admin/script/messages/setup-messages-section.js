@@ -1,6 +1,6 @@
 import fetchUser from './../auth/fetchUser.js';
 import displayContactList from './display-contact-list.js';
-import renderConversation from './display-conversation.js';
+import renderConversation from './handle-display-conversation.js';
 
 // ======================================
 // ========== Show Conversation
@@ -25,9 +25,6 @@ const showConversation = () => {
 }
 
 
-
-
-
 // ======================================
 // ========== View Profile
 // ======================================
@@ -49,10 +46,38 @@ const viewProfile = () => {
 
 
 // ======================================
+// ========== Search Contact List
+// ======================================
+const searchContactList = () => {
+  document.addEventListener('renderContactList', () => {
+    const searchInput = document.querySelector('#messages-section .sidebar-chat-panel__search-input');
+
+    if (!searchInput) return;
+
+    searchInput.addEventListener('input', () => {
+      const searchTerm = searchInput.value.toLowerCase().trim();
+      const usersList = document.querySelectorAll('#messages-section .chat-list__user');
+
+      usersList.forEach(user => {
+        const name = user.querySelector('.chat-list__user-name')?.textContent.toLowerCase() || '';
+
+        if (name.includes(searchTerm)) {
+          user.style.display = '';
+        } else {
+          user.style.display = 'none';
+        }
+      });
+    });
+  });
+};
+
+
+// ======================================
 // ========== Main Function - Setup Messages Section
 // ======================================
 export default function setupMessagesSection() {
   displayContactList();
+  searchContactList();
   showConversation();
   viewProfile();
 }

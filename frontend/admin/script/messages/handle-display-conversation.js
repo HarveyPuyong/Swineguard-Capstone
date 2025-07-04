@@ -61,10 +61,6 @@ const renderConversation = async (clientId) => {
           <span class="chat-box__header-user-active-status--label">Active</span>
         </p>
       </div>
-      <div class="chat-box__header-icons-container">
-        <i class="chat-box__header-icon fas fa-phone"></i>
-        <i class="chat-box__header-icon fas fa-ellipsis-v"></i> 
-      </div>
     </div>
 
     <div class="convo-list">${messages}</div>
@@ -89,6 +85,13 @@ const renderConversation = async (clientId) => {
   `;
 
   document.querySelector('#messages-section .chat-box__main-contents').innerHTML = chatHTML;
+
+  // para sa bottom ng convo unang ga show
+  const convoList = document.querySelector('.convo-list');
+  if (convoList) {
+    convoList.scrollTop = convoList.scrollHeight;
+  }
+
   document.dispatchEvent(new Event('renderConversation'));
 
   handleSendMessage(clientUser._id)

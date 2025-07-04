@@ -1,6 +1,6 @@
 import api from '../../utils/axiosConfig.js';
 import fetchUser from '../auth/fetchUser.js';
-import renderConversation from './display-conversation.js';
+import renderConversation from './handle-display-conversation.js';
 
 const handleSendMessage = async (clientId) => {
   const form = document.querySelector('.chat-box__chat-input-area');
