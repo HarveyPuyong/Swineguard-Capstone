@@ -9,7 +9,7 @@ import {handleCompleteAppointment,
         handleRestoreAppointment,
         handleDeleteAppointment,} from "./complete-restore-delete-appointment.js";
 import appointmentCalendar from "./appointment-calendar.js"
-import populateMedicine from "../../utils/populate-medicine.js"
+import populateMedicine from "../../api/getMedicine.js"
 
 
 // ======================================

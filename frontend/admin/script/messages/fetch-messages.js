@@ -2,44 +2,44 @@ import api from '../../utils/axiosConfig.js';
 
 const fetchMessages = async () => {
   const accessToken = localStorage.getItem('accessToken');
-  if (!accessToken) {
-    window.location.href = 'login.html';
-    return;
-  }
+  if (!accessToken) window.location.href = 'login.html';
 
+  
   try {
     const response = await api.get('/message/all');
     return response.data;
 
   } catch (err) {
-    const errStatus = err.response?.status;
+    const status = err.response?.status;
 
-    if (errStatus === 403) {
+    if (status === 403) {
       try {
-        const refreshResponse = await api.get('/refresh');
-        const newAccessToken = refreshResponse.data.accessToken;
+        const refresh = await api.get('/refresh');
+        const newAccessToken = refresh.data.accessToken;
         localStorage.setItem('accessToken', newAccessToken);
 
-        const retryResponse = await api.get('/message/all');
-        return retryResponse.data;
+        const retry = await api.get('/message/all');
+        return retry.data;
 
       } catch (refreshError) {
-        console.error("Token refresh failed", refreshError);
-        localStorage.removeItem('accessToken');
-        window.location.href = 'login.html';
+        console.error('Token refresh failed', refreshError);
+        return redirectToLogin();
       }
 
-    } else if (errStatus === 401) {
-      localStorage.removeItem('accessToken');
-      window.location.href = 'login.html';
+    } else if (status === 401) {
+      return redirectToLogin();
 
     } else {
-      console.error(err);
+      console.error('Fetch error:', err);
       alert(err.response?.data?.message || 'Something went wrong');
     }
   }
 };
 
+const redirectToLogin = () => {
+  localStorage.removeItem('accessToken');
+  
+};
 
 
 export default fetchMessages;

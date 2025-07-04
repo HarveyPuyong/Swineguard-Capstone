@@ -1,9 +1,11 @@
 import api from '../utils/axiosConfig.js';
 
-const fetchSenderReceiver = async () => {
+const fetchUsers = async () => {
   try {
     const response = await api.get('/users');
-    return response.data;
+
+    if(response.status === 200) return response.data
+    console.log(response.data)
 
   } catch (err) {
     const errStatus = err.response?.status;
@@ -14,4 +16,4 @@ const fetchSenderReceiver = async () => {
 };
 
 
-export default fetchSenderReceiver
+export default fetchUsers
