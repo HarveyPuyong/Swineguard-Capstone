@@ -1,5 +1,6 @@
 import handleRenderInventory from "./display-inventory.js";
 import handleAddItem from "./add-item.js";
+import handleEditItem from "./edit-item.js";
 import {handleRemoveItem, handleRestoreItem, handleDeleteItem} from "./remove-restore-delete-item.js";
 
 // ======================================
@@ -56,6 +57,62 @@ const filterInventory = () => {
     });
   });
 }
+
+
+// ======================================
+// ========== Inventory Sorting
+// ======================================
+const inventorySorting = () => {
+  document.addEventListener('renderInventory', () => {
+    const sortingSelect = document.querySelector('.inventory-sorting__select');
+    const inventoryTable = document.querySelector('#inventory-section .inventory-table__tbody');
+
+    if (!sortingSelect || !inventoryTable) return;
+
+    // Save original order
+    const originalInventory = Array.from(inventoryTable.children);
+
+    sortingSelect.addEventListener('change', () => {
+      const selectedSort = sortingSelect.value;
+      let sortedInventories;
+
+      if (selectedSort === 'default') {
+        // Restore to original order
+        inventoryTable.innerHTML = '';
+        originalInventory.forEach(item => inventoryTable.appendChild(item));
+        return;
+      }
+
+      const inventories = Array.from(inventoryTable.querySelectorAll('.medicine'));
+
+      const getText = (el, selector) => el.querySelector(selector)?.textContent.trim().toLowerCase() || '';
+      const parseDate = (el, selector) => new Date(el.querySelector(selector)?.textContent.trim());
+
+      sortedInventories = inventories.sort((a, b) => {
+        switch (selectedSort) {
+          case 'medicine-name':
+            return getText(a, '.medicine-name').localeCompare(getText(b, '.medicine-name'));
+          case 'dosage':
+            return getText(a, '.medicine-dosage').localeCompare(getText(b, '.medicine-dosage'));
+          case 'quantity':
+            return parseInt(getText(a, '.quantity')) - parseInt(getText(b, '.quantity'));
+          case 'expiration-date':
+            return parseDate(a, '.exp-date') - parseDate(b, '.exp-date');
+          case 'created-date':
+            return parseDate(a, '.created-date') - parseDate(b, '.created-date');
+          case 'updated-date':
+            return parseDate(a, '.updated-date') - parseDate(b, '.updated-date');
+          default:
+            return 0;
+        }
+      });
+
+      // Re-render sorted inventories
+      inventoryTable.innerHTML = '';
+      sortedInventories.forEach(item => inventoryTable.appendChild(item));
+    });
+  });
+};
 
 
 // ======================================
@@ -132,7 +189,17 @@ const handleItemButtonsActions = () => {
         button.addEventListener('click', () => {
           const itemId = button.dataset.itemId;
 
-          if(button.id === 'remove-btn') handleRemoveItem(itemId);
+          if(button.id === 'edit-btn') {
+            const editForm = document.querySelector('#edit-medicine-form');
+            editForm.classList.add('show'); 
+
+            const closeFormBtn = document.querySelector('#edit-medicine-form .cancel-btn');             
+            closeFormBtn.addEventListener('click', () => editForm.classList.remove('show'));
+
+            const itemId = button.dataset.itemId;
+            handleEditItem(itemId)
+          }
+          else if(button.id === 'remove-btn') handleRemoveItem(itemId);
           else if(button.id === 'restore-btn') handleRestoreItem(itemId)
           else if(button.id === 'delete-btn') handleDeleteItem(itemId)
         })
@@ -150,7 +217,7 @@ const toggleAddMedicineForm = () => {
   const showFormBtn = document.querySelector('.inventory-section__add-btn')
     .addEventListener('click', () => form.classList.add('show'));
 
-  const closeFormBtn = document.querySelector('.add-medicine-form__buttons-container .cancel-btn')
+  const closeFormBtn = document.querySelector('#add-medicine-form .cancel-btn')
     .addEventListener('click', () => form.classList.remove('show'))
 }
 
@@ -161,7 +228,10 @@ export default function setupInventorySection() {
   handleItemButtonsActions();
   searchInventory();
   filterInventory();
+  inventorySorting();
   toggleAddMedicineForm();
   changeStatusColor();
   toggleMedicineButtonsContainer();
 }
+
+

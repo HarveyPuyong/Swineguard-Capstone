@@ -7,7 +7,6 @@ header{
   height: var(--header-height); /* nasa global.css yung variable neto */
   background-color: var(--main-color);
   padding: 0 2rem;
-  overflow: hidden;
   z-index: 10
 }
 
@@ -77,8 +76,26 @@ header{
   margin-right: 1px;
 }
 
-.header__admin-profile .drop-down-icon{
+.header__toggle-logout-btn{
   font-size: 0.6rem;
   color: white;
   cursor: pointer;
+}
+
+.header__logout-btn{
+  display: none;
+  position: absolute;
+  bottom: -12px;
+  right: 25px;
+  background-color: red;
+  color: white;
+  padding: 4px 22px;
+  font-weight: 600;
+  border-radius: 3px;
+  border: 1px solid rgb(255, 255, 255);
+  cursor: pointer;
+}
+
+.header__logout-btn.show{
+  display: block;
 }

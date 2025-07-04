@@ -34,7 +34,8 @@
         <div class="header__admin-profile">
           <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
           <p class="header__admin-profile-label">Inventory Coordinator</p>
-          <i class="drop-down-icon fas fa-chevron-down "></i>
+          <i class="header__toggle-logout-btn drop-down-icon fas fa-chevron-down"></i>
+          <button class="header__logout-btn">Logout</button>
         </div>
     </header>
     <main class="main-wrapper">
@@ -63,76 +64,7 @@
           <div class="inventory-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
-            <div class="dashboard__cards-container">
-              <!-- totals stocks card -->
-              <div class="dashboard__card total-stocks total-card">
-                <img class="dashboard__card-icon" src="images-and-icons/icons/stocks-icon.png" alt="calendar-icon">
-                <p class="dashboard__card-label">
-                  Total Stocks: 
-                  <span class="dashboard__card-label--value">750</span>
-                </p>
-              </div>
-              <!-- in-stocks card -->
-              <div class="dashboard__card In-stocks">
-                <p class="dashboard__card-label">
-                  In Stocks: 
-                  <span class="dashboard__card-label--value">45</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value">10%</div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-              <!-- out of stocks card -->
-              <div class="dashboard__card out-of-stocks">
-                <p class="dashboard__card-label">
-                  Out of Stocks: 
-                  <span class="dashboard__card-label--value">18</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value"></div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-              <!-- less stocks card -->
-              <div class="dashboard__card less-stocks">
-                <p class="dashboard__card-label">
-                  Less Stocks: 
-                  <span class="dashboard__card-label--value">18</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value"></div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-              <!-- expired stocks card -->
-              <div class="dashboard__card expired-stocks">
-                <p class="dashboard__card-label">
-                  Expired: 
-                  <span class="dashboard__card-label--value">18</span>
-                </p>
-                <div class="dashboard__card-progress-bar-container">
-                  <div class="dashboard__card-progress-bar">
-                    <div class="dashboard__card-progress-barOverflow"></div>
-                    <div class="dashboard__card-progress-value"></div>
-                  </div>
-                  <div class="dashboard__card-progress-slicer"></div>
-                  <p class="dashboard__card-progress-txt">10%</p>
-                </div>
-              </div>
-            </div>
+            <div class="dashboard__cards-container"> <!-- Cards render in script/dashboard --></div>
           </div>
           <!-- Less and out-of stock inventory table -->
           <div class="dashboard-section__table-container">
@@ -140,7 +72,6 @@
             <div class="less-stock-medicine-table inventory-table">
               <!-- table head -->
               <div class="inventory-table__thead">
-                <p class="th id">ID</p>
                 <p class="th medicine-name">Medicine</p>
                 <p class="th medicine-dosage">Dosage</p>
                 <p class="th quantity">Quantity</p>
@@ -151,25 +82,7 @@
                 <p class="th toggle-buttons-icon"></p>
               </div>
               <!-- table body -->
-              <div class="inventory-table__tbody"> 
-                <div class="medicine">
-                  <p class="td id">648f1b7c2a9f...</p>
-                  <p class="td medicine-name">Coglapest</p>
-                  <p class="td medicine-dosage">10mg</p>
-                  <p class="td quantity">15</p>
-                  <p class="td status" data-status-value="in-stock">In Stock</p>
-                  <p class="td exp-date">12-03-2026</p>
-                  <p class="td created-date">12-03-2025</p>
-                  <p class="td updated-date">12-08-2025</p>
-                  <div class="td toggle-buttons-icon">
-                    <i class="icon fas fa-ellipsis-v"></i>
-                    <div class="buttons-container">
-                      <button id="restore-btn" type="button">Restore</button>
-                      <button id="delete-btn" type="button">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="inventory-table__tbody"><!-- Medicines render in script/dashboard --></div>
             </div>
           </div>
         </section>
@@ -186,6 +99,20 @@
             <button class="inventory-section__add-btn">Add</button>
           </div>
 
+          <!-- inventory sorting-->
+          <div class="inventory-sorting">
+            <p class="inventory-sorting__label">Sort by:</p>
+            <select class="inventory-sorting__select" name="inventory-sorting" id="inventory-sorting-select">
+              <option value="default">Default</option>
+              <option value="medicine-name">Medicine Name</option>
+              <option value="dosage">Dosage</option>
+              <option value="quantity">Quantity</option>
+              <option value="expiration-date">Exp. Date</option>
+              <option value="created-date">Created Date</option>
+              <option value="updated-date">Updated Date</option>
+            </select>
+          </div>
+
           <!-- filter inventory -->
           <select class="filter-inventory-status" name="inventory-filter" id="inventory-filter">
             <option value="all">All</option>
@@ -197,29 +124,29 @@
           </select>
 
           <!-- add medicine form -->
-          <form id="add-medicine-form" class="add-medicine-form">
-            <h1 class="add-medicine-form__heading">Add Medicine Form</h1>
+          <form id="add-medicine-form" class="add-medicine-form medicine-form">
+            <h1 class="medicine-form__heading">Add Medicine Form</h1>
 
             <label for="medicine-name-input">
               Medicine Name <br>
-              <input id="medicine-name-input" placeholder="Enter medicine name here" type="text" required>
+              <input id="medicine-name-input" class="medicine-name-input" placeholder="Enter medicine name here" type="text" required>
             </label>
 
             <label for="medicine-description-input">
               Description <br>
-              <input id="medicine-description-input" placeholder="Enter medicine description here" type="text" required>
+              <input id="medicine-description-input" class="medicine-description-input" placeholder="Enter medicine description here" type="text" required>
             </label>
 
-            <div class="add-medicine-form__group">
+            <div class="medicine-form__group">
               <!-- dosage input & select medicine type -->
               <label for="dosage-input">
                 Dosage <br>
-                <input id="dosage-input" placeholder="Enter dosage here" type="number" required>
+                <input id="dosage-input" class="dosage-input" placeholder="Enter dosage here" type="number" required>
               </label>
 
               <label for="select-medicine-type">
                 Type <br>
-                <select id="select-medicine-type" name="select-medicine-type" required>
+                <select id="select-medicine-type" name="select-medicine-type" class="select-medicine-type" required>
                   <option value="">Medicine Type</option>
                   <option value="deworm">Deworm</option>
                   <option value="iron supplement">Iron Supplement</option>
@@ -230,25 +157,66 @@
               </label>
             </div>
 
-            <div class="add-medicine-form__group">
+            <div class="medicine-form__group">
               <label for="medicine-quantity-input">
                 Quantity <br>
-                <input id="medicine-quantity-input" placeholder="Enter quantity here" type="number" required>
+                <input id="medicine-quantity-input" class="medicine-quantity-input" placeholder="Enter quantity here" type="number" required>
               </label>
 
               <label for="expiration-date-input">
                 Expiration Date <br>
-                <input id="expiration-date-input" type="text" placeholder="Enter expiry date here"
+                <input id="expiration-date-input" class="expiration-date-input" type="text" placeholder="Enter expiry date here"
                   onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" required>
               </label>
             </div>
 
-            <div class="add-medicine-form__buttons-container">
+            <div class="medicine-form__buttons-container">
               <button class="cancel-btn" type="button">Cancel</button>
               <button class="add-btn" type="submit">Add</button>
             </div>
           </form>
-          
+
+          <!-- edit medicine form -->
+          <form id="edit-medicine-form" class="edit-medicine-form medicine-form">
+            <h1 class="medicine-form__heading">Edit Medicine Form</h1>
+
+            <label for="medicine-name-input">
+              Medicine Name <br>
+              <input id="medicine-name-input" class="medicine-name-input" placeholder="Enter medicine name here" type="text" required>
+            </label>
+
+            <label for="medicine-description-input">
+              Description <br>
+              <input id="medicine-description-input" class="medicine-description-input" placeholder="Enter medicine description here" type="text" required>
+            </label>
+
+            <div class="medicine-form__group">
+              <!-- dosage input -->
+              <label for="dosage-input">
+                Dosage <br>
+                <input id="dosage-input" class="dosage-input" placeholder="Enter dosage here" type="number" required>
+              </label>
+            </div>
+
+            <div class="medicine-form__group">
+              <label for="medicine-quantity-input">
+                Quantity <br>
+                <input id="medicine-quantity-input" class="medicine-quantity-input" placeholder="Enter quantity here" type="number" required>
+              </label>
+
+              <label for="expiration-date-input">
+                Expiration Date <br>
+                <input id="expiration-date-input" class="expiration-date-input" type="text" placeholder="Enter expiry date here"
+                  onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" required>
+              </label>
+            </div>
+
+            <div class="medicine-form__buttons-container">
+              <button class="cancel-btn" type="button">Cancel</button>
+              <button class="update-btn" type="submit">Update</button>
+            </div>
+          </form>
+       
           <!-- inventory table -->         
           <div class="inventory-table">
             <!-- table head -->
@@ -270,13 +238,9 @@
          <!-- ========== Settings Section ========== -->
         <section id="setting-section" class="hide">
           <h1 class="section__heading">Setting</h1>
-          <div class="settings-container">
-            <div class="settings-container__header">
-              <p class="settings-container__header-heading">Profile</p>
-              <button class="settings-container__header-logout-btn">Logout</button>
-            </div>
-            <form id="settings-form" class="settings-container__details-list"><!-- Content render to setup-setting-section.js--></form>
-          </div> 
+          <form id="setting-form" class="setting-form">
+            
+          </form>
         </section>
       </div>
     </main>

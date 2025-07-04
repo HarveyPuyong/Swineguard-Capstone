@@ -49,7 +49,8 @@
         <div class="header__admin-profile">
           <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
           <p class="header__admin-profile-label">Admin</p>
-          <i class="drop-down-icon fas fa-chevron-down "></i>
+          <i class="header__toggle-logout-btn drop-down-icon fas fa-chevron-down"></i>
+          <button class="header__logout-btn">Logout</button>
         </div>
     </header>
 
@@ -492,7 +493,7 @@
         </section>
 
         <!-- ========== Swines Section ========== -->
-        <section id="swines-section" class="show">
+        <section id="swines-section" class="hide">
           <!-- Swine Section: Table contents -->
           <div class="swines-section__table-contents">
             <h1 class="section__heading">Swines Table</h1>
@@ -647,15 +648,17 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-        <section id="appointments-section" class="hide">
+        <section id="appointments-section" class="show">
           <!-- Appointment Section: Table contents -->
           <div class="appointment-table-content show">
             <h1 class="section__heading">Appointments</h1>
 
             <!-- search appointment -->
-            <div class="appointment-section__search">
-              <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
-              <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+            <div class="appointments-section__search-and-add-btn">
+              <div class="appointment-section__search">
+                <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+                <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+              </div>
             </div>
 
             <!-- filter and view-sched container -->
@@ -669,10 +672,11 @@
                 <option value="removed">Archive</option>
               </select>
               <button class="appointment-section__view-schedules-btn view-navigate-btn">View Schedules</button>
+              <button class="appointments-section__view-report-btn view-navigate-btn">Generate Report</button>
             </div>
 
             <!-- generate-report-btn -->
-            <button class="appointments-section__generate-report-btn">Generate Report</button>
+            
                           
             <!-- Appointment Table -->
             <div class="appointment-table">
@@ -765,7 +769,7 @@
           </div>
 
           <!-- Appointment Section: Schedule calendar contents -->
-          <div class="appointment-schedule-content show">
+          <div class="appointment-schedule-content">
             <h1 class="section__heading">Appointments Schedule</h1>
             <div class="view-btns-container">
               <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>

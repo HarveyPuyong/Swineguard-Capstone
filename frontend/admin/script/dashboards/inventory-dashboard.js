@@ -1,10 +1,11 @@
 import toPercent from "../../utils/toPercent.js";
-import formatItemStatus from './../../utils/formatItemStatus.js'
+import formatItemStatus from './../../utils/format-item-status.js';
+import api from '../../utils/axiosConfig.js';
 
 
 const inventoryDashboard = async () => {
   try {
-    const response = await axios.get('http://localhost:2500/inventory/all', { withCredentials: true });
+    const response = await api.get('/inventory/all');
 
     const inventory = response?.data;
 

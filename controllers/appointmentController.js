@@ -24,7 +24,8 @@ exports.addAppointment = async (req, res) => {
         swineAge, 
         swineMale, 
         swineFemale, 
-        appointmentType
+        appointmentType,
+        appointmentStatus
     } = req.body;
 
     // Validate text only and not allow emojis
@@ -108,7 +109,7 @@ exports.addAppointment = async (req, res) => {
         swineSymptoms, 
         swineAge, 
         swineMale, 
-        swineFemale,
+        swineFemale
     };
 
     try {
@@ -205,13 +206,13 @@ exports.acceptAppointment = async (req, res) => {
 // Reschedule appointment
 exports.rescheduleAppointment = async (req, res) => {
     try {
-        const appointmentId = req.params.id;
+        const {id} = req.params;
 
         // Check Object Id if exist or valid
-        if(!isValidAppointmentId(appointmentId)) return res.status(400).json({ message: 'Invalid Appointment Id.' });
+        if(!isValidAppointmentId(id)) return res.status(400).json({ message: 'Invalid Appointment Id.' });
 
         const update = await appointmentDB.findByIdAndUpdate(
-            appointmentId,
+            id,
             { appointmentStatus: "reschedule" },
             { new: true }
         );

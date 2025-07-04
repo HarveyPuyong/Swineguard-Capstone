@@ -56,6 +56,40 @@
   cursor: pointer;
 }
 
+
+/* inventory sorting */
+.inventory-sorting{
+  position: absolute;
+  right: 290px;
+  top: 30px;
+  display: flex;
+  gap: 15px;
+  width: 250px;
+  border-radius: 8px;
+  padding: 10px 0;
+  padding-left: 10px;
+  border: 1px solid #0F7E43;
+  background-color: #2FC375;
+  color: white;
+}
+
+.inventory-sorting__label{
+  font-weight: 600;
+}
+
+.inventory-sorting__select{
+  border: none;
+  width: 65%;
+  cursor: pointer;
+  background-color: transparent;
+  color: rgb(61, 61, 61);
+}
+.inventory-sorting__select:focus{
+  outline: none;
+  border: none;
+}
+
+/* inventory filter */
 .filter-inventory-status{
    --color: black; 
   --BGcolor: white;
@@ -78,8 +112,8 @@
   border: 1px solid var(--color);
 }
 
-/* Add medicine form */
-.add-medicine-form{
+/*medicine form */
+.medicine-form{
   display: none;
   position: fixed;
   top: 52%;
@@ -98,34 +132,43 @@
 }
 
 .add-medicine-form.show{
+  display: block;
+}
+
+.edit-medicine-form.show{
+  display: block;
+}
+
+
+.medicine-form.show{
   display: flex;
 }
 
-.add-medicine-form__heading{
+.medicine-form__heading{
   text-align: center;
   margin-bottom: 30px;
 }
 
-.add-medicine-form label{
+.medicine-form label{
   color: var(--main-color);
   font-weight: 500;
   width: 100%;
 }
 
-.add-medicine-form input, 
-.add-medicine-form select{
+.medicine-form input, 
+.medicine-form select{
   padding: 6px;
   width: 100%;
   margin-top: 5px;
   border: 1px solid black;
 }
 
-.add-medicine-form__group{
+.medicine-form__group{
   display: flex;
   gap: 50px;
 }
 
-.add-medicine-form__buttons-container{
+.medicine-form__buttons-container{
   position: absolute;
   bottom: 35px;
   right: 50px;
@@ -133,7 +176,7 @@
   gap: 15px;
 }
 
-.add-medicine-form__buttons-container button{
+.medicine-form__buttons-container button{
   color: var(--color);
   background-color: var(--bg-color);
   border: 1px solid var(--color);
@@ -143,12 +186,13 @@
   cursor: pointer;
 }
 
-.add-medicine-form__buttons-container button.cancel-btn{
+.medicine-form__buttons-container button.cancel-btn{
   --color: #FF0000;
   --bg-color: #EECDCD;
 }
 
-.add-medicine-form__buttons-container button.add-btn{
+.medicine-form__buttons-container button.add-btn,
+.medicine-form__buttons-container button.update-btn{
   --color: #009947;
   --bg-color: #B0DDC5;
 }
@@ -195,7 +239,7 @@
 
 .inventory-table__tbody{
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   gap: 10px;
   overflow-y: scroll;
   overflow-x: hidden;

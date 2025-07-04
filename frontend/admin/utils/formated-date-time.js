@@ -2,7 +2,6 @@ function formattedDate(date) {
    return new Date(date).toISOString().split('T')[0];
 }
 
-
 function formatTo12HourTime(time24) {
   if (!time24) return '';
 
@@ -15,4 +14,5 @@ function formatTo12HourTime(time24) {
   return `${hour12}:${minuteStr.padStart(2, '0')} ${period}`;
 }
 
-export {formattedDate, formatTo12HourTime};
+
+export {formattedDate, formatTo12HourTime };
