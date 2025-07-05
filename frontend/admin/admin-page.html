@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="styles/sections-style/swines-section.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <link rel="stylesheet" href="styles/sections-style/inventory-section.css">
-    <link rel="stylesheet" href="styles/sections-style/technician-section.css">
+    <link rel="stylesheet" href="styles/sections-style/staff-section.css">
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
 
     <!-- Chart.js CDN -->
@@ -55,7 +55,7 @@
  
         <div class="header__admin-profile">
           <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
-          <p class="header__admin-profile-label">Inventory Coordinator</p>
+          <p class="header__admin-profile-label">Administrator</p>
           <i class="header__toggle-logout-btn drop-down-icon fas fa-chevron-down"></i>
           <button class="header__logout-btn">Logout</button>
         </div>
@@ -655,7 +655,7 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-        <section id="appointments-section" class="show">
+        <section id="appointments-section" class="hide">
           <!-- Appointment Section: Table contents -->
           <div class="appointment-table-content show">
             <h1 class="section__heading">Appointments</h1>
@@ -779,7 +779,7 @@
           <div class="appointment-schedule-content">
             <h1 class="section__heading">Appointments Schedule</h1>
             <div class="view-btns-container">
-              <button class="appointment-section__view-technicians-btn view-navigate-btn">View Technicians</button>
+              <button class="appointment-section__view-technicians-btn view-navigate-btn">View Staff</button>
               <button class="appointment-section__view-appointments-table-btn view-navigate-btn">View Table</button>
             </div>
 
@@ -947,77 +947,262 @@
           </div>       
         </section>
 
-        <!-- ========== Technecians Section ========== -->
-        <section id="technicians-section" class="hide">
-          <h1 class="section__heading">Technicians</h1>
-          <button class="technicians-section__view-sched-btn">View Schedules</button>
-          <div class="technician-list-container">
-            <div class="technician">
-              <div class="technician__profile">
-                <img class="technician__profile-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="technician-img">
-                <p class="technician__profile-name">John Harvey Puyong</p>
-                <p class="technician__profile-position">Technician |</p>
-              </div>
-              <div class="technician__task">
-                <h4 class="technician__task-heading">Task:</h4>
-                <div class="task-card">
-                  <div class="task-card__group">
-                    <p class="task-card__task-name">
-                      <span class="task-card__label">Task:</span>
-                      <span class="task-card__value">Deworming</span>
-                    </p>
-                    <p class="task-card__task-location">
-                      <span class="task-card__label">Location:</span>
-                      <span class="task-card__value">Santol, Boac</span>          
-                    </p>
-                  </div>
-                  <p class="task-card__task-type">Service</p>
-                  <div class="task-card__group">
-                    <p class="task-card__task-date">
-                      <span class="task-card__label">Date:</span>
-                      <span class="task-card__value">May 9, 2025</span> 
-                    </p>
-                    <p class="task-card__task-time">
-                      <span class="task-card__label">Time:</span>
-                      <span class="task-card__value">11:30 AM</span>                       
-                    </p>
-                  </div>
+        <!-- ========== Staff Section ========== -->
+        <section id="staff-section" class="show">
+          <h1 class="section__heading">Staff</h1>
+          
+          <!-- section buttons container -->
+          <div class="staff-section__buttons-container">
+            <button class="staff-section__toggle-add-staff-form">Add Staff</button>
+            <button class="staff-section__view-appointments-calendar">View Appointments Calendar</button>
+          </div>
+
+          <!-- Add Staff Form -->
+          <form class="add-staff-form">
+            <h1 class="add-staff-form__heading">Add Staff</h1>
+
+            <!-- Full name group -->
+            <div class="add-staff-form__group">
+              <label for="first-name">
+                <span class="label-value">First name:</span> <br>
+                <input id="first-name" name="firstName" class="first-name-input" type="text" required>
+              </label>
+              <label for="middle-name">
+                <span class="label-value">Middle name:</span> <br>
+                <input id="middle-name" name="middleName" class="middle-name-input" type="text">
+              </label>
+              <label for="last-name">
+                <span class="label-value">Last name:</span> <br>
+                <input id="last-name" name="lastName" class="last-name-input" type="text" required>
+              </label>
+              <label for="suffix" class="suffix">
+                <span class="label-value">Suffix:</span> <br>
+                <input id="suffix" name="suffix" class="suffix-input" type="text">
+              </label>
+            </div>
+
+            <!-- Gender, Role, Municipality, Barangay -->
+            <div class="add-staff-form__group">
+              <label for="gender" class="gender">
+                <span class="label-value">Gender:</span> <br>
+                <select id="gender" name="gender" required>
+                  <option value="">Select</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                </select>
+              </label>
+
+              <label for="role">
+                <span class="label-value">Role:</span> <br>
+                <select id="role" name="role" required>
+                  <option value="">Select</option>
+                  <option value="technician">Technician</option>
+                  <option value="veterinarian">Veterinarian</option>
+                  <option value="appointment_coordinator">Appointment Coordinator</option>
+                  <option value="inventory_coordinator">Inventory Coordinator</option>
+                  <option value="administrator">Administrator</option>
+                </select>
+              </label>
+
+              <label for="municipality">
+                <span class="label-value">Municipality:</span> <br>
+                <select id="municipality" name="municipality" required>
+                  <option value="">Select</option>
+                  <!-- Add municipality options here -->
+                </select>
+              </label>
+
+              <label for="barangay">
+                <span class="label-value">Barangay:</span> <br>
+                <select id="barangay" name="barangay" required>
+                  <option value="">Select</option>
+                  <!-- Add barangay options here -->
+                </select>
+              </label>
+            </div>
+
+            <!-- Phone and Email -->
+            <div class="add-staff-form__group">
+              <label for="phone">
+                <span class="label-value">Phone:</span> <br>
+                <input id="phone" class="phone-input" name="phone" type="tel" pattern="[0-9]{10,}" placeholder="63+" required>
+              </label>
+              <label for="email">
+                <span class="label-value">Email:</span> <br>
+                <input id="email" class="email-input" name="email" type="email" placeholder="@gmail.com" required>
+              </label>
+            </div>
+
+            <!-- Password and Confirm Password -->
+            <div class="add-staff-form__group">
+              <label for="password"  class="password">
+                <span class="label-value">Password:</span> <br>
+                <input id="password" class="password-input" name="password" type="password" required>
+                <img class="toggle-password-eye" src="./images-and-icons/icons/password-eye.png" alt="toggle-password" id="togglePassword">
+                <div class="eye-slash"></div>
+              </label>
+              <label for="confirm-password" class="confirm-password">
+                <span class="label-value">Confirm password:</span> <br>
+                <input id="confirm-password" class="confirm-password-input" name="confirmPassword" type="password" required>
+                <img class="toggle-password-eye" src="./images-and-icons/icons/password-eye.png" alt="toggle-password" id="togglePassword">
+                <div class="eye-slash"></div>
+              </label>
+            </div>
+
+            <!-- Buttons -->
+            <div class="add-staff-form__buttons-group">
+              <button type="button" class="cancel-btn">CANCEL</button>
+              <button type="submit" class="create-btn">CREATE</button>
+            </div>
+          </form>
+ 
+          <!-- Staff Card List -->
+          <div class="staff-section__staff-card-list show">
+            <div class="staff-card">
+              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
+              <div class="staff-card__details-container">
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Name:</span>
+                  <span class="staff-card__detail--value">John Harvey Puyong</span>
                 </div>
-                <p class="technician__task-availability-status">AVAILABLE</p>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Position:</span>
+                  <span class="staff-card__detail--value">Inventory Coordinator</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Contact:</span>
+                  <span class="staff-card__detail--value">09123456789</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Adress:</span>
+                  <span class="staff-card__detail--value">Maligaya, Boac</span>
+                </div>
               </div>
             </div>
-            <div class="technician">
-              <div class="technician__profile">
-                <img class="technician__profile-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="technician-img">
-                <p class="technician__profile-name">Robert Magno</p>
-                <p class="technician__profile-position">Technician ||</p>
-              </div>
-              <div class="technician__task">
-                <h4 class="technician__task-heading">Task:</h4>
-                <div class="task-card">
-                  <div class="task-card__group">
-                    <p class="task-card__task-name">
-                      <span class="task-card__label">Task:</span>
-                      <span class="task-card__value">Deworming</span>
-                    </p>
-                    <p class="task-card__task-location">
-                      <span class="task-card__label">Location:</span>
-                      <span class="task-card__value">Santol, Boac</span>          
-                    </p>
-                  </div>
-                  <p class="task-card__task-type">Service</p>
-                  <div class="task-card__group">
-                    <p class="task-card__task-date">
-                      <span class="task-card__label">Date:</span>
-                      <span class="task-card__value">May 9, 2025</span> 
-                    </p>
-                    <p class="task-card__task-time">
-                      <span class="task-card__label">Time:</span>
-                      <span class="task-card__value">11:30 AM</span>                       
-                    </p>
-                  </div>
+            <div class="staff-card">
+              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
+              <div class="staff-card__details-container">
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Name:</span>
+                  <span class="staff-card__detail--value">John Harvey Puyong</span>
                 </div>
-                <p class="technician__task-availability-status">NOT AVAILABLE</p>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Position:</span>
+                  <span class="staff-card__detail--value">Inventory Coordinator</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Contact:</span>
+                  <span class="staff-card__detail--value">09123456789</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Adress:</span>
+                  <span class="staff-card__detail--value">Maligaya, Boac</span>
+                </div>
+              </div>
+            </div>
+            <div class="staff-card">
+              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
+              <div class="staff-card__details-container">
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Name:</span>
+                  <span class="staff-card__detail--value">John Harvey Puyong</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Position:</span>
+                  <span class="staff-card__detail--value">Inventory Coordinator</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Contact:</span>
+                  <span class="staff-card__detail--value">09123456789</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Adress:</span>
+                  <span class="staff-card__detail--value">Maligaya, Boac</span>
+                </div>
+              </div>
+            </div>
+            <div class="staff-card">
+              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
+              <div class="staff-card__details-container">
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Name:</span>
+                  <span class="staff-card__detail--value">John Harvey Puyong</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Position:</span>
+                  <span class="staff-card__detail--value">Inventory Coordinator</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Contact:</span>
+                  <span class="staff-card__detail--value">09123456789</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Adress:</span>
+                  <span class="staff-card__detail--value">Maligaya, Boac</span>
+                </div>
+              </div>
+            </div>
+            <div class="staff-card">
+              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
+              <div class="staff-card__details-container">
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Name:</span>
+                  <span class="staff-card__detail--value">John Harvey Puyong</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Position:</span>
+                  <span class="staff-card__detail--value">Inventory Coordinator</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Contact:</span>
+                  <span class="staff-card__detail--value">09123456789</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Adress:</span>
+                  <span class="staff-card__detail--value">Maligaya, Boac</span>
+                </div>
+              </div>
+            </div>
+            <div class="staff-card">
+              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
+              <div class="staff-card__details-container">
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Name:</span>
+                  <span class="staff-card__detail--value">John Harvey Puyong</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Position:</span>
+                  <span class="staff-card__detail--value">Inventory Coordinator</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Contact:</span>
+                  <span class="staff-card__detail--value">09123456789</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Adress:</span>
+                  <span class="staff-card__detail--value">Maligaya, Boac</span>
+                </div>
+              </div>
+            </div>
+            <div class="staff-card">
+              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
+              <div class="staff-card__details-container">
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Name:</span>
+                  <span class="staff-card__detail--value">John Harvey Puyong</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Position:</span>
+                  <span class="staff-card__detail--value">Inventory Coordinator</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Contact:</span>
+                  <span class="staff-card__detail--value">09123456789</span>
+                </div>
+                <div class="staff-card__detail">
+                  <span class="staff-card__detail--label">Adress:</span>
+                  <span class="staff-card__detail--value">Maligaya, Boac</span>
+                </div>
               </div>
             </div>
           </div>
