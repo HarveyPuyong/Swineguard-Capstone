@@ -309,6 +309,7 @@
   background-color: #D2D2D2;
   padding: 0.7rem 0;
   border-radius: 8px;
+  text-transform: capitalize;
 }
 
 .appointment-table__tbody .appointment__details{
@@ -358,6 +359,10 @@
 
 .column__detail-value {
   color: rgba(0, 0, 0, 0.8);
+}
+
+.column__detail-value.email{
+  text-transform: none;
 }
 
 /* appointment more details buttons */

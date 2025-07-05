@@ -1,7 +1,11 @@
 import { formattedDate, formatTo12HourTime } from './../../utils/formated-date-time.js';
 import api from '../../utils/axiosConfig.js';
 
-const appointmentCalendar = async () => {
+
+// ======================================
+// ========== Render Calendar
+// ======================================
+const renderAppointmentCalendar = async () => {
   const appointmentCalendarElement = document.getElementById('appointment-schedule-calendar');
 
   try {
@@ -18,7 +22,6 @@ const appointmentCalendar = async () => {
       appointmentTime: appointment.appointmentTime,
       appointmentAdress: `${appointment.municipality}, ${appointment.barangay}`,
     }));
-
 
     // calendar
     const calendar = new FullCalendar.Calendar(appointmentCalendarElement, {
@@ -48,4 +51,45 @@ const appointmentCalendar = async () => {
   }
 };
 
-export default appointmentCalendar;
+
+// ======================================
+// ========== Compute Appointments TYpes
+// ======================================
+const computeVisitAndServicePercentages = async () => {
+  try {
+    const response = await api.get('/appointment/all', { withCredentials: true });
+    const appointments = response?.data;
+
+    const total = appointments.length;
+
+    let serviceCount = 0;
+    let visitCount = 0;
+
+    appointments.forEach(appointment => {
+      if (appointment.appointmentType === 'Service' || appointment.appointmentType === 'service') {
+        serviceCount++;
+      } else if (appointment.appointmentType === 'Visit' || appointment.appointmentType === 'visit') {
+        visitCount++;
+      }
+    });
+
+    const servicePercent = Math.round((serviceCount / total) * 100);
+    const visitPercent = Math.round((visitCount / total) * 100);
+
+    document.querySelector('.total-service-type .appointment-schedule-container__total--value').innerHTML = `${servicePercent}<span class="percent-value">%</span>`;
+    document.querySelector('.total-visit-type .appointment-schedule-container__total--value').innerHTML = `${visitPercent}<span class="percent-value">%</span>`;
+
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+
+
+
+
+export default  function handleAppointmentCalendarContent (){
+  renderAppointmentCalendar();
+  computeVisitAndServicePercentages()
+}
+

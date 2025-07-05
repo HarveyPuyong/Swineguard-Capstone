@@ -76,7 +76,7 @@ function renderAppointmentsTable(appointments, table) {
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Email:</span>
-                  <span class="column__detail-value">${appointment.clientEmail}</span>
+                  <span class="column__detail-value email">${appointment.clientEmail}</span>
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Phone:</span>

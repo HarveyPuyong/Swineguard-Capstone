@@ -1,4 +1,5 @@
-import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
+import updateSidenav from "../../utils/updateSidenav.js";
+import handleAppointmentCalendarContent from "../appointments/appointment-calendar.js"
 
 
 // ======================================
@@ -21,6 +22,7 @@ const viewAppointmentSchedule = () => {
       appointmentTableContent.classList.remove('show');
       appointmentSchedContent.classList.add('show');
       updateSidenav();
+      handleAppointmentCalendarContent();
   });
 }
 

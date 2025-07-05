@@ -8,7 +8,7 @@ import handleRemoveAppointment from "./remove-appointment.js";
 import {handleCompleteAppointment,
         handleRestoreAppointment,
         handleDeleteAppointment,} from "./complete-restore-delete-appointment.js";
-import appointmentCalendar from "./appointment-calendar.js"
+import handleAppointmentCalendarContent from "./appointment-calendar.js"
 import populateMedicine from "../../api/getMedicine.js"
 
 
@@ -183,7 +183,7 @@ const viewBtnsFunctionality = () => {
     .addEventListener('click', () => {
       appointmentTableContent.classList.remove('show');
       appointmentSchedContent.classList.add('show');
-      appointmentCalendar();
+      handleAppointmentCalendarContent();
   });
 
   const viewTableBtn = document.querySelector('.appointment-section__view-appointments-table-btn')
