@@ -10,7 +10,6 @@ const showConversation = () => {
     const contactList = document.querySelectorAll('.sidebar-chat-panel .chat-list__user');
 
     contactList.forEach(user => {
-      console.log(user);
       user.addEventListener('click', () => {
         const chatboxConvo = document.querySelector('.chat-box__main-contents');
         const chatboxDescription = document.querySelector('.chat-box__description');

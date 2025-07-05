@@ -7,7 +7,7 @@ const {editUserDetails, addTechnician} = require('./../controllers/userControlle
 const {getUsers, getUser} = require('./../controllers/getUsersController')
 
 
-router.post('/add/technician', verifyJWT, addTechnician); 
+router.post('/add/technician', verifyJWT,  verifyRoles(ROLE_LIST.Admin), addTechnician); 
 
 router.put('/edit/:id', verifyJWT, editUserDetails);
 

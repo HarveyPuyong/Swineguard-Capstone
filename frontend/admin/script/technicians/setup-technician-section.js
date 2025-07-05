@@ -1,5 +1,6 @@
 import updateSidenav from "../../utils/updateSidenav.js";
-import handleAppointmentCalendarContent from "../appointments/appointment-calendar.js"
+import handleAppointmentCalendarContent from "../appointments/appointment-calendar.js";
+import handleRenderTechnicians from "./display-technicians.js";
 
 
 // ======================================
@@ -32,4 +33,5 @@ const viewAppointmentSchedule = () => {
 // ======================================
 export default function setupTechniciansSection() {
   viewAppointmentSchedule();
+  handleRenderTechnicians()
 }
