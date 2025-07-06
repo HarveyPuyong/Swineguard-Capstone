@@ -295,15 +295,7 @@
   display: block;
 }
 
-.report-contents__select-and-btn-container{
-  position: absolute;
-  right: 55px;
-  top: 20px;
 
-  display: flex;
-  flex-direction: column;
-  gap: 8px
-}
 
 .report-contents__select-and-btn-container button,
 .report-contents__select-and-btn-container .swine-section__select-month{
@@ -314,65 +306,6 @@
   cursor: pointer;
 }
 
-.report-contents__select-and-btn-container .swine-section__select-month{
-  border: 1px solid black;
-}
-
-.swine-section__back-to-table-btn{
-  display: none;
-  border: 1px solid black;
-  background-color: white;
-}
-
-.swine-section__back-to-table-btn.show{
-  display: block;
-}
-
-.swine-section__download-report-btn{
-  display: none;
-  background-color: #2FC375;
-  color: white;
-  border: 1px solid #0F7E43;
-}
-
-.swine-section__download-report-btn.show{
-  display: block;
-}
 
 
-/* Description */
-#swines-section .report-contents__description{
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  color: #888888;
-  font-size: 2.3rem;
-  line-height: 1.3em;
-}
 
-#swines-section .report-contents__description.show{
-  display: block;
-}
-
-
-/* Report Container */
-#swines-section .report-container{
-  display: none;
-  margin-top: 60px;
-}
-
-#swines-section .report-container.show{
-  display: block;
-}
-
-.report-container__month{
-  margin-bottom: 12px;
-}
-
-.report-container__caption{
-  font-size: 1.3rem;
-  font-weight: 500;
-  color: #000000c3;
-}

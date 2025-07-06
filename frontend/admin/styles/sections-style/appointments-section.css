@@ -818,7 +818,14 @@
 }
 
 
-
+/* Reports Contnent */
 .appointment-section__report-contents{
   display: none;
 }
+
+.appointment-section__report-contents.show{
+  display: block;
+}
+
+
+
