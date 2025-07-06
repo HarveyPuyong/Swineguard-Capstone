@@ -1,0 +1,185 @@
+button.toggle-add-services-form{
+  position: absolute;
+  right: 55px;
+  top: 20px;
+  border: 1.5px solid #0F7E43;
+  background-color: #2FC375;
+  color: white;
+  border-radius: 8px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+
+/* Services List */
+.services-list{
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+  background-color: white;
+  height: 500px;
+  max-height: 500px;
+  border: 2px solid #9A9A9A;
+  border-radius: 7px;
+  margin-top: 60px;
+  padding: 20px 80px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+}
+
+.service-card{
+  position: relative;
+  display: flex;
+  gap: 40px;
+  background-color: #D2D2D2;
+  border-radius: 7px;
+  padding: 20px 50px;
+  height: 220px;
+  width: 100%;
+}
+
+.service-card__image,
+.service-card__description{
+  background-color: #2FC375;
+  border-radius: 5px;
+  height: 100%;
+  padding: 15px 30px;
+}
+
+.service-card__image img{
+  max-width: 100px;
+  margin-bottom: 15px;
+}
+
+.service-card__label{
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: white;
+  text-align: center;
+}
+
+.service-card__name-and-description{
+  width: 100%;
+}
+
+.service-card__name{
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.service-card__description{
+  --height: 145px;
+  height: var(--height);
+  max-height: var(--height);
+}
+
+.service-card__description--label{
+  font-weight: 600;
+}
+
+.service-card__description--value{
+  line-height: 1.5em;
+}
+
+.service-card__edit-btn{
+  position: absolute;
+  top: 10px;
+  right: 50px;
+  border: 1.3px solid black;
+  border-radius: 3px;
+  padding: 3px 25px;
+  cursor: pointer;
+}
+
+
+/* Service Form */
+.service-form{
+  display: none;
+  flex-direction: column;
+  gap: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 10px;
+  padding: 20px 50px;
+  z-index: 100;
+}
+
+#add-service-form.show{
+  display: flex
+}
+
+#edit-service-form.show{
+  display: flex;
+}
+
+.service-form__heading{
+  text-align: center;
+  font-size: 1.7rem;
+  margin-bottom: 3rem;
+}
+
+.service-form__upload-image-btn{
+  border: 1px solid black;
+  background: rgb(229, 229, 229);
+  width: fit-content;
+  text-align: center;
+  padding: 15px 50px;
+  border-radius: 5px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+
+.service-form__upload-image-btn .image-upload-icon{
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.service-form__upload-image-btn .upload-label{
+  word-spacing: 10rem;
+}
+
+.service-form input, 
+.service-form textarea{
+  width: 100%;
+  margin-top: 3px;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.service-form label .label-txt{
+  font-weight: 600;
+}
+
+.service-form__buttons-container{
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.service-form__buttons-container button{
+  padding: 7px 0;
+  width: 100px;
+  font-weight: 600;
+  color: var(--color);
+  border: 1px solid var(--color);
+  background-color: var(--bg-color);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.service-form__cancel-btn{
+  --color: #EB3636;
+  --bg-color: #FCBBBB;
+}
+
+.service-form__create-btn, 
+.service-form__save-btn{
+  --color: #0F7E43;
+  --bg-color: #97e9bd;
+}
