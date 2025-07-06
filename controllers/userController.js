@@ -76,13 +76,12 @@ const editUserDetails = async (req, res) => {
 const addTechnician = async (req, res) => {
     // nakuha yung json laman ng req.body
     const {firstName, middleName,lastName, suffix,
-            municipality, barangay, contactNum } = req.body;
-
-    const email = 'No Email';
-    const password = 'pvet_tech';
+            municipality, barangay, contactNum,
+            email, password, confirmPassword 
+        } = req.body;
     
     //ito yung mga required inputs hindi kasama yung suffix kasi optional lang naman yon
-    const requiredInputs = [firstName, middleName, lastName, municipality, barangay, contactNum ];
+    const requiredInputs = [firstName, middleName, lastName, municipality, barangay, contactNum, email, password, confirmPassword];
 
     //ga error kapag hindi na fillupan yung mga required inputs
     if (requiredInputs.some(input => !input)) return res.status(400).json({ message: 'Please fill out all required fields'});
@@ -99,6 +98,9 @@ const addTechnician = async (req, res) => {
     // Check if the technician is already existed
     if(duplicateFullname) return res.status(409).json({message: "Full name already in use. Try changing the first, middle, or last name"});
 
+    //na check kung yung password at confirmPassword ay tama
+    if(password.trim() !== confirmPassword.trim()) return res.status(400).json({message: 'Passowords does not match'});
+
     // hash password
     const hashPassword = await bcrypt.hash(password, 10);
 
@@ -114,7 +116,8 @@ const addTechnician = async (req, res) => {
         "contactNum": contactNum,
         "email": email,
         "password": hashPassword,
-        "roles": [ROLE_LIST.Technician]
+        "roles": [ROLE_LIST.Technician],
+        "isRegistered": true
         }
     );
 
