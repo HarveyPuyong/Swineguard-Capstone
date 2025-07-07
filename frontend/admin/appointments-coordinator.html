@@ -88,10 +88,10 @@
             <div class="dashboard__cards-container"> <!-- Dashboards cards render in dashboards/appointment-dashboard.js --></div>
           </div>
 
-          <!-- Ongoing Appointment Table -->
+          <!-- Accepted Appointment Table -->
           <div class="dashboard-section__table-container">
-            <h1 class="dashboard-section__table-container-heading">Today Ongoing Appointment</h1>
-             <div class="ongoing-appointment-table appointment-table">
+            <h1 class="dashboard-section__table-container-heading">Today Accepted Appointment</h1>
+             <div class="accepted-appointment-table appointment-table">
               <div class="appointment-table__thead"> <!-- table head -->
                 <p class="th first-name">First Name</p>
                 <p class="th last-name">Last Name</p>
@@ -101,7 +101,7 @@
                 <p class="th action">Action</p>
                 <p class="th toggle-more-details-btn"><!--View button head--></p> 
               </div>
-              <div class="appointment-table__tbody"><!--Ongoing appointments render in dashboard/displayOngoingAppointments.js--></div>
+              <div class="appointment-table__tbody"><!--Accepted appointments render in dashboard/displayAcceptedAppointments.js--></div>
             </div>
           </div>
         </section>
@@ -136,7 +136,7 @@
               <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
                 <option value="all">All</option>
                 <option value="completed">Completed</option>
-                <option value="ongoing">Ongoing</option>
+                <option value="accepted">Accepted</option>
                 <option value="reschedule">Reschedule</option>
                 <option value="pending">Pending</option>
                 <option value="removed">Archive</option>
