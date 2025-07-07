@@ -4,6 +4,7 @@ const ROLE_LIST = {
   "AppointmentCoordinator": "appointmentCoordinator",
   "InventoryCoordinator": "inventoryCoordinator",
   "Technician": "technician",
+  "Veterinarian": "veterinarian",
 }
 
 module.exports = ROLE_LIST;

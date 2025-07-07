@@ -8,8 +8,10 @@ import handleRemoveAppointment from "./remove-appointment.js";
 import {handleCompleteAppointment,
         handleRestoreAppointment,
         handleDeleteAppointment,} from "./complete-restore-delete-appointment.js";
-import handleAppointmentCalendarContent from "./appointment-calendar.js"
-import populateMedicine from "../../api/getMedicine.js"
+import handleAppointmentCalendarContent from "./appointment-calendar.js";
+import populateMedicine from "../../api/getMedicine.js";
+import populateTechnician from "../../api/getTechnicians.js";
+import populateDateAndTime from "../../api/getDateAndTime.js";
 
 
 // ======================================
@@ -289,6 +291,7 @@ const handleAppointmentSelectActions = () => {
         if(actionSelect.value === 'accept'){
           toggleAcceptAppointmentForm(actionSelect);
           handleAcceptAppointment(appointmentId);
+          populateDateAndTime(appointmentId);
         } else if(actionSelect.value === 'reschedule'){
           handleRescheduleAppointment(appointmentId);
         }
@@ -401,5 +404,6 @@ export default function setupAppointmentSection () {
   toggleAppointentMoreDetails();
   viewBtnsFunctionality();
   populateMedicine();
+  populateTechnician();
 }
 

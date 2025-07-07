@@ -3,11 +3,15 @@ const router = express.Router();
 const ROLE_LIST = require('./../config/role_list');
 const verifyRoles = require('./../middlewares/verifyRoles');
 const verifyJWT = require('./../middlewares/verifyJWT');
-const {editUserDetails, addTechnician} = require('./../controllers/userController');
+const {editUserDetails, addTechnician, addVeterinarian, getTechandVets, getAllStaffs } = require('./../controllers/userController');
 const {getUsers, getUser} = require('./../controllers/getUsersController')
 
 
 router.post('/add/technician', verifyJWT,  verifyRoles(ROLE_LIST.Admin), addTechnician); 
+router.post('/add/veterinarian', verifyJWT,  verifyRoles(ROLE_LIST.Admin), addVeterinarian); 
+
+router.get('/get/technician', verifyJWT,  verifyRoles(ROLE_LIST.AppointmentCoordinator), getTechandVets); // For appointments personnels
+router.get('/get/staff', verifyJWT,  verifyRoles(ROLE_LIST.Admin), getAllStaffs); // For All personnels
 
 router.put('/edit/:id', verifyJWT, editUserDetails);
 

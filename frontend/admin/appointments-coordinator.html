@@ -46,7 +46,7 @@
 
       <div class="header__admin-profile">
         <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
-        <p class="header__admin-profile-label">Inventory Coordinator</p>
+        <p class="header__admin-profile-label">Appointment Coordinator</p>
         <i class="header__toggle-logout-btn drop-down-icon fas fa-chevron-down"></i>
         <button class="header__logout-btn">Logout</button>
       </div>
@@ -210,7 +210,7 @@
             
             <!-- Appointment Schedule Form -->   
             <form class="appointment-schedule-form">
-              <h2 class="appointment-schedule-form__heading">Appointment Schedule Form</h2>
+              <h2 class="appointment-schedule-form__heading">Appointment Schedule Form </h2>
               <div class="appointment-schedule-form__details-columns">
                 <div class="column-left">
                   <label for="set-date">Set Date</label>
@@ -228,13 +228,7 @@
                   <label for="medicine-list">Select Medicine</label>
                   <select name="medicine-list" id="medicine-list">
                     <option value="">Select Medicine</option>
-                    <option value="iron-dextran-fedex">Iron Dextran (FeDex)</option>
-                    <option value="fenbendazole-fenbendazole">Fenbendazole</option>
-                    <option value="ivermectin-ivermectin">Ivermectin</option>
-                    <option value="vitamin-b12-vitamin-b12">Vitamin B12</option>
-                    <option value="immunocastration-immunocastration">Immunocastration</option>
-                    <option value="antibiotics-antibiotics">Antibiotics</option>
-                    <option value="espiporc-flupan-h1n1-espiporc-flupan-h1n1">Espiporc FLUpan H1N1</option>
+                    <!-- populate using getMedicine.js -->
                   </select>
 
                   <label for="medicine-amount">Medicine Dosage</label>
@@ -242,12 +236,7 @@
                   <label for="available-personnel">Avialable Personnel</label>
                   <select name="available-personnel" id="available-personnel">
                     <option value="">Personnel</option>
-                    <option value="Doc. Josue M. Victoria">Doc. Josue M. Victoria</option>
-                    <option value="Mr. Eugene Anthony J. Rozal DWM">Mr. Eugene Anthony J. Rozal DWM</option>
-                    <option value="Mr. Glenn Q. Deligero">Mr. Glenn Q. Deligero</option>
-                    <option value="Mr. Hilario O. Lanete">Mr. Hilario O. Lanete</option>
-                    <option value="Mr. Randolfo A. Largo">Mr. Randolfo A. Largo</option>
-                    <option value="Mr. Eddie Mar R. Laylay">Mr. Eddie Mar R. Laylay</option>
+                    <!-- Populate using getTechnicians.js -->
                   </select>
                 </div>
               </div>
