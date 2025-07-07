@@ -212,6 +212,8 @@ const setupAddAppointmentForm = () => {
   const municipalitySelect = document.querySelector("#add-appointments-form #municipality");
   const barangaySelect = document.querySelector("#add-appointments-form #barangay");
 
+  if(!municipalitySelect || !barangaySelect) return;
+
   const municipals = Object.keys(addressesData);
 
   municipals.forEach(municipal => {
@@ -245,12 +247,13 @@ const setupAddAppointmentForm = () => {
 // ======================================
 const toggleAddAppointmentForm = () => {
   const formContainer = document.querySelector('.add-appointment-container');
+  const closeFormBtn = document.querySelector('.add-appointment-container__close-form-btn');
+  const showFormBtn = document.querySelector('.appointment-section__add-btn');
 
-  const showFormBtn = document.querySelector('.appointment-section__add-btn')
-    .addEventListener('click', () => formContainer.classList.add('show'));
+  if(!formContainer || !closeFormBtn || !showFormBtn) return
 
-  const closeFormBtn = document.querySelector('.add-appointment-container__close-form-btn')
-    .addEventListener('click', () => formContainer.classList.remove('show'));
+  showFormBtn.addEventListener('click', () => formContainer.classList.add('show'));
+  closeFormBtn.addEventListener('click', () => formContainer.classList.remove('show'));
 }
 
 
@@ -282,6 +285,8 @@ const handleAppointmentSelectActions = () => {
 
     appointments.forEach(appointment => {
       const actionSelect = appointment.querySelector('.select-appointment-action');
+      if(!actionSelect) return;
+
       actionSelect.addEventListener('change', () => {
         const selectedOption = actionSelect.selectedOptions[0];
         const appointmentId = actionSelect.dataset.appointmentId;

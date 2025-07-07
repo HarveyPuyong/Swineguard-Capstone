@@ -15,7 +15,6 @@ const fetchUser = async () => {
   } catch (err) {
     const errStatus = err.response?.status;
 
-    // 🔁 If acess token is expired, hihingi ng bagong aaccess token gamit ang refreshToken
     if (errStatus === 403) {
       try {
         const refreshResponse = await api.get('/refresh');

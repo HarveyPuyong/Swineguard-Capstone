@@ -15,6 +15,8 @@ const handleAddAppointment = () => {
 
 
   const addAppointmentForm = document.querySelector('#add-appointments-form');
+
+  if(!addAppointmentForm) return
   
   addAppointmentForm.addEventListener('submit', async(e) => {
       e.preventDefault();

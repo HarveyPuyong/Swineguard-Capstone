@@ -4,9 +4,6 @@ import displayOngoingAppointments from './display-ongoing-appointments.js';
 import displayLessStockInventory from './display-less-stock-inventory.js';
 
 
-
-
-
 // ======================================
 // ========== Main Function - Setup Dashboard Section
 // ======================================

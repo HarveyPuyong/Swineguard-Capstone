@@ -7,6 +7,8 @@ import displayLessStockInventory from './../dashboards/display-less-stock-invent
 
 const handleAddItem = () => {
   const addItemForm = document.querySelector('#add-medicine-form');
+  
+  if(!addItemForm) return;
 
   addItemForm.addEventListener('submit', async (e) => {
     e.preventDefault();

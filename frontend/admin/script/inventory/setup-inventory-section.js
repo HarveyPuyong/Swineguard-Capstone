@@ -213,12 +213,13 @@ const handleItemButtonsActions = () => {
 // ======================================
 const toggleAddMedicineForm = () => {
   const form = document.querySelector('#add-medicine-form');
+  const showFormBtn = document.querySelector('.inventory-section__add-btn');
+  const closeFormBtn = document.querySelector('#add-medicine-form .cancel-btn');
 
-  const showFormBtn = document.querySelector('.inventory-section__add-btn')
-    .addEventListener('click', () => form.classList.add('show'));
+  if(!form || !showFormBtn || !closeFormBtn) return;
 
-  const closeFormBtn = document.querySelector('#add-medicine-form .cancel-btn')
-    .addEventListener('click', () => form.classList.remove('show'))
+  showFormBtn.addEventListener('click', () => form.classList.add('show'));
+  closeFormBtn.addEventListener('click', () => form.classList.remove('show'))
 }
 
 

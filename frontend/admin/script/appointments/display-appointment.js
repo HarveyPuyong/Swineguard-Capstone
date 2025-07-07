@@ -1,5 +1,5 @@
 import api from '../../utils/axiosConfig.js';
-import renderAppointmentsTable from './../../utils/appointment-table.js'
+import {appointmentsTable, adminPageAppointmentTable} from './../../utils/appointment-table.js'
 
 
 const handleRenderAppointments = async() => {
@@ -9,9 +9,12 @@ const handleRenderAppointments = async() => {
     const data = response?.data;
 
     const appointments = data.slice().reverse(); 
-    const appointmentTable = document.querySelector('#appointments-section .appointment-table__tbody');
+    const appointmentsTableElement = document.querySelector('#appointments-section .appointment-table__tbody');
+    const adminAppointmentTableElement = document.querySelector('.admin-page__section-wrapper #appointments-section .appointment-table__tbody');
 
-    renderAppointmentsTable(appointments, appointmentTable)
+    appointmentsTable(appointments, appointmentsTableElement);
+    adminPageAppointmentTable(appointments, adminAppointmentTableElement);
+    
 
   } catch (error) {
     console.log(error)

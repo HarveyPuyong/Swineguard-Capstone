@@ -1,5 +1,5 @@
 import api from '../../utils/axiosConfig.js';
-import renderAppointmentsTable from './../../utils/appointment-table.js'
+import {appointmentsTable, adminPageAppointmentTable} from './../../utils/appointment-table.js'
 
 const displayOngoingAppointments = async() => {
   try {
@@ -8,9 +8,12 @@ const displayOngoingAppointments = async() => {
     const allAppointments = response?.data;
 
     const ongoingAppointments = allAppointments .filter(appointment => appointment.appointmentStatus === 'ongoing');   
-    const ongoingAppointmentsTable = document.querySelector('.ongoing-appointment-table .appointment-table__tbody');
 
-    renderAppointmentsTable(ongoingAppointments, ongoingAppointmentsTable);
+    const ongoingAppointmentsTable = document.querySelector('.ongoing-appointment-table .appointment-table__tbody');
+    const AdminOngoingAppointmentsTable = document.querySelector('.admin-page__section-wrapper .ongoing-appointment-table .appointment-table__tbody');
+
+    if(ongoingAppointmentsTable) appointmentsTable(ongoingAppointments, ongoingAppointmentsTable);
+    if(AdminOngoingAppointmentsTable) adminPageAppointmentTable(ongoingAppointments, AdminOngoingAppointmentsTable)
     
   } catch (error) {
     console.log(error);

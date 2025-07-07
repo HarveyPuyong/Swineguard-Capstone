@@ -1,8 +1,10 @@
 import api from './../utils/axiosConfig.js'
 
-const selectTag = document.getElementById('medicine-list');
 
 async function populateMedicine() {
+    const selectTag = document.getElementById('medicine-list');
+    if(!selectTag) return;
+    
     selectTag.innerHTML = '<option value="">Select a Medicine</option>'; 
 
     try {
