@@ -13,6 +13,7 @@ const messageSchema = new mongoose.Schema({
         required: true 
     },
     
+    seen: { type: Boolean, default: false },
     content: { type: String, required: true },
     dateSend: {  type: Date, default:Date.now }
 

@@ -1,6 +1,7 @@
 const bcrypt =  require('bcrypt');
 const ROLE_LIST = require('../../config/role_list');
 const UserDB = require('../../models/userModel');
+const { isValidInput, containsEmoji, hasNumber, containsSpecialChar }= require('./../../utils/inputChecker');
 const {generateAccessToken, generateRefreshToken} = require('../../utils/generateTokens'); //na import yung generate tokens sa utils folder
 
 const signupController = async (req, res) => {
@@ -8,12 +9,26 @@ const signupController = async (req, res) => {
   const {firstName, middleName,lastName, suffix,
          municipality, barangay, contactNum,
          email, password, confirmPassword } = req.body;
-  
-  //ito yung mga required inputs hindi kasama yung suffix kasi optional lang naman yon
-  const requiredInputs = [firstName, middleName, lastName, municipality, barangay, contactNum, email, password, confirmPassword];
 
-  //ga error kapag hindi na fillupan yung mga required inputs
-  if (requiredInputs.some(input => !input)) return res.status(400).json({ message: 'Please fill out all required fields'});
+  // Check the length of inputs
+  if (!isValidInput(firstName) || !isValidInput(middleName) || !isValidInput(lastName)) {
+    return res.status(400).json({ message: 'Please provide valid and longer input.'});
+  }
+  // Check for Emojis
+  if (containsEmoji(firstName) || containsEmoji(middleName) || containsEmoji(lastName)) {
+    return res.status(400).json({ message: 'Emoji are not allowed for service name.'});
+  }
+
+  // Check for Numbers
+  if (hasNumber(firstName) || asNumber(middleName) || asNumber(lastName)) {
+    return res.status(400).json({ message: 'Numbers are not allowed.'});
+  }
+
+  // Check for Special Chracters
+  if (containsSpecialChar(firstName) || containsSpecialChar(middleName) || containsSpecialChar(lastName)) {
+    return res.status(400).json({ message: 'Special characters are not allowed.'});
+  }
+
  
   //na check yung contact number kung 09 ang una at naka 11digits, baka kasi mag lagay ng maling number yung client
   const contactPattern = /^09\d{9}$/;

@@ -11,8 +11,10 @@ const userSchema = new mongoose.Schema({
     barangay: { type: String, required: true },
     municipality: { type: String, required: true },
     
-    email: { type: String, required: true },
+    email: { type: String, required: true, unique: true  },
     password: { type: String, required: true },
+
+    isRegistered: { type: Boolean, default: false },
 
     roles: {
       type: [String],

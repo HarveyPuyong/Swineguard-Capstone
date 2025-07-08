@@ -1,4 +1,7 @@
-import popupAlert from '../../utils/popupAlert.js'
+import popupAlert from '../../utils/popupAlert.js';
+import handleRenderAppointments from './display-appointment.js';
+import api from '../../utils/axiosConfig.js';
+import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
 
 
 // ======================================
@@ -6,17 +9,20 @@ import popupAlert from '../../utils/popupAlert.js'
 // ======================================
 const handleCompleteAppointment = async(appointmentId) => {
   try{
-      const response = await axios.patch(`http://localhost:2500/appointment/complete/${appointmentId}`, {}, {withCredentials: true});
+      const response = await api.patch(`/appointment/complete/${appointmentId}`, {});
   
       if(response.status === 200){
-        popupAlert('success', 'Success!', 'Appointment Completed successfully').then(() => window.location.reload());
+        popupAlert('success', 'Success!', 'Appointment Completed successfully').
+          then(() => {
+            handleRenderAppointments();
+            appointmentsDashboard();
+          });
       }
   
   } catch(err){
       const errMessage = err.response.data?.message || err.response.data?.error;
       popupAlert('error', 'Error!', errMessage);
   }
-
 }
 
 
@@ -25,17 +31,20 @@ const handleCompleteAppointment = async(appointmentId) => {
 // ======================================
 const handleRestoreAppointment = async(appointmentId) => {
   try{
-      const response = await axios.patch(`http://localhost:2500/appointment/restore/${appointmentId}`, {}, {withCredentials: true});
+      const response = await api.patch(`/appointment/restore/${appointmentId}`, {});
   
       if(response.status === 200){
-        popupAlert('success', 'Success!', 'Appointment restore successfully').then(() => window.location.reload());
+        popupAlert('success', 'Success!', 'Appointment restore successfully')
+          .then(() => {
+            handleRenderAppointments();
+            appointmentsDashboard();
+          });;
       }
   
   } catch(err){
       const errMessage = err.response.data?.message || err.response.data?.error;
       popupAlert('error', 'Error!', errMessage);
   }
-
 }
 
 
@@ -44,10 +53,14 @@ const handleRestoreAppointment = async(appointmentId) => {
 // ======================================
 const handleDeleteAppointment = async(appointmentId) => {
   try{
-      const response = await axios.delete(`http://localhost:2500/appointment/delete/${appointmentId}`, {}, {withCredentials: true});
+      const response = await api.delete(`/appointment/delete/${appointmentId}`, {});
   
       if(response.status === 200){
-        popupAlert('success', 'Success!', 'Appointment Deleted successfully').then(() => window.location.reload());
+        popupAlert('success', 'Success!', 'Appointment Deleted successfully')
+          .then(() => {
+            handleRenderAppointments()
+            appointmentsDashboard();
+          });;
       }
   
   } catch(err){

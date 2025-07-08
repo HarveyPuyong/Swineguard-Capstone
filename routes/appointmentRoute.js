@@ -1,16 +1,19 @@
 const express = require('express');
 const router = express.Router();
 const appointmentController = require('./../controllers/appointmentController');
+const verifyJWT = require('./../middlewares/verifyJWT');
 
 //CRUD Operation
-router.post('/add', appointmentController.addAppointment); // Add appointments
-router.put('/accept/:id', appointmentController.acceptAppointment); // Accepting appointments
-router.patch('/reschedule/:id', appointmentController.rescheduleAppointment); // Rescheduling appointments
-router.patch('/remove/:id', appointmentController.removeAppointment); // Removing appointments
-router.patch('/restore/:id', appointmentController.restoreAppointment); // Restoring appointments
-router.patch('/complete/:id', appointmentController.completeAppointment); // Compelting appointments
-router.delete('/delete/:id', appointmentController.deleteAppointment); // Deleting appointments
+router.post('/add', verifyJWT, appointmentController.addAppointment); // Add appointments
+router.put('/accept/:id', verifyJWT, appointmentController.acceptAppointment); // Accepting appointments
+router.patch('/reschedule/:id', verifyJWT, appointmentController.rescheduleAppointment); // Rescheduling appointments
+router.patch('/remove/:id', verifyJWT, appointmentController.removeAppointment); // Removing appointments
+router.patch('/restore/:id', verifyJWT, appointmentController.restoreAppointment); // Restoring appointments
+router.patch('/complete/:id', verifyJWT, appointmentController.completeAppointment); // Compelting appointments
+router.delete('/delete/:id', verifyJWT, appointmentController.deleteAppointment); // Deleting appointments
+
 router.get('/all', appointmentController.getAllAppointments); //Get all Appointments
+router.get('/:id', verifyJWT, appointmentController.getAppointmentById); // Get appointment by Id
 
 module.exports = router;
 

@@ -6,7 +6,7 @@
   margin-bottom: 12px;
 }
 
-.settings-container{
+#setting-form{
   width: 100%;
   background-color: white;
   border-radius: 8px;
@@ -14,7 +14,7 @@
   padding: 20px 35px;
 }
 
-.settings-container__header{
+.setting-form__header{
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -23,22 +23,46 @@
   margin-bottom: 15px;
 }
 
-.settings-container__header-heading{
+.setting-form__header-heading{
   font-size: 1.3rem;
   font-weight: 600;
 }
 
-.settings-container__header-logout-btn{
-  border: 1px solid #ff0011;
-  border-radius: 5px;
-  background: #fe7a9b;
-  color: white;
-  font-weight: 600;
-  padding: 8px 25px;
-  cursor: pointer;
+.setting-form__header-btns-container{
+  display: flex;
+  gap: 10px
 }
 
-.settings-container .admin-image img{
+.setting-form__header button{
+  display: none;
+  font-weight: 600;
+  height: 35px;
+  width: 85px;
+  cursor: pointer;
+  border-radius: 5px;
+  color: white;
+}
+
+.setting-form__header-edit-btn.show{
+  display: block;
+  border: 1px solid #ff0011;
+  background: #fe7a9b;
+}
+
+.setting-form__header-cancel-btn.show{
+  display: block;
+  border: 1px solid #ff0011;
+  background: #fe7a9b;
+}
+
+.setting-form__header-save-btn.show{
+  display: block;
+  border: 1px solid var(--main-color);
+  background: #5ed082;
+}
+
+
+.setting-form .admin-image img{
   --size: 60px;
 
   height: var(--size);
@@ -47,7 +71,7 @@
   border: 1.5px solid rgb(26, 26, 26);
 }
 
-.settings-container .admin-image__upload-btn{
+.setting-form .admin-image__upload-btn{
   --color: #787878;
 
   cursor: pointer;
@@ -62,29 +86,29 @@
   margin-right: 5px;
 }
 
-.settings-container__details-list{
+.setting-form__details-list{
   display: flex;
   flex-direction: column;
   padding: 0 50px;
 }
 
-.settings-container__details-list .detail{
+.setting-form__details-list .detail{
   position: relative;
   border-bottom: 1px solid rgba(0, 0, 0, 0.282);
   margin-bottom: 10px;
   padding-bottom: 5px;
 }
 
-.settings-container__details-list .detail:first-child{
+.setting-form__details-list .detail:first-child{
   padding-bottom: 15px;
 }
 
-.settings-container__details-list .admin-detail-label{
+.setting-form__details-list .admin-detail-label{
   font-weight: 600;
   margin-bottom: 3px;
 }
 
-.settings-container__details-list .admin-detail-value{
+.setting-form__details-list .admin-detail-value{
   border: none;
   font-size: 0.87rem;
   font-weight: 500;
@@ -94,62 +118,17 @@
   color: rgba(0, 0, 0, 0.643);
 }
 
-.settings-container__details-list .admin-detail-value:focus{
+.setting-form__details-list .admin-detail-value:focus{
   outline: none;
   box-shadow: none; 
   border: none;
 }
 
-.settings-container__details-list .admin-detail-value.editable{
+.setting-form__details-list .admin-detail-value.editable{
   border: 1px solid black;
 }
 
-.settings-container__details-list .admin-detail-value.editable:focus{
+.setting-form__details-list .admin-detail-value.editable:focus{
   outline: 1px solid black;
   border: 1px solid black;
-}
-
-
-.admin-detail__btns-container{
-  display: flex;
-  justify-content: end;
-  width: 40%;
-  position: absolute;
-  top: 50%;
-  right: 0;
-  transform: translateY(-50%);
-}
-
-.admin-detail__btns-container button{
-  display: none;
-  border-radius: 3px;
-  cursor: pointer;
-  color: white;
-  border: none;
-  cursor: pointer;
-  margin-right: 10px;
-  padding: 4px 0px 3px 0px;
-  width: 90px;
-}
-
-.admin-detail__btns-container button.show{
-  display: block;
-}
-
-.admin-detail__btns-container button.edit-btn{
-  background-color: rgba(125, 125, 125, 0.094);
-  color: #787878;
-  border: 1px solid #787878;
-}
-
-.admin-detail__btns-container button.save-btn{
-  background-color: var(--main-color);
-}
-
-.admin-detail__btns-container button.cancel-btn{
-  background-color: red;
-}
-
-.settings-container__save-btn{
-  background-color: var(--main-color);
 }

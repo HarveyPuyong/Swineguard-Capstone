@@ -1,37 +1,45 @@
-const editAdminDetails = () => {
-  const container = document.querySelector('.settings-container__details-list');
+import popupAlert from "../../utils/popupAlert.js";
+import displaySetting from "./display-setting.js";
+import api from '../../utils/axiosConfig.js'; 
 
-  container.addEventListener('click', (e) => {
-    const detail = e.target.closest('.admin-detail');
-    if (!detail) return;
+const handleEditSettings = () => {
+  document.addEventListener('renderSettings', () => {
+    const form = document.querySelector('#setting-form');
+    const saveBtn = document.querySelector('.setting-form__header-save-btn');
+    const userId = saveBtn.dataset.userId;
 
-    const editBtn = detail.querySelector('.edit-btn');
-    const saveBtn = detail.querySelector('.save-btn');
-    const cancelBtn = detail.querySelector('.cancel-btn');
-    const detailInput = detail.querySelector('.admin-detail-value');
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault(); 
 
-    // Handle edit button
-    if (e.target.closest('.edit-btn')) {
-      detailInput.dataset.original = detailInput.value;
+      const fullName = form.querySelector('#fullname-input').value.trim();
+      const [firstName = '', middleName = '', lastName = ''] = fullName.split(' ').map(part => part.trim());
 
-      editBtn.classList.remove('show');
-      saveBtn.classList.add('show');
-      cancelBtn.classList.add('show');
-      detailInput.removeAttribute('readonly');
-      detailInput.classList.add('editable');
-    }
+      const address = form.querySelector('#adress-input').value.trim();
+      const [barangay = '', municipality = ''] = address.split(',').map(part => part.trim());
 
-    // Handle cancel button
-    if (e.target.closest('.cancel-btn')) {
-      detailInput.value = detailInput.dataset.original;
+      const contactNum = form.querySelector('#contact-input').value.trim();
+      const email = form.querySelector('#email-input').value.trim()
 
-      editBtn.classList.add('show');
-      saveBtn.classList.remove('show');
-      cancelBtn.classList.remove('show');
-      detailInput.setAttribute('readonly', 'readonly');
-      detailInput.classList.remove('editable');
-    }
+      const settingsFormData = { firstName, middleName, lastName, contactNum, barangay, municipality, email }
+
+
+      try {
+        const token = localStorage.getItem('accessToken');
+
+        const response = await api.put(`/edit/${userId}`, settingsFormData);
+
+        if (response.status === 200) {
+          popupAlert('success', 'Success!', 'Successfully updated the settings')
+            .then(() => displaySetting());
+        }
+
+      } catch (err) {
+        console.log(err);
+        const errMessage = err.response?.data?.message || err.response?.data?.error;
+        popupAlert('error', 'Error!', errMessage);
+      }
+    });
   });
 };
 
-export default editAdminDetails;
+export default handleEditSettings;

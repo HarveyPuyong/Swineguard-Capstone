@@ -1,4 +1,6 @@
-import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
+import updateSidenav from "../../utils/updateSidenav.js";
+import handleAppointmentCalendarContent from "../appointments/appointment-calendar.js";
+import handleRenderTechnicians from "./display-technicians.js";
 
 
 // ======================================
@@ -21,6 +23,7 @@ const viewAppointmentSchedule = () => {
       appointmentTableContent.classList.remove('show');
       appointmentSchedContent.classList.add('show');
       updateSidenav();
+      handleAppointmentCalendarContent();
   });
 }
 
@@ -30,4 +33,5 @@ const viewAppointmentSchedule = () => {
 // ======================================
 export default function setupTechniciansSection() {
   viewAppointmentSchedule();
+  handleRenderTechnicians()
 }

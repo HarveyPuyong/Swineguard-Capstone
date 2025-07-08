@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const messageController = require('./../controllers/messageController');
-const ROLE_LIST = require('./../config/role_list');
-const verifyRoles = require('./../middlewares/verifyRoles');
-const verifyJWT = require('./../middlewares/verifyJWT');
-
+const verifyJWT = require('../middlewares/verifyJWT');
+const verifyRoles = require('../middlewares/verifyRoles');
+const ROLE_LIST = require('./../config/role_list')
 
 router.post('/send', verifyJWT, messageController.sendMessage);
 router.get('/user/:id', verifyJWT, messageController.getUserMessages);// Get user messages

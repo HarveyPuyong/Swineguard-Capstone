@@ -1,5 +1,7 @@
 const UserDB = require('../models/userModel');
 
+
+// Get User
 const getUser = async (req, res) => {
   const userInfo = req?.user;
   console.log(userInfo)
@@ -19,6 +21,15 @@ const getUser = async (req, res) => {
 }
 
 
+// Get Users
+const getUsers = async (req, res) => {
+    try {
+        const users = await UserDB.find({ roles: { $nin: ['admin'] } });
+        res.status(200).json(users);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
 
 
-module.exports = getUser;
+module.exports = {getUser, getUsers};
