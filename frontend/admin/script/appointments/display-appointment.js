@@ -1,12 +1,9 @@
-import api from '../../utils/axiosConfig.js';
+import fetchAppointments from '../../api/fetch-appointments.js';
 import {appointmentsTable, adminPageAppointmentTable} from './../../utils/appointment-table.js'
-
 
 const handleRenderAppointments = async() => {
   try {
-    const response = await api.get('/appointment/all', {withCredentials: true});
-
-    const data = response?.data;
+    const data = await fetchAppointments();
 
     const appointments = data.slice().reverse(); 
     const appointmentsTableElement = document.querySelector('#appointments-section .appointment-table__tbody');
@@ -14,10 +11,13 @@ const handleRenderAppointments = async() => {
 
     appointmentsTable(appointments, appointmentsTableElement);
     adminPageAppointmentTable(appointments, adminAppointmentTableElement);
-    
 
-  } catch (error) {
-    console.log(error)
+
+  } catch (err) {
+    console.error('Error rendering technicians:', err);
+     document.querySelector('#appointments-section .appointment-table__tbody').innerHTML = `
+        <p class="error-message">Failed to load Appointments. Please refresh the page.</p>
+     `;
   }
 }
 

@@ -9,9 +9,9 @@ import {handleCompleteAppointment,
         handleRestoreAppointment,
         handleDeleteAppointment,} from "./complete-restore-delete-appointment.js";
 import handleAppointmentCalendarContent from "./appointment-calendar.js";
-import populateMedicine from "../../api/getMedicine.js";
-import populateTechnician from "../../api/getTechnicians.js";
-import populateAppointmentDateAndTime from "../../api/getAppointmentDateAndTime.js";
+import populateMedicine from "../../api/fetch-medicine.js";
+import populateTechnician from "../../api/fetch-technicians.js";
+import populateAppointmentDateAndTime from "../../api/fetch-appointment-date-and-time.js";
 
 
 // ======================================

@@ -1,13 +1,12 @@
+import fetchInventory from "../../api/fetch-inventory.js";
 import {inventoryTable, adminPageInventoryTable} from '../../utils/inventory-table.js';
 import formatItemStatus from '../../utils/format-item-status.js';
-import api from '../../utils/axiosConfig.js';
 
 const displayLessStockInventory = async () => {
   try {
-    const response = await api.get('/inventory/all');
-    const inventories = response?.data;
+    const inventory = await fetchInventory();
 
-    const filteredInventory = inventories.filter(item => {
+    const filteredInventory = inventory.filter(item => {
       const status = formatItemStatus(item.itemStatus);
       return status === 'less-stock' || status === 'out-of-stock';
     });

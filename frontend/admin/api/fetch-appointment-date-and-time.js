@@ -1,5 +1,5 @@
 // getDateAndTime.js
-import api from './../utils/axiosConfig.js';
+import api from '../utils/axiosConfig.js';
 
 const dateInputField = document.getElementById('set-date');
 const timeInputField = document.getElementById('set-time');

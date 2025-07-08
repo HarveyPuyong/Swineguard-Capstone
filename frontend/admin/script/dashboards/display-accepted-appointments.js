@@ -1,11 +1,10 @@
-import api from '../../utils/axiosConfig.js';
+import fetchAppointments from '../../api/fetch-appointments.js';
 import {appointmentsTable, adminPageAppointmentTable} from '../../utils/appointment-table.js'
+
 
 const displayAcceptedAppointments = async() => {
   try {
-    const response = await api.get('/appointment/all');
-
-    const allAppointments = response?.data;
+    const allAppointments = await fetchAppointments();
 
     const acceptedAppointments = allAppointments .filter(appointment => appointment.appointmentStatus === 'accepted');   
 

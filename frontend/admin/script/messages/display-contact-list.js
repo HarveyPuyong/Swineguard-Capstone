@@ -1,6 +1,6 @@
 import { formatTo12HourTime } from '../../utils/formated-date-time.js';
 import fetchUser from '../auth/fetchUser.js';
-import fetchUsers from '../../api/fetchUsers.js';
+import fetchUsers from '../../api/fetch-users.js';
 import fetchMessages from './fetch-messages.js';
 
 const displayContactList = async () => {

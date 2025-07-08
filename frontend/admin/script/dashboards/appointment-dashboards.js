@@ -1,10 +1,10 @@
+import fetchAppointments from '../../api/fetch-appointments.js';
 import toPercent from "../../utils/toPercent.js";
-import api from "../../utils/axiosConfig.js";
+
 
 const appointmentsDashboard = async () => {
   try {
-    const response = await api.get('/appointment/all');
-    const appointments = response?.data;
+    const appointments = await fetchAppointments(); 
 
     const totalAppointments = appointments.length;
     const pendingAppointments = appointments.filter(app => app.appointmentStatus === 'pending').length;

@@ -1,4 +1,4 @@
-import api from './../utils/axiosConfig.js'
+import api from '../utils/axiosConfig.js'
 
 
 async function populateMedicine() {

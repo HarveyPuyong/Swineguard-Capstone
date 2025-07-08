@@ -1,13 +1,11 @@
+import fetchInventory from "../../api/fetch-inventory.js";
 import toPercent from "../../utils/toPercent.js";
 import formatItemStatus from './../../utils/format-item-status.js';
-import api from '../../utils/axiosConfig.js';
 
 
 const inventoryDashboard = async () => {
   try {
-    const response = await api.get('/inventory/all');
-
-    const inventory = response?.data;
+    const inventory = await fetchInventory();
 
     const totalItems = inventory.length;
 

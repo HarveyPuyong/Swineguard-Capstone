@@ -1,5 +1,5 @@
 import api from '../../utils/axiosConfig.js';
-import fetchUsers from '../../api/fetchUsers.js';
+import fetchUsers from '../../api/fetch-users.js';
 
 
 const handleRenderTechnicians = async() => {
@@ -54,9 +54,11 @@ const handleRenderTechnicians = async() => {
     document.querySelector('.technician-list-container').innerHTML = technicianHTML;
 
   } catch (err) {
-    console.log(err)
+     console.error('Error rendering technicians:', err);
+     document.querySelector('.technician-list-container').innerHTML = `
+        <p class="error-message">Failed to load technicians. Please try again later.</p>
+     `;
   }
-
 }   
 
 export default handleRenderTechnicians ;
