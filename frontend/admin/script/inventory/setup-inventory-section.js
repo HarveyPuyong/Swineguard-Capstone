@@ -166,10 +166,11 @@ const toggleMedicineButtonsContainer = () => {
 
     medicines.forEach(medicine => {
       const buttonsContainer = medicine.querySelector('.buttons-container');
-      const toggleIcon = medicine.querySelector('.toggle-buttons-icon')
-        .addEventListener('click', () => {
-          buttonsContainer.classList.toggle('show')
-        });
+      const toggleIcon = medicine.querySelector('.toggle-buttons-icon');
+      
+      if(!buttonsContainer || !toggleIcon) return;
+
+      toggleIcon .addEventListener('click', () => buttonsContainer.classList.toggle('show'));
     });
   });
 }
