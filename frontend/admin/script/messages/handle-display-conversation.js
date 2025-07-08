@@ -1,7 +1,7 @@
 import fetchUser from '../auth/fetchUser.js';
 import fetchMessages from './fetch-messages.js';
 import fetchUsers from '../../api/fetchUsers.js';
-import handleSendMessage from './handle-reply.js';
+import handleReplyMessage from './handle-reply.js';
 
 const renderConversation = async (clientId) => {
   const appointmentCoordinator = await fetchUser();
@@ -94,7 +94,7 @@ const renderConversation = async (clientId) => {
 
   document.dispatchEvent(new Event('renderConversation'));
 
-  handleSendMessage(clientUser._id)
+  handleReplyMessage(clientUser._id)
 };
 
 export default renderConversation;

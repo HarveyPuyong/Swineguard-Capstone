@@ -351,6 +351,17 @@ exports.getAllAppointments = async (req, res) => {
     }
 }
 
+exports.getAppointmentById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const appointment = await appointmentDB.findById(id);
+        if (!appointment) return res.status(404).json({ message: 'Appointment not found.' });
+        res.status(200).json(appointment);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
 // Verify Appointment Object Id
 function isValidAppointmentId(id) {
     return mongoose.Types.ObjectId.isValid(id);

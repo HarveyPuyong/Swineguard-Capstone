@@ -11,7 +11,9 @@ router.patch('/remove/:id', verifyJWT, appointmentController.removeAppointment);
 router.patch('/restore/:id', verifyJWT, appointmentController.restoreAppointment); // Restoring appointments
 router.patch('/complete/:id', verifyJWT, appointmentController.completeAppointment); // Compelting appointments
 router.delete('/delete/:id', verifyJWT, appointmentController.deleteAppointment); // Deleting appointments
+
 router.get('/all', appointmentController.getAllAppointments); //Get all Appointments
+router.get('/:id', verifyJWT, appointmentController.getAppointmentById); // Get appointment by Id
 
 module.exports = router;
 

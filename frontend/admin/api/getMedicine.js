@@ -14,7 +14,7 @@ async function populateMedicine() {
 
         data.forEach(medicine => {
             const option = document.createElement('option');
-            option.value = medicine.itemName;
+            option.value = medicine._id;
             option.textContent = medicine.itemName;
             selectTag.appendChild(option);
         })

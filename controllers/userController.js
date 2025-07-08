@@ -1,6 +1,8 @@
 const userDB = require('../models/userModel');
 const bcrypt = require('bcrypt');
 const ROLE_LIST = require('./../config/role_list');
+const { isValidInput, containsEmoji, hasNumber, containsSpecialChar }= require('./../utils/inputChecker');
+const {generateAccessToken, generateRefreshToken} = require('./../utils/generateTokens');
 
 // Edit User Details
 const editUserDetails = async (req, res) => {
@@ -15,34 +17,24 @@ const editUserDetails = async (req, res) => {
     // Check the id is it is exist
     if (!id) return res.status(400).json({ message: 'User Id not found.' });
 
-    // Define regex patterns
-    const namePattern = /^[A-Za-z\s\-']+$/; // letters, spaces, hyphens, apostrophes
-    const emojiPattern = /[\p{Emoji}\uFE0F]/gu;
-    const contactPattern = /^09\d{9}$/;
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    // Helper to check for emojis or special characters
-    const isValidString = (str, min, max) => {
-        return (
-            str &&
-            typeof str === 'string' &&
-            str.length >= min &&
-            str.length <= max &&
-            namePattern.test(str) &&
-            !emojiPattern.test(str)
-        );
-    };
-
-    // Required fields check
-    const requiredFields = [firstName, middleName, lastName, contactNum, barangay, municipality, email];
-    if (requiredFields.some(field => !field || field.trim() === '')) {
-        return res.status(400).json({ message: 'Please fill out all required fields.'});
+   // Check the length of inputs
+    if (!isValidInput(firstName) || !isValidInput(middleName) || !isValidInput(lastName)) {
+    return res.status(400).json({ message: 'Please provide valid and longer input.'});
+    }
+    // Check for Emojis
+    if (containsEmoji(firstName) || containsEmoji(middleName) || containsEmoji(lastName)) {
+    return res.status(400).json({ message: 'Emoji are not allowed for service name.'});
     }
 
-    // Validate name fields
-    if (!isValidString(firstName, 2, 30)) return res.status(400).json({ message: 'Invalid first name.' });
-    if (middleName && !isValidString(middleName, 1, 30)) return res.status(400).json({ message: 'Invalid middle name.' });
-    if (!isValidString(lastName, 2, 30)) return res.status(400).json({ message: 'Invalid last name.' });
+    // Check for Numbers
+    if (hasNumber(firstName) || asNumber(middleName) || asNumber(lastName)) {
+    return res.status(400).json({ message: 'Numbers are not allowed.'});
+    }
+
+    // Check for Special Chracters
+    if (containsSpecialChar(firstName) || containsSpecialChar(middleName) || containsSpecialChar(lastName)) {
+    return res.status(400).json({ message: 'Special characters are not allowed.'});
+    }
 
     // Validate contact number
     if (!contactPattern.test(contactNum)) {
@@ -71,21 +63,34 @@ const editUserDetails = async (req, res) => {
     }
 }
 
-
 // Add Technician
 const addTechnician = async (req, res) => {
     // nakuha yung json laman ng req.body
     const {firstName, middleName,lastName, suffix,
-            municipality, barangay, contactNum } = req.body;
-
-    const email = 'No Email';
-    const password = 'pvet_tech';
+            municipality, barangay, contactNum,
+            email, password, confirmPassword 
+        } = req.body;
     
     //ito yung mga required inputs hindi kasama yung suffix kasi optional lang naman yon
-    const requiredInputs = [firstName, middleName, lastName, municipality, barangay, contactNum ];
 
-    //ga error kapag hindi na fillupan yung mga required inputs
-    if (requiredInputs.some(input => !input)) return res.status(400).json({ message: 'Please fill out all required fields'});
+    // Check the length of inputs
+    if (!isValidInput(firstName) || !isValidInput(middleName) || !isValidInput(lastName)) {
+    return res.status(400).json({ message: 'Please provide valid and longer input.'});
+    }
+    // Check for Emojis
+    if (containsEmoji(firstName) || containsEmoji(middleName) || containsEmoji(lastName)) {
+    return res.status(400).json({ message: 'Emoji are not allowed for service name.'});
+    }
+
+    // Check for Numbers
+    if (hasNumber(firstName) || hasNumber(middleName) || hasNumber(lastName)) {
+    return res.status(400).json({ message: 'Numbers are not allowed.'});
+    }
+
+    // Check for Special Chracters
+    if (containsSpecialChar(firstName) || containsSpecialChar(middleName) || containsSpecialChar(lastName)) {
+    return res.status(400).json({ message: 'Special characters are not allowed.'});
+    }
     
     //na check yung contact number kung 09 ang una at naka 11digits, baka kasi mag lagay ng maling number yung client
     const contactPattern = /^09\d{9}$/;
@@ -98,6 +103,9 @@ const addTechnician = async (req, res) => {
 
     // Check if the technician is already existed
     if(duplicateFullname) return res.status(409).json({message: "Full name already in use. Try changing the first, middle, or last name"});
+
+    //na check kung yung password at confirmPassword ay tama
+    if(password.trim() !== confirmPassword.trim()) return res.status(400).json({message: 'Passowords does not match'});
 
     // hash password
     const hashPassword = await bcrypt.hash(password, 10);
@@ -114,9 +122,31 @@ const addTechnician = async (req, res) => {
         "contactNum": contactNum,
         "email": email,
         "password": hashPassword,
-        "roles": [ROLE_LIST.Technician]
+        "roles": [ROLE_LIST.Technician],
+        "isRegistered": true
         }
     );
+
+    // gumawa ako ng userName para lang alagay ko sa tokens
+    const userName = `${newUser.firstName}, ${newUser.lastName}`;
+
+    //nasa utils folder pala ngani yung generateAccessToke function, don ko nalagay yung mga reuseable functions
+    const accessToken = generateAccessToken(process.env.ACCESS_TOKEN_SECRET,
+                                            process.env.ACCESS_TOKEN_EXPIRY,
+                                            newUser._id,
+                                            userName,
+                                            newUser.roles
+    );
+    
+    //ito din nasa utils folder magkasama sila ng generate access token sa generateTokens.js
+    const refreshToken = generateRefreshToken(process.env.REFRESH_TOKEN_SECRET,
+                                                process.env.REFRESH_TOKEN_EXPIRY,
+                                                newUser._id, 
+                                                userName,
+    );
+
+    // na store yung generated refrechToken sa newUser
+    newUser.refreshToken = [refreshToken];
 
     await newUser.save();
 
@@ -132,6 +162,125 @@ const addTechnician = async (req, res) => {
         });
     }
 }
+// Add Technician
+const addVeterinarian = async (req, res) => {
+    // nakuha yung json laman ng req.body
+    const {firstName, middleName,lastName, suffix,
+            municipality, barangay, contactNum,
+            email, password, confirmPassword 
+        } = req.body;
+    
+    //ito yung mga required inputs hindi kasama yung suffix kasi optional lang naman yon
+
+    // Check the length of inputs
+    if (!isValidInput(firstName) || !isValidInput(middleName) || !isValidInput(lastName)) {
+    return res.status(400).json({ message: 'Please provide valid and longer input.'});
+    }
+    // Check for Emojis
+    if (containsEmoji(firstName) || containsEmoji(middleName) || containsEmoji(lastName)) {
+    return res.status(400).json({ message: 'Emoji are not allowed for service name.'});
+    }
+
+    // Check for Numbers
+    if (hasNumber(firstName) || hasNumber(middleName) || hasNumber(lastName)) {
+    return res.status(400).json({ message: 'Numbers are not allowed.'});
+    }
+
+    // Check for Special Chracters
+    if (containsSpecialChar(firstName) || containsSpecialChar(middleName) || containsSpecialChar(lastName)) {
+    return res.status(400).json({ message: 'Special characters are not allowed.'});
+    }
+    
+    //na check yung contact number kung 09 ang una at naka 11digits, baka kasi mag lagay ng maling number yung client
+    const contactPattern = /^09\d{9}$/;
+    if (!contactPattern.test(contactNum)) return res.status(400).json({message : 'Contact number must start with "09" and be 11 digits long'});
+    
+    try{
+    const [duplicateFullname] = await Promise.all([
+        userDB.findOne({ firstName, middleName, lastName, suffix }).exec(), //binuo ko pala yung fullname hahahha
+    ]);
+
+    // Check if the technician is already existed
+    if(duplicateFullname) return res.status(409).json({message: "Full name already in use. Try changing the first, middle, or last name"});
+
+    //na check kung yung password at confirmPassword ay tama
+    if(password.trim() !== confirmPassword.trim()) return res.status(400).json({message: 'Passowords does not match'});
+
+    // hash password
+    const hashPassword = await bcrypt.hash(password, 10);
+
+    //a create yung newUser sa usersCollection. kupal, ano mas okay na naming userDB o usersCollection?
+    const newUser = new userDB(
+        {
+        "firstName": firstName,
+        "middleName": middleName,
+        "lastName": lastName,
+        "suffix": suffix,
+        "municipality":municipality,
+        "barangay": barangay,
+        "contactNum": contactNum,
+        "email": email,
+        "password": hashPassword,
+        "roles": [ROLE_LIST.Veterinarian],
+        "isRegistered": true
+        }
+    );
+
+    // gumawa ako ng userName para lang alagay ko sa tokens
+    const userName = `${newUser.firstName}, ${newUser.lastName}`;
+
+    //nasa utils folder pala ngani yung generateAccessToke function, don ko nalagay yung mga reuseable functions
+    const accessToken = generateAccessToken(process.env.ACCESS_TOKEN_SECRET,
+                                            process.env.ACCESS_TOKEN_EXPIRY,
+                                            newUser._id,
+                                            userName,
+                                            newUser.roles
+    );
+    
+    //ito din nasa utils folder magkasama sila ng generate access token sa generateTokens.js
+    const refreshToken = generateRefreshToken(process.env.REFRESH_TOKEN_SECRET,
+                                                process.env.REFRESH_TOKEN_EXPIRY,
+                                                newUser._id, 
+                                                userName,
+    );
+
+    // na store yung generated refrechToken sa newUser
+    newUser.refreshToken = [refreshToken];
+
+    await newUser.save();
+
+    //kapag successfull na yung pag create ng client ay ga messsage tapos a asama na din yung accessToken sa response
+    return res.status(201).json({message: 'Successfully created Veterinarian', data: newUser});
+
+    } catch(err){ //kapag may error sa try, alam mo na ito
+        console.error(`Error: ${err}`); 
+        console.log(`Cause of error: ${err.message}`);
+
+        return res.status(500).json({
+            message: 'Something went wrong while creating the Technician.',
+        });
+    }
+}
+
+// Get Personnel for Appointments
+const getTechandVets = async (req, res) => {
+    try {
+        const staff = await userDB.find({ roles: { $in: ['technician', 'veterinarian'] } });
+        res.status(200).json(staff);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+// Get all Staffs
+const getAllStaffs = async (req, res) => {
+    try {
+        const staff = await userDB.find({ roles: { $ne: 'user' } });
+        res.status(200).json(staff);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
 
 
-module.exports = {editUserDetails, addTechnician}
+module.exports = {editUserDetails, addTechnician, addVeterinarian, getTechandVets, getAllStaffs};

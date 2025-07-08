@@ -55,6 +55,9 @@ app.use('/inventory', require('./routes/inventoryRoute'));
 // Swine routing
 app.use('/swine', require('./routes/swineRoute'));
 
+// Services routing
+app.use('/service', require('./routes/serviceRoute'));
+
 // Get user routing
 app.use('/', require('./routes/userRoute'));
 

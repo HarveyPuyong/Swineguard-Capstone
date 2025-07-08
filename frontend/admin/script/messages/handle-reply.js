@@ -2,7 +2,7 @@ import api from '../../utils/axiosConfig.js';
 import fetchUser from '../auth/fetchUser.js';
 import renderConversation from './handle-display-conversation.js';
 
-const handleSendMessage = async (clientId) => {
+const handleReplyMessage = async (clientId) => {
   const form = document.querySelector('.chat-box__chat-input-area');
   const input = form.querySelector('.chat-input-area__input-message');
 
@@ -31,4 +31,4 @@ const handleSendMessage = async (clientId) => {
   });
 };
 
-export default handleSendMessage;
+export default handleReplyMessage;
