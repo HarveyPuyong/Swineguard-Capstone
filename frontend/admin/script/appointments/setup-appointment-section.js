@@ -9,8 +9,8 @@ import {handleCompleteAppointment,
         handleRestoreAppointment,
         handleDeleteAppointment,} from "./complete-restore-delete-appointment.js";
 import handleAppointmentCalendarContent from "./appointment-calendar.js";
-import populateMedicine from "../../api/fetch-medicine.js";
-import populateTechnician from "../../api/fetch-technicians.js";
+import fetchMedicines from "../../api/fetch-medicine.js";
+import fetchUsers from "../../api/fetch-users.js"
 import populateAppointmentDateAndTime from "../../api/fetch-appointment-date-and-time.js";
 
 
@@ -173,7 +173,7 @@ const appointmentsSorting = () => {
 
 
 // ======================================
-// ========== View (Appointment Table Content, Technicians Section, Appointment Calendar Schedule) Buttons Functionality
+// ========== View Button (Appointment Table Content, Technicians Section, Appointment Calendar Schedule) Buttons Functionality
 // ======================================
 const viewBtnsFunctionality = () => {
   const appointmentTableContent = document.querySelector('.appointment-table-content');
@@ -245,6 +245,48 @@ const setupAddAppointmentForm = () => {
 
 
 // ======================================
+// ========== Add Data to schedule-appointment-form
+// ======================================
+const setupScheduleAppointmentForm = async() => {
+  try{
+    const allUsers = await fetchUsers();
+    const medicines = await fetchMedicines();
+    const technicians = allUsers.filter(user => user.roles.includes('technician') || user.roles.includes('veterinarian'));
+
+    //Medicine Select Element
+    const medicineSelectElement = document.querySelector('.appointment-schedule-form #medicine-list');
+    if(!medicineSelectElement) return;
+
+    medicines.forEach(medicine => {
+      const option = document.createElement('option');
+      option.value = medicine._id;
+      option.textContent = medicine.itemName;
+      medicineSelectElement.appendChild(option);
+    });
+
+    //Personal Select Element
+    const personalSelectElement = document.querySelector('.appointment-schedule-form #available-personnel');
+     if(!personalSelectElement) return;
+
+    technicians.forEach(technician => {
+      const prefix = technician.roles.includes('veterinarian') ? 'Doc.' : technician.roles.includes('technician') ? 'Mr.' : '';
+      const middleInitial = technician.middleName ? technician.middleName.charAt(0).toUpperCase() + '.' : '';
+      const technicianFullname = `${prefix} ${technician.firstName} ${middleInitial} ${technician.lastName}`;
+
+      const option = document.createElement('option');
+      option.value = technician._id;
+      option.textContent = technicianFullname;
+
+      personalSelectElement.appendChild(option);
+    })
+
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+
+// ======================================
 // ==========Toggle Popup Add Appointment Form
 // ======================================
 const toggleAddAppointmentForm = () => {
@@ -310,7 +352,7 @@ const handleAppointmentSelectActions = () => {
 
 
 // ======================================
-// ========== Handle to Disabled Action Options Based on the Apointment Status
+// ========== Handle to Disabled Select Action Options Based on the Apointment Status
 // ======================================
 const handleDisabledActionOptions = () => {
   document.addEventListener('renderAppointments', () => {
@@ -405,10 +447,9 @@ export default function setupAppointmentSection () {
   appointmentsSorting();
   searchAppointment();
   setupAddAppointmentForm();
+  setupScheduleAppointmentForm();
   toggleAddAppointmentForm();
   toggleAppointentMoreDetails();
   viewBtnsFunctionality();
-  populateMedicine();
-  populateTechnician();
 }
 

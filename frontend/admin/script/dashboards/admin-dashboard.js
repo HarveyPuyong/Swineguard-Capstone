@@ -41,8 +41,9 @@ const adminDashboard = async () => {
       </div>
     `;
 
+    const adminDashboard  =  document.querySelector('.admin-dashboard .dashboard__cards-container');
 
-    document.querySelector('.admin-dashboard .dashboard__cards-container').innerHTML = dashboardHTML;
+    if(adminDashboard) adminDashboard.innerHTML = dashboardHTML;
 
   } catch (error) {
     console.error("Error loading admin dashboard data:", error);
