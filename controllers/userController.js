@@ -265,12 +265,13 @@ const addVeterinarian = async (req, res) => {
 // Get Personnel for Appointments
 const getTechandVets = async (req, res) => {
     try {
-        const staff = await userDB.find({  roles: { $in: ['technician', 'veterinarian'] } });
+        const staff = await userDB.find({ roles: { $in: ['technician', 'veterinarian'] } });
         res.status(200).json(staff);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
+
 // Get all Staffs
 const getAllStaffs = async (req, res) => {
     try {
