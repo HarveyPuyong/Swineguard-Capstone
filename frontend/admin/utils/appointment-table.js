@@ -1,6 +1,6 @@
 import { formattedDate, formatTo12HourTime } from './formated-date-time.js';
-import getMedicineName from './../api/getMedicineName.js';
-import getTechnicianName from './../api/getTechnicianName.js';
+import {populateMedicine, getMedicineName} from './../api/getMedicine.js';
+import {populateTechnician, getTechnicianName} from './../api/getTechnicians.js';
 
 
 // ======================================
