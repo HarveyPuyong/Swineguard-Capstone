@@ -1,19 +1,22 @@
+import fetchAppointments from '../../api/fetch-appointments.js';
 import { formattedDate, formatTo12HourTime } from './../../utils/formated-date-time.js';
-import api from '../../utils/axiosConfig.js';
+
 
 
 // ======================================
 // ========== Render Calendar
 // ======================================
-const renderAppointmentCalendar = async () => {
+async function renderAppointmentCalendar() {
   const appointmentCalendarElement = document.getElementById('appointment-schedule-calendar');
 
+
   try {
-    const response = await api.get('/appointment/all');
-    const data = response?.data;
+const data = await fetchAppointments();
+
+const appointments = data.filter(appointment => appointment.appointmentStatus === 'accepted');
 
     // appointments custom event
-    const events = data.map(appointment => ({
+    const events = appointments.map(appointment => ({
       start: `${formattedDate(appointment.appointmentDate)}T${appointment.appointmentTime}`,
       title: appointment.appointmentTitle, 
       appointmentId: appointment._id,
@@ -31,9 +34,10 @@ const renderAppointmentCalendar = async () => {
         const event = content.event;
         const {appointmentId, appointmentTitle, appointmentType, appointmentTime, appointmentAdress} = event.extendedProps;
 
+        console.log(appointmentType)
         return {
           html: `
-            <div class="custom-event appointment-type-${appointmentType}"  data-appointment-id=${appointmentId}>
+            <div class="custom-event appointment-type-${appointmentType.toLowerCase()}"  data-appointment-id=${appointmentId}>
               <p class="custom-event__title"><span class="label">Title:</span> ${appointmentTitle}</p>
               <p class="custom-event__type"><span class="label">Type:</span> ${appointmentType[0].toUpperCase() + appointmentType.slice(1).toLowerCase()}</p>
               <p class="custom-event__time"><span class="label">Time:</span> ${formatTo12HourTime(appointmentTime)}</p>
@@ -55,10 +59,9 @@ const renderAppointmentCalendar = async () => {
 // ======================================
 // ========== Compute Appointments TYpes
 // ======================================
-const computeVisitAndServicePercentages = async () => {
+async function computeVisitAndServicePercentages() {
   try {
-    const response = await api.get('/appointment/all', { withCredentials: true });
-    const appointments = response?.data;
+    const appointments =  await fetchAppointments();
 
     const total = appointments.length;
 

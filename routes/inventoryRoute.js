@@ -5,6 +5,7 @@ const verifyJWT = require('./../middlewares/verifyJWT');
 const ROLE_LIST = require('./../config/role_list');
 const verifyRoles = require('./../middlewares/verifyRoles');
 
+
 router.post('/add', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.AddItem); 
 
 router.put('/edit/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.editItem); 
@@ -17,5 +18,6 @@ router.delete('/delete/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinat
 
 router.get('/all', verifyJWT,  inventoryController.getAllItem); 
 
+router.get('/:id', verifyJWT, inventoryController.getItemId); 
 
 module.exports = router;
