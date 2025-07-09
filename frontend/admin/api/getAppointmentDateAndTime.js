@@ -5,7 +5,7 @@ const dateInputField = document.getElementById('set-date');
 const timeInputField = document.getElementById('set-time');
 const serviceName = document.querySelector('.appointment-schedule-form__heading');
 
-async function populateDateAndTime(appointmentId) {
+async function populateAppointmentDateAndTime(appointmentId) {
     try {
         const response = await api.get(`http://localhost:2500/appointment/${appointmentId}`, {withCredentials: true});
         const appointment = response?.data;
@@ -19,4 +19,4 @@ async function populateDateAndTime(appointmentId) {
     }
 }
 
-export default populateDateAndTime;
+export default populateAppointmentDateAndTime;

@@ -1,10 +1,7 @@
 import appointmentsDashboard from './appointment-dashboards.js';
 import inventoryDashboard from './inventory-dashboard.js';
-import displayOngoingAppointments from './display-ongoing-appointments.js';
+import displayAcceptedAppointments from './display-accepted-appointments.js';
 import displayLessStockInventory from './display-less-stock-inventory.js';
-
-
-
 
 
 // ======================================
@@ -13,6 +10,6 @@ import displayLessStockInventory from './display-less-stock-inventory.js';
 export default function setupDashboardSection () {
   appointmentsDashboard();
   inventoryDashboard();
-  displayOngoingAppointments();
+  displayAcceptedAppointments();
   displayLessStockInventory();
 }

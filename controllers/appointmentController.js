@@ -136,7 +136,7 @@ exports.addAppointment = async (req, res) => {
 }
 
 
-// Accept appointment by Id Mark as Ongoing
+// Accept appointment by Id Mark as Accepted
 exports.acceptAppointment = async (req, res) => {
     
     const { appointmentDate, appointmentTime, appointmentType, vetPersonnel, medicine, dosage, vetMessage } = req.body;

@@ -17,33 +17,19 @@ const editUserDetails = async (req, res) => {
     // Check the id is it is exist
     if (!id) return res.status(400).json({ message: 'User Id not found.' });
 
-   // Check the length of inputs
-    if (!isValidInput(firstName) || !isValidInput(middleName) || !isValidInput(lastName)) {
-    return res.status(400).json({ message: 'Please provide valid and longer input.'});
-    }
     // Check for Emojis
     if (containsEmoji(firstName) || containsEmoji(middleName) || containsEmoji(lastName)) {
     return res.status(400).json({ message: 'Emoji are not allowed for service name.'});
     }
 
     // Check for Numbers
-    if (hasNumber(firstName) || asNumber(middleName) || asNumber(lastName)) {
+    if (hasNumber(firstName) || hasNumber(middleName) || hasNumber(lastName)) {
     return res.status(400).json({ message: 'Numbers are not allowed.'});
     }
 
     // Check for Special Chracters
     if (containsSpecialChar(firstName) || containsSpecialChar(middleName) || containsSpecialChar(lastName)) {
     return res.status(400).json({ message: 'Special characters are not allowed.'});
-    }
-
-    // Validate contact number
-    if (!contactPattern.test(contactNum)) {
-        return res.status(400).json({ message: 'Contact number must start with "09" and be 11 digits long.' });
-    }
-
-    // Validate email format
-    if (!emailPattern.test(email)) {
-        return res.status(400).json({ message: 'Invalid email format.' });
     }
 
     try {
@@ -62,6 +48,7 @@ const editUserDetails = async (req, res) => {
         res.status(500).json({ message: 'Server error while updating user.' });
     }
 }
+
 
 // Add Technician
 const addTechnician = async (req, res) => {
@@ -91,11 +78,7 @@ const addTechnician = async (req, res) => {
     if (containsSpecialChar(firstName) || containsSpecialChar(middleName) || containsSpecialChar(lastName)) {
     return res.status(400).json({ message: 'Special characters are not allowed.'});
     }
-    
-    //na check yung contact number kung 09 ang una at naka 11digits, baka kasi mag lagay ng maling number yung client
-    const contactPattern = /^09\d{9}$/;
-    if (!contactPattern.test(contactNum)) return res.status(400).json({message : 'Contact number must start with "09" and be 11 digits long'});
-    
+
     try{
     const [duplicateFullname] = await Promise.all([
         userDB.findOne({ firstName, middleName, lastName, suffix }).exec(), //binuo ko pala yung fullname hahahha
@@ -162,7 +145,9 @@ const addTechnician = async (req, res) => {
         });
     }
 }
-// Add Technician
+
+
+// Add Veterinarian
 const addVeterinarian = async (req, res) => {
     // nakuha yung json laman ng req.body
     const {firstName, middleName,lastName, suffix,
@@ -262,15 +247,17 @@ const addVeterinarian = async (req, res) => {
     }
 }
 
+
 // Get Personnel for Appointments
 const getTechandVets = async (req, res) => {
     try {
-        const staff = await userDB.find({  roles: { $in: ['technician', 'veterinarian'] } });
+        const staff = await userDB.find({ roles: { $in: ['technician', 'veterinarian'] } });
         res.status(200).json(staff);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
 }
+
 // Get all Staffs
 const getAllStaffs = async (req, res) => {
     try {

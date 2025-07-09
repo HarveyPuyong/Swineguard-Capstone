@@ -246,8 +246,8 @@
   --BGcolor: rgba(0, 0, 0, 0.19);
 }
 
-/* Status: ongoing */
-.appointment-table__tbody .td.status--ongoing {
+/* Status: accepted */
+.appointment-table__tbody .td.status--accepted {
   --color: rgb(55, 119, 255);
   --BGcolor: rgba(73, 130, 254, 0.24);
 }
@@ -818,7 +818,14 @@
 }
 
 
-
+/* Reports Contnent */
 .appointment-section__report-contents{
   display: none;
 }
+
+.appointment-section__report-contents.show{
+  display: block;
+}
+
+
+

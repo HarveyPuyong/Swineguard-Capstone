@@ -15,6 +15,8 @@ const handleAddAppointment = () => {
 
 
   const addAppointmentForm = document.querySelector('#add-appointments-form');
+
+  if(!addAppointmentForm) return
   
   addAppointmentForm.addEventListener('submit', async(e) => {
       e.preventDefault();
@@ -35,7 +37,8 @@ const handleAddAppointment = () => {
         swineCount: Number(document.querySelector('#swine-count').value),
         swineFemale: Number(document.querySelector('#swine-female').value),
         swineMale: Number(document.querySelector('#swine-male').value),
-        swineSymptoms: document.querySelector('#swine-symptoms').value.trim()
+        swineSymptoms: document.querySelector('#swine-symptoms').value.trim(),
+        appointmentStatus: 'ongoing'
       };
 
 

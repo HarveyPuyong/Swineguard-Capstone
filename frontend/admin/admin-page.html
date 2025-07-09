@@ -86,9 +86,13 @@
             <img class="side-nav__link-icon" src="images-and-icons/icons/inventory-icon.png" alt="inventory-icon">
             <p class="side-nav__link-label">Inventory</p>
           </li>
-          <li class="side-nav__link" data-value="technicians-section">
-            <img class="side-nav__link-icon" src="images-and-icons/icons/technician-icon.png" alt="technician-icon">
-            <p class="side-nav__link-label">Technicians</p>
+          <li class="side-nav__link" data-value="staff-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/staff-icon.png" alt="technician-icon">
+            <p class="side-nav__link-label">Staff</p>
+          </li>
+          <li class="side-nav__link" data-value="services-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/services-icon.png" alt="technician-icon">
+            <p class="side-nav__link-label">Services</p>
           </li>
           <li class="side-nav__link" data-value="setting-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="setting-icon">
@@ -97,9 +101,9 @@
         </ul>
       </nav>
 
-      <div class="sections-wrapper">
+      <div class="admin-page__section-wrapper sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-        <section id="dashboard-section" class="hide">
+        <section id="dashboard-section" class="show">
           <div class="admin-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
@@ -139,95 +143,20 @@
             </div>
           </div>
 
-          <!-- Ongoing Appointment Table -->
+          <!-- Accepted Appointment Table -->
           <div class="dashboard-section__table-container">
-            <h1 class="dashboard-section__table-container-heading">Today Ongoing Appointment</h1>
-             <div class="ongoing-appointment-table appointment-table">
+            <h1 class="dashboard-section__table-container-heading">Today Accepted Appointment</h1>
+             <div class="accepted-appointment-table appointment-table">
               <div class="appointment-table__thead"> <!-- table head -->
                 <p class="th first-name">First Name</p>
                 <p class="th last-name">Last Name</p>
                 <p class="th appointment-name">Appointment</p>
                 <p class="th date-time">Date & Time</p>
                 <p class="th status">Status</p>
+                <p class="th action">Action</p>
                 <p class="th toggle-more-details-btn"><!--View button head--></p> 
               </div>
-              <div class="appointment-table__tbody"> 
-                <div class="appointment">
-                  <div class="appointment__details">
-                    <p class="td first-name">John Harvey</p>
-                    <p class="td last-name">Puyong</p>
-                    <p class="td appointment-name">Iron Supplementation</p>
-                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status" data-status-value="ongoing">Ongoing</p>
-                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
-                  </div>
-                  <div class="appointment__more-details">
-                    <div class="appointment__more-details-heading">Appointment Details:</div>
-                    <div class="appointment__more-details-columns">
-                      <!-- more details left column -->
-                      <div class="column left">
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment ID:</span>
-                          <span class="column__detail-value">10023450QPAL</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment Type:</span>
-                          <span class="column__detail-value">Visit</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Contact:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Date sent:</span>
-                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Actual Schedule:</span>
-                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Adress:</span>
-                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
-                        </p>
-                      </div>
-                      <!-- more details right column -->
-                      <div class="column right"> 
-                        <p class="column__detail">
-                          <span class="column__detail-label">Type:</span>
-                          <span class="column__detail-value">Piglet</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Vaccine</span>
-                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Amount:</span>
-                          <span class="column__detail-value">500mg</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Personnel:</span>
-                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Email:</span>
-                          <span class="column__detail-value">john.doe@gmail.com</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Phone:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div class="buttons-container">
-                        <button class="completed-btn btn">Completed</button>
-                        <button class="reschedule-btn btn">Set Schedule</button>
-                        <button class="restore-btn btn">Restore</button>
-                        <button class="delete-btn btn">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="appointment-table__tbody"><!--Ongoing appointments render in dashboard/displayAcceptedAppointments.js--></div>
             </div>
           </div>
 
@@ -237,7 +166,6 @@
             <div class="less-stock-medicine-table inventory-table">
               <!-- table head -->
               <div class="inventory-table__thead">
-                <p class="th id">ID</p>
                 <p class="th medicine-name">Medicine</p>
                 <p class="th medicine-dosage">Dosage</p>
                 <p class="th quantity">Quantity</p>
@@ -248,18 +176,7 @@
                 <p class="th toggle-buttons-icon"></p>
               </div>
               <!-- table body -->
-              <div class="inventory-table__tbody"> 
-                <div class="medicine">
-                  <p class="td id">648f1b7c2a9f...</p>
-                  <p class="td medicine-name">Coglapest</p>
-                  <p class="td medicine-dosage">10mg</p>
-                  <p class="td quantity">15</p>
-                  <p class="td status" data-status-value="in-stock">In Stock</p>
-                  <p class="td exp-date">12-03-2026</p>
-                  <p class="td created-date">12-03-2025</p>
-                  <p class="td updated-date">12-08-2025</p>
-                </div>
-              </div>
+              <div class="inventory-table__tbody"><!-- Medicines render in script/dashboard --></div>
             </div>
           </div>
         </section>
@@ -269,7 +186,7 @@
           <h1 class="section__heading">Users</h1>
 
           <!-- Users Section: Table contents -->
-          <div class="user-section__table-contents">
+          <div class="user-section__table-contents show">
             <!-- user search -->
             <div class="users-section__search">
                   <img class="users-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
@@ -322,7 +239,7 @@
           </div>
 
           <!-- Users Section: User fullview  -->
-          <div class="user-profile-full-view show">
+          <div class="user-profile-full-view">
             <button class="user-profile-full-view__back-btn">Back</button>
 
             <div class="user-profile-full-view__container main-info-container">  <!-- main-info-container -->
@@ -503,7 +420,7 @@
         <!-- ========== Swines Section ========== -->
         <section id="swines-section" class="hide">
           <!-- Swine Section: Table contents -->
-          <div class="swines-section__table-contents">
+          <div class="swines-section__table-contents show">
             <h1 class="section__heading">Swines Table</h1>
             <!-- swines search -->
             <div class="swines-section__search">
@@ -617,38 +534,52 @@
           </div>
 
           <!-- Swine Section: Generate reports contents -->
-          <div class="swine-section__report-contents reports-content show">
+          <div class="swine-section__report-contents reports-content">
             <h1 class="section__heading">Generate Monthly Report</h1>
-            <!-- select-month, back-to-table-btn and download-btn  container -->
-            <div class="report-contents__select-and-btn-container">
-              <select class="swine-section__select-month" id="swine-section__select-month" name="select-month">
-                <option value="all">All</option>
-                <option value="january">January</option>
-                <option value="february">February</option>
-                <option value="march">March</option>
-                <option value="april">April</option>
-                <option value="may">May</option>
-                <option value="june">June</option>
-                <option value="july">July</option>
-                <option value="august">August</option>
-                <option value="september">September</option>
-                <option value="october">October</option>
-                <option value="november">November</option>
-                <option value="december">December</option>
-              </select>
-              <button class="swine-section__back-to-table-btn show">Back to table</button>
-              <button class="swine-section__download-report-btn">Download</button>
+            <!-- back-to-table-btn and download-btn container -->
+            <div class="report-contents__btns-container">
+              <button class="reports-content__back-table-btn">Back to table</button>
+              <button class="reports-content__download-report-btn">Download</button>
             </div>
 
-            <!-- report contents description -->
-            <h1 class="report-contents__description">Select Month in the filter to <br> generate report of certain Month.</h1>
+            <!-- select-month and select year container-->
+            <div class="report-contents__select-container">
+              <label for="select-year">
+                <span class="label-txt">Select Year: </span>
+                <select class="reports-content__select-year" name="select-year">
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+              </select>
+              </label>
+              
+              <label for="select-month">
+                <span class="label-txt">Select Month: </span>
+                <select class="reports-content__select-month" name="select-month">
+                  <option value="january">January</option>
+                  <option value="february">February</option>
+                  <option value="march">March</option>
+                  <option value="april">April</option>
+                  <option value="may">May</option>
+                  <option value="june">June</option>
+                  <option value="july">July</option>
+                  <option value="august">August</option>
+                  <option value="september">September</option>
+                  <option value="october">October</option>
+                  <option value="november">November</option>
+                  <option value="december">December</option>
+                </select>
+              </label>
+            </div>
 
             <!-- report container -->
             <div class="report-container show">
               <h2 class="report-container__month">April</h2>
               <p class="report-container__caption">Total swines for this month</p>
               <!-- report donut chart-->
-              <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
+              <canvas id="report-container__doughnut-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
               <!-- report table -->
               <div id="swines-report-table"></div>
             </div>
@@ -674,7 +605,7 @@
               <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
                 <option value="all">All</option>
                 <option value="completed">Completed</option>
-                <option value="ongoing">Ongoing</option>
+                <option value="accepted">Accepted</option>
                 <option value="reschedule">Reschedule</option>
                 <option value="pending">Pending</option>
                 <option value="removed">Archive</option>
@@ -817,36 +748,51 @@
           <!-- Appointment Section: Generate reports contents -->
           <div class="appointment-section__report-contents reports-content">
             <h1 class="section__heading">Generate Monthly Report</h1>
-            <!-- select-month, back-to-table-btn and download-btn  container -->
-            <div class="report-contents__select-and-btn-container">
-              <select class="appointment-section__select-month" id="appointment-section__select-month" name="select-month">
-                <option value="all">All</option>
-                <option value="january">January</option>
-                <option value="february">February</option>
-                <option value="march">March</option>
-                <option value="april">April</option>
-                <option value="may">May</option>
-                <option value="june">June</option>
-                <option value="july">July</option>
-                <option value="august">August</option>
-                <option value="september">September</option>
-                <option value="october">October</option>
-                <option value="november">November</option>
-                <option value="december">December</option>
-              </select>
-              <button class="appointment-section__back-to-table-btn">Back to table</button>
-              <button class="appointment-section__download-report-btn">Download</button>
+
+            <!-- back-to-table-btn and download-btn container -->
+            <div class="report-contents__btns-container">
+              <button class="reports-content__back-table-btn">Back to table</button>
+              <button class="reports-content__download-report-btn">Download</button>
             </div>
 
-            <!-- report contents description -->
-            <h1 class="report-contents__description">Select Month in the filter to generate report of certain Month.</h1>
+            <!-- select-month and select year container-->
+            <div class="report-contents__select-container">
+              <label for="select-year">
+                <span class="label-txt">Select Year: </span>
+                <select class="reports-content__select-year" name="select-year">
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+              </select>
+              </label>
+              
+              <label for="select-month">
+                <span class="label-txt">Select Month: </span>
+                <select class="reports-content__select-month" name="select-month">
+                  <option value="january">January</option>
+                  <option value="february">February</option>
+                  <option value="march">March</option>
+                  <option value="april">April</option>
+                  <option value="may">May</option>
+                  <option value="june">June</option>
+                  <option value="july">July</option>
+                  <option value="august">August</option>
+                  <option value="september">September</option>
+                  <option value="october">October</option>
+                  <option value="november">November</option>
+                  <option value="december">December</option>
+                </select>
+              </label>
+            </div>
 
             <!-- report container -->
             <div class="report-container">
               <h2 class="report-container__month">April</h2>
               <p class="report-container__caption">Total Appointments</p>
               <!-- report donut chart-->
-              <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
+              <canvas id="report-container__doughnut-chart" width="100" height="100"></canvas>
               <!-- report horizontal bar chart -->
               <canvas id="appointmentsChart" width="400" height="300"></canvas>
               <!-- report table -->
@@ -861,10 +807,26 @@
           <div class="inventory-section__table-contents">
             <h1 class="section__heading">Inventory</h1>
 
-            <!-- inventory search -->
-            <div class="inventory-section__search">
-              <img class="inventory-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
-              <input class="inventory-section__search-input" type="text" placeholder="Search...">   
+            <!-- search inventory -->
+            <div class="inventory-section__search-and-add-btn">
+              <div class="inventory-section__search">
+                <img class="inventory-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+                <input class="inventory-section__search-input" type="text" placeholder="Search...">   
+              </div>
+            </div>
+
+            <!-- inventory sorting-->
+            <div class="inventory-sorting">
+              <p class="inventory-sorting__label">Sort by:</p>
+              <select class="inventory-sorting__select" name="inventory-sorting" id="inventory-sorting-select">
+                <option value="default">Default</option>
+                <option value="medicine-name">Medicine Name</option>
+                <option value="dosage">Dosage</option>
+                <option value="quantity">Quantity</option>
+                <option value="expiration-date">Exp. Date</option>
+                <option value="created-date">Created Date</option>
+                <option value="updated-date">Updated Date</option>
+              </select>
             </div>
 
             <!-- filter-inventory and generate-report-btn container -->
@@ -877,14 +839,13 @@
                 <option value="expired">Expired</option>
                 <option value="removed">Archive</option>
               </select>
-              <button class="inventory-section__generate-report-btn">Generate Report</button>
+              <button class="inventory-section__view-report-btn">Generate Report</button>
             </div>
 
-            <!-- inventory table -->
+            <!-- inventory table -->         
             <div class="inventory-table">
               <!-- table head -->
               <div class="inventory-table__thead">
-                <p class="th id">ID</p>
                 <p class="th medicine-name">Medicine</p>
                 <p class="th medicine-dosage">Dosage</p>
                 <p class="th quantity">Quantity</p>
@@ -892,58 +853,61 @@
                 <p class="th exp-date">EXP. Date</p>
                 <p class="th created-date">Created Date</p>
                 <p class="th updated-date">Updated Date</p>
-                <p class="th toggle-buttons-icon"></p>
               </div>
               <!-- table body -->
-              <div class="inventory-table__tbody"> 
-                <div class="medicine">
-                  <p class="td id">648f1b7c2a9f...</p>
-                  <p class="td medicine-name">Coglapest</p>
-                  <p class="td medicine-dosage">10mg</p>
-                  <p class="td quantity">15</p>
-                  <p class="td status" data-status-value="in-stock">In Stock</p>
-                  <p class="td exp-date">12-03-2026</p>
-                  <p class="td created-date">12-03-2025</p>
-                  <p class="td updated-date">12-08-2025</p>
-                </div>
-              </div>
+              <div class="inventory-table__tbody"><!--  Inventory items render in script/inventory/display-inventory.js --></div>
             </div>
           </div>
 
           <!-- Inventory Section: Generate reports contents -->
           <div class="inventory-section__report-contents reports-content">
             <h1 class="section__heading">Generate Monthly Report</h1>
-
-            <!-- select-month, back-to-table-btn and download-btn  container -->
-            <div class="report-contents__select-and-btn-container">
-              <select class="inventory-section__select-month" id="inventory-section__select-month" name="select-month">
-                <option value="all">All</option>
-                <option value="january">January</option>
-                <option value="february">February</option>
-                <option value="march">March</option>
-                <option value="april">April</option>
-                <option value="may">May</option>
-                <option value="june">June</option>
-                <option value="july">July</option>
-                <option value="august">August</option>
-                <option value="september">September</option>
-                <option value="october">October</option>
-                <option value="november">November</option>
-                <option value="december">December</option>
-              </select>
-              <button class="inventory-section__back-to-table-btn">Back to table</button>
-              <button class="inventory-section__download-report-btn">Download</button>
+            <!-- back-to-table-btn and download-btn container -->
+            <div class="report-contents__btns-container">
+              <button class="reports-content__back-table-btn">Back to table</button>
+              <button class="reports-content__download-report-btn">Download</button>
             </div>
 
-            <!-- report contents description -->
-            <h1 class="report-contents__description">Select Month in the filter to generate report of certain Month.</h1>
+            <!-- select-month and select year container-->
+            <div class="report-contents__select-container">
+              <label for="select-year">
+                <span class="label-txt">Select Year: </span>
+                <select class="reports-content__select-year" name="select-year">
+                <option value="2025">2025</option>
+                <option value="2026">2026</option>
+                <option value="2027">2027</option>
+                <option value="2028">2028</option>
+                <option value="2029">2029</option>
+              </select>
+              </label>
+              
+              <label for="select-month">
+                <span class="label-txt">Select Month: </span>
+                <select class="reports-content__select-month" name="select-month">
+                  <option value="january">January</option>
+                  <option value="february">February</option>
+                  <option value="march">March</option>
+                  <option value="april">April</option>
+                  <option value="may">May</option>
+                  <option value="june">June</option>
+                  <option value="july">July</option>
+                  <option value="august">August</option>
+                  <option value="september">September</option>
+                  <option value="october">October</option>
+                  <option value="november">November</option>
+                  <option value="december">December</option>
+                </select>
+              </label>
+            </div>
 
             <!-- report container -->
             <div class="report-container">
               <h2 class="report-container__month">April</h2>
-              <p class="report-container__caption"></p>
+              <p class="report-container__caption">Total Inventory</p>
               <!-- report chart-->
-              <canvas id="report-container__doughnu-chart" width="100" height="100" style="height: 100px; width: 100px; scale: 0.5;"></canvas>
+              <canvas id="report-container__doughnut-chart" width="50" height="50"></canvas>
+              <!-- report table -->
+              <div id="inventory-report-table"></div>
             </div>
           </div>       
         </section>
@@ -1210,7 +1174,7 @@
         </section>
 
         <!-- ========== Services Section ========== -->
-        <section id="services-section" class="show">
+        <section id="services-section" class="hide">
           <h1 class="section__heading">Services</h1>
           <button class="toggle-add-services-form">Add Service</button>
 
@@ -1289,13 +1253,9 @@
         <!-- ========== Settings Section ========== -->
         <section id="setting-section" class="hide">
           <h1 class="section__heading">Setting</h1>
-          <div class="settings-container">
-            <div class="settings-container__header">
-              <p class="settings-container__header-heading">Profile</p>
-              <button class="settings-container__header-logout-btn">Logout</button>
-            </div>
-            <form class="settings-container__details-list"><!-- Content render to setup-setting-section.js--></form>
-          </div> 
+          <form id="setting-form" class="setting-form">
+            
+          </form>
         </section>        
       </div>
     </main>

@@ -36,7 +36,17 @@ const displaySetting = async() => {
 
           <div class="admin-detail detail editable">
             <p class="admin-detail-label">Contact:</p>
-            <input class="admin-detail-value" id="contact-input" value="${contactNum}" readonly />
+            <input
+              class="admin-detail-value"
+              id="contact-input"
+              type="tel"
+              maxlength="11"
+              pattern="09[0-9]{9}"
+              placeholder="09xxxxxxxxx"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
+              value="${contactNum}"
+              readonly
+            />
           </div>
 
           <div class="admin-detail detail editable">

@@ -87,10 +87,11 @@
             <h1 class="dashboard__heading">Dashboards</h1>
             <div class="dashboard__cards-container"> <!-- Dashboards cards render in dashboards/appointment-dashboard.js --></div>
           </div>
-          <!-- Ongoing Appointment Table -->
+
+          <!-- Accepted Appointment Table -->
           <div class="dashboard-section__table-container">
-            <h1 class="dashboard-section__table-container-heading">Today Ongoing Appointment</h1>
-             <div class="ongoing-appointment-table appointment-table">
+            <h1 class="dashboard-section__table-container-heading">Today Accepted Appointment</h1>
+             <div class="accepted-appointment-table appointment-table">
               <div class="appointment-table__thead"> <!-- table head -->
                 <p class="th first-name">First Name</p>
                 <p class="th last-name">Last Name</p>
@@ -100,7 +101,7 @@
                 <p class="th action">Action</p>
                 <p class="th toggle-more-details-btn"><!--View button head--></p> 
               </div>
-              <div class="appointment-table__tbody"><!--Ongoing appointments render in dashboard/displayOngoingAppointments.js--></div>
+              <div class="appointment-table__tbody"><!--Accepted appointments render in dashboard/displayAcceptedAppointments.js--></div>
             </div>
           </div>
         </section>
@@ -306,6 +307,8 @@
         <!-- ========== Messages Section ========== -->
         <section id="messages-section" class="hide">
           <h1 class="section__heading">Messages</h1>
+
+          <!-- Pop User Image -->
           <div class="profile-view">
             <img class="profile-view__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user image" >
             <h2 class="profile-view__user-name">John Harvey Puyong</h2>
@@ -320,7 +323,9 @@
               </div>
               <div class="chat-list"><!-- Contact List is Render in script/messages --></div>
             </div>
+
             <div class="chat-box"> <!-- convo box -->
+              <!-- When Empty messages -->
               <div class="chat-box__description"> <!-- convo box description-->
                 <h2>Open client messages</h2>
                 <p>Click the icon or messages in the left side of the screen.</p>

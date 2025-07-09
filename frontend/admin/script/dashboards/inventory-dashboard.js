@@ -98,12 +98,9 @@ const inventoryDashboard = async () => {
       </div>
     `;
 
-
     const inventoryDashboard = document.querySelector('.inventory-dashboard .dashboard__cards-container');
 
-    if (inventoryDashboard) {
-      inventoryDashboard.innerHTML = dashboardHTML;
-    }
+    if (inventoryDashboard) inventoryDashboard.innerHTML = dashboardHTML;
 
   } catch (error) {
     console.error('Error fetching appointments:', error);

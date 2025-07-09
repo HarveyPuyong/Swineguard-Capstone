@@ -1,4 +1,4 @@
-import renderInventoryTable from '../../utils/inventory-table.js';
+import {inventoryTable, adminPageInventoryTable} from '../../utils/inventory-table.js';
 import api from './../../utils/axiosConfig.js';
 
 
@@ -9,9 +9,11 @@ const handleRenderInventory = async() => {
     const data = response?.data;
     const inventories = data.slice().reverse(); 
 
-    const inventoryTable = document.querySelector('#inventory-section .inventory-table__tbody')
+    const inventoryTableElement = document.querySelector('#inventory-section .inventory-table__tbody');
+    const AdminInventoryTableElement = document.querySelector('.admin-page__section-wrapper #inventory-section .inventory-table__tbody');
 
-    renderInventoryTable(inventories, inventoryTable, 'renderInventory');
+    inventoryTable(inventories, inventoryTableElement);
+    adminPageInventoryTable(inventories, AdminInventoryTableElement);
 
   } catch (error) {
     console.log(error)

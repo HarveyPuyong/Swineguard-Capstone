@@ -11,7 +11,7 @@ import {handleCompleteAppointment,
 import handleAppointmentCalendarContent from "./appointment-calendar.js";
 import populateMedicine from "../../api/getMedicine.js";
 import populateTechnician from "../../api/getTechnicians.js";
-import populateDateAndTime from "../../api/getDateAndTime.js";
+import populateAppointmentDateAndTime from "../../api/getAppointmentDateAndTime.js";
 
 
 // ======================================
@@ -214,6 +214,8 @@ const setupAddAppointmentForm = () => {
   const municipalitySelect = document.querySelector("#add-appointments-form #municipality");
   const barangaySelect = document.querySelector("#add-appointments-form #barangay");
 
+  if(!municipalitySelect || !barangaySelect) return;
+
   const municipals = Object.keys(addressesData);
 
   municipals.forEach(municipal => {
@@ -247,12 +249,13 @@ const setupAddAppointmentForm = () => {
 // ======================================
 const toggleAddAppointmentForm = () => {
   const formContainer = document.querySelector('.add-appointment-container');
+  const closeFormBtn = document.querySelector('.add-appointment-container__close-form-btn');
+  const showFormBtn = document.querySelector('.appointment-section__add-btn');
 
-  const showFormBtn = document.querySelector('.appointment-section__add-btn')
-    .addEventListener('click', () => formContainer.classList.add('show'));
+  if(!formContainer || !closeFormBtn || !showFormBtn) return
 
-  const closeFormBtn = document.querySelector('.add-appointment-container__close-form-btn')
-    .addEventListener('click', () => formContainer.classList.remove('show'));
+  showFormBtn.addEventListener('click', () => formContainer.classList.add('show'));
+  closeFormBtn.addEventListener('click', () => formContainer.classList.remove('show'));
 }
 
 
@@ -284,6 +287,8 @@ const handleAppointmentSelectActions = () => {
 
     appointments.forEach(appointment => {
       const actionSelect = appointment.querySelector('.select-appointment-action');
+      if(!actionSelect) return;
+
       actionSelect.addEventListener('change', () => {
         const selectedOption = actionSelect.selectedOptions[0];
         const appointmentId = actionSelect.dataset.appointmentId;
@@ -291,7 +296,7 @@ const handleAppointmentSelectActions = () => {
         if(actionSelect.value === 'accept'){
           toggleAcceptAppointmentForm(actionSelect);
           handleAcceptAppointment(appointmentId);
-          populateDateAndTime(appointmentId);
+          populateAppointmentDateAndTime(appointmentId);
         } else if(actionSelect.value === 'reschedule'){
           handleRescheduleAppointment(appointmentId);
         }
@@ -318,7 +323,7 @@ const handleDisabledActionOptions = () => {
       actionOptions.forEach(option => {
         const optionValue = option.value
 
-        if(appointmentStatusValue === 'ongoing' && optionValue === 'accept') option.disabled = true
+        if(appointmentStatusValue === 'accepted' && optionValue === 'accept') option.disabled = true
         else if(appointmentStatusValue === 'reschedule' && optionValue === 'reschedule') option.disabled = true
         else if(appointmentStatusValue === 'removed' && optionValue === 'remove') option.disabled = true
         else if(appointmentStatusValue === 'completed') option.disabled = true
