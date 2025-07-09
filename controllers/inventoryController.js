@@ -252,6 +252,18 @@ exports.getAllItem = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+// Get Item Id
+exports.getItemId = async (req, res) => {
+    const { id } = req.params;
+    // if (checkItemId(id)) return res.status(400).json({ message: 'Invalid item Id' })
+    try {
+        const existingItem = await inventoryDB.findById(id);
+        if (!existingItem) return res.status(404).json({ message: 'Item not found.' });
+        res.status(200).json(existingItem);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
 
 
 

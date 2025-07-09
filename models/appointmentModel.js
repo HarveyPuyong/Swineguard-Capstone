@@ -33,8 +33,18 @@ const appointmentSchema = new mongoose.Schema({
 
     appointmentStatus: { type: String, default: 'pending' },
     appointmentType: { type: String, required: true },
-    vetPersonnel: { type: String, default: 'not set' },
-    medicine: { type: String, default: 'not set' },
+
+    vetPersonnel: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', 
+        required: false,
+    },
+
+    medicine: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Inventory', 
+        required: false,
+    },
     dosage: { type: String, default: 'not set' },
     vetMessage: { type: String, default: 'no set' }
 

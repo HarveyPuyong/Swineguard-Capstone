@@ -24,12 +24,35 @@ const getUser = async (req, res) => {
 // Get Users
 const getUsers = async (req, res) => {
     try {
-        const users = await UserDB.find({ roles: { $nin: ['admin'] } });
-        res.status(200).json(users);
+      const users = await UserDB.find({ roles: { $nin: ['admin'] } });
+      res.status(200).json(users);
     } catch (error) {
-        res.status(500).json({ message: error.message });
+      res.status(500).json({ message: error.message });
     }
 }
 
+// Get Users by Id
+const mongoose = require('mongoose');
 
-module.exports = {getUser, getUsers};
+const getUserById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      return res.status(400).json({ message: 'Invalid user ID format.' });
+    }
+
+    const existingStaff = await UserDB.findById(id);
+    if (!existingStaff) {
+      return res.status(404).json({ message: 'Staff not found.' });
+    }
+
+    res.status(200).json(existingStaff);
+  } catch (error) {
+    console.error('Error fetching user:', error); // log in backend
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
+module.exports = {getUser, getUsers, getUserById};
