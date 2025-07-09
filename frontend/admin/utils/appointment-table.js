@@ -1,10 +1,14 @@
 import { formattedDate, formatTo12HourTime } from './formated-date-time.js';
+import getMedicineName from './../api/getMedicineName.js';
+import getTechnicianName from './../api/getTechnicianName.js';
 
 
-function renderAppointmentsTable(appointments, table) {
+async function renderAppointmentsTable(appointments, table) {
     let appointmentTableHTML = '';
 
-    appointments.forEach(appointment => {
+    for (const appointment of appointments) {
+      const medicineName = await getMedicineName(appointment.medicine); // await here
+      const TechnicianName = await getTechnicianName(appointment.vetPersonnel); // await here
       appointmentTableHTML +=  `
         <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
           <div class="appointment__details">
@@ -64,7 +68,7 @@ function renderAppointmentsTable(appointments, table) {
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Vaccine</span>
-                  <span class="column__detail-value">${appointment.medicine}</span>
+                  <span class="column__detail-value">${medicineName}</span>
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Dosage:</span>
@@ -72,7 +76,7 @@ function renderAppointmentsTable(appointments, table) {
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Personnel:</span>
-                  <span class="column__detail-value">${appointment.vetPersonnel}</span>
+                  <span class="column__detail-value">${TechnicianName}</span>
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Email:</span>
@@ -93,7 +97,7 @@ function renderAppointmentsTable(appointments, table) {
           </div>
         </div>
         `;
-    });
+    };
 
 
     if(table) table.innerHTML = appointmentTableHTML;

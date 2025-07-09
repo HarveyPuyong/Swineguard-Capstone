@@ -11,7 +11,7 @@ const handleRenderAppointments = async() => {
     const appointments = data.slice().reverse(); 
     const appointmentTable = document.querySelector('#appointments-section .appointment-table__tbody');
 
-    renderAppointmentsTable(appointments, appointmentTable)
+    await renderAppointmentsTable(appointments, appointmentTable)
 
   } catch (error) {
     console.log(error)

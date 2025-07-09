@@ -11,6 +11,7 @@ router.patch('/remove/:id', verifyJWT, inventoryController.removeItem); // Remov
 router.patch('/restore/:id', verifyJWT, inventoryController.restoreItem); // Restore items http://localhost:2500/inventory/restore/id
 router.delete('/delete/:id', verifyJWT,  inventoryController.deleteItem); // Delete items http://localhost:2500/inventory/delete/id
 router.get('/all', verifyJWT, inventoryController.getAllItem); // Get all items http://localhost:2500/inventory/all
+router.get('/:id', verifyJWT, inventoryController.getItemId); // Get items id http://localhost:2500/inventory/:id
 
 module.exports = router;
 
