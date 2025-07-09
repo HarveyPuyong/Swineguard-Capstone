@@ -160,7 +160,7 @@ const changeStatusColor = () => {
 // ======================================
 // ========== Toggle item buttons container
 // ======================================
-const toggleMedicineButtonsContainer = () => {
+const toggleMedicineButtons = () => {
   document.addEventListener('renderInventory', () => {
     const medicines = document.querySelectorAll('.inventory-table__tbody .medicine');
 
@@ -225,6 +225,7 @@ const toggleAddMedicineForm = () => {
 
 
 export default function setupInventorySection() {
+  toggleMedicineButtons();
   handleRenderInventory();
   handleAddItem();
   handleItemButtonsActions();
@@ -233,7 +234,6 @@ export default function setupInventorySection() {
   inventorySorting();
   toggleAddMedicineForm();
   changeStatusColor();
-  toggleMedicineButtonsContainer();
 }
 
 

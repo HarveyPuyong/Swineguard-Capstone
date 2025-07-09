@@ -8,6 +8,7 @@ function appointmentsTable(appointments, table) {
     let appointmentTableHTML = '';
 
     appointments.forEach(appointment => {
+      console.log(appointment.appointmentStatus)
       appointmentTableHTML +=  `
         <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
           <div class="appointment__details">
@@ -100,8 +101,6 @@ function appointmentsTable(appointments, table) {
 
 
     if(table) table.innerHTML = appointmentTableHTML;
-
-    document.dispatchEvent(new Event('renderAppointments')); 
 }
 
 
@@ -190,8 +189,6 @@ function adminPageAppointmentTable(appointments, table) {
 
 
   if(table) table.innerHTML = appointmentTableHTML;
-
-  document.dispatchEvent(new Event('renderAppointments')); 
 }
 
 

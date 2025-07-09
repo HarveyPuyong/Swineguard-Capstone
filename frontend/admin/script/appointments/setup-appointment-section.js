@@ -424,7 +424,8 @@ const toggleAppointentMoreDetails = () => {
           toggleBtn.classList.toggle('active');
 
           if(toggleBtn.classList.contains('active')){
-            moreDetails.classList.add('show')
+            moreDetails.classList.add('show');
+            console.log(moreDetails)
           }else{
             moreDetails.classList.remove('show')
           }

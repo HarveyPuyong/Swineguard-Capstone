@@ -13,7 +13,6 @@ const displayAcceptedAppointments = async() => {
 
     if(acceptedAppointmentsTable) appointmentsTable(acceptedAppointments, acceptedAppointmentsTable);
     if(AdminacceptedAppointmentsTable) adminPageAppointmentTable(acceptedAppointments, AdminacceptedAppointmentsTable)
-    
   } catch (error) {
     console.log(error);
   }

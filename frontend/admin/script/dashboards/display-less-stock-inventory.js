@@ -2,7 +2,7 @@ import fetchInventory from "../../api/fetch-inventory.js";
 import {inventoryTable, adminPageInventoryTable} from '../../utils/inventory-table.js';
 import formatItemStatus from '../../utils/format-item-status.js';
 
-const displayLessStockInventory = async () => {
+async function displayLessStockInventory (){
   try {
     const inventory = await fetchInventory();
 
@@ -14,9 +14,10 @@ const displayLessStockInventory = async () => {
     const inventoryTableElement = document.querySelector('#dashboard-section .inventory-table__tbody');
     const adminInventoryTableElement = document.querySelector('.admin-page__section-wrapper #dashboard-section .inventory-table__tbody');
 
-    inventoryTable(filteredInventory, inventoryTableElement);
-    adminPageInventoryTable(filteredInventory, adminInventoryTableElement);
+    if(inventoryTableElement) inventoryTable(filteredInventory, inventoryTableElement);
+    if(adminInventoryTableElement) adminPageInventoryTable(filteredInventory, adminInventoryTableElement);
 
+    document.dispatchEvent(new Event('renderInventory')); 
   } catch (error) {
     console.error(error);
   }
