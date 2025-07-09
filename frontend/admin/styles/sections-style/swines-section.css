@@ -87,15 +87,13 @@
 
 .swines-table {
   --elements-gap: 1.3rem;
-  --type-width: 90px;
-  --breed-width: 120px;
-  --age-width: 80px;
-  --sex-width: 80px;
-  --weight-width: 80px;
-  --health-status-width: 110px;
-  --owner-width: 150px;
-  --created-date-width: 120px;
-  --updated-date-width: 120px;
+  --type-width: 130px;
+  --breed-width: 130px;
+  --age-width: 130px;
+  --sex-width: 130px;
+  --weight-width: 130px;
+  --health-status-width: 130px;
+  --owner-width: 200px;
   --toggle-more-details-width: 85px;
 
   display: block;
@@ -103,7 +101,8 @@
   width: 100%;
   height: fit-content;
   min-height: 200px;
-  max-height: 500px;
+  height: 475px;
+  max-height: 475px;
   background-color: white;
   border: none;
   border-radius: 8px;
@@ -127,7 +126,6 @@
   row-gap: 14px;
   overflow-y: scroll;
   scrollbar-width: thin;
-  padding-bottom: 1rem;
   min-height: 120px;
   max-height: 450px;
   background-color: rgb(250, 250, 250);

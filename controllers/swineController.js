@@ -26,7 +26,6 @@ exports.addSwine = async (req, res) => {
 
 
     try {
-
         const newSwine = new swineDB ({ ...swineData });
 
         await newSwine.save();

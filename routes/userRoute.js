@@ -11,7 +11,7 @@ router.post('/add/technician', verifyJWT,  verifyRoles(ROLE_LIST.Admin), addTech
 router.post('/add/veterinarian', verifyJWT,  verifyRoles(ROLE_LIST.Admin), addVeterinarian); 
 
 router.get('/get/technician', verifyJWT,  verifyRoles(ROLE_LIST.AppointmentCoordinator), getTechandVets); // For appointments personnels
-router.get('/get/staff', verifyJWT,  verifyRoles(ROLE_LIST.Admin), getAllStaffs); // For All personnels
+router.get('/get/staff', verifyJWT, verifyRoles(ROLE_LIST.Admin), getAllStaffs); // For All personnels
 
 router.put('/edit/:id', verifyJWT, editUserDetails);
 
