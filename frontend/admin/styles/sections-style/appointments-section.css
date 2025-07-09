@@ -381,7 +381,7 @@
   cursor: pointer;
 }
 
-.appointment.status-ongoing .completed-btn,
+.appointment.status-accepted .completed-btn,
 .appointment.status-reschedule .set-schedule-btn{
   display: block;
   border: 1px solid #009947;

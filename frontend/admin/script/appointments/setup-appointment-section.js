@@ -56,7 +56,7 @@ const setFilterColor = (statusValue, element) =>{
     if (statusValue === 'pending') {
       element.style.setProperty('--color', 'rgb(37, 37, 37)');
       element.style.setProperty('--BGcolor', 'rgba(0, 0, 0, 0.19)');
-    } else if (statusValue === 'ongoing') {
+    } else if (statusValue === 'accepted') {
       element.style.setProperty('--color', 'rgb(55, 119, 255)');
       element.style.setProperty('--BGcolor', 'rgba(73, 130, 254, 0.24)');
     } else if (statusValue === 'completed') {
