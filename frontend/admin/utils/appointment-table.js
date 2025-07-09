@@ -1,6 +1,12 @@
 import { formattedDate, formatTo12HourTime } from './formated-date-time.js';
+import getMedicineName from './../api/getMedicineName.js';
+import getTechnicianName from './../api/getTechnicianName.js';
 
-async function renderAppointmentsTable(appointments, table) {
+
+// ======================================
+// ==========AC Page Appointment Table
+// ======================================
+async function appointmentsTable(appointments, table) {
     let appointmentTableHTML = '';
 
     for (const appointment of appointments) {

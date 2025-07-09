@@ -8,7 +8,7 @@ async function populateMedicine() {
     selectTag.innerHTML = '<option value="">Select a Medicine</option>'; 
 
     try {
-        const response = await api.get('http://localhost:2500/inventory/all');
+        const response = await api.get('/inventory/all');
 
         const data = response?.data;
 

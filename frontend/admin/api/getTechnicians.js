@@ -6,7 +6,8 @@ async function populateTechnician() {
     selectTag.innerHTML = '<option value="">Personnel</option>'; 
 
     try {
-        const response = await api.get('http://localhost:2500/get/technician');
+        
+        const response = await api.get('/get/technician');
 
         const data = response?.data;
 

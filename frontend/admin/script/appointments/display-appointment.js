@@ -17,7 +17,7 @@ const handleRenderAppointments = async() => {
     
     const appointmentTable = document.querySelector('#appointments-section .appointment-table__tbody');
 
-    await renderAppointmentsTable(appointments, appointmentTable)
+    await appointmentsTable(appointments, appointmentTable)
 
   } catch (error) {
     console.log(error)
