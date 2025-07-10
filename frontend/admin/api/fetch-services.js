@@ -1,9 +1,9 @@
 import api from '../utils/axiosConfig.js'
 
 
-async function fetchMedicines() {
+async function fetchServices() {
     try {
-        const response = await api.get('/inventory/all');
+        const response = await api.get('/service/all');
 
         if(response.status === 200) return response?.data;
 
@@ -15,4 +15,4 @@ async function fetchMedicines() {
 }
 
 
-export default fetchMedicines;
+export default fetchServices;

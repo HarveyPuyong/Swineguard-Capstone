@@ -29,7 +29,7 @@ const handleAddStaff = () => {
       const response = await api.post('/add/staff', staffFormData);
       
       if(response.status === 201) {
-        popupAlert('success', 'Success', `New staff ${staffFullname} successully created`).
+        popupAlert('success', 'Success', `New staff "${staffFullname}" successully created`).
           then(() => {
             addStaffForm.reset();
             addStaffForm.classList.remove('show');

@@ -4,7 +4,8 @@ import setupDashboardSection from "./dashboards/setup-dashboard-section.js";
 import setupSwinesSection from "./swines/setup-swines-section.js";
 import setupAppointmentSection from "./appointments/setup-appointment-section.js";
 import setupInventorySection from "./inventory/setup-inventory-section.js"
-import setupStaffSection from "./staff/setup-staff-section.js"
+import setupStaffSection from "./staff/setup-staff-section.js";
+import setupServiceSection from "./service/setup-service-section.js";
 import setupSettingsSection from './setting/setup-setting-section.js';
 
 setupHeader();
@@ -14,6 +15,7 @@ setupSwinesSection();
 setupAppointmentSection();
 setupInventorySection();
 setupStaffSection();
+setupServiceSection();
 setupSettingsSection();
 
 
