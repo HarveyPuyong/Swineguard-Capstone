@@ -1,3 +1,4 @@
+import roleRidirectPage from "./../script/auth/role-redirect-page.js"
 import setupHeader from "./header.js";
 import sideNavFuntionality from './sidenav.js';
 import setupDashboardSection from "./dashboards/setup-dashboard-section.js";
@@ -9,6 +10,8 @@ import setupStaffSection from "./staff/setup-staff-section.js";
 import setupServiceSection from "./service/setup-service-section.js";
 import setupSettingsSection from './setting/setup-setting-section.js';
 
+
+roleRidirectPage()
 setupHeader();
 sideNavFuntionality();
 setupDashboardSection();
