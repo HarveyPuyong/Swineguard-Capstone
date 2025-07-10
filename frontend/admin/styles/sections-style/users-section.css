@@ -70,9 +70,9 @@
 /* users table */
 .users-table{
   --elements-gap: 1.7rem;
-  --first-name-width: 160px;
-  --middle-name-width: 120px;
-  --last-name-width: 160px;
+  --first-name-width: 190px;
+  --middle-name-width: 50px;
+  --last-name-width: 190px;
   --municipality-width: 130px;
   --barangay-width: 140px;
   --contact-width: 150px;
@@ -116,13 +116,14 @@
 .users-table__thead .th {
   text-align: center;
   font-weight: 600;
-  text-align: center;
+  padding: 0 15px;
 }
 
 .users-table__tbody .td{
   text-align: center;
   color: rgba(0, 0, 0, 0.8);
   word-break: break-all;
+  padding: 0 15px;
 }
 
 .users-table__tbody .user{
