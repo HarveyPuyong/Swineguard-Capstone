@@ -180,30 +180,41 @@ const viewBtnsFunctionality = () => {
   const appointmentSchedContent = document.querySelector('.appointment-schedule-content');
   const appointmentsSection = document.getElementById('appointments-section');
   const techniciansSection = document.getElementById('technicians-section');
+  const staffSection = document.getElementById('staff-section');
 
-  const viewSchedBtn = document.querySelector('.appointment-section__view-schedules-btn')
-    .addEventListener('click', () => {
-      appointmentTableContent.classList.remove('show');
-      appointmentSchedContent.classList.add('show');
-      handleAppointmentCalendarContent();
-  });
+  const viewSchedBtn = document.querySelector('.appointment-section__view-schedules-btn');
+  const viewTableBtn = document.querySelector('.appointment-section__view-appointments-table-btn');
+  const viewTechniciansBtn = document.querySelector('.appointment-section__view-technicians-btn');
+  const viewStaffBtn = document.querySelector('.appointment-section__view-staff-btn');
 
-  const viewTableBtn = document.querySelector('.appointment-section__view-appointments-table-btn')
-    .addEventListener('click', () => {
-      appointmentTableContent.classList.add('show');
-      appointmentSchedContent.classList.remove('show');
-  });
+  if(viewSchedBtn)  viewSchedBtn.addEventListener('click', () => {
+                      appointmentTableContent.classList.remove('show');
+                      appointmentSchedContent.classList.add('show');
+                      handleAppointmentCalendarContent();
+                    });
 
-  const viewTechniciansBtn = document.querySelector('.appointment-section__view-technicians-btn')
-    .addEventListener('click', () => {
-      appointmentsSection.classList.add('hide');
-      appointmentsSection.classList.remove('show');
-      
-      techniciansSection.classList.add('show');
-      techniciansSection.classList.remove('hide');
-      updateSidenav();
-  });
+  if(viewTableBtn)  viewTableBtn.addEventListener('click', () => {
+                      appointmentTableContent.classList.add('show');
+                      appointmentSchedContent.classList.remove('show');
+                    });
 
+  if(viewTechniciansBtn) viewTechniciansBtn.addEventListener('click', () => {
+                            appointmentsSection.classList.add('hide');
+                            appointmentsSection.classList.remove('show');
+                            
+                            techniciansSection.classList.add('show');
+                            techniciansSection.classList.remove('hide');
+                            updateSidenav();
+                          });
+
+  if(viewStaffBtn) viewStaffBtn.addEventListener('click', () => {
+                      appointmentsSection.classList.add('hide');
+                      appointmentsSection.classList.remove('show');
+                      
+                      staffSection.classList.add('show');
+                      staffSection.classList.remove('hide');
+                      updateSidenav();
+                    });
 }
 
 
