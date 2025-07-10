@@ -4,6 +4,7 @@ import setupDashboardSection from "./dashboards/setup-dashboard-section.js";
 import setupSwinesSection from "./swines/setup-swines-section.js";
 import setupAppointmentSection from "./appointments/setup-appointment-section.js";
 import setupInventorySection from "./inventory/setup-inventory-section.js"
+import setupStaffSection from "./staff/setup-staff-section.js"
 import setupSettingsSection from './setting/setup-setting-section.js';
 
 setupHeader();
@@ -12,7 +13,10 @@ setupDashboardSection();
 setupSwinesSection();
 setupAppointmentSection();
 setupInventorySection();
+setupStaffSection();
 setupSettingsSection();
+
+
 
 const reports = () => {
   // report donut chart: imodify pa yung styling neto at naming

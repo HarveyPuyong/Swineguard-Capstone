@@ -34,7 +34,6 @@ const appointments = data.filter(appointment => appointment.appointmentStatus ==
         const event = content.event;
         const {appointmentId, appointmentTitle, appointmentType, appointmentTime, appointmentAdress} = event.extendedProps;
 
-        console.log(appointmentType)
         return {
           html: `
             <div class="custom-event appointment-type-${appointmentType.toLowerCase()}"  data-appointment-id=${appointmentId}>
@@ -89,9 +88,7 @@ async function computeVisitAndServicePercentages() {
 
 
 
-
-
-export default  function handleAppointmentCalendarContent (){
+export default  function handleAppointmentCalendarContent(){
   renderAppointmentCalendar();
   computeVisitAndServicePercentages()
 }

@@ -6,8 +6,9 @@ import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
 
 const handleAddAppointment = () => {
   // Sanitize all inputs text type
-  const inputs = document.querySelectorAll('#add-appointments-form input[type="text"]:not(#client-email):not(#appointment-date):not(#appointment-time)')
-    .forEach(input => {
+  const inputs = document.querySelectorAll('#add-appointments-form input[type="text"]:not(#client-email):not(#appointment-date):not(#appointment-time)');
+  
+  inputs.forEach(input => {
       input.addEventListener('input', () => {
         input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
       });
@@ -22,22 +23,22 @@ const handleAddAppointment = () => {
       e.preventDefault();
 
       const appointmentFormData = {
-        clientFirstname: document.querySelector('#first-name').value.trim(),
-        clientLastname: document.querySelector('#last-name').value.trim(),
-        clientEmail: document.querySelector('#client-email').value.trim(),
-        contactNum: document.querySelector('#client-phone').value.trim(),
-        municipality: document.querySelector('#municipality').value,
-        barangay: document.querySelector('#barangay').value,
-        appointmentTitle: document.querySelector('#appointment-title').value,
-        appointmentType: document.querySelector('#appointment-type').value,
-        appointmentDate: document.querySelector('#appointment-date').value,
-        appointmentTime: document.querySelector('#appointment-time').value,
-        swineType: document.querySelector('#swine-type').value,
-        swineAge: Number(document.querySelector('#swine-age').value),
-        swineCount: Number(document.querySelector('#swine-count').value),
-        swineFemale: Number(document.querySelector('#swine-female').value),
-        swineMale: Number(document.querySelector('#swine-male').value),
-        swineSymptoms: document.querySelector('#swine-symptoms').value.trim(),
+        clientFirstname: addAppointmentForm['firstName'].value.trim(),
+        clientLastname: addAppointmentForm['lastName'].value.trim(),
+        clientEmail: addAppointmentForm['clientEmail'].value.trim(),
+        contactNum: addAppointmentForm['clientPhone'].value.trim(),
+        municipality: addAppointmentForm['municipality'].value,
+        barangay: addAppointmentForm['barangay'].value,
+        appointmentTitle: addAppointmentForm['appointmentTitle'].value,
+        appointmentType: addAppointmentForm['appointmentType'].value,
+        appointmentDate: addAppointmentForm['appointmentDate'].value,
+        appointmentTime: addAppointmentForm['appointmentTime'].value,
+        swineType: addAppointmentForm['swineType'].value,
+        swineAge: Number(addAppointmentForm['swineAge'].value),
+        swineCount: Number(addAppointmentForm['swineCount'].value),
+        swineFemale: Number(addAppointmentForm['swineFemale'].value),
+        swineMale: Number(addAppointmentForm['swineMale'].value),
+        swineSymptoms: addAppointmentForm['swineSymptoms'].value.trim(),
         appointmentStatus: 'ongoing'
       };
 

@@ -1,6 +1,8 @@
-const loginForm = document.querySelector('#admin-login-form');
+import togglePasswordVisibility from '../../utils/togglePasswordVisiblity.js';
 import api from '../../utils/axiosConfig.js';
 
+
+const loginForm = document.querySelector('#admin-login-form');
 loginForm.addEventListener('submit', async(e) => {
   e.preventDefault();
   const password = document.getElementById('password-input').value.trim();
@@ -30,16 +32,12 @@ loginForm.addEventListener('submit', async(e) => {
 // ======================================
 // ========== Toggle Password Visibility
 // ======================================
-const passwordInput = document.getElementById('password-input');
-const togglePassword = document.querySelector('.toggle-password-eye');
+const passwordInput = document.querySelector('#admin-login-form #password-input');
+const togglePasswordEye = document.querySelector('#admin-login-form .toggle-password-eye');
+const eyeSlash = document.querySelector('#admin-login-form .eye-slash');
 
-togglePassword.addEventListener('click', () => {
-  const eyeSlash = document.querySelector('.eye-slash');
-  eyeSlash.classList.toggle('active');
-  
-  if(eyeSlash.classList.contains('active')){
-    passwordInput.setAttribute('type', 'text');
-  }else{
-    passwordInput.setAttribute('type', 'password');
-  }
-});
+togglePasswordEye.addEventListener('click', () => togglePasswordVisibility(eyeSlash, passwordInput));
+
+
+
+
