@@ -41,7 +41,7 @@ const handleRenderTechnicians = async () => {
                   <span class="task-card__value">${location}</span>          
                 </p>
               </div>
-              <p class="task-card__task-type">Service</p>
+              <p class="task-card__task-type">${task.appointmentType}</p>
               <div class="task-card__group">
                 <p class="task-card__task-date">
                   <span class="task-card__label">Date:</span>

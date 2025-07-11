@@ -135,72 +135,87 @@ exports.addAppointment = async (req, res) => {
     }
 }
 
-
-// Accept appointment by Id Mark as Accepted
+// Accept appointment
 exports.acceptAppointment = async (req, res) => {
-    
-    const { appointmentDate, appointmentTime, appointmentType, vetPersonnel, medicine, dosage, vetMessage } = req.body;
-
+    const { appointmentDate, appointmentTime, vetPersonnel, medicine, dosage, vetMessage } = req.body;
     const appointmentId = req.params.id;
 
-    // Check Object Id if exist or valid
+    // Check Object Id
     if (!isValidAppointmentId(appointmentId)) {
         return res.status(400).json({ message: 'Invalid Appointment Id.' });
     }
 
-    // Check input Fields
-    if ([appointmentDate, appointmentTime, appointmentType, medicine, dosage, vetPersonnel].some(field => !field || field === null)) return res.status(400).json({ message: 'Kindly check your Appointment details' })
+    // Get appointment first to access its type
+    const existingAppointment = await appointmentDB.findById(appointmentId);
+    if (!existingAppointment) {
+        return res.status(400).json({ message: 'Appointment not found.' });
+    }
 
-    // Check Appointment Date
+    const appointmentType = existingAppointment.appointmentType?.toLowerCase();
+
+    // Basic field validation
+    if (!appointmentDate || !appointmentTime || !vetPersonnel) {
+        return res.status(400).json({ message: 'Date, Time, and Personnel are required.' });
+    }
+
+    // Medicine and dosage validation only for 'service'
+    if (appointmentType === 'service') {
+        if (!medicine || !dosage) {
+            return res.status(400).json({ message: 'Medicine and Dosage are required for Service appointments.' });
+        }
+    }
+
+    // Appointment date check
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-
     const apptDate = new Date(appointmentDate);
     apptDate.setHours(0, 0, 0, 0);
 
     if (apptDate < today) {
         return res.status(400).json({ message: 'Past dates are not allowed for appointments.' });
-    } 
-
-    // Validate input fields
-    if ([appointmentDate, appointmentTime, vetPersonnel, medicine, dosage].some(field => field === undefined || field === null)) {
-        return res.status(400).json({ message: 'Kindly check your appointment details' });
     }
 
-    // Check Appointment Time
-    const userMunicipality = await appointmentDB.findById(appointmentId);
-    const checkAppointmentTime = await isValidAppointmentTime(appointmentDate, appointmentTime, userMunicipality.municipality);
-    if(!checkAppointmentTime.valid) return res.status(400).json({ message: checkAppointmentTime.message });
-
-    try {
-
-        const existingAppointment = await appointmentDB.findById(appointmentId);
-        if (!existingAppointment) return res.status(400).json({ message: 'Appointment not found.' })
-
-        // Check Swine Count
-        const swineCheck = await checkSwineCountLimit(appointmentDate, existingAppointment.swineCount);
-        if (!swineCheck.success) {
-            return res.status(400).json({ message: swineCheck.message });
-        }
-        
-        // Proceed to updating to accept appointment
-        const update = await appointmentDB.findByIdAndUpdate(
-            appointmentId,
-            { appointmentDate, appointmentTime, appointmentType, appointmentStatus: "accepted", medicine, dosage, vetPersonnel, vetMessage },
-            { new : true } 
-        );
-
-        // Success yung pag update ng appointments
-        res.status(200).json({
-            message: 'Appointment accepted successfully.',
-            data: update
-        });
-
-    } catch (err) {
-        console.error("Error updating appointment", err);
-        res.status(500).json({error: "Failed to update appointment"});
+    // Check appointment time conflict
+    const checkAppointmentTime = await isValidAppointmentTime(appointmentDate, appointmentTime, existingAppointment.municipality);
+    if (!checkAppointmentTime.valid) {
+        return res.status(400).json({ message: checkAppointmentTime.message });
     }
-}
+
+    // Check swine count limit
+    const swineCheck = await checkSwineCountLimit(appointmentDate, existingAppointment.swineCount);
+    if (!swineCheck.success) {
+        return res.status(400).json({ message: swineCheck.message });
+    }
+
+    // Prepare update values
+    const updateData = {
+        appointmentDate,
+        appointmentTime,
+        appointmentStatus: 'accepted',
+        vetPersonnel,
+        vetMessage
+    };
+
+    if (appointmentType === 'visit') {
+        updateData.medicine = null;
+        updateData.dosage = 0;
+    } else {
+        updateData.medicine = medicine;
+        updateData.dosage = dosage;
+    }
+
+    // Perform update
+    const updated = await appointmentDB.findByIdAndUpdate(
+        appointmentId,
+        updateData,
+        { new: true }
+    );
+
+    return res.status(200).json({
+        message: 'Appointment accepted successfully.',
+        data: updated
+    });
+};
 
 
 // Reschedule appointment
