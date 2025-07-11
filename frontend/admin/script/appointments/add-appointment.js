@@ -6,8 +6,9 @@ import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
 
 const handleAddAppointment = () => {
   // Sanitize all inputs text type
-  const inputs = document.querySelectorAll('#add-appointments-form input[type="text"]:not(#client-email):not(#appointment-date):not(#appointment-time)')
-    .forEach(input => {
+  const inputs = document.querySelectorAll('#add-appointments-form input[type="text"]:not(#client-email):not(#appointment-date):not(#appointment-time)');
+  
+  inputs.forEach(input => {
       input.addEventListener('input', () => {
         input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
       });

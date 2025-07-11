@@ -16,13 +16,22 @@ async function appointmentsTable(appointments, table) {
     for (const appointment of appointments) {
       const medicineName = await getMedicineName(appointment.medicine); // await here
       const TechnicianName = await getTechnicianName(appointment.vetPersonnel); // await here
-      const serviceName = await getServiceName(appointment.appointmentService);
+=========
+// ======================================
+// ==========AC Page Appointment Table
+// ======================================
+function appointmentsTable(appointments, table) {
+    let appointmentTableHTML = '';
+
+    appointments.forEach(appointment => {
+      console.log(appointment.appointmentStatus)
+>>>>>>>>> Temporary merge branch 2
       appointmentTableHTML +=  `
         <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
           <div class="appointment__details">
             <p class="td first-name">${appointment.clientFirstname}</p>
             <p class="td last-name">${appointment.clientLastname}</p>
-            <p class="td appointment-name">${serviceName}</p>
+            <p class="td appointment-name">${appointment.appointmentTitle}</p>
             <p class="td date-time">${formattedDate(appointment.appointmentDate)} at ${formatTo12HourTime(appointment.appointmentTime)}</p>
             <p class="td status status--${appointment.appointmentStatus.toLowerCase()}"
                                 data-status-value=${appointment.appointmentStatus.toLowerCase()}>
@@ -109,8 +118,6 @@ async function appointmentsTable(appointments, table) {
 
 
     if(table) table.innerHTML = appointmentTableHTML;
-
-    document.dispatchEvent(new Event('renderAppointments')); 
 }
 
 
@@ -205,3 +212,4 @@ function adminPageAppointmentTable(appointments, table) {
 
 
 export {appointmentsTable, adminPageAppointmentTable};
+

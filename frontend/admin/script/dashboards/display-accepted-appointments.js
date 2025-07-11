@@ -11,7 +11,7 @@ const displayAcceptedAppointments = async() => {
     const acceptedAppointmentsTable = document.querySelector('.accepted-appointment-table .appointment-table__tbody');
     const AdminacceptedAppointmentsTable = document.querySelector('.admin-page__section-wrapper .accepted-appointment-table .appointment-table__tbody');
 
-    if(acceptedAppointmentsTable) appointmentsTable(acceptedAppointments, acceptedAppointmentsTable);
+    if(acceptedAppointmentsTable) await appointmentsTable(acceptedAppointments, acceptedAppointmentsTable);
     if(AdminacceptedAppointmentsTable) adminPageAppointmentTable(acceptedAppointments, AdminacceptedAppointmentsTable)
   } catch (error) {
     console.log(error);

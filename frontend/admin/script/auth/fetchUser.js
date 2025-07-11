@@ -11,7 +11,6 @@ const fetchUser = async () => {
     const response = await api.get('/admin-profile');
 
     return response.data.userInfo;
-
   } catch (err) {
     const errStatus = err.response?.status;
 

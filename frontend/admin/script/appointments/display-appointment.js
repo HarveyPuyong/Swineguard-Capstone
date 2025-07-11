@@ -11,7 +11,7 @@ async function handleRenderAppointments() {
 
     if(appointmentsTableElement) appointmentsTable(appointments, appointmentsTableElement);
     if(adminAppointmentTableElement) adminPageAppointmentTable(appointments, adminAppointmentTableElement);
-    
+  
     document.dispatchEvent(new Event('renderAppointments')); 
 
   } catch (err) {

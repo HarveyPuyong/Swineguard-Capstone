@@ -6,6 +6,7 @@ const ROLE_LIST = require('./../config/role_list');
 const verifyRoles = require('./../middlewares/verifyRoles');
 
 
+
 router.post('/add', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.AddItem); 
 
 router.put('/edit/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.editItem); 
@@ -18,8 +19,6 @@ router.delete('/delete/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinat
 
 router.get('/all', verifyJWT,  inventoryController.getAllItem); 
 
-router.get('/:id', verifyJWT, inventoryController.getItemId); 
-
-
+>>>>>>>>> Temporary merge branch 2
 
 module.exports = router;

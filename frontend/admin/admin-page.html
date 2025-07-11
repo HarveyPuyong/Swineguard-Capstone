@@ -180,27 +180,9 @@
                 <p class="th barangay">Barangay</p>
                 <p class="th contact">Contact</p>
                 <p class="th email">Email</p>
-                <p class="th toggle-buttons"><!--View button head--></p> 
+                <p class="th toggle-buttons"><!-- View button head --></p> 
               </div>
-              <div class="users-table__tbody">
-                <div class="user">
-                  <p class="td first-name">Robert</p>
-                  <p class="td middle-name">Qpal</p>
-                  <p class="td last-name">Magno</p>
-                  <p class="td municipality">Buenavista</p>
-                  <p class="td barangay">Balaring</p>
-                  <p class="td contact">09123456789</p>
-                  <p class="td email">email@gmail.com</p>
-                  <div class="td toggle-buttons">
-                    <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
-                    <div class="buttons-container">
-                      <button class="view-user-profile-btn">View</button>
-                      <button class="reset-user-credential-btn">Reset</button>
-                      <button class="remove-user-btn">Remove</button>
-                    </div>
-                  </div> 
-                </div>
-              </div>
+              <div class="users-table__tbody"> <!-- users render in /script/users/display-user.js --> </div>
             </div>
           </div>
 
@@ -533,7 +515,7 @@
           <div class="appointment-schedule-content">
             <h1 class="section__heading">Appointments Schedule</h1>
             <div class="view-btns-container">
-              <button class="appointment-section__view-technicians-btn view-navigate-btn">View Staff</button>
+              <button class="appointment-section__view-staff-btn view-navigate-btn">View Staff</button>
               <button class="appointment-section__view-appointments-table-btn view-navigate-btn">View Table</button>
             </div>
 
@@ -740,12 +722,12 @@
           
           <!-- section buttons container -->
           <div class="staff-section__buttons-container">
-            <button class="staff-section__toggle-add-staff-form">Add Staff</button>
             <button class="staff-section__view-appointments-calendar">View Appointments Calendar</button>
+            <button class="staff-section__add-staff-form-btn">Add Staff</button>
           </div>
 
           <!-- Add Staff Form -->
-          <form class="add-staff-form">
+          <form class="add-staff-form" id="add-staff-form">
             <h1 class="add-staff-form__heading">Add Staff</h1>
 
             <!-- Full name group -->
@@ -785,9 +767,9 @@
                   <option value="">Select</option>
                   <option value="technician">Technician</option>
                   <option value="veterinarian">Veterinarian</option>
-                  <option value="appointment_coordinator">Appointment Coordinator</option>
-                  <option value="inventory_coordinator">Inventory Coordinator</option>
-                  <option value="administrator">Administrator</option>
+                  <option value="appointmentCoordinator">Appointment Coordinator</option>
+                  <option value="inventoryCoordinator">Inventory Coordinator</option>
+                  <option value="admin">Administrator</option>
                 </select>
               </label>
 
@@ -812,7 +794,8 @@
             <div class="add-staff-form__group">
               <label for="phone">
                 <span class="label-value">Phone:</span> <br>
-                <input id="phone" class="phone-input" name="phone" type="tel" pattern="[0-9]{10,}" placeholder="63+" required>
+               <input id="phone" name="phone" type="tel" pattern="09[0-9]{9}" maxlength="11" placeholder="09XXXXXXXXX" required inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')">
+
               </label>
               <label for="email">
                 <span class="label-value">Email:</span> <br>
@@ -822,7 +805,7 @@
 
             <!-- Password and Confirm Password -->
             <div class="add-staff-form__group">
-              <label for="password"  class="password">
+              <label for="password" class="password">
                 <span class="label-value">Password:</span> <br>
                 <input id="password" class="password-input" name="password" type="password" required>
                 <img class="toggle-password-eye" src="./images-and-icons/icons/password-eye.png" alt="toggle-password" id="togglePassword">
@@ -830,7 +813,7 @@
               </label>
               <label for="confirm-password" class="confirm-password">
                 <span class="label-value">Confirm password:</span> <br>
-                <input id="confirm-password" class="confirm-password-input" name="confirmPassword" type="password" required>
+                <input id="confirm-password" class="confirm-password-input password-input" name="confirmPassword" type="password" required>
                 <img class="toggle-password-eye" src="./images-and-icons/icons/password-eye.png" alt="toggle-password" id="togglePassword">
                 <div class="eye-slash"></div>
               </label>
@@ -844,194 +827,35 @@
           </form>
  
           <!-- Staff Card List -->
-          <div class="staff-section__staff-card-list">
-            <div class="staff-card">
-              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
-              <div class="staff-card__details-container">
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Name:</span>
-                  <span class="staff-card__detail--value">John Harvey Puyong</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Position:</span>
-                  <span class="staff-card__detail--value">Inventory Coordinator</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Contact:</span>
-                  <span class="staff-card__detail--value">09123456789</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Adress:</span>
-                  <span class="staff-card__detail--value">Maligaya, Boac</span>
-                </div>
-              </div>
-            </div>
-            <div class="staff-card">
-              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
-              <div class="staff-card__details-container">
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Name:</span>
-                  <span class="staff-card__detail--value">John Harvey Puyong</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Position:</span>
-                  <span class="staff-card__detail--value">Inventory Coordinator</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Contact:</span>
-                  <span class="staff-card__detail--value">09123456789</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Adress:</span>
-                  <span class="staff-card__detail--value">Maligaya, Boac</span>
-                </div>
-              </div>
-            </div>
-            <div class="staff-card">
-              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
-              <div class="staff-card__details-container">
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Name:</span>
-                  <span class="staff-card__detail--value">John Harvey Puyong</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Position:</span>
-                  <span class="staff-card__detail--value">Inventory Coordinator</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Contact:</span>
-                  <span class="staff-card__detail--value">09123456789</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Adress:</span>
-                  <span class="staff-card__detail--value">Maligaya, Boac</span>
-                </div>
-              </div>
-            </div>
-            <div class="staff-card">
-              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
-              <div class="staff-card__details-container">
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Name:</span>
-                  <span class="staff-card__detail--value">John Harvey Puyong</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Position:</span>
-                  <span class="staff-card__detail--value">Inventory Coordinator</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Contact:</span>
-                  <span class="staff-card__detail--value">09123456789</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Adress:</span>
-                  <span class="staff-card__detail--value">Maligaya, Boac</span>
-                </div>
-              </div>
-            </div>
-            <div class="staff-card">
-              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
-              <div class="staff-card__details-container">
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Name:</span>
-                  <span class="staff-card__detail--value">John Harvey Puyong</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Position:</span>
-                  <span class="staff-card__detail--value">Inventory Coordinator</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Contact:</span>
-                  <span class="staff-card__detail--value">09123456789</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Adress:</span>
-                  <span class="staff-card__detail--value">Maligaya, Boac</span>
-                </div>
-              </div>
-            </div>
-            <div class="staff-card">
-              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
-              <div class="staff-card__details-container">
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Name:</span>
-                  <span class="staff-card__detail--value">John Harvey Puyong</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Position:</span>
-                  <span class="staff-card__detail--value">Inventory Coordinator</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Contact:</span>
-                  <span class="staff-card__detail--value">09123456789</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Adress:</span>
-                  <span class="staff-card__detail--value">Maligaya, Boac</span>
-                </div>
-              </div>
-            </div>
-            <div class="staff-card">
-              <img class="staff-card__img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="staff-image">
-              <div class="staff-card__details-container">
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Name:</span>
-                  <span class="staff-card__detail--value">John Harvey Puyong</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Position:</span>
-                  <span class="staff-card__detail--value">Inventory Coordinator</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Contact:</span>
-                  <span class="staff-card__detail--value">09123456789</span>
-                </div>
-                <div class="staff-card__detail">
-                  <span class="staff-card__detail--label">Adress:</span>
-                  <span class="staff-card__detail--value">Maligaya, Boac</span>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="staff-section__staff-card-list"><!--Staff render in /script/staff/display-staff.js--></div>
         </section>
 
         <!-- ========== Services Section ========== -->
         <section id="services-section" class="hide">
           <h1 class="section__heading">Services</h1>
-          <button class="toggle-add-services-form">Add Service</button>
+          <button class="service-section__show-add-service-form-btn">Add Service</button>
 
           <!-- Add Service Form -->
           <form id="add-service-form" class="service-form">
             <h3 class="service-form__heading">Add Service Form</h3>
-            <label class="service-form__upload-image-btn">
-              <input type="file" hidden />
-              <i class="image-upload-icon fas fa-upload"></i> <br>
-              <span class="image-upload-label">Upload Image</span>
-            </label>
-
             <label for="service-name">
               <span class="label-txt"> Service name</span> <br>
-              <input type="text" class="service-name-input">
+              <input type="text" class="service-name-input" required>
             </label>
             
             <label for="service-description">
               <span class="label-txt">Service Description</span> <br>
-               <textarea class="service-description-input"></textarea>
+               <textarea class="service-description-input" required></textarea>
             </label>   
             <div class="service-form__buttons-container">
               <button class="service-form__cancel-btn" type="button">Cancel</button>
-              <button class="service-form__create-btn">Create</button>
+              <button class="service-form__create-btn" type="submit">Create</button>
             </div>
           </form>
 
           <!-- Edit Service Form -->
           <form id="edit-service-form" class="service-form">
             <h3 class="service-form__heading">Edit Service Form</h3>
-            <label class="service-form__upload-image-btn">
-              <input type="file" hidden />
-              <i class="image-upload-icon fas fa-upload"></i> <br>
-              <span class="image-upload-label">Upload Image</span>
-            </label>
 
             <label for="service-name">
               <span class="label-txt"> Service name</span> <br>
@@ -1044,31 +868,13 @@
             </label>   
             <div class="service-form__buttons-container">
               <button class="service-form__cancel-btn" type="button">Cancel</button>
-              <button class="service-form__save-btn">Save</button>
+              <button class="service-form__save-btn" type="submit">Save</button>
             </div>
           </form>
 
           <!-- Services List -->
-          <div class="services-list">
-            <div class="service-card">
-              <div class="service-card__image">
-                <img src="images-and-icons/icons/database-icon.png" alt="Service Image" />
-                <div class="service-card__label">Service</div>
-              </div>
-
-              <div class="service-card__name-and-description">
-                <h3 class="service-card__name">Deworming</h3>
-
-                <div class="service-card__description">
-                  <span class="service-card__description--label">Description: </span>
-                  <span class="service-card__description--value">
-                    Deworming is a preventive health procedurewhere swine are given anti-parasitic medication to eliminate internal parasites such as roundworms, tapeworms, and liver flukes. This helps improve the pig’s growth, feed efficiency, and overall health. Regular deworming is essential to prevent parasitic infections that can cause weight loss, poor development, and disease transmission.
-                  </span>
-                </div>
-              </div>
-              
-              <button class="service-card__edit-btn">Edit</button>
-            </div>
+          <div class="services-card-list">
+            
           </div>
         </section>
 
