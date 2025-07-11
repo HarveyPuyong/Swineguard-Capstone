@@ -4,6 +4,10 @@ function formattedDate(date) {
   return d.toLocaleDateString('en-US', options);
 }
 
+function formatedDateForCalendar(date) {
+  return new Date(date).toISOString().split('T')[0]; 
+}
+
 function formatTo12HourTime(time24) {
   if (!time24) return '';
 
@@ -17,4 +21,4 @@ function formatTo12HourTime(time24) {
 }
 
 
-export {formattedDate, formatTo12HourTime };
+export {formatedDateForCalendar, formattedDate, formatTo12HourTime };
