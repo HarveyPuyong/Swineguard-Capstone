@@ -19,6 +19,6 @@ router.delete('/delete/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinat
 
 router.get('/all', verifyJWT,  inventoryController.getAllItem); 
 
->>>>>>>>> Temporary merge branch 2
+router.get('/:id', verifyJWT, inventoryController.getItemId);
 
 module.exports = router;

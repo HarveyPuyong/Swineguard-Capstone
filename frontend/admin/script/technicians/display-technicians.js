@@ -1,4 +1,4 @@
-import api from '../../utils/axiosConfig.js';
+
 import fetchUsers from '../../api/fetch-users.js';
 import { fetchAppointments } from '../../api/fetch-appointments.js';
 import { getServiceName } from '../../api/fetch-services.js';

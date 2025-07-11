@@ -17,9 +17,9 @@ router.get('/get/technician', verifyJWT,  verifyRoles(ROLE_LIST.AppointmentCoord
 router.get('/get/user/:id', verifyJWT,  verifyRoles(ROLE_LIST.AppointmentCoordinator), getUserById); // For selected personnels
 
 router.get('/get/staff', verifyJWT,  verifyRoles(ROLE_LIST.Admin), getAllStaffs); // For All personnels
-=========
+
 router.get('/get/staff', verifyJWT, verifyRoles(ROLE_LIST.Admin), getAllStaffs); // For All personnels
->>>>>>>>> Temporary merge branch 2
+
 
 router.put('/edit/:id', verifyJWT, editUserDetails);
 

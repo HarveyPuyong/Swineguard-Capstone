@@ -1,4 +1,4 @@
-import fetchAppointments from '../../api/fetch-appointments.js';
+import {fetchAppointments} from '../../api/fetch-appointments.js';
 import { formattedDate, formatTo12HourTime } from './../../utils/formated-date-time.js';
 
 

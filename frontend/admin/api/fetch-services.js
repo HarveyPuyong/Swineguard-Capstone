@@ -47,7 +47,3 @@ async function getApplicableItemTypes(serviceId) {
 }
 
 export {fetchServices, getServiceName, getApplicableItemTypes};
-import api from '../utils/axiosConfig.js'
-
-
-export default fetchServices;
