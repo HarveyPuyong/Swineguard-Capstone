@@ -20,7 +20,12 @@ const appointmentSchema = new mongoose.Schema({
     barangay: { type: String, require: true},
     clientEmail: { type: String, default: 'no email' },
 
-    appointmentTitle: { type: String, required: true },
+    appointmentService: {  
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'Service', 
+        required: true,
+    },
+
     swineType: { type: String, required: true },
     swineCount: { type: Number, required: true },
     swineSymptoms: { type: String, required: true },

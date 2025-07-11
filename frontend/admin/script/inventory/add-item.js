@@ -23,9 +23,9 @@ const handleAddItem = () => {
       itemName: document.querySelector('#add-medicine-form .medicine-name-input').value.trim(),
       dosage: document.querySelector('#add-medicine-form .dosage-input').value.trim(),
       quantity: document.querySelector('#add-medicine-form .medicine-quantity-input').value.trim(),
-      type: document.querySelector('#add-medicine-form .select-medicine-type').value,
       expiryDate: document.querySelector('#add-medicine-form .expiration-date-input').value,
       description: document.querySelector('#add-medicine-form .medicine-description-input').value.trim(),
+      itemType: document.querySelector('#add-medicine-form .select-medicine-type').value.trim(),
       createdBy: userInfo._id
     };
 

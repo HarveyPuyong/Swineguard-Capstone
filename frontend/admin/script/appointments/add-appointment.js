@@ -28,7 +28,7 @@ const handleAddAppointment = () => {
         contactNum: document.querySelector('#client-phone').value.trim(),
         municipality: document.querySelector('#municipality').value,
         barangay: document.querySelector('#barangay').value,
-        appointmentTitle: document.querySelector('#appointment-title').value,
+        appointmentService: document.querySelector('#appointment-service').value,
         appointmentType: document.querySelector('#appointment-type').value,
         appointmentDate: document.querySelector('#appointment-date').value,
         appointmentTime: document.querySelector('#appointment-time').value,

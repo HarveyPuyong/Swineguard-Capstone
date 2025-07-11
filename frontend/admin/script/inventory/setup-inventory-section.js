@@ -160,16 +160,17 @@ const changeStatusColor = () => {
 // ======================================
 // ========== Toggle item buttons container
 // ======================================
-const toggleMedicineButtonsContainer = () => {
+const toggleMedicineButtons = () => {
   document.addEventListener('renderInventory', () => {
     const medicines = document.querySelectorAll('.inventory-table__tbody .medicine');
 
     medicines.forEach(medicine => {
       const buttonsContainer = medicine.querySelector('.buttons-container');
-      const toggleIcon = medicine.querySelector('.toggle-buttons-icon')
-        .addEventListener('click', () => {
-          buttonsContainer.classList.toggle('show')
-        });
+      const toggleIcon = medicine.querySelector('.toggle-buttons-icon');
+      
+      if(!buttonsContainer || !toggleIcon) return;
+
+      toggleIcon .addEventListener('click', () => buttonsContainer.classList.toggle('show'));
     });
   });
 }
@@ -224,6 +225,7 @@ const toggleAddMedicineForm = () => {
 
 
 export default function setupInventorySection() {
+  toggleMedicineButtons();
   handleRenderInventory();
   handleAddItem();
   handleItemButtonsActions();
@@ -232,7 +234,6 @@ export default function setupInventorySection() {
   inventorySorting();
   toggleAddMedicineForm();
   changeStatusColor();
-  toggleMedicineButtonsContainer();
 }
 
 

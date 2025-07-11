@@ -10,18 +10,14 @@ const signupController = async (req, res) => {
          municipality, barangay, contactNum,
          email, password, confirmPassword } = req.body;
 
-  // Check the length of inputs
-  if (!isValidInput(firstName) || !isValidInput(middleName) || !isValidInput(lastName)) {
-    return res.status(400).json({ message: 'Please provide valid and longer input.'});
-  }
   // Check for Emojis
   if (containsEmoji(firstName) || containsEmoji(middleName) || containsEmoji(lastName)) {
     return res.status(400).json({ message: 'Emoji are not allowed for service name.'});
   }
 
   // Check for Numbers
-  if (hasNumber(firstName) || asNumber(middleName) || asNumber(lastName)) {
-    return res.status(400).json({ message: 'Numbers are not allowed.'});
+  if (hasNumber(firstName) || hasNumber(middleName) || hasNumber(lastName)) {
+    return res.status(400).json({ message: 'Numbers are not allowed in names'});
   }
 
   // Check for Special Chracters

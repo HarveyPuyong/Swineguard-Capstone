@@ -1,10 +1,11 @@
 const serviceDB = require('./../models/serviceModel');
+const mongoose = require('mongoose');
 //const { isValidInput } = require('./../utils/verifyInput');
 const { isValidInput, containsEmoji, hasNumber, containsSpecialChar }= require('./../utils/inputChecker');
 
 // Add Services
 const addServices = async (req, res) => {
-    const { serviceName, description } = req.body;
+    const { serviceName, description, applicableItemTypes } = req.body;
 
     // Check the length of inputs
     if (!isValidInput(serviceName) || !isValidInput(description)) return res.status(400).json({ message: 'Please provide valid and longer input.'});
@@ -27,7 +28,7 @@ const addServices = async (req, res) => {
         if(existingServices) return res.status(409).json({message: "Service already exists."});
 
         //Proceed to saving
-        const newService = new serviceDB ({ serviceName, description });
+        const newService = new serviceDB ({ serviceName, description, applicableItemTypes });
         await newService.save();
         return res.status(201).json({ 
             service: newService, 
@@ -47,6 +48,7 @@ const addServices = async (req, res) => {
 const editServices = async (req, res) => {
     const { id } = req.params;
     const { serviceName, description } = req.body;
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: 'Invalid service ID format.' });
 
     // Check the length of inputs
     if (!isValidInput(serviceName) || !isValidInput(description)) return res.status(400).json({ message: 'Please provide valid and longer input.'});
@@ -90,4 +92,17 @@ const getAllServices = async (req, res) => {
     }
 }
 
-module.exports = { addServices, editServices, getAllServices }
+// Get Services
+const getServiceById = async (req, res) => {
+    const { id } = req.params;
+    if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: 'Invalid service ID format.' });
+    try {
+        const existingService = await serviceDB.findById(id);
+        if (!existingService) return res.status(404).json({ message: 'Service not found.' });
+        res.status(200).json(existingService);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+module.exports = { addServices, editServices, getAllServices, getServiceById }

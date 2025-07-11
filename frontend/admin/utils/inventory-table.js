@@ -37,8 +37,6 @@ function inventoryTable(inventories, table) {
 
     
     if(table) table.innerHTML = inventoryTableHTML;
-
-    document.dispatchEvent(new Event('renderInventory')); 
 }
 
 
@@ -68,8 +66,6 @@ function adminPageInventoryTable(inventories, table) {
 
     
     if(table) table.innerHTML = inventoryTableHTML;
-
-    document.dispatchEvent(new Event('renderInventory')); 
 }
 
 export {inventoryTable, adminPageInventoryTable};

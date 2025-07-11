@@ -1,23 +1,28 @@
 import { formattedDate, formatTo12HourTime } from './formated-date-time.js';
-import {populateMedicine, getMedicineName} from './../api/getMedicine.js';
-import {populateTechnician, getTechnicianName} from './../api/getTechnicians.js';
+import { getMedicineName} from './../api/fetch-medicine.js';
+import { getTechnicianName } from './../api/fetch-technicians.js';
+import { getServiceName } from './../api/fetch-services.js';
+
+
 
 
 // ======================================
 // ==========AC Page Appointment Table
 // ======================================
 async function appointmentsTable(appointments, table) {
+
     let appointmentTableHTML = '';
 
     for (const appointment of appointments) {
       const medicineName = await getMedicineName(appointment.medicine); // await here
       const TechnicianName = await getTechnicianName(appointment.vetPersonnel); // await here
+      const serviceName = await getServiceName(appointment.appointmentService);
       appointmentTableHTML +=  `
         <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
           <div class="appointment__details">
             <p class="td first-name">${appointment.clientFirstname}</p>
             <p class="td last-name">${appointment.clientLastname}</p>
-            <p class="td appointment-name">${appointment.appointmentTitle}</p>
+            <p class="td appointment-name">${serviceName}</p>
             <p class="td date-time">${formattedDate(appointment.appointmentDate)} at ${formatTo12HourTime(appointment.appointmentTime)}</p>
             <p class="td status status--${appointment.appointmentStatus.toLowerCase()}"
                                 data-status-value=${appointment.appointmentStatus.toLowerCase()}>

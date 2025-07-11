@@ -1,5 +1,7 @@
 function formattedDate(date) {
-   return new Date(date).toISOString().split('T')[0];
+  const d = new Date(date);
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return d.toLocaleDateString('en-US', options);
 }
 
 function formatTo12HourTime(time24) {

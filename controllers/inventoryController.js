@@ -4,7 +4,7 @@ const {isValidNumber, isInvalidInput, checkExpiryDate} = require('./../utils/inv
 
 //Add Item to the collections
 exports.AddItem = async (req, res) => {
-    const { itemName, dosage, quantity, expiryDate, description, createdBy } = req.body;
+    const { itemName, dosage, quantity, expiryDate, description, itemType, createdBy } = req.body;
 
     // Check for emojis in itemName and description
     if (isInvalidInput(itemName, description))
@@ -23,6 +23,7 @@ exports.AddItem = async (req, res) => {
         quantity: numericQuantity,
         expiryDate,
         description,
+        itemType,
         createdBy
     };
 

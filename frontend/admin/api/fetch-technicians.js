@@ -6,29 +6,16 @@ async function populateTechnician() {
     selectTag.innerHTML = '<option value="">Personnel</option>'; 
 
     try {
-        
         const response = await api.get('/get/technician');
 
-        const data = response?.data;
-
-        data.forEach(technician => {
-            const prefix = technician.roles.includes('veterinarian') ? 'Doc.' : technician.roles.includes('technician') ? 'Mr.' : '';
-            const middleInitial = technician.middleName ? technician.middleName.charAt(0).toUpperCase() + '.' : '';
-            const optionValue = `${technician.firstName} ${middleInitial} ${technician.lastName}`;
-            const technicianFullname = `${prefix} ${technician.firstName} ${middleInitial} ${technician.lastName}`;
-
-            const option = document.createElement('option');
-            option.value = technician._id;
-            option.textContent = technicianFullname;
-
-            selectTag.appendChild(option);
-        });
+        if(response === 200) return response?.data;
 
     } catch (error){
         console.log(error)
     }
 
 }
+
 
 async function getTechnicianName(userId) {
   try {
@@ -58,4 +45,4 @@ async function getTechnicianName(userId) {
 }
 
 
-export {populateTechnician, getTechnicianName};
+export { populateTechnician, getTechnicianName };

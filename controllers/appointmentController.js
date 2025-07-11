@@ -15,7 +15,7 @@ exports.addAppointment = async (req, res) => {
         municipality, 
         barangay, 
         
-        appointmentTitle, 
+        appointmentService, 
         swineType, 
         swineCount, 
         appointmentDate, 
@@ -45,7 +45,7 @@ exports.addAppointment = async (req, res) => {
         !contactNum ||
         !barangay ||
         !municipality ||
-        !appointmentTitle ||
+        !appointmentService ||
         !appointmentDate ||
         !appointmentTime ||
         !swineType ||
@@ -100,7 +100,7 @@ exports.addAppointment = async (req, res) => {
         municipality, 
         barangay, 
         
-        appointmentTitle, 
+        appointmentService, 
         appointmentDate, 
         appointmentTime, 
         appointmentType,
@@ -353,10 +353,11 @@ exports.getAllAppointments = async (req, res) => {
 
 exports.getAppointmentById = async (req, res) => {
     const { id } = req.params;
+    if (!isValidAppointmentId(id)) return res.status(400).json({ message: 'Invalid appointment Id.' });
     try {
-        const appointment = await appointmentDB.findById(id);
-        if (!appointment) return res.status(404).json({ message: 'Appointment not found.' });
-        res.status(200).json(appointment);
+        const existingAppointment = await appointmentDB.findById(id);
+        if (!existingAppointment) return res.status(404).json({ message: 'Appointment not found.' });
+        res.status(200).json(existingAppointment);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

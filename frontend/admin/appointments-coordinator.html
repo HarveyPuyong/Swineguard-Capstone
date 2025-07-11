@@ -170,14 +170,9 @@
                 <h3 class="add-appointments-form__heading swine-info-heading">Swine Information</h3>
                 <!-- appointment title, schedule and time group -->
                 <div class="group">
-                  <select id="appointment-title" name="appointment-title">
-                    <option value="">Select Appointment</option>
-                    <option value="Deworming">Deworming</option>
-                    <option value="ASF Testing">ASF Testing</option>
-                    <option value="Blood Testing">Blood Testing</option>
-                    <option value="Health Surveillance">Health Surveillance</option>
-                    <option value="Postpartum Care">Postpartum Care</option>
-                    <option value="Surgical Castration">Surgical Castration</option>
+                  <select id="appointment-service" name="appointment-title">
+                    <option value="">Select Service</option>
+                    <!-- Populate using fetch-services.js -->
                   </select>
                   <select id="appointment-type" name="appointment-type">
                     <option value="">Select Appointment Type</option>
@@ -192,10 +187,9 @@
                   <select id="swine-type" name="swine-type">
                     <option value="">Swine Type</option>
                     <option value="piglet">Piglet</option>
+                    <option value="grower">Grower</option>
                     <option value="sow">Sow</option>
-                    <option value="gilt">Gilt</option>
                     <option value="boar">Boar</option>
-                    <option value="barrow">Barrow</option>
                   </select>
                   <input id="swine-count" type="number" min="0"  placeholder="Heads" required>
                   <input id="swine-age" type="number" min="0"  placeholder="Age/months" required><br>
@@ -225,11 +219,10 @@
                   </select>
                 </div>
                 <div class="column-right">
-                  <!-- Medicine List -->
                   <label for="medicine-list">Select Medicine</label>
                   <select name="medicine-list" id="medicine-list">
                     <option value="">Select Medicine</option>
-                    <!-- populate using getMedicine.js -->
+                    <!--/script/appointment/setup-appointments-section.js -->
                   </select>
 
                   <label for="medicine-amount">Medicine Dosage</label>

@@ -10,6 +10,7 @@ const inventorySchema = new mongoose.Schema({
     itemStatus: { type: String, default: 'In Stock' },
 
     description: { type: String, required: true },
+    itemType: { type: String, required: true },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true }
     
 }, { collection: 'inventories', timestamps: true });

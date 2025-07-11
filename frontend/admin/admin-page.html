@@ -107,40 +107,7 @@
           <div class="admin-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
-            <div class="dashboard__cards-container">
-              <!-- totals users card -->
-              <div class="dashboard__card total-users total-card">
-                <img class="dashboard__card-icon" src="images-and-icons/icons/user-icon.png" alt="user-icon" >
-                <p class="dashboard__card-label">
-                  Total Users: 
-                  <span class="dashboard__card-label--value">75</span>
-                </p>
-              </div>
-              <!-- totals appointments card -->
-              <div class="dashboard__card total-appointments total-card">
-                <img class="dashboard__card-icon" src="images-and-icons/icons/appointment-icon.png" alt="calendar-icon" >
-                <p class="dashboard__card-label">
-                  Total Appointments: 
-                  <span class="dashboard__card-label--value">75</span>
-                </p>
-              </div>
-              <!-- totals inventory card -->
-              <div class="dashboard__card total-inventory total-card">
-                <img class="dashboard__card-icon" src="images-and-icons/icons/inventory-icon.png" alt="inventory-icon" >
-                <p class="dashboard__card-label">
-                  Total Inventory: 
-                  <span class="dashboard__card-label--value">75</span>
-                </p>
-              </div>
-              <!-- totals swines card -->
-              <div class="dashboard__card total-swines total-card">
-                <img class="dashboard__card-icon" src="images-and-icons/icons/pig-icon.png" alt="pig-icon" >
-                <p class="dashboard__card-label">
-                  Totalal Swines: 
-                  <span class="dashboard__card-label--value">75</span>
-                </p>
-              </div>
-            </div>
+            <div class="dashboard__cards-container"><!-- cards display in /script/dashboard/admin-dashboard --></div>
           </div>
 
           <!-- Accepted Appointment Table -->
@@ -153,10 +120,9 @@
                 <p class="th appointment-name">Appointment</p>
                 <p class="th date-time">Date & Time</p>
                 <p class="th status">Status</p>
-                <p class="th action">Action</p>
                 <p class="th toggle-more-details-btn"><!--View button head--></p> 
               </div>
-              <div class="appointment-table__tbody"><!--Ongoing appointments render in dashboard/displayAcceptedAppointments.js--></div>
+              <div class="appointment-table__tbody"><!--Accepted appointments render in dashboard/displayAcceptedAppointments.js--></div>
             </div>
           </div>
 
@@ -436,6 +402,7 @@
               <option value="gilt">Gilt</option>
               <option value="sow">Sow</option>
               <option value="boar">Boar</option>
+              <option value="hybrid">Hybrid</option>
             </select>
 
             <!-- generate-report and view-graph buttons -->
@@ -454,76 +421,10 @@
                 <p class="th weight">Weight</p>
                 <p class="th health-status">Status</p>
                 <p class="th owner">Owner</p>
-                <p class="th created-date">Created Date</p>
-                <p class="th updated-date">Updated Date</p>
                 <p class="th toggle-more-details-btn"><!--th for toggle icon --></p>
               </div>
               <div class="swines-table__tbody">  <!-- table body -->
-                <div class="swine">
-                  <div class="swine__details">
-                    <p class="td type">Barrow</p>
-                    <p class="td breed">High Breed</p>
-                    <p class="td age">6months</p>
-                    <p class="td sex">male</p>
-                    <p class="td weight">60kg</p>
-                    <p class="td health-status">Healthy</p>
-                    <p class="td owner">Robert Magno</p>
-                    <p class="td created-date">01.01.2025</p>
-                    <p class="td updated-date">5.01.2025</p>
-                    <button class="td toggle-more-details-btn">View</button> 
-                  </div>
-                  <div class="swine__more-details">
-                    <div class="swine__more-details-heading">Swine Details:</div>
-                    <div class="swine__more-details-columns">
-                      <!-- more details left column -->
-                      <div class="column left">
-                        <p class="column__detail">
-                          <span class="column__detail-label">Swine ID:</span>
-                          <span class="column__detail-value">10023450QPAL</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Type:</span>
-                          <span class="column__detail-value">Barrow</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Breed:</span>
-                          <span class="column__detail-value">High Breed</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Age:</span>
-                          <span class="column__detail-value">6months</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Sex:</span>
-                          <span class="column__detail-value">male</span>
-                        </p>
-                      </div>
-                      <!-- more details right column -->
-                      <div class="column right"> 
-                        <p class="column__detail">
-                          <span class="column__detail-label">Health Status:</span>
-                          <span class="column__detail-value">Healthy</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Weight:</span>
-                          <span class="column__detail-value">60kg</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Owner:</span>
-                          <span class="column__detail-value">Robert Magno</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Location:</span>
-                          <span class="column__detail-value">Maligaya, Boac, Marinduque</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Medication:</span>
-                          <span class="column__detail-value">Deworming</span>
-                        </p>
-                      </div>
-                    </div>
-                  </div>                  
-                </div>
+                
               </div>
             </div>
           </div>
@@ -613,10 +514,7 @@
               <button class="appointment-section__view-schedules-btn view-navigate-btn">View Schedules</button>
               <button class="appointments-section__view-report-btn view-navigate-btn">Generate Report</button>
             </div>
-
-            <!-- generate-report-btn -->
-            
-                          
+                     
             <!-- Appointment Table -->
             <div class="appointment-table">
               <div class="appointment-table__thead"> <!-- table head -->
@@ -627,83 +525,7 @@
                 <p class="th status">Status</p>
                 <p class="th toggle-more-details-btn"><!--View button head--></p> 
               </div>
-              <div class="appointment-table__tbody"> 
-                <div class="appointment">
-                  <div class="appointment__details">
-                    <p class="td first-name">John Harvey</p>
-                    <p class="td last-name">Puyong</p>
-                    <p class="td appointment-name">Iron Supplementation</p>
-                    <p class="td date-time">12-03-2025 at 10:00 AM</p>
-                    <p class="td status" data-status-value="ongoing">Ongoing</p>
-                    <p  class="td toggle-more-details-btn" data-value="show-more-details">View</p>  
-                  </div>
-                  <div class="appointment__more-details">
-                    <div class="appointment__more-details-heading">Appointment Details:</div>
-                    <div class="appointment__more-details-columns">
-                      <!-- more details left column -->
-                      <div class="column left">
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment ID:</span>
-                          <span class="column__detail-value">10023450QPAL</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Appointment Type:</span>
-                          <span class="column__detail-value">Visit</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Contact:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Date sent:</span>
-                          <span class="column__detail-value appointment-date-send">05-03-2025 at 10:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Actual Schedule:</span>
-                          <span class="column__detail-value">12-04-2025 at 09:00 AM</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Adress:</span>
-                          <span class="column__detail-value">Santol, Boac, Marinduqe</span>
-                        </p>
-                      </div>
-                      <!-- more details right column -->
-                      <div class="column right"> 
-                        <p class="column__detail">
-                          <span class="column__detail-label">Type:</span>
-                          <span class="column__detail-value">Piglet</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Vaccine</span>
-                          <span class="column__detail-value">Iron Dextran (FeDex)</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Amount:</span>
-                          <span class="column__detail-value">500mg</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Personnel:</span>
-                          <span class="column__detail-value">Doc. Josue M. Victoria</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Email:</span>
-                          <span class="column__detail-value">john.doe@gmail.com</span>
-                        </p>
-                        <p class="column__detail">
-                          <span class="column__detail-label">Phone:</span>
-                          <span class="column__detail-value">09123456789</span>
-                        </p>
-                      </div>
-                    </div>
-                    <div class="buttons-container">
-                        <button class="completed-btn btn">Completed</button>
-                        <button class="reschedule-btn btn">Set Schedule</button>
-                        <button class="restore-btn btn">Restore</button>
-                        <button class="delete-btn btn">Delete</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <div class="appointment-table__tbody"><!-- appointments render in /script/appointments/display-appointments.js--></div>
             </div>
           </div>
 
