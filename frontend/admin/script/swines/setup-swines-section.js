@@ -1,4 +1,43 @@
 import handleRenderSwines from "./display-swines.js";
+import reports from "../Admin-page-main.js";
+
+
+
+// ======================================
+// ========== View Button (View Graph, Generate Report) Buttons Functionality
+// ======================================
+const viewBtnsFunctionality = () => {
+  const swineTableContents = document.querySelector('.swines-section__table-contents');
+  const backToTableBtn = document.querySelectorAll('#swines-section .back-table-btn');
+  const swineMappingContents = document.querySelector('.swine-section__mapping-contents');
+  const swineReportContents = document.querySelector('.swine-section__report-contents');
+
+  const viewReportsBtn = document.querySelector('.swines-section__buttons-container .view-reports-btn');
+  const viewGraphBtn = document.querySelector('.swines-section__buttons-container .view-graph-btn');
+
+
+
+  if(viewReportsBtn) viewReportsBtn.addEventListener('click', () => {
+                      swineTableContents.classList.remove('show');
+                      swineReportContents.classList.add('show');
+                      reports();
+                    });
+
+  backToTableBtn.forEach(btn => {
+    btn.addEventListener('click', () => {
+                    swineTableContents.classList.add('show');
+                    swineReportContents.classList.remove('show');
+                    swineMappingContents.classList.remove('show');
+                    reports();
+                  });
+  })
+
+  
+  if(viewGraphBtn) viewGraphBtn.addEventListener('click', () => {
+    swineTableContents.classList.remove('show');
+    swineMappingContents.classList.add('show');
+  })
+}
 
 
 // ======================================
@@ -93,5 +132,6 @@ export default function setupSwinesSection() {
   handleRenderSwines();
   searchSwines();
   filterSwines();
-  toggleSwineMoreDetails()
+  toggleSwineMoreDetails();
+  viewBtnsFunctionality();
 }

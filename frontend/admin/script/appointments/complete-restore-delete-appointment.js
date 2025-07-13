@@ -2,26 +2,33 @@ import popupAlert from '../../utils/popupAlert.js';
 import handleRenderAppointments from './display-appointment.js';
 import api from '../../utils/axiosConfig.js';
 import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
+import updatedItemQuantity from './../../utils/calculate-item-quantity.js';
 
 
 // ======================================
 // ==========Handle Complete Appointment
 // ======================================
 const handleCompleteAppointment = async(appointmentId) => {
-  try{
-      const response = await api.patch(`/appointment/complete/${appointmentId}`, {});
-  
-      if(response.status === 200){
-        popupAlert('success', 'Success!', 'Appointment Completed successfully').
-          then(() => {
-            handleRenderAppointments();
-            appointmentsDashboard();
-          });
-      }
-  
-  } catch(err){
-      const errMessage = err.response.data?.message || err.response.data?.error;
-      popupAlert('error', 'Error!', errMessage);
+  try {
+    // Get the appointment details first to extract the medicine ID
+    const appointmentRes = await api.get(`/appointment/${appointmentId}`);
+    const appointment = appointmentRes.data;
+
+    const medicineId = appointment.medicine;
+
+    // Complete the appointment
+    const response = await api.patch(`/appointment/complete/${appointmentId}`);
+
+    if (response.status === 200) {
+      popupAlert('success', 'Success!', 'Appointment Completed successfully').then(() => {
+        updatedItemQuantity(medicineId, appointmentId);
+        handleRenderAppointments();
+        appointmentsDashboard();
+      });
+    }
+  } catch (err) {
+    const errMessage = err.response?.data?.message || err.response?.data?.error || 'Unknown error';
+    popupAlert('error', 'Error!', errMessage);
   }
 }
 

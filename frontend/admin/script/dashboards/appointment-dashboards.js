@@ -8,12 +8,12 @@ const appointmentsDashboard = async () => {
 
     const totalAppointments = appointments.length;
     const pendingAppointments = appointments.filter(app => app.appointmentStatus === 'pending').length;
-    const ongoingAppointments = appointments.filter(app => app.appointmentStatus === 'ongoing').length;
+    const ongoingAppointments = appointments.filter(app => app.appointmentStatus === 'accepted').length;
     const completedAppointments = appointments.filter(app => app.appointmentStatus === 'completed').length;
     const rescheduleAppointments = appointments.filter(app => app.appointmentStatus === 'reschedule').length;
 
     const pendingPercent = toPercent(pendingAppointments, totalAppointments);
-    const ongoingPercent = toPercent(ongoingAppointments, totalAppointments);
+    const acceptedPercent = toPercent(ongoingAppointments, totalAppointments);
     const completedPercent = toPercent(completedAppointments, totalAppointments);
     const reschedulePercent = toPercent(rescheduleAppointments, totalAppointments);
 
@@ -55,16 +55,16 @@ const appointmentsDashboard = async () => {
       </div>
       <div class="dashboard__card ongoing-appointments">
         <p class="dashboard__card-label">
-          Ongoing: 
+          Accepted: 
           <span class="dashboard__card-label--value">${ongoingAppointments}</span>
         </p>
         <div class="dashboard__card-progress-bar-container">
           <div class="dashboard__card-progress-bar">
             <div class="dashboard__card-progress-barOverflow"></div>
-            <div class="dashboard__card-progress-value" style="width:${ongoingPercent}%"></div>
+            <div class="dashboard__card-progress-value" style="width:${acceptedPercent}%"></div>
           </div>
           <div class="dashboard__card-progress-slicer"></div>
-          <p class="dashboard__card-progress-txt">${ongoingPercent}%</p>
+          <p class="dashboard__card-progress-txt">${acceptedPercent}%</p>
         </div>
       </div>
       <div class="dashboard__card reschedule-appointments">

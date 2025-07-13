@@ -7,9 +7,7 @@ function handleEditService (serviceId){
 
   editServiceForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-
-    console.log(e)
-
+    
     const serviceFormData = {
       serviceName: editServiceForm.querySelector('.service-name-input').value.trim(),
       description: editServiceForm.querySelector('.service-description-input').value.trim()

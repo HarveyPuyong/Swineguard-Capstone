@@ -21,4 +21,6 @@ router.get('/all', verifyJWT,  inventoryController.getAllItem);
 
 router.get('/:id', verifyJWT, inventoryController.getItemId);
 
+router.put('/update-quantity/:id', verifyJWT, inventoryController.updateItemQuantity);
+
 module.exports = router;

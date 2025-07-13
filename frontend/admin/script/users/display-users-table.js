@@ -21,9 +21,10 @@ async function handleRenderUsersTable() {
           <div class="td toggle-buttons">
             <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
             <div class="buttons-container">
-              <button class="view-user-profile-btn" data-id="${client._id}">View</button>
-              <button class="reset-user-credential-btn" data-id="${client._id}">Reset</button>
-              <button class="remove-user-btn" data-id="${client._id}">Remove</button>
+              <button class="view-user-profile-btn" data-user-id="${client._id}">View</button>
+              <button class="verify-user-btn" data-user-id="${client._id}">Verify</button>
+              <button class="reset-user-credential-btn" data-user-id="${client._id}">Reset</button>
+              <button class="remove-user-btn" data-user-id="${client._id}">Remove</button>
             </div>
           </div> 
         </div>

@@ -24,7 +24,9 @@ setupServiceSection();
 setupSettingsSection();
 
 
-
+// ======================================
+// ==========Handle Reports Appointment
+// ======================================
 const reports = () => {
   // report donut chart: imodify pa yung styling neto at naming
   const donutChart = document.querySelector('#appointments-section #report-container__doughnut-chart').getContext('2d');
@@ -166,4 +168,6 @@ const reports = () => {
     });
 } 
 
+
+export default reports;
 

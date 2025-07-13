@@ -12,7 +12,10 @@ import handleAppointmentCalendarContent from "./appointment-calendar.js";
 import fetchUsers from "../../api/fetch-users.js"
 import populateAppointmentDateAndTime from "../../api/fetch-appointment-date-and-time.js";
 import {fetchServices} from '../../api/fetch-services.js';
+import { getServiceName } from '../../api/fetch-services.js'; 
+import { fetchAppointments } from '../../api/fetch-appointments.js';
 import populateFilteredMedicines from '../../utils/filter-service-medicine.js';
+
 
 
 // ======================================
@@ -271,7 +274,7 @@ const setupAddAppointmentForm = async() => {
 // ======================================
 // ========== Add Data to schedule-appointment-form
 // ======================================
-const setupScheduleAppointmentForm = async() => {
+const setupScheduleAppointmentForm = async(appointmentId) => {
   try{
     const allUsers = await fetchUsers();
     const technicians = allUsers.filter(user => user.roles.includes('technician') || user.roles.includes('veterinarian'));
@@ -290,13 +293,18 @@ const setupScheduleAppointmentForm = async() => {
       option.textContent = technicianFullname;
 
       personalSelectElement.appendChild(option);
-    })
+    });
+
+    const appointments = await fetchAppointments();
+    const appointment = appointments.find(app => app._id === appointmentId);
+    const serviceName = await getServiceName(appointment.appointmentService);
+    document.querySelector('.appointment-schedule-form__service-name').innerText = `${serviceName}`;
+    console.log(appointment)
 
   } catch(err) {
     console.log(err)
   }
 }
-
 
 // ======================================
 // ==========Toggle Popup Add Appointment Form
@@ -351,6 +359,7 @@ const handleAppointmentSelectActions = () => {
           toggleAcceptAppointmentForm(actionSelect);
           handleAcceptAppointment(appointmentId);
           populateAppointmentDateAndTime(appointmentId);
+          setupScheduleAppointmentForm(appointmentId);
           populateFilteredMedicines(appointmentId);
         } else if(actionSelect.value === 'reschedule'){
           handleRescheduleAppointment(appointmentId);
@@ -461,7 +470,6 @@ export default function setupAppointmentSection () {
   appointmentsSorting();
   searchAppointment();
   setupAddAppointmentForm();
-  setupScheduleAppointmentForm();
   toggleAddAppointmentForm();
   toggleAppointentMoreDetails();
   viewBtnsFunctionality();

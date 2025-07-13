@@ -67,12 +67,12 @@ async function appointmentsTable(appointments, table) {
                 <span class="column__detail-value">${appointment.swineCount}</span>
               </p>
               <p class="column__detail">
-                <span class="column__detail-label">Vaccine:</span>
+                <span class="column__detail-label">Medicine:</span>
                 <span class="column__detail-value">${medicineName}</span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Dosage:</span>
-                <span class="column__detail-value">${appointment.dosage}</span>
+                <span class="column__detail-value">${appointment.dosage} (mg)</span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Personnel:</span>
@@ -161,12 +161,12 @@ function adminPageAppointmentTable(appointments, table) {
                 <span class="column__detail-value">${appointment.swineCount}</span>
               </p>
               <p class="column__detail">
-                <span class="column__detail-label">Vaccine</span>
+                <span class="column__detail-label">Medicine:</span>
                 <span class="column__detail-value">${appointment.medicine}</span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Dosage:</span>
-                <span class="column__detail-value">${appointment.dosage}</span>
+                <span class="column__detail-value">${appointment.dosage} (mg)</span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Personnel:</span>

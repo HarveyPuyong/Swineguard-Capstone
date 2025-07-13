@@ -10,7 +10,8 @@ function handleAddService (){
 
     const serviceFormData = {
       serviceName: addServiceForm.querySelector('.service-name-input').value.trim(),
-      description: addServiceForm.querySelector('.service-description-input').value.trim()
+      description: addServiceForm.querySelector('.service-description-input').value.trim(),
+      applicableItemTypes: getSelectedApplicableMedicines()
     }
 
     try {
@@ -31,6 +32,12 @@ function handleAddService (){
   })
 
 }
+
+const getSelectedApplicableMedicines = () => {
+  const checkboxes = document.querySelectorAll('.service-medicine-list input[type="checkbox"]:checked');
+  const selectedValues = Array.from(checkboxes).map(checkbox => checkbox.value);
+  return selectedValues;
+};
 
 
 export default handleAddService;

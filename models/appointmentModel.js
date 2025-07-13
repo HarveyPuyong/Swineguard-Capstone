@@ -50,6 +50,7 @@ const appointmentSchema = new mongoose.Schema({
         ref: 'Inventory', 
         required: false,
     },
+    
     dosage: { type: String, default: 'not set' },
     vetMessage: { type: String, default: 'no set' }
 

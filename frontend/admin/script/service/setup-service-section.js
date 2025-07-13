@@ -1,6 +1,7 @@
 import handleRenderServices from "./dispay-services.js";
 import handleAddService from "./add-service.js";
 import handleEditService from "./edit-service.js";
+import { fetchServices, getServiceName } from "../../api/fetch-services.js";
 
 
 // ======================================
@@ -23,7 +24,7 @@ const toggleAddServiceForm = () => {
 const toggleEditServiceForm = () => {
   document.addEventListener('renderServices', () => {
     const editForm = document.querySelector('#edit-service-form');
-    const closeForm = document.querySelector('#edit-service-form .service-form__cancel-btn')
+    const closeForm = document.querySelector('#edit-service-form .service-form__cancel-btn');
     const editButtons = document.querySelectorAll('.service-card__edit-btn');
 
     editButtons.forEach(button => {
@@ -31,12 +32,23 @@ const toggleEditServiceForm = () => {
         editForm.classList.add('show');
 
         const serviceId = button.dataset.serviceId;
+        setupEditForm(serviceId);
         handleEditService(serviceId);
       });
     });
 
-    closeForm.addEventListener('click', () => editForm.classList)
+    closeForm.addEventListener('click', () => editForm.classList.remove('show'))
   });
+}
+
+
+const setupEditForm = async (serviceId) => {
+  const services = await fetchServices(); 
+  const service = services.find( service => service._id === serviceId );
+  
+  document.querySelector('#edit-service-form .service-name-input').value = `${service.serviceName}`;
+  document.querySelector('#edit-service-form .service-description-input').value = `${service.description}`;
+
 }
 
 

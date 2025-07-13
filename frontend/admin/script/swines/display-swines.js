@@ -1,5 +1,6 @@
 import fetchUsers from "./../../api/fetch-users.js"
 import fetchSwines from "./../../api/fetch-swines.js";
+import { formattedDate } from "../../utils/formated-date-time.js";
 
 const handleRenderSwines = async() => {
   try{
@@ -15,10 +16,15 @@ const handleRenderSwines = async() => {
       const swinesOwnerName = `${swinesOwner.firstName} ${swinesOwner.middleName} ${swinesOwner.lastName}`;
       const swinesOwnerAdress = `${swinesOwner.barangay} ${swinesOwner.municipality}`;
 
-      const swineBirthdate = new Date(swine.birthdate); 
-      const today = new Date(); 
-      const swineAge = today.getFullYear() - swineBirthdate.getFullYear() - (today < new Date(today.getFullYear(), swineBirthdate.getMonth(), swineBirthdate.getDate()) ? 1 : 0);
+      const swineBirthdate = new Date(swine.birthdate);
+      const today = new Date();
 
+      const monthsOld = (today.getFullYear() - swineBirthdate.getFullYear()) * 12 + (today.getMonth() - swineBirthdate.getMonth());
+
+      // Optional: if the current day of the month is before the birth day, subtract 1 month
+      if (today.getDate() < swineBirthdate.getDate()) {
+        monthsOld--;
+      }
 
 
       swinesTableHTML += `
@@ -26,7 +32,7 @@ const handleRenderSwines = async() => {
             <div class="swine__details">
               <p class="td type" data-type-value="${swine.type}">${swine.type}</p>
               <p class="td breed">${swine.breed}</p>
-              <p class="td age">${swineAge}months</p>
+              <p class="td age">${monthsOld} months</p>
               <p class="td sex">${swine.sex}</p>
               <p class="td weight">${swine.weight}kg</p>
               <p class="td health-status">${swine.status}</p>
@@ -52,7 +58,7 @@ const handleRenderSwines = async() => {
                   </p>
                   <p class="column__detail">
                     <span class="column__detail-label">Age:</span>
-                    <span class="column__detail-value">${swine.birthdate} (month)</span>
+                    <span class="column__detail-value">${monthsOld} (month)</span>
                   </p>
                   <p class="column__detail">
                     <span class="column__detail-label">Sex:</span>

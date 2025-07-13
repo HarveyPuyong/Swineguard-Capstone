@@ -4,7 +4,7 @@ const appointmentSchema = new mongoose.Schema({
 
     breed: { type: String, required: true },
     type: { type: String, required: true },
-    birthdate: { type: String, required: true },
+    birthdate: { type: Date, required: true },
     sex: { type: String, required: true },
     weight: { type: Number, required: true },
     status: { type: String, default: 'healthy' },

@@ -383,14 +383,15 @@
               <option value="barrow">Barrow</option>
               <option value="gilt">Gilt</option>
               <option value="sow">Sow</option>
+              <option value="grower">Grower</option>
               <option value="boar">Boar</option>
               <option value="hybrid">Hybrid</option>
             </select>
 
             <!-- generate-report and view-graph buttons -->
             <div class="swines-section__buttons-container">
-              <button class="generate-report-btn">Generate Report</button>
-              <button class="view-graph">View Graphs</button>
+              <button class="view-reports-btn">Generate Report</button>
+              <button class="view-graph-btn">View Graphs</button>
             </div>
 
             <!-- swines table -->
@@ -413,7 +414,9 @@
 
           <!-- Swine Section: Mapping contents -->
           <div class="swine-section__mapping-contents">
+            <button class="back-table-btn">Back to table</button>
             <h1 class="section__heading">Swines Mapping</h1>
+            <h1>No Contents</h1>
           </div>
 
           <!-- Swine Section: Generate reports contents -->
@@ -421,7 +424,7 @@
             <h1 class="section__heading">Generate Monthly Report</h1>
             <!-- back-to-table-btn and download-btn container -->
             <div class="report-contents__btns-container">
-              <button class="reports-content__back-table-btn">Back to table</button>
+              <button class="reports-content__back-table-btn back-table-btn">Back to table</button>
               <button class="reports-content__download-report-btn">Download</button>
             </div>
 
@@ -846,7 +849,30 @@
             <label for="service-description">
               <span class="label-txt">Service Description</span> <br>
                <textarea class="service-description-input" required></textarea>
-            </label>   
+            </label>
+            
+            <div class="service-medicine-list">
+              <span>Applicable Medicine:</span>
+
+              <input type="checkbox" name="antibiotic" id="antibiotic" value="antibiotic">
+              <label for="antibiotic">Antibiotic</label>
+              <input type="checkbox" name="antiseptic" id="antiseptic" value="antiseptic">
+              <label for="antiseptic">Antiseptic</label>
+              <input type="checkbox" name="anti-inflammatory" id="anti-inflammatory" value="anti-inflammatory">
+              <label for="anti-inflammatory">Anti-Inflammatory</label>
+              <input type="checkbox" name="anesthesia" id="anesthesia" value="anesthesia">
+              <label for="anesthesia">Anesthesia</label>
+              <input type="checkbox" name="deworm" id="deworm" value="deworm">
+              <label for="deworm">Deworm</label>
+              <input type="checkbox" name="iron-supplement" id="iron-supplement" value="iron supplement">
+              <label for="iron-supplement">Iron Supplement</label>  
+              <input type="checkbox" name="probiotic" id="probiotic" value="probiotic">
+              <label for="probiotic">Probiotic</label>  
+              <input type="checkbox" name="none" id="none" value="none">
+              <label for="none">None</label> 
+
+            </div>
+
             <div class="service-form__buttons-container">
               <button class="service-form__cancel-btn" type="button">Cancel</button>
               <button class="service-form__create-btn" type="submit">Create</button>
@@ -859,12 +885,12 @@
 
             <label for="service-name">
               <span class="label-txt"> Service name</span> <br>
-              <input type="text" class="service-name-input">
+              <input type="text" class="service-name-input" required>
             </label>
             
             <label for="service-description">
               <span class="label-txt">Service Description</span> <br>
-               <textarea class="service-description-input"></textarea>
+               <textarea class="service-description-input" required></textarea>
             </label>   
             <div class="service-form__buttons-container">
               <button class="service-form__cancel-btn" type="button">Cancel</button>

@@ -1,4 +1,6 @@
 const inventoryDB = require('../models/inventoryModel');
+const appointmentDB = require('../models/appointmentModel');
+
 const mongoose = require('mongoose');
 const {isValidNumber, isInvalidInput, checkExpiryDate} = require('./../utils/inventoryUtils');
 
@@ -253,6 +255,7 @@ exports.getAllItem = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 // Get Item Id
 exports.getItemId = async (req, res) => {
     const { id } = req.params;
@@ -266,7 +269,52 @@ exports.getItemId = async (req, res) => {
     }
 };
 
+// updated item quantity
+exports.updateItemQuantity = async (req, res) => {
+  const { id } = req.params; // inventory item ID
+  const { appointmentId } = req.body; // passed from frontend
 
+  try {
+    // 1. Find the inventory item
+    const item = await inventoryDB.findById(id);
+    if (!item) {
+      return res.status(404).json({ message: 'Inventory item not found.' });
+    }
+
+    const itemDosagePerUnit = Number(item.dosage); // e.g., 100 mg
+    const currentQuantity = Number(item.quantity);
+
+    // 2. Get the specific appointment being completed
+    const appointment = await appointmentDB.findById(appointmentId);
+    if (!appointment) {
+      return res.status(404).json({ message: 'Appointment not found.' });
+    }
+
+    // 3. Get the dosage from this appointment
+    const dosage = parseFloat(appointment.dosage);
+    if (isNaN(dosage)) {
+      return res.status(400).json({ message: 'Invalid dosage in appointment.' });
+    }
+
+    // 4. Calculate units used and subtract
+    const unitsUsed = dosage / itemDosagePerUnit;
+    const updatedQuantity = Math.max(currentQuantity - unitsUsed, 0);
+
+    // 5. Save the updated quantity
+    await inventoryDB.findByIdAndUpdate(id, { quantity: updatedQuantity });
+
+    res.status(200).json({
+      message: 'Item quantity updated successfully.',
+      dosageUsed: dosage,
+      unitsUsed,
+      updatedQuantity
+    });
+
+  } catch (err) {
+    console.error(`Error updating item quantity: ${err}`);
+    res.status(500).json({ message: 'Server error while updating item quantity.' });
+  }
+};
 
 // Check item Id
 function checkItemId (id) {

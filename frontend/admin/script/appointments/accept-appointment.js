@@ -3,6 +3,7 @@ import handleRenderAppointments from './display-appointment.js';
 import api from '../../utils/axiosConfig.js';
 import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
 import { fetchAppointments } from '../../api/fetch-appointments.js';
+import handleRenderTechnicians from '../technicians/display-technicians.js';
 
 
 const handleAcceptAppointment = async (appointmentId) => {
@@ -54,6 +55,7 @@ const handleAcceptAppointment = async (appointmentId) => {
             acceptAppointmentForm.reset();
             acceptAppointmentForm.classList.remove('show')
             handleRenderAppointments();
+            handleRenderTechnicians();
             appointmentsDashboard();
           })
       }

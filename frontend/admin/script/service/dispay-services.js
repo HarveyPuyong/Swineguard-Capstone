@@ -1,4 +1,4 @@
-import fetchServices from "../../api/fetch-services.js";
+import {fetchServices} from "../../api/fetch-services.js";
 
 async function handleRenderServices () {
   try {
@@ -19,8 +19,11 @@ async function handleRenderServices () {
 
             <div class="service-card__description">
               <span class="service-card__description--label">Description: </span>
-              <span class="service-card__description--value">${service.description}</span>
+              <span class="service-card__description--value">${service.description}</span><br><br>
+              <span class="service-card__description--label">Applicable Medicine: </span>
+              <span class="service-card__description--value">${service.applicableItemTypes}</span>
             </div>
+
           </div>       
           <button class="service-card__edit-btn" data-service-id="${service._id}">Edit</button>
         </div>

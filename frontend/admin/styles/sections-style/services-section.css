@@ -44,6 +44,7 @@
   border-radius: 5px;
   height: 100%;
   padding: 15px 30px;
+  text-align: justify;
 }
 
 .service-card__image img{
@@ -152,6 +153,10 @@
   padding: 10px 15px;
   border-radius: 5px;
   border: 1px solid black;
+}
+
+.service-form textarea{
+  height: 200px;
 }
 
 .service-form label .label-txt{
