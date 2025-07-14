@@ -2,8 +2,17 @@
   --side-spacing: 30px;
 
   padding: 0;
-  margin-left: 80px;
+  margin-left: 120px;
 }
+
+@media(width <= 600px){
+  #dashboard-section{
+    margin-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+  }
+}
+
 
 .dashboard{
   position: relative;
@@ -172,3 +181,53 @@
   font-weight: 500;
   margin-bottom: 20px;
 }
+
+
+
+/* Technician Page: Dashboard */
+.technician-page__section-wrapper .dashboard-content{
+  width: 80%;
+  max-width: 700px;
+  margin-inline: auto;
+}
+
+.technician-page__section-wrapper #appointment-doughnut-chart{
+  width: 100%;
+  max-height: 400px;
+  border: 1px solid rgb(137, 137, 137);
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 30px;
+  margin-bottom: 25px;
+}
+
+.technician-page__section-wrapper .dashboard-content__progress{
+  background-color: #0F7E43;
+  text-align: left;
+  color: white;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.technician-page__section-wrapper .dashboard-content__progress-heading{
+  font-weight: 700;
+  margin-bottom: 11px;
+}
+
+.dashboard-content__progress-count{
+  margin-bottom: 3px;
+}
+
+.technician-page__section-wrapper .dashboard-content__progress-count--value{
+  font-weight: 700;
+}
+
+
+@media(width <= 600px){
+  .technician-page__section-wrapper .dashboard-content{
+    width: 100%;
+  }
+}
+
+
+

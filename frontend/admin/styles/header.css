@@ -6,7 +6,7 @@ header{
   width: 100%;
   height: var(--header-height); /* nasa global.css yung variable neto */
   background-color: var(--main-color);
-  padding: 0 2rem;
+  padding: 0 2.5%;
   z-index: 10
 }
 
@@ -118,4 +118,32 @@ header{
 
 .header__logout-btn.show{
   display: block;
+}
+
+
+/* Kapag ang width ay mas mababa */
+@media (width <= 600px) {
+  header{
+    padding: 0 0.9rem;
+  }
+
+  .header__toggle-side-nav-icon{
+    margin-right: 1.2rem;
+  }
+
+  .header__notification{
+    margin-right: 20px;
+  }
+
+  .header__toggle-logout-btn{
+    display: none;
+  }
+
+  .header__admin-profile{
+    margin-right: 0rem;
+  }
+
+  .header__admin-profile-label{
+    display: none;
+  }
 }

@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/side-nav.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
+    <title>Technian Page</title>
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+     <!-- Sweet Alert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+  <body>
+    <!-- ========== Header ========== -->
+    <header>
+        <div class="header__toggle-side-nav-icon">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+
+        <div class="header__swine-logo">
+          <img class="header__swine-logo-img" src="images-and-icons/icons/swineGuard-logo.png" alt="img-logo">
+          <p class="header__swine-logo-label">Swine Guard</p>
+        </div>
+
+        <div class="header__notification">
+          <i class="header__notification-icon fas fa-bell"></i>
+          <span class="header__notification-label">3</span>
+        </div>
+ 
+        <div class="header__admin-profile">
+          <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
+          <p class="header__admin-profile-label">Technician</p>
+          <i class="header__toggle-logout-btn drop-down-icon fas fa-chevron-down"></i>
+          <button class="header__logout-btn">Logout</button>
+        </div>
+    </header>
+
+    <main class="main-wrapper">
+      <!-- ========== Side nav ========== -->
+      <nav class="side-nav">
+        <i class="side-nav__close-button fa fa-times"></i>
+        <div class="side-nav__swine-logo">
+          <img class="side-nav__swine-logo-img" src="images-and-icons/icons/swineGuard-logo.png" alt="img-logo">
+          <p class="side-nav__swine-logo-label">Swine<br>Guard</p>
+        </div>
+        <ul class="side-nav__link-list">
+          <li class="side-nav__link active" data-value="dashboard-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/dashboard-icon.png" alt="dashboard-icon">
+            <p class="side-nav__link-label">Dashboard</p>
+          </li>
+           <li class="side-nav__link" data-value="schedule-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/schedule (1).png" alt="schedule-icon">
+            <p class="side-nav__link-label">Schedule</p>
+          </li>
+          <li class="side-nav__link" data-value="setting-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="setting-icon">
+            <p class="side-nav__link-label">Setting</p>
+          </li>
+          <li class="side-nav__link" data-value="logout-btn">
+            <p class="side-nav__link-label">Logout</p>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="technician-page__section-wrapper sections-wrapper">
+        <!-- ========== Dashboard Section ========== -->
+        <section id="dashboard-section" class="show"> 
+          <h1 class="section__heading">Dashboard</h1>
+          <div class="dashboard-content">
+            <!-- dashboard donut chart-->
+            <canvas id="appointment-doughnut-chart" class="dashboard-content__doughnut-chart"></canvas>   
+                  
+             <!-- progress card-->
+            <div class="dashboard-content__progress">
+              <div class="dashboard-content__progress-heading">Total Progress</div>
+              <p class="dashboard-content__progress-count incomplete">
+                <span class="dashboard-content__progress-count--label">Incomplete: </span>
+                <span class="dashboard-content__progress-count--value">100</span>
+              </p>
+              <p class="dashboard-content__progress-count complete">
+                <span class="dashboard-content__progress-count--label">Complete: </span>
+                <span class="dashboard-content__progress-count--value">100</span>
+              </p>
+            </div>
+          </div>      
+        </section>
+
+        <!-- =========== Schedule Section ========== -->
+        <section id="schedule-section" class="hide">
+          <h1 class="section__heading">Appointment Schedule</h1>
+
+          <select name="select-schedule-status" id="select-schedule-status">
+            <option value="">All</option>
+            <option value="incomplete">Incomplete</option>
+            <option value="complete">Complete</option>
+          </select>
+
+          <div class="schedule-list"></div>
+            <div class="schedule">
+              <div class="schedule-detail">
+                <div class="detail appointment-name">Deworming</div>
+                <div class="detail type">
+                  <span class="detail-label">Appointment Type</span>
+                  <span class="detail-value">Service</span>
+                </div>
+                <div class="detail date">
+                  <span class="detail-label">Date</span>
+                  <span class="detail-value">July 12 2025</span>
+                </div>
+                <div class="detail time">
+                  <span class="detail-label">Time</span>
+                  <span class="detail-value">1:00 AM</span>
+                </div>
+                <div class="detail type">
+                  <span class="detail-label">Time</span>
+                  <span class="detail-value">1:00 AM</span>
+                </div>
+                <div class="detail adress">
+                  <span class="detail-label">Adress</span>
+                  <span class="detail-value">Gasan, Mahunig, Marinduqe</span>
+                </div>
+                <div class="schedule__toggle-complete-btn">Complete</div>
+                <button class="schedule__view-more-details-btn">View</button>
+              </div>
+              <div class="schedule-more-details">
+                <div class="detail contact">
+                  <span class="detail-label">Contact</span>
+                  <span class="detail-value">09123456789</span>
+                </div>
+                <div class="detail swine-type">
+                  <span class="detail-label">Swine Type</span>
+                  <span class="detail-value">Piglet</span>
+                </div>
+                <div class="detail swine-count">
+                  <span class="detail-label">Swine Count</span>
+                  <span class="detail-value">5</span>
+                </div>
+                <div class="detail medicine">
+                  <span class="detail-label">Medicine</span>
+                  <span class="detail-value">Fenvendazole</span>
+                </div>
+                <div class="detail dosage">
+                  <span class="detail-label">Dosage</span>
+                  <span class="detail-value">400 (mg)</span>
+                </div>
+                <div class="detail email">
+                  <span class="detail-label">Email</span>
+                  <span class="detail-value">kupal@gmail.com</span>
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <!-- ========== Settings Section ========== -->
+        <section id="setting-section" class="hide">
+          <h1 class="section__heading">Setting</h1>
+          <form id="setting-form" class="setting-form"><!-- Setting details render in /script/setting/display-setting.js --></form>
+        </section>
+      </div>
+    </main>
+     
+    <script src="script/Technician-main.js"></script>
+  </body>
+</html>
