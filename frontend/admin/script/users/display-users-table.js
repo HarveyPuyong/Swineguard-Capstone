@@ -18,6 +18,7 @@ async function handleRenderUsersTable() {
           <p class="td barangay">${client.barangay}</p>
           <p class="td contact">${client.contactNum}</p>
           <p class="td email">${client.email}</p>
+          
           <div class="td toggle-buttons">
             <i class="toggle-buttons-icon fas fa-ellipsis-v"></i>
             <div class="buttons-container">

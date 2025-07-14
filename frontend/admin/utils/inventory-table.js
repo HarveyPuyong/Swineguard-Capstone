@@ -1,6 +1,6 @@
 import {formattedDate} from './formated-date-time.js';
 import formatItemStatus from './format-item-status.js';
-
+import filteredNumber from './filter-number.js';
 
 // ======================================
 // ==========IC Page Appointment Table
@@ -15,7 +15,7 @@ function inventoryTable(inventories, table) {
         <div class="medicine status-${status}" data-item-id=${item._id}>
             <p class="td medicine-name">${item.itemName}</p>
             <p class="td medicine-dosage">${item.dosage} <span class="medicine-dosage-label">(mg)<span></p>
-            <p class="td quantity">${item.quantity}</p>
+            <p class="td quantity">${filteredNumber(item.quantity)}</p>
             <p class="td status" data-status-value=${status}>
               ${item.itemStatus}
             </p>
@@ -53,7 +53,7 @@ function adminPageInventoryTable(inventories, table) {
         <div class="medicine status-${status}" data-item-id=${item._id}>
             <p class="td medicine-name">${item.itemName}</p>
             <p class="td medicine-dosage">${item.dosage} <span class="medicine-dosage-label">(mg)<span></p>
-            <p class="td quantity">${item.quantity}</p>
+            <p class="td quantity">${filteredNumber(item.quantity)}</p>
             <p class="td status" data-status-value=${status}>
               ${item.itemStatus}
             </p>
@@ -67,5 +67,7 @@ function adminPageInventoryTable(inventories, table) {
     
     if(table) table.innerHTML = inventoryTableHTML;
 }
+
+
 
 export {inventoryTable, adminPageInventoryTable};

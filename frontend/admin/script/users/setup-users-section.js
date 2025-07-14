@@ -1,22 +1,37 @@
 import  handleRenderUsersTable from "./display-users-table.js";
+import handleUserFullview from "./user-profile-fullview.js";
 
 
 // ======================================
 // ========== Toggle More Buttons
 // ======================================
 const toggleMoreButtons = () => {
-   document.addEventListener('renderUsersTable', () => {
-      const toggleMoreButtons = document.querySelector('.users-table .toggle-buttons-icon');
-      const buttonsContainer = document.querySelector('.users-table .buttons-container')
-      
-      toggleMoreButtons.addEventListener('click', () => {
-         toggleMoreButtons.classList.toggle('active');
+  document.addEventListener('renderUsersTable', () => {
+    const toggleIcons = document.querySelectorAll('.users-table .toggle-buttons-icon');
 
-         if(toggleMoreButtons.classList.contains('active')) buttonsContainer.classList.add('show')
-         else buttonsContainer.classList.remove('show');
+    toggleIcons.forEach(icon => {
+      const buttonsContainer = icon.nextElementSibling;
+
+      icon.addEventListener('click', () => {
+        icon.classList.toggle('active');
+
+        if (icon.classList.contains('active')) {
+          buttonsContainer.classList.add('show');
+        } else {
+          buttonsContainer.classList.remove('show');
+        }
+
+        // Optional: Close other toggle buttons
+        toggleIcons.forEach(otherIcon => {
+          if (otherIcon !== icon) {
+            otherIcon.classList.remove('active');
+            otherIcon.nextElementSibling.classList.remove('show');
+          }
+        });
       });
-   });
-}
+    });
+  });
+};
 
 
 // ======================================
@@ -31,9 +46,10 @@ const handleUsersButtonsAction = () => {
       buttons.forEach(button => {
          button.addEventListener('click', () => {
             const userId = button.dataset.userId;
-            console.log(userId)
+            //console.log(userId)
       
             if(button.classList.contains('view-user-profile-btn')){
+               handleUserFullview(userId);
                userTableContents.classList.remove('show');
                userProfileContents.classList.add('show');
             }
@@ -49,15 +65,21 @@ const handleUsersButtonsAction = () => {
          });
       });
 
-
-      // Button pag back to user table
-      const backToUserTableBtn = document.querySelector('.user-profile-full-view__back-btn');
-      if(backToUserTableBtn) backToUserTableBtn.addEventListener('click', () => {
-                                 userTableContents.classList.add('show');
-                                 userProfileContents.classList.remove('show');
-                              });
    });
+
+   const backToUserTableBtn = document.querySelector('.user-profile-full-view__back-btn');
+   if (backToUserTableBtn) {
+      backToUserTableBtn.addEventListener('click', () => {
+            const userTableContents = document.querySelector('#users-section .user-section__table-contents');
+            const userProfileContents = document.querySelector('#users-section .user-profile-full-view');
+
+            userTableContents.classList.add('show');
+            userProfileContents.classList.remove('show');
+      });
+   }
 }
+
+
 
 
 // ======================================

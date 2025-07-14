@@ -14,6 +14,7 @@ const handleAddStaff = () => {
       middleName: addStaffForm['middleName'].value.trim(),
       lastName: addStaffForm['lastName'].value.trim(),
       suffix: addStaffForm['suffix'].value.trim(),
+      sex: addStaffForm['gender'].value,
       role: addStaffForm['role'].value,
       municipality: addStaffForm['municipality'].value,
       barangay: addStaffForm['barangay'].value,

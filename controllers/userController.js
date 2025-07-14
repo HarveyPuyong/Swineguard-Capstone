@@ -52,7 +52,7 @@ const editUserDetails = async (req, res) => {
 
 // Add Staffs
 const addStaff = async (req, res) => {
-    const {firstName, middleName,lastName, suffix, role,
+    const {firstName, middleName,lastName, suffix, sex, role,
             municipality, barangay, contactNum,
             email, password, confirmPassword, 
         } = req.body;
@@ -97,6 +97,7 @@ const addStaff = async (req, res) => {
         "middleName": middleName,
         "lastName": lastName,
         "suffix": suffix,
+        "sex": sex,
         "municipality":municipality,
         "barangay": barangay,
         "contactNum": contactNum,

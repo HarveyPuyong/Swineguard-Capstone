@@ -34,6 +34,7 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
                 middleName: "Veterinary",
                 lastName: "Office",
                 suffix: "",
+                sex: "none",
 
                 municipality: "Boac",
                 barangay: "Bangbangalon",
@@ -51,60 +52,5 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
         console.log('✅ Admin account created successfully.');
     } 
 
-
-    // Generating Appointment Coordinator Account
-    if (!existingAC_staffAcc) {
-        const hashed_ACstaff_password = await bcrypt.hash(AC_staff_password, 10);
-        const newAdmin_AC = new User(
-            {
-                firstName: "Robert",
-                middleName: "M",
-                lastName: "Magno",
-                suffix: "",
-
-                municipality: "Gasan",
-                barangay: "Mahunig",
-                contactNum: "09266495922",
-                birthday: "01-01-1999",
-
-                email: AC_staff_Email, 
-                password: hashed_ACstaff_password,
-                roles: [ROLE_LIST.AppointmentCoordinator]
-            }
-        );
-
-        await newAdmin_AC.save();
-
-        console.log('✅ Appointment Coordinator account created successfully.');
-    } 
-
-
-    // Generating Inventory Coordinator Account
-    if (!existingIC_staffAcc) {
-        const hashed_ICstaff_password = await bcrypt.hash(IC_staff_password, 10);
-        const newAdmin_IC = await User.create(
-            { 
-                firstName: "John Harvey",
-                middleName: "A",
-                lastName: "Puyong",
-                suffix: "Jr",
-
-                municipality: "Boac",
-                barangay: "Maligaya",
-                contactNum: "09266495922",
-                birthday: "01-01-1999",
-
-                email: IC_staff_Email, 
-                password: hashed_ICstaff_password,
-                roles: [ROLE_LIST.InventoryCoordinator]
-            }
-        );
-
-        await newAdmin_IC.save();
-
-        console.log('✅ Inventory Coordinator account created successfully.');
-    }  else {
-        console.log('⚠️ Account already exists');
-    }
     mongoose.disconnect();
 })();
