@@ -16,6 +16,9 @@ const AC_staff_password = 'ACADMIN123';
 const IC_staff_Email = 'ICstaff@gmail.com';
 const IC_staff_password = 'ICADMIN123';
 
+const Tecnician_Email = 'Technician@gmail.com';
+const Tecnician_password = 'Technician123';
+
 const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db';
 
 (async () => {
@@ -24,6 +27,7 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
     const existingAdminAcc = await User.findOne({email: adminEmail});
     const existingAC_staffAcc = await User.findOne({email: AC_staff_Email});
     const existingIC_staffAcc = await User.findOne({email: IC_staff_Email});
+    const existingTecnician_Acc = await User.findOne({email: Tecnician_Email});
 
     if (!existingAdminAcc) {
         // Generating Administrator Account
@@ -103,6 +107,35 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
         await newAdmin_IC.save();
 
         console.log('✅ Inventory Coordinator account created successfully.');
+    }  else {
+        console.log('⚠️ Account already exists');
+    }
+
+
+    // Generating Tecnician Account
+    if (!existingTecnician_Acc) {
+        const hashed_Tecnician_password = await bcrypt.hash(Tecnician_password, 10);
+        const newAdmin_Tecnician = await User.create(
+            { 
+                firstName: "Mark Carlo",
+                middleName: "N",
+                lastName: "Naling",
+                suffix: "Jr",
+
+                municipality: "Boac",
+                barangay: "Santol",
+                contactNum: "09266495922",
+                birthday: "01-01-1999",
+
+                email: Tecnician_Email, 
+                password: hashed_Tecnician_password,
+                roles: [ROLE_LIST.Technician]
+            }
+        );
+
+        await newAdmin_Tecnician.save();
+
+        console.log('✅ Tecnician account created successfully.');
     }  else {
         console.log('⚠️ Account already exists');
     }

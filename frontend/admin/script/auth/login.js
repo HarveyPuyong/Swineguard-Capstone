@@ -11,9 +11,9 @@ if(accessToken) {
   const admin = await fetchUser();
   const adminRole = admin.roles?.[0];
 
-  if(adminRole === 'admin') window.location = 'admin-page.html'
-  else if(adminRole === 'appointmentCoordinator') window.location = 'appointments-coordinator.html'
-  else if(adminRole === 'inventoryCoordinator') window.location = 'inventory-coordinator';
+  if(adminRole === 'admin') location.replace('admin-page.html')
+  else if(adminRole === 'appointmentCoordinator') location.replace('appointments-coordinator.html');
+  else if(adminRole === 'inventoryCoordinator') location.replace('inventory-coordinator.html');
 }
 
 
@@ -37,7 +37,8 @@ loginForm.addEventListener('submit', async(e) => {
 
       if(response.data.roles.includes('admin')) location.replace('admin-page.html')
       if(response.data.roles.includes('appointmentCoordinator')) location.replace('appointments-coordinator.html');
-      if(response.data.roles.includes('inventoryCoordinator')) location.replace('inventory-coordinator.html');
+      if(response.data.roles.includes('inventoryCoordinator')) location.replace('inventory-coordinator.html')
+      if (response.data.roles.includes('technician')) location.replace('technician-page.html')
     }
 
   }catch(err){

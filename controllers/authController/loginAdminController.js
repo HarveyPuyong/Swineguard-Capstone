@@ -19,7 +19,9 @@ const adminLoginController = async(req, res) => {
     //  na set yung mga allowed roles para mga admins lang ang maka access ng page
      const allowedRoles = [ROLE_LIST.Admin,
                            ROLE_LIST.AppointmentCoordinator,
-                           ROLE_LIST.InventoryCoordinator];
+                           ROLE_LIST.InventoryCoordinator,
+                           ROLE_LIST.Technician,
+                           ROLE_LIST.Veterinarian];
 
     // condition para hindi makapasok yung mga hindi admin
      const hasAccess = allowedRoles.some(role => foundUser.roles.includes(role));

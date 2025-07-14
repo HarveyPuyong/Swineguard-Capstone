@@ -2,11 +2,17 @@
   --side-spacing: 30px;
 
   padding: 0;
+  margin-left: 80px;
+}
+
+.technician-page__section-wrapper #dashboard-section{
   margin-left: 120px;
 }
 
 @media(width <= 600px){
-  #dashboard-section{
+  #dashboard-section,
+  .technician-page__section-wrapper #dashboard-section{
+    margin-left: 0;
     margin-left: 20px;
     padding-right: 20px;
     width: 100%;

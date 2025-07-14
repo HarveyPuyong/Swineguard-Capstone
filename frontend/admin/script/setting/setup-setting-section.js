@@ -8,7 +8,7 @@ const handleUpdateButtons = () => {
     const cancelBtn = document.querySelector('.setting-form__header-cancel-btn');
     const saveBtn = document.querySelector('.setting-form__header-save-btn');
     const editableDetails = document.querySelectorAll('.setting-form__details-list .admin-detail.editable input');
-    const uploadImgBtn = documnet.querySelector('.setting-form .admin-image__upload-btn')
+    const uploadImgBtn = document.querySelector('.setting-form .admin-image__upload-btn')
     
     // handle Edit Btn
     editBtn.addEventListener('click', () => {

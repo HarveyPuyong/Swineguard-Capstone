@@ -25,7 +25,9 @@ router.get('/client-profile', verifyJWT, getUser);
 
 router.get('/admin-profile', verifyJWT, verifyRoles(ROLE_LIST.Admin,
                                          ROLE_LIST.AppointmentCoordinator,
-                                         ROLE_LIST.InventoryCoordinator),
+                                         ROLE_LIST.InventoryCoordinator,
+                                         ROLE_LIST.Technician, 
+                                         ROLE_LIST.Veterinarian),
                                          getUser);
 
 module.exports = router;
