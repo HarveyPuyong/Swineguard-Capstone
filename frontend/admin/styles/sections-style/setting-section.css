@@ -74,11 +74,16 @@
 .setting-form .admin-image__upload-btn{
   --color: #787878;
 
+  display: none;
   cursor: pointer;
   color: var(--color);
   border: 1px solid var(--color);
   border-radius: 4px;
   padding: 2px 10px;
+}
+
+.setting-form .admin-image__upload-btn.show{
+  display: inline-block;
 }
 
 .admin-image__upload-btn i{
@@ -110,9 +115,9 @@
 
 .setting-form__details-list .admin-detail-value{
   border: none;
-  font-size: 0.87rem;
+  font-size: clamp(0.7rem, 3.4vw, 0.87rem);
   font-weight: 500;
-  width: 25%;
+  width: 35%;
   padding: 3px;
   border-radius: 5px;
   color: rgba(0, 0, 0, 0.643);
@@ -131,4 +136,29 @@
 .setting-form__details-list .admin-detail-value.editable:focus{
   outline: 1px solid black;
   border: 1px solid black;
+}
+
+/* kapag mas mababa sa 600px ang screen */
+@media (width <= 600px) {
+  #setting-section{
+    margin-left: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  #setting-form{
+    padding: 20px 15px;
+  }
+
+  .setting-form__header{
+    padding-right: 0rem;
+  }
+
+  .setting-form__details-list{
+    padding: 0px;
+  }
+
+  .setting-form__details-list .admin-detail-value{
+    width: 100%;
+  }
 }
