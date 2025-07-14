@@ -84,6 +84,11 @@ select{
   background-size: clamp(20px, 6vw, 25px) ;
 }
 
+select:focus{
+  outline: none;
+  border: none;
+}
+
 
 /* Reports contents global styling */
 .report-contents__btns-container{
