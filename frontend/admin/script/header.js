@@ -7,12 +7,12 @@ const toggleSidenav = () => {
   const toggleSidenavIcon = document.querySelector('.header__toggle-side-nav-icon');
   const sidenav = document.querySelector('nav.side-nav');
 
-  toggleSidenavIcon.addEventListener('click', () => sidenav.classList.toggle('active'));
+  toggleSidenavIcon.addEventListener('click', () => sidenav.classList.toggle('show'));
 
 
    document.addEventListener('click', (e) => {
-    if (sidenav.classList.contains('active') && !sidenav.contains(e.target) && !toggleSidenavIcon.contains(e.target)) 
-      { sidenav.classList.remove('active');}
+    if (sidenav.classList.contains('show') && !sidenav.contains(e.target) && !toggleSidenavIcon.contains(e.target)) 
+       { sidenav.classList.remove('show')}
   });
 }
 

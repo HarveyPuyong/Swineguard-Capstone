@@ -13,7 +13,7 @@
   transition: width 0.5s;
 }
 
-.side-nav.active{
+.side-nav.show{
   --sidenav-width: 290px;
 }
 
@@ -67,7 +67,7 @@
   font-weight: 600;
 }
 
-.side-nav.active .side-nav__link-label{
+.side-nav.show .side-nav__link-label{
   display: block;
 }
 
@@ -78,10 +78,10 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    left: 0;
-    right: 0;
+    height: 100%;
     background-color: #2FC375;
     width: 100%;
+    transition: 0.5s;
   }
 
   .side-nav.show{
