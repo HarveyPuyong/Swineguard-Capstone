@@ -9,7 +9,7 @@ setupSettingsSection();
 
 
 
-// report donut chart: imodify pa yung styling neto at naming
+// appointment complete status donot chart
   const donutChart = document.querySelector('#dashboard-section #appointment-doughnut-chart').getContext('2d');
 
   const myPieChart = new Chart(donutChart, {
@@ -17,7 +17,7 @@ setupSettingsSection();
     data: {
       labels: ['Complete', 'Incomplete'],
       datasets: [{
-        label: 'Medicine Distribution',
+        label: 'Appointments Complete Status',
         data: [50, 50], 
         backgroundColor: ['#ef6c6d', '#365a98'],
         borderWidth: 1

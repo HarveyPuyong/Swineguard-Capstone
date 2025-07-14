@@ -1,4 +1,5 @@
-import handleLogout from './auth/logout.js'
+import updateSidenav from '../utils/updateSidenav.js';
+import handleLogout from './auth/logout.js';
 
 // ======================================
 // ========== Toggles Sidenav
@@ -16,6 +17,24 @@ const toggleSidenav = () => {
   });
 }
 
+
+// ======================================
+// ========== Go to profile details in settings section
+// ======================================
+const showProfileDetails = () => {
+  const sections = document.querySelectorAll('section')
+  const profilePic = document.querySelector('.header__admin-profile-pic');
+
+  profilePic.addEventListener('click', () => {
+    sections.forEach(section => {
+      section.classList.remove('show');
+      section.classList.add('hide');
+
+      if(section.id === 'setting-section') section.classList.add('show');
+      updateSidenav();
+    })
+  });
+}
 
 // ======================================
 // ========== Toggle Logout Button
@@ -52,11 +71,14 @@ const logout = () => {
 
 
 
+
+
 // ======================================
 // ========== Main Function - Setup Header
 // ======================================
 export default function setupHeader() {
   toggleSidenav();
+  showProfileDetails();
   toggleLogoutBtn();
   logout();
 } 
