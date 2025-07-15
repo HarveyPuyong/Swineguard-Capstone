@@ -6,7 +6,7 @@ const {generateAccessToken, generateRefreshToken} = require('../../utils/generat
 
 const signupController = async (req, res) => {
   // nakuha yung json laman ng req.body
-  const {firstName, middleName,lastName, suffix,
+  const {firstName, middleName,lastName, suffix, sex, birthday,
          municipality, barangay, contactNum,
          email, password, confirmPassword } = req.body;
 
@@ -25,6 +25,29 @@ const signupController = async (req, res) => {
     return res.status(400).json({ message: 'Special characters are not allowed.'});
   }
 
+  // Check for length
+  if (!isValidInput(firstName) || !isValidInput(middleName) || !isValidInput(lastName)) {
+    return res.status(400).json({ message: 'Name are too short'});
+  }
+
+  if (birthday) {
+    const birthdayDate = new Date(birthday);
+    const today = new Date();
+
+    const ageInYears = today.getFullYear() - birthdayDate.getFullYear();
+    const hasHadBirthdayThisYear =
+      today.getMonth() > birthdayDate.getMonth() ||
+      (today.getMonth() === birthdayDate.getMonth() && today.getDate() >= birthdayDate.getDate());
+
+    const isAtLeast18 = ageInYears > 18 || (ageInYears === 18 && hasHadBirthdayThisYear);
+    const isFutureDate = birthdayDate > today;
+
+    if (isFutureDate || !isAtLeast18) {
+      return res.status(400).json({
+        message: 'Birthday cannot be in the future and must be at least 18 years old.',
+      });
+    }
+  }
  
   //na check yung contact number kung 09 ang una at naka 11digits, baka kasi mag lagay ng maling number yung client
   const contactPattern = /^09\d{9}$/;
@@ -54,6 +77,8 @@ const signupController = async (req, res) => {
         "middleName": middleName,
         "lastName": lastName,
         "suffix": suffix,
+        "sex": sex,
+        "birthday": birthday,
         "municipality":municipality,
         "barangay": barangay,
         "contactNum": contactNum,

@@ -1,5 +1,7 @@
 import  handleRenderUsersTable from "./display-users-table.js";
 import handleUserFullview from "./user-profile-fullview.js";
+import { handleVerifyUser } from "./reset-verify-remove-handler.js";
+import fetchUsers from "../../api/fetch-users.js";
 
 
 // ======================================
@@ -38,35 +40,54 @@ const toggleMoreButtons = () => {
 // ========== Users Buttons Actions
 // ======================================
 const handleUsersButtonsAction = () => {
-   document.addEventListener('renderUsersTable', () => {
+   document.addEventListener('renderUsersTable', async() => {
       const userTableContents = document.querySelector('#users-section .user-section__table-contents');
       const userProfileContents = document.querySelector('#users-section .user-profile-full-view');
+      const verifyUserForm = document.querySelector('.verify-user-popup-backdrop');
       const buttons = document.querySelectorAll('.users-table .buttons-container button');
 
+      const users = await fetchUsers();
+      
       buttons.forEach(button => {
+         const userId = button.dataset.userId;
+         const matchedUser = users.find(user => user._id === userId);
+
+         // Pre-check and disable before adding click listener
+         if (button.classList.contains('verify-user-btn') && matchedUser?.isRegistered) {
+            button.disabled = true;
+            button.textContent = 'Verified';
+            return; 
+         }
+         //console.log(userId)
+
          button.addEventListener('click', () => {
-            const userId = button.dataset.userId;
-            //console.log(userId)
       
             if(button.classList.contains('view-user-profile-btn')){
                handleUserFullview(userId);
                userTableContents.classList.remove('show');
                userProfileContents.classList.add('show');
             }
-            else if(button.classList.contains('verify-user-btn')){ 
-               // Call mo dito yung pag verify User na function
+            else if(button.classList.contains('verify-user-btn')){
+               handleVerifyUser(userId);
+               verifyUserForm.classList.add('show');
+
+               const cancelVerifyBtn = document.querySelector('#cancel-verfiy-btn');
+               if (cancelVerifyBtn) {
+                  cancelVerifyBtn.addEventListener('click', () => {
+                     verifyUserForm.classList.remove('show');
+                  });
+               }
             }
             else if(button.classList.contains('reset-user-credential-btn')){ 
                // Call mo dito yung pag reset ng user credentials function
             }
-            else if(button.classList.contains('remove-user-btn')){ 
-               // Call mo dito yung pag remove user function
-            }
+
          });
       });
 
    });
 
+   // Back Button
    const backToUserTableBtn = document.querySelector('.user-profile-full-view__back-btn');
    if (backToUserTableBtn) {
       backToUserTableBtn.addEventListener('click', () => {

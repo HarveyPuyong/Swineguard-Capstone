@@ -166,7 +166,7 @@
   position: relative;
   width: 100%;
   height: clamp(300px, 35vw, 750px);
-  min-height: 50px;
+  min-height: 200px;
   max-height: 758px;
   background-color: white;
   border: none;
