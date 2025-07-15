@@ -9,7 +9,8 @@ router.post('/send', verifyJWT, messageController.sendMessage);
 router.get('/user/:id', verifyJWT, messageController.getUserMessages);// Get user messages
 router.get('/all', verifyJWT, verifyRoles(ROLE_LIST.Admin,
                                          ROLE_LIST.AppointmentCoordinator,
-                                         ROLE_LIST.InventoryCoordinator), 
+                                         ROLE_LIST.InventoryCoordinator,
+                                         ROLE_LIST.Veterinarian), 
                                          messageController.getMessages);
 
 module.exports = router

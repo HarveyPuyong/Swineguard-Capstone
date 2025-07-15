@@ -14,6 +14,8 @@ if(accessToken) {
   if(adminRole === 'admin') location.replace('admin-page.html')
   else if(adminRole === 'appointmentCoordinator') location.replace('appointments-coordinator.html');
   else if(adminRole === 'inventoryCoordinator') location.replace('inventory-coordinator.html');
+  else if(adminRole === 'technician') location.replace('technician-page.html');
+  else if(adminRole === 'veterinarian') location.replace('veterenarian-page.html');
 }
 
 
@@ -36,9 +38,10 @@ loginForm.addEventListener('submit', async(e) => {
       localStorage.setItem('accessToken', response.data.accessToken);
 
       if(response.data.roles.includes('admin')) location.replace('admin-page.html')
-      if(response.data.roles.includes('appointmentCoordinator')) location.replace('appointments-coordinator.html');
-      if(response.data.roles.includes('inventoryCoordinator')) location.replace('inventory-coordinator.html')
-      if (response.data.roles.includes('technician')) location.replace('technician-page.html')
+      else if(response.data.roles.includes('appointmentCoordinator')) location.replace('appointments-coordinator.html');
+      else if(response.data.roles.includes('inventoryCoordinator')) location.replace('inventory-coordinator.html')
+      else if(response.data.roles.includes('technician')) location.replace('technician-page.html');
+      else if(response.data.roles.includes('veterinarian')) location.replace('veterenarian-page.html');
     }
 
   }catch(err){

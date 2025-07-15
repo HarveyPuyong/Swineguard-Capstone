@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-  <html lang="en">
+<html lang="en">
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veterenarian Page</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="styles/normalize.css">
     <link rel="stylesheet" href="styles/global.css">
@@ -10,10 +11,10 @@
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
     <link rel="stylesheet" href="styles/sections-style/schedule-section.css">
+    <link rel="stylesheet" href="styles/sections-style/messages-section.css">
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
-    <title>Technian Page</title>
 
-    <!-- Chart.js CDN -->
+        <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- Axios CDN -->
@@ -43,7 +44,7 @@
  
         <div class="header__admin-profile">
           <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
-          <p class="header__admin-profile-label">Technician</p>
+          <p class="header__admin-profile-label">Veterenarian</p>
           <i class="header__toggle-logout-btn drop-down-icon fas fa-chevron-down"></i>
           <button class="header__logout-btn">Logout</button>
         </div>
@@ -62,9 +63,13 @@
             <img class="side-nav__link-icon" src="images-and-icons/icons/dashboard-icon.png" alt="dashboard-icon">
             <p class="side-nav__link-label">Dashboard</p>
           </li>
-           <li class="side-nav__link" data-value="schedule-section">
+          <li class="side-nav__link" data-value="schedule-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/schedule (1).png" alt="schedule-icon">
             <p class="side-nav__link-label">Schedule</p>
+          </li>
+          <li class="side-nav__link" data-value="messages-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/messages-icon.png" alt="message-icon">
+            <p class="side-nav__link-label">Messages</p>
           </li>
           <li class="side-nav__link" data-value="setting-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="setting-icon">
@@ -78,7 +83,7 @@
 
       <div class="technician-veterenarian-page__section-wrapper sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-        <section id="dashboard-section" class="show"> 
+        <section id="dashboard-section" class="hide"> 
           <h1 class="section__heading">Dashboard</h1>
           <div class="dashboard-content">
             <!-- dashboard donut chart-->
@@ -512,6 +517,37 @@
           </div>
         </section>
 
+        <!-- ========== Messages Section ========== -->
+        <section id="messages-section">
+          <h1 class="section__heading">Messages</h1>
+          <i class="fas fa-arrow-left back-to-contact-list-btn"></i>
+          <!-- Pop User Image -->
+          <div class="profile-view">
+            <img class="profile-view__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user image" >
+            <h2 class="profile-view__user-name">John Harvey Puyong</h2>
+            <p class="profile-view__user-email">harvey@gmail.com</p>
+            <button class="profile-view__back-btn">Back</button>
+          </div>
+          <div class="messages-section__main-wrapper">
+            <div class="sidebar-chat-panel show"> <!-- side-chat-panel -->
+              <div class="sidebar-chat-panel__search">
+                <img class="sidebar-chat-panel__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon">
+                  <input class="sidebar-chat-panel__search-input" type="text" placeholder="Search...">  
+              </div>
+              <div class="chat-list"><!-- Contact List is Render in script/messages --></div>
+            </div>
+
+            <div class="chat-box"> <!-- convo box -->
+              <!-- When Empty messages -->
+              <div class="chat-box__description"> <!-- convo box description-->
+                <h2>Open client messages</h2>
+                <p>Click the icon or messages in the left side of the screen.</p>
+              </div>
+               <div class="chat-box__main-contents"><!-- Messege Conversation Render in script/messages --></div>      
+            </div>
+          </div>
+        </section>
+
         <!-- ========== Settings Section ========== -->
         <section id="setting-section" class="hide">
           <h1 class="section__heading">Setting</h1>
@@ -576,7 +612,7 @@
         </section>
       </div>
     </main>
-     
-    <script type="module" src="script/Technician-page-main.js"></script>
+
+    <script type="module" src="script/Veterenarian-page-main.js"></script>
   </body>
 </html>

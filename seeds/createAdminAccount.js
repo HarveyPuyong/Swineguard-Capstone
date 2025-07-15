@@ -19,6 +19,9 @@ const IC_staff_password = 'ICADMIN123';
 const Tecnician_Email = 'Technician@gmail.com';
 const Tecnician_password = 'Technician123';
 
+const Vet_Email = 'Vet@gmail.com';
+const Vet_password = 'Vet123';
+
 const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db';
 
 (async () => {
@@ -28,6 +31,7 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
     const existingAC_staffAcc = await User.findOne({email: AC_staff_Email});
     const existingIC_staffAcc = await User.findOne({email: IC_staff_Email});
     const existingTecnician_Acc = await User.findOne({email: Tecnician_Email});
+    const existingVet_Acc = await User.findOne({email: Vet_Email});
 
     if (!existingAdminAcc) {
         // Generating Administrator Account
@@ -112,7 +116,35 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
     }
 
 
-    // Generating Tecnician Account
+    // Generating Vet Account
+    if (!existingVet_Acc) {
+        const hashed_Vet_password = await bcrypt.hash(Vet_password, 10);
+        const newAdmin_Tecnician = await User.create(
+            { 
+                firstName: "Itadori",
+                middleName: "N",
+                lastName: "Yuuji",
+                suffix: "Jr",
+
+                municipality: "Boac",
+                barangay: "Santol",
+                contactNum: "09266495922",
+                birthday: "01-01-1999",
+
+                email: Vet_Email, 
+                password: hashed_Vet_password,
+                roles: [ROLE_LIST.Veterinarian]
+            }
+        );
+
+        await newAdmin_Tecnician.save();
+
+        console.log('✅ Veterenarian account created successfully.');
+    }  else {
+        console.log('⚠️ Account already exists');
+    }
+
+    // Generating Technician Account
     if (!existingTecnician_Acc) {
         const hashed_Tecnician_password = await bcrypt.hash(Tecnician_password, 10);
         const newAdmin_Tecnician = await User.create(
@@ -139,5 +171,10 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
     }  else {
         console.log('⚠️ Account already exists');
     }
+
+
+
+
+
     mongoose.disconnect();
 })();
