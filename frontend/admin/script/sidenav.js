@@ -1,6 +1,8 @@
-import updateSidenav from "../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
+import updateSidenav from "../utils/updateSidenav.js"; 
+
 
 export default function sideNavFuntionality() {
+  const sidenav = document.querySelector('nav.side-nav');
   const sideNavLinks = document.querySelectorAll('.side-nav__link');
   const sections = document.querySelectorAll('section');
 
@@ -8,6 +10,7 @@ export default function sideNavFuntionality() {
     const navValue = nav.getAttribute('data-value');
 
     nav.addEventListener('click', () => {
+      sidenav.classList.remove('show')
       sections.forEach(section => {
         const sectionId = section.id;
         if(navValue === sectionId){section.classList.add('show')}
@@ -20,6 +23,12 @@ export default function sideNavFuntionality() {
       updateSidenav();
     });
   });
+
+  // Close button in sidenav mobile view
+  const closeSideNavBtn = document.querySelector('.side-nav__close-button');
+  if(!closeSideNavBtn) return;
+
+  closeSideNavBtn.addEventListener('click', () => sidenav.classList.remove('show'));
 }
 
 

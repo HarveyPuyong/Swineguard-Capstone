@@ -13,8 +13,16 @@
   transition: width 0.5s;
 }
 
-.side-nav.active{
+.side-nav.show{
   --sidenav-width: 290px;
+}
+
+.side-nav__close-button{
+  display: none;
+}
+
+.side-nav__swine-logo{
+  display: none;
 }
 
 .side-nav__link-list{
@@ -32,6 +40,10 @@
   padding: 1rem 0;
   padding-left: 2rem;
   transition: 0.2s;
+}
+
+.side-nav__link.logout-btn{
+  display: none;
 }
 
 .side-nav__link.active{
@@ -55,6 +67,100 @@
   font-weight: 600;
 }
 
-.side-nav.active .side-nav__link-label{
+.side-nav.show .side-nav__link-label{
   display: block;
+}
+
+
+@media(width <= 600px){
+  .side-nav{
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    height: 100%;
+    background-color: #2FC375;
+    width: 100%;
+    transition: 0.5s;
+  }
+
+  .side-nav.show{
+    display: block;
+  }
+
+  .side-nav__close-button{
+    display: block;
+    position: fixed;
+    color: white;
+    font-size: 2rem;
+    right: 30px;
+    top: 40px;
+  }
+
+  .side-nav__swine-logo{
+    display: flex;
+    gap: 0.4rem;
+    width: fit-content;
+    margin-inline: auto;
+    margin-top: 100px;
+    margin-bottom: 35px;
+  }
+
+  .side-nav__swine-logo-img{
+    --logo-img-size: 53px;
+
+    width: var(--logo-img-size);
+    height: var(--logo-img-size);
+    border-radius: 3px;
+  }
+
+  .side-nav__swine-logo-label{
+    white-space: nowrap;
+    font-weight: 600;
+    font-size: 1.5rem;
+    color: var(--primary-color);
+  }
+
+  .side-nav__link-list{
+    color: white;
+    gap: 0.7rem;
+  }
+
+  .side-nav__link{
+    justify-content: center;
+    width: 250px;
+    margin-inline: auto;
+    background-color: rgba(255, 255, 255, 0);
+    padding: 14px 0;
+    border: 1.5px solid rgb(221, 220, 220);
+    border-radius: 5px;
+  }
+
+  .side-nav__link.logout-btn{
+    display: flex;
+  }
+
+  .side-nav__link.active{
+    background-color: rgb(255, 255, 255);
+    border: 1.5px solid #0F7E43;
+  }
+
+  .side-nav__link:hover{
+    background-color: rgb(0, 105, 49);
+  }
+
+  .side-nav__link-icon{
+    display: none;
+  }
+
+  .side-nav__link-label{
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+  }
+
+  .side-nav__link.active .side-nav__link-label{
+    color: #0F7E43;
+  }
 }

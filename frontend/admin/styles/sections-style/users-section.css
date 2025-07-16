@@ -110,7 +110,7 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   min-height: 120px;
-  max-height: 420px;
+  height: clamp(300px, 30vw, 750px);
   padding-bottom: 1rem;
 }
 

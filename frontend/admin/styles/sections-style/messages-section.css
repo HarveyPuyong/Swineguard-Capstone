@@ -1,6 +1,9 @@
+#messages-section .back-to-contact-list-btn{
+  display: none;
+}
 
 .profile-view{
-  display: none; /* default display: flex */
+  display: none;
   position: fixed;
   top: 55%;
   left: 50%;
@@ -188,6 +191,7 @@
 }
 
 .chat-box__description{
+  display: none;
   position: absolute;
   top: 48%; 
   left: 50%;
@@ -207,7 +211,7 @@
 }
 
 .chat-box__main-contents{
-  display: none;
+  display: block;
 }
 
 .chat-box__header{
@@ -277,6 +281,7 @@
   gap: 2rem;
   padding-left: 35px;
   padding-right: 34px;
+  padding-top: 10px;
   padding-bottom: 10px;
   height: 388px;
   max-height: 72%;
@@ -286,11 +291,11 @@
 }
 
 .convo-list .chat-message{
-  background-color: #E7E7E7;
   border-radius: 8px;
   font-size: 0.9rem;
   padding: 10px 15px;
   width: fit-content;
+  color: white;
   line-height: 1.3em;
   overflow-wrap: break-word;  
   word-break: keep-all;     
@@ -339,6 +344,7 @@
 
 .convo-list__user-chat-message{
   margin-left: 46px;
+  background-color: #5c5c5c;
 }
 
 
@@ -361,6 +367,7 @@
 }
 
 .convo-list__admin-chat-message{
+  background-color: var(--main-color);
   text-align: right;
 }
 
@@ -391,23 +398,23 @@
 
 .chat-input-area__input-file .icon,
 .chat-box__send-btn .icon{
-  font-size: 1.3rem;
+  font-size: clamp(1rem, 3.5vw, 1.3rem) ;
 }
 
 .chat-input-area__input-image .icon{
-  font-size: 1.7rem;
+  font-size: clamp(1.3rem, 6vw, 1.7rem);
 }
 
 .chat-input-area__input-file{
-  margin-right: 1.5rem;
+  margin-right: 3%;
 }
 
 .chat-input-area__input-message{
   border: none;
   background-color: transparent;
-  font-size: 1rem;
-  width: 80%;
-  margin-right: 4.5rem;
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  width: 76%;
+  margin-right: 10%;
 }
 
 .chat-input-area__input-message:focus {
@@ -424,4 +431,104 @@
 .chat-box__send-btn{
   border: none;
   background-color: transparent;
+}
+
+
+@media(width <= 600px){
+  #messages-section{
+    margin-left: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+  }
+
+  #messages-section .section__heading{
+    padding-top: 16px;
+  }
+}
+
+
+@media(width <= 1100px){
+  #messages-section .back-to-contact-list-btn.show{
+    display:block;
+    font-size: 1.5rem;
+    padding-top: 16px;
+  }
+
+  .messages-section__main-wrapper{
+    height: 31rem;
+    padding: 12px 0px 10px 0px;
+  }
+
+  .sidebar-chat-panel{
+    display: none;
+    min-width: 0px;
+    max-height: 30rem;
+    width: 100%;
+    padding-top: 25px;
+  }
+
+  .sidebar-chat-panel.show{
+    display: block;
+  }
+
+  .chat-box{
+    display: none;
+  }
+
+  .chat-box.show{
+    display: block;
+  }
+
+  .convo-list{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    height: 325px;
+    max-height: 50%;
+    padding-left: 16px;
+    padding-right: 15px;
+  }
+
+  .convo-list__user-chat{
+    width: 90%;
+    margin-right: auto;
+  }
+
+  .convo-list__user-chat-time-sent{
+    margin-right: 32.5%;
+  }
+
+
+  .convo-list__user-chat-message{
+    margin-left: 40px;
+  }
+
+  .convo-list__admin-chat-message{
+    text-align: left;
+  }
+
+  .chat-box__chat-input-area{
+    bottom: 3%;
+    align-items: center;
+    width: 82%;
+    min-width: 130px;
+    background-color: #D9D9D9;
+    border-radius: 5px;
+    padding: 10px 10px;
+    margin-left: 10px;
+    margin-right: 4px;
+    z-index: 100;
+  }
+
+  .chat-input-area__input-message{
+    width: 80%;
+    margin-right: 0rem;
+  }
+
+  .chat-input-area__input-image{
+    position: absolute;
+    right: -60px;
+    margin-right: 1.5em;
+  }
 }

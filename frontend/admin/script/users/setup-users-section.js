@@ -1,6 +1,6 @@
 import  handleRenderUsersTable from "./display-users-table.js";
 import handleUserFullview from "./user-profile-fullview.js";
-import { handleVerifyUser } from "./reset-verify-remove-handler.js";
+import { handleVerifyUser, handleResetUser } from "./reset-verify-remove-handler.js";
 import fetchUsers from "../../api/fetch-users.js";
 
 
@@ -41,10 +41,11 @@ const toggleMoreButtons = () => {
 // ======================================
 const handleUsersButtonsAction = () => {
    document.addEventListener('renderUsersTable', async() => {
-      const userTableContents = document.querySelector('#users-section .user-section__table-contents');
-      const userProfileContents = document.querySelector('#users-section .user-profile-full-view');
-      const verifyUserForm = document.querySelector('.verify-user-popup-backdrop');
+      const userTableContents = document.querySelector('#users-section .user-section__table-contents'); // User Table
+      const userProfileContents = document.querySelector('#users-section .user-profile-full-view'); // Profile Form
+      const verifyUserForm = document.querySelector('.verify-user-popup-backdrop'); // Verify Form
       const buttons = document.querySelectorAll('.users-table .buttons-container button');
+      const userResetForm = document.querySelector('.reset-user-credentials-form'); // Reset Form
 
       const users = await fetchUsers();
       
@@ -79,7 +80,9 @@ const handleUsersButtonsAction = () => {
                }
             }
             else if(button.classList.contains('reset-user-credential-btn')){ 
-               // Call mo dito yung pag reset ng user credentials function
+               //alert('Working')
+               handleResetUser(userId);
+               userResetForm.classList.add('show');
             }
 
          });

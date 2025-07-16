@@ -3,7 +3,7 @@ const router = express.Router();
 const ROLE_LIST = require('./../config/role_list');
 const verifyRoles = require('./../middlewares/verifyRoles');
 const verifyJWT = require('./../middlewares/verifyJWT');
-const {editUserDetails, addStaff, getTechandVets, getAllStaffs, verifyUserAccount } = require('./../controllers/userController');
+const {editUserDetails, addStaff, getTechandVets, getAllStaffs, resetUserPassword, verifyUserAccount } = require('./../controllers/userController');
 const {getUsers, getUser, getUserById} = require('./../controllers/getUsersController')
 
 // Parang d na yata ito kelangan pati yung add vet, pwede yatang add staff na lang: ako na gumawa ng add staff 
@@ -22,6 +22,8 @@ router.get('/get/staff', verifyJWT, verifyRoles(ROLE_LIST.Admin), getAllStaffs);
 
 router.patch('/verify/:id', verifyJWT, verifyRoles(ROLE_LIST.Admin), verifyUserAccount); // For All personnels
 
+router.patch('/reset/:id', verifyJWT, resetUserPassword) // Reset user password
+
 
 router.put('/edit/:id', verifyJWT, editUserDetails);
 
@@ -31,7 +33,9 @@ router.get('/client-profile', verifyJWT, getUser);
 
 router.get('/admin-profile', verifyJWT, verifyRoles(ROLE_LIST.Admin,
                                          ROLE_LIST.AppointmentCoordinator,
-                                         ROLE_LIST.InventoryCoordinator),
+                                         ROLE_LIST.InventoryCoordinator,
+                                         ROLE_LIST.Technician, 
+                                         ROLE_LIST.Veterinarian),
                                          getUser);
 
 module.exports = router;

@@ -236,14 +236,15 @@
 
           <!-- reset user credentials form -->
           <div class="reset-user-credentials-form">
-            <h1 class="reset-user-credentials-form__heading">Reset Credentitals Form</h1>
+            <form id="reset-user-form">
+              <h1 class="reset-user-credentials-form__heading">Reset Credentitals Form</h1>
             <label for="new-email-input">
-              New Email: 
-              <input id="new-email-input" type="email">
+              Email: 
+              <input id="user-email-input" type="email" readonly>
             </label>         
             <label for="new-password-input">
               New Password: 
-              <input id="new-password-input" type="password">
+              <input id="new-password-input" type="password" required>
             </label>   
             <label for="confirm-password-input">
               Confirm Password: 
@@ -254,6 +255,7 @@
               <button class="apply-changer-btn" type="submit">Apply Changes</button>
               <button class="cancel-btn" type="button">Cancel</button>
             </div>
+            </form>
           </div>
         </section>
 

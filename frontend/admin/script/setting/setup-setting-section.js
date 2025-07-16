@@ -8,12 +8,15 @@ const handleUpdateButtons = () => {
     const cancelBtn = document.querySelector('.setting-form__header-cancel-btn');
     const saveBtn = document.querySelector('.setting-form__header-save-btn');
     const editableDetails = document.querySelectorAll('.setting-form__details-list .admin-detail.editable input');
+    const uploadImgBtn = document.querySelector('.setting-form .admin-image__upload-btn')
     
     // handle Edit Btn
     editBtn.addEventListener('click', () => {
       editBtn.classList.remove('show')
       cancelBtn.classList.add('show');
       saveBtn.classList.add('show');
+
+      uploadImgBtn.classList.add('show');
 
       editableDetails.forEach(detail => {
         detail.removeAttribute('readonly');
@@ -26,6 +29,8 @@ const handleUpdateButtons = () => {
       editBtn.classList.add('show')
       cancelBtn.classList.remove('show');
       saveBtn.classList.remove('show');
+
+      uploadImgBtn.classList.remove('show');
 
       editableDetails.forEach(detail => {
         detail.setAttribute('readonly', 'readonly');

@@ -50,6 +50,13 @@ section{
   margin-top: var(--header-height);
 }
 
+@media(width <= 600px){
+  section{
+    margin-left: 20px;
+    padding-right: 20px;
+  }
+}
+
 section.hide{
   display: none;
 }
@@ -75,6 +82,11 @@ select{
   background-repeat: no-repeat;
   background-position: right 3px center;
   background-size: clamp(20px, 6vw, 25px) ;
+}
+
+select:focus{
+  outline: none;
+  border: none;
 }
 
 

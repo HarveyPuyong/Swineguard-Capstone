@@ -7,16 +7,18 @@ body{
   background-repeat: no-repeat;
 }
 
+
 #admin-login-form{
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #2fc374bf;
-  width: 600px;
+  width: 95%;
+  max-width: 600px;
   text-align: center;
   border-radius: 8px;
-  padding: 50px 70px;
+  padding: 50px 5%;
 }
 
 .form-heading{

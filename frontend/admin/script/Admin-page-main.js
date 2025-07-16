@@ -29,7 +29,7 @@ setupSettingsSection();
 // ======================================
 const reports = () => {
   // report donut chart: imodify pa yung styling neto at naming
-  const donutChart = document.querySelector('#appointments-section #report-container__doughnut-chart').getContext('2d');
+  const donutChart = document.querySelector('#swines-section #report-container__doughnut-chart').getContext('2d');
 
   const myPieChart = new Chart(donutChart, {
     type: 'doughnut',
@@ -57,7 +57,7 @@ const reports = () => {
         }
       }
     }
-  })
+  });
 
 
   // report horizontal bar chart: imodify pa yung styling neto at naming
@@ -168,6 +168,7 @@ const reports = () => {
     });
 } 
 
+reports();
 
 export default reports;
 

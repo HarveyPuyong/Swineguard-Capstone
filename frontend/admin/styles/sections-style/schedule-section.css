@@ -1,0 +1,123 @@
+#schedule-section{
+  margin-left: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+#schedule-section .section__heading{
+  margin-bottom: 30px;
+}
+
+#schedule-section #select-schedule-status{
+  position: absolute;
+  right: 20px;
+  top: 70px;
+  width: 120px;
+  border-radius: 5px;
+  padding: 7px 12px;
+  cursor: pointer;
+}
+
+#schedule-section .schedule-list{
+  display: grid;
+  gap: 30px;
+  margin-top: 70px;
+}
+
+.schedule-list .schedule{
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  background-color: rgb(170, 170, 170);
+  border-radius: 5px;
+  padding: 3%;
+}
+
+.schedule-list .schedule-info{
+  display: flex;
+  flex-direction: column;
+}
+
+.schedule-more-details{
+  display: none;
+}
+
+.schedule-more-details.show{
+  display: block;
+  margin-top: 10px;
+}
+
+.schedule-list .schedule .detail{
+  font-size: clamp(0.9rem, 3vw, 1rem) ;
+  margin-bottom: 4px;
+}
+
+.schedule-list .schedule .detail-value{
+  color: #065d2f;
+}
+
+.schedule .appointment-name{
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
+  color: #065d2f;
+}
+
+.schedule__buttons-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.schedule__buttons-container button{
+  cursor: pointer;
+}
+
+.schedule__toggle-complete-btn{
+  font-size: clamp(0.8rem, 3vw, 1rem);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  background: rgb(107, 107, 107);
+  padding: 5px 15px;
+}
+
+.schedule__toggle-complete-btn.active{
+  background: var(--main-color);
+}
+
+.schedule__toggle-more-details-btn{
+  font-size: clamp(0.8rem, 3vw, 0.9rem);
+  border: none;
+  font-weight: 600;
+  background: none;
+}
+
+
+@media(width >= 600px){
+  #schedule-section{
+    --section-side-spacing: 120px;
+
+    position: relative;
+    margin-left: 80px;
+    padding: 0 3rem;
+    margin-top: var(--header-height);
+  }
+
+  #schedule-section #select-schedule-status{
+    width: 150px;
+    right: 3rem;
+  }
+}
+
+
+@media(width >= 1000px){
+  #schedule-section .schedule-list{
+    grid-template-columns: 1fr 1fr;
+    padding-bottom: 30px;
+  }
+  .schedule-list .schedule{
+    padding: 20px 30px;
+  }
+}

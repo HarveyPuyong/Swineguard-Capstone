@@ -126,7 +126,7 @@
   overflow-y: scroll;
   scrollbar-width: thin;
   min-height: 120px;
-  max-height: 450px;
+  height: clamp(300px, 30vw, 750px);
   background-color: rgb(250, 250, 250);
 }
 

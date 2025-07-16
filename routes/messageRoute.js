@@ -11,7 +11,8 @@ router.get('/all', verifyJWT, verifyRoles(ROLE_LIST.Admin,
                                          ROLE_LIST.AppointmentCoordinator,
                                          ROLE_LIST.InventoryCoordinator,
                                          ROLE_LIST.Veterinarian,
-                                         ROLE_LIST.User), 
+                                         ROLE_LIST.User, 
+                                         ROLE_LIST.Veterinarian), 
                                          messageController.getMessages);
 
 module.exports = router

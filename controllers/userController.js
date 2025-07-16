@@ -184,6 +184,33 @@ const verifyUserAccount = async (req, res) => {
     }
 }
 
+// Reset Password
+
+const resetUserPassword = async (req, res) => {
+    const { id } = req.params;
+    const { email, password } = req.body;
+
+    try {
+        const user = await userDB.findById(id);
+        if (!user) return res.status(404).json({ message: 'User ID not found.' });
+
+        if (user.email !== email) {
+            return res.status(400).json({ message: 'Email does not match our records.' });
+        }
+
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        user.password = hashedPassword;
+        await user.save();
+
+        res.status(200).json({ message: 'Password reset successfully.' });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error while resetting password.' });
+    }
+};
+
 // Verify 4 digit OTP code
 const verifyOTP = async (req, res) => {
 
@@ -221,5 +248,6 @@ module.exports = {
     addStaff, 
     getTechandVets, 
     getAllStaffs, 
-    verifyUserAccount, 
+    verifyUserAccount,
+    resetUserPassword, 
     verifyOTP};
