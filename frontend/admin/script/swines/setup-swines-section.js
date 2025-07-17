@@ -1,5 +1,5 @@
 import handleRenderSwines from "./display-swines.js";
-import reports from "../Admin-page-main.js";
+import generateSwineReports from "../reports/generate-swine-report.js";
 
 
 
@@ -20,7 +20,7 @@ const viewBtnsFunctionality = () => {
   if(viewReportsBtn) viewReportsBtn.addEventListener('click', () => {
                       swineTableContents.classList.remove('show');
                       swineReportContents.classList.add('show');
-                      reports();
+                      generateSwineReports();
                     });
 
   backToTableBtn.forEach(btn => {
@@ -28,7 +28,7 @@ const viewBtnsFunctionality = () => {
                     swineTableContents.classList.add('show');
                     swineReportContents.classList.remove('show');
                     swineMappingContents.classList.remove('show');
-                    reports();
+                    generateSwineReports();
                   });
   })
 

@@ -1,6 +1,7 @@
 import fetchUsers from "../../api/fetch-users.js"
 import fetchSwines from "../../api/fetch-swines.js";
-import { calculateSwineAge } from "../../utils/calculate-months-years.js";
+import { calculateSwineAge, calculateUserAge } from "../../utils/calculate-months-years.js";
+import { handleResetUser } from "./reset-verify-remove-handler.js";
 
 
 // ======================================
@@ -37,7 +38,7 @@ const handleUserFullview = async (userId) => {
                 </div>
 
                 <div class="main-info-container__details">
-                <h4 class="main-info-container__user-name">${user.firstName} ${user.middleName?.charAt(0).toUpperCase() || ''}. ${user.lastName} ${user.suffix}</h4>
+                <h4 class="main-info-container__user-name">${user.firstName} ${user.middleName?.charAt(0).toUpperCase() || ''}. ${user.lastName} ${user.suffix || ''}</h4>
                 <p class="main-info-container__user-id">${user._id}</p>
                 <p class="main-info-container__user-email">${user.email}</p>
             </div>
@@ -45,6 +46,17 @@ const handleUserFullview = async (userId) => {
             <button class="reset-user-credential-btn">Reset Credentials</button>
         `; 
         document.querySelector('.main-info-container').innerHTML = mainInfoHTML;
+
+        const resetBtn = document.querySelector('.main-info-container .reset-user-credential-btn');
+        const userResetForm = document.querySelector('.reset-user-credentials-form'); // Reset Form
+        if (resetBtn) {
+            resetBtn.addEventListener('click', function() {
+                handleResetUser(user._id);
+                userResetForm.classList.add('show');
+            });
+        } else {
+            console.warn('Reset button not found in DOM.');
+        }
 
 
         // Personal Info Contianer
@@ -62,9 +74,7 @@ const handleUserFullview = async (userId) => {
                 <p class="detail">
                     <span class="detail-label">Age:</span>
                     <span class="detail-value">
-                        ${user.birthday 
-                        ? new Date(user.birthday).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) 
-                        : 'Not set'}
+                        ${calculateUserAge(user.birthday)}
                     </span>
                 </p>
                 <p class="detail">

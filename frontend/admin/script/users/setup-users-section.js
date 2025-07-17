@@ -80,7 +80,6 @@ const handleUsersButtonsAction = () => {
                }
             }
             else if(button.classList.contains('reset-user-credential-btn')){ 
-               //alert('Working')
                handleResetUser(userId);
                userResetForm.classList.add('show');
             }

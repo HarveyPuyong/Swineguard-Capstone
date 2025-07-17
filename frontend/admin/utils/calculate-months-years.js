@@ -11,4 +11,13 @@ const calculateSwineAge = (birthdate) => {
     return monthsOld >= 0 ? monthsOld : 0;
 }
 
-export { calculateSwineAge };
+const calculateUserAge = (birthdate) => {
+    const birthday = new Date(birthdate);
+    const currentYear = new Date();
+
+    const userAge = currentYear.getFullYear() - birthday.getFullYear();
+
+    return userAge;
+}
+
+export { calculateSwineAge, calculateUserAge };

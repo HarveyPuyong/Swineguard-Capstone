@@ -1,6 +1,7 @@
 import popupAlert from './../../utils/popupAlert.js';
 import api from '../../utils/axiosConfig.js';
 import handleRenderStaff from "./display-staff.js"
+import setupStaffSection from './setup-staff-section.js';
 
 
 const handleAddStaff = () => {
@@ -35,6 +36,9 @@ const handleAddStaff = () => {
             addStaffForm.reset();
             addStaffForm.classList.remove('show');
             handleRenderStaff();
+            const barangaySelect = document.querySelector("#add-staff-form #barangay");
+            barangaySelect.innerHTML = '<option value="" hidden>Select barangay</option>';
+            barangaySelect.disabled = true;
         });    
       }
 

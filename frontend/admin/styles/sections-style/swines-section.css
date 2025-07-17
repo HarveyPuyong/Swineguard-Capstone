@@ -303,6 +303,20 @@
   cursor: pointer;
 }
 
+/* Donut Design */
+.report-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+  padding-bottom: 1rem;
+}
+
+.donut-container {
+  width: 50%; 
+  padding: 10px;
+  border-radius: 8px;
+}
+
 
 
 

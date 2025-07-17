@@ -10,8 +10,10 @@ async function handleRenderStaff() {
     let stafCardHTLML = '';
 
     staff.forEach(person => {
-      const staffFullname = `${person.firstName} ${person.middleName} ${person.lastName}`;
-      const staffAdress = `${person.barangay} ${person.municipality}`
+      const staffFullname = `${person.firstName} ${person.middleName ? person.middleName.charAt(0) : ''}. ${person.lastName}`;
+      const staffAdress = `${person.barangay}, ${person.municipality}`;
+
+      const defaultProfile = ''; // Default Profile
 
       stafCardHTLML += `
         <div class="staff-card">
@@ -23,7 +25,7 @@ async function handleRenderStaff() {
             </div>
             <div class="staff-card__detail">
               <span class="staff-card__detail--label">Position:</span>
-              <span class="staff-card__detail--value">${person.roles[0]}</span>
+              <span class="staff-card__detail--value">${person.roles[0].charAt(0).toUpperCase() + person.roles[0].slice(1)}</span>
             </div>
             <div class="staff-card__detail">
               <span class="staff-card__detail--label">Contact:</span>

@@ -18,8 +18,6 @@ router.get('/get/user/:id', verifyJWT,  verifyRoles(ROLE_LIST.AppointmentCoordin
 
 router.get('/get/staff', verifyJWT,  verifyRoles(ROLE_LIST.Admin), getAllStaffs); // For All personnels
 
-router.get('/get/staff', verifyJWT, verifyRoles(ROLE_LIST.Admin), getAllStaffs); // For All personnels
-
 router.patch('/verify/:id', verifyJWT, verifyRoles(ROLE_LIST.Admin), verifyUserAccount); // For All personnels
 
 router.patch('/reset/:id', verifyJWT, resetUserPassword) // Reset user password
