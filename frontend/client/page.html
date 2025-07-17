@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/side-nav.css">
+    <link rel="stylesheet" href="styles/sections-style/messages-section.css">
     <title>User Page</title>
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   </head>
   <body>
     <!-- ========== Header ========== -->
@@ -159,7 +163,7 @@
 
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-        <section id="dashboard-section" class="hide">
+        <section id="dashboard-section" class="show">
         <div class="dashboard-section__top-content">
           <p class="dashboard-section__greeting">Welcome Raiser,</p>
           <h2 class="dashboard-section__name">Harvey Kupal</h2>
@@ -204,7 +208,7 @@
             <div class="add-swine-form__heading">Add Swine Form</div>
             <div class="add-swine-form__upload-image"> <!-- swine image -->
               <img src="images-and-icons/images/swine-image.jpg" alt="Swine Image" />
-              <label class="add-swine-form__upload-btn">
+              <label class="add-swine-form__upload-img-btn">
                 <input type="file" hidden />
                 <i class="fas fa-upload"></i> Upload
               </label>
@@ -213,6 +217,124 @@
             <p class="add-swine-form__info-label">Swine Info</p>
             <div class="add-swine-form__info">
                <label for="select-swine-sex"><!-- swine sex -->
+                <span class="label-txt">Sex</span>
+                <select name="select-swine-sex" id="select-swine-sex">
+                  <option value="male">Male</option>
+                  <option value="female">female</option>
+                </select>
+              </label>
+              <label for="select-swine-breed"><!-- swine breed -->
+                <span class="label-txt">Breed</span>
+                <select name="select-swine-breed" id="select-swine-breed">
+                  <option value="native">Native</option>
+                  <option value="half-breed">Half Breed</option>
+                </select>
+              </label>
+              <label for="select-swine-type"><!-- swine type -->
+                <span class="label-txt">Type</span>
+                <select name="select-swine-type" id="select-swine-type">
+                  <option value="sow">Sow</option>
+                  <option value="barrow">Barrow</option>
+                </select>
+              </label>
+              <label for="input-swine-birthdate"><!-- swine birth date-->
+                <span class="label-txt">Birth Date</span>
+                <input id="input-swine-birthdate" type="text" placeholder="Birthdate" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
+              </label>
+              <label for="select-swine-health-status"><!-- swine health status-->
+                <span class="label-txt">Health Status</span>
+                <select name="select-swine-health-status" id="select-swine-health-status">
+                  <option value="healthy">Healthy</option>
+                  <option value="pregnant">Pregnant</option>
+                </select>
+              </label>
+              <label for="input-swine-weight"><!-- swine wwight-->
+                <span class="label-txt">Weight</span>
+                <input type="number" placeholder="kg">
+              </label>
+            </div>
+
+            <div class="add-swine-form__buttons-container">
+              <button class="add-swine-form__cancel-btn" type="button">Cancel</button>
+              <button class="add-swine-form__create-btn" type="submit">Create</button>
+            </div>
+          </form>
+
+          <!-- Swines cards list -->
+          <div class="swines-card-list">
+            <div class="swine-card">
+              <img src="" alt="swine-image" class="swine-card__image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Healthy</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card">
+              <img src="" alt="swine-image" class="swine-card__image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Healthy</p>
+              </div>
+              <button class="swine-card__delete-btn">Delete</button>
+            </div>
+            <div class="swine-card">
+              <img src="" alt="swine-image" class="swine-card__image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Healthy</p>
+              </div>
+              <button class="swine-card__delete-btn">Delete</button>
+            </div>
+            <div class="swine-card">
+              <img src="" alt="swine-image" class="swine-card__image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Healthy</p>
+              </div>
+              <button class="swine-card__delete-btn">Delete</button>
+            </div>
+            <div class="swine-card">
+              <img src="" alt="swine-image" class="swine-card__image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Healthy</p>
+              </div>
+              <button class="swine-card__delete-btn">Delete</button>
+            </div>
+          </div>
+
+          <!-- Swines Full Details -->
+          <form id="swines-full-info" class="swines-full-info">
+            <div class="swines-full-info__upload-image"> <!-- swine image -->
+              <img src="images-and-icons/images/swine-image.jpg" alt="Swine Image" />
+              <label class="swines-full-info__upload-img-btn">
+                <input type="file" hidden />
+                <i class="fas fa-upload"></i> Upload
+              </label>
+            </div>
+
+            <p class="swines-full-info__info-label">Swine Info</p>
+            <button class="swines-full-info__edit-btn" type="button">Edit</button> <!-- edit button -->
+
+            <div class="swines-full-info__details">
+              <label for="swines-id"><!-- swine id -->
+                <span class="label-txt">ID</span>
+                <p class="swine-id">001</p>
+              </label>
+              <label for="select-swine-type"><!-- swine type -->
+                <span class="label-txt">Type</span>
+                <select name="select-swine-type" id="select-swine-type">
+                  <option value="sow">Sow</option>
+                  <option value="barrow">Barrow</option>
+                </select>
+              </label>
+              <label for="select-swine-sex"><!-- swine sex -->
                 <span class="label-txt">Sex</span>
                 <select name="select-swine-sex" id="select-swine-sex">
                   <option value="male">Male</option>
@@ -243,58 +365,256 @@
               </label>
             </div>
 
-            <div class="add-swine-form__buttons-container">
-              <button class="add-swine-form__cancel-btn">Cancel</button>
-              <button class="add-swine-form__create-btn">Create</button>
+            <div class="buttons-container">
+              <button class="swines-full-info__cancel-btn" type="button">Cancel</button>
+              <button class="swines-full-info__save-btn" type="submit">Save</button>
             </div>
           </form>
+        </section>
 
-          <!-- swines cards list -->
-          <div class="swines-card-list">
-            <div class="swine-card">
-              <img src="" alt="swine-image" class="swine-card__image">
-              <div class="swine-card__swine-info">
-                <p class="swine-card__id">0001</p>
-                <p class="swine-card__type">Sow</p>
-                <p class="swine-card__status">Healthy</p>
+        <!-- ========== Appointments Section ========== -->
+         <section id="appointments-section" class="show">
+          <h1 class="section__heading">Appointments</h1>
+          <button class="request-appointment-btn">Request Appointment</button>
+          <button class="go-to-schedules-section-btn">Schedules</button>
+
+          <!-- Appointment Card List -->
+          <div class="appointments-card-list">
+            <div class="appointment-card">
+              <div class="appointment-card__image-container">
+                <img class="appointment-card__image-container--img" src="" alt="appointment-card-image">
+                <p class="appointment-card__image-container--label">Swine Consultation</p>
               </div>
-              <button class="swine-card__delete-btn">Delete</button>
+              <div class="appointment-card__details-container">
+                <p class="appointment-card__title appointment-card__detail">
+                  <span class="appointment-card__detail--label">Title:</span>
+                  <span class="appointment-card__detail--value">Iron Supplemantation</span>
+                </p>
+                <p class="appointment-card__count appointment-card__detail">
+                  <span class="appointment-card__detail--label">Count:</span>
+                  <span class="appointment-card__detail--value">7 Swines</span>
+                </p>
+                <p class="appointment-card__date--first-dose appointment-card__detail">
+                  <span class="appointment-card__detail--label">Fist Dose Date:</span>
+                  <span class="appointment-card__detail--value">April 15, 2025 <span class="dose-status">(1st Dose)</span></span>
+                </p>
+                <p class="appointment-card__time appointment-card__detail">
+                  <span class="appointment-card__detail--label">Time:</span>
+                  <span class="appointment-card__detail--value">9:00 AM</span>
+                </p>
+                <p class="appointment-card__status appointment-card__detail">
+                  <span class="appointment-card__detail--label">Status:</span>
+                  <span class="appointment-card__detail--value">Ongoing</span>
+                </p>
+                <p class="appointment-card__date--second-dose appointment-card__detail">
+                  <span class="appointment-card__detail--label">Second Dose Date:</span>
+                  <span class="appointment-card__detail--value">April 15, 2025 <span class="dose-status">(2nd Dose)</span></span>
+                </p>
+              </div>
             </div>
-            <div class="swine-card">
-              <img src="" alt="swine-image" class="swine-card__image">
-              <div class="swine-card__swine-info">
-                <p class="swine-card__id">0001</p>
-                <p class="swine-card__type">Sow</p>
-                <p class="swine-card__status">Healthy</p>
+          </div>
+
+          <!-- Request Appointment Form -->
+          <form action="" class="request-appointment-form">
+            <h1 class="request-appointment-form__heading">Request Appointment Form</h1>
+
+            <p class="label-txt">Select Swine to Appoint:</p>
+            <!-- Checkbox swines container -->
+            <div class="request-appointment-form__swines-list">
+              <div class="swine-select-header">
+                <label>
+                  <input type="checkbox" id="select-all-swines">
+                  <span>All Swine</span>
+                </label>
               </div>
-              <button class="swine-card__delete-btn">Delete</button>
+
+              <!-- Swine Checkboxes Grid -->
+              <div class="swine-checkbox-grid">
+                <label><input type="checkbox" name="swines" value="0010"> 0010</label>
+                <label><input type="checkbox" name="swines" value="0011" checked> 0011</label>
+                <label><input type="checkbox" name="swines" value="0012" checked> 0012</label>
+                
+                <label><input type="checkbox" name="swines" value="0013" checked> 0013</label>
+                <label><input type="checkbox" name="swines" value="0014"> 0014</label>
+                <label><input type="checkbox" name="swines" value="0015" checked> 0015</label>
+                
+                <label><input type="checkbox" name="swines" value="0016" checked> 0016</label>
+                <label><input type="checkbox" name="swines" value="0017"> 0017</label>
+              </div>
             </div>
-            <div class="swine-card">
-              <img src="" alt="swine-image" class="swine-card__image">
-              <div class="swine-card__swine-info">
-                <p class="swine-card__id">0001</p>
-                <p class="swine-card__type">Sow</p>
-                <p class="swine-card__status">Healthy</p>
-              </div>
-              <button class="swine-card__delete-btn">Delete</button>
+
+            <!-- select appointment service -->
+            <label for="select-appointment-service"> 
+              <span class="label-txt">Appointment Service:</span>
+              <select name="select-appointment-service" id="select-appointment-service">
+                <option value="">Select Service</option>
+                <option value="deworming">Deworming</option>
+              </select>
+            </label>
+
+            <!-- select appointment type -->
+            <label for="select-appointment-type"> 
+              <span class="label-txt">Appointment Type:</span>
+              <select name="select-appointment-type" id="select-appointment-type">
+                <option value="">Select Type</option>
+                <option value="consult">Consult</option>
+                <option value="visit">Visit</option>
+              </select>
+            </label>
+            
+            <!-- select municipal -->
+            <label for="select-municipal"> 
+              <span class="label-txt">Municipal:</span>
+              <select name="select-municipal" id="select-municipal">
+                <option value="">Select Municipal</option>
+                <option value="boac">Boac</option>
+              </select>
+            </label>
+
+            <!-- select barangay -->
+            <label for="select-barangay"> 
+              <span class="label-txt">Barangay:</span>
+              <select name="select-barangay" id="select-barangay">
+                <option value="">Select Barangay</option>
+                <option value="santol">Santol</option>
+              </select>
+            </label>
+
+            <!-- input date-->
+            <label for="input-date"> 
+              <span class="label-txt">Date:</span>
+              <input id="input-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)">
+            </label>
+
+            <!-- input time-->
+            <label for="input-time"> 
+              <span class="label-txt">Time:</span>
+              <input id="input-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)">
+            </label>
+
+            <!-- input contact number-->
+            <label for="input-contact-number"> 
+              <span class="label-txt">Contact Number:</span>
+              <input type="number" name="input-contact-number" id="input-contact-number">
+            </label>
+
+            <!-- input email-->
+            <label for="input-email"> 
+              <span class="label-txt">Email:</span>
+              <input type="email" name="input-email" id="input-email">
+            </label>
+
+            <!-- input note-->
+            <label for="input-note"> 
+              <span class="label-txt">Note:</span>
+              <textarea name="input-note" id="input-note"></textarea>
+            </label>
+
+
+            <div class="request-appointment-form__buttons-container">
+              <button class="request-appointment-form__cancel-btn" type="button">Cancel</button>
+              <button class="request-appointment-form__submit-btn" type="submit">Submit</button>
             </div>
-            <div class="swine-card">
-              <img src="" alt="swine-image" class="swine-card__image">
-              <div class="swine-card__swine-info">
-                <p class="swine-card__id">0001</p>
-                <p class="swine-card__type">Sow</p>
-                <p class="swine-card__status">Healthy</p>
+          </form>
+         </section>
+
+        <!-- ========== Messages Section ========== -->
+        <section id="messages-section" class="show">
+          <h1 class="section__heading">Messages</h1>
+          <!-- profile view -->
+          <div class="profile-view">
+            <img class="profile-view__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user image" >
+            <h2 class="profile-view__user-name">John Harvey Puyong</h2>
+            <p class="profile-view__user-email">harvey@gmail.com</p>
+            <button class="profile-view__back-btn">Back</button>
+          </div>
+          <div class="messages-section__main-wrapper">
+            <!-- side-chat-panel -->
+            <div class="sidebar-chat-panel"> 
+              <div class="sidebar-chat-panel__search">
+                <img class="sidebar-chat-panel__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon">
+                  <input class="sidebar-chat-panel__search-input" type="text" placeholder="Search...">  
               </div>
-              <button class="swine-card__delete-btn">Delete</button>
+              <div class="chat-list">
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+              </div>
             </div>
-            <div class="swine-card">
-              <img src="" alt="swine-image" class="swine-card__image">
-              <div class="swine-card__swine-info">
-                <p class="swine-card__id">0001</p>
-                <p class="swine-card__type">Sow</p>
-                <p class="swine-card__status">Healthy</p>
+            <!-- convo box -->
+            <div class="chat-box"> 
+              <!-- convo box description-->
+              <div class="chat-box__description"> 
+                <h2>Open client messages</h2>
+                <p>Click the icon or messages in the left side of the screen.</p>
               </div>
-              <button class="swine-card__delete-btn">Delete</button>
+               <div class="chat-box__main-contents">
+                 <!-- convo box header -->
+                  <div class="chat-box__header">
+                    <img class="chat-box__header-user-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-img">
+                    <div class="chat-box__header-user-name-and-active-status">
+                      <p class="chat-box__header-user-name">John Harvey</p>
+                      <p class="chat-box__header-user-active-status">
+                        <span class="chat-box__header-user-active-status--dot"></span>
+                        <span class="chat-box__header-user-active-status--label">Active</span>
+                      </p>
+                    </div>
+                    <div class="chat-box__header-icons-container">
+                      <i class="chat-box__header-icon fas fa-phone"></i>
+                      <i class="chat-box__header-icon fas fa-ellipsis-v"></i> 
+                    </div>
+                  </div>
+                  <!-- convo box chat-->
+                  <div class="convo-list"> 
+                    <!-- admin chat -->
+                    <div class="convo-list__admin-chat"> 
+                      <div class="convo-list__admin-chat-time-sent time-sent">7:00 AM</div>
+                      <div class="convo-list__admin-chat-details">
+                        <img class="convo-list__admin-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                        <p class="convo-list__admin-chat-details--name">John</p>
+                      </div>
+                      <p class="convo-list__admin-chat-message chat-message">Hello Goodmorning</p>
+                    </div>
+                    <!-- user chat -->
+                    <div class="convo-list__client-chat"> 
+                      <p class="convo-list__client-chat-time-sent time-sent">8:00 AM</p>
+                      <p class="convo-list__client-chat-message chat-message">Hello This is veterenary admin</p>
+                    </div>
+                  </div>
+                  <form class="chat-box__chat-input-area"> <!-- chat input erea-->
+                    <!-- Attachment icon and input -->
+                    <label for="input-file" class="chat-input-area__input-file" title="Attach a file">
+                      <i class="icon fas fa-paperclip"></i>
+                    </label>
+                    <input id="input-file" type="file" style="display: none;">
+                    <!-- Text message input -->
+                    <input class="chat-input-area__input-message" type="text" placeholder="Type a Message" required>             
+                    <!-- Upload Images btn -->
+                    <label for="input-image" class="chat-input-area__input-image" title="Send an image">
+                      <i class="icon far fa-image"></i>
+                    </label>
+                    <input id="input-image" type="file" accept="image/*" style="display: none;">
+                    <!-- Send button -->
+                    <button class="chat-box__send-btn" type="submit" id="send-chat-btn" title="Send message">
+                      <i class="icon fas fa-paper-plane"></i>
+                    </button>
+                  </form>
+               </div>      
             </div>
           </div>
         </section>
