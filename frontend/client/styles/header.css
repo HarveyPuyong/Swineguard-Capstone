@@ -4,9 +4,9 @@ header{
   display: flex;
   align-items: center;
   width: 100%;
-  height: var(--header-height); /* nasa global.css yung variable neto */
+  height: var(--header-height);
   background-color: var(--main-color);
-  padding: 0 2.5%;
+  padding: 0 2.1%;
   z-index: 10
 }
 
@@ -36,13 +36,13 @@ header{
   display: flex;
   flex-direction: column;
   gap: 0.3rem;
-  margin-right: 2rem;
+  margin-right: 1rem;
   cursor: pointer;
 }
 
 .header__toggle-side-nav-icon .line{
-  height: 3px;
-  width: 30px;
+  height: clamp(3px, 1vw, 4px);
+  width: clamp(25px, 8vw, 30px);
   background-color: white;
 }
 
@@ -64,28 +64,20 @@ header{
   right: -5px
 }
 
-.header__admin-profile{
+.header__profile{
   display: flex;
   gap: 0.6rem;
   align-items: center;
   width: fit-content;
-  margin-right: 2rem;
 }
 
-.header__admin-profile-pic{
+.header__profile-pic{
   --admin-pic-size: 32px;
 
   height: var(--admin-pic-size);
   width: var(--admin-pic-size);
   border-radius: 30px;
   cursor: pointer;
-}
-
-.header__admin-profile-label{
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: white;
-  margin-right: 1px;
 }
 
 .header__toggle-logout-btn{
@@ -113,29 +105,3 @@ header{
 }
 
 
-/* Kapag ang width ay mas mababa */
-@media (width <= 600px) {
-  header{
-    padding: 0 0.9rem;
-  }
-
-  .header__toggle-side-nav-icon{
-    margin-right: 1.2rem;
-  }
-
-  .header__notification{
-    margin-right: 20px;
-  }
-
-  .header__toggle-logout-btn{
-    display: none;
-  }
-
-  .header__admin-profile{
-    margin-right: 0rem;
-  }
-
-  .header__admin-profile-label{
-    display: none;
-  }
-}

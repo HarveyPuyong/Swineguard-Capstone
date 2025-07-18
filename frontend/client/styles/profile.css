@@ -1,0 +1,7 @@
+.profile-container{
+  display: none;
+}
+
+.profile-container.show{
+  display: block;
+}

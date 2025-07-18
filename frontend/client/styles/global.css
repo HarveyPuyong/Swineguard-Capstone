@@ -27,31 +27,42 @@ a{
 html{
   height: 100%;
   scrollbar-width: thin;
+  width: 100%;
 }
 
 body{
   --header-height: 60px;
+  --sidenav-width: 80px;
 
   font-family: "Poppins", sans-serif;
   background-color: #D2D2D2; 
   overflow-x: hidden; 
+  width: 100%;
 }
 
 section{
-  --section-side-spacing: 120px;
-
   position: relative;
-  margin-left: 80px;
-  padding: 0 3rem;
   margin-top: var(--header-height);
-}
 
+  padding: 5%;
+}
 
 section.hide{
   display: none;
 }
 
 section.show{
-  display: block;
+  display: inline-block;
 }
 
+
+@media(width >= 700px){
+  section{
+    position: relative;
+    width: 100%;
+    margin-top: var(--header-height);
+    padding-left: calc(var(--sidenav-width) + 20px);
+    padding-right: 3%;
+
+  }
+}
