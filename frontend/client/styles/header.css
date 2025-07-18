@@ -6,8 +6,13 @@ header{
   width: 100%;
   height: var(--header-height);
   background-color: var(--main-color);
-  padding: 0 2.1%;
-  z-index: 10
+  padding: 0 2.2%;
+  padding-right: 4%;
+  z-index: 90
+}
+
+@media(width >= 700px){
+  header{z-index: 999};
 }
 
 .header__swine-logo{
@@ -31,7 +36,6 @@ header{
   color: var(--primary-color);
 }
 
-
 .header__toggle-side-nav-icon{
   display: flex;
   flex-direction: column;
@@ -49,7 +53,7 @@ header{
 .header__notification{
   position: relative;
   margin-left: auto;
-  margin-right: 25px;
+  margin-right: 23px;
   cursor: pointer;
 }
 
@@ -66,7 +70,7 @@ header{
 
 .header__profile{
   display: flex;
-  gap: 0.6rem;
+  gap: 0.8rem;
   align-items: center;
   width: fit-content;
 }

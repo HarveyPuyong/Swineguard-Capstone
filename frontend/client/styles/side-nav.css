@@ -3,11 +3,11 @@
   bottom: 0;
   top: 0;
   background-color: #2FC375;
+  box-shadow: 0px 0px 5px 0.5px black;
   top: var(--header-height);
   width: var(--sidenav-width); 
-  padding-top: 20px;
   overflow: hidden;
-  z-index: 999;
+  z-index: 998;
   transition: width 0.5s;
 }
 
@@ -16,9 +16,8 @@
 }
 
 .side-nav__close-button{
-  display: none;
+  opacity: 0;
 }
-
 .side-nav__swine-logo{
   display: none;
 }
@@ -78,6 +77,7 @@
     bottom: 0;
     height: 100%;
     background-color: #2FC375;
+    box-shadow: none;
     width: 100%;
     transition: 0.5s;
   }
@@ -91,8 +91,8 @@
     position: fixed;
     color: white;
     font-size: 2rem;
-    right: 30px;
-    top: 40px;
+    right: 25px;
+    top: 20px;
   }
 
   .side-nav__swine-logo{

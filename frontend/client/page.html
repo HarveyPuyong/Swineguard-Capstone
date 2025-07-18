@@ -8,10 +8,22 @@
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/side-nav.css">
     <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
     <title>User Page</title>
 
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FullCalendar CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+    <!-- Tabulator CDN (table library with no jQuery needed) -->
+    <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
   </head>
   <body>
     <!-- ========== Header ========== -->
@@ -165,36 +177,85 @@
           <h2 class="dashboard-section__name">Harvey Kupal</h2>
           <p class="dashboard-section__current-date">June 10, 2025</p>
 
+          <h4 class="upcoming-vaccinations-list-heading">Upcoming Vaccination</h4>
           <div class="upcoming-vaccinations-list">
             <div class="vaccination">
-              <p class="vaccination-date">June 10, 2025</p>
               <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
             </div>
           </div>
         </div>
         <div class="dashboard-section__bottom-content">
-          <!-- total appointments graph -->
+          <!-- appointments graph -->
           <div class="dashboard-section__total-appointments dashboard-graph">
             <h3 class="dashboard-graph__heading">Total Appointments</h3>
-            <!-- <canvas></canvas>  -->
+            <canvas id="dashboard-section__appointments-graph" width="400" height="300"></canvas>
           </div>
 
           <!-- swines graph -->
           <div class="dashboard-section__swines-graph dashboard-graph">
             <h3 class="dashboard-graph__heading">Swines Graph</h3>
-            <!-- <canvas></canvas> graph -->
+            <canvas id="dashboard-section__swines-graph" width="400" height="400"></canvas>
           </div>
 
           <!-- numbers of swines -->
           <div class="dashboard-section__number-of-swines dashboard-graph">
             <h3 class="dashboard-graph__heading">Number of Swines</h3>
-            <!-- <canvas></canvas> graph -->
+             <div id="dashboard-section__swine-table"></div>
           </div>
         </div>
         </section>
 
         <!-- ========== Swines Section ========== -->
-        <section id="swines-section" class="show">
+        <section id="swines-section" class="hide">
           <h1 class="section__heading">Manage Swines</h1>
 
           <button class="show-add-swine-form" type="button">Add</button>
@@ -369,7 +430,7 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-         <section id="appointments-section" class="show">
+         <section id="appointments-section" class="hide">
           <h1 class="section__heading">Appointments</h1>
           <button class="request-appointment-btn">Request Appointment</button>
           <button class="go-to-schedules-section-btn">Schedules</button>
@@ -515,7 +576,7 @@
          </section>
 
         <!-- ========== Messages Section ========== -->
-        <section id="messages-section" class="show">
+        <section id="messages-section" class="hide">
           <h1 class="section__heading">Messages</h1>
           <!-- profile view -->
           <div class="profile-view">
@@ -616,7 +677,7 @@
         </section>
 
         <!-- ========== Services Section ========== -->
-        <section id="services-section" class="show">
+        <section id="services-section" class="hide">
           <h1 class="section__heading">Services</h1>
 
           <div class="services-card-list">
@@ -629,5 +690,7 @@
         </section>
       </div>
     </main>
+
+    <script src="script/main.js"></script>
   </body>
 </html>
