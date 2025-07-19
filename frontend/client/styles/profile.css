@@ -125,7 +125,8 @@
 
 /* ===================================================
    ============== View Mode (upload button, inputs, selects, buttons) ==============
-   =================================================== */
+   =================================================== 
+*/
 .profile-details-list.view-mode .profile-detail__name-inputs-group,
 .profile-details-list.view-mode .profile-detail__select-group{
   gap: 0px
@@ -196,7 +197,8 @@
 
 /* ===================================================
    ============== Edit Mode (upload button, inputs, selects, buttons) ==============
-   =================================================== */
+   ===================================================
+*/
 .profile-details-list.edit-mode .profile-detail__name-inputs-group,
 .profile-details-list.edit-mode .profile-detail__select-group{
   gap: 10px

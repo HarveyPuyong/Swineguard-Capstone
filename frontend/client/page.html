@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="styles/side-nav.css">
     <link rel="stylesheet" href="styles/profile.css">
     <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
+    <link rel="stylesheet" href="styles/sections-style/swines-section.css">
     <title>User Page</title>
 
     <!-- Font Awesome CDN -->
@@ -95,7 +96,7 @@
       </nav>
       
       <!-- ========== Profile Container ========== -->
-      <div class="profile-container show">
+      <div class="profile-container">
         <p class="profile-container__heading">Profile</p>
         <i class="profile-container__close-form-btn fas fa-times"></i>
 
@@ -168,7 +169,7 @@
 
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-        <section id="dashboard-section" class="show">
+        <section id="dashboard-section" class="hide">
         <div class="dashboard-section__top-content">
           <p class="dashboard-section__greeting">Welcome Raiser,</p>
           <h2 class="dashboard-section__name">Harvey Kupal</h2>
@@ -252,10 +253,10 @@
         </section>
 
         <!-- ========== Swines Section ========== -->
-        <section id="swines-section" class="hide">
+        <section id="swines-section" class="show">
           <h1 class="section__heading">Manage Swines</h1>
 
-          <button class="show-add-swine-form" type="button">Add</button>
+          <button class="show-add-swine-form-btn" type="button">Add Swine</button>
           
           <!-- Add swine form -->
           <form id="add-swine-form" class="add-swine-form">
@@ -316,8 +317,8 @@
 
           <!-- Swines cards list -->
           <div class="swines-card-list">
-            <div class="swine-card">
-              <img src="" alt="swine-image" class="swine-card__image">
+            <div class="swine-card healthy">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
               <div class="swine-card__swine-info">
                 <p class="swine-card__id">0001</p>
                 <p class="swine-card__type">Sow</p>
@@ -325,41 +326,68 @@
               </div>
               <i class="swine-card__delete-btn fa-solid fa-trash"></i>
             </div>
-            <div class="swine-card">
-              <img src="" alt="swine-image" class="swine-card__image">
+            <div class="swine-card deceased">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
               <div class="swine-card__swine-info">
                 <p class="swine-card__id">0001</p>
                 <p class="swine-card__type">Sow</p>
-                <p class="swine-card__status">Healthy</p>
+                <p class="swine-card__status">Deceased</p>
               </div>
-              <button class="swine-card__delete-btn">Delete</button>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
             </div>
-            <div class="swine-card">
-              <img src="" alt="swine-image" class="swine-card__image">
+            <div class="swine-card sick">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
               <div class="swine-card__swine-info">
                 <p class="swine-card__id">0001</p>
                 <p class="swine-card__type">Sow</p>
-                <p class="swine-card__status">Healthy</p>
+                <p class="swine-card__status">Sick</p>
               </div>
-              <button class="swine-card__delete-btn">Delete</button>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
             </div>
-            <div class="swine-card">
-              <img src="" alt="swine-image" class="swine-card__image">
+            <div class="swine-card pregnant">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
               <div class="swine-card__swine-info">
                 <p class="swine-card__id">0001</p>
                 <p class="swine-card__type">Sow</p>
-                <p class="swine-card__status">Healthy</p>
+                <p class="swine-card__status">Pregnant</p>
               </div>
-              <button class="swine-card__delete-btn">Delete</button>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
             </div>
-            <div class="swine-card">
-              <img src="" alt="swine-image" class="swine-card__image">
+            <div class="swine-card healthy">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
               <div class="swine-card__swine-info">
                 <p class="swine-card__id">0001</p>
                 <p class="swine-card__type">Sow</p>
                 <p class="swine-card__status">Healthy</p>
               </div>
-              <button class="swine-card__delete-btn">Delete</button>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card deceased">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Deceased</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card sick">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Sick</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card pregnant">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Pregnant</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
             </div>
           </div>
 

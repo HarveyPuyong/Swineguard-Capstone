@@ -1,0 +1,116 @@
+#swines-section .section__heading{
+  font-size: clamp(1.15rem, 4vw, 2rem);
+}
+
+.show-add-swine-form-btn{
+  position: absolute;
+  top: 23px;
+  right: 4.5%;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  border: none;
+  background-color: #17a75a;
+  color: white;
+  border-radius: 5px;
+  padding: 8px 30px;
+  cursor: pointer;
+}
+
+
+.swines-card-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  row-gap: 23px;
+  column-gap: 20px;
+  margin-top: 50px;
+}
+
+.swine-card{
+  display: flex;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
+  border-radius: 5px;
+  padding: 7px 15px;
+  overflow: hidden;
+}
+
+.swine-card__image{
+  --size: 65px;
+
+  width: var(--size);
+  max-width: var(--size);
+  height: var(--size);
+  border-radius: 50px;
+  margin-right: 16px;
+}
+
+.swine-card__swine-info{
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  color: #2FC375;
+}
+
+.swine-card__id{
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+.swine-card__delete-btn{
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.5);
+  margin-left: auto;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+/* ===================================================
+   ============== Swine Health Status Coloring ==============
+   ===================================================
+*/
+.swine-card.healthy .swine-card__status{
+  color: #2FC375;
+}
+
+.swine-card.deceased .swine-card__status{
+  color: #c32f2f;
+}
+
+.swine-card.sick .swine-card__status{
+  color: #c38f2f;
+}
+
+.swine-card.pregnant .swine-card__status{
+  color: #1d0808;
+}
+
+
+/* ===================================================
+   ============== Add Swine Form ==============
+   ===================================================
+*/
+.add-swine-form{
+  display: none;
+}
+
+.add-swine-form.show{
+  display: block;
+}
+
+
+/* ===================================================
+   ============== Swine Full Info ==============
+   ===================================================
+*/
+.swines-full-info{
+  display: none;
+}
+
+
+
+@media(width >= 800px){
+  .show-add-swine-form-btn{
+    top: 33px;
+    padding: 10px 40px;
+  }
+}
