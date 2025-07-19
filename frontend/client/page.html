@@ -95,16 +95,15 @@
       </nav>
       
       <!-- ========== Profile Container ========== -->
-      <div class="profile-container">
-        <div class="profile-container__header">
-          <i class="profile-container__header--icon"></i>
-          <p class="profile-container__header--label">Profile</p>
-        </div>
+      <div class="profile-container show">
+        <p class="profile-container__heading">Profile</p>
+        <i class="profile-container__close-form-btn fas fa-times"></i>
+
         
-        <form id="profile-details-form" class="profile-details-list">
+        <form id="profile-details-form" class="profile-details-list view-mode">
           <div class="profile-image detail">
             <img src="images-and-icons/images/money-admin-profile.jpg" alt="Profile Picture" />
-            <label class="profile-image__upload-btn">
+            <label class="profile-image__upload-btn show">
               <input type="file" hidden />
               <i class="fas fa-upload"></i> Upload
             </label>
@@ -116,56 +115,54 @@
 
           <div class="profile-detail detail editable">
             <p class="profile-detail-label">Name:</p>
-            <div class="profile-detail__inputs-group">
-              <input class="profile-detail-value" id="firstname-input" value="Harvey" readonly/>
-              <input class="profile-detail-value" id="middlename-input" value="Kupal" readonly/>,
-              <input class="profile-detail-value" id="lastname-input" value="Puyong" readonly/>
+            <div class="profile-detail__name-inputs-group">
+              <input class="profile-detail-value" id="profile-detail__firstname-input" value="Harvey" readonly/>
+              <input class="profile-detail-value" id="profile-detail__middlename-input" value="A" readonly/>
+              <span class="group-seperator">,</span>
+              <input class="profile-detail-value" id="profile-detail__lastname-input" value="Puyong" readonly/>
             </div>
           </div>
 
-          <div class="admin-detail detail editable">
-            <p class="admin-detail-label">Contact:</p>
+          <div class="profile-detail detail editable">
+            <p class="profile-detail-label">Contact:</p>
             <input
-              class="admin-detail-value"
-              id="contact-input"
+              class="profile-detail-value"
+              id="profile-detail__contact-input"
               type="tel"
               maxlength="11"
               pattern="09[0-9]{9}"
               placeholder="09xxxxxxxxx"
               oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
-              value="${contactNum}"
+              value=""
               readonly
             />
           </div>
 
-          <div class="admin-detail detail editable">
-            <p class="admin-detail-label">Address:</p>
-            <div class="profile-detail__inputs-group">
-              <select name="select-municipal" id="select-municipal">
+          <div class="profile-detail detail editable">
+            <p class="profile-detail-label">Address:</p>
+            <div class="profile-detail__select-group">
+              <select name="select-municipal" id="profile-detail__select-municipal" class="profile-detail-value">
                 <option value="">Select Municipal</option>
                 <option value="mogpog">Mogpog</option>
               </select>
-              <select name="select-barangay" id="select-barangay">
+              <span class="group-seperator">,</span>
+              <select name="select-barangay" id="profile-detail__select-barangay" class="profile-detail-value">
                 <option value="">Select Barangay</option>
                 <option value="maligaya">Maligaya</option>
               </select>
-              <span class="city">Marinduque</span>
             </div>
           </div>
 
-          <div class="admin-detail detail editable">
-            <p class="admin-detail-label">Email:</p>
-            <input class="admin-detail-value" id="email-input" value="harvey@gmail.com" readonly />
+          <div class="profile-detail detail editable">
+            <p class="profile-detail-label">Email:</p>
+            <input class="profile-detail-value" id="email-input" value="harvey@gmail.com" readonly />
           </div>
 
-          <div class="admin-detail detail editable">
-            <p class="admin-detail-label">Password:</p>
-            <input class="admin-detail-value" value="Admin Password" readonly />
+          <div class="profile-details-list__buttons-container">
+          <button class="profile-details-list__edit-btn enable-edit-mode-button" type="button">Edit</button>
+          <button class="profile-details-list__cancel-btn disable-edit-mode-button " type="button">Cancel</button>
+          <button class="profile-details-list__save-btn" type="submit">Save</button>
           </div>
-
-          <button class="profile-details-list__edit-button" type="button">Edit</button>
-          <button class="profile-details-list__cancel-button" type="button">Cancel</button>
-          <button class="profile-details-list__save-button" type="submit">Save</button>
         </form>
       </div>
 

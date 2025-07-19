@@ -1,7 +1,273 @@
 .profile-container{
   display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  max-width: 380px;
+  background-color: white;
+  box-shadow: 10px 10px 10px 10px black;
+  padding: 20px;
+  padding-top: 25px;
+  overflow-y: scroll;
+  z-index: 1000;
 }
 
 .profile-container.show{
   display: block;
 }
+
+.profile-container__heading{
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.profile-container__close-form-btn{
+  position: absolute;
+  right: 25px;
+  font-size: 2rem;
+  top: 25px;
+  cursor: pointer;
+}
+
+.profile-details-list{
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
+.profile-details-list .profile-image{
+  position: relative;
+  width: fit-content;
+  margin-bottom: 15px;
+}
+
+.profile-details-list .profile-image img{
+  height: 70px;
+  width: 75px;
+  border-radius: 50px;
+}
+
+.profile-image__upload-btn{
+  font-size: 0.8rem;
+  position: absolute;
+  bottom: 0px;
+  right: -85px;
+  border: 1px solid rgba(0, 0, 0, 0.561);
+  border-radius: 5px;
+  padding: 5px 10px;
+  z-index: 10;
+}
+
+.profile-details-list .profile-detail{
+  font-size: 0.9rem;
+  color: rgb(0, 0, 0);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.349);
+  padding-bottom: 6px;
+}
+
+.profile-details-list .profile-detail:nth-child(6){
+  border-bottom: none;
+}
+
+.profile-detail-label{
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.profile-detail-value{
+  color: rgba(0, 0, 0, 0.809);
+}
+
+.profile-detail__name-inputs-group{
+  display: flex;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.profile-detail__select-group{
+  display: flex;
+  max-width: 100%;
+}
+
+.profile-detail .group-seperator{
+  margin-left: 2px;
+  margin-right: 7px;
+}
+
+/* buttons container */
+.profile-details-list__buttons-container{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.profile-details-list__buttons-container button{
+  padding: 8px 0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.profile-details-list__cancel-btn{
+  background-color: rgb(217, 0, 0);
+}
+
+.profile-details-list__edit-btn,
+.profile-details-list__save-btn{
+  background-color: var(--main-color);
+}
+
+
+/* ===================================================
+   ============== View Mode (upload button, inputs, selects, buttons) ==============
+   =================================================== */
+.profile-details-list.view-mode .profile-detail__name-inputs-group,
+.profile-details-list.view-mode .profile-detail__select-group{
+  gap: 0px
+}
+
+.profile-details-list.view-mode .profile-detail input{
+  width: 100%;
+  padding: 0px;
+  border: none;
+  pointer-events: none;
+  cursor: default;
+}
+
+.profile-details-list.view-mode .profile-detail select{
+  padding: 5px;
+  padding: 0px;
+  border: none;
+  pointer-events: none;
+  cursor: default;
+
+  /* drowpdown hide */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent; 
+}
+
+.profile-details-list.view-mode .group-seperator{
+  display: inline-block;
+}
+
+.profile-details-list.view-mode .profile-image__upload-btn{
+  display: none;
+}
+
+.profile-details-list.view-mode #profile-detail__firstname-input{
+  width: 7ch;
+}
+
+.profile-details-list.view-mode #profile-detail__middlename-input{
+  width: 1ch
+}
+
+.profile-details-list.view-mode #profile-detail__lastname-input{
+  width: 13ch;
+}
+
+.profile-details-list.view-mode #profile-detail__contact-input{
+  width: 100%;
+}
+
+.profile-details-list.view-mode #profile-detail__select-municipal,
+.profile-details-list.view-mode #profile-detail__select-barangay{
+  width: fit-content;
+}
+
+
+.profile-details-list.view-mode .profile-details-list__edit-btn{
+  margin-top: 20px;
+  display: block;
+}
+
+.profile-details-list.view-mode .profile-details-list__save-btn,
+.profile-details-list.view-mode .profile-details-list__cancel-btn{
+  display: none;
+}
+
+
+/* ===================================================
+   ============== Edit Mode (upload button, inputs, selects, buttons) ==============
+   =================================================== */
+.profile-details-list.edit-mode .profile-detail__name-inputs-group,
+.profile-details-list.edit-mode .profile-detail__select-group{
+  gap: 10px
+}
+
+.profile-details-list.edit-mode input,
+.profile-details-list.edit-mode select{
+  border: 1px solid black;
+  border-radius: 3px;
+}
+
+.profile-details-list.edit-mode .profile-detail input{
+  width: 100%;
+  padding: 5px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.profile-details-list.edit-mode .profile-detail select{
+  padding: 5px;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.profile-details-list.edit-mode .group-seperator{
+  display: none;
+}
+
+.profile-details-list.edit-mode .profile-image__upload-btn{
+  display: inline-block;
+}
+
+.profile-details-list.edit-mode #profile-detail__firstname-input{
+  --size: 45%;
+
+  width: var(--size);
+  max-width: var(--size);
+}
+
+.profile-details-list.edit-mode #profile-detail__middlename-input{
+  --size: 10%;
+
+  width: var(--size);
+  max-width: var(--size);
+}
+
+.profile-details-list.edit-mode #profile-detail__lastname-input{
+  --size: 45%;
+
+  width: var(--size);
+  max-width: var(--size);
+}
+
+.profile-details-list.edit-mode #profile-detail__contact-input{
+  --size: 100%;
+
+  width: var(--size);
+  max-width: var(--size);
+}
+
+.profile-details-list.edit-mode #profile-detail__select-municipal,
+.profile-details-list.edit-mode #profile-detail__select-barangay{
+  width: 100%;
+}
+
+.profile-details-list.edit-mode .profile-details-list__edit-btn{
+  display: none;
+}
+
+.profile-details-list.edit-mode .profile-details-list__save-btn,
+.profile-details-list.edit-mode .profile-details-list__cancel-btn{
+  display: block;
+}
+
