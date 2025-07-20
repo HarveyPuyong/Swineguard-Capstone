@@ -16,6 +16,10 @@
 }
 
 
+/* ===================================================
+   ============== Swine Cards List ==============
+   ===================================================
+*/
 .swines-card-list{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -154,6 +158,8 @@
 
 .add-swine-form__info input, 
 .add-swine-form__info select{
+  border: 1px solid rgba(0, 0, 0, 0.825);
+  border-radius: 5px;
   width: 100%;
   padding: 7px 5px;
 }
@@ -188,15 +194,203 @@
 }
 
 
-
-
 /* ===================================================
    ============== Swine Full Info ==============
    ===================================================
 */
 .swines-full-info{
   display: none;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: var(--header-height);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.555);
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.501);
+  border-radius: 5px;
+  padding-inline: 23px;
+  padding-top: 80px;
+  padding-bottom: 20px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  z-index: 100;
 }
+
+.swines-full-info.show{
+  display: flex;
+}
+
+.swines-full-info__back-btn{
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 4px 15px;
+  cursor: pointer;
+}
+
+.swines-full-info__back-btn--arrow{
+  margin-right: 2px;
+}
+
+.swines-full-info__heading{
+  margin-bottom: 10px;
+}
+
+.swines-full-info__swine-img{
+  --size: 95px;
+
+  width: var(--size);
+  max-width: var(--size);
+  height: var(--size);
+  border-radius: 50px;
+  margin-bottom: 20px;
+}
+
+
+.swine-full-info__details-label-btn-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+  padding-right: 5px;
+}
+
+.swines-full-info__edit-btn{
+  color: #17a75a;
+  font-weight: 600;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.swines-full-info__info-label{
+  display: block;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: left;
+}
+
+.swines-full-info__details{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 13px;
+  text-align: left;
+  width: 100%;
+}
+
+.swines-full-info__details .detail {
+  width: 100%;
+}
+
+.swines-full-info__details .detail:nth-child(2),
+.swines-full-info__details .detail:nth-child(3) {
+  grid-column: span 1;
+}
+
+.swines-full-info__details .detail:not(:nth-child(2)):not(:nth-child(3)) {
+  grid-column: span 2;
+}
+
+.swines-full-info__details .detail-label{
+  display: inline-block;
+  font-weight: 500;
+  margin-bottom: 3px;
+  color: rgba(0, 0, 0, 0.541);
+}
+
+.swines-full-info__details .detail-value{
+  border: 1px solid rgba(0, 0, 0, 0.86);
+  border-radius: 4px;
+  width: 100%;
+  padding: 8px 5px;
+}
+
+.swines-full-info .buttons-container{
+  justify-content: center;
+  gap: 10px;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.swines-full-info .buttons-container button{
+  padding: 6px 0;
+  width: 40%;
+  border-radius: 3px;
+}
+
+.swines-full-info__cancel-btn{
+  border: 1px solid black;
+}
+
+.swines-full-info__save-btn{
+  background-color: #2FC375;
+  color: white;
+  border: 1px solid white;
+}
+
+
+/* ===================================================
+   ============== Swine Full Info: View Mode ==============
+   ===================================================
+*/
+.swines-full-info.view-mode input,
+.swines-full-info.view-mode select{
+  pointer-events: none;
+
+  /* drowpdown hide */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent; 
+}
+
+.swines-full-info.view-mode select{
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent; 
+}
+
+.swines-full-info.edit-mode .swines-full-info__edit-btn{
+  display: none;
+}
+
+.swines-full-info.view-mode .buttons-container{
+  display: none;
+}
+
+/* ===================================================
+   ============== Swine Full Info: Edit Mode ==============
+   ===================================================
+*/
+.swines-full-info.edit-mode input,
+.swines-full-info.edit-mode select{
+  pointer-events: auto;
+}
+
+.swines-full-info.edit-mode select{
+   appearance: auto;
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  background: initial;
+}
+
+.swines-full-info.edit-mode .swines-full-info__edit-btn{
+  display: none;
+}
+
+.swines-full-info.edit-mode .buttons-container{
+  display: flex;
+}
+
 
 
 
@@ -208,10 +402,19 @@
   .add-swine-form__info > div {
     grid-column: span 1; 
   }
+
+  .swines-full-info__details {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .swines-full-info__details .detail {
+    grid-column: span 1 !important;
+  }
 }
 
 @media(width >= 700px){
-  .add-swine-form{
+  .add-swine-form,
+  .swines-full-info{
     width: clamp(600px, 40vw, 750px);
     height: clamp(550px, 35vw, 530px);
     top: 52%;

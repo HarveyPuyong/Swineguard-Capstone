@@ -221,6 +221,11 @@
   padding: 5px;
   pointer-events: auto;
   cursor: pointer;
+
+  appearance: auto;
+  -webkit-appearance: auto;
+  -moz-appearance: auto;
+  background: initial;
 }
 
 .profile-details-list.edit-mode .group-seperator{
