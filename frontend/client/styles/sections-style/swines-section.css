@@ -91,11 +91,103 @@
 */
 .add-swine-form{
   display: none;
+  flex-direction: column;
+  align-items: center;
+  position: fixed;
+  top: var(--header-height);
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.555);
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.501);
+  border-radius: 5px;
+  padding-inline: 23px;
+  padding-top: 30px;
+  padding-bottom: 20px;
+  overflow-y: scroll;
+  z-index: 100;
 }
 
 .add-swine-form.show{
-  display: block;
+  display: flex;
 }
+
+.add-swine-form__heading{
+  margin-bottom: 20px;
+}
+
+
+.add-swine-form__swine-img{
+  --size: 95px;
+
+  width: var(--size);
+  max-width: var(--size);
+  height: var(--size);
+  border-radius: 50px;
+  margin-bottom: 25px;
+}
+
+.add-swine-form__info-label{
+  display: block;
+  width: 100%;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-align: left;
+  margin-bottom: 15px;
+}
+
+.add-swine-form__info{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 13px;
+  text-align: left;
+  width: 100%;
+}
+
+.add-swine-form__info .label-txt{
+  display: inline-block;
+  font-weight: 500;
+  margin-bottom: 3px;
+  color: rgba(0, 0, 0, 0.541);
+}
+
+.add-swine-form__info input, 
+.add-swine-form__info select{
+  width: 100%;
+  padding: 7px 5px;
+}
+
+.add-swine-form__info > div:nth-child(1),
+.add-swine-form__info > div:nth-child(2) {
+  grid-column: span 1;
+}
+
+.add-swine-form__buttons-container{
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.add-swine-form__buttons-container button{
+  padding: 6px 0;
+  width: 40%;
+  border-radius: 3px;
+}
+
+.add-swine-form__cancel-btn{
+  border: 1px solid black;
+}
+
+.add-swine-form__create-btn{
+  background-color: #2FC375;
+  color: white;
+  border: 1px solid white;
+}
+
+
 
 
 /* ===================================================
@@ -107,6 +199,27 @@
 }
 
 
+
+@media(width >= 500px){
+  .add-swine-form__info {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .add-swine-form__info > div {
+    grid-column: span 1; 
+  }
+}
+
+@media(width >= 700px){
+  .add-swine-form{
+    width: clamp(600px, 40vw, 750px);
+    height: clamp(550px, 35vw, 530px);
+    top: 52%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+}
 
 @media(width >= 800px){
   .show-add-swine-form-btn{
