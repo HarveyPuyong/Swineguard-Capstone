@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="styles/profile.css">
     <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
     <link rel="stylesheet" href="styles/sections-style/swines-section.css">
+    <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <title>User Page</title>
 
     <!-- Font Awesome CDN -->
@@ -253,7 +254,7 @@
         </section>
 
         <!-- ========== Swines Section ========== -->
-        <section id="swines-section" class="show">
+        <section id="swines-section" class="hide">
           <h1 class="section__heading">Manage Swines</h1>
 
           <button class="show-add-swine-form-btn" type="button">Add Swine</button>
@@ -386,7 +387,7 @@
           </div>
 
           <!-- Swines Full Details -->
-          <form id="swines-full-info" class="swines-full-info show view-mode"> <!-- Toggle mo yung class from view-mode to edit-mode -->
+          <form id="swines-full-info" class="swines-full-info view-mode"> <!-- Toggle mo yung class from view-mode to edit-mode -->
             <h1 class="swines-full-info__heading">Swine Full Details</h1>
             <button class="swines-full-info__back-btn" type="button">
               <i class="swines-full-info__back-btn--arrow fas fa-arrow-left"></i> 
@@ -450,44 +451,52 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-         <section id="appointments-section" class="hide">
+         <section id="appointments-section" class="show">
           <h1 class="section__heading">Appointments</h1>
-          <button class="request-appointment-btn">Request Appointment</button>
-          <button class="go-to-schedules-section-btn">Schedules</button>
+          <div class="appointments-section__buttons-container">
+            <button class="request-appointment-btn">Request Appointment</button>
+            <button class="go-to-schedules-section-btn">Schedules</button>
+          </div>
 
           <!-- Appointment Card List -->
           <div class="appointments-card-list">
             <div class="appointment-card">
               <div class="appointment-card__image-container">
-                <img class="appointment-card__image-container--img" src="" alt="appointment-card-image">
+                <img class="appointment-card__image-container--img" src="images-and-icons/icons/Veterenarian-icon.png" alt="appointment-card-image">
                 <p class="appointment-card__image-container--label">Swine Consultation</p>
               </div>
-              <div class="appointment-card__details-container">
-                <p class="appointment-card__title appointment-card__detail">
-                  <span class="appointment-card__detail--label">Title:</span>
-                  <span class="appointment-card__detail--value">Iron Supplemantation</span>
-                </p>
-                <p class="appointment-card__count appointment-card__detail">
-                  <span class="appointment-card__detail--label">Count:</span>
-                  <span class="appointment-card__detail--value">7 Swines</span>
-                </p>
-                <p class="appointment-card__date--first-dose appointment-card__detail">
-                  <span class="appointment-card__detail--label">Fist Dose Date:</span>
-                  <span class="appointment-card__detail--value">April 15, 2025 <span class="dose-status">(1st Dose)</span></span>
-                </p>
-                <p class="appointment-card__time appointment-card__detail">
-                  <span class="appointment-card__detail--label">Time:</span>
-                  <span class="appointment-card__detail--value">9:00 AM</span>
-                </p>
-                <p class="appointment-card__status appointment-card__detail">
-                  <span class="appointment-card__detail--label">Status:</span>
-                  <span class="appointment-card__detail--value">Ongoing</span>
-                </p>
-                <p class="appointment-card__date--second-dose appointment-card__detail">
-                  <span class="appointment-card__detail--label">Second Dose Date:</span>
-                  <span class="appointment-card__detail--value">April 15, 2025 <span class="dose-status">(2nd Dose)</span></span>
-                </p>
+              <div class="appointment-card__details-and-more-details-container">
+                <div class="appointment-card__details-container">
+                  <p class="appointment-card__title appointment-card__detail">
+                    <span class="appointment-card__detail--label">Title:</span>
+                    <span class="appointment-card__detail--value">Iron Supplemantation</span>
+                  </p>
+                  <p class="appointment-card__count appointment-card__detail">
+                    <span class="appointment-card__detail--label">SwinesCount:</span>
+                    <span class="appointment-card__detail--value">7 Swines</span>
+                  </p>
+                  <p class="appointment-card__date--first-dose appointment-card__detail">
+                    <span class="appointment-card__detail--label">Fist Dose Date:</span>
+                    <span class="appointment-card__detail--value">April 15, 2025 <span class="dose-status">(1st Dose)</span></span>
+                  </p>
+                </div>
+                <div class="appointment-card__more-details-container show"> <!-- tagtagin mo yung class na show kapag gusto mo i hide yung more details -->
+                  <p class="appointment-card__time appointment-card__detail">
+                    <span class="appointment-card__detail--label">Time:</span>
+                    <span class="appointment-card__detail--value">9:00 AM</span>
+                  </p>
+                  <p class="appointment-card__status appointment-card__detail">
+                    <span class="appointment-card__detail--label">Status:</span>
+                    <span class="appointment-card__detail--value">Ongoing</span>
+                  </p>
+                  <p class="appointment-card__date--second-dose appointment-card__detail">
+                    <span class="appointment-card__detail--label">Second Dose Date:</span>
+                    <span class="appointment-card__detail--value">April 15, 2025 <span class="dose-status">(2nd Dose)</span></span>
+                  </p>
+                </div>
               </div>
+
+              <button class="appointment-card__toggle-more-details-btn">View More</button>
             </div>
           </div>
 

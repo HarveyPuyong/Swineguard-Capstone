@@ -1,0 +1,137 @@
+/* ===================================================
+   ============== Section Buttons ==============
+   ===================================================
+*/
+.appointments-section__buttons-container{
+  display: flex;
+  gap: 15px;  
+  margin-bottom: 40px;
+}
+
+.appointments-section__buttons-container button{
+  padding: 13px 14px;
+  font-weight: 600;
+  border-radius: 5px;
+  border: none;
+}
+
+.request-appointment-btn{
+  color: white;
+  background-color: #2FC375;
+}
+
+.go-to-schedules-section-btn{
+  color: #002BFF;
+  background-color: #a5b4ff;
+}
+
+
+/* ===================================================
+   ============== Appointments Cards List ==============
+   ===================================================
+*/
+.appointments-card-list{
+  display: grid;
+  row-gap: 25px;
+  column-gap: 25px;
+  padding-bottom: 25px;
+}
+
+.appointment-card{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  column-gap: 20px;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 15px 22px;
+  padding-bottom: 50px;
+}
+
+.appointment-card__image-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  gap: 15px;
+  background-color: #0f6593;
+  border-radius: 5px;
+  padding: 16px 12px;
+}
+
+.appointment-card__image-container--img{
+  --size: 50px;
+
+  width: var(--size);
+  max-width: var(--size);
+  height: var(--size);
+}
+
+.appointment-card__image-container--label{
+  color: white;
+  text-align: center;
+  font-weight: 600;
+}
+
+.appointment-card__toggle-more-details-btn{
+  position: absolute;
+  right: 25px;
+  font-size: 0.95rem;
+  bottom: 10px;
+  border: none;
+  background: transparent;
+  color: #0f6593;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.appointment-card__detail{
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.appointment-card__detail--label{
+  font-weight: 600;
+}
+
+.appointment-card__detail--value{
+  color: rgba(0, 0, 0, 0.718);
+}
+
+.appointment-card__more-details-container{
+  display: none;
+}
+
+.appointment-card__more-details-container.show{
+  display: block;
+}
+
+
+/* ===================================================
+   ============== Request Appointment Form ==============
+   ===================================================
+*/
+.request-appointment-form{
+  display: none;
+}
+
+
+@media(width >= 800px){
+  .appointments-card-list{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .appointment-card{
+    padding: 15px 25px;
+    padding-bottom: 50px;
+  }
+}
+
+
+@media(width >= 1170px){
+  .appointments-card-list{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

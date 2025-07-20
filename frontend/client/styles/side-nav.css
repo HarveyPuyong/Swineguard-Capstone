@@ -69,7 +69,7 @@
 }
 
 
-@media(width <= 700px){
+@media(width < 700px){
   .side-nav{
     display: none;
     position: fixed;
