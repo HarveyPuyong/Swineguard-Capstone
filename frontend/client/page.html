@@ -501,13 +501,13 @@
           </div>
 
           <!-- Request Appointment Form -->
-          <form action="" class="request-appointment-form">
+          <form action="" class="request-appointment-form show">
             <h1 class="request-appointment-form__heading">Request Appointment Form</h1>
 
-            <p class="label-txt">Select Swine to Appoint:</p>
+            <p class="form-detail__label">Select Swine to Appoint:</p>
             <!-- Checkbox swines container -->
             <div class="request-appointment-form__swines-list">
-              <div class="swine-select-header">
+              <div class="request-appointment-form__swines-list--header">
                 <label>
                   <input type="checkbox" id="select-all-swines">
                   <span>All Swine</span>
@@ -515,7 +515,7 @@
               </div>
 
               <!-- Swine Checkboxes Grid -->
-              <div class="swine-checkbox-grid">
+              <div class="request-appointment-form__swines-list--grid">
                 <label><input type="checkbox" name="swines" value="0010"> 0010</label>
                 <label><input type="checkbox" name="swines" value="0011" checked> 0011</label>
                 <label><input type="checkbox" name="swines" value="0012" checked> 0012</label>
@@ -529,72 +529,80 @@
               </div>
             </div>
 
-            <!-- select appointment service -->
-            <label for="select-appointment-service"> 
-              <span class="label-txt">Appointment Service:</span>
-              <select name="select-appointment-service" id="select-appointment-service">
-                <option value="">Select Service</option>
-                <option value="deworming">Deworming</option>
-              </select>
-            </label>
+            <div class="form-group-detail">
+              <!-- select appointment service -->
+              <div class="form-detail" for="select-appointment-service"> 
+                <span class="form-detail__label">Appointment Service:</span>
+                <select class="form-detail__value" id="select-appointment-service" name="select-appointment-service">
+                  <option value="">Select Service</option>
+                  <option value="deworming">Deworming</option>
+                </select>
+              </div>
 
-            <!-- select appointment type -->
-            <label for="select-appointment-type"> 
-              <span class="label-txt">Appointment Type:</span>
-              <select name="select-appointment-type" id="select-appointment-type">
-                <option value="">Select Type</option>
-                <option value="consult">Consult</option>
-                <option value="visit">Visit</option>
-              </select>
-            </label>
+              <!-- select appointment type -->
+              <div class="form-detail" for="select-appointment-type"> 
+                <span class="form-detail__label">Appointment Type:</span>
+                <select class="form-detail__value" id="select-appointment-type" name="select-appointment-type">
+                  <option value="">Select Type</option>
+                  <option value="consult">Consult</option>
+                  <option value="visit">Visit</option>
+                </select>
+              </div>
+            </div>
             
-            <!-- select municipal -->
-            <label for="select-municipal"> 
-              <span class="label-txt">Municipal:</span>
-              <select name="select-municipal" id="select-municipal">
-                <option value="">Select Municipal</option>
-                <option value="boac">Boac</option>
-              </select>
-            </label>
+            <div class="form-group-detail">
+              <!-- select municipal -->
+              <div class="form-detail" for="select-municipal"> 
+                <span class="form-detail__label">Municipal:</span>
+                <select class="form-detail__value" id="select-municipal" name="select-municipal">
+                  <option value="">Select Municipal</option>
+                  <option value="boac">Boac</option>
+                </select>
+              </div>
 
-            <!-- select barangay -->
-            <label for="select-barangay"> 
-              <span class="label-txt">Barangay:</span>
-              <select name="select-barangay" id="select-barangay">
-                <option value="">Select Barangay</option>
-                <option value="santol">Santol</option>
-              </select>
-            </label>
+              <!-- select barangay -->
+              <div class="form-detail" for="select-barangay"> 
+                <span class="form-detail__label">Barangay:</span>
+                <select class="form-detail__value" id="select-barangay" name="select-barangay">
+                  <option value="">Select Barangay</option>
+                  <option value="santol">Santol</option>
+                </select>
+              </div>
+            </div>
+            
+            <div class="form-group-detail">
+              <!-- input date-->
+              <div class="form-detail" for="input-date"> 
+                <span class="form-detail__label">Date:</span>
+                <input class="form-detail__value" id="input-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)">
+              </div>
 
-            <!-- input date-->
-            <label for="input-date"> 
-              <span class="label-txt">Date:</span>
-              <input id="input-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)">
-            </label>
+              <!-- input time-->
+              <div class="form-detail" for="input-time"> 
+                <span class="form-detail__label">Time:</span>
+                <input class="form-detail__value" id="input-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)">
+              </div>
+            </div>
 
-            <!-- input time-->
-            <label for="input-time"> 
-              <span class="label-txt">Time:</span>
-              <input id="input-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)">
-            </label>
+            <div class="form-group-detail">
+              <!-- input contact number-->
+              <div class="form-detail" for="input-contact-number"> 
+                <span class="form-detail__label">Contact Number:</span>
+                <input class="form-detail__value" type="number" name="input-contact-number" id="input-contact-number" placeholder="09+">
+              </div>
 
-            <!-- input contact number-->
-            <label for="input-contact-number"> 
-              <span class="label-txt">Contact Number:</span>
-              <input type="number" name="input-contact-number" id="input-contact-number">
-            </label>
-
-            <!-- input email-->
-            <label for="input-email"> 
-              <span class="label-txt">Email:</span>
-              <input type="email" name="input-email" id="input-email">
-            </label>
+              <!-- input email-->
+              <div class="form-detail" for="input-email"> 
+                <span class="form-detail__label">Email:</span>
+                <input class="form-detail__value" type="email" name="input-email" id="input-email" placeholder="email@gmail.com">
+              </div>
+            </div>
 
             <!-- input note-->
-            <label for="input-note"> 
-              <span class="label-txt">Note:</span>
-              <textarea name="input-note" id="input-note"></textarea>
-            </label>
+            <div class="form-detail" for="input-note"> 
+              <span class="form-detail__label">Note:</span>
+              <textarea class="form-detail__value" name="input-note" id="input-note" placeholder="Type your appointment note"></textarea>
+            </div>
 
 
             <div class="request-appointment-form__buttons-container">
