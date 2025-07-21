@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
     <link rel="stylesheet" href="styles/sections-style/swines-section.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
+    <link rel="stylesheet" href="styles/sections-style/messages-section.css">
     <title>User Page</title>
 
     <!-- Font Awesome CDN -->
@@ -451,7 +452,7 @@
         </section>
 
         <!-- ========== Appointments Section ========== -->
-         <section id="appointments-section" class="show">
+         <section id="appointments-section" class="hide">
           <h1 class="section__heading">Appointments</h1>
           <div class="appointments-section__buttons-container">
             <button class="request-appointment-btn">Request Appointment</button>
@@ -501,7 +502,7 @@
           </div>
 
           <!-- Request Appointment Form -->
-          <form action="" class="request-appointment-form show">
+          <form action="" class="request-appointment-form">
             <h1 class="request-appointment-form__heading">Request Appointment Form</h1>
 
             <p class="form-detail__label">Select Swine to Appoint:</p>
@@ -613,7 +614,7 @@
          </section>
 
         <!-- ========== Messages Section ========== -->
-        <section id="messages-section" class="hide">
+        <section id="messages-section" class="show">
           <h1 class="section__heading">Messages</h1>
           <!-- profile view -->
           <div class="profile-view">
@@ -624,7 +625,7 @@
           </div>
           <div class="messages-section__main-wrapper">
             <!-- side-chat-panel -->
-            <div class="sidebar-chat-panel"> 
+            <div class="sidebar-chat-panel show"> 
               <div class="sidebar-chat-panel__search">
                 <img class="sidebar-chat-panel__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon">
                   <input class="sidebar-chat-panel__search-input" type="text" placeholder="Search...">  
@@ -667,10 +668,6 @@
                         <span class="chat-box__header-user-active-status--dot"></span>
                         <span class="chat-box__header-user-active-status--label">Active</span>
                       </p>
-                    </div>
-                    <div class="chat-box__header-icons-container">
-                      <i class="chat-box__header-icon fas fa-phone"></i>
-                      <i class="chat-box__header-icon fas fa-ellipsis-v"></i> 
                     </div>
                   </div>
                   <!-- convo box chat-->

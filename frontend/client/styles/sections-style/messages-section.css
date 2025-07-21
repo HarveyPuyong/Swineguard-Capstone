@@ -49,7 +49,7 @@
   gap: 0.8rem;
   height: 36rem;
   font-size: 0.9rem;
-  padding: 12px 50px 10px 0px;
+  padding: 12px 0 10px 0px;
 }
 
 /*
@@ -186,6 +186,7 @@
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.200);
   border-radius: 8px;
   width: 100%;
+  max-width: 900px;
   height: 100%;
   overflow: hidden;
 }
@@ -398,11 +399,11 @@
 
 .chat-input-area__input-file .icon,
 .chat-box__send-btn .icon{
-  font-size: clamp(1rem, 3.5vw, 1.3rem) ;
+  font-size: clamp(0.8rem, 4.5vw, 1.3rem) ;
 }
 
 .chat-input-area__input-image .icon{
-  font-size: clamp(1.3rem, 6vw, 1.7rem);
+  font-size: clamp(1rem, 6vw, 1.7rem);
 }
 
 .chat-input-area__input-file{
@@ -413,7 +414,7 @@
   border: none;
   background-color: transparent;
   font-size: clamp(0.9rem, 1.5vw, 1rem);
-  width: 76%;
+  width: 80%;
   margin-right: 10%;
 }
 
@@ -433,17 +434,17 @@
   background-color: transparent;
 }
 
-
-@media(width <= 600px){
-  #messages-section{
-    margin-left: 0;
-    padding-left: 20px;
-    padding-right: 20px;
-    width: 100%;
+@media(width <= 1406px){
+  .chat-box__chat-input-area{
+    margin-inline: 15px;
   }
 
-  #messages-section .section__heading{
-    padding-top: 16px;
+  #messages-section{
+    padding-right: 20px;
+  }
+
+  .chat-input-area__input-message{
+    width: 76%;
   }
 }
 
@@ -511,7 +512,7 @@
   .chat-box__chat-input-area{
     bottom: 3%;
     align-items: center;
-    width: 82%;
+    width: 90%;
     min-width: 130px;
     background-color: #D9D9D9;
     border-radius: 5px;
@@ -522,7 +523,7 @@
   }
 
   .chat-input-area__input-message{
-    width: 80%;
+    width: 86%;
     margin-right: 0rem;
   }
 
@@ -530,5 +531,29 @@
     position: absolute;
     right: -60px;
     margin-right: 1.5em;
+  }
+}
+
+@media(width <= 600px){
+  #messages-section{
+    margin-left: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
+  }
+
+  #messages-section .section__heading{
+    padding-top: 0px;
+  }
+}
+
+@media(width <= 550px){
+  .chat-box__chat-input-area{
+    width: 82%;
+  }
+
+  .chat-input-area__input-message{
+    width: 81%;
+    margin-right: 0rem;
   }
 }
