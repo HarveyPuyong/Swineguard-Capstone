@@ -49,7 +49,7 @@
         </div>
  
         <div class="header__profile">
-          <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="picture" class="header__profile-pic">
+          <img class="header__profile-pic" src="./images-and-icons/images/example-user-profile-pic.jpg" alt="picture">
         </div>
     </header>
 
@@ -74,17 +74,9 @@
             <img class="side-nav__link-icon" src="images-and-icons/icons/appointment-icon.png" alt="appointment-icon">
             <p class="side-nav__link-label">Appointments</p>
           </li>
-          <li class="side-nav__link" data-value="records-section" title="records-section">
-            <img class="side-nav__link-icon" src="images-and-icons/icons/appointment-icon.png" alt="record-icon">
-            <p class="side-nav__link-label">Records</p>
-          </li>
           <li class="side-nav__link" data-value="messages-section" title="messages-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/messages-icon.png" alt="message-icon">
             <p class="side-nav__link-label">Messages</p>
-          </li>
-          <li class="side-nav__link" data-value="schedule-section" title="appointment-schedule-section">
-            <img class="side-nav__link-icon" src="images-and-icons/icons/services-icon.png" alt="schedule-icon">
-            <p class="side-nav__link-label">Schedule</p>
           </li>
           <li class="side-nav__link" data-value="services-section" title="services-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/services-icon.png" alt="services-icon">
@@ -99,7 +91,7 @@
       <!-- ========== Profile Container ========== -->
       <div class="profile-container">
         <p class="profile-container__heading">Profile</p>
-        <i class="profile-container__close-form-btn fas fa-times"></i>
+        <i class="profile-container__close-profile-btn fas fa-times"></i>
 
         
         <form id="profile-details-form" class="profile-details-list view-mode"> <!-- Toggle mo yung class from view-mode to edit-mode -->
@@ -927,6 +919,6 @@
       </div>
     </main>
 
-    <script src="script/main.js"></script>
+    <script type="module" src="script/Main.js"></script>
   </body>
 </html>

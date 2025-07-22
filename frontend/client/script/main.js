@@ -1,3 +1,16 @@
+import setupHeader from './header.js';
+import sideNavFuntionality from './side-nav.js';
+import setupProfile from './profile.js'
+
+
+setupHeader();
+sideNavFuntionality();
+setupProfile();
+
+
+
+
+
 // Appointment Graph
 const appointmentGraph = document.getElementById('dashboard-section__appointments-graph').getContext('2d');
 
