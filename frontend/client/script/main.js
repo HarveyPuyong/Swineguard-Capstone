@@ -1,12 +1,15 @@
 import setupHeader from './header.js';
 import sideNavFuntionality from './side-nav.js';
-import setupProfile from './profile.js'
+import setupProfile from './profile.js';
+import setupSwinesSection from './swine/setup-swine-section.js';
+import setupAppointmentSection from './appointment/setup-appointment-section.js';
 
 
 setupHeader();
 sideNavFuntionality();
 setupProfile();
-
+setupSwinesSection();
+setupAppointmentSection();
 
 
 

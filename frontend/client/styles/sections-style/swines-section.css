@@ -36,6 +36,7 @@
   border-radius: 5px;
   padding: 7px 15px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .swine-card__image{

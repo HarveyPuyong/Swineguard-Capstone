@@ -133,11 +133,26 @@
   display: inline-block;
 }
 
+.request-appointment-form__back-btn{
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  border: 1px solid black;
+  border-radius: 3px;
+  padding: 4px 15px;
+  cursor: pointer;
+}
+
+.request-appointment-form__back-btn--arrow{
+  margin-right: 2px;
+}
+
 .request-appointment-form__heading{
   text-align: center;
-  font-size: clamp(1.3rem, 4vw, 2rem);
+  font-size: clamp(1.4rem, 4vw, 2rem);
   color: #2FC375;
   margin-bottom: 40px;
+  margin-top: 50px;
 }
 
 .request-appointment-form__swines-list{
@@ -224,13 +239,9 @@
 .request-appointment-form__buttons-container button{
   padding: 9px 0;
   color: white;
-  width: 120px;
+  width: 130px;
   border: none;
   border-radius: 3px;
-}
-
-.request-appointment-form__cancel-btn{
-  background-color: rgb(198, 53, 53);
 }
 
 .request-appointment-form__submit-btn{

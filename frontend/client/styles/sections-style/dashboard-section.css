@@ -6,13 +6,18 @@
 .dashboard-section__bottom-content{
   padding-top: 25px;
   padding-bottom: 25px;
-  padding-inline: 2%;
 }
 
 .dashboard-section__top-content{
   background-color: #2FC375;
   margin-bottom: 40px;
+  padding-inline: 4%;
 }
+
+.dashboard-section__bottom-content{
+  padding-inline: 2%;
+}
+
 
 .dashboard-section__greeting{
   font-size: clamp(1rem, 2vw, 1.1rem);

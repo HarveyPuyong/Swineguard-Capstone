@@ -162,7 +162,7 @@
 
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-        <section id="dashboard-section" class="hide">
+        <section id="dashboard-section" class="show">
         <div class="dashboard-section__top-content">
           <p class="dashboard-section__greeting">Welcome Raiser,</p>
           <h2 class="dashboard-section__name">Harvey Kupal</h2>
@@ -493,11 +493,15 @@
           </div>
 
           <!-- Request Appointment Form -->
-          <form action="" class="request-appointment-form">
+          <form id="request-appointment-form" class="request-appointment-form">
+            <button class="request-appointment-form__back-btn" type="button">
+              <i class="request-appointment-form__back-btn--arrow fas fa-arrow-left"></i> 
+              <span class="request-appointment-form__back-btn--label">Back</span>
+            </button>
             <h1 class="request-appointment-form__heading">Request Appointment Form</h1>
 
             <p class="form-detail__label">Select Swine to Appoint:</p>
-            <!-- Checkbox swines container -->
+
             <div class="request-appointment-form__swines-list">
               <div class="request-appointment-form__swines-list--header">
                 <label>
@@ -506,102 +510,89 @@
                 </label>
               </div>
 
-              <!-- Swine Checkboxes Grid -->
               <div class="request-appointment-form__swines-list--grid">
                 <label><input type="checkbox" name="swines" value="0010"> 0010</label>
-                <label><input type="checkbox" name="swines" value="0011" checked> 0011</label>
-                <label><input type="checkbox" name="swines" value="0012" checked> 0012</label>
-                
-                <label><input type="checkbox" name="swines" value="0013" checked> 0013</label>
+                <label><input type="checkbox" name="swines" value="0011"> 0011</label>
+                <label><input type="checkbox" name="swines" value="0012"> 0012</label>
+                <label><input type="checkbox" name="swines" value="0013"> 0013</label>
                 <label><input type="checkbox" name="swines" value="0014"> 0014</label>
-                <label><input type="checkbox" name="swines" value="0015" checked> 0015</label>
-                
-                <label><input type="checkbox" name="swines" value="0016" checked> 0016</label>
+                <label><input type="checkbox" name="swines" value="0015"> 0015</label>
+                <label><input type="checkbox" name="swines" value="0016"> 0016</label>
                 <label><input type="checkbox" name="swines" value="0017"> 0017</label>
               </div>
             </div>
 
             <div class="form-group-detail">
-              <!-- select appointment service -->
               <div class="form-detail" for="select-appointment-service"> 
                 <span class="form-detail__label">Appointment Service:</span>
-                <select class="form-detail__value" id="select-appointment-service" name="select-appointment-service">
+                <select class="form-detail__value" id="select-appointment-service" name="select-appointment-service" required>
                   <option value="">Select Service</option>
                   <option value="deworming">Deworming</option>
                 </select>
               </div>
 
-              <!-- select appointment type -->
               <div class="form-detail" for="select-appointment-type"> 
                 <span class="form-detail__label">Appointment Type:</span>
-                <select class="form-detail__value" id="select-appointment-type" name="select-appointment-type">
+                <select class="form-detail__value" id="select-appointment-type" name="select-appointment-type" required>
                   <option value="">Select Type</option>
                   <option value="consult">Consult</option>
                   <option value="visit">Visit</option>
                 </select>
               </div>
             </div>
-            
+
             <div class="form-group-detail">
-              <!-- select municipal -->
               <div class="form-detail" for="select-municipal"> 
                 <span class="form-detail__label">Municipal:</span>
-                <select class="form-detail__value" id="select-municipal" name="select-municipal">
+                <select class="form-detail__value" id="select-municipal" name="select-municipal" required>
                   <option value="">Select Municipal</option>
                   <option value="boac">Boac</option>
                 </select>
               </div>
 
-              <!-- select barangay -->
               <div class="form-detail" for="select-barangay"> 
                 <span class="form-detail__label">Barangay:</span>
-                <select class="form-detail__value" id="select-barangay" name="select-barangay">
+                <select class="form-detail__value" id="select-barangay" name="select-barangay" required>
                   <option value="">Select Barangay</option>
                   <option value="santol">Santol</option>
                 </select>
               </div>
             </div>
-            
+
             <div class="form-group-detail">
-              <!-- input date-->
               <div class="form-detail" for="input-date"> 
                 <span class="form-detail__label">Date:</span>
-                <input class="form-detail__value" id="input-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)">
+                <input class="form-detail__value" id="input-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)" required>
               </div>
 
-              <!-- input time-->
               <div class="form-detail" for="input-time"> 
                 <span class="form-detail__label">Time:</span>
-                <input class="form-detail__value" id="input-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)">
+                <input class="form-detail__value" id="input-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)" required>
               </div>
             </div>
 
             <div class="form-group-detail">
-              <!-- input contact number-->
               <div class="form-detail" for="input-contact-number"> 
                 <span class="form-detail__label">Contact Number:</span>
-                <input class="form-detail__value" type="number" name="input-contact-number" id="input-contact-number" placeholder="09+">
+                <input class="form-detail__value" type="number" name="input-contact-number" id="input-contact-number" placeholder="09+" required>
               </div>
 
-              <!-- input email-->
               <div class="form-detail" for="input-email"> 
                 <span class="form-detail__label">Email:</span>
-                <input class="form-detail__value" type="email" name="input-email" id="input-email" placeholder="email@gmail.com">
+                <input class="form-detail__value" type="email" name="input-email" id="input-email" placeholder="email@gmail.com" required>
               </div>
             </div>
 
-            <!-- input note-->
             <div class="form-detail" for="input-note"> 
               <span class="form-detail__label">Note:</span>
-              <textarea class="form-detail__value" name="input-note" id="input-note" placeholder="Type your appointment note"></textarea>
+              <textarea class="form-detail__value" name="input-note" id="input-note" placeholder="Type your appointment note" required></textarea>
             </div>
 
-
             <div class="request-appointment-form__buttons-container">
-              <button class="request-appointment-form__cancel-btn" type="button">Cancel</button>
               <button class="request-appointment-form__submit-btn" type="submit">Submit</button>
             </div>
           </form>
+
          </section>
 
         <!-- ========== Messages Section ========== -->
@@ -702,7 +693,7 @@
         </section>
 
         <!-- ========== Services Section ========== -->
-        <section id="services-section" class="show">
+        <section id="services-section" class="hide">
           <h1 class="section__heading">Services</h1>
 
           <div class="services-card-list">
