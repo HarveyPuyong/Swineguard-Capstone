@@ -55,14 +55,6 @@
   .services-card__description{
     margin-bottom: 5px;
   }
-
-  .services-card__description--more-details{
-    display: block;
-  }
-
-  .service-card-show-more-description-btn{
-    display: none;
-  }
 } 
 
 @media(width >= 1000px){

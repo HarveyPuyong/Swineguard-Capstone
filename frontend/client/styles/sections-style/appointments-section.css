@@ -137,7 +137,9 @@
   position: absolute;
   left: 20px;
   top: 20px;
-  border: 1px solid black;
+  border: 1px solid rgb(255, 255, 255);
+  background-color: rgb(226, 69, 69);
+  color: white;
   border-radius: 3px;
   padding: 4px 15px;
   cursor: pointer;
