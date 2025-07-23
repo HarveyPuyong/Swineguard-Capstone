@@ -31,9 +31,33 @@ const toggleSwineFullDetails = () => {
 
 
 // ======================================
+// ========== Toggle Edit Mode
+// ======================================
+const toggleEditMode = () => {
+  const swineFullInfoContiner = document.querySelector('#swines-full-info');
+
+  const enableEditModeBtn = document.querySelector('.swines-full-info__edit-btn.enable-edit-mode-btn');
+  const disableEditModeBtn = document.querySelector('.swines-full-info__cancel-btn.disable-edit-mode-btn');
+
+  enableEditModeBtn.addEventListener('click', () => {
+    swineFullInfoContiner.classList.remove('view-mode');
+    swineFullInfoContiner.classList.add('edit-mode');
+    console.log(swineFullInfoContiner)
+  });
+
+  disableEditModeBtn.addEventListener('click', () => {
+    swineFullInfoContiner.classList.add('view-mode');
+    swineFullInfoContiner.classList.remove('edit-mode');
+  });
+}
+
+
+
+// ======================================
 // ========== Main Function - Setup Swines Section
 // ======================================
 export default function setupSwinesSection() {
  toggleAddSwineForm();
  toggleSwineFullDetails();
+ toggleEditMode();
 }
