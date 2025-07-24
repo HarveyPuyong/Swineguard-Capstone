@@ -3,9 +3,143 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login Page</title>
+
+    <!-- CDN for Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   </head>
   <body>
-    <h1 style="position: absolute; top:40%; left:50%; transform: translate(-50%, -50%); font-family: Arial, Helvetica, sans-serif;">User page is not available right now!</h1>
+    <!-- ========== Header ========== -->
+    <header>
+      <div class="header__logo">
+        <img class="header__logo--icon" src="images-and-icons/icons/swineGuard-logo.png" alt="logo-icon">
+        <p class="header__logo--label">Swine Guard</p>
+      </div>
+    </header>
+    
+    <main class="main-wrapper">
+      <!-- ========== Login Form ========== -->
+      <form id="login-form">
+        <img class="form__top-pig" src="images-and-icons/icons/Pig-1.png" alt="form-pig-icon">
+        <img class="form__bottom-pig" src="images-and-icons/icons/Pig-2-left.png" alt="form-pig-icon">
+        <h2 class="form__heading">Log In</h2>
+        <div class="input-container username-input-container">
+          <p class="input-container__label">Username:</p>
+          <input id="input-username" type="text" required>
+        </div>
+        <div class="input-container password-input-container">
+          <p class="input-container__label">Password:</p>
+          <input id="input-password" type="text" required>
+          <i class="password-eye-icon fa fa-eye"></i>
+        </div>
+
+        <button class="login-form__login-btn">Login</button>
+        <p class="form__reminder">
+          Don’t have an Account?
+          <span class="form__reminder-go-to-signup">Sign up</span>
+        </p>
+      </form>
+
+      <!-- ========== Signup Form ========== -->
+      <form id="signup-form">
+        <!-- (Firstname, Middlename Lastanme, Suffix) 1st field -->
+        <div class="signup-form__first-field">
+          <!-- firstname-input -->
+          <div class="input-container firstname-input-container">
+            <p class="input-container__label">Firstname:</p>
+            <input id="input-firstname" type="text" required>
+          </div>
+          <!-- middlename-input -->
+          <div class="input-container middle-input-container">
+            <p class="input-container__label">Middlename:</p>
+            <input id="input-middlename" type="text" required>
+          </div>
+          <!-- lastname-input -->
+          <div class="input-container lastname-input-container">
+            <p class="input-container__label">Lastname:</p>
+            <input id="input-lastname" type="text" required>
+          </div>
+          <!-- suffix-select -->
+          <div class="select-container suffix-select-container">
+            <p class="select-container__label">Suffix:</p>
+            <select id="select-suffix-name" name="select-suffixname">
+              <option value="">Select suffix</option>
+              <option value="jr">Jr.</option>
+              <option value="sr">Sr.</option>
+            </select>
+          </div>
+          <button class="signup-form__next-btn" type="button" disabled>Next</button>
+        </div>
+        
+        <!-- (Municipality, Barangay, Contact) 2nd field -->
+        <div class="signup-form__second-field">
+          <!-- municipality-select -->
+          <div class="select-container municipality-select-container">
+            <p class="select-container__label">Municipality:</p>
+            <select id="select-municipality" name="municipality-select" required>
+              <option value="">Select municipality</option>
+              <option value="boac">Boac</option>
+              <option value="gasan">Gasan</option>
+            </select>
+          </div>
+          <!-- barangay-select -->
+          <div class="select-container barangay-select-container">
+            <p class="select-container__label">Barangay:</p>
+            <select id="select-barangay" name="barangay-select" required>
+              <option value="">Select barangay</option>
+              <option value="santol">Santol</option>
+              <option value="tanza">Tanza</option>
+            </select>
+          </div>
+          <!-- lastname-input -->
+          <div class="input-container contact-input-container">
+            <p class="input-container__label">Contact number:</p>
+            <input
+              id="input-contact-number"
+              type="tel"
+              pattern="09\d{9}"
+              maxlength="11"
+              required
+              title="Please enter a valid 11-digit number starting with 09"
+              placeholder="09+"
+            >
+          </div>
+          <button class="signup-form__next-btn" type="button" disabled>Next</button>
+        </div>
+
+        <!-- (Email, Password, Confirm-password) 3rd field -->
+        <div class="signup-form__third-field">
+          <!-- email-input -->
+          <div class="input-container email-input-container">
+            <p class="input-container__label">Email:</p>
+            <input id="input-email" type="email" placeholder="example@gmail.com" required>
+          </div>
+          <!-- password-input -->
+          <div class="input-container password-input-container">
+            <p class="input-container__label">Password:</p>
+            <input id="input-password" type="password" required>
+            <i class="password-eye-icon fa fa-eye"></i>
+          </div>
+
+          <!-- confirm-password-input -->
+          <div class="input-container confirm-password-input-container">
+            <p class="input-container__label">Confirm password:</p>
+            <input id="input-confirm-password" type="password" required>
+            <i class="password-eye-icon fa fa-eye"></i>
+          </div>
+
+          <button class="signup-form__next-btn" type="button" disabled>Next</button>
+        </div>
+
+        <!-- (Terms and condition) 4th field -->
+        <div class="signup-form__fourth-field">
+          <p class="signup-form__terms-and-conditions">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quae impedit dolores doloribus asperiores illum non adipisci iste nam corrupti ea eum ducimus molestiae dignissimos officia deleniti, ipsa iusto eius! Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quasi iusto officiis illo facilis, voluptatibus quidem, quaerat distinctio maiores totam voluptatum tempora qui deleniti veritatis earum. Laudantium blanditiis quos officiis.
+          </p>
+          <label><input type="checkbox" name="accept-terms-and-conditions" value="accept-terms-and-conditions" required>I accept terms and conditions</label>
+          <button class="signup-form__finish-btn" type="submit" disabled>Finish</button>
+        </div>
+      </form>
+    </main>
   </body>
 </html>
