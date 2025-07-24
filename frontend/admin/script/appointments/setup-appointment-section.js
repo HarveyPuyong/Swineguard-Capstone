@@ -281,7 +281,7 @@ const setupScheduleAppointmentForm = async(appointmentId) => {
 
     //Personal Select Element
     const personalSelectElement = document.querySelector('.appointment-schedule-form #available-personnel');
-     if(!personalSelectElement) return;
+    if(!personalSelectElement) return;
 
     technicians.forEach(technician => {
       const prefix = technician.roles.includes('veterinarian') ? 'Doc.' : technician.roles.includes('technician') ? 'Mr.' : '';

@@ -112,7 +112,8 @@ select:focus{
   background-color: white;
 }
 
-.reports-content__download-report-btn{
+.reports-content__download-report-btn,
+.reports-content__save-report-btn {
   background-color: #2FC375;
   color: white;
   border: 1px solid #0F7E43;

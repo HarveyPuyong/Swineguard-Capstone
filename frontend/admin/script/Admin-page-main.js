@@ -9,7 +9,6 @@ import setupInventorySection from "./inventory/setup-inventory-section.js"
 import setupStaffSection from "./staff/setup-staff-section.js";
 import setupServiceSection from "./service/setup-service-section.js";
 import setupSettingsSection from './setting/setup-setting-section.js';
-import generateSwineReports from "./reports/generate-swine-report.js";
 
 roleRidirectPage()
 setupHeader();
@@ -22,5 +21,4 @@ setupInventorySection();
 setupStaffSection();
 setupServiceSection();
 setupSettingsSection();
-generateSwineReports();
 

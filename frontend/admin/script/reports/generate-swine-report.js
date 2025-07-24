@@ -2,15 +2,27 @@
 import fetchSwines from "../../api/fetch-swines.js";
 import fetchUsers from "../../api/fetch-users.js";
 import addressesData from "../../static-data/addresses.js";
+import api from "../../utils/axiosConfig.js";
+import popupAlert from "../../utils/popupAlert.js";
+import fetchSwineReports from "../../api/fetch-report.js";
+
+// Buttons
+const downloadBtn = document.querySelector('.reports-content__download-report-btn');
+const saveBtn = document.querySelector('.reports-content__save-report-btn');
+
+if (downloadBtn) {
+  downloadBtn.addEventListener('click', () => {
+    alert('Download report clicked!');
+  });
+}
+
 
 // ======================================
 // ==========Handle Reports Appointment
 // ======================================
-const monthSelectTag = document.querySelector('.reports-content__select-month').value;
-const yearSelectTag = document.querySelector('.reports-content__select-year');
 
 let doughnutChartInstance = null;
-let barChartInstance = null;
+let swinesTable = [];
 
 // Get all Municipalities and Barangays from the JSON
 const municipality = Object.keys(addressesData);
@@ -28,113 +40,308 @@ const generateSwineReports = async() => {
   const swines = await fetchSwines();
   const raisers = await fetchUsers();
 
-
-    // Create a map of userId → municipality
-    const userMunicipalityMap = {};
-    raisers.forEach(user => {
-        userMunicipalityMap[user._id] = user.municipality;
-    });
+  // Create a map of userId → municipality
+  const userMunicipalityMap = {};
+  raisers.forEach(user => {
+    userMunicipalityMap[user._id] = user.municipality;
+  });
 
   // Count swines per municipality
   const municipalitySwineCount = {};
   municipality.forEach(muni => municipalitySwineCount[muni] = 0); // initialize to 0
 
-    swines.forEach(swine => {
-        const userId = swine.clientId;
-        const userMunicipality = userMunicipalityMap[userId];
+  swines.forEach(swine => {
+    const userId = swine.clientId;
+    const userMunicipality = userMunicipalityMap[userId];
 
-        if (userMunicipality && municipalitySwineCount.hasOwnProperty(userMunicipality)) {
-            municipalitySwineCount[userMunicipality]++;
-        }
-    });
+    if (userMunicipality && municipalitySwineCount.hasOwnProperty(userMunicipality)) {
+      municipalitySwineCount[userMunicipality]++;
+    }
+  });
 
-  // Extract counts in same order as the labels (municipality)
+  // Prepare data for ApexCharts
   const swineCounts = municipality.map(muni => municipalitySwineCount[muni]);
+  const donutElement = document.querySelector('.current-report-container .current-doughnut-chart');
 
-  const donutCanvas = document.querySelector('#swines-section #report-container__doughnut-chart')?.getContext('2d');
-
-  if (donutCanvas) {
-    if (doughnutChartInstance !== null) {
-      doughnutChartInstance.destroy();
+  if (donutElement) {
+    // If there's an existing chart instance, destroy or reassign it
+    if (window.apexDonutInstance) {
+      window.apexDonutInstance.destroy();
     }
 
-    doughnutChartInstance = new Chart(donutCanvas, {
-      type: 'doughnut',
-      data: {
-        labels: municipality,
-        datasets: [{
-          label: 'Swine Count by Municipality',
-          data: swineCounts,
-          backgroundColor: ['#41B8D5', '#506E9A', '#2D8BBA', '#6CE5E8', '#9C27B0', '#03A9F4'],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        cutout: '70%',
-        plugins: {
-          legend: { position: 'bottom' },
-          tooltip: {
-            callbacks: {
-              label: context => `${context.label}: ${context.parsed} swines`
-            }
+    const options = {
+      series: swineCounts,
+      chart: {
+        type: 'donut',
+        height: 752,
+        toolbar: {
+          show: true,
+          tools: {
+            download: true,
+            selection: false,
+            zoom: false,
+            zoomin: false,
+            zoomout: false,
+            pan: false,
+            reset: false
           }
+        }
+      },
+      labels: municipality,
+      dataLabels: {
+        enabled: true,
+        formatter: (val, opts) => {
+          return `${Math.round(val)}%`;
+        }
+      },
+      legend: {
+        position: 'bottom'
+      },
+      tooltip: {
+        y: {
+          formatter: (value, opts) => `${value} swines`
+        }
+      },
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          chart: {
+            width: 300
+          },
+          legend: {
+            position: 'bottom'
+          }
+        }
+      }]
+    };
+
+    window.apexDonutInstance = new ApexCharts(donutElement, options);
+    window.apexDonutInstance.render();
+  }
+
+  // ============================
+  // Swine Table
+  // ============================
+  const swineTypeList = ['piglet', 'grower', 'sow', 'boar'];
+
+  // Step 1: Map clientId to municipality and barangay
+  const userMap = {};
+  raisers.forEach(user => {
+    userMap[user._id] = {
+      municipality: user.municipality,
+      barangay: user.barangay
+    };
+  });
+
+  // Step 2: Group swines per municipality & barangay
+  const groupedData = {};
+
+  swines.forEach(swine => {
+    const user = userMap[swine.clientId];
+    if (!user) return;
+
+    const { municipality, barangay } = user;
+    const key = `${municipality}--${barangay}`;
+
+    if (!groupedData[key]) {
+      groupedData[key] = {
+        municipality: municipality,
+        barangay: barangay,
+        total: 0,
+        piglet: 0,
+        grower: 0,
+        sow: 0,
+        boar: 0,
+      };
+    }
+
+    // Update swine counts
+    groupedData[key].total++;
+    if (swineTypeList.includes(swine.type)) {
+      groupedData[key][swine.type]++;
+    }
+  });
+
+  // Step 3: Convert to array
+  swinesTable = Object.values(groupedData);
+
+  new Tabulator("#swines-report-table", {
+    data: swinesTable,
+    layout: "fitColumns",
+    responsiveLayout: true,
+    groupBy: "municipality", // 👈 Group by municipality
+    columns: [
+      { title: "Barangay", field: "barangay" },
+      { title: "No. of Swine", field: "total", hozAlign: "center" },
+      { title: "Piglet", field: "piglet", hozAlign: "center" },
+      { title: "Grower", field: "grower", hozAlign: "center" },
+      { title: "Sow", field: "sow", hozAlign: "center" },
+      { title: "Boar", field: "boar", hozAlign: "center" },
+    ]
+  });
+
+  //appointment schedule calendar
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('appointment-schedule-calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      events: [
+        { title: 'Health Surveillance', date: '2025-05-01' },
+        { title: 'Castration', date: '2025-05-02' },
+        { title: 'Check Ups', date: '2025-05-09' }
+      ]
+    });
+    calendar.render();
+  });
+
+
+  if (saveBtn) {
+    saveBtn.addEventListener('click', async () => {
+
+      const currentDate = new Date();
+
+      const reportData = {
+        month: currentDate.getMonth() + 1 ,
+        year: parseInt(currentDate.getFullYear()),
+        swineData: swinesTable  // swinesTable must be globally available
+      };
+
+      try {
+        const response = await api.post(`/report/save`, reportData);
+        if (response.status === 200) {
+          popupAlert('success', 'Success!', 'Swine monthly report saved.');
+        } 
+
+      } catch (error) {
+        // Check for 400: Report already exists
+        if (error.response && error.response.status === 400) {
+          popupAlert('error', 'Report Exists', 'A report for this month already exists.');
+        } else {
+          // Other unexpected errors
+          popupAlert('error', 'Error!', 'Failed to save the report.');
+          console.error('Unexpected error:', error);
         }
       }
     });
   }
+  
+} 
 
-      // ============================
-      // Swine Table
-      // ============================
-    const swineTypeList = ['piglet', 'grower', 'sow', 'boar'];
 
-    // Step 1: Map clientId to municipality and barangay
-    const userMap = {};
-    raisers.forEach(user => {
-      userMap[user._id] = {
-        municipality: user.municipality,
-        barangay: user.barangay
+// ==========================
+// Display Data from the DB (all-time DB)
+// ==========================
+
+const displaySwineReport = async () => {
+  const reports = await fetchSwineReports();
+  if (!reports || reports.length === 0) return;
+
+  const yearSelect = document.querySelector('.reports-content__select-year');
+  const monthSelect = document.querySelector('.reports-content__select-month');
+  const tableContainer = document.querySelector('#display-monthly-swines-report-table');
+  const donutElement = document.querySelector(".record-pie-chart");
+
+  let chart; // holds ApexCharts instance
+
+  const updateDonutChart = (filteredReports) => {
+    let pigletTotal = 0;
+    let growerTotal = 0;
+    let sowTotal = 0;
+    let boarTotal = 0;
+
+    filteredReports.forEach(report => {
+      report.swineData.forEach(entry => {
+        pigletTotal += entry.piglet;
+        growerTotal += entry.grower;
+        sowTotal += entry.sow;
+        boarTotal += entry.boar;
+      });
+    });
+
+    const series = [pigletTotal, growerTotal, sowTotal, boarTotal];
+
+    if (chart) {
+      chart.updateSeries(series);
+    } else {
+      const options = {
+        series,
+        chart: {
+          type: 'donut',
+          toolbar: {
+            show: true, // ✅ show the dropdown menu
+            tools: {
+              download: true,  // allows image download
+              selection: false,
+              zoom: false,
+              zoomin: false,
+              zoomout: false,
+              pan: false,
+              reset: false,
+              customIcons: [] // you can add your own buttons here if needed
+            }
+          }
+        },
+        labels: ['Piglet', 'Grower', 'Sow', 'Boar'],
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: { width: 200 },
+            legend: { position: 'bottom' }
+          }
+        }]
       };
+      chart = new ApexCharts(donutElement, options);
+      chart.render();
+    }
+  };
+
+  // Render Table
+  const renderFilteredTable = (year, month) => {
+    const filteredReports = reports.filter(report =>
+      (!year || report.year === parseInt(year)) &&
+      (!month || report.month === parseInt(month))
+    );
+
+    // Update donut chart with filtered data
+    updateDonutChart(filteredReports);
+
+    const aggregatedDataMap = {};
+
+    filteredReports.forEach(report => {
+      report.swineData.forEach(entry => {
+        const key = `${entry.municipality}--${entry.barangay}`;
+
+        if (!aggregatedDataMap[key]) {
+          aggregatedDataMap[key] = {
+            municipality: entry.municipality,
+            barangay: entry.barangay,
+            total: 0,
+            piglet: 0,
+            grower: 0,
+            sow: 0,
+            boar: 0,
+          };
+        }
+
+        aggregatedDataMap[key].total += entry.total;
+        aggregatedDataMap[key].piglet += entry.piglet;
+        aggregatedDataMap[key].grower += entry.grower;
+        aggregatedDataMap[key].sow += entry.sow;
+        aggregatedDataMap[key].boar += entry.boar;
+      });
     });
 
-    // Step 2: Group swines per municipality & barangay
-    const groupedData = {};
+    const aggregatedSwineData = Object.values(aggregatedDataMap);
 
-    swines.forEach(swine => {
-      const user = userMap[swine.clientId];
-      if (!user) return;
+    if (tableContainer._tabulator) {
+      tableContainer._tabulator.destroy();
+    }
 
-      const { municipality, barangay } = user;
-      const key = `${municipality}--${barangay}`;
-
-      if (!groupedData[key]) {
-        groupedData[key] = {
-          municipal: municipality,
-          barangay: barangay,
-          total: 0,
-          piglet: 0,
-          grower: 0,
-          sow: 0,
-          boar: 0,
-        };
-      }
-
-      // Update swine counts
-      groupedData[key].total++;
-      if (swineTypeList.includes(swine.type)) {
-        groupedData[key][swine.type]++;
-      }
-    });
-
-    // Step 3: Convert to array
-    const swinesTable = Object.values(groupedData);
-
-    new Tabulator("#swines-report-table", {
-      data: swinesTable,
+    new Tabulator(tableContainer, {
+      data: aggregatedSwineData,
       layout: "fitColumns",
       responsiveLayout: true,
-      groupBy: "municipal", // 👈 Group by municipality
+      groupBy: "municipality",
       columns: [
         { title: "Barangay", field: "barangay" },
         { title: "No. of Swine", field: "total", hozAlign: "center" },
@@ -144,22 +351,26 @@ const generateSwineReports = async() => {
         { title: "Boar", field: "boar", hozAlign: "center" },
       ]
     });
+  };
 
-    //appointment schedule calendar
-    document.addEventListener('DOMContentLoaded', function() {
-      var calendarEl = document.getElementById('appointment-schedule-calendar');
-      var calendar = new FullCalendar.Calendar(calendarEl, {
-        initialView: 'dayGridMonth',
-        events: [
-          { title: 'Health Surveillance', date: '2025-05-01' },
-          { title: 'Castration', date: '2025-05-02' },
-          { title: 'Check Ups', date: '2025-05-09' }
-        ]
-      });
-      calendar.render();
-    });
-} 
+  // Initial render (all data)
+  renderFilteredTable();
 
-generateSwineReports();
+  // Event listeners to update chart and table
+  yearSelect?.addEventListener('change', () => {
+    const selectedYear = yearSelect.value;
+    const selectedMonth = monthSelect.value;
+    renderFilteredTable(selectedYear, selectedMonth);
+  });
 
-export default generateSwineReports;
+  monthSelect?.addEventListener('change', () => {
+    const selectedYear = yearSelect.value;
+    const selectedMonth = monthSelect.value;
+    renderFilteredTable(selectedYear, selectedMonth);
+  });
+};
+
+export {
+  generateSwineReports,
+  displaySwineReport
+};

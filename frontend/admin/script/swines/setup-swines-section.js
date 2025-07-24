@@ -1,6 +1,6 @@
 import handleRenderSwines from "./display-swines.js";
-import generateSwineReports from "../reports/generate-swine-report.js";
-
+import {generateSwineReports, displaySwineReport} from "../reports/generate-swine-report.js";
+import populateReportDates from "../reports/setup-reports.js";
 
 
 // ======================================
@@ -20,7 +20,12 @@ const viewBtnsFunctionality = () => {
   if(viewReportsBtn) viewReportsBtn.addEventListener('click', () => {
                       swineTableContents.classList.remove('show');
                       swineReportContents.classList.add('show');
-                      generateSwineReports();
+
+                      // Wait for DOM to update
+                      setTimeout(() => {
+                        generateSwineReports();
+                        displaySwineReport();
+                      }, 100);
                     });
 
   backToTableBtn.forEach(btn => {
@@ -28,7 +33,12 @@ const viewBtnsFunctionality = () => {
                     swineTableContents.classList.add('show');
                     swineReportContents.classList.remove('show');
                     swineMappingContents.classList.remove('show');
-                    generateSwineReports();
+
+                    // Wait for DOM to update
+                    setTimeout(() => {
+                      generateSwineReports();
+                      displaySwineReport();
+                    }, 100);
                   });
   })
 
@@ -129,6 +139,7 @@ const toggleSwineMoreDetails = () => {
 // ========== Main Function - Setup Swines Section
 // ======================================
 export default function setupSwinesSection() {
+  populateReportDates();
   handleRenderSwines();
   searchSwines();
   filterSwines();
