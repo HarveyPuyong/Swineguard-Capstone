@@ -4,18 +4,51 @@ import fetchUsers from "../../api/fetch-users.js";
 import addressesData from "../../static-data/addresses.js";
 import api from "../../utils/axiosConfig.js";
 import popupAlert from "../../utils/popupAlert.js";
-import fetchSwineReports from "../../api/fetch-report.js";
+import {fetchSwineReports} from "../../api/fetch-report.js";
 
 // Buttons
-const downloadBtn = document.querySelector('.reports-content__download-report-btn');
+const downloadCurrentBtn = document.querySelector('.current-download-report-btn');
+const downloadPastBtn = document.querySelector('.past-download-report-btn');
 const saveBtn = document.querySelector('.reports-content__save-report-btn');
 
-if (downloadBtn) {
-  downloadBtn.addEventListener('click', () => {
-    alert('Download report clicked!');
+// Tables
+const tableContainer = document.querySelector('#display-monthly-swines-report-table');
+const monthList = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+
+if (downloadCurrentBtn) {
+  downloadCurrentBtn.addEventListener('click', () => {
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const fileName = `swine-report-${monthList[month]}-${year}.pdf`;
+
+    if (tableContainer._tabulator) {
+      tableContainer._tabulator.download("pdf", fileName, {
+        orientation: "landscape",
+        title: `Swine Report - ${monthList[month]}/${year}`,
+      });
+    } else {
+      alert("No table to export!");
+    }
   });
 }
 
+if (downloadPastBtn) {
+  downloadPastBtn.addEventListener('click', () => {
+    const year = document.querySelector('.reports-content__select-year')?.value || 'AllYears';
+    const month = document.querySelector('.reports-content__select-month')?.value || 'AllMonths';
+    const fileName = `swine-report-${monthList[month-1]}-${year}.pdf`;
+
+    if (tableContainer._tabulator) {
+      tableContainer._tabulator.download("pdf", fileName, {
+        orientation: "landscape",
+        title: `Swine Report - ${monthList[month-1]}/${year}`,
+      });
+    } else {
+      alert("No table to export!");
+    }
+  });
+}
 
 // ======================================
 // ==========Handle Reports Appointment
@@ -95,7 +128,8 @@ const generateSwineReports = async() => {
         }
       },
       legend: {
-        position: 'bottom'
+        fontSize: '18px',
+        position: 'right'
       },
       tooltip: {
         y: {
@@ -109,7 +143,8 @@ const generateSwineReports = async() => {
             width: 300
           },
           legend: {
-            position: 'bottom'
+            fontSize: '18px',
+            position: 'right'
           }
         }
       }]
@@ -234,11 +269,12 @@ const generateSwineReports = async() => {
 
 const displaySwineReport = async () => {
   const reports = await fetchSwineReports();
-  if (!reports || reports.length === 0) return;
+  if (!reports || reports.length === 0) {
+    document.querySelector('#display-monthly-swines-report-table').innerHTML = 'No Data for this month';
+    return };
 
   const yearSelect = document.querySelector('.reports-content__select-year');
   const monthSelect = document.querySelector('.reports-content__select-month');
-  const tableContainer = document.querySelector('#display-monthly-swines-report-table');
   const donutElement = document.querySelector(".record-pie-chart");
 
   let chart; // holds ApexCharts instance
@@ -280,6 +316,10 @@ const displaySwineReport = async () => {
               customIcons: [] // you can add your own buttons here if needed
             }
           }
+        },
+        legend: {
+          fontSize: '18px',  // ✅ now properly applied
+          position: 'right'
         },
         labels: ['Piglet', 'Grower', 'Sow', 'Boar'],
         responsive: [{
@@ -337,7 +377,7 @@ const displaySwineReport = async () => {
       tableContainer._tabulator.destroy();
     }
 
-    new Tabulator(tableContainer, {
+    tableContainer._tabulator = new Tabulator(tableContainer, {
       data: aggregatedSwineData,
       layout: "fitColumns",
       responsiveLayout: true,

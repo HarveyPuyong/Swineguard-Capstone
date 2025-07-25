@@ -11,4 +11,18 @@ const fetchSwineReports = async() => {
   }
 }
 
-export default fetchSwineReports;
+const fetchInventoryReports = async() => {
+  try {
+    const response = await api.get('/report/get/inventory/all', {withCredentials: true});
+
+    if(response.status === 200) return response.data
+  } catch (error) {
+    cconsole.error('Failed to fetch swine reports:', error);
+    throw error; 
+  }
+}
+
+export {
+  fetchSwineReports,
+  fetchInventoryReports
+};

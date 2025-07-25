@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+// --- Swine Report Schema ---
 const reportItemSchema = new mongoose.Schema({
   municipality: { type: String, required: true },
   barangay: { type: String, required: true },
@@ -11,14 +12,48 @@ const reportItemSchema = new mongoose.Schema({
 });
 
 const monthlySwineReportSchema = new mongoose.Schema({
-  month: { type: Number, required: true }, 
+  month: { type: Number, required: true },
   year: { type: Number, required: true },
-  generatedAt: { type: Date, default: Date.now },
   swineData: [reportItemSchema]
+}, {
+  collection: 'reports',
+  timestamps: true 
+});
 
-}, { collection: 'reports', timestamps: true });
-
-// Add this line to enforce uniqueness
+// Enforce uniqueness on (month, year)
 monthlySwineReportSchema.index({ month: 1, year: 1 }, { unique: true });
 
-module.exports = mongoose.model('MonthlySwineReport', monthlySwineReportSchema);
+const SwineReport = mongoose.model('MonthlySwineReport', monthlySwineReportSchema);
+
+
+// --- Inventory Report Schema ---
+const inventoryItemSchema = new mongoose.Schema({
+  itemName: { type: String, required: true },
+  itemType: { type: String, required: true },
+  dosage: { type: Number, required: true },
+  quantity: { type: Number, required: true },
+  expiryDate: { type: Date, required: true },
+  itemStatus: { type: String, required: true },
+  description: { type: String }
+}, { _id: false });
+
+const inventoryReportSchema = new mongoose.Schema({
+  month: { type: Number, required: true },
+  year: { type: Number, required: true },
+  inventoryData: [inventoryItemSchema]
+}, {
+  collection: 'inventoryReports',
+  timestamps: true
+});
+
+const InventoryReport = mongoose.model('InventoryReport', inventoryReportSchema);
+
+
+// --- Exports ---
+
+module.exports = {
+  SwineReport,
+  InventoryReport
+};
+
+

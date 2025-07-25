@@ -33,12 +33,6 @@ const viewBtnsFunctionality = () => {
                     swineTableContents.classList.add('show');
                     swineReportContents.classList.remove('show');
                     swineMappingContents.classList.remove('show');
-
-                    // Wait for DOM to update
-                    setTimeout(() => {
-                      generateSwineReports();
-                      displaySwineReport();
-                    }, 100);
                   });
   })
 
@@ -132,7 +126,6 @@ const toggleSwineMoreDetails = () => {
       });
   })
 }
-
 
 
 // ======================================

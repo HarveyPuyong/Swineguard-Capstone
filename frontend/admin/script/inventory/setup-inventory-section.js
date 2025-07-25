@@ -2,6 +2,7 @@ import handleRenderInventory from "./display-inventory.js";
 import handleAddItem from "./add-item.js";
 import handleEditItem from "./edit-item.js";
 import {handleRemoveItem, handleRestoreItem, handleDeleteItem} from "./remove-restore-delete-item.js";
+import {generateInventoryReport, displayInventoryReport} from "../reports/generate-inventory-reports.js";
 
 // ======================================
 // ========== Search Inventory
@@ -224,6 +225,38 @@ const toggleAddMedicineForm = () => {
 }
 
 
+// ======================================
+// ========== View Button (View Graph, Generate Report) Buttons Functionality
+// ======================================
+const viewBtnsFunctionality = () => {
+  const inventoryTableContents = document.querySelector('.inventory-section__table-contents');
+  const backToTableBtn = document.querySelector('.inventory-back-table-btn');
+  const inventoryReportContents = document.querySelector('.inventory-section__report-contents');
+  const viewReportsBtn = document.querySelector('.inventory-section__view-report-btn');
+
+  // When 'Generate Report' is clicked
+  if (viewReportsBtn) {
+    viewReportsBtn.addEventListener('click', () => {
+      inventoryTableContents.classList.remove('show');
+      inventoryReportContents.classList.add('show');
+
+      setTimeout(() => {
+        generateInventoryReport();
+        displayInventoryReport();
+      }, 100);
+    });
+  }
+
+  if (backToTableBtn) {
+    backToTableBtn.addEventListener('click', () => {
+      inventoryTableContents.classList.add('show');
+      inventoryReportContents.classList.remove('show');
+    });
+  }
+};
+
+
+
 export default function setupInventorySection() {
   toggleMedicineButtons();
   handleRenderInventory();
@@ -234,6 +267,7 @@ export default function setupInventorySection() {
   inventorySorting();
   toggleAddMedicineForm();
   changeStatusColor();
+  viewBtnsFunctionality();
 }
 
 

@@ -1,15 +1,18 @@
-const reportDB = require('../models/monthlyReportModel');
+const { SwineReport, InventoryReport } = require('../models/monthlyReportModel');
 
+// ======================================
+// ========== Monthly Swine Report
+// ======================================
 exports.saveMonthlyReport = async (req, res) => {
   const { month, year, swineData } = req.body;
 
     try {
-        const existingReport = await reportDB.findOne({ month, year });
+        const existingReport = await SwineReport.findOne({ month, year });
 
         if (existingReport) return res.status(400).json({ message: 'Monthly report already existed.' });
 
         // No report yet — create a new one
-        const newSwineReport = new reportDB({
+        const newSwineReport = new SwineReport({
             month,
             year,
             swineData
@@ -21,7 +24,7 @@ exports.saveMonthlyReport = async (req, res) => {
     } catch (error) {
         console.error('Save report error:', error);
         if (error.code === 11000) {
-            return res.status(400).json({ message: 'Monthly report already exists (duplicate).' });
+          return res.status(400).json({ message: 'Monthly report already exists (duplicate).' });
         }
         res.status(500).json({ message: 'Failed to save monthly report.' });
     }
@@ -29,7 +32,7 @@ exports.saveMonthlyReport = async (req, res) => {
 
 exports.getMonthlyReport = async (req, res) => {
     try {
-        const reports = await reportDB.find();
+        const reports = await SwineReport.find();
         res.status(200).json(reports);
     } catch (error) {
         console.error('Get report error:', error);
@@ -37,3 +40,43 @@ exports.getMonthlyReport = async (req, res) => {
     }
 }
 
+
+// ======================================
+// ========== Monthly Inventory Report
+// ======================================
+
+exports.saveInventoryReport = async (req, res) => {
+  const { month, year, inventoryData } = req.body;
+  try {
+    const existingReport = await InventoryReport.findOne({ month, year });
+
+    if (existingReport) return res.status(400).json({ message: 'Monthly report already existed.' });
+
+    // No report yet — create a new one
+    const newInventoryReport = new InventoryReport({
+        month,
+        year,
+        inventoryData
+    });
+
+    await newInventoryReport.save();
+    res.status(200).json({ message: 'Monthly report saved successfully.' });
+
+  } catch (error) {
+    console.error('Save report error:', error);
+    if (error.code === 11000) {
+      return res.status(400).json({ message: 'Monthly report already exists (duplicate).' });
+    }
+    res.status(500).json({ message: 'Failed to save monthly report.' });
+}
+};
+
+// Get all inventory reports
+exports.getAllInventoryReports = async (req, res) => {
+  try {
+    const reports = await InventoryReport.find();
+    res.status(200).json(reports);
+  } catch (error) {
+    res.status(500).json({ message: 'Failed to fetch inventory reports', error });
+  }
+};

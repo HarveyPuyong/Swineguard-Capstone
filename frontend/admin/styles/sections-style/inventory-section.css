@@ -1,3 +1,13 @@
+.inventory-section__table-contents{
+  display: none;
+}
+.inventory-section__table-contents.show{
+  display: block;
+}
+
+
+
+
 #inventory-section .section__heading{
   margin-bottom: 20px;
 }

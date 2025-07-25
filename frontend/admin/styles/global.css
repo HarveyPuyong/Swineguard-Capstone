@@ -112,11 +112,23 @@ select:focus{
   background-color: white;
 }
 
-.reports-content__download-report-btn,
 .reports-content__save-report-btn {
   background-color: #2FC375;
   color: white;
   border: 1px solid #0F7E43;
+}
+
+.current-download-report-btn,
+.past-download-report-btn,
+.inventory-download-btn,
+.display-inventory-download-btn {
+  padding: .2rem 1rem;
+  margin-bottom: 8px;
+  background-color: #2FC375;
+  color: white;
+  border: 1px solid #0F7E43;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 
@@ -168,3 +180,9 @@ select:focus{
 }
 
 
+.current-doughnut-chart,
+.record-pie-chart,
+#report-container__doughnut-chart,
+#display-report-container__doughnut-chart {
+  width: 752px;
+}
