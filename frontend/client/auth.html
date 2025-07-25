@@ -19,7 +19,7 @@
     
     <main class="main-wrapper">
       <!-- ========== Login Form ========== -->
-      <form id="login-form show">
+      <form id="login-form" class="hide">
         <!-- form pig icons -->
         <img class="form__top-pig" src="images-and-icons/icons/Pig-1.png" alt="form-pig-icon">
         <img class="form__bottom-pig" src="images-and-icons/icons/Pig-2-left.png" alt="form-pig-icon">
@@ -33,25 +33,26 @@
           <p class="form__label-txt">Password:</p>
           <input id="input-password" type="password" required>
           <i class="password-eye-icon fa fa-eye"></i>
+          <div class="eye-slash"></div>
         </div>
 
         <button class="login-form__login-btn">Login</button>
         <p class="form__reminder">
           Don’t have an Account?
-          <span class="form__reminder-go-to-signup">Sign up</span>
+          <span class="form__reminder-go-to-signup change-to-signup-btn">Sign up</span>
         </p>
       </form>
 
 
       <!-- ========== Signup Form ========== -->
-      <form id="signup-form show">
+      <form id="signup-form" class="show">
         <!-- form pig icons -->
         <img class="form__top-pig" src="images-and-icons/icons/Pig-1.png" alt="form-pig-icon">
-        <img class="form__bottom-pig" src="images-and-icons/icons/Pig-2-left.png" alt="form-pig-icon">
+        <img class="form__bottom-pig" src="images-and-icons/icons/Pig-2-right.png" alt="form-pig-icon">
 
         <h2 class="form__heading">Signup</h2>
         <!-- (Firstname, Middlename Lastanme, Suffix) 1st field -->
-        <div class="signup-form__first-field signup-form__field show">
+        <div class="signup-form__first-field signup-form__field">
           <!-- firstname-input -->
           <div class="input-container firstname-input-container">
             <p class="form__label-txt">Firstname:</p>
@@ -120,7 +121,7 @@
         </div>
     
         <!-- (Municipality, Barangay) 3rd field -->
-        <div class="signup-form__second-field signup-form__field">
+        <div class="signup-form__third-field signup-form__field">
           <!-- municipality-select -->
           <div class="select-container municipality-select-container">
             <p class="form__label-txt">Municipality:</p>
@@ -144,7 +145,7 @@
         </div>
 
         <!-- (Email, Password, Confirm-password) 4th field -->
-        <div class="signup-form__third-field signup-form__field">
+        <div class="signup-form__fourth-field signup-form__field show">
           <!-- email-input -->
           <div class="input-container email-input-container">
             <p class="form__label-txt">Email:</p>
@@ -155,13 +156,15 @@
             <p class="form__label-txt">Password:</p>
             <input id="input-password" type="password" required>
             <i class="password-eye-icon fa fa-eye"></i>
+            <div class="eye-slash"></div>
           </div>
 
           <!-- confirm-password-input -->
-          <div class="input-container confirm-password-input-container">
+          <div class="input-container password-input-container">
             <p class="form__label-txt">Confirm password:</p>
             <input id="input-confirm-password" type="password" required>
             <i class="password-eye-icon fa fa-eye"></i>
+            <div class="eye-slash"></div>
           </div>
 
           <button class="signup-form__next-btn" type="button" disabled>Next</button>
@@ -172,16 +175,18 @@
           <p class="signup-form__terms-and-conditions">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur quae impedit dolores doloribus asperiores illum non adipisci iste nam corrupti ea eum ducimus molestiae dignissimos officia deleniti, ipsa iusto eius! Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae quasi iusto officiis illo facilis, voluptatibus quidem, quaerat distinctio maiores totam voluptatum tempora qui deleniti veritatis earum. Laudantium blanditiis quos officiis.
           </p>
-          <label><input type="checkbox" name="accept-terms-and-conditions" value="accept-terms-and-conditions" required>I accept terms and conditions</label>
+          <label><input id="terms-and-condition-checkbox" type="checkbox" name="accept-terms-and-conditions" value="accept-terms-and-conditions" required>I accept terms and conditions</label>
 
           <button class="signup-form__finish-btn" type="submit" disabled>Finish</button>
         </div>
 
         <p class="form__reminder">
           Already haved an account?
-          <span class="form__reminder-go-to-login">Login</span>
+          <span class="form__reminder-go-to-login change-to-login-btn">Login</span>
         </p>
       </form>
     </main>
+
+    <script src="script/auth.js"></script>
   </body>
 </html>

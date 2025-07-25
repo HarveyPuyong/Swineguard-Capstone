@@ -133,16 +133,6 @@ form{
   height: var(--size);
 }
 
-.form__top-pig{
-  right: 0;
-  top: -55px;
-}
-
-.form__bottom-pig{
-  left: -20px;
-  bottom: -30px;
-}
-
 .input-container,
 .select-container,
 .radio-container{
@@ -183,6 +173,21 @@ select:focus{
   cursor: pointer;
 }
 
+.eye-slash{
+  display: none;
+  position: absolute;
+  top: 43px;
+  right: 13px;
+  transform: translateY(-50%);
+  height: 2px;
+  width: 24px;
+  rotate: 30deg;
+  background-color: rgba(47, 47, 47, 0.742);
+}
+.eye-slash.active{
+  display: inline-block;
+}
+
 .login-form__login-btn,
 .signup-form__next-btn,
 .signup-form__finish-btn{
@@ -196,6 +201,13 @@ select:focus{
   padding: 10px 8px;
   margin-top: 22px;
   margin-bottom: 14px;
+}
+
+.login-form__login-btn:disabled,
+.signup-form__next-btn:disabled,
+.signup-form__finish-btn:disabled {
+  opacity: 0.6; 
+  cursor: not-allowed;
 }
 
 .form__reminder{
@@ -225,15 +237,36 @@ form#login-form.show{
 }
 
 
+#login-form .form__top-pig{
+  right: 0;
+  top: -55px;
+}
+
+#login-form .form__bottom-pig{
+  left: -20px;
+  bottom: -30px;
+}
+
+
 /* ===================================================
    ============== Signup Form ==============
    ===================================================
 */
-form#signup-form{
+#signup-form{
   display: none;
 }
-form#signup-form.show {
+#signup-form.show {
   display: block;
+}
+
+#signup-form .form__top-pig{
+  left: 0;
+  top: -55px;
+}
+
+#signup-form .form__bottom-pig{
+  right: -20px;
+  bottom: -30px;
 }
 
 .signup-form__field{
@@ -370,12 +403,20 @@ input[type="checkbox"]:checked::after {
 }
 
 @media(width >= 835px){
-  .form__top-pig{
+  #login-form .form__top-pig{
     top: -63px;
   }
 
-  .form__bottom-pig{
+  #login-form .form__bottom-pig{
     left: -30px;
+  }
+
+  #signup-form .form__top-pig{
+    top: -63px;
+  }
+
+  #signup-form .form__bottom-pig{
+    right: -30px;
   }
 }
 
