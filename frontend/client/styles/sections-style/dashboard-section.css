@@ -8,6 +8,11 @@
   padding-bottom: 25px;
 }
 
+
+/* ===================================================
+   ============== Top Contents ==============
+   ===================================================
+*/
 .dashboard-section__top-content{
   background-color: #2FC375;
   margin-bottom: 40px;
@@ -79,6 +84,11 @@
   font-size: 0.9rem;
 }
 
+
+/* ===================================================
+   ============== Bottom Contents (Graphs and Table) ==============
+   ===================================================
+*/
 .dashboard-section__bottom-content{
   display: grid;
   gap: 50px;

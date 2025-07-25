@@ -1,0 +1,383 @@
+/* ===================================================
+   ============== Global Styles ==============
+   ===================================================
+*/
+:root{
+  --primary-color: #434343;
+  --primary-color2: #555555;
+  --neutral-color: #FFFFFF;
+  --accent-color: #2FC375;
+
+  --F-size: 25px;
+  --F-size: 20px;
+  --F-size: 14px;
+  --F-size: 16px;
+  --F-size: 18px;
+  --F-size: 14px;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+img{
+ width: 100%;
+}
+
+button{
+  cursor: pointer;
+}
+
+ul{
+  list-style-type: none;
+}
+
+a{
+  text-decoration: none;
+}
+
+
+body{
+  background-color: var(--neutral-color);
+  font-family: "Poppins", sans-serif;
+}
+
+.main-wrapper{
+  --wrapper-max-width: 1280px;
+  --wrapper-padding: 10%;
+
+  width: min(var(--wrapper-max-width), 100% - var(--wrapper-padding));
+  margin-inline: auto;
+}
+
+/* custom select */
+select{
+  appearance: none; 
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="%23000000" d="M7 10l5 5 5-5H7z"/></svg>');
+  background-repeat: no-repeat;
+  background-position: right 3px center;
+  background-size: clamp(25px, 6vw, 30px) ;
+}
+
+select:focus{
+  outline: none;
+  border: none;
+}
+
+
+/* ===================================================
+   ============== Header ==============
+   ===================================================
+*/
+header{
+  background-color: #0F7E43;
+  padding: 12px 3%;
+}
+
+.header__logo{
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.header__logo--icon{
+  --size: clamp(36px, 5vw, 43px);
+  width: var(--size);
+  height: var(--size);
+}
+
+.header__logo--label{
+  color: white;
+  font-weight: 600;
+  font-size: clamp(1.05rem, 3vw, 1.2rem);
+}
+
+
+/* ===================================================
+   ============== Form Global Styles ==============
+   ===================================================
+*/
+form{ 
+  position: relative;
+  max-width: 700px; 
+  color: white;
+  background: linear-gradient(to bottom, #00EB6D, #29a865);
+  border-top-right-radius: 4px;
+  border-bottom-left-radius: 4px;
+  border-top-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+  padding: 20px 16px;
+  padding-bottom: 35px;
+  margin-top: 90px;
+  margin-inline: auto;
+}
+
+.form__heading{
+  text-align: center;
+  font-size: clamp(2.5rem, 10vw, 2.9vw);
+  margin-bottom: 35px;
+}
+
+.form__top-pig,
+.form__bottom-pig{
+  --size: clamp(70px, 9vw, 80px);
+
+  position: absolute;
+  display: inline-block;
+  width: var(--size);
+  height: var(--size);
+}
+
+.form__top-pig{
+  right: 0;
+  top: -55px;
+}
+
+.form__bottom-pig{
+  left: -20px;
+  bottom: -30px;
+}
+
+.input-container,
+.select-container,
+.radio-container{
+  position: relative;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+.form__label-txt{
+  margin-bottom: 3px;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+
+input,
+select{
+  width: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.491);
+  border-radius: 4px;
+  padding: 10px 10px;
+  font-size: 1.1rem;
+  color: rgb(106, 106, 106);
+}
+
+input:focus,
+select:focus{
+  border: 1px solid rgba(0, 0, 0, 0.491);
+  outline: 1px solid rgba(0, 0, 0, 0.491);
+}
+
+.password-eye-icon{
+  position: absolute;
+  right: 15px;
+  top: 67%;
+  transform: translateY(-50%);
+  color: rgb(100, 100, 100);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.login-form__login-btn,
+.signup-form__next-btn,
+.signup-form__finish-btn{
+  width: 100%;
+  border-radius: 8px;
+  border: 2px solid white;
+  background-color: transparent;
+  color: white;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 4vw, 1.2rem);
+  padding: 10px 8px;
+  margin-top: 22px;
+  margin-bottom: 14px;
+}
+
+.form__reminder{
+  text-align: center;
+  font-size: clamp(0.9rem, 3vw, 1rem);
+}
+
+.form__reminder-go-to-login,
+.form__reminder-go-to-signup{
+  font-weight: 600;
+  font-style: italic;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+/* ===================================================
+   ============== Login Form ==============
+   ===================================================
+*/
+form#login-form{
+  display: none;
+}
+
+form#login-form.show{
+  display: block;
+}
+
+
+/* ===================================================
+   ============== Signup Form ==============
+   ===================================================
+*/
+form#signup-form{
+  display: none;
+}
+form#signup-form.show {
+  display: block;
+}
+
+.signup-form__field{
+  display: none;
+}
+
+.signup-form__field.show{
+  display: block;
+}
+
+.signup-form__group{
+  display: flex;
+  gap: 5%
+}
+
+/* 1st field (names) */
+.lastname-input-container{
+  width: 70%;
+  display: inline-block;
+}
+
+.suffix-select-container{
+  width: 30%;
+  display: inline-block;
+}
+
+/* 2nd field (gender, age, contact)*/
+.gender-radio-container{
+  margin-bottom: 20px;
+}
+
+.gender-radio-list{
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  column-gap: 20px;
+  row-gap: 15px;
+  margin-top: 10px;
+  padding-left: 10px;
+}
+
+.gender-radio-list label{
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  font-size: clamp(0.9rem, 2vw, 1rem);
+  color: rgb(66, 66, 66);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.gender-radio-list input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 2px;
+  height: 2px;
+  scale: 0.8;
+  border: none;
+  border: 1px solid rgb(206, 206, 206);
+  border-radius: 50%;
+  background-color: rgb(222, 222, 222);
+  cursor: pointer;
+  position: relative;
+}
+
+.gender-radio-list input[type="radio"]:checked::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 49.99%;
+  transform: translate(-50%, -50%);
+  display: block;
+  width: 110%;
+  height: 110%;
+  background-color: #2c8cc8;
+  border-radius: 50%;
+}
+
+
+/* 5th field (terms and conditions)*/
+.signup-form__terms-and-conditions{
+  margin-bottom: 35px;
+  color: rgb(0, 0, 0);
+  line-height: 1.5em;
+  text-align: justify;
+  font-size: 1.1rem;
+}
+
+.signup-form__fifth-field label{
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: rgb(230, 230, 230);
+}
+
+input[type="checkbox"]{
+  width: fit-content;
+  margin-right: 5px;
+  appearance: none;
+  background-color: rgb(229, 229, 229);
+  border: 1px solid #555;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  padding: 9px;
+  margin-left: 2px;
+}
+
+input[type="checkbox"]:checked::after {
+  content: '✔';
+  color: #2FC375;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 17px;
+}
+
+
+@media(width >= 500px){
+  .gender-radio-list{
+    flex-direction: row;
+  }
+}
+
+
+@media(width >= 650px){
+  form{
+    padding-inline: 50px;
+  }
+}
+
+@media(width >= 835px){
+  .form__top-pig{
+    top: -63px;
+  }
+
+  .form__bottom-pig{
+    left: -30px;
+  }
+}
+
+
+
