@@ -138,6 +138,44 @@ const handleNextInSignupForm = () => {
 
 
 // ======================================
+// ========== Handle Back Field in Signup Form
+// ======================================
+const handleBackInSignupForm = () => {
+  // All fields
+  const firstField = document.querySelector('.signup-form__first-field');
+  const secondField = document.querySelector('.signup-form__second-field');
+  const thirdField = document.querySelector('.signup-form__third-field');
+  const fourthField = document.querySelector('.signup-form__fourth-field');
+  const fifthField = document.querySelector('.signup-form__fifth-field');
+
+  const backBtns = document.querySelectorAll('.signup-form__back-btn');
+
+  backBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const parentField = btn.parentElement.parentElement.classList[0];
+
+      if(parentField === 'signup-form__second-field'){
+        secondField.classList.remove('show');
+        firstField.classList.add('show');
+      }
+      else if(parentField === 'signup-form__third-field'){
+        thirdField.classList.remove('show');
+        secondField.classList.add('show');
+      }
+      else if(parentField === 'signup-form__fourth-field'){
+        fourthField.classList.remove('show');
+        thirdField.classList.add('show');
+      }
+      else if(parentField === 'signup-form__fifth-field'){
+        fifthField.classList.remove('show');
+        fourthField.classList.add('show');
+      }
+    });
+  });
+}
+
+
+// ======================================
 // ========== Handle Toggle Password Visibility
 // ======================================
 const handleTogglePasswordVisibility = () => {
@@ -171,6 +209,7 @@ function authMain() {
   handleChangeForm();
   handleNextInSignupForm();
   handleTogglePasswordVisibility();
+  handleBackInSignupForm();
 } 
 
 authMain()

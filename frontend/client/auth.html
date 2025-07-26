@@ -52,7 +52,7 @@
 
         <h2 class="form__heading">Signup</h2>
         <!-- (Firstname, Middlename Lastanme, Suffix) 1st field -->
-        <div class="signup-form__first-field signup-form__field show">
+        <div class="signup-form__first-field signup-form__field">
           <!-- firstname-input -->
           <div class="input-container firstname-input-container">
             <p class="form__label-txt">Firstname:</p>
@@ -86,7 +86,7 @@
         </div>
 
         <!-- (Gender, Age, Contact) 2nd field -->
-        <div class="signup-form__second-field signup-form__field">   
+        <div class="signup-form__second-field signup-form__field show">   
           <!-- gender-list-->
           <div class="radio-container gender-radio-container">
             <p class="form__label-txt">Gender:</p>
@@ -117,7 +117,10 @@
             >
           </div>
 
-          <button class="signup-form__next-btn" type="button" disabled>Next</button>
+          <div class="signup-form__buttons-container">
+            <button class="signup-form__back-btn" type="button">Back</button>
+            <button class="signup-form__next-btn" type="button" disabled>Next</button>
+          </div>
         </div>
     
         <!-- (Municipality, Barangay) 3rd field -->
@@ -141,7 +144,10 @@
             </select>
           </div>
 
-          <button class="signup-form__next-btn" type="button" disabled>Next</button>
+          <div class="signup-form__buttons-container">
+            <button class="signup-form__back-btn" type="button">Back</button>
+            <button class="signup-form__next-btn" type="button" disabled>Next</button>
+          </div>
         </div>
 
         <!-- (Email, Password, Confirm-password) 4th field -->
@@ -167,7 +173,10 @@
             <div class="eye-slash"></div>
           </div>
 
-          <button class="signup-form__next-btn" type="button" disabled>Next</button>
+          <div class="signup-form__buttons-container">
+            <button class="signup-form__back-btn" type="button">Back</button>
+            <button class="signup-form__next-btn" type="button" disabled>Next</button>
+          </div>
         </div>
 
         <!-- (Terms and condition) 5th field -->
@@ -177,7 +186,10 @@
           </p>
           <label><input id="terms-and-condition-checkbox" type="checkbox" name="accept-terms-and-conditions" value="accept-terms-and-conditions" required>I accept terms and conditions</label>
 
-          <button class="signup-form__finish-btn" type="submit" disabled>Finish</button>
+          <div class="signup-form__buttons-container">
+            <button class="signup-form__back-btn" type="button">Back</button>
+            <button class="signup-form__finish-btn" type="submit" disabled>Finish</button>
+          </div>
         </div>
 
         <p class="form__reminder">
