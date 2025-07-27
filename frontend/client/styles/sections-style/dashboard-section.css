@@ -1,0 +1,134 @@
+#dashboard-section{
+  padding: 0;
+}
+
+.dashboard-section__top-content,
+.dashboard-section__bottom-content{
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+
+/* ===================================================
+   ============== Top Contents ==============
+   ===================================================
+*/
+.dashboard-section__top-content{
+  background-color: #2FC375;
+  margin-bottom: 40px;
+  padding-inline: 4%;
+}
+
+.dashboard-section__bottom-content{
+  padding-inline: 2%;
+}
+
+
+.dashboard-section__greeting{
+  font-size: clamp(1rem, 2vw, 1.1rem);
+  font-weight: 500;
+  margin-bottom: 2px;
+}
+
+.dashboard-section__name{
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  margin-bottom: 4px;
+}
+
+.dashboard-section__current-date{
+  color: rgba(255, 255, 255, 0.823);
+  font-size: 0.85rem;
+  background-color: #0e5f349e;
+  border-radius: 5px;
+  width: fit-content;
+  padding: 5px 10px;
+  margin-bottom: 40px;
+}
+
+.upcoming-vaccinations-list-heading{
+  color: rgb(127, 0, 0);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.upcoming-vaccinations-list{
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 15px;
+  flex-direction: column;
+  max-height: 300px;
+  overflow-x: scroll;
+  scrollbar-width: thin;
+  background-color: rgb(247, 247, 247);
+  border-radius: 4px;
+  padding: 2%;
+}
+
+.upcoming-vaccinations-list .vaccination{
+  background-color: #9de3be;
+  border-radius: 3px;
+  font-size:  clamp(0.9rem, 2vw, 1rem);
+  padding: 15px 13px;
+  width: 100%;
+  max-width: 350px;
+  cursor: pointer;
+}
+
+.vaccination-title{
+  margin-bottom: 3px;
+  font-weight: 600;
+}
+
+.vaccination-date{
+  opacity: 0.8;
+  font-size: 0.9rem;
+}
+
+
+/* ===================================================
+   ============== Bottom Contents (Graphs and Table) ==============
+   ===================================================
+*/
+.dashboard-section__bottom-content{
+  display: grid;
+  gap: 50px;
+  row-gap: 80px;
+  column-gap: 40px
+}
+
+.dashboard-graph__heading{
+  margin-bottom: 10px;
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+}
+
+#dashboard-section .dashboard-graph{
+  width: 100%;
+  max-width: 510px;
+}
+
+#dashboard-section__appointments-graph,
+#dashboard-section__swines-graph{
+  width: 100%;
+  max-height: 280px;
+}
+
+
+#dashboard-section__swine-table .tabulator{
+  width: 100%;
+}
+
+
+@media(width >= 700px){
+  .dashboard-section__top-content,
+  .dashboard-section__bottom-content{
+    padding-left: calc(var(--sidenav-width) + 3%);
+    padding-right: 3%;
+  }
+}
+
+@media(width >= 1200px){
+  .dashboard-section__bottom-content{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+}

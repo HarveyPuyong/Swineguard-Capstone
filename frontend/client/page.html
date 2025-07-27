@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/normalize.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/header.css">
+    <link rel="stylesheet" href="styles/side-nav.css">
+    <link rel="stylesheet" href="styles/profile.css">
+    <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
+    <link rel="stylesheet" href="styles/sections-style/swines-section.css">
+    <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
+    <link rel="stylesheet" href="styles/sections-style/messages-section.css">
+    <link rel="stylesheet" href="styles/sections-style/services-section.css">
+    <title>User Page</title>
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- FullCalendar CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+    <!-- Tabulator CDN (table library with no jQuery needed) -->
+    <link href="https://unpkg.com/tabulator-tables@5.5.0/dist/css/tabulator.min.css" rel="stylesheet">
+    <script src="https://unpkg.com/tabulator-tables@5.5.0/dist/js/tabulator.min.js"></script>
+  </head>
+  <body>
+    <!-- ========== Header ========== -->
+    <header>
+        <div class="header__toggle-side-nav-icon">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+
+        <div class="header__swine-logo">
+          <img class="header__swine-logo-img" src="images-and-icons/icons/swineGuard-logo.png" alt="img-logo">
+          <p class="header__swine-logo-label">Swine Guard</p>
+        </div>
+
+        <div class="header__notification">
+          <i class="header__notification-icon fas fa-bell"></i>
+          <span class="header__notification-label">3</span>
+        </div>
+ 
+        <div class="header__profile">
+          <img class="header__profile-pic" src="./images-and-icons/images/example-user-profile-pic.jpg" alt="picture">
+        </div>
+    </header>
+
+    <main class="main-wrapper">
+      <!-- ========== Side Nav ========== -->
+      <nav class="side-nav">
+        <i class="side-nav__close-button fa fa-times"></i>
+        <div class="side-nav__swine-logo">
+          <img class="side-nav__swine-logo-img" src="images-and-icons/icons/swineGuard-logo.png" alt="img-logo">
+          <p class="side-nav__swine-logo-label">Swine<br>Guard</p>
+        </div>
+        <ul class="side-nav__link-list">
+          <li class="side-nav__link active" data-value="dashboard-section" title="dashboard-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/dashboard-icon.png" alt="dashboard-icon">
+            <p class="side-nav__link-label">Dashboard</p>
+          </li>
+          <li class="side-nav__link" data-value="swines-section" title="swines-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/pig-icon.png" alt="swines-icon">
+            <p class="side-nav__link-label">Swines</p>
+          </li>
+          <li class="side-nav__link" data-value="appointments-section" title="appointments-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/appointment-icon.png" alt="appointment-icon">
+            <p class="side-nav__link-label">Appointments</p>
+          </li>
+          <li class="side-nav__link" data-value="messages-section" title="messages-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/messages-icon.png" alt="message-icon">
+            <p class="side-nav__link-label">Messages</p>
+          </li>
+          <li class="side-nav__link" data-value="services-section" title="services-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/services-icon.png" alt="services-icon">
+            <p class="side-nav__link-label">Services</p>
+          </li>
+          <li class="side-nav__link logout-btn" data-value="">
+            <p class="side-nav__link-label">Logout</p>
+          </li>
+        </ul>
+      </nav>
+      
+      <!-- ========== Profile Container ========== -->
+      <div class="profile-container">
+        <p class="profile-container__heading">Profile</p>
+        <i class="profile-container__close-profile-btn fas fa-times"></i>
+
+        
+        <form id="profile-details-form" class="profile-details-list view-mode"> <!-- Toggle mo yung class from view-mode to edit-mode -->
+          <div class="profile-image detail">
+            <img src="images-and-icons/images/money-admin-profile.jpg" alt="Profile Picture" />
+            <label class="profile-image__upload-btn show">
+              <input type="file" hidden />
+              <i class="fas fa-upload"></i> Upload
+            </label>
+          </div>
+          <div class="profile-detail detail">
+            <p class="profile-detail-label">ID:</p>
+            <p class="profile-detail-value">091090290920</p>
+          </div>
+
+          <div class="profile-detail detail editable">
+            <p class="profile-detail-label">Name:</p>
+            <div class="profile-detail__name-inputs-group">
+              <input class="profile-detail-value" id="profile-detail__firstname-input" value="Harvey" readonly/>
+              <input class="profile-detail-value" id="profile-detail__middlename-input" value="A" readonly/>
+              <span class="group-seperator">,</span>
+              <input class="profile-detail-value" id="profile-detail__lastname-input" value="Puyong" readonly/>
+            </div>
+          </div>
+
+          <div class="profile-detail detail editable">
+            <p class="profile-detail-label">Contact:</p>
+            <input
+              class="profile-detail-value"
+              id="profile-detail__contact-input"
+              type="tel"
+              maxlength="11"
+              pattern="09[0-9]{9}"
+              placeholder="09xxxxxxxxx"
+              oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11)"
+              value=""
+              readonly
+            />
+          </div>
+
+          <div class="profile-detail detail editable">
+            <p class="profile-detail-label">Address:</p>
+            <div class="profile-detail__select-group">
+              <select name="select-municipal" id="profile-detail__select-municipal" class="profile-detail-value">
+                <option value="">Select Municipal</option>
+                <option value="mogpog">Mogpog</option>
+              </select>
+              <span class="group-seperator">,</span>
+              <select name="select-barangay" id="profile-detail__select-barangay" class="profile-detail-value">
+                <option value="">Select Barangay</option>
+                <option value="maligaya">Maligaya</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="profile-detail detail editable">
+            <p class="profile-detail-label">Email:</p>
+            <input class="profile-detail-value" id="email-input" value="harvey@gmail.com" readonly />
+          </div>
+
+          <div class="profile-details-list__buttons-container">
+          <button class="profile-details-list__edit-btn enable-edit-mode-button" type="button">Edit</button>
+          <button class="profile-details-list__cancel-btn disable-edit-mode-button " type="button">Cancel</button>
+          <button class="profile-details-list__save-btn" type="submit">Save</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="sections-wrapper">
+        <!-- ========== Dashboard Section ========== -->
+        <section id="dashboard-section" class="show">
+        <div class="dashboard-section__top-content">
+          <p class="dashboard-section__greeting">Welcome Raiser,</p>
+          <h2 class="dashboard-section__name">Harvey Kupal</h2>
+          <p class="dashboard-section__current-date">June 10, 2025</p>
+
+          <h4 class="upcoming-vaccinations-list-heading">Upcoming Vaccination</h4>
+          <div class="upcoming-vaccinations-list">
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+            <div class="vaccination">
+              <p class="vaccination-title">Vaccination Title</p>
+              <p class="vaccination-date">June 10, 2025</p>
+            </div>
+          </div>
+        </div>
+        <div class="dashboard-section__bottom-content">
+          <!-- appointments graph -->
+          <div class="dashboard-section__total-appointments dashboard-graph">
+            <h3 class="dashboard-graph__heading">Total Appointments</h3>
+            <canvas id="dashboard-section__appointments-graph" width="400" height="300"></canvas>
+          </div>
+
+          <!-- swines graph -->
+          <div class="dashboard-section__swines-graph dashboard-graph">
+            <h3 class="dashboard-graph__heading">Swines Graph</h3>
+            <canvas id="dashboard-section__swines-graph" width="400" height="400"></canvas>
+          </div>
+
+          <!-- numbers of swines -->
+          <div class="dashboard-section__number-of-swines dashboard-graph">
+            <h3 class="dashboard-graph__heading">Number of Swines</h3>
+             <div id="dashboard-section__swine-table"></div>
+          </div>
+        </div>
+        </section>
+
+        <!-- ========== Swines Section ========== -->
+        <section id="swines-section" class="hide">
+          <h1 class="section__heading">Manage Swines</h1>
+
+          <button class="show-add-swine-form-btn" type="button">Add Swine</button>
+          
+          <!-- Add swine form -->
+          <form id="add-swine-form" class="add-swine-form">
+            <button class="add-swine-form__back-btn" type="button">
+              <i class="add-swine-form__back-btn--arrow fas fa-arrow-left"></i> 
+              <span class="add-swine-form__back-btn--label">Back</span>
+            </button>
+            <h1 class="add-swine-form__heading">Add Swine Form</h1>
+            <img class="add-swine-form__swine-img" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+            
+            <p class="add-swine-form__info-label">Swine Info</p>
+            <div class="add-swine-form__info">
+              <div for="select-swine-sex"><!-- swine sex -->
+                <span class="label-txt">Sex</span>
+                <select name="select-swine-sex" id="select-swine-sex">
+                  <option value="male">Male</option>
+                  <option value="female">female</option>
+                </select>
+              </div>
+              <div for="select-swine-breed"><!-- swine breed -->
+                <span class="label-txt">Breed</span>
+                <select name="select-swine-breed" id="select-swine-breed">
+                  <option value="native">Native</option>
+                  <option value="half-breed">Half Breed</option>
+                </select>
+              </div>
+              <div for="select-swine-type"><!-- swine type -->
+                <span class="label-txt">Type</span>
+                <select name="select-swine-type" id="select-swine-type">
+                  <option value="sow">Sow</option>
+                  <option value="barrow">Barrow</option>
+                </select>
+              </div>
+              <div for="input-swine-birthdate"><!-- swine birth date-->
+                <span class="label-txt">Birth Date</span>
+                <input id="input-swine-birthdate" type="text" placeholder="Birthdate" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
+              </div>
+              <div for="select-swine-health-status"><!-- swine health status-->
+                <span class="label-txt">Health Status</span>
+                <select name="select-swine-health-status" id="select-swine-health-status">
+                  <option value="healthy">Healthy</option>
+                  <option value="pregnant">Pregnant</option>
+                </select>
+              </div>
+              <div for="input-swine-weight"><!-- swine wwight-->
+                <span class="label-txt">Weight</span>
+                <input type="number" placeholder="kg">
+              </div>
+            </div>
+
+            <button class="add-swine-form__create-btn" type="submit">Create</button>       
+          </form>
+
+          <!-- Swines cards list -->
+          <div class="swines-card-list">
+            <div class="swine-card healthy">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Healthy</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card deceased">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Deceased</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card sick">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Sick</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card pregnant">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Pregnant</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card healthy">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Healthy</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card deceased">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Deceased</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card sick">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Sick</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+            <div class="swine-card pregnant">
+              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
+              <div class="swine-card__swine-info">
+                <p class="swine-card__id">0001</p>
+                <p class="swine-card__type">Sow</p>
+                <p class="swine-card__status">Pregnant</p>
+              </div>
+              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
+            </div>
+          </div>
+
+          <!-- Swines Full Details -->
+          <form id="swines-full-info" class="swines-full-info view-mode"> <!-- Toggle mo yung class from view-mode to edit-mode -->
+            <h1 class="swines-full-info__heading">Swine Full Details</h1>
+            <button class="swines-full-info__back-btn" type="button">
+              <i class="swines-full-info__back-btn--arrow fas fa-arrow-left"></i> 
+              <span class="swines-full-info__back-btn--label">Back</span>
+            </button>
+            <img class="swines-full-info__swine-img" src="images-and-icons/icons/swine-image.png" alt="Swine Image" />
+              
+            <div class="swine-full-info__details-label-btn-container">
+              <p class="swines-full-info__info-label">Swine Info</p>
+              <button class="swines-full-info__edit-btn enable-edit-mode-btn" type="button">Edit</button> <!-- edit button -->       
+            </div>
+      
+            <div class="swines-full-info__details">
+              <div class="detail"><!-- swine id -->
+                <span class="detail-label">ID</span>
+                <p class="detail-value">001</p>
+              </div>
+              <div class="detail"><!-- swine type -->
+                <span class="detail-label">Type</span>
+                <select class="detail-value" id="select-swine-type" name="select-swine-type">
+                  <option value="sow">Sow</option>
+                  <option value="barrow">Barrow</option>
+                </select>
+              </div>
+              <div class="detail"><!-- swine sex -->
+                <span class="detail-label">Sex</span>
+                <select class="detail-value" id="select-swine-sex" name="select-swine-sex" >
+                  <option value="male">Male</option>
+                  <option value="female">female</option>
+                </select>
+              </div>
+              <div class="detail"><!-- swine breed -->
+                <span class="detail-label">Breed</span>
+                <select class="detail-value" id="select-swine-breed" name="select-swine-breed">
+                  <option value="native">Native</option>
+                  <option value="half-breed">Half Breed</option>
+                </select>
+              </div>
+              <div class="detail"><!-- swine birth date-->
+                <span class="detail-label">Birth Date</span>
+                <input class="detail-value" id="input-swine-birthdate" type="text" placeholder="Birthdate" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
+              </div>
+              <div class="detail"><!-- swine health status-->
+                <span class="detail-label">Health Status</span>
+                <select class="detail-value" id="select-swine-health-status" name="select-swine-health-status" >
+                  <option value="healthy">Healthy</option>
+                  <option value="pregnant">Pregnant</option>
+                </select>
+              </div>
+              <div class="detail"><!-- swine wwight-->
+                <span class="detail-label">Weight</span>
+                <input class="detail-value" type="number" placeholder="kg">
+              </div>
+            </div>
+
+            <div class="buttons-container">
+              <button class="swines-full-info__cancel-btn disable-edit-mode-btn" type="button">Cancel</button>
+              <button class="swines-full-info__save-btn" type="submit">Save</button>
+            </div>
+          </form>
+        </section>
+
+        <!-- ========== Appointments Section ========== -->
+         <section id="appointments-section" class="hide">
+          <h1 class="section__heading">Appointments</h1>
+          <div class="appointments-section__buttons-container">
+            <button class="request-appointment-btn">Request Appointment</button>
+            <button class="go-to-schedules-section-btn">Schedules</button>
+          </div>
+
+          <!-- Appointment Card List -->
+          <div class="appointments-card-list">
+            <div class="appointment-card">
+              <div class="appointment-card__image-container">
+                <img class="appointment-card__image-container--img" src="images-and-icons/icons/Veterenarian-icon.png" alt="appointment-card-image">
+                <p class="appointment-card__image-container--label">Swine Consultation</p>
+              </div>
+              <div class="appointment-card__details-and-more-details-container">
+                <div class="appointment-card__details-container">
+                  <p class="appointment-card__title appointment-card__detail">
+                    <span class="appointment-card__detail--label">Title:</span>
+                    <span class="appointment-card__detail--value">Iron Supplemantation</span>
+                  </p>
+                  <p class="appointment-card__count appointment-card__detail">
+                    <span class="appointment-card__detail--label">SwinesCount:</span>
+                    <span class="appointment-card__detail--value">7 Swines</span>
+                  </p>
+                  <p class="appointment-card__date--first-dose appointment-card__detail">
+                    <span class="appointment-card__detail--label">Fist Dose Date:</span>
+                    <span class="appointment-card__detail--value">April 15, 2025 <span class="dose-status">(1st Dose)</span></span>
+                  </p>
+                </div>
+                <div class="appointment-card__more-details-container">
+                  <p class="appointment-card__time appointment-card__detail">
+                    <span class="appointment-card__detail--label">Time:</span>
+                    <span class="appointment-card__detail--value">9:00 AM</span>
+                  </p>
+                  <p class="appointment-card__status appointment-card__detail">
+                    <span class="appointment-card__detail--label">Status:</span>
+                    <span class="appointment-card__detail--value">Ongoing</span>
+                  </p>
+                  <p class="appointment-card__date--second-dose appointment-card__detail">
+                    <span class="appointment-card__detail--label">Second Dose Date:</span>
+                    <span class="appointment-card__detail--value">April 15, 2025 <span class="dose-status">(2nd Dose)</span></span>
+                  </p>
+                </div>
+              </div>
+
+              <button class="appointment-card__toggle-more-details-btn">View More</button>
+            </div>
+          </div>
+
+          <!-- Request Appointment Form -->
+          <form id="request-appointment-form" class="request-appointment-form">
+            <button class="request-appointment-form__back-btn" type="button">
+              <i class="request-appointment-form__back-btn--arrow fas fa-arrow-left"></i> 
+              <span class="request-appointment-form__back-btn--label">Back</span>
+            </button>
+            <h1 class="request-appointment-form__heading">Request Appointment Form</h1>
+
+            <p class="form-detail__label">Select Swine to Appoint:</p>
+
+            <div class="request-appointment-form__swines-list">
+              <div class="request-appointment-form__swines-list--header">
+                <label>
+                  <input type="checkbox" id="select-all-swines">
+                  <span>All Swine</span>
+                </label>
+              </div>
+
+              <div class="request-appointment-form__swines-list--grid">
+                <label><input type="checkbox" name="swines" value="0010"> 0010</label>
+                <label><input type="checkbox" name="swines" value="0011"> 0011</label>
+                <label><input type="checkbox" name="swines" value="0012"> 0012</label>
+                <label><input type="checkbox" name="swines" value="0013"> 0013</label>
+                <label><input type="checkbox" name="swines" value="0014"> 0014</label>
+                <label><input type="checkbox" name="swines" value="0015"> 0015</label>
+                <label><input type="checkbox" name="swines" value="0016"> 0016</label>
+                <label><input type="checkbox" name="swines" value="0017"> 0017</label>
+              </div>
+            </div>
+
+            <div class="form-group-detail">
+              <div class="form-detail" for="select-appointment-service"> 
+                <span class="form-detail__label">Appointment Service:</span>
+                <select class="form-detail__value" id="select-appointment-service" name="select-appointment-service" required>
+                  <option value="">Select Service</option>
+                  <option value="deworming">Deworming</option>
+                </select>
+              </div>
+
+              <div class="form-detail" for="select-appointment-type"> 
+                <span class="form-detail__label">Appointment Type:</span>
+                <select class="form-detail__value" id="select-appointment-type" name="select-appointment-type" required>
+                  <option value="">Select Type</option>
+                  <option value="consult">Consult</option>
+                  <option value="visit">Visit</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group-detail">
+              <div class="form-detail" for="select-municipal"> 
+                <span class="form-detail__label">Municipal:</span>
+                <select class="form-detail__value" id="select-municipal" name="select-municipal" required>
+                  <option value="">Select Municipal</option>
+                  <option value="boac">Boac</option>
+                </select>
+              </div>
+
+              <div class="form-detail" for="select-barangay"> 
+                <span class="form-detail__label">Barangay:</span>
+                <select class="form-detail__value" id="select-barangay" name="select-barangay" required>
+                  <option value="">Select Barangay</option>
+                  <option value="santol">Santol</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group-detail">
+              <div class="form-detail" for="input-date"> 
+                <span class="form-detail__label">Date:</span>
+                <input class="form-detail__value" id="input-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)" required>
+              </div>
+
+              <div class="form-detail" for="input-time"> 
+                <span class="form-detail__label">Time:</span>
+                <input class="form-detail__value" id="input-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)" required>
+              </div>
+            </div>
+
+            <div class="form-group-detail">
+              <div class="form-detail" for="input-contact-number"> 
+                <span class="form-detail__label">Contact Number:</span>
+                <input class="form-detail__value" type="number" name="input-contact-number" id="input-contact-number" placeholder="09+" required>
+              </div>
+
+              <div class="form-detail" for="input-email"> 
+                <span class="form-detail__label">Email:</span>
+                <input class="form-detail__value" type="email" name="input-email" id="input-email" placeholder="email@gmail.com" required>
+              </div>
+            </div>
+
+            <div class="form-detail" for="input-note"> 
+              <span class="form-detail__label">Note:</span>
+              <textarea class="form-detail__value" name="input-note" id="input-note" placeholder="Type your appointment note" required></textarea>
+            </div>
+
+            <div class="request-appointment-form__buttons-container">
+              <button class="request-appointment-form__submit-btn" type="submit">Submit</button>
+            </div>
+          </form>
+
+         </section>
+
+        <!-- ========== Messages Section ========== -->
+        <section id="messages-section" class="hide">
+          <h1 class="section__heading">Messages</h1>
+          <button class="back-to-contact-list-btn" type="button">
+            <i class="back-to-contact-list-btn--arrow fas fa-arrow-left"></i> 
+            <span class="back-to-contact-list-btn--label">Back</span>
+          </button>
+          <!-- profile view -->
+          <div class="profile-view">
+            <img class="profile-view__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user image" >
+            <h2 class="profile-view__user-name">John Harvey Puyong</h2>
+            <p class="profile-view__user-email">harvey@gmail.com</p>
+            <button class="profile-view__back-btn">Back</button>
+          </div>
+          <div class="messages-section__main-wrapper">
+            <!-- side-chat-panel -->
+            <div class="sidebar-chat-panel"> 
+              <div class="sidebar-chat-panel__search">
+                <img class="sidebar-chat-panel__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon">
+                  <input class="sidebar-chat-panel__search-input" type="text" placeholder="Search...">  
+              </div>
+              <div class="chat-list">
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+                <div class="chat-list__user">
+                  <img class="chat-list__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image">
+                  <p class="chat-list__user-name-and-message">
+                    <span class="chat-list__user-name">John Harvey</span>
+                    <span class="chat-list__user-message">Hello Goodmoring</span>
+                  </p>  
+                  <p class="chat-list__user-last-active-time">2 min.</p>
+                  <p class="chat-list__user-number-of-message">3</p>
+                </div>
+              </div>
+            </div>
+            <!-- convo box -->
+            <div class="chat-box show"> 
+              <!-- convo box description-->
+              <div class="chat-box__description"> 
+                <h2>Open client messages</h2>
+                <p>Click the icon or messages in the left side of the screen.</p>
+              </div>
+               <div class="chat-box__main-contents">
+                 <!-- convo box header -->
+                  <div class="chat-box__header">
+                    <img class="chat-box__header-user-img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-img">
+                    <div class="chat-box__header-user-name-and-active-status">
+                      <p class="chat-box__header-user-name">John Harvey</p>
+                      <p class="chat-box__header-user-active-status">
+                        <span class="chat-box__header-user-active-status--dot"></span>
+                        <span class="chat-box__header-user-active-status--label">Active</span>
+                      </p>
+                    </div>
+                  </div>
+                  <!-- convo box chat-->
+                  <div class="convo-list"> 
+                    <!-- admin chat -->
+                    <div class="convo-list__admin-chat"> 
+                      <div class="convo-list__admin-chat-time-sent time-sent">7:00 AM</div>
+                      <div class="convo-list__admin-chat-details">
+                        <img class="convo-list__admin-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
+                        <p class="convo-list__admin-chat-details--name">John</p>
+                      </div>
+                      <p class="convo-list__admin-chat-message chat-message">Hello Goodmorning</p>
+                    </div>
+                    <!-- user chat -->
+                    <div class="convo-list__client-chat"> 
+                      <p class="convo-list__client-chat-time-sent time-sent">8:00 AM</p>
+                      <p class="convo-list__client-chat-message chat-message">Hello This is veterenary admin</p>
+                    </div>
+                  </div>
+                  <form class="chat-box__chat-input-area"> <!-- chat input erea-->
+                    <!-- Attachment icon and input -->
+                    <label for="input-file" class="chat-input-area__input-file" title="Attach a file">
+                      <i class="icon fas fa-paperclip"></i>
+                    </label>
+                    <input id="input-file" type="file" style="display: none;">
+                    <!-- Text message input -->
+                    <input class="chat-input-area__input-message" type="text" placeholder="Type a Message" required>             
+                    <!-- Upload Images btn -->
+                    <label for="input-image" class="chat-input-area__input-image" title="Send an image">
+                      <i class="icon far fa-image"></i>
+                    </label>
+                    <input id="input-image" type="file" accept="image/*" style="display: none;">
+                    <!-- Send button -->
+                    <button class="chat-box__send-btn" type="submit" id="send-chat-btn" title="Send message">
+                      <i class="icon fas fa-paper-plane"></i>
+                    </button>
+                  </form>
+               </div>      
+            </div>
+          </div>
+        </section>
+
+        <!-- ========== Services Section ========== -->
+        <section id="services-section" class="hide">
+          <h1 class="section__heading">Services</h1>
+
+          <div class="services-card-list">
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhvkdhjkadshksfhakkjsfsjfffffffffffffffffffffffffffffkhdfg
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+            <div class="service-card">
+              <h2 class="services-card__title">Service Title</h2>
+              <p class="services-card__description">&nbsp; 
+                <span class="services-card__description--details">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Magni voluptates reiciendis officia quo repellat doloribus,
+                </span>
+                <span class="services-card__description--more-details">
+                  ipsam eligendi quae laborum architecto, animi unde obcaecati iure? Eaque eveniet at animi officia culpa.
+                </span>
+              </p>
+
+              <button class="service-card-show-more-description-btn">Read more...</button>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <script type="module" src="script/Main.js"></script>
+  </body>
+</html>

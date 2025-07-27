@@ -1,0 +1,292 @@
+/* ===================================================
+   ============== Section Buttons ==============
+   ===================================================
+*/
+.appointments-section__buttons-container{
+  display: flex;
+  gap: 15px;  
+  margin-bottom: 40px;
+}
+
+.appointments-section__buttons-container button{
+  padding: 13px 14px;
+  font-weight: 600;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.request-appointment-btn{
+  color: white;
+  background-color: #2FC375;
+}
+
+.go-to-schedules-section-btn{
+  color: #002BFF;
+  background-color: #a5b4ff;
+}
+
+
+/* ===================================================
+   ============== Appointments Cards List ==============
+   ===================================================
+*/
+.appointments-card-list{
+  display: grid;
+  row-gap: 25px;
+  column-gap: 25px;
+  padding-bottom: 25px;
+}
+
+.appointment-card{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  column-gap: 20px;
+  background-color: rgb(244, 244, 244);
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
+  border-radius: 5px;
+  padding: 15px 22px;
+  padding-bottom: 50px;
+}
+
+.appointment-card__image-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 120px;
+  gap: 15px;
+  background-color: #0f6593;
+  border-radius: 5px;
+  padding: 16px 12px;
+}
+
+.appointment-card__image-container--img{
+  --size: 50px;
+
+  width: var(--size);
+  max-width: var(--size);
+  height: var(--size);
+}
+
+.appointment-card__image-container--label{
+  color: white;
+  text-align: center;
+  font-weight: 600;
+}
+
+.appointment-card__toggle-more-details-btn{
+  position: absolute;
+  right: 25px;
+  font-size: 0.95rem;
+  bottom: 10px;
+  border: none;
+  background: transparent;
+  color: #0f6593;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.appointment-card__detail{
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.appointment-card__detail--label{
+  font-weight: 600;
+}
+
+.appointment-card__detail--value{
+  color: rgba(0, 0, 0, 0.718);
+}
+
+.appointment-card__more-details-container{
+  display: none;
+}
+
+.appointment-card__more-details-container.show{
+  display: block;
+}
+
+
+/* ===================================================
+   ============== Request Appointment Form ==============
+   ===================================================
+*/
+.request-appointment-form{
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: white;
+  padding: 25px 25px;
+  overflow-y: scroll;
+  scrollbar-width: thin;
+  z-index: 1000;
+}
+
+.request-appointment-form.show{
+  display: inline-block;
+}
+
+.request-appointment-form__back-btn{
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  border: 1px solid rgb(255, 255, 255);
+  background-color: rgb(226, 69, 69);
+  color: white;
+  border-radius: 3px;
+  padding: 4px 15px;
+  cursor: pointer;
+}
+
+.request-appointment-form__back-btn--arrow{
+  margin-right: 2px;
+}
+
+.request-appointment-form__heading{
+  text-align: center;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  color: #2FC375;
+  margin-bottom: 40px;
+  margin-top: 50px;
+}
+
+.request-appointment-form__swines-list{
+  --container-padding: 15px 15px;
+
+  border: 1.3px solid rgba(0, 0, 0, 0.902);
+  border-radius: 3px;
+  margin-bottom: 40px;
+}
+
+.request-appointment-form__swines-list--header{
+  background-color: #2FC375;
+  color: white;
+  padding: var(--container-padding);
+}
+
+.request-appointment-form__swines-list--grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  row-gap: 15px;
+  column-gap: 15px;
+  padding: var(--container-padding);
+}
+
+.request-appointment-form__swines-list--grid label{
+  color: rgba(0, 0, 0, 0.8);
+}
+
+/* custom checkbox */
+.request-appointment-form__swines-list input[type="checkbox"] {
+  appearance: none;
+  background-color: rgb(229, 229, 229);
+  border: 1px solid #555;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  padding: 12px;
+  margin-left: 2px;
+}
+
+.request-appointment-form__swines-list input[type="checkbox"]:checked {
+  border-color: #4CAF50;
+}
+
+.request-appointment-form__swines-list input[type="checkbox"]:checked::after {
+  content: '✔';
+  color: #2FC375;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 19px;
+}
+
+.form-detail{
+  margin-bottom: 25px;
+  width: 100%;
+}
+
+.request-appointment-form .form-detail__label{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 7px;
+}
+
+.request-appointment-form .form-detail__value{
+  border: 1px solid black;
+  color: rgba(0, 0, 0, 0.7);
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px 7px;
+}
+
+.form-detail #input-note{
+  min-height: 100px;
+}
+
+.request-appointment-form__buttons-container{
+  display: flex;
+  justify-content: end;
+  gap: 10px
+}
+
+.request-appointment-form__buttons-container button{
+  padding: 9px 0;
+  color: white;
+  width: 130px;
+  border: none;
+  border-radius: 3px;
+}
+
+.request-appointment-form__submit-btn{
+  background-color: #18a95c;
+}
+
+
+@media(width >= 500px){
+  .request-appointment-form .form-group-detail{
+    display: flex;
+    width: 100%;
+    column-gap: 20px;
+  }
+}
+
+@media(width >= 700px){
+  .request-appointment-form{
+    top: 51%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: clamp(650px, 50vw, 700px);
+    height: clamp(520px, 40vw, 600px);
+    border-radius: 5px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.493);
+    padding: 25px 35px;
+  }
+}
+
+
+@media(width >= 800px){
+  .appointments-card-list{
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .appointment-card{
+    padding: 15px 25px;
+    padding-bottom: 50px;
+  }
+}
+
+
+@media(width >= 1170px){
+  .appointments-card-list{
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}
