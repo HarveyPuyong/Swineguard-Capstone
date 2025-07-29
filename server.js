@@ -34,7 +34,11 @@ app.get('/', (req, res) => {
 
 });
 
-// Auth Routing
+// app.get('/client-login', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'frontend', 'client', 'login.html'));
+// });
+
+// Auth Routing User
 app.use('/auth', require('./routes/authRoute'));
 
 //Logout routing

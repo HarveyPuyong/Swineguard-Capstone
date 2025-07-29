@@ -104,8 +104,14 @@
   gap: 10px;
   margin-top: 22px;
 }
+.profile-details-list__logout-btn {
+  margin-top: 10px;
+  width: 100%;
+  background-color: rgb(39, 39, 196);
+}
 
-.profile-details-list__buttons-container button{
+.profile-details-list__buttons-container button,
+.profile-details-list__logout-btn{
   padding: 8px 0;
   color: white;
   border: none;
@@ -113,7 +119,7 @@
   cursor: pointer;
 }
 
-.profile-details-list__cancel-btn{
+.profile-details-list__cancel-btn {
   background-color: rgb(217, 0, 0);
 }
 

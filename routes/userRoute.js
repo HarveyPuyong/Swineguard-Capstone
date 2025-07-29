@@ -27,7 +27,7 @@ router.put('/edit/:id', verifyJWT, editUserDetails);
 
 router.get('/users',verifyJWT, getUsers); 
 
-router.get('/client-profile', verifyJWT, getUser);
+router.get('/client-profile', verifyJWT, verifyRoles(ROLE_LIST.User), getUser);
 
 router.get('/admin-profile', verifyJWT, verifyRoles(ROLE_LIST.Admin,
                                          ROLE_LIST.AppointmentCoordinator,

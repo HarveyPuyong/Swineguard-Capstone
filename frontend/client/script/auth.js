@@ -1,3 +1,4 @@
+
 // ======================================
 // ========== Handle Change Form
 // ======================================
@@ -205,11 +206,9 @@ const handleTogglePasswordVisibility = () => {
 // ======================================
 // ========== Main Function 
 // ======================================
-function authMain() {
+export function authMain() {
   handleChangeForm();
   handleNextInSignupForm();
   handleTogglePasswordVisibility();
   handleBackInSignupForm();
 } 
-
-authMain()

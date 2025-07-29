@@ -1,3 +1,6 @@
+import handleClientLogout from "./auth/logout-client.js";
+import {displayClientProfileSetting, displayClientName} from "./setting/display-setting.js";
+
 // ======================================
 // ========== Hide Profile Container
 // ======================================
@@ -33,9 +36,32 @@ const toggleEditMode = () => {
 
 
 // ======================================
+// ========== Toggle Edit Mode
+// ======================================
+const handleLogoutBtn = () => {
+  const logoutBtn = document.querySelector('#client-logout-btn');
+  if (!logoutBtn) {
+    console.log('Client logput button not exist!');
+    return;
+  }
+  logoutBtn.addEventListener('click', handleClientLogout);
+}
+
+
+// ======================================
+// ✅ Event listener for dynamic content
+// ======================================
+document.addEventListener('renderClientProfile', () => {
+  toggleEditMode(); // Runs only after profile HTML is rendered
+});
+
+
+// ======================================
 // ========== Main Function - Setup Profile
 // ======================================
-export default function setupProfile() {
+export default async function setupProfile() {
+  displayClientName();
+  await displayClientProfileSetting();
   hideProfileContainer();
-  toggleEditMode();
+  handleLogoutBtn();
 }
