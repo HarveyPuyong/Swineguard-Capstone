@@ -100,7 +100,23 @@ const displayClientName = async() => {
         const currentDate = document.querySelector('.dashboard-section__top-content .dashboard-section__current-date');
         clientName.textContent = `${firstName} ${lastName}`;
         const date = new Date();
-        currentDate.textContent = `${date}`;
+        const options = {
+        weekday: 'short',
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: true,
+        };
+
+        let formattedDate = date.toLocaleString('en-US', options)
+        .replace(',', '')                           // remove comma
+        .replace(/(\d+):(\d+)\s(AM|PM)/, (_, h, m, ampm) => {
+            return `${String(h).padStart(2, '0')}:${m}${ampm}`; // ensure 2-digit hour
+        });
+
+        currentDate.textContent = formattedDate;
 
     } catch (err) {
     console.error("Error loading user info:", err);

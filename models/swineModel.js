@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 
 const appointmentSchema = new mongoose.Schema({
 
+    swineFourDigitId: {type: String, required: true, unique: true},
     breed: { type: String, required: true },
     type: { type: String, required: true },
     birthdate: { type: Date, required: true },

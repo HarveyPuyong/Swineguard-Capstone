@@ -1,10 +1,11 @@
 const swineDB = require('./../models/swineModel');
+const generateSwineId = require('./../utils/generate-swine-id')
 const mongoose = require('mongoose');
 
 // Add Swine
 exports.addSwine = async (req, res) => {
 
-    const {breed, type, birthdate, sex, weight, clientId} = req.body;
+    const {swineFourDigitId, breed, type, birthdate, sex, weight, clientId} = req.body;
 
     // Validate birthdate of swine
     if (new Date(birthdate) > new Date()) {
@@ -17,7 +18,10 @@ exports.addSwine = async (req, res) => {
     // ✅ Convert to numbers after validation
     const numericWeight = Number(weight);
 
-    const swineData = {breed, type, birthdate, sex, weight: numericWeight, clientId};
+    // Generate Unique 4 digit swine Id:
+    const generatedSwineId = await generateSwineId();
+    
+    const swineData = {swineFourDigitId: generatedSwineId, breed, type, birthdate, sex, weight: numericWeight, clientId};
 
     // Validate input fields
     if (Object.values(swineData).some(field => field === undefined || field === null)) {

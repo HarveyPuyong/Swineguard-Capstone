@@ -13,16 +13,22 @@ const displayContactList = async () => {
     const chatListContainer = document.querySelector('.chat-list');
     chatListContainer.innerHTML = '';
 
+    // Only clients (users)
     const clientUsers = allUsers.filter(user => user.roles.includes('user'));
 
     const conversationsMap = new Map();
 
     allMessages.forEach(msg => {
-      // Get the other party's ID
-      const isCoordinatorSender = msg.sender === appointmentCoordinatorId;
-      const clientId = isCoordinatorSender ? msg.receiver : msg.sender;
+      // Only process messages where the appointment coordinator is involved
+      if (msg.sender !== appointmentCoordinatorId && msg.receiver !== appointmentCoordinatorId) {
+        return;
+      }
 
-      if (clientId === appointmentCoordinatorId) return; // skip if somehow same
+      const clientId = msg.sender === appointmentCoordinatorId ? msg.receiver : msg.sender;
+
+      // Ensure the "client" is a user (not a vet or another staff)
+      const client = clientUsers.find(user => user._id === clientId);
+      if (!client) return;
 
       if (!conversationsMap.has(clientId)) {
         conversationsMap.set(clientId, []);
@@ -71,6 +77,5 @@ const displayContactList = async () => {
       <p class="text-center text-red">Failed to load messages.</p>`;
   }
 };
-
 
 export default displayContactList;

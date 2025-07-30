@@ -288,8 +288,8 @@
   padding-left: 35px;
   padding-right: 34px;
   padding-top: 10px;
-  padding-bottom: 10px;
-  height: 408px;
+  padding-bottom: 2rem;
+  height: 388px;
   max-height: 72%;
   overflow: scroll;
   scrollbar-width: none;
@@ -306,7 +306,7 @@
   overflow-wrap: break-word;  
   word-break: keep-all;     
   white-space: normal;     
-  cursor: pointer;   
+  cursor: pointer;    
 }
 
 .convo-list .time-sent{
@@ -334,7 +334,8 @@
   align-items: center;
 }
 
-.convo-list__admin-chat-details--img{
+.convo-list__admin-chat-details--img,
+.convo-list__vetStaff-chat-details--img{
   --size: 30px;
 
   height: var(--size);
@@ -438,6 +439,108 @@
   border: none;
   background-color: transparent;
 }
+
+
+/* 
+  Client chat
+*/
+.convo-list__user-chat{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin-left: auto;
+  width: 65%;
+}
+
+.convo-list__user-chat-time-sent{
+  text-align: left;
+  margin-left: 15.8%;
+  margin-bottom: 0.5rem;
+  align-self: flex-start;
+}
+
+.convo-list__user-chat-message{
+  background-color: var(--main-color);
+  text-align: right;
+}
+
+/* 
+  VetStaff chat
+*/
+.convo-list__vetStaff-chat{
+  width: 65%;
+  margin-right: auto;
+}
+
+.convo-list__vetStaff-chat-time-sent{
+  text-align: right;
+  font-size: 0.8rem;
+  margin-right: 20%;
+  opacity: 0.7;
+}
+
+.convo-list__vetStaff-chat-details{
+  display: flex;
+  align-items: center;
+}
+
+.convo-list__vetStaff-chat-details--img{
+  --size: 30px;
+
+  height: var(--size);
+  width: var(--size);
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.convo-list__vetStaff-chat-details--name{
+  font-weight: 600;
+  margin-right: 13px;
+}
+
+.convo-list__vetStaff-chat-message{
+  margin-left: 46px;
+  background-color: #5c5c5c;
+}
+
+
+/* For Visibilty of messages */
+.chat-box__header.hide,
+.convo-list.hide {
+  display: none;
+}
+
+.pre-heading-text.hide {
+  display: none;
+}
+.pre-heading-text.show {
+  display: flex;
+}
+
+.pre-heading-text {
+  margin-top: 27%;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  width: 100%;
+  padding: 1rem;
+  align-items: center;
+}
+
+.pre-heading-text h1 {
+  font-size: 2rem;
+  color: #555555;
+  font-weight: 900;
+}
+.pre-heading-text p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #3d3d3d;
+}
+
+
+
+
 
 @media(width <= 1406px){
   #messages-section .section__heading{

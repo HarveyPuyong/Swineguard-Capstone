@@ -41,6 +41,10 @@
   display: block;
 }
 
+.services-card__description--details.hide {
+  display: none;
+}
+
 .service-card-show-more-description-btn{
   width: 100%;
   border: none;
@@ -48,6 +52,10 @@
   font-weight: 600;
   color: rgb(154, 154, 154);
   cursor: pointer;
+}
+
+.services-card__description--details {
+  text-align: justify;
 }
 
 

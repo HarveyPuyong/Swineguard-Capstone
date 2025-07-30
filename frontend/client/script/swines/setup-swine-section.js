@@ -1,3 +1,6 @@
+import displayClientSwines from "./display-swine.js";
+
+
 // ======================================
 // ========== Toggle Swine Full Details
 // ======================================
@@ -57,7 +60,8 @@ const toggleAddSwineForm = () => {
 // ========== Main Function - Setup Swines Section
 // ======================================
 export default function setupSwinesSection() {
- toggleAddSwineForm();
- toggleSwineFullDetails();
- toggleEditMode();
+  displayClientSwines();
+  toggleAddSwineForm();
+  toggleSwineFullDetails();
+  toggleEditMode();
 }

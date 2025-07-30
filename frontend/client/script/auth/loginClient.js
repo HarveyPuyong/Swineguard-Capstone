@@ -3,28 +3,6 @@ import popupAlert from '../../../admin/utils/popupAlert.js';
 import fetchClient from './fetch-client.js';
 import { authMain } from '../auth.js';
 
-// ======================================
-// ✅ Redirect If Already Logged In
-// ======================================
-// (async () => {
-//   const accessToken = localStorage.getItem('accessToken');
-//   if (accessToken) {
-//     try {
-//       const user = await fetchClient();
-//       if (!user) throw new Error("No user data returned");
-
-//       const userRole = user.roles?.[0];
-//       if (userRole === 'user') {
-//         location.replace('client-homepage.html'); // client dashboard
-//       } else {
-//         location.replace('auth.html'); // fallback/unauthorized
-//       }
-//     } catch (err) {
-//       console.warn('Auto-login failed or unauthorized:', err.message);
-//       localStorage.removeItem('accessToken'); // clear invalid token
-//     }
-//   }
-// })();
 
 // ======================================
 // ✅ Redirect If Already Logged In

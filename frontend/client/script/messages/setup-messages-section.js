@@ -1,33 +1,44 @@
+import displayContactList from "./display-contact-list.js";
+import displayClientConversation from "./display-messages.js";
+
 // ======================================
 // ========== Show Conversation
 // ======================================
 const showConversation = () => {
-  const sectionHeading = document.querySelector('#messages-section .section__heading')
+  const sectionHeading = document.querySelector('#messages-section .section__heading');
   const chatboxContainer = document.querySelector('.chat-box');
   const backToContactListBtn = document.querySelector('.back-to-contact-list-btn');
   const chatboxConvo = document.querySelector('.chat-box__main-contents');
-  const chatboxDescription = document.querySelector('.chat-box__description');
+  const preHeading = document.querySelector('.pre-heading-text');
+  const chatHeader = document.querySelector('.chat-box__header');
+  const convoList = document.querySelector('.convo-list');
   const contactListContainer = document.querySelector('.sidebar-chat-panel');
-  const contactList = document.querySelectorAll('.sidebar-chat-panel .chat-list__user');
 
-  contactList.forEach(user => {
-    user.addEventListener('click', () => {
-      chatboxDescription.style.display = 'none'
-      chatboxConvo.style.display = 'block';
+  document.addEventListener('renderContactList', () => {
+    document.querySelectorAll('.chat-list__user').forEach(user => {
+      user.addEventListener('click', () => {
+        const staffId = user.getAttribute('data-client-id');
+        displayClientConversation(staffId); // Load messages
 
-      // Show convo in mobile view
-      if (window.innerWidth <= 1100) {
-        contactListContainer.classList.remove('show');
-        chatboxContainer.classList.add('show');
-        sectionHeading.style.display = 'none';
-        backToContactListBtn.classList.add('show');
+        // Hide the pre-heading text and show the convo parts
+        preHeading.classList.add('hide');
+        preHeading.classList.remove('show');
 
-      }
+        chatHeader.classList.remove('hide');
+        convoList.classList.remove('hide');
+
+        // Mobile view adjustments
+        if (window.innerWidth <= 1100) {
+          contactListContainer.classList.remove('show');
+          chatboxContainer.classList.add('show');
+          sectionHeading.style.display = 'none';
+          backToContactListBtn.classList.add('show');
+        }
+      });
     });
   });
 
-  
-  // Back to contact-list and hide convo in mobile view
+  // Back to contact list
   backToContactListBtn.addEventListener('click', () => {
     if (window.innerWidth <= 1100) {
       contactListContainer.classList.add('show');
@@ -36,12 +47,12 @@ const showConversation = () => {
       backToContactListBtn.classList.remove('show');
     }
   });
-}
-
+};
 
 // ======================================
 // ========== Main Function - Setup Messages Section
 // ======================================
 export default function setupMessagesSection() {
+  displayContactList();
   showConversation();
 }

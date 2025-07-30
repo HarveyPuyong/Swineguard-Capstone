@@ -35,14 +35,16 @@ const showConversation = () => {
 
     
     // Back to contact-list and hide convo in mobile view
-    backToContactListBtn.addEventListener('click', () => {
-      if (window.innerWidth <= 1100) {
-        contactListContainer.classList.add('show');
-        chatboxContainer.classList.remove('show');
-        sectionHeading.style.display = 'block';
-        backToContactListBtn.classList.remove('show');
-      }
-    });
+    if (backToContactListBtn) {
+      backToContactListBtn.addEventListener('click', () => {
+        if (window.innerWidth <= 1100) {
+          contactListContainer.classList.add('show');
+          chatboxContainer.classList.remove('show');
+          sectionHeading.style.display = 'block';
+          backToContactListBtn.classList.remove('show');
+        }
+      });
+    }
   });
 }
 
