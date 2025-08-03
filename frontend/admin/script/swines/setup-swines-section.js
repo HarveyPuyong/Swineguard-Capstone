@@ -1,4 +1,5 @@
 import handleRenderSwines from "./display-swines.js";
+import swineMapping from "./swine-mapping.js"
 
 
 // ======================================
@@ -93,5 +94,6 @@ export default function setupSwinesSection() {
   handleRenderSwines();
   searchSwines();
   filterSwines();
-  toggleSwineMoreDetails()
+  toggleSwineMoreDetails();
+  swineMapping();
 }
