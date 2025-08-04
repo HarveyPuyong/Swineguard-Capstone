@@ -27,8 +27,6 @@ const displayClientSwines = async() => {
         document.querySelector('.swines-card-list').innerHTML = swineHTML;
 
         document.dispatchEvent(new Event('renderClientSwine')); 
-
-
     } catch (err) {
     console.error("Error loading services:", err);
   }

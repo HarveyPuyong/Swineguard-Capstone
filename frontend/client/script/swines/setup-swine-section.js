@@ -5,17 +5,20 @@ import displayClientSwines from "./display-swine.js";
 // ========== Toggle Swine Full Details
 // ======================================
 const toggleSwineFullDetails = () => {
-  const swineFullDetailsContainer = document.querySelector('.swines-full-info');
-  const swines = document.querySelectorAll('.swine-card');
+  document.addEventListener('renderClientSwine', () => {
+    console.log('swine')
+    const swineFullDetailsContainer = document.querySelector('.swines-full-info');
+    const swines = document.querySelectorAll('.swine-card');
 
-  swines.forEach(swine => {
-    swine.addEventListener('click', () => {
-      swineFullDetailsContainer.classList.add('show')
+    swines.forEach(swine => {
+      swine.addEventListener('click', () => {
+        swineFullDetailsContainer.classList.add('show');
+      });
     });
-  });
 
-  const backBtn = document.querySelector('.swines-full-info__back-btn').
-    addEventListener('click', () => swineFullDetailsContainer.classList.remove('show'));
+    const backBtn = document.querySelector('.swines-full-info__back-btn').
+      addEventListener('click', () => swineFullDetailsContainer.classList.remove('show'));
+  });
 }
 
 

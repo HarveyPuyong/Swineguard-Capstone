@@ -185,7 +185,6 @@ const verifyUserAccount = async (req, res) => {
 }
 
 // Reset Password
-
 const resetUserPassword = async (req, res) => {
     const { id } = req.params;
     const { email, password } = req.body;
@@ -211,37 +210,6 @@ const resetUserPassword = async (req, res) => {
     }
 };
 
-// Verify 4 digit OTP code
-const verifyOTP = async (req, res) => {
-
-    const email = req.body.email?.trim();
-    const otp = req.body.otp?.trim();
-
-  try {
-    const user = await User.findOne({ email });
-
-    if (!user) return res.status(400).json({ message: 'User not found.' });
-
-    // Check OTP and expiration
-    if (user.otp !== otp) {
-      return res.status(400).json({ message: 'Invalid OTP.' });
-    }
-
-    if (user.otpExpires < Date.now()) {
-      return res.status(400).json({ message: 'OTP has expired.' });
-    }
-
-    // OTP is valid
-    user.otp = null;
-    user.otpExpires = null;
-    await user.save();
-
-    return res.status(200).json({ message: 'OTP verified successfully. Waiting for vet approval.' });
-
-  } catch (err) {
-    return res.status(500).json({ message: 'Server error', error: err.message });
-  }
-}
 
 module.exports = {
     editUserDetails, 
@@ -249,5 +217,5 @@ module.exports = {
     getTechandVets, 
     getAllStaffs, 
     verifyUserAccount,
-    resetUserPassword, 
-    verifyOTP};
+    resetUserPassword
+};

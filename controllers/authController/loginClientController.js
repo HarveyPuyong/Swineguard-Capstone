@@ -8,14 +8,13 @@ const clientLoginController = async(req, res) => {
 
   if(!email || !password) return res.status(400).json({message: "Email and password are required"});
 
-
   try{
     const foundUser = await UserDB.findOne({email}).exec();
     if(!foundUser) return res.status(404).json({message: "User not Found"});
 
     const matchPassword = await bcrypt.compare(password, foundUser.password);
     if(!matchPassword) return res.status(400).json({message: "Incorrect Password"});
-
+  
     const userName = `${foundUser.firstName}, ${foundUser.lastName}`;
 
     const accessToken = generateAccessToken(process.env.ACCESS_TOKEN_SECRET,
@@ -48,7 +47,8 @@ const clientLoginController = async(req, res) => {
     return res.status(200).json({ 
       message: `User ${userName} is successfully login`, 
       accessToken, 
-      roles: foundUser.roles 
+      roles: foundUser.roles,
+      isRegistered: foundUser.isRegistered
     });
   }catch(err){
     console.log(err.message);

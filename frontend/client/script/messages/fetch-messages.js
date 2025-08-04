@@ -1,4 +1,4 @@
-import api from "../../../admin/utils/axiosConfig.js";
+import api from "../../client-utils/axios-config.js";
 
 const fetchMessages = async () => {
   const accessToken = localStorage.getItem('accessToken');

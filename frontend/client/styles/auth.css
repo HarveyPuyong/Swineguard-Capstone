@@ -252,19 +252,31 @@ form#login-form.show{
    ============== Signup Form ==============
    ===================================================
 */
-#signup-form{
+#signup-form, 
+#signup-form-email,
+#signup-form-otp ,
+#signup-form-password{
   display: none;
 }
-#signup-form.show {
+#signup-form.show,
+#signup-form-email.show ,
+#signup-form-otp.show ,
+#signup-form-password.show {
   display: block;
 }
 
-#signup-form .form__top-pig{
+#signup-form .form__top-pig,
+#signup-form-email .form__top-pig,
+#signup-form-otp .form__top-pig,
+#signup-form-password .form__top-pig {
   left: 0;
   top: -55px;
 }
 
-#signup-form .form__bottom-pig{
+#signup-form .form__bottom-pig,
+#signup-form-email .form__bottom-pig,
+#signup-form-otp .form__bottom-pig,
+#signup-form-password .form__bottom-pig {
   right: -20px;
   bottom: -30px;
 }
@@ -349,13 +361,6 @@ form#login-form.show{
 
 
 /* 5th field (terms and conditions)*/
-.signup-form__terms-and-conditions{
-  margin-bottom: 35px;
-  color: rgb(0, 0, 0);
-  line-height: 1.5em;
-  text-align: justify;
-  font-size: 1.1rem;
-}
 
 .signup-form__fifth-field label{
   display: flex;
@@ -411,6 +416,26 @@ input[type="checkbox"]:checked::after {
   font-size: clamp(1.1rem, 4vw, 1.2rem);
 }
 
+
+/* 
+OTP DESIGN
+*/
+
+.otp-container {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.otp-container input {
+  height: 5rem;
+  width: 4rem;
+  text-align: center;
+  color: black;
+  font-weight: 600;
+  font-size: 1.8rem;
+}
 
 
 

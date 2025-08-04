@@ -1,4 +1,4 @@
-import api from '../../../admin/utils/axiosConfig.js';
+import api from '../../client-utils/axios-config.js';
 import fetchClient from '../auth/fetch-client.js';
 import displayClientConversation from './display-messages.js';
 

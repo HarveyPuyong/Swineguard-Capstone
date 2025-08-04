@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Verification Pending</title>
+            <!-- Axios CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+     <!-- Sweet Alert CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- CDN for Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles/auth.css">
+    <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/unverified-user.css">
+
+</head>
+<body>
+  <!-- ========== Header ========== -->
+  <header>
+    <div class="header__logo">
+      <img class="header__logo--icon" src="images-and-icons/icons/swineGuard-logo.png" alt="logo-icon">
+      <p class="header__logo--label">Swine Guard</p>
+    </div>
+  </header>
+
+  <main class="main-wrapper-unregistered">
+    <div class="verification-box">
+      <h2>Account Under Verification</h2>
+      <p>
+        Dear <span id="client-name">user</span>, your account is currently undergoing the verification process.
+        Please wait for updates via email from the Provincial Veterinary Office.
+        <br /><br />
+        You may also visit the office:<br />
+        <strong>Marinduque Provincial Office, Bangbangalon, Boac, Marinduque</strong><br />
+        Call: 09123456789<br />
+        Email: pvet@gmail.com
+      </p>
+      <button id="not-verified-user-btn">Logout</button>
+    </div>
+  </main>
+
+  <script src="./script/auth/handle-unregister-client.js" type="module"></script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+const { User } = require('../config/role_list');
 const UserDB = require('../models/userModel');
 
 
@@ -55,4 +56,22 @@ const getUserById = async (req, res) => {
 };
 
 
-module.exports = {getUser, getUsers, getUserById};
+// Check existing Email to the system
+const checkExistingEmail = async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    const existingUser = await UserDB.findOne({ email });
+
+    if (existingUser) {
+      return res.status(200).json({ exists: true, message: 'Email already exists' });
+    } else {
+      return res.status(200).json({ exists: false, message: 'Email available' });
+    }
+  } catch (err) {
+    console.error('Error checking email:', err);
+    return res.status(500).json({ message: 'Server error while searching for email.' });
+  }
+};
+
+module.exports = {getUser, getUsers, getUserById, checkExistingEmail};

@@ -4,7 +4,7 @@ import setupProfile from './profile.js';
 import setupSwinesSection from './swines/setup-swine-section.js';
 import setupAppointmentSection from './appointments/setup-appointment-section.js';
 import setupMessagesSection from './messages/setup-messages-section.js';
-import setupServicesSection from './services/setup-services-section.js'
+import setupServicesSection from './services/setup-services-section.js';
 
 setupHeader();
 sideNavFuntionality();
@@ -13,7 +13,6 @@ setupSwinesSection();
 setupAppointmentSection();
 setupMessagesSection();
 setupServicesSection();
-
 
 
 

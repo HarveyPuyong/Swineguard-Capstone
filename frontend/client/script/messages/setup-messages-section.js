@@ -35,6 +35,13 @@ const showConversation = () => {
           backToContactListBtn.classList.add('show');
         }
       });
+
+      if (window.innerWidth <= 1100) {
+        contactListContainer.classList.add('show');
+        chatboxContainer.classList.remove('show');
+        sectionHeading.style.display = 'block';
+        backToContactListBtn.classList.remove('show');
+      }
     });
   });
 

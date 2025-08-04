@@ -44,22 +44,30 @@ const displayContactList = async () => {
     });
 
     // Generate chat list UI
-    for (const [otherUserId, messages] of conversationsMap.entries()) {
-      const userInfo = staffUsers.find(u => u._id === otherUserId);
-      if (!userInfo) continue;
+    staffUsers.forEach(userInfo => {
+      const messages = conversationsMap.get(userInfo._id) || [];
 
-      messages.sort((a, b) => new Date(b.dateSend) - new Date(a.dateSend));
-      const lastMessage = messages[0];
+      let lastMessage = null;
+      let previewMessage = 'Start a conversation...';
+      let formattedTime = '';
+      let unseenCount = 0;
 
-      const unseenCount = messages.filter(
-        msg => msg.sender === otherUserId && msg.receiver === clientId && !msg.seen
-      ).length;
+      if (messages.length > 0) {
+        messages.sort((a, b) => new Date(b.dateSend) - new Date(a.dateSend));
+        lastMessage = messages[0];
+
+        previewMessage = lastMessage.content.length > 40
+          ? `${lastMessage.content.slice(0, 40)}...`
+          : lastMessage.content;
+
+        formattedTime = formatTo12HourTime(lastMessage.dateSend);
+
+        unseenCount = messages.filter(
+          msg => msg.sender === userInfo._id && msg.receiver === clientId && !msg.seen
+        ).length;
+      }
 
       const fullName = `${userInfo.firstName} ${(userInfo.middleName).charAt(0).toUpperCase()}. ${userInfo.lastName}`;
-      const previewMessage = lastMessage.content.length > 40
-        ? `${lastMessage.content.slice(0, 40)}...`
-        : lastMessage.content;
-      const formattedTime = formatTo12HourTime(lastMessage.dateSend);
 
       const chatHTML = `
         <div class="chat-list__user" data-client-id="${userInfo._id}">
@@ -74,7 +82,8 @@ const displayContactList = async () => {
       `;
 
       chatListContainer.insertAdjacentHTML('beforeend', chatHTML);
-    }
+    });
+    
 
     document.dispatchEvent(new Event('renderContactList'));
 

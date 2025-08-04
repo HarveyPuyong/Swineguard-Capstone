@@ -1,7 +1,6 @@
 import popupAlert from './../../utils/popupAlert.js';
 import api from '../../utils/axiosConfig.js';
 import handleRenderStaff from "./display-staff.js"
-import setupStaffSection from './setup-staff-section.js';
 
 
 const handleAddStaff = () => {
