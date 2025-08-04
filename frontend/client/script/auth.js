@@ -1,20 +1,12 @@
-import { setupSignUpFormAddresses, 
-         checkUserAge, 
-         checkPhoneNumber,
-         checkUserNameLength,
-         checkPasswordLength} from "./auth/setup-signup.js";
-         
-import createAccount from "./auth/sigup.js";
-import popupAlert from "../../admin/utils/popupAlert.js";
-import sendOtp from "./auth/send-otp.js";
+import {   
+  setupSignUpFormAddresses,
+  checkUserAge,
+  checkPhoneNumber,
+  checkUserNameLength, 
+  checkPasswordLength,
+  getOTPValue } from './auth/setup-signup.js';
 
-  let clientInfo = []; // Data where they are pre-stored
-
-  //Forms
-  const loginForm = document.querySelector('#login-form');
-  const nameFields = document.querySelector('#signup-form');
-  const emailFields = document.querySelector('#signup-form-email');
-  const otpFields = document.querySelector('#signup-form-otp');
+import { sendOtp, verifyOtp } from './auth/handle-otp.js';
 
 
 // ======================================
@@ -41,172 +33,151 @@ const handleChangeForm = () => {
 
 
 // ======================================
-// ========== Handle Client Information
+// ========== Handle Next Field in Singup Form
 // ======================================
 const handleNextInSignupForm = () => {
+  // All fields
   const firstField = document.querySelector('.signup-form__first-field');
   const secondField = document.querySelector('.signup-form__second-field');
   const thirdField = document.querySelector('.signup-form__third-field');
   const fourthField = document.querySelector('.signup-form__fourth-field');
+  const fifthField = document.querySelector('.signup-form__fifth-field');
 
+  // All fields Inputs
   const firstFieldInputs = document.querySelectorAll('.signup-form__first-field input, .signup-form__first-field select');
   const secondFieldInputs = document.querySelectorAll('.signup-form__second-field input, .signup-form__second-field select');
   const thirdFieldInputs = document.querySelectorAll('.signup-form__third-field select');
+  const fourthFieldInputs = document.querySelectorAll('.signup-form__fourth-field input');
+  
+  // firstField (Name inputs)
+  const nextBtn = firstField.querySelector('.signup-form__next-btn');
 
-  // ================= First Field (Name Inputs)
-  const firstNextBtn = firstField.querySelector('.signup-form__next-btn');
+  // Enable/disable button on input change
   firstFieldInputs.forEach(input => {
-    input.addEventListener('input', () => {
+    input.addEventListener('change', () => {
       const isAllInputsFilled = Array.from(firstFieldInputs).every(input => {
         if (input.id === 'select-suffix-name') return true;
         return input.value.trim() !== '';
       });
 
-      firstNextBtn.disabled = !isAllInputsFilled;
+      if (isAllInputsFilled) {
+        nextBtn.removeAttribute('disabled');
+      } else {
+        nextBtn.setAttribute('disabled', 'disabled');
+      }
     });
   });
 
-  firstNextBtn.addEventListener('click', () => {
-    const firstNameInput = document.querySelector('#client-input-firstname').value;
-    const lastNameInput = document.querySelector('#client-input-lastname').value;
-    const middleNameInput = document.querySelector('#client-input-middlename').value;
+  // Handle next button click
+  nextBtn.addEventListener('click', () => {
+    const clientFirstName = document.querySelector('#client-input-firstname').value;
+    const clientMiddleName = document.querySelector('#client-input-middlename').value;
+    const clientLastName = document.querySelector('#client-input-lastname').value;
 
-    const isValidInputName = checkUserNameLength(firstNameInput, lastNameInput, middleNameInput);
-    if (!isValidInputName) return;
+    if (!checkUserNameLength(clientFirstName, clientLastName, clientMiddleName)) return;
 
     firstField.classList.remove('show');
     secondField.classList.add('show');
   });
 
-  // ================= Second Field (Gender, Age, Contact)
-  const secondNextBtn = secondField.querySelector('.signup-form__next-btn');
+
+
+  // SECOND FIELD - Gender, Age, Contact
+  const nextBtnSecond = secondField.querySelector('.signup-form__next-btn');
+  // Enable/Disable Button on Change
   secondFieldInputs.forEach(input => {
-    input.addEventListener('input', () => {
+    input.addEventListener('change', () => {
       const isAllInputsFilled = Array.from(secondFieldInputs).every(input => {
         if (input.type === 'radio') {
-          const radios = document.querySelectorAll(`input[name="${input.name}"]`);
-          return Array.from(radios).some(radio => radio.checked);
+          const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
+          return Array.from(radioGroup).some(r => r.checked);
         }
         return input.value.trim() !== '';
       });
 
-      secondNextBtn.disabled = !isAllInputsFilled;
+      if (isAllInputsFilled) nextBtnSecond.removeAttribute('disabled');
+      else nextBtnSecond.setAttribute('disabled', 'disabled');
     });
   });
+  // Click Handler
+  nextBtnSecond.addEventListener('click', () => {
+    const clientBday = document.querySelector('#client-input-birthday').value;
+    const clientPhone = document.querySelector('#client-contact-number').value;
+    const isAllInputsFilled = Array.from(secondFieldInputs).every(input => {
+      if (input.type === 'radio') {
+        const radioGroup = document.querySelectorAll(`input[name="${input.name}"]`);
+        return Array.from(radioGroup).some(r => r.checked);
+      }
+      return input.value.trim() !== '';
+    });
 
-  secondNextBtn.addEventListener('click', () => {
-    const birthdayInput = document.querySelector('#input-birthday');
-    const phoneInput = document.querySelector('#client-contact-number');
-
-    const isValidAge = checkUserAge(birthdayInput.value);
-    const isValidPhone = checkPhoneNumber(phoneInput.value);
-
-    if (!isValidAge || !isValidPhone) return;
+    if (!isAllInputsFilled) return;
+    if (!checkUserAge(clientBday)) return;
+    if(!checkPhoneNumber(clientPhone)) return;
 
     secondField.classList.remove('show');
     thirdField.classList.add('show');
   });
 
-  // ================= Third Field (Address)
-  const thirdNextBtn = thirdField.querySelector('.signup-form__next-btn');
+
+
+  // ThirdField (Municipality, Barangay)
   thirdFieldInputs.forEach(input => {
-    input.addEventListener('input', () => {
+    input.addEventListener('change', () => {
       const isAllInputsFilled = Array.from(thirdFieldInputs).every(input => input.value.trim() !== '');
-      thirdNextBtn.disabled = !isAllInputsFilled;
+
+      const nextBtn = thirdField.querySelector('.signup-form__next-btn');
+
+      if (isAllInputsFilled) nextBtn.removeAttribute('disabled');
+      else nextBtn.setAttribute('disabled', 'disabled');
+      
+      nextBtn.addEventListener('click', () => {
+        thirdField.classList.remove('show');
+        fourthField.classList.add('show');
+      });
     });
   });
 
-  thirdNextBtn.addEventListener('click', () => {
-    const firstName = document.querySelector('#client-input-firstname').value.trim();
-    const middleName = document.querySelector('#client-input-middlename').value.trim();
-    const lastName = document.querySelector('#client-input-lastname').value.trim();
-    const suffix = document.querySelector('#select-suffix-name').value;
-    const sex = document.querySelector('input[name="gender"]:checked').value;
-    const birthday = document.querySelector('#input-birthday').value.trim();
-    const contactNum = document.querySelector('#client-contact-number').value.trim();
-    const municipality = document.querySelector('#select-municipality').value;
-    const barangay = document.querySelector('#select-barangay').value;
 
-    clientInfo = [{
-      firstName, middleName, lastName, suffix,
-      sex, birthday, contactNum, municipality, barangay
-    }];
 
-    console.log('Client Info:', clientInfo);
+// Fourth Field (Email, Password, Confirm-password)
+const passwordInputEl = document.querySelector('#client-input-password');
+const confirmPasswordInputEl = document.querySelector('#client-input-confirm-password');
+const nextBtnFourth = fourthField.querySelector('.signup-form__next-btn');
 
-    thirdField.classList.remove('show');
-    nameFields.classList.remove('show');
-    nameFields.classList.add('hide');
-    emailFields.classList.add('show');  // change this as needed
+// Enable/Disable next button based on input validity
+fourthFieldInputs.forEach(input => {
+  input.addEventListener('input', () => {
+    const isAllInputsFilled = Array.from(fourthFieldInputs).every(input => input.value.trim() !== '');
+    const isConfirmPassword = passwordInputEl.value === confirmPasswordInputEl.value;
+
+    if (isAllInputsFilled && isConfirmPassword)
+      nextBtnFourth.removeAttribute('disabled');
+    else
+      nextBtnFourth.setAttribute('disabled', 'disabled');
   });
-};
+});
 
+// Handle click to go to next field
+nextBtnFourth.addEventListener('click', () => {
+  const clientEmail = document.querySelector('#client-input-email').value.trim();
+  const password = passwordInputEl.value;
+  const confirmPassword = confirmPasswordInputEl.value;
 
+  if (!checkPasswordLength(password, confirmPassword)) return;
+  sendOtp(clientEmail);
+  fourthField.classList.remove('show');
+  fifthField.classList.add('show');
+});
 
-// ======================================
-// ========== Handle Email Forms
-// ======================================
-const emailFormNextBtn = () => {
-  const emailFieldsNextBtn = document.querySelector('#signup-form-email .signup-form__next-btn');
-
-  emailFieldsNextBtn.addEventListener('click', () => {
-    // ✅ Move value access inside the event listener
-    const clientEmailInputs = document.querySelector('#client-input-email').value.trim();
-    const clientPasswordInputs = document.querySelector('#client-input-password').value.trim();
-    const clientConfirmPasswordInputs = document.querySelector('#client-input-confirm-password').value.trim();
-
-    // ✅ Fix condition: use ! to check all
-    if (!clientEmailInputs || !clientPasswordInputs || !clientConfirmPasswordInputs) {
-      popupAlert('error', 'Error', 'Please fill in all fields.');
-      return;
-    }
-
-    if (!checkPasswordLength(clientPasswordInputs, clientConfirmPasswordInputs)) return;
-
-    // ✅ Update clientInfo array
-    clientInfo[0] = {
-      ...clientInfo[0],
-      email: clientEmailInputs,
-      password: clientPasswordInputs,
-      confirmPassword: clientConfirmPasswordInputs,
-    };
-
-    console.log('clientInfo updated:', clientInfo);
-    sendOtp(clientEmailInputs);
-
-    // ✅ Transition to OTP step
-    emailFields.classList.remove('show');  
-    emailFields.classList.add('hide'); 
-    otpFields.classList.add('show');
-  });
-};
-
-const otpFormSendBtn = () => {
-  //const otpFieldSendBtn = document.querySelector('#signup-form-otp .signup-form__next-btn');
-  otpFields.addEventListener('submit', (e) => {
-    e.preventDefault(); 
-
-    const clientOtp = [
-      document.querySelector('#first-digit').value,
-      document.querySelector('#second-digit').value,
-      document.querySelector('#third-digit').value,
-      document.querySelector('#forth-digit').value
-    ].join('');
-
-    if (!clientOtp) { return };
-
-    clientInfo[0] = {
-      ...clientInfo[0],
-      otp: clientOtp
-    };
-    console.log('OTP added to clientInfo:', clientInfo);
-
-    createAccount(clientInfo);
-  });
+  // fifthField (Terms and conditions)
+  const otpBtn = fifthField.querySelector('.signup-form__next-btn');
+  otpBtn.addEventListener('click', () => {
+    const clientEmail = document.querySelector('#client-input-email').value.trim();
+    verifyOtp(clientEmail, getOTPValue());
+  })
 
 }
-
-
 
 
 // ======================================
@@ -217,9 +188,8 @@ const handleBackInSignupForm = () => {
   const firstField = document.querySelector('.signup-form__first-field');
   const secondField = document.querySelector('.signup-form__second-field');
   const thirdField = document.querySelector('.signup-form__third-field');
-  // const fourthField = document.querySelector('.signup-form__fourth-field');
-  // const fifthField = document.querySelector('.signup-form__fifth-field');
-  // const sixthField = document.querySelector('.signup-form__sixth-field');
+  const fourthField = document.querySelector('.signup-form__fourth-field');
+  const fifthField = document.querySelector('.signup-form__fifth-field');
 
   const backBtns = document.querySelectorAll('.signup-form__back-btn');
 
@@ -238,6 +208,10 @@ const handleBackInSignupForm = () => {
       else if(parentField === 'signup-form__fourth-field'){
         fourthField.classList.remove('show');
         thirdField.classList.add('show');
+      }
+      else if(parentField === 'signup-form__fifth-field'){
+        fifthField.classList.remove('show');
+        fourthField.classList.add('show');
       }
     });
   });
@@ -275,11 +249,9 @@ const handleTogglePasswordVisibility = () => {
 // ========== Main Function 
 // ======================================
 export function authMain() {
+  setupSignUpFormAddresses();
   handleChangeForm();
   handleNextInSignupForm();
   handleTogglePasswordVisibility();
   handleBackInSignupForm();
-  setupSignUpFormAddresses();
-  emailFormNextBtn();
-  otpFormSendBtn();
 } 

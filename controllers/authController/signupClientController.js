@@ -8,7 +8,7 @@ const signupController = async (req, res) => {
   const {
     firstName, middleName, lastName, suffix,
     sex, birthday, municipality, barangay, contactNum,
-    email, password, confirmPassword, otp
+    email, password, confirmPassword
   } = req.body;
 
   // Name validations
@@ -66,24 +66,10 @@ const signupController = async (req, res) => {
       return res.status(404).json({ message: 'OTP verification required before signup.' });
     }
 
-    // ✅ OTP verification
-    if (
-      !existingUser.otp ||
-      existingUser.otp !== otp ||
-      new Date(existingUser.otpExpires) < Date.now()
-    ) {
-      return res.status(400).json({ message: 'Invalid or expired OTP.' });
-    }
-
     // ✅ Prevent duplicate registration
     if (existingUser.password) {
       return res.status(409).json({ message: 'Email is already registered.' });
     }
-
-    // ✅ Clear OTP fields
-    existingUser.otp = null;
-    existingUser.otpExpires = null;
-
     // ✅ Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 

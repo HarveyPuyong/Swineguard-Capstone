@@ -1,7 +1,6 @@
 import addressesData from '../../../admin/static-data/addresses.js';
 import popupAlert from '../../../admin/utils/popupAlert.js'
-import api from '../../client-utils/axios-config.js';
-import sendOtp from './send-otp.js';
+
 
 // ======================================
 // ========== Setup sign-up address
@@ -134,10 +133,25 @@ const checkPasswordLength = (passwordInput, confirmPasswordInput) => {
 }
 
 
+// ======================================
+// ========== Get 4 digit from user inputs
+// ======================================
+const getOTPValue = () => {
+  const first = document.getElementById('first-digit').value.trim();
+  const second = document.getElementById('second-digit').value.trim();
+  const third = document.getElementById('third-digit').value.trim();
+  const fourth = document.getElementById('forth-digit').value.trim();
+
+  const otp = [first, second, third, fourth].join('');
+  return otp;
+};
+
+
 export {
   setupSignUpFormAddresses,
   checkUserAge,
   checkPhoneNumber,
   checkUserNameLength,
-  checkPasswordLength
+  checkPasswordLength,
+  getOTPValue
 };
