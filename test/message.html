@@ -1,144 +1,164 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Message Tester</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <form id="signup-form" class="show">
+        <!-- form pig icons -->
+        <img class="form__top-pig" src="images-and-icons/icons/Pig-1.png" alt="form-pig-icon">
+        <img class="form__bottom-pig" src="images-and-icons/icons/Pig-2-right.png" alt="form-pig-icon">
 
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        .message {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin: 10px;
-            border-radius: 6px;
-            background-color: #f1f1f1;
-        }
-        .date {
-            font-size: 0.8em;
-            color: #777;
-        }
-    </style>
+        <h2 class="form__heading">Signup</h2>
+        <!-- (Firstname, Middlename Lastanme, Suffix) 1st field -->
+        <div class="signup-form__first-field signup-form__field show">
+          <!-- firstname-input -->
+          <div class="input-container firstname-input-container">
+            <p class="form__label-txt">Firstname:</p>
+            <input id="client-input-firstname" name="firstName" type="text" required>
+          </div>
 
-</head>
-<body>
-    <h1>Messages</h1>
-    <div id="message-box">
-        <!-- I want to diplay all Here the Messages -->
-    </div>
+          <!-- middlename-input -->
+          <div class="input-container middle-input-container">
+            <p class="form__label-txt">Middlename:</p>
+            <input id="client-input-middlename" name="middleName" type="text" required>
+          </div>
+
+          <div class="signup-form__group">
+            <!-- lastname-input -->
+            <div class="input-container lastname-input-container">
+              <p class="form__label-txt">Lastname:</p>
+              <input id="client-input-lastname" type="text" name="lastName" required>
+            </div>
+
+            <!-- suffix-select -->
+            <div class="select-container suffix-select-container">
+              <p class="form__label-txt">Suffix:</p>
+              <select id="select-suffix-name" name="select-suffixname">
+                <option value="">Suffix</option>
+                <option value="jr">Jr</option>
+                <option value="sr">Sr</option>
+                <option value="iii">III</option>
+              </select>
+            </div>
+          </div>
+          <button class="signup-form__next-btn" type="button" disabled>Next</button>
+        </div>
+
+        <!-- (Gender, Birthday, Contact) 2nd field -->
+        <div class="signup-form__second-field signup-form__field">   
+          <!-- gender-list-->
+          <div class="radio-container gender-radio-container">
+            <p class="form__label-txt">Gender:</p>
+            <div class="gender-radio-list">
+              <label><input type="radio" name="gender" value="male" required> Male</label>
+              <label><input type="radio" name="gender" value="female" required> Female</label>
+              <label><input type="radio" name="gender" value="prefer-not-to-say" required> Prefer not to say</label>
+            </div>      
+          </div>
+
+          <!-- birthday-input -->
+          <div class="input-container age-input-container">
+            <p class="form__label-txt">Age:</p>
+            <input id="input-birthday" name="client-birthday" type="date" required>
+          </div>
+
+          <!-- contact-input -->
+          <div class="input-container contact-input-container">
+            <p class="form__label-txt">Contact number:</p>
+            <input 
+            id="client-contact-number" 
+            name="phone" 
+            type="tel" 
+            pattern="09[0-9]{9}" 
+            maxlength="11" 
+            placeholder="09XXXXXXXXX" 
+            required 
+            inputmode="numeric" 
+            oninput="this.value=this.value.replace(/\D/g,'')">
+
+          </div>
+
+          <div class="signup-form__buttons-container">
+            <button class="signup-form__back-btn" type="button">Back</button>
+            <button class="signup-form__next-btn" type="button" disabled>Next</button>
+          </div>
+        </div>
     
-    <script src="./message.js"></script>
-</body>
-</html>
+        <!-- (Municipality, Barangay) 3rd field -->
+        <div class="signup-form__third-field signup-form__field">
+          <!-- municipality-select -->
+          <div class="select-container municipality-select-container">
+            <p class="form__label-txt">Municipality:</p>
+            <select id="select-municipality" name="municipality-select" required>
+              <option value="">Select municipality</option>
+            </select>
+          </div>
+          <!-- barangay-select -->
+          <div class="select-container barangay-select-container">
+            <p class="form__label-txt">Barangay:</p>
+            <select id="select-barangay" name="barangay-select" required>
+              <option value="">Select barangay</option>
+            </select>
+          </div>
 
-<!-- Client profile class name -->
-class="chat-box__header-user-img"
+          <div class="signup-form__buttons-container">
+            <button class="signup-form__back-btn" type="button">Back</button>
+            <button class="signup-form__next-btn" type="button" disabled>Next</button>
+          </div>
+        </div>
 
-<!-- Admin response class name -->
-<div class="convo-list__admin-chat"> <!-- admin chat -->
-    <p class="convo-list__admin-chat-time-sent time-sent">8:00 AM</p>
-    <p class="convo-list__admin-chat-message chat-message">Hello This is veterenary admin</p>
-</div>
+        <p class="form__reminder">
+          Already haved an account?
+          <span class="form__reminder-go-to-login change-to-login-btn">Login</span>
+        </p>
 
-<!-- Client response class name -->
-<div class="convo-list__user-chat"> <!-- user chat -->
-    <div class="convo-list__user-chat-time-sent time-sent">7:00 AM</div>
-    <div class="convo-list__user-chat-details">
-        <img class="convo-list__user-chat-details--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-image" >
-        <p class="convo-list__user-chat-details--name">John</p>
-    </div>
-    <p class="convo-list__user-chat-message chat-message">Hello Goodmorning</p>
-</div>
+      </form>
+
+      <!-- Email -->
+      <form id="signup-form-email" class="hide">
+        <!-- form pig icons -->
+        <img class="form__top-pig" src="images-and-icons/icons/Pig-1.png" alt="form-pig-icon">
+        <img class="form__bottom-pig" src="images-and-icons/icons/Pig-2-right.png" alt="form-pig-icon">
+
+        <h2 class="form__heading">Signup</h2>
+        <!-- email-input -->
+        <div class="input-container email-input-container">
+          <p class="form__label-txt">Email:</p>
+          <input id="client-input-email" name="email" type="email" placeholder="example@gmail.com" required>
+        </div>
+
+        <div class="input-container password-input-container">
+          <p class="form__label-txt">Password:</p>
+          <input id="client-input-password" name="password" type="password" required>
+          <i class="password-eye-icon fa fa-eye"></i>
+          <div class="eye-slash"></div>
+        </div>
+
+        <!-- confirm-password-input -->
+        <p class="form__label-txt">Confirm password:</p>
+        <input id="client-input-confirm-password" name="confirmPassword" type="password" required>
 
 
-<!-- For Inventory Items -->
+        <div class="signup-form__buttons-container">
+          <button class="signup-form__next-btn" type="button">Next</button>
+        </div>
+        
+      </form>
 
-<div class="medicine">
-  <p class="td id">648f1b7c2a9f...</p>
-  <p class="td medicine-name">Coglapest</p>
-  <p class="td medicine-dosage">10mg</p>
-  <p class="td quantity">15</p>
-  <p class="td status" data-status-value="in-stock">In Stock</p>
-  <p class="td exp-date">12-03-2026</p>
-  <p class="td created-date">12-03-2025</p>
-  <p class="td updated-date">12-08-2025</p>
-  <div class="td toggle-buttons-icon">
-    <i class="icon fas fa-ellipsis-v"></i>
-    <div class="buttons-container">
-      <button id="restore-btn" type="button">Restore</button>
-      <button id="delete-btn" type="button">Delete</button>
-    </div>
-  </div>
-</div>
-<div class="medicine">
-  <p class="td id">1648f1b7c2a9f...</p>
-  <p class="td medicine-name">Coglapest</p>
-  <p class="td medicine-dosage">10mg</p>
-  <p class="td quantity">15</p>
-  <p class="td status" data-status-value="less-stock">Less Stock</p>
-  <p class="td exp-date">12-03-2026</p>
-  <p class="td created-date">12-03-2025</p>
-  <p class="td updated-date">12-08-2025</p>
-  <div class="td toggle-buttons-icon">
-    <i class="icon fas fa-ellipsis-v"></i>
-    <div class="buttons-container">
-      <button id="restore-btn" type="button">Restore</button>
-      <button id="delete-btn" type="button">Delete</button>
-    </div>
-  </div>
-</div>
-<div class="medicine">
-  <p class="td id">648f1b7c2a9f...</p>
-  <p class="td medicine-name">Coglapest</p>
-  <p class="td medicine-dosage">10mg</p>
-  <p class="td quantity">15</p>
-  <p class="td status" data-status-value="out-of-stock">Out-of-Stock</p>
-  <p class="td exp-date">12-03-2026</p>
-  <p class="td created-date">12-03-2025</p>
-  <p class="td updated-date">12-08-2025</p>
-  <div class="td toggle-buttons-icon">
-    <i class="icon fas fa-ellipsis-v"></i>
-    <div class="buttons-container">
-      <button id="restore-btn" type="button">Restore</button>
-      <button id="delete-btn" type="button">Delete</button>
-    </div>
-  </div>
-</div>
-<div class="medicine">
-  <p class="td id">648f1b7c2a9f...</p>
-  <p class="td medicine-name">Coglapest</p>
-  <p class="td medicine-dosage">10mg</p>
-  <p class="td quantity">15</p>
-  <p class="td status" data-status-value="expired">Expired</p>
-  <p class="td exp-date">12-03-2026</p>
-  <p class="td created-date">12-03-2025</p>
-  <p class="td updated-date">12-08-2025</p>
-  <div class="td toggle-buttons-icon">
-    <i class="icon fas fa-ellipsis-v"></i>
-    <div class="buttons-container">
-      <button id="restore-btn" type="button">Restore</button>
-      <button id="delete-btn" type="button">Delete</button>
-    </div>
-  </div>
-</div>
-<div class="medicine">
-  <p class="td id">648f1b7c2a9f...</p>
-  <p class="td medicine-name">Coglapest</p>
-  <p class="td medicine-dosage">10mg</p>
-  <p class="td quantity">15</p>
-  <p class="td status" data-status-value="removed">Removed</p>
-  <p class="td exp-date">12-03-2026</p>
-  <p class="td created-date">12-03-2025</p>
-  <p class="td updated-date">12-08-2025</p>
-  <div class="td toggle-buttons-icon">
-    <i class="icon fas fa-ellipsis-v"></i>
-    <div class="buttons-container">
-      <button id="restore-btn" type="button">Restore</button>
-      <button id="delete-btn" type="button">Delete</button>
-    </div>
-  </div>
-</div>
+      <form id="signup-form-otp" class="hide">
+        <!-- form pig icons -->
+        <img class="form__top-pig" src="images-and-icons/icons/Pig-1.png" alt="form-pig-icon">
+        <img class="form__bottom-pig" src="images-and-icons/icons/Pig-2-right.png" alt="form-pig-icon">
+
+        <h2 class="form__heading">Signup</h2>
+        <!-- (Otp) 5th field -->
+        <p class="signup-form__terms-and-conditions otp">Enter your 4 digit OTP</p>
+          <div class="otp-container">
+            <input type="tel" name="first-digit" id="first-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
+            <input type="tel" name="second-digit" id="second-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
+            <input type="tel" name="third-digit" id="third-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
+            <input type="tel" name="forth-digit" id="forth-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
+          </div>
+
+          <div class="signup-form__buttons-container">
+            <button class="signup-form__next-btn" type="submit">Send</button>
+          </div>
+          
+        </div>
+      </form>
