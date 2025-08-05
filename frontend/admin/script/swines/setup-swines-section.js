@@ -86,6 +86,66 @@ const toggleSwineMoreDetails = () => {
 }
 
 
+// ======================================
+// ========== Change Content Functionality
+// ======================================
+const changeContentsFunctionality = () => {
+  const mappingContents = document.querySelector('.swine-section__mapping-contents');
+  const tableContents = document.querySelector('.swines-section__table-contents');
+  const reportContents =  document.querySelector('.swine-section__report-contents');
+
+  const viewMappingContentBtn = document.querySelector('.table-contents__view-map-btn');
+  const viewTableContentBtns = document.querySelectorAll('.swine-section__back-table-btn');
+  const viewReportContentBtn = document.querySelector('.table-contents__generate-report-btn');
+  
+
+  // Show Map COntent
+  viewMappingContentBtn.addEventListener('click', () => {
+    tableContents.classList.remove('show');
+    mappingContents.classList.add('show');
+  });
+
+  //Show Report Content
+  viewReportContentBtn.addEventListener('click', () => {
+    tableContents.classList.remove('show');
+    reportContents.classList.add('show');
+  });
+
+  // Back To Table Content
+  viewTableContentBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tableContents.classList.add('show');
+      mappingContents.classList.remove('show');
+      reportContents.classList.remove('show')
+    });
+  });
+}
+
+
+const mappingContentToggleMapAndGraph = () => {
+  const mapWrapper = document.querySelector('.mapping-contents__map-wrapper');
+  const graphWrapper = document.querySelector('.mapping-contents__swine-type-graph-wrapper');
+
+  const showMapBtn = document.querySelector('.mapping-contents__show-map-btn');
+  const showGraphBtn = document.querySelector('.mapping-contents__show-graph-btn');
+
+  // Show Graph
+  showGraphBtn.addEventListener('click', () => {
+    mapWrapper.classList.remove('show');
+    graphWrapper.classList.add('show');
+    showMapBtn.classList.remove('active');
+    showGraphBtn.classList.add('active');
+  });
+
+  // Show Map
+  showMapBtn.addEventListener('click', () => {
+    mapWrapper.classList.add('show');
+    graphWrapper.classList.remove('show');
+    showMapBtn.classList.add('active');
+    showGraphBtn.classList.remove('active');
+  });
+}
+
 
 // ======================================
 // ========== Main Function - Setup Swines Section
@@ -96,4 +156,6 @@ export default function setupSwinesSection() {
   filterSwines();
   toggleSwineMoreDetails();
   swineMapping();
+  changeContentsFunctionality();
+  mappingContentToggleMapAndGraph();
 }

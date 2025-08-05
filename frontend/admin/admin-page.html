@@ -103,7 +103,7 @@
 
       <div class="admin-page__section-wrapper sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
-        <section id="dashboard-section" class="hide">
+        <section id="dashboard-section" class="show">
           <div class="admin-dashboard dashboard">
             <div class="dashboard__background"></div>
             <h1 class="dashboard__heading">Dashboards</h1>
@@ -366,9 +366,9 @@
         </section>
 
         <!-- ========== Swines Section ========== -->
-        <section id="swines-section" class="show">
+        <section id="swines-section" class="hide">
           <!-- Swine Section: Table contents -->
-          <div class="swines-section__table-contents">
+          <div class="swines-section__table-contents show">
             <h1 class="section__heading">Swines Table</h1>
             <!-- swines search -->
             <div class="swines-section__search">
@@ -389,8 +389,8 @@
 
             <!-- generate-report and view-graph buttons -->
             <div class="swines-section__buttons-container">
-              <button class="generate-report-btn">Generate Report</button>
-              <button class="view-graph">View Graphs</button>
+              <button class="table-contents__generate-report-btn">Generate Report</button>
+              <button class="table-contents__view-map-btn">View Map</button>
             </div>
 
             <!-- swines table -->
@@ -412,14 +412,14 @@
           </div>
 
            <!-- Swine Section: Mapping contents -->
-          <div class="swine-section__mapping-contents show">
+          <div class="swine-section__mapping-contents">
             <h1 class="section__heading">Swines Mapping</h1>
                       
             <!--buttons-container (back-to-table, show-map, show-type-graph) -->
             <div class="mapping-contents__buttons-container">             
-            <button class="mapping-contents__back-table-btn back-table-btn">Back to table</button>    
-            <button class="mapping-contents__show-map-btn">Swine Map</button>
-            <button class="mapping-contents__show-map-btn">Swine Graph</button>
+            <button class="mapping-contents__back-table-btn swine-section__back-table-btn">Back to table</button>    
+            <button class="mapping-contents__show-map-btn active">Swine Map</button>
+            <button class="mapping-contents__show-graph-btn">Swine Graph</button>
             </div>
             
             <!-- map wrapper -->
@@ -543,7 +543,7 @@
             </div>
 
             <!-- swine-type-graph wrapper -->
-            <div class="mapping-contents__swine-type-graph-wrapper show mapping-contents__wrapper">
+            <div class="mapping-contents__swine-type-graph-wrapper mapping-contents__wrapper">
               <h4 class="mapping-contents__wrapper-heading">Swine Types</h4>            
               <div class="swine-types-list-nav">
                 <p class="swine-types-list-nav__type active">Sow</p>
@@ -621,7 +621,7 @@
             <h1 class="section__heading">Generate Monthly Report</h1>
             <!-- back-to-table-btn and download-btn container -->
             <div class="report-contents__btns-container">
-              <button class="reports-content__back-table-btn">Back to table</button>
+              <button class="reports-content__back-table-btn swine-section__back-table-btn">Back to table</button>
               <button class="reports-content__download-report-btn">Download</button>
             </div>
 
