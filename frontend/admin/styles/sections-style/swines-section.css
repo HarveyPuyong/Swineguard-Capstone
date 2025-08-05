@@ -5,7 +5,6 @@
   display: block;
 }
 
-
 /* swines search */
 .swines-section__search{
   position: relative;
@@ -270,21 +269,360 @@
 }
 
 
-
-
-/* Swines Mapping Content */
+/* ===================================================
+   ============== Mapping Content ==============
+   ===================================================
+*/
 .swine-section__mapping-contents{
   display: none;
+  padding-bottom: 20px;
 }
 
 .swine-section__mapping-contents.show{
   display: block
 }
 
+.mapping-contents__buttons-container{
+  position: absolute;
+  top: 27px;
+  right: 50px;
+  display: flex;
+  gap: 10px;
+}
+
+.mapping-contents__buttons-container button{
+  color: white;
+  background-color: #2FC375;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  cursor: pointer;
+  padding: 10px 30px;
+}
+
+.mapping-contents__wrapper{
+  display: flex;
+  gap: 50px;
+  position: relative;
+  border: 2px solid rgba(43, 43, 43, 0.376);
+  box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  background-color: white;
+  margin-top: 40px;
+  padding: 60px 25px;
+  padding-bottom: 40px;
+}
+
+.mapping-contents__wrapper-heading{
+  position: absolute;
+  top: 20px;
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+/* ============== Map Wrapper============== */
+.mapping-contents__map-wrapper{
+  display: none;
+}
+
+.mapping-contents__map-wrapper.show{
+  display: flex;
+}
+
+.marinduque-map-container{
+  position: relative;
+  width: 750px;
+  height: 560px;
+}
+
+.marinduque-map-container__full-map{
+  height: 100%;
+}
+
+.marinduque-map-container__municipal-highlight{
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+
+.municipal-highlight--swine-percent-population{
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.5rem;
+  color: white;
+}
+
+.municipal-highlight--municipan-name{
+  position: absolute;
+  top: 67%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1rem;
+  font-weight: 600;
+  color: rgb(15, 15, 15);
+}
+
+.municipal-highlight--img{
+  height: 100%;
+  width: 100%;
+}
+
+/* mogpog hightlight */
+.marinduque-map-container__mogpog-highlight{
+  left: 224px;
+  top: 92px;
+  width: 220px;
+  height: 180px;
+}
+
+.marinduque-map-container__mogpog-highlight .municipal-highlight--swine-percent-population{
+  top: 55%;
+  left: 50%;
+}
+
+.marinduque-map-container__mogpog-highlight .municipal-highlight--municipan-name{
+  top: 67%;
+  left: 50%;
+}
+
+/* boac hightlight */
+.marinduque-map-container__boac-highlight{
+  left: 225px;
+  top: 279.9px;
+  width: 290px;
+  height: 300px;
+  rotate: -1.2deg;
+}
+
+.marinduque-map-container__boac-highlight .municipal-highlight--swine-percent-population{
+  top: 30%;
+  left: 50%;
+}
+
+.marinduque-map-container__boac-highlight .municipal-highlight--municipan-name{
+  top: 38%;
+  left: 50%;
+}
+
+/* Gasan highlight */
+.marinduque-map-container__gasan-highlight{
+  left: 195px;
+  top: 416.2px;
+  width: 270px;
+  height: 220px;
+  rotate: 1.2deg;
+}
+
+.marinduque-map-container__gasan-highlight .municipal-highlight--swine-percent-population{
+  top: 25%;
+  left: 55%;
+}
+
+.marinduque-map-container__gasan-highlight .municipal-highlight--municipan-name{
+  top: 35%;
+  left: 55%;
+}
+
+/* Buenavista Highlight */
+.marinduque-map-container__buenavista-highlight{
+  left: 331.4px;
+  top: 478.2px;
+  width: 200.84px;
+  height: 185.61px;
+  rotate: 1.8deg;
+}
+
+.marinduque-map-container__buenavista-highlight .municipal-highlight--swine-percent-population{
+  top: 32%;
+  left: 45%;
+}
+
+.marinduque-map-container__buenavista-highlight .municipal-highlight--municipan-name{
+  top: 42%;
+  left: 45%;
+}
+
+/* Sta Cruz Highlight */
+.marinduque-map-container__sta-cruz-highlight{
+  left: 483.6px;
+  top: 171.5px;
+  width: 413.86px;
+  height: 300.51px;
+  rotate: -0.1deg;
+}
+
+.marinduque-map-container__sta-cruz-highlight .municipal-highlight--swine-percent-population{
+  top: 49%;
+  left: 39%;
+}
+
+.marinduque-map-container__sta-cruz-highlight .municipal-highlight--municipan-name{
+  top: 57%;
+  left: 39%;
+}
+
+/* Torrijos Highlight */
+.marinduque-map-container__torrijos-highlight{
+  left: 477.6px;
+  top: 375.5px;
+  width: 301.33px;
+  height: 358.96px;
+  rotate: 0.4deg;
+}
+
+.marinduque-map-container__torrijos-highlight .municipal-highlight--swine-percent-population{
+  top: 45%;
+  left: 39%;
+}
+
+.marinduque-map-container__torrijos-highlight .municipal-highlight--municipan-name{
+  top: 53%;
+  left: 39%;
+}
+
+/* ============== Swine Type Graph Wrapper ============== */
+.mapping-contents__swine-type-graph-wrapper{
+  display: none;
+}
+.mapping-contents__swine-type-graph-wrapper.show{
+  display: flex;
+}
+
+.swine-types-list-nav{
+  position: absolute;
+  right: 100px;
+  top: 27px;
+  display: flex;
+  gap: 40px;
+}
+
+.swine-types-list-nav__type{
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.swine-types-list-nav__type.active{
+  border-bottom: 3px solid var(--main-color);
+}
+
+.mapping-contents__swine-type-graph-wrapper #swine-type-chart,
+.mapping-contents__swine-type-graph-wrapper .population-table-container{
+  margin-top: 60px;
+}
+
+#swine-type-chart{
+  max-width: 750px;
+  max-height: 400px;
+}
+
+/* select swine status element */
+.select-swine-status-container{
+  background-color: #2FC375;
+  padding: 20px 30px;
+  padding-bottom: 30px;
+  border-radius: 2px;
+  margin-bottom: 40px;
+}
+
+.select-swine-status-container__heading{
+  margin-bottom: 16px;
+}
+
+.select-swine-status-container select{
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 7px;
+  border: none;
+  border-radius: 2px;
+  cursor: pointer;
+}
+
+/* Total population table */
+.total-population-table__label{
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.total-population-table{
+  border: 1px solid black;
+  width: 400px;
+}
+
+.total-population-table .th,
+.total-population-table .td{
+  position: relative;
+  width: 100%;
+  text-align: center;
+  border: 1px solid black;
+  padding: 10px 2px;
+}
+
+.total-population-table .th{
+  font-weight: 600;
+}
+
+.total-population-table .td:first-child{
+  --left-padding: 56px;
+
+  text-align: left;
+  width: calc(100% - var(--left-padding));
+  padding-left: var(--left-padding);
+}
+
+.total-population-table__thead,
+.total-population-table .municipality,
+.total-population-table .total{
+  display: flex;
+}
+
+.municipality-identifier{
+  --size: 19px;
+
+  position: absolute;
+  top: 50%;
+  left: 15%;
+  transform: translate(-50%, -50%);
+  width: var(--size);
+  height: var(--size);
+  border: 1px solid black;
+  border-radius: 50%;
+}
+
+.total-population-table .mogpog .municipality-identifier{
+  background-color: #8FB2FF;
+}
+.total-population-table .boac .municipality-identifier{
+  background-color: #66FFBD;
+}
+.total-population-table .gasan .municipality-identifier{
+  background-color: #5CFF6F;
+}
+.total-population-table .buenavista .municipality-identifier{
+  background-color: #FFFA5F;
+}
+.total-population-table .sta-cruz .municipality-identifier{
+  background-color: #FE9D9D;
+}
+.total-population-table .torrijos .municipality-identifier{
+  background-color: #FFD16F;
+}
+
+.total-population-table .total-label,
+.total-population-table .total-value{
+  background-color: var(--main-color);
+  font-weight: 600
+}
 
 
 
-/* Swines Report Content */
+
+/* ===================================================
+   ============== Report Content ==============
+   ===================================================
+*/
 .swine-section__report-contents{
   display: none;
 }

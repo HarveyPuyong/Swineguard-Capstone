@@ -413,29 +413,57 @@
 
            <!-- Swine Section: Mapping contents -->
           <div class="swine-section__mapping-contents show">
-            <button class="back-table-btn">Back to table</button>
             <h1 class="section__heading">Swines Mapping</h1>
                       
             <!--buttons-container (back-to-table, show-map, show-type-graph) -->
             <div class="mapping-contents__buttons-container">             
             <button class="mapping-contents__back-table-btn back-table-btn">Back to table</button>    
-            <button class="mapping-contents__show-map-btn">Show Map</button>
-            <button class="mapping-contents__show-map-btn">Swine Types Graph</button>
+            <button class="mapping-contents__show-map-btn">Swine Map</button>
+            <button class="mapping-contents__show-map-btn">Swine Graph</button>
             </div>
             
             <!-- map wrapper -->
-            <div class="mapping-contents__map-wrapper">
-              <h2 class="mapping-contents__map-wrapper--heading">Marinduque Map</h2>
+            <div class="mapping-contents__map-wrapper show mapping-contents__wrapper">
+              <h2 class="mapping-contents__wrapper-heading">Marinduque Map</h2>
                 
               <!-- marinduque map container -->
               <div class="marinduque-map-container">
                 <img class="marinduque-map-container__full-map" src="images-and-icons/images/marinduque-full-map.png" alt="marinduque-map">
-                <img class="marinduque-map-container__mogpog-highlight" src="images-and-icons/images/Mogpog-highlight.png" alt="mogpog-map-hightlight">
-                <img class="marinduque-map-container__boac-highlight" src="images-and-icons/images/Boac-highlight.png" alt="boac-map-hightlight">
-                <img class="marinduque-map-container__gasan-highlight" src="images-and-icons/images/Gasan-highlight.png" alt="gasan-map-hightlight">
-                <img class="marinduque-map-container__buenavista-highlight" src="images-and-icons/images/Buenavista-highlight.png" alt="buenavista-map-highlight">
-                <img class="marinduque-map-container__sta-cruz-highlight" src="images-and-icons/images/Sta-Cruz-highlight.png" alt="sta-cruz-map-highlight">
-                <img class="marinduque-map-container__torrijos-highlight" src="images-and-icons/images/Torrijos-highlight.png" alt="torrijos-map-highlight">
+                <div class="marinduque-map-container__mogpog-highlight marinduque-map-container__municipal-highlight">
+                  <p class="municipal-highlight--swine-percent-population">50.60%</p>
+                  <p class="municipal-highlight--municipan-name">Mogpog</p>
+                  <img class="municipal-highlight--img" src="images-and-icons/images/Mogpog-highlight.png" alt="mogpog-map-hightlight">
+                </div>
+
+                <div class="marinduque-map-container__boac-highlight marinduque-map-container__municipal-highlight">
+                  <p class="municipal-highlight--swine-percent-population">70.20%</p>
+                  <p class="municipal-highlight--municipan-name">Boac</p>
+                  <img class="municipal-highlight--img" src="images-and-icons/images/Boac-highlight.png" alt="boac-map-hightlight">
+                </div>
+                
+                <div class="marinduque-map-container__gasan-highlight marinduque-map-container__municipal-highlight">
+                  <p class="municipal-highlight--swine-percent-population">80.20%</p>
+                  <p class="municipal-highlight--municipan-name">Gasan</p>
+                  <img class="municipal-highlight--img" src="images-and-icons/images/Gasan-highlight.png" alt="gasan-map-hightlight">
+                </div>
+
+                <div class="marinduque-map-container__buenavista-highlight marinduque-map-container__municipal-highlight">
+                  <p class="municipal-highlight--swine-percent-population">30.20%</p>
+                  <p class="municipal-highlight--municipan-name">Buenavista</p>
+                  <img class="municipal-highlight--img" src="images-and-icons/images/Buenavista-highlight.png" alt="buenavista-map-hightlight">
+                </div>
+                
+                <div class="marinduque-map-container__sta-cruz-highlight marinduque-map-container__municipal-highlight">
+                  <p class="municipal-highlight--swine-percent-population">30.20%</p>
+                  <p class="municipal-highlight--municipan-name">Sta Cruz</p>
+                  <img class="municipal-highlight--img" src="images-and-icons/images/Sta-Cruz-highlight.png" alt="sta-cruz-map-highlight">
+                </div>
+
+                <div class="marinduque-map-container__torrijos-highlight marinduque-map-container__municipal-highlight">
+                  <p class="municipal-highlight--swine-percent-population">30.20%</p>
+                  <p class="municipal-highlight--municipan-name">Sta Cruz</p>
+                  <img class="municipal-highlight--img" src="images-and-icons/images/Torrijos-highlight.png" alt="torrijos-map-highlight">
+                </div>
               </div>
 
               <!-- select swine status and population table container -->
@@ -449,7 +477,7 @@
                     <option value="sick">Sick</option>
                     <option value="deceased">Deceased</option>
                   </select>
-                  <select name="mapping-contents__select-deceased-cause" id="mapping-contents__select-deceased-cause">
+                  <select name="mapping-contents__select-deceased-cause" id="mapping-contents__select-deceased-cause" disabled>
                     <option value="cause">Cause</option>
                     <option value="nutritional">nutritional</option>
                     <option value="infected-wounds">Infected Wounds</option>
@@ -459,10 +487,8 @@
                 <h5 class="total-population-table__label">Total Population</h5>
                 <div class="total-population-table">
                   <div class="total-population-table__thead">
-                    <div class="table-row">
-                      <p class="th">Municipality</p>
-                      <p class="th">No. of Swines</p>
-                    </div>
+                    <p class="th">Municipality</p>
+                    <p class="th">No. of Swines</p>
                   </div>
                   <div class="total-population-table__tbody">
                     <div class="municipality mogpog">
@@ -506,41 +532,36 @@
                         <span class="municipality-label">Torrijos</span>        
                       </p>
                       <p class="td number-of-swines">365</p>
-                    </div>                   
+                    </div>                                      
                     <div class="total">
                       <p class="td total-label">Total</p>
-                      <p class="td total-value">1553</p>
-                    </div>                   
+                      <p class="td total-value">1000</p>
+                    </div>                                      
                   </div>
                 </div>
               </div>
             </div>
 
             <!-- swine-type-graph wrapper -->
-            <div class="mapping-contents__swine-type-graph-wrapper">
-              <div class="swine-type-graph-wrapper__header">
-                <h4 class="swine-type-graph-wrapper__heading">Swine Types</h4>
-                <div class="swine-types-list-nav">
-                  <p class="swine-types-list-nav__type">Sow</p>
-                  <p class="swine-types-list-nav__type">Gilt</p>
-                  <p class="swine-types-list-nav__type">Piglet</p>
-                  <p class="swine-types-list-nav__type">Boar</p>
-                  <p class="swine-types-list-nav__type">Barrow</p>
-                </div>
+            <div class="mapping-contents__swine-type-graph-wrapper show mapping-contents__wrapper">
+              <h4 class="mapping-contents__wrapper-heading">Swine Types</h4>            
+              <div class="swine-types-list-nav">
+                <p class="swine-types-list-nav__type active">Sow</p>
+                <p class="swine-types-list-nav__type">Gilt</p>
+                <p class="swine-types-list-nav__type">Piglet</p>
+                <p class="swine-types-list-nav__type">Boar</p>
+                <p class="swine-types-list-nav__type">Barrow</p>
               </div>
 
-              <!-- chart and population table container -->
-              <div class="swine-type-graph-wrapper__main">
-                <!-- swine type chart -->
-                 <canvas id="swine-type-chart"></canvas>
-                 
+              <!-- swine type chart -->
+              <canvas id="swine-type-chart"></canvas>
+              
+              <div class="population-table-container">
                 <h5 class="total-population-table__label">Total Population</h5>
                 <div class="total-population-table">
                   <div class="total-population-table__thead">
-                    <div class="table-row">
-                      <p class="th">Municipality</p>
-                      <p class="th">No. of Swines</p>
-                    </div>
+                    <p class="th">Municipality</p>
+                    <p class="th">No. of Swines</p>
                   </div>
                   <div class="total-population-table__tbody">
                     <div class="municipality mogpog">
