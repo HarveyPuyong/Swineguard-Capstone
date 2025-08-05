@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 // Add Swine
 exports.addSwine = async (req, res) => {
 
-    const {swineFourDigitId, breed, type, birthdate, sex, weight, clientId} = req.body;
+    const {swineFourDigitId, breed, type, birthdate, sex, status, weight, clientId} = req.body;
 
     // Validate birthdate of swine
     if (new Date(birthdate) > new Date()) {
@@ -21,7 +21,7 @@ exports.addSwine = async (req, res) => {
     // Generate Unique 4 digit swine Id:
     const generatedSwineId = await generateSwineId();
     
-    const swineData = {swineFourDigitId: generatedSwineId, breed, type, birthdate, sex, weight: numericWeight, clientId};
+    const swineData = {swineFourDigitId: generatedSwineId, breed, type, birthdate, sex, status, weight: numericWeight, clientId};
 
     // Validate input fields
     if (Object.values(swineData).some(field => field === undefined || field === null)) {
@@ -52,15 +52,10 @@ exports.addSwine = async (req, res) => {
 exports.editSwine = async (req, res) => {
     const { id } = req.params;
 
-    const {breed, type, birthdate, sex, weight, status, cause} = req.body;
+    const {type, weight, status, cause} = req.body;
 
     // Validate object Id
     if (!isValidSwineId(id)) return res.status(400).json({ message: "Invalid Swine ID." });
-
-    // Validate birthdate of swine
-    if (new Date(birthdate) > new Date()) {
-        return res.status(400).json({ message: 'Birthdate cannot be in the future.' });
-    }
 
     // Validate swine weight
     if(!isValidNumber(weight)) return res.status(400).json({ message: 'Swine weight must be valid numbers greater than 0' });
@@ -68,7 +63,7 @@ exports.editSwine = async (req, res) => {
     // ✅ Convert to numbers after validation
     const numericWeight = Number(weight);
 
-    const swineData = {breed, type, birthdate, sex, weight: numericWeight, status, cause};
+    const swineData = {type, weight: numericWeight, status, cause};
 
     // Validate input fields
     if (Object.values(swineData).some(field => field === undefined || field === null)) {
@@ -182,6 +177,17 @@ exports.getSwine = async (req, res) => {
     try {
         const swines = await swineDB.find();
         res.status(200).json(swines);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+}
+
+// Get Swine by id
+exports.getSwineById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const swineFound = await swineDB.findById(id);
+        res.status(200).json(swineFound);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }

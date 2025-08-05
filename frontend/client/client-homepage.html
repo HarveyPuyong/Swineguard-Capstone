@@ -212,38 +212,46 @@
               <div for="select-swine-sex"><!-- swine sex -->
                 <span class="label-txt">Sex</span>
                 <select name="select-swine-sex" id="select-swine-sex">
+                  <option value="">Select sex</option>
                   <option value="male">Male</option>
-                  <option value="female">female</option>
+                  <option value="female">Female</option>
                 </select>
               </div>
               <div for="select-swine-breed"><!-- swine breed -->
                 <span class="label-txt">Breed</span>
                 <select name="select-swine-breed" id="select-swine-breed">
+                  <option value="">Select breed</option>
                   <option value="native">Native</option>
                   <option value="half-breed">Half Breed</option>
+                  <option value="high-breed">High Breed</option>
                 </select>
               </div>
               <div for="select-swine-type"><!-- swine type -->
                 <span class="label-txt">Type</span>
                 <select name="select-swine-type" id="select-swine-type">
+                  <option value="piglet">Piglet</option>
+                  <option value="grower">Grower</option>
+                  <option value="boar">Boar</option>
                   <option value="sow">Sow</option>
-                  <option value="barrow">Barrow</option>
                 </select>
               </div>
               <div for="input-swine-birthdate"><!-- swine birth date-->
                 <span class="label-txt">Birth Date</span>
-                <input id="input-swine-birthdate" type="text" placeholder="Birthdate" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
+                <input id="input-swine-birthdate" name="input-swine-birthdate" type="text" placeholder="Birthdate" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
               </div>
               <div for="select-swine-health-status"><!-- swine health status-->
                 <span class="label-txt">Health Status</span>
                 <select name="select-swine-health-status" id="select-swine-health-status">
+                  <option value="">Select health Status</option>
                   <option value="healthy">Healthy</option>
                   <option value="pregnant">Pregnant</option>
+                  <option value="sick">Sick</option>
+                  <option value="deceased">Deceased</option>
                 </select>
               </div>
               <div for="input-swine-weight"><!-- swine wwight-->
                 <span class="label-txt">Weight</span>
-                <input type="number" placeholder="kg">
+                <input type="number" name="swine-weight" step="any" placeholder="kg" >
               </div>
             </div>
 
@@ -265,65 +273,7 @@
 
           <!-- Swines Full Details -->
           <form id="swines-full-info" class="swines-full-info view-mode"> <!-- Toggle mo yung class from view-mode to edit-mode -->
-            <h1 class="swines-full-info__heading">Swine Full Details</h1>
-            <button class="swines-full-info__back-btn" type="button">
-              <i class="swines-full-info__back-btn--arrow fas fa-arrow-left"></i> 
-              <span class="swines-full-info__back-btn--label">Back</span>
-            </button>
-            <img class="swines-full-info__swine-img" src="images-and-icons/icons/swine-image.png" alt="Swine Image" />
-              
-            <div class="swine-full-info__details-label-btn-container">
-              <p class="swines-full-info__info-label">Swine Info</p>
-              <button class="swines-full-info__edit-btn enable-edit-mode-btn" type="button">Edit</button> <!-- edit button -->       
-            </div>
-      
-            <div class="swines-full-info__details">
-              <div class="detail"><!-- swine id -->
-                <span class="detail-label">ID</span>
-                <p class="detail-value">001</p>
-              </div>
-              <div class="detail"><!-- swine type -->
-                <span class="detail-label">Type</span>
-                <select class="detail-value" id="select-swine-type" name="select-swine-type">
-                  <option value="sow">Sow</option>
-                  <option value="barrow">Barrow</option>
-                </select>
-              </div>
-              <div class="detail"><!-- swine sex -->
-                <span class="detail-label">Sex</span>
-                <select class="detail-value" id="select-swine-sex" name="select-swine-sex" >
-                  <option value="male">Male</option>
-                  <option value="female">female</option>
-                </select>
-              </div>
-              <div class="detail"><!-- swine breed -->
-                <span class="detail-label">Breed</span>
-                <select class="detail-value" id="select-swine-breed" name="select-swine-breed">
-                  <option value="native">Native</option>
-                  <option value="half-breed">Half Breed</option>
-                </select>
-              </div>
-              <div class="detail"><!-- swine birth date-->
-                <span class="detail-label">Birth Date</span>
-                <input class="detail-value" id="input-swine-birthdate" type="text" placeholder="Birthdate" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
-              </div>
-              <div class="detail"><!-- swine health status-->
-                <span class="detail-label">Health Status</span>
-                <select class="detail-value" id="select-swine-health-status" name="select-swine-health-status" >
-                  <option value="healthy">Healthy</option>
-                  <option value="pregnant">Pregnant</option>
-                </select>
-              </div>
-              <div class="detail"><!-- swine wwight-->
-                <span class="detail-label">Weight</span>
-                <input class="detail-value" type="number" placeholder="kg">
-              </div>
-            </div>
-
-            <div class="buttons-container">
-              <button class="swines-full-info__cancel-btn disable-edit-mode-btn" type="button">Cancel</button>
-              <button class="swines-full-info__save-btn" type="submit">Save</button>
-            </div>
+            <!-- display-swine.js -->
           </form>
         </section>
 
@@ -395,15 +345,8 @@
                 </label>
               </div>
 
-              <div class="request-appointment-form__swines-list--grid">
-                <label><input type="checkbox" name="swines" value="0010"> 0010</label>
-                <label><input type="checkbox" name="swines" value="0011"> 0011</label>
-                <label><input type="checkbox" name="swines" value="0012"> 0012</label>
-                <label><input type="checkbox" name="swines" value="0013"> 0013</label>
-                <label><input type="checkbox" name="swines" value="0014"> 0014</label>
-                <label><input type="checkbox" name="swines" value="0015"> 0015</label>
-                <label><input type="checkbox" name="swines" value="0016"> 0016</label>
-                <label><input type="checkbox" name="swines" value="0017"> 0017</label>
+              <div class="request-appointment-form__swines-list--grid" id="client-swine-list">
+                <p>No swine</p>
               </div>
             </div>
 
@@ -412,7 +355,7 @@
                 <span class="form-detail__label">Appointment Service:</span>
                 <select class="form-detail__value" id="select-appointment-service" name="select-appointment-service" required>
                   <option value="">Select Service</option>
-                  <option value="deworming">Deworming</option>
+                  <!-- setupRequestAppointmnets.js -->
                 </select>
               </div>
 
@@ -431,7 +374,7 @@
                 <span class="form-detail__label">Municipal:</span>
                 <select class="form-detail__value" id="select-municipal" name="select-municipal" required>
                   <option value="">Select Municipal</option>
-                  <option value="boac">Boac</option>
+                  <!-- setupRequestAppointments.js -->
                 </select>
               </div>
 
@@ -439,7 +382,7 @@
                 <span class="form-detail__label">Barangay:</span>
                 <select class="form-detail__value" id="select-barangay" name="select-barangay" required>
                   <option value="">Select Barangay</option>
-                  <option value="santol">Santol</option>
+                  <!-- setupRequestAppointments.js -->
                 </select>
               </div>
             </div>
@@ -447,12 +390,12 @@
             <div class="form-group-detail">
               <div class="form-detail" for="input-date"> 
                 <span class="form-detail__label">Date:</span>
-                <input class="form-detail__value" id="input-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)" required>
+                <input class="form-detail__value" id="input-date" type="date" placeholder="Schedule Date" required>
               </div>
 
               <div class="form-detail" for="input-time"> 
                 <span class="form-detail__label">Time:</span>
-                <input class="form-detail__value" id="input-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)" required>
+                <input class="form-detail__value" id="input-time" type="time" placeholder="Schedule Time" required>
               </div>
             </div>
 

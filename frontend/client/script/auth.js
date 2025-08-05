@@ -140,35 +140,35 @@ const handleNextInSignupForm = () => {
 
 
 
-// Fourth Field (Email, Password, Confirm-password)
-const passwordInputEl = document.querySelector('#client-input-password');
-const confirmPasswordInputEl = document.querySelector('#client-input-confirm-password');
-const nextBtnFourth = fourthField.querySelector('.signup-form__next-btn');
+  // Fourth Field (Email, Password, Confirm-password)
+  const passwordInputEl = document.querySelector('#client-input-password');
+  const confirmPasswordInputEl = document.querySelector('#client-input-confirm-password');
+  const nextBtnFourth = fourthField.querySelector('.signup-form__next-btn');
 
-// Enable/Disable next button based on input validity
-fourthFieldInputs.forEach(input => {
-  input.addEventListener('input', () => {
-    const isAllInputsFilled = Array.from(fourthFieldInputs).every(input => input.value.trim() !== '');
-    const isConfirmPassword = passwordInputEl.value === confirmPasswordInputEl.value;
+  // Enable/Disable next button based on input validity
+  fourthFieldInputs.forEach(input => {
+    input.addEventListener('input', () => {
+      const isAllInputsFilled = Array.from(fourthFieldInputs).every(input => input.value.trim() !== '');
+      const isConfirmPassword = passwordInputEl.value === confirmPasswordInputEl.value;
 
-    if (isAllInputsFilled && isConfirmPassword)
-      nextBtnFourth.removeAttribute('disabled');
-    else
-      nextBtnFourth.setAttribute('disabled', 'disabled');
+      if (isAllInputsFilled && isConfirmPassword)
+        nextBtnFourth.removeAttribute('disabled');
+      else
+        nextBtnFourth.setAttribute('disabled', 'disabled');
+    });
   });
-});
 
-// Handle click to go to next field
-nextBtnFourth.addEventListener('click', () => {
-  const clientEmail = document.querySelector('#client-input-email').value.trim();
-  const password = passwordInputEl.value;
-  const confirmPassword = confirmPasswordInputEl.value;
+  // Handle click to go to next field
+  nextBtnFourth.addEventListener('click', () => {
+    const clientEmail = document.querySelector('#client-input-email').value.trim();
+    const password = passwordInputEl.value;
+    const confirmPassword = confirmPasswordInputEl.value;
 
-  if (!checkPasswordLength(password, confirmPassword)) return;
-  sendOtp(clientEmail);
-  fourthField.classList.remove('show');
-  fifthField.classList.add('show');
-});
+    if (!checkPasswordLength(password, confirmPassword)) return;
+    sendOtp(clientEmail);
+    fourthField.classList.remove('show');
+    fifthField.classList.add('show');
+  });
 
   // fifthField (Terms and conditions)
   const otpBtn = fifthField.querySelector('.signup-form__next-btn');

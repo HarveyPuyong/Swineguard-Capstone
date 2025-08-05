@@ -7,7 +7,8 @@ router.put('/edit/:id', swineController.editSwine); // Edit Swine
 router.patch('/remove/:id', swineController.removeSwine); // Remove Swine
 router.patch('/restore/:id', swineController.restoreSwine); // Restore Swine
 router.delete('/delete/:id', swineController.deleteSwine); // Delete Swine
-router.get('/all', swineController.getSwine); // Get Swine
+router.get('/all', swineController.getSwine); // Get Swines
+router.get('/:id', swineController.getSwineById); // Get Swine by Id
 
 module.exports = router;
 

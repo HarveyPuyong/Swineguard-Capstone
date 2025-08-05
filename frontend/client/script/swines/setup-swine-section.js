@@ -1,47 +1,63 @@
-import displayClientSwines from "./display-swine.js";
-
+import {displayClientSwines, displayFullSwineDetails} from "./display-swine.js";
+import addSwine from "./add-swine.js";
+import {updateSwineDetails} from './edit-remove.js'
 
 // ======================================
 // ========== Toggle Swine Full Details
 // ======================================
 const toggleSwineFullDetails = () => {
   document.addEventListener('renderClientSwine', () => {
-    console.log('swine')
-    const swineFullDetailsContainer = document.querySelector('.swines-full-info');
+    const swineFullDetailsContainer = document.querySelector('#swines-full-info');
     const swines = document.querySelectorAll('.swine-card');
 
     swines.forEach(swine => {
-      swine.addEventListener('click', () => {
+      swine.addEventListener('click', async () => {
+        const swineId = swine.getAttribute('data-set-swine-id');
+
+        // ✅ Populate full swine details
+        await displayFullSwineDetails(swineId);
+
+        // ✅ Re-attach back button
+        const backBtn = swineFullDetailsContainer.querySelector('.swines-full-info__back-btn');
+        if (backBtn) {
+          backBtn.addEventListener('click', () => {
+            swineFullDetailsContainer.classList.remove('show');
+          });
+        }
+
+        // ✅ Attach edit/cancel buttons
+        toggleEditMode();  // ⬅ Moved here so it only runs after DOM is updated
+
+        // ✅ Show panel
         swineFullDetailsContainer.classList.add('show');
       });
     });
-
-    const backBtn = document.querySelector('.swines-full-info__back-btn').
-      addEventListener('click', () => swineFullDetailsContainer.classList.remove('show'));
   });
-}
-
+};
 
 // ======================================
 // ========== Toggle Edit Mode
 // ======================================
 const toggleEditMode = () => {
-  const swineFullInfoContiner = document.querySelector('#swines-full-info');
+  const container = document.querySelector('#swines-full-info');
+  const enableBtn = container.querySelector('.swines-full-info__edit-btn.enable-edit-mode-btn');
+  const disableBtn = container.querySelector('.swines-full-info__cancel-btn.disable-edit-mode-btn');
 
-  const enableEditModeBtn = document.querySelector('.swines-full-info__edit-btn.enable-edit-mode-btn');
-  const disableEditModeBtn = document.querySelector('.swines-full-info__cancel-btn.disable-edit-mode-btn');
+  if (!enableBtn || !disableBtn) return;
 
-  enableEditModeBtn.addEventListener('click', () => {
-    swineFullInfoContiner.classList.remove('view-mode');
-    swineFullInfoContiner.classList.add('edit-mode');
-    console.log(swineFullInfoContiner)
+  enableBtn.addEventListener('click', () => {
+    const swineId = enableBtn.getAttribute('data-set-swine-id');
+    updateSwineDetails(swineId);
+    container.classList.remove('view-mode');
+    container.classList.add('edit-mode');
+    
   });
 
-  disableEditModeBtn.addEventListener('click', () => {
-    swineFullInfoContiner.classList.add('view-mode');
-    swineFullInfoContiner.classList.remove('edit-mode');
+  disableBtn.addEventListener('click', () => {
+    container.classList.add('view-mode');
+    container.classList.remove('edit-mode');
   });
-}
+};
 
 
 // ======================================
@@ -58,7 +74,6 @@ const toggleAddSwineForm = () => {
 }
 
 
-
 // ======================================
 // ========== Main Function - Setup Swines Section
 // ======================================
@@ -67,4 +82,5 @@ export default function setupSwinesSection() {
   toggleAddSwineForm();
   toggleSwineFullDetails();
   toggleEditMode();
+  addSwine();
 }
