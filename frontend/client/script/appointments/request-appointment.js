@@ -1,65 +1,107 @@
 import api from "../../client-utils/axios-config.js";
 import popupAlert from "../../client-utils/client-popupAlert.js";
 import fetchClient from "../auth/fetch-client.js";
-
-const requestAppointment = async() => {
-    // Sanitize all inputs text type
-    const inputs = document.querySelectorAll('#add-appointments-form input[type="text"]:not(#client-email):not(#appointment-date):not(#appointment-time)');
-
-    inputs.forEach(input => {
-        input.addEventListener('input', () => {
-        input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
-        });
-    });
+import fetchSwines from "./../../../admin/api/fetch-swines.js"
+import { getSwineAgeInMonths, 
+         getSwineGenderMale,
+         getSwineGenderFemale } from "../../client-utils/get-swine-data.js";
+import { checkAppointmentDate, checkTime } from "../../client-utils/checkDates.js";
 
 
-    const addAppointmentForm = document.querySelector('#add-appointments-form');
+const sendRequestAppointment = () => {
+  const appointmentForm = document.querySelector('#request-appointment-form');
+  const dateInput = document.querySelector('#input-date');
+  const timeInput = document.querySelector('#input-time');
+  if (!appointmentForm) return;
 
-    if(!addAppointmentForm) return
-  
-    addAppointmentForm.addEventListener('submit', async(e) => {
-      e.preventDefault();
+  appointmentForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      const appointmentFormData = {
-        clientFirstname: document.querySelector('#first-name').value.trim(),
-        clientLastname: document.querySelector('#last-name').value.trim(),
-        clientEmail: document.querySelector('#client-email').value.trim(),
-        contactNum: document.querySelector('#client-phone').value.trim(),
-        municipality: document.querySelector('#municipality').value,
-        barangay: document.querySelector('#barangay').value,
-        appointmentService: document.querySelector('#appointment-service').value,
-        appointmentType: document.querySelector('#appointment-type').value,
-        appointmentDate: document.querySelector('#appointment-date').value,
-        appointmentTime: document.querySelector('#appointment-time').value,
-        swineType: document.querySelector('#swine-type').value,
-        swineAge: Number(document.querySelector('#swine-age').value),
-        swineCount: Number(document.querySelector('#swine-count').value),
-        swineFemale: Number(document.querySelector('#swine-female').value),
-        swineMale: Number(document.querySelector('#swine-male').value),
-        swineSymptoms: document.querySelector('#swine-symptoms').value.trim(),
-        appointmentStatus: 'ongoing'
-    };
+    const selectedDate = new Date(dateInput.value);
+    const selectedTime = timeInput.value;
 
+    const isDateValid = checkAppointmentDate(selectedDate);
+    const isTimeValid = checkTime(selectedTime);
+
+    if (!isDateValid || !isTimeValid) return;
 
     try {
+      const client = await fetchClient();
+      const { _id, firstName, lastName } = client;
+
+      const swines = await fetchSwines();
+      const selectedSwineCheckboxes = document.querySelectorAll('input[name="swines"]:checked');
+
+      if (selectedSwineCheckboxes.length === 0) {
+        popupAlert('error', 'Error', 'Please select at least one swine.');
+        return;
+      }
+
+      // ✅ Extract swine IDs
+      const selectedSwineIds = [];
+      let totalMale = 0;
+      let totalFemale = 0;
+      let totalAge = 0;
+      let swineType = 'multiple';
+
+      for (const checkbox of selectedSwineCheckboxes) {
+        const swineId = checkbox.value;
+        const swine = swines.find(sw => sw._id === swineId && sw.status !== 'removed');
+        if (!swine) continue;
+
+        selectedSwineIds.push(swineId);
+        totalMale += getSwineGenderMale(swine.sex);
+        totalFemale += getSwineGenderFemale(swine.sex);
+        totalAge += getSwineAgeInMonths(swine.birthdate);
+
+          if (selectedSwineCheckboxes.length === 1) {
+            swineType = swine.type;
+          }
+      }
+
+      const swineCount = selectedSwineIds.length;
+      const averageAge = swineCount > 0 ? Math.round(totalAge / swineCount) : 0;
+
+
+      const appointmentFormData = {
+        clientId: _id,
+        swineIds: selectedSwineIds,
+
+        clientFirstname: firstName,
+        clientLastname: lastName,
+        clientEmail: document.querySelector('#input-email').value.trim(),
+        contactNum: document.querySelector('#input-contact-number').value.trim(),
+        municipality: document.querySelector('#select-municipal').value,
+        barangay: document.querySelector('#select-barangay').value,
+        appointmentService: document.querySelector('#select-appointment-service').value,
+        appointmentType: document.querySelector('#select-appointment-type').value,
+
+        appointmentDate: document.querySelector('#input-date').value,
+        appointmentTime: document.querySelector('#input-time').value,
+
+        swineType: swineType,
+        swineAge: averageAge,
+        swineCount: selectedSwineIds.length,
+        swineMale: totalMale,
+        swineFemale: totalFemale,
+        swineSymptoms: document.querySelector('#input-note').value
+      };
+      
+      console.log(appointmentFormData);
       const response = await api.post('/appointment/add', appointmentFormData);
 
-      if(response.status === 201){
-        popupAlert('success', 'Success!', 'New appointment has been created successfully').
-          then(() => {
-            addAppointmentForm.reset();
-            addAppointmentForm.parentNode.classList.remove('show');
-            handleRenderAppointments();
-            appointmentsDashboard();
-          });
+      if (response.status === 201) {
+        popupAlert('success', 'Success!', 'Appointment requested successfully.');
+        appointmentForm.reset();
+        appointmentForm.classList.remove('show');
       }
 
     } catch (error) {
       console.log(error);
-      const errMessage = error.response.data?.message || error.response.data?.error;
+      const errMessage = error.response?.data?.message || error.message;
       popupAlert('error', 'Error!', errMessage);
     }
-  })
-}
+  });
+};
 
-export default requestAppointment;
+export default sendRequestAppointment;

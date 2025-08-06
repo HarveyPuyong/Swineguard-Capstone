@@ -3,6 +3,9 @@ import fetchClient from '../auth/fetch-client.js';
 import fetchSwineById from './fetch-swine.js';
 import { formattedDate } from '../../../admin/utils/formated-date-time.js';
 import { removeSwine } from './edit-remove.js';
+import { fetchAppointments } from '../../../admin/api/fetch-appointments.js';
+import { getServiceName } from '../../../admin/api/fetch-services.js';
+import { getMedicineName } from '../../../admin/api/fetch-medicine.js';
 
 const displayClientSwines = async() => {
     try {
@@ -123,6 +126,14 @@ const displayFullSwineDetails = async (swineId) => {
                 <input id="death-cause" name="death-cause" class="detail-value" type="text" value="${swine.cause || ''}" placeholder="Cause">
             </div>
         </div>
+        
+        <div class="medical-history__container">
+            <h3>Medical History</h3>
+            <div class="swine-medical__history-list" id="swine-medical__history-list">
+                <hr>
+                <p>No Medical History.</p>
+            </div>
+        </div>
 
         <div class="buttons-container">
             <button class="swines-full-info__cancel-btn disable-edit-mode-btn" type="button">Cancel</button>
@@ -131,7 +142,33 @@ const displayFullSwineDetails = async (swineId) => {
     `;
 
     document.querySelector('#swines-full-info').innerHTML = swineFullDetails;
+    await getSwineHistoryRecords(swineId);
 };
+
+const getSwineHistoryRecords = async(swineId) => {
+    try {
+        const appointments = await fetchAppointments();
+        const filteredCompletedAppointments = appointments.filter(appointment => appointment.swineIds.includes(swineId) && appointment.appointmentStatus === 'completed');
+
+        let swineHealthRecordsHTML = '';
+        for (const appointment of filteredCompletedAppointments) {
+            const serviceName = await getServiceName(appointment.appointmentService)
+            const medicineName = await getMedicineName(appointment.medicine);
+            swineHealthRecordsHTML += `
+                <hr>
+                <p><strong>Service:</strong> ${serviceName}</p>
+                <p><strong>Date:</strong> ${formattedDate(appointment.appointmentDate)}</p>
+                <p><strong>Medicine:</strong> ${medicineName}</p>
+                <p><strong>Dosage:</strong> ${(appointment.dosage)/appointment.swineCount} mg</p>
+            `;
+        }
+
+        document.querySelector('#swine-medical__history-list').innerHTML = swineHealthRecordsHTML;
+
+    } catch (err){
+        console.error("Something went wrong went getting swine records");
+    }
+}
 
 export {
     displayClientSwines,

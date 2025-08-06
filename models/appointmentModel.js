@@ -7,11 +7,11 @@ const appointmentSchema = new mongoose.Schema({
         ref: 'User', 
         required: false,
     },
-    swineId: {
+    swineIds: [{
         type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Swine', 
+        ref: 'Swine',
         required: false,
-    },
+    }],
 
     clientFirstname: { type: String, required: true },
     clientLastname: { type: String, required: true },
@@ -28,7 +28,7 @@ const appointmentSchema = new mongoose.Schema({
 
     swineType: { type: String, required: true },
     swineCount: { type: Number, required: true },
-    swineSymptoms: { type: String, required: true },
+    swineSymptoms: { type: String, required: false },
     swineAge: { type: Number, required: true },
     swineMale: { type: Number, required: true },
     swineFemale: { type: Number, required: true },

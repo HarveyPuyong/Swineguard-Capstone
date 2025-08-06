@@ -6,7 +6,7 @@ const ROLE_LIST = require('./../config/role_list');
 const verifyRoles = require('./../middlewares/verifyRoles');
 
 
-router.post('/add', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordinator), appointmentController.addAppointment); 
+router.post('/add', verifyJWT, appointmentController.addAppointment); 
 
 router.put('/accept/:id', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordinator), appointmentController.acceptAppointment); 
 

@@ -287,44 +287,7 @@
 
           <!-- Appointment Card List -->
           <div class="appointments-card-list">
-            <div class="appointment-card">
-              <div class="appointment-card__image-container">
-                <img class="appointment-card__image-container--img" src="images-and-icons/icons/Veterenarian-icon.png" alt="appointment-card-image">
-                <p class="appointment-card__image-container--label">Swine Consultation</p>
-              </div>
-              <div class="appointment-card__details-and-more-details-container">
-                <div class="appointment-card__details-container">
-                  <p class="appointment-card__title appointment-card__detail">
-                    <span class="appointment-card__detail--label">Title:</span>
-                    <span class="appointment-card__detail--value">Iron Supplemantation</span>
-                  </p>
-                  <p class="appointment-card__count appointment-card__detail">
-                    <span class="appointment-card__detail--label">SwinesCount:</span>
-                    <span class="appointment-card__detail--value">7 Swines</span>
-                  </p>
-                  <p class="appointment-card__date--first-dose appointment-card__detail">
-                    <span class="appointment-card__detail--label">Fist Dose Date:</span>
-                    <span class="appointment-card__detail--value">April 15, 2025 <span class="dose-status">(1st Dose)</span></span>
-                  </p>
-                </div>
-                <div class="appointment-card__more-details-container">
-                  <p class="appointment-card__time appointment-card__detail">
-                    <span class="appointment-card__detail--label">Time:</span>
-                    <span class="appointment-card__detail--value">9:00 AM</span>
-                  </p>
-                  <p class="appointment-card__status appointment-card__detail">
-                    <span class="appointment-card__detail--label">Status:</span>
-                    <span class="appointment-card__detail--value">Ongoing</span>
-                  </p>
-                  <p class="appointment-card__date--second-dose appointment-card__detail">
-                    <span class="appointment-card__detail--label">Second Dose Date:</span>
-                    <span class="appointment-card__detail--value">April 15, 2025 <span class="dose-status">(2nd Dose)</span></span>
-                  </p>
-                </div>
-              </div>
-
-              <button class="appointment-card__toggle-more-details-btn">View More</button>
-            </div>
+            <!-- display-appointment-list.js -->
           </div>
 
           <!-- Request Appointment Form -->
@@ -363,7 +326,7 @@
                 <span class="form-detail__label">Appointment Type:</span>
                 <select class="form-detail__value" id="select-appointment-type" name="select-appointment-type" required>
                   <option value="">Select Type</option>
-                  <option value="consult">Consult</option>
+                  <option value="service">Service</option>
                   <option value="visit">Visit</option>
                 </select>
               </div>
@@ -413,7 +376,7 @@
 
             <div class="form-detail" for="input-note"> 
               <span class="form-detail__label">Note:</span>
-              <textarea class="form-detail__value" name="input-note" id="input-note" placeholder="Type your appointment note" required></textarea>
+              <textarea class="form-detail__value" name="input-note" id="input-note" placeholder="Type your appointment note"></textarea>
             </div>
 
             <div class="request-appointment-form__buttons-container">

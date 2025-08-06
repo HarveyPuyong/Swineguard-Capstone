@@ -221,6 +221,30 @@
   z-index: 900;
 }
 
+.swines-full-info .medical-history__container{
+  width: 100%;
+  padding: .5rem .3rem;
+  margin-top: 1rem;
+}
+.swine-medical__history-list {
+  line-height: 1.2rem;
+}
+
+.swines-full-info .medical-history__container.hide {
+  display: none;
+}
+.swines-full-info .medical-history__container.show {
+  display: block;
+}
+.medical-history__container h3 {
+  text-align: center;
+  margin-bottom: .5rem;
+}
+.swine-medical__history-list hr{
+  margin: .5rem 0rem;
+}
+
+
 .swines-full-info.show{
   display: flex;
 }

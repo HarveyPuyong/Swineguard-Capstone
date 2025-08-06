@@ -25,14 +25,18 @@ const handleAddAppointment = () => {
       const appointmentFormData = {
         clientFirstname: document.querySelector('#first-name').value.trim(),
         clientLastname: document.querySelector('#last-name').value.trim(),
+
         clientEmail: document.querySelector('#client-email').value.trim(),
         contactNum: document.querySelector('#client-phone').value.trim(),
+
         municipality: document.querySelector('#municipality').value,
         barangay: document.querySelector('#barangay').value,
+        
         appointmentService: document.querySelector('#appointment-service').value,
         appointmentType: document.querySelector('#appointment-type').value,
         appointmentDate: document.querySelector('#appointment-date').value,
         appointmentTime: document.querySelector('#appointment-time').value,
+
         swineType: document.querySelector('#swine-type').value,
         swineAge: Number(document.querySelector('#swine-age').value),
         swineCount: Number(document.querySelector('#swine-count').value),

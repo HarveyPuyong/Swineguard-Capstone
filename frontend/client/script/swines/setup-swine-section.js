@@ -1,6 +1,6 @@
 import {displayClientSwines, displayFullSwineDetails} from "./display-swine.js";
 import addSwine from "./add-swine.js";
-import {updateSwineDetails} from './edit-remove.js'
+import {updateSwineDetails, setupSwineFormListener } from './edit-remove.js'
 
 // ======================================
 // ========== Toggle Swine Full Details
@@ -42,20 +42,26 @@ const toggleEditMode = () => {
   const container = document.querySelector('#swines-full-info');
   const enableBtn = container.querySelector('.swines-full-info__edit-btn.enable-edit-mode-btn');
   const disableBtn = container.querySelector('.swines-full-info__cancel-btn.disable-edit-mode-btn');
+  const swineHistory = container.querySelector('.medical-history__container');
 
   if (!enableBtn || !disableBtn) return;
 
   enableBtn.addEventListener('click', () => {
     const swineId = enableBtn.getAttribute('data-set-swine-id');
+    console.log(swineId)
     updateSwineDetails(swineId);
     container.classList.remove('view-mode');
     container.classList.add('edit-mode');
+    swineHistory.classList.remove('show');
+    swineHistory.classList.add('hide');
     
   });
 
   disableBtn.addEventListener('click', () => {
     container.classList.add('view-mode');
     container.classList.remove('edit-mode');
+    swineHistory.classList.remove('hide');
+    swineHistory.classList.add('show');
   });
 };
 
@@ -82,5 +88,6 @@ export default function setupSwinesSection() {
   toggleAddSwineForm();
   toggleSwineFullDetails();
   toggleEditMode();
+  setupSwineFormListener();
   addSwine();
 }

@@ -6,7 +6,7 @@ const { checkSwineCountLimit, isValidAppointmentTime } = require('./../utils/app
 exports.addAppointment = async (req, res) => {
     const { 
         clientId, 
-        swineId, 
+        swineIds, 
 
         clientFirstname, 
         clientLastname, 
@@ -24,8 +24,7 @@ exports.addAppointment = async (req, res) => {
         swineAge, 
         swineMale, 
         swineFemale, 
-        appointmentType,
-        appointmentStatus
+        appointmentType
     } = req.body;
 
     // Validate text only and not allow emojis
@@ -34,9 +33,6 @@ exports.addAppointment = async (req, res) => {
     if (!nameRegex.test(clientFirstname) || !nameRegex.test(clientLastname) ) {
         return res.status(400).json({ message: 'Name fields must only contain letters, spaces, hyphens, apostrophes, or periods. Numbers and emojis are not allowed.' });
     }
-
-    // Appointment type validation
-    const validTypes = ["service", "visit"];
 
     // Validate only the REQUIRED fields based on schema
     if (
@@ -55,8 +51,7 @@ exports.addAppointment = async (req, res) => {
         swineMale == null ||
         swineFemale == null ||
         !appointmentDate ||
-        !appointmentTime ||
-        !validTypes.includes(appointmentType)
+        !appointmentTime 
     ) {
         return res.status(400).json({ message: 'Please fill out all required fields' });
     }
@@ -92,7 +87,7 @@ exports.addAppointment = async (req, res) => {
 
     const appointmentData = {
         clientId, 
-        swineId, 
+        swineIds, 
 
         clientFirstname, clientLastname, 
         contactNum, 

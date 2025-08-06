@@ -2,7 +2,8 @@ import { fetchServices } from "../../../admin/api/fetch-services.js";
 import addressesData from "../../../admin/static-data/addresses.js";
 import fetchClient from "../auth/fetch-client.js";
 import displaySwineList from "./display-client-swine-list.js";
-import { checkAppointmentDate, checkTime } from "../../client-utils/checkDates.js";
+import sendRequestAppointment from "./request-appointment.js";
+import displayAppointmentCardList from "./display-appointment-list.js";
 
 // ======================================
 // ========== Toggle Appointment More Details
@@ -125,37 +126,15 @@ const toggleRequestAppointmentForm = async() => {
 }
 
 
-// ======================================
-// ========== Handle Sending Appointment
-// ======================================
-const handaleRequestAppointment = () => {
-  const appointmentForm = document.querySelector('#request-appointment-form');
-  const dateInput = document.querySelector('#input-date');
-  const timeInput = document.querySelector('#input-time');
-
-  appointmentForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const selectedDate = new Date(dateInput.value);
-    const selectedTime = timeInput.value;
-
-    const isDateValid = checkAppointmentDate(selectedDate);
-    const isTimeValid = checkTime(selectedTime);
-    if (!isDateValid || !isTimeValid) return;
-
-    alert('WellDone');
-    appointmentForm.classList.remove('show');
-    // render appointment list
-  });
-}
-
 
 // ======================================
 // ========== Main Function - Setup Appointment Section
 // ======================================
 export default function setupAppointmentSection() {
+  displayAppointmentCardList();
   toggleRequestAppointmentForm();
   toggleAppointmentMoreDetails();
   setupRequestAppointmentForm();
   displaySwineList();
-  handaleRequestAppointment();
+  sendRequestAppointment();
 }
