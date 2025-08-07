@@ -31,12 +31,7 @@ app.use(Express.static(path.join(__dirname, 'frontend')));
 
 app.get('/', (req, res) => {
   return res.redirect('/admin/login.html');
-
 });
-
-// app.get('/client-login', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'frontend', 'client', 'login.html'));
-// });
 
 // Auth Routing User
 app.use('/auth', require('./routes/authRoute'));

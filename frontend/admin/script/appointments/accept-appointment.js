@@ -5,68 +5,131 @@ import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
 import { fetchAppointments } from '../../api/fetch-appointments.js';
 import handleRenderTechnicians from '../technicians/display-technicians.js';
 
+let currentAppointmentId = null;
+const acceptAppointmentForm = document.querySelector('.appointment-schedule-form');
+const personnelSelectElement = document.querySelector('#available-personnel');
 
-const handleAcceptAppointment = async (appointmentId) => {
-  const acceptAppointmentForm = document.querySelector('.appointment-schedule-form');
+// const handleAcceptAppointment = async () => {
 
-  // Fetch the appointment data once
+//   // Fetch the appointment data once
+//   const allAppointments = await fetchAppointments();
+//   const appointment = allAppointments.find(app => app._id === appointmentId);
+//   const getAppointmentType = appointment.appointmentType;
+
+//   if (!appointment) {
+//     popupAlert('error', 'Error!', 'Appointment not found.');
+//     return;
+//   }
+
+//   acceptAppointmentForm.addEventListener('submit', async(e) => {
+//     e.preventDefault();
+
+//     // Auto-assign values based on type
+//     let appointmentMedicine, medicineDosage;
+//     if (getAppointmentType.toLowerCase() === 'visit') {
+
+//       appointmentMedicine = null;
+//       medicineDosage = 0;
+
+//     } else {
+//       appointmentMedicine = document.querySelector('.appointment-schedule-form #medicine-list').value.trim();
+//       medicineDosage = Number(document.querySelector('.appointment-schedule-form #medicine-amount').value.trim());
+//     }
+
+//     const appointmentData = {
+//       appointmentDate: document.querySelector('.appointment-schedule-form #set-date').value.trim(),
+//       appointmentTime: document.querySelector('.appointment-schedule-form #set-time').value.trim(),
+      
+//       medicine: appointmentMedicine,
+//       dosage: medicineDosage,
+//       vetPersonnel: document.querySelector('.appointment-schedule-form #available-personnel').value.trim(),
+//       vetMessage: document.querySelector('.appointment-schedule-form #vet-message').value.trim(),
+//     };
+
+
+//     try{
+
+//       const response = await api.put(`/appointment/accept/${currentAppointmentId}`, appointmentData);
+
+//       if(response.status === 200){
+//         popupAlert('success', 'Succes!', 'Appointment Accepted');
+//       }
+      
+//     } catch(err) {
+//       console.log(err);
+//       const errMessage = err.response.data?.message || err.response.data?.error;
+//       popupAlert('error', 'Error!', errMessage);
+//     }
+//   });
+// }
+
+
+
+
+const handleAcceptAppointment = async (e) => {
+  e.preventDefault(); // ✅ Prevent page reload
+
   const allAppointments = await fetchAppointments();
-  const appointment = allAppointments.find(app => app._id === appointmentId);
-  const getAppointmentType = appointment.appointmentType;
-
+  const appointment = allAppointments.find(app => app._id === currentAppointmentId); // ✅ Fix here too!
   if (!appointment) {
     popupAlert('error', 'Error!', 'Appointment not found.');
     return;
   }
 
-  acceptAppointmentForm.addEventListener('submit', async(e) => {
-    e.preventDefault();
+  const getAppointmentType = appointment.appointmentType;
 
-    // Auto-assign values based on type
-    let appointmentMedicine, medicineDosage;
-    if (getAppointmentType.toLowerCase() === 'visit') {
+  let appointmentMedicine, medicineDosage;
+  if (getAppointmentType.toLowerCase() === 'visit') {
+    appointmentMedicine = null;
+    medicineDosage = 0;
+  } else {
+    appointmentMedicine = document.querySelector('.appointment-schedule-form #medicine-list').value.trim();
+    medicineDosage = Number(document.querySelector('.appointment-schedule-form #medicine-amount').value.trim());
+  }
 
-      appointmentMedicine = null;
-      medicineDosage = 0;
+  const appointmentData = {
+    appointmentDate: document.querySelector('.appointment-schedule-form #set-date').value.trim(),
+    appointmentTime: document.querySelector('.appointment-schedule-form #set-time').value.trim(),
+    medicine: appointmentMedicine,
+    dosage: medicineDosage,
+    vetPersonnel: document.querySelector('.appointment-schedule-form #available-personnel').value.trim(),
+    vetMessage: document.querySelector('.appointment-schedule-form #vet-message').value.trim(),
+  };
 
-    } else {
-      appointmentMedicine = document.querySelector('.appointment-schedule-form #medicine-list').value.trim();
-      medicineDosage = Number(document.querySelector('.appointment-schedule-form #medicine-amount').value.trim());
+  try {
+    const response = await api.put(`/appointment/accept/${currentAppointmentId}`, appointmentData);
+    if (response.status === 200) {
+      popupAlert('success', 'Success!', 'Appointment Accepted')
+        .then(() => {
+          acceptAppointmentForm.reset();
+          personnelSelectElement.innerHTML = '<option value="">Personnel</option>';
+          acceptAppointmentForm.classList.remove('show');
+          handleRenderAppointments();
+          handleRenderTechnicians();
+          appointmentsDashboard();
+        });
     }
-
-    const appointmentData = {
-      appointmentDate: document.querySelector('.appointment-schedule-form #set-date').value.trim(),
-      appointmentTime: document.querySelector('.appointment-schedule-form #set-time').value.trim(),
-      
-      medicine: appointmentMedicine,
-      dosage: medicineDosage,
-      vetPersonnel: document.querySelector('.appointment-schedule-form #available-personnel').value.trim(),
-      vetMessage: document.querySelector('.appointment-schedule-form #vet-message').value.trim(),
-    };
+  } catch (err) {
+    console.log(err);
+    const errMessage = err.response?.data?.message || err.response?.data?.error;
+    popupAlert('error', 'Error!', errMessage);
+  }
+};
 
 
-    try{
+const acceptAppointmentRequest = (appointmentId) => {
+  currentAppointmentId = appointmentId;
+};
 
-      const response = await api.put(`/appointment/accept/${appointmentId}`, appointmentData);
-
-      if(response.status === 200){
-        popupAlert('success', 'Succes!', 'Appointment Accepted')
-          .then(() => { 
-            acceptAppointmentForm.reset();
-            acceptAppointmentForm.classList.remove('show')
-            handleRenderAppointments();
-            handleRenderTechnicians();
-            appointmentsDashboard();
-          })
-      }
-      
-    } catch(err) {
-      console.log(err);
-      const errMessage = err.response.data?.message || err.response.data?.error;
-      popupAlert('error', 'Error!', errMessage);
-    }
-  });
-}
+const setupAppointmentFormListener = () => {
+  const acceptAppointmentForm = document.querySelector('.appointment-schedule-form');
+  if (acceptAppointmentForm) {
+    acceptAppointmentForm.addEventListener('submit', handleAcceptAppointment); 
+  }
+};
 
 
-export default handleAcceptAppointment;
+export {
+  setupAppointmentFormListener,
+  acceptAppointmentRequest
+};

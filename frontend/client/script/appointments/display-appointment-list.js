@@ -22,34 +22,35 @@ const displayAppointmentCardList = async() => {
                     <p class="appointment-card__image-container--label">Swine ${appointment.appointmentType.charAt(0).toUpperCase() + appointment.appointmentType.slice(1)}</p>
                     </div>
                     <div class="appointment-card__details-and-more-details-container">
-                    <div class="appointment-card__details-container">
-                        <p class="appointment-card__title appointment-card__detail">
-                        <span class="appointment-card__detail--label">Title:</span>
-                        <span class="appointment-card__detail--value">${serviceName}</span>
-                        </p>
-                        <p class="appointment-card__count appointment-card__detail">
-                        <span class="appointment-card__detail--label">SwinesCount:</span>
-                        <span class="appointment-card__detail--value">${appointment.swineCount} Swines</span>
-                        </p>
-                        <p class="appointment-card__date--first-dose appointment-card__detail">
-                        <span class="appointment-card__detail--label">Appointment Date:</span>
-                        <span class="appointment-card__detail--value">${formattedDate(appointment.appointmentDate)} <span class="dose-status">(1st Dose)</span></span>
-                        </p>
-                    </div>
-                    <div class="appointment-card__more-details-container">
-                        <p class="appointment-card__time appointment-card__detail">
-                        <span class="appointment-card__detail--label">Time:</span>
-                        <span class="appointment-card__detail--value">${formatTo12HourTime(appointment.appointmentTime)}</span>
-                        </p>
-                        <p class="appointment-card__status appointment-card__detail">
-                        <span class="appointment-card__detail--label">Status:</span>
-                        <span class="appointment-card__detail--value">${appointment.appointmentStatus.charAt(0).toUpperCase() + appointment.appointmentStatus.slice(1)}</span>
-                        </p>
-                        <p class="appointment-card__date--second-dose appointment-card__detail">
-                        <span class="appointment-card__detail--label">Second Dose Date:</span>
-                        <span class="appointment-card__detail--value">(To be update) <span class="dose-status">(2nd Dose)</span></span>
-                        </p>
-                    </div>
+                        <div class="appointment-card__details-container">
+                            <p class="appointment-card__title appointment-card__detail">
+                            <span class="appointment-card__detail--label">Title:</span>
+                            <span class="appointment-card__detail--value">${serviceName}</span>
+                            </p>
+                            <p class="appointment-card__count appointment-card__detail">
+                            <span class="appointment-card__detail--label">SwinesCount:</span>
+                            <span class="appointment-card__detail--value">${appointment.swineCount} Swines</span>
+                            </p>
+                            <p class="appointment-card__date--first-dose appointment-card__detail">
+                            <span class="appointment-card__detail--label">Appointment Date:</span>
+                            <span class="appointment-card__detail--value">${formattedDate(appointment.appointmentDate)} <span class="dose-status">(1st Dose)</span></span>
+                            </p>
+                        </div>
+                        
+                        <div class="appointment-card__more-details-container">
+                            <p class="appointment-card__time appointment-card__detail">
+                            <span class="appointment-card__detail--label">Time:</span>
+                            <span class="appointment-card__detail--value">${formatTo12HourTime(appointment.appointmentTime)}</span>
+                            </p>
+                            <p class="appointment-card__status appointment-card__detail">
+                            <span class="appointment-card__detail--label">Status:</span>
+                            <span class="appointment-card__detail--value">${appointment.appointmentStatus.charAt(0).toUpperCase() + appointment.appointmentStatus.slice(1)}</span>
+                            </p>
+                            <p class="appointment-card__date--second-dose appointment-card__detail">
+                            <span class="appointment-card__detail--label">Second Dose Date:</span>
+                            <span class="appointment-card__detail--value">(To be update) <span class="dose-status">(2nd Dose)</span></span>
+                            </p>
+                        </div>
                     </div>
 
                     <button class="appointment-card__toggle-more-details-btn" data-set-appointment-id="${appointment._id}">View More</button>

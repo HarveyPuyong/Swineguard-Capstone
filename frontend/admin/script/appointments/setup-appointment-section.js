@@ -2,7 +2,7 @@ import addressesData from '../../static-data/addresses.js';
 import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSidenav utility function from the utils folder
 import handleAddAppointment from "./add-appointment.js";
 import handleRenderAppointments from "./display-appointment.js";
-import handleAcceptAppointment from "./accept-appointment.js";
+import { setupAppointmentFormListener, acceptAppointmentRequest } from "./accept-appointment.js";
 import handleRescheduleAppointment from './reschedule-appointment.js';
 import handleRemoveAppointment from "./remove-appointment.js";
 import {handleCompleteAppointment,
@@ -280,8 +280,8 @@ const setupScheduleAppointmentForm = async(appointmentId) => {
     const technicians = allUsers.filter(user => user.roles.includes('technician') || user.roles.includes('veterinarian'));
 
     //Personal Select Element
-    const personalSelectElement = document.querySelector('.appointment-schedule-form #available-personnel');
-    if(!personalSelectElement) return;
+    const personnelSelectElement = document.querySelector('.appointment-schedule-form #available-personnel');
+    if(!personnelSelectElement) return;
 
     technicians.forEach(technician => {
       const prefix = technician.roles.includes('veterinarian') ? 'Doc.' : technician.roles.includes('technician') ? 'Mr.' : '';
@@ -292,7 +292,7 @@ const setupScheduleAppointmentForm = async(appointmentId) => {
       option.value = technician._id;
       option.textContent = technicianFullname;
 
-      personalSelectElement.appendChild(option);
+      personnelSelectElement.appendChild(option);
     });
 
     const appointments = await fetchAppointments();
@@ -326,6 +326,7 @@ const toggleAddAppointmentForm = () => {
 // ======================================
 const toggleAcceptAppointmentForm = (actionSelect) => {
   const acceptAppointmentForm = document.querySelector('.appointment-schedule-form');
+  const personnelSelectElement = document.querySelector('#available-personnel');
 
   acceptAppointmentForm.classList.add('show')
 
@@ -333,8 +334,9 @@ const toggleAcceptAppointmentForm = (actionSelect) => {
   if (!closeFormBtn) return;
 
   closeFormBtn.addEventListener('click', () => {
-      acceptAppointmentForm.classList.remove('show');
-      if(actionSelect) actionSelect.value = '' 
+    acceptAppointmentForm.classList.remove('show');
+    if(actionSelect) actionSelect.value = '' 
+    personnelSelectElement.innerHTML = '<option value="">Personnel</option>';
   });
 }
 
@@ -357,7 +359,7 @@ const handleAppointmentSelectActions = () => {
 
         if(actionSelect.value === 'accept'){
           toggleAcceptAppointmentForm(actionSelect);
-          handleAcceptAppointment(appointmentId);
+          acceptAppointmentRequest(appointmentId);
           populateAppointmentDateAndTime(appointmentId);
           setupScheduleAppointmentForm(appointmentId);
           populateFilteredMedicines(appointmentId);
@@ -473,5 +475,6 @@ export default function setupAppointmentSection () {
   toggleAddAppointmentForm();
   toggleAppointentMoreDetails();
   viewBtnsFunctionality();
+  setupAppointmentFormListener();
 }
 

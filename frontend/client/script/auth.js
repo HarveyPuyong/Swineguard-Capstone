@@ -170,8 +170,8 @@ const handleNextInSignupForm = () => {
     fifthField.classList.add('show');
   });
 
-  // fifthField (Terms and conditions)
-  const otpBtn = fifthField.querySelector('.signup-form__next-btn');
+  // fifthField verify otp and create an account
+  const otpBtn = fifthField.querySelector('#finish-btn');
   otpBtn.addEventListener('click', () => {
     const clientEmail = document.querySelector('#client-input-email').value.trim();
     verifyOtp(clientEmail, getOTPValue());

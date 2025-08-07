@@ -13,8 +13,10 @@ const handleRenderSwines = async() => {
       
       const swinesOwnerId = swine.clientId;
       const swinesOwner = users.find(user => user._id === swinesOwnerId);
+
       const swinesOwnerName = `${swinesOwner.firstName} ${swinesOwner.middleName} ${swinesOwner.lastName}`;
       const swinesOwnerAdress = `${swinesOwner.barangay} ${swinesOwner.municipality}`;
+      
       const swineAgeInMonths = await calculateSwineAge(swine.birthdate);
 
       swinesTableHTML += `

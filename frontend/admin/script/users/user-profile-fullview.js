@@ -160,6 +160,17 @@ const handleUserFullview = async (userId) => {
         }
         document.querySelector('.swines-table__tbody').innerHTML = userSwineHTML;
 
+
+        const viewButtons = document.querySelectorAll('.toggle-more-details-btn');
+
+        viewButtons.forEach(button => {
+            button.addEventListener('click', function () {
+                const swineDetails = this.closest('.swine').querySelector('.swine__more-details');
+                swineDetails.classList.toggle('show');
+                this.textContent = swineDetails.classList.contains('show') ? 'Hide' : 'View';
+            });
+        });
+
     } catch (error) {
         console.log(error);
     }

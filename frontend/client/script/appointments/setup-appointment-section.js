@@ -128,12 +128,20 @@ const toggleRequestAppointmentForm = async() => {
 
 
 // ======================================
+// ✅ Event listener for dynamic content
+// ======================================
+document.addEventListener('renderClientAppointmentList', () => {
+  toggleAppointmentMoreDetails(); 
+});
+
+
+
+// ======================================
 // ========== Main Function - Setup Appointment Section
 // ======================================
 export default function setupAppointmentSection() {
   displayAppointmentCardList();
   toggleRequestAppointmentForm();
-  toggleAppointmentMoreDetails();
   setupRequestAppointmentForm();
   displaySwineList();
   sendRequestAppointment();

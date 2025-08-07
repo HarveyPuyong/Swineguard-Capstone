@@ -6,6 +6,7 @@ import { getSwineAgeInMonths,
          getSwineGenderMale,
          getSwineGenderFemale } from "../../client-utils/get-swine-data.js";
 import { checkAppointmentDate, checkTime } from "../../client-utils/checkDates.js";
+import displayAppointmentCardList from "./display-appointment-list.js";
 
 
 const sendRequestAppointment = () => {
@@ -93,6 +94,7 @@ const sendRequestAppointment = () => {
       if (response.status === 201) {
         popupAlert('success', 'Success!', 'Appointment requested successfully.');
         appointmentForm.reset();
+        displayAppointmentCardList();
         appointmentForm.classList.remove('show');
       }
 

@@ -4,7 +4,7 @@ const UserDB = require('../../models/userModel');
 const { isValidInput, containsEmoji, hasNumber, containsSpecialChar } = require('./../../utils/inputChecker');
 const { generateAccessToken, generateRefreshToken } = require('../../utils/generateTokens');
 
-const signupController = async (req, res) => {
+exports.signupClientController = async (req, res) => {
   const {
     firstName, middleName, lastName, suffix,
     sex, birthday, municipality, barangay, contactNum,
@@ -125,5 +125,3 @@ const signupController = async (req, res) => {
     });
   }
 };
-
-module.exports = signupController;
