@@ -171,11 +171,39 @@ const handleNextInSignupForm = () => {
   });
 
   // fifthField verify otp and create an account
-  const otpBtn = fifthField.querySelector('#finish-btn');
-  otpBtn.addEventListener('click', () => {
+  const otpBtn = fifthField.querySelector('.signup-form__submit-btn');
+  otpBtn.addEventListener('click', async () => {
     const clientEmail = document.querySelector('#client-input-email').value.trim();
-    verifyOtp(clientEmail, getOTPValue());
-  })
+    const otp = getOTPValue();
+
+    if (!otp || otp.length !== 4) {
+      popupAlert('error', 'Error', 'Please enter all 4 digits of the OTP.');
+      return;
+    }
+
+    const isOtpValid = await verifyOtp(clientEmail, otp);
+
+    if (!isOtpValid) return;
+
+    // ✅ OTP is valid, go to the next field
+    fifthField.classList.remove('show');
+    //sixthField.classList.add('show'); // optional if you want post-account-creation screen
+  });
+
+
+  document.querySelectorAll('.signup-form__fifth-field input').forEach((input, index, inputs) => {
+    input.addEventListener('input', () => {
+      if (input.value.length === 1 && index < inputs.length - 1) {
+        inputs[index + 1].focus();
+      }
+    });
+
+    input.addEventListener('keydown', (e) => {
+      if (e.key === 'Backspace' && input.value === '' && index > 0) {
+        inputs[index - 1].focus();
+      }
+    });
+  });
 
 }
 

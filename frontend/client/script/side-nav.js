@@ -1,3 +1,5 @@
+import handleClientLogout from "./../script/auth/logout-client.js"
+
 export default function sideNavFuntionality() {
   const sidenav = document.querySelector('nav.side-nav');
   const sections = document.querySelectorAll('section');
@@ -12,6 +14,7 @@ export default function sideNavFuntionality() {
       sections.forEach(section => {
         const sectionId = section.id;
         if(navValue === sectionId){section.classList.add('show')}
+        else if ( navValue === 'logout-btn') { handleClientLogout(); }
         else{   
           section.classList.remove('show');
           section.classList.add('hide');
@@ -26,8 +29,6 @@ export default function sideNavFuntionality() {
         if(activeSection){
           sideNavLinks.forEach(nav => {
             const navValue = nav.getAttribute('data-value');
-
-            
             if(section.id === navValue) nav.classList.add('active')
             else nav.classList.remove('active')
           });

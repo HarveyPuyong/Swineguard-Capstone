@@ -35,7 +35,7 @@ const adminDashboard = async () => {
       <div class="dashboard__card total-swines total-card">
         <img class="dashboard__card-icon" src="images-and-icons/icons/pig-icon.png" alt="pig-icon" >
         <p class="dashboard__card-label">
-          Totalal Swines: 
+          Total Swines: 
           <span class="dashboard__card-label--value">${totalSwines.length}</span>
         </p>
       </div>

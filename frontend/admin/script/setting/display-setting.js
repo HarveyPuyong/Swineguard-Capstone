@@ -18,7 +18,7 @@ const displaySetting = async() => {
         </div>
         <div class="setting-form__details-list">
           <div class="admin-image detail">
-            <img src="images-and-icons/images/money-admin-profile.jpg" alt="Profile Picture" />
+            <img src="images-and-icons/icons/default-profile.png" alt="Profile Picture" />
             <label class="admin-image__upload-btn">
               <input type="file" hidden />
               <i class="fas fa-upload"></i> Upload

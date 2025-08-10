@@ -15,7 +15,7 @@ const displayClientProfileSetting = async() => {
 
     const settingHTML = `
         <div class="profile-image detail">
-            <img src="images-and-icons/images/money-admin-profile.jpg" alt="Profile Picture" />
+            <img src="images-and-icons/icons/default-profile.png" alt="Profile Picture" />
             <label class="profile-image__upload-btn show">
                 <input type="file" hidden />
                 <i class="fas fa-upload"></i> Upload

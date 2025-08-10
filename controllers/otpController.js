@@ -43,8 +43,40 @@ exports.sendOtpController = async (req, res) => {
 };
 
 
-exports.verifyOTP = async(req, res) => {
+// exports.verifyOTP = async(req, res) => {
 
+//   try {
+//     const { email, otp } = req.body;
+
+//     const existingOTP = await otpModel.findOne({ email });
+
+//     if (!existingOTP) {
+//       return res.status(400).json({ message: 'OTP not found. Please request again.' });
+//     }
+
+//     if (existingOTP.otp !== otp) {
+//       return res.status(400).json({ message: 'Invalid OTP.' });
+//     }
+
+//     // Optional: Check expiry
+//     const now = new Date();
+//     if (existingOTP.expiresAt < now) {
+//       return res.status(400).json({ message: 'OTP expired. Please request a new one.' });
+//     }
+
+//     return res.status(200).json({ message: 'OTP verified.' });
+//   } catch (err) {
+//     console.error(err);
+//     return res.status(500).json({ message: 'Server error verifying OTP.' });
+//   }
+// }
+
+
+
+
+const UserDB = require('./../models/userModel'); // Add this import at the top if not already there
+
+exports.verifyOTP = async (req, res) => {
   try {
     const { email, otp } = req.body;
 
@@ -58,15 +90,38 @@ exports.verifyOTP = async(req, res) => {
       return res.status(400).json({ message: 'Invalid OTP.' });
     }
 
-    // Optional: Check expiry
     const now = new Date();
     if (existingOTP.expiresAt < now) {
       return res.status(400).json({ message: 'OTP expired. Please request a new one.' });
     }
 
-    return res.status(200).json({ message: 'OTP verified.' });
+    // ✅ Check if user already exists
+    let user = await UserDB.findOne({ email });
+
+    if (!user) {
+      // ✅ Create new user with placeholders
+      user = new UserDB({
+        email,
+        password: '', // will be set later
+        firstName: 'temp',
+        middleName: 'temp',
+        lastName: 'temp',
+        sex: 'temp',
+        contactNum: '09123456789',
+        municipality: 'temp',
+        barangay: 'temp',
+      });
+
+      await user.save();
+    }
+
+    // ✅ (Optional) Clean up OTP after verification
+    await otpModel.deleteOne({ email });
+
+    return res.status(200).json({ message: 'OTP verified and account created.' });
+
   } catch (err) {
     console.error(err);
     return res.status(500).json({ message: 'Server error verifying OTP.' });
   }
-}
+};

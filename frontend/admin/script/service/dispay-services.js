@@ -21,7 +21,7 @@ async function handleRenderServices () {
               <span class="service-card__description--label">Description: </span>
               <span class="service-card__description--value">${service.description}</span><br><br>
               <span class="service-card__description--label">Applicable Medicine: </span>
-              <span class="service-card__description--value">${service.applicableItemTypes}</span>
+              <span class="service-card__description--value item-types">${service.applicableItemTypes}</span>
             </div>
 
           </div>       

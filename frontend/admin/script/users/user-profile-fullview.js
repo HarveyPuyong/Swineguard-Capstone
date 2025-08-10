@@ -30,7 +30,7 @@ const handleUserFullview = async (userId) => {
         // Main Info Container
         const mainInfoHTML = `
             <div class="main-info-container__user-pic">
-                <img class="main-info-container__user-pic--img" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user-picture">
+                <img class="main-info-container__user-pic--img" src="images-and-icons/icons/default-profile.png" alt="user-picture">
                 <label class="main-info-container__user-pic--upload" title="change photo">
                     <input type="file" hidden />
                     <i class="fas fa-camera icon"></i> 

@@ -1,4 +1,5 @@
 import updateSidenav from "../utils/updateSidenav.js"; 
+import handleLogout from "./auth/logout.js";
 
 
 export default function sideNavFuntionality() {
@@ -14,6 +15,7 @@ export default function sideNavFuntionality() {
       sections.forEach(section => {
         const sectionId = section.id;
         if(navValue === sectionId){section.classList.add('show')}
+        else if ( navValue === 'logout-btn') { handleLogout(); }
         else{   
           section.classList.remove('show');
           section.classList.add('hide');

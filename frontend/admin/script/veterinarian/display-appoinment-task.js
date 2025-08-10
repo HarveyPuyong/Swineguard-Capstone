@@ -1,0 +1,109 @@
+import { fetchAppointments } from "../../api/fetch-appointments.js";
+import fetchUser from "../auth/fetchUser.js";
+import { getServiceName } from "../../api/fetch-services.js";
+import { getMedicineName } from "../../api/fetch-medicine.js";
+import { formatTo12HourTime, formattedDate } from "../../utils/formated-date-time.js";
+
+const displayTaskList = async () => {
+    const { _id } = await fetchUser();
+    const statusFilter = document.querySelector('#select-schedule-status').value;
+
+    let filteredAppointments = (await fetchAppointments())
+        .filter(({ vetPersonnel }) => vetPersonnel === _id);
+
+    // Apply dropdown filter
+    if (statusFilter === 'complete') {
+        filteredAppointments = filteredAppointments.filter(a => a.appointmentStatus === 'completed');
+    } else if (statusFilter === 'incomplete') {
+        filteredAppointments = filteredAppointments.filter(a => a.appointmentStatus !== 'completed');
+    }
+
+    // Sort so incomplete is first
+    filteredAppointments.sort((a, b) => {
+        if (a.appointmentStatus === 'completed' && b.appointmentStatus !== 'completed') return 1;
+        if (a.appointmentStatus !== 'completed' && b.appointmentStatus === 'completed') return -1;
+        return 0;
+    });
+
+    let taskListHTML = '';
+
+    for (const appointment of filteredAppointments) {
+        const serviceName = await getServiceName(appointment.appointmentService);
+        const medicineName = await getMedicineName(appointment.medicine);
+
+        taskListHTML += `
+            <div class="schedule">
+                <div class="schedule-info">
+                    <div class="schedule-detail">
+                        <div class="appointment-name">${serviceName}</div>
+                        <div class="detail type">
+                            <span class="detail-label">Appointment Type:</span>
+                            <span class="detail-value">${appointment.appointmentType.charAt(0).toUpperCase() + appointment.appointmentType.slice(1)}</span>
+                        </div>
+                        <div class="detail date">
+                            <span class="detail-label">Date:</span>
+                            <span class="detail-value">${formattedDate(appointment.appointmentDate)}</span>
+                        </div>
+                        <div class="detail time">
+                            <span class="detail-label">Time:</span>
+                            <span class="detail-value">${formatTo12HourTime(appointment.appointmentTime)}</span>
+                        </div>
+                        <div class="detail time">
+                            <span class="detail-label">Client:</span>
+                            <span class="detail-value">${appointment.clientFirstname} ${appointment.clientLastname}</span>
+                        </div>
+                        <div class="detail adress">
+                            <span class="detail-label">Adress:</span>
+                            <span class="detail-value">${appointment.municipality}, ${appointment.barangay}, Marinduqe</span>
+                        </div>
+                    </div>
+
+                    <div class="schedule-more-details">
+                        <div class="detail contact">
+                            <span class="detail-label">Contact:</span>
+                            <span class="detail-value">${appointment.contactNum}</span>
+                        </div>
+                        <div class="detail email">
+                            <span class="detail-label">Email:</span>
+                            <span class="detail-value">${appointment.clientEmail}</span>
+                        </div>
+                        <div class="detail swine-type">
+                            <span class="detail-label">Swine Type:</span>
+                            <span class="detail-value">${appointment.swineType}</span>
+                        </div>
+                        <div class="detail swine-count">
+                            <span class="detail-label">Swine Count:</span>
+                            <span class="detail-value">${appointment.swineCount}</span>
+                        </div>
+                        <div class="detail medicine">
+                            <span class="detail-label">Medicine:</span>
+                            <span class="detail-value">${medicineName}</span>
+                        </div>
+                        <div class="detail dosage">
+                            <span class="detail-label">Dosage</span>
+                            <span class="detail-value">${appointment.dosage} (mg)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="schedule__buttons-container">
+                    <button class="schedule__toggle-complete-btn" 
+                        data-set-appointment-id="${appointment._id}"
+                        ${appointment.appointmentStatus === 'completed' ? 'disabled' : ''}>
+                        ${appointment.appointmentStatus === 'completed' ? 'Completed' : 'Complete'}
+                    </button>
+
+                    <button class="schedule__toggle-more-details-btn">View More</button>
+                </div>
+            </div>
+        `;
+    }
+
+    // Update DOM once after loop
+    document.querySelector('.schedule-list').innerHTML = taskListHTML;
+    document.dispatchEvent(new Event('renderTaskList'));
+};
+
+// Listen for dropdown changes
+document.querySelector('#select-schedule-status').addEventListener('change', displayTaskList);
+
+export default displayTaskList;

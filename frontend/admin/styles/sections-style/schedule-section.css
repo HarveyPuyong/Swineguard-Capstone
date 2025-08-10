@@ -74,12 +74,22 @@
   cursor: pointer;
 }
 
-.schedule__toggle-complete-btn{
+.schedule__toggle-complete-btn:disabled {
   font-size: clamp(0.8rem, 3vw, 1rem);
   color: white;
   border: none;
   border-radius: 5px;
   background: rgb(107, 107, 107);
+  padding: 5px 15px;
+}
+
+.schedule__toggle-complete-btn{
+  font-size: clamp(0.8rem, 3vw, 1rem);
+  border: none;
+  border-radius: 5px;
+  background-color: #2FC375;
+  color: white;
+  border: 1px solid #0F7E43;
   padding: 5px 15px;
 }
 

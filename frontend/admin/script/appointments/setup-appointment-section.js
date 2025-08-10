@@ -185,11 +185,13 @@ const viewBtnsFunctionality = () => {
   const appointmentsSection = document.getElementById('appointments-section');
   const techniciansSection = document.getElementById('technicians-section');
   const staffSection = document.getElementById('staff-section');
+  const generateReportContainer = document.querySelector('.appointment-section__report-contents'); 
 
   const viewSchedBtn = document.querySelector('.appointment-section__view-schedules-btn');
   const viewTableBtn = document.querySelector('.appointment-section__view-appointments-table-btn');
   const viewTechniciansBtn = document.querySelector('.appointment-section__view-technicians-btn');
   const viewStaffBtn = document.querySelector('.appointment-section__view-staff-btn');
+  const generateReportBtn = document.querySelector('.appointments-section__view-report-btn');
 
   if(viewSchedBtn)  viewSchedBtn.addEventListener('click', () => {
                       appointmentTableContent.classList.remove('show');
@@ -219,6 +221,12 @@ const viewBtnsFunctionality = () => {
                       staffSection.classList.remove('hide');
                       updateSidenav();
                     });
+
+  if (generateReportBtn) generateReportBtn.addEventListener('click', ()=> {
+                          appointmentTableContent.classList.remove('show');
+                          appointmentsSection.classList.add('hide');
+                          generateReportContainer.classList.add('show');
+                        });
 }
 
 
@@ -457,6 +465,37 @@ const toggleAppointentMoreDetails = () => {
       });
   })
 }
+
+
+// ======================================
+// ========== View Button (View Graph, Generate Report) Buttons Functionality
+// ======================================
+// const viewBtnsFunctionality = () => {
+//   const inventoryTableContents = document.querySelector('.inventory-section__table-contents');
+//   const backToTableBtn = document.querySelector('.inventory-back-table-btn');
+//   const inventoryReportContents = document.querySelector('.inventory-section__report-contents');
+//   const viewReportsBtn = document.querySelector('.inventory-section__view-report-btn');
+
+//   // When 'Generate Report' is clicked
+//   if (viewReportsBtn) {
+//     viewReportsBtn.addEventListener('click', () => {
+//       inventoryTableContents.classList.remove('show');
+//       inventoryReportContents.classList.add('show');
+
+//       setTimeout(() => {
+//         generateInventoryReport();
+//         displayInventoryReport();
+//       }, 100);
+//     });
+//   }
+
+//   if (backToTableBtn) {
+//     backToTableBtn.addEventListener('click', () => {
+//       inventoryTableContents.classList.add('show');
+//       inventoryReportContents.classList.remove('show');
+//     });
+//   }
+// };
     
 
 // ======================================

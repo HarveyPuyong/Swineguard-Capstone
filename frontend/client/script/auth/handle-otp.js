@@ -19,22 +19,29 @@ const sendOtp = async(clientEmail) => {
 // ======================================
 // ========== Verify OTP
 // ======================================
-const verifyOtp = async(clientEmail, clientOtp) => {
+const verifyOtp = async (clientEmail, clientOtp) => {
   if (!clientEmail || !clientOtp) {
     popupAlert('error', 'Error', 'OTP and Email cannot be empty.');
-    return;
+    return false;
   }
 
   try {
-    const response = await api.post('/auth/verify-otp',  { email: clientEmail, otp: clientOtp });
-    await createAccount();
+    const response = await api.post('/auth/verify-otp', {
+      email: clientEmail,
+      otp: clientOtp
+    });
+
     popupAlert('success', 'Success', 'OTP verified successfully');
+    await createAccount(); // Automatic creating account after verified is successful
+    return true;
+
   } catch (error) {
     console.log(error);
-    const errMessage = error.response?.data?.message || error.response?.data?.error;
+    const errMessage = error.response?.data?.message || error.response?.data?.error || "Verification failed";
     popupAlert('error', 'Error!', errMessage);
+    return false;
   }
-}
+};
 
 export {
   sendOtp,

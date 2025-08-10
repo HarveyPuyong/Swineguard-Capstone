@@ -13,7 +13,7 @@ const userSchema = new mongoose.Schema({
     municipality: { type: String, required: true },
     
     email: { type: String, required: true, unique: true  },
-    password: { type: String, required: true },
+    password: { type: String, required: false },
 
     isRegistered: { type: Boolean, default: false },
 

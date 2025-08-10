@@ -34,7 +34,7 @@
   background-color: #D2D2D2;
   border-radius: 7px;
   padding: 20px 50px;
-  height: 220px;
+  height: 250px;
   width: 100%;
 }
 
@@ -45,6 +45,10 @@
   height: 100%;
   padding: 15px 30px;
   text-align: justify;
+}
+
+.item-types {
+  font-style: italic;
 }
 
 .service-card__image img{
@@ -189,4 +193,42 @@
 .service-form__save-btn{
   --color: #0F7E43;
   --bg-color: #97e9bd;
+}
+
+
+
+
+.service-medicine-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.service-medicine-list .list-title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* space between each checkbox */
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center; /* align checkbox and label vertically */
+  gap: 8px;
+}
+
+.checkbox-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  margin: 0; /* remove default spacing */
+}
+
+.checkbox-item label {
+  cursor: pointer;
+  user-select: none;
 }

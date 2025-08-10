@@ -14,8 +14,13 @@ const handleRenderSwines = async() => {
       const swinesOwnerId = swine.clientId;
       const swinesOwner = users.find(user => user._id === swinesOwnerId);
 
-      const swinesOwnerName = `${swinesOwner.firstName} ${swinesOwner.middleName} ${swinesOwner.lastName}`;
-      const swinesOwnerAdress = `${swinesOwner.barangay} ${swinesOwner.municipality}`;
+      const swinesOwnerName = swinesOwner
+        ? `${swinesOwner.firstName} ${swinesOwner.middleName} ${swinesOwner.lastName}`
+        : 'Unknown Owner';
+
+      const swinesOwnerAddress = swinesOwner
+        ? `${swinesOwner.barangay} ${swinesOwner.municipality}`
+        : 'Unknown Address';
       
       const swineAgeInMonths = await calculateSwineAge(swine.birthdate);
 
@@ -73,7 +78,7 @@ const handleRenderSwines = async() => {
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Location:</span>
-                  <span class="column__detail-value swine-location">${swinesOwnerAdress}, Marinduque</span>
+                  <span class="column__detail-value swine-location">${swinesOwnerAddress}, Marinduque</span>
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Medication:</span>

@@ -8,6 +8,6 @@ const verifyJWT = require('./../middlewares/verifyJWT');
 router.post('/add', verifyJWT,  verifyRoles(ROLE_LIST.Admin), addServices); // Add services
 router.put('/edit/:id',verifyJWT,  verifyRoles(ROLE_LIST.Admin), editServices); // Edit services name and description
 router.get('/get/all',verifyJWT, getAllServices); // Get all services
-router.get('/get/:id',verifyJWT,  verifyRoles(ROLE_LIST.AppointmentCoordinator,ROLE_LIST.Admin, ROLE_LIST.User ), getServiceById); // Get service by Id
+router.get('/get/:id',verifyJWT, getServiceById); // Get service by Id
 
 module.exports = router;

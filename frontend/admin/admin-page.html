@@ -61,7 +61,7 @@
         </div>
  
         <div class="header__admin-profile">
-          <img src="./images-and-icons/images/example-user-profile-pic.jpg" alt="admin-picture" class="header__admin-profile-pic">
+          <img src="./images-and-icons/icons/default-profile.png" alt="admin-picture" class="header__admin-profile-pic">
           <p class="header__admin-profile-label">Administrator</p>
           <i class="header__toggle-logout-btn drop-down-icon fas fa-chevron-down"></i>
           <button class="header__logout-btn">Logout</button>
@@ -307,7 +307,7 @@
                 <p class="th toggle-more-details-btn"><!--th for toggle icon --></p>
               </div>
               <div class="swines-table__tbody">  <!-- table body -->
-                
+                <!-- display-swine.js -->
               </div>
             </div>
           </div>
@@ -473,7 +473,7 @@
             <!-- back-to-table-btn and download-btn container -->
             <div class="report-contents__btns-container">
               <button class="reports-content__back-table-btn">Back to table</button>
-              <button class="reports-content__download-report-btn">Download</button>
+              <button class="reports-content__save-report-btn">Save</button>
             </div>
 
             <!-- select-month and select year container-->
@@ -775,26 +775,48 @@
             </label>
             
             <div class="service-medicine-list">
-              <span>Applicable Medicine:</span>
+              <span class="list-title">Applicable Medicine:</span>
 
-              <input type="checkbox" name="antibiotic" id="antibiotic" value="antibiotic">
-              <label for="antibiotic">Antibiotic</label>
-              <input type="checkbox" name="antiseptic" id="antiseptic" value="antiseptic">
-              <label for="antiseptic">Antiseptic</label>
-              <input type="checkbox" name="anti-inflammatory" id="anti-inflammatory" value="anti-inflammatory">
-              <label for="anti-inflammatory">Anti-Inflammatory</label>
-              <input type="checkbox" name="anesthesia" id="anesthesia" value="anesthesia">
-              <label for="anesthesia">Anesthesia</label>
-              <input type="checkbox" name="deworm" id="deworm" value="deworm">
-              <label for="deworm">Deworm</label>
-              <input type="checkbox" name="iron-supplement" id="iron-supplement" value="iron supplement">
-              <label for="iron-supplement">Iron Supplement</label>  
-              <input type="checkbox" name="probiotic" id="probiotic" value="probiotic">
-              <label for="probiotic">Probiotic</label>  
-              <input type="checkbox" name="none" id="none" value="none">
-              <label for="none">None</label> 
-
+              <div class="checkbox-group">
+                <div class="checkbox-item">
+                  <input type="checkbox" name="antibiotic" id="antibiotic" value="antibiotic">
+                  <label for="antibiotic">Antibiotic</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" name="antiseptic" id="antiseptic" value="antiseptic">
+                  <label for="antiseptic">Antiseptic</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" name="anti-inflammatory" id="anti-inflammatory" value="anti-inflammatory">
+                  <label for="anti-inflammatory">Anti-Inflammatory</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" name="anesthesia" id="anesthesia" value="anesthesia">
+                  <label for="anesthesia">Anesthesia</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" name="deworm" id="deworm" value="deworm">
+                  <label for="deworm">Deworm</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" name="iron-supplement" id="iron-supplement" value="iron supplement">
+                  <label for="iron-supplement">Iron Supplement</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" name="probiotic" id="probiotic" value="probiotic">
+                  <label for="probiotic">Probiotic</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" name="vitaminsADE" id="vitaminsADE" value="vitaminsADE">
+                  <label for="vitaminsADE">Vitamins A,D,E</label>
+                </div>
+                <div class="checkbox-item">
+                  <input type="checkbox" name="none" id="none" value="none">
+                  <label for="none">None</label>
+                </div>
+              </div>
             </div>
+
 
             <div class="service-form__buttons-container">
               <button class="service-form__cancel-btn" type="button">Cancel</button>
