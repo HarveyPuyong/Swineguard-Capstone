@@ -15,6 +15,7 @@ import {fetchServices} from '../../api/fetch-services.js';
 import { getServiceName } from '../../api/fetch-services.js'; 
 import { fetchAppointments } from '../../api/fetch-appointments.js';
 import populateFilteredMedicines from '../../utils/filter-service-medicine.js';
+import { handleReportChange } from '../reports/generate-appointment-reports.js';
 
 
 
@@ -192,6 +193,7 @@ const viewBtnsFunctionality = () => {
   const viewTechniciansBtn = document.querySelector('.appointment-section__view-technicians-btn');
   const viewStaffBtn = document.querySelector('.appointment-section__view-staff-btn');
   const generateReportBtn = document.querySelector('.appointments-section__view-report-btn');
+  const backToTableBtn = document.querySelector('.appointment-section__report-contents .reports-content__back-table-btn');
 
   if(viewSchedBtn)  viewSchedBtn.addEventListener('click', () => {
                       appointmentTableContent.classList.remove('show');
@@ -224,9 +226,18 @@ const viewBtnsFunctionality = () => {
 
   if (generateReportBtn) generateReportBtn.addEventListener('click', ()=> {
                           appointmentTableContent.classList.remove('show');
-                          appointmentsSection.classList.add('hide');
                           generateReportContainer.classList.add('show');
+
+                          setTimeout(() => {
+                            handleReportChange();
+                          }, 100);
                         });
+  
+  if (backToTableBtn) backToTableBtn.addEventListener('click', () => {
+                      generateReportContainer.classList.remove('show');
+
+                      appointmentTableContent.classList.add('show');
+                      });
 }
 
 

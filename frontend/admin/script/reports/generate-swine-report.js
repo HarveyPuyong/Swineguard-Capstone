@@ -154,11 +154,11 @@ const generateSwineReports = async() => {
     window.apexDonutInstance.render();
   }
 
-  console.log('swines:', swines);
-  console.log('raisers:', raisers);
-  console.log('userMunicipalityMap:', userMunicipalityMap);
-  console.log('municipalitySwineCount:', municipalitySwineCount);
-  console.log('swineCounts:', swineCounts);
+  // console.log('swines:', swines);
+  // console.log('raisers:', raisers);
+  // console.log('userMunicipalityMap:', userMunicipalityMap);
+  // console.log('municipalitySwineCount:', municipalitySwineCount);
+  // console.log('swineCounts:', swineCounts);
 
   // ============================
   // Swine Table

@@ -59,6 +59,7 @@ async function populateReportDates() {
                         "July", "August", "September", "October", "November", "December" ];
     document.querySelector('.report-container .report-container__month').textContent = monthList[month];
     document.querySelector('.inventory-section__report-contents .report-container__month').textContent = monthList[month];
+    document.querySelector('.appointment-section__report-contents .report-container__month').textContent = monthList[month];
 
   } catch (err) {
     console.error('Failed to fetch report dates:', err);

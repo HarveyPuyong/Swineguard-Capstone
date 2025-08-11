@@ -834,4 +834,10 @@
 }
 
 
+/* 
+Pie Graph design
+*/
 
+#report-container__doughnut-chart-appointment {
+  width: 752px;
+}
