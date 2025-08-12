@@ -21,4 +21,23 @@ function formatTo12HourTime(time24) {
 }
 
 
-export {formatedDateForCalendar, formattedDate, formatTo12HourTime };
+
+function formatDate(dateString) {
+  const date = new Date(dateString);
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  const year = date.getFullYear();
+  return `${month}-${day}-${year}`;
+}
+
+
+function formatedQuantity(quantity) {
+  return quantity.toFixed(1); 
+}
+
+
+export { formatedDateForCalendar, 
+         formattedDate, 
+         formatTo12HourTime, 
+         formatDate, 
+         formatedQuantity };

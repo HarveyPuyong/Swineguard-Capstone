@@ -1,9 +1,9 @@
 import { fetchAppointments } from "../../api/fetch-appointments.js";
 import popupAlert from "../../utils/popupAlert.js";
-import api from "../../utils/axiosConfig.js";
 import { getServiceName } from "../../api/fetch-services.js";
 import { getTechnicianName } from "../../api/fetch-technicians.js";
 import { getMedicineName } from "../../api/fetch-medicine.js";
+import { formatTo12HourTime, formatDate } from "../../utils/formated-date-time.js";
 
 // DOM refs
 const downloadAppointmentBtn = document.querySelector('.appointment-download-btn');
@@ -13,12 +13,27 @@ const yearSelect = document.querySelector('#appointment-years-select');
 
 let currentChart = null;
 
+const monthList = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
+
 if (downloadAppointmentBtn) {
   downloadAppointmentBtn.addEventListener('click', () => {
-    alert('Download Button clicked');
-    // implement download logic here if needed
+    const currentDate = new Date();
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const fileName = `appointment-report-${monthList[month]}-${year}.pdf`;
+
+    if (tableContainer._tabulator) {
+      tableContainer._tabulator.download("pdf", fileName, {
+        orientation: "landscape",
+        title: `Appointment Report - ${monthList[month]}/${year}`,
+        jsPDF: { format: 'legal' } 
+      });
+    } else {
+      popupAlert('error', 'Error', 'No table to export!')
+    }
   });
 }
+
 
 const generateAppointmentReport = async (year, month) => {
     year = Number(year);
@@ -109,9 +124,9 @@ const generateAppointmentReport = async (year, month) => {
 };
 
 /**
- * Render Tabulator table using already-filtered appointments.
- * This will enrich each appointment by fetching service/vet/medicine names one-by-one.
- * (Note: This is simple but may result in many requests. See comment below for bulk optimization.)
+ * 
+ * Rmder Report Table for appointments
+ * 
  */
 const renderAppointmentReportTable = async (appointments) => {
   if (!tableContainer) return;
@@ -136,6 +151,14 @@ const renderAppointmentReportTable = async (appointments) => {
     try {
       appt.medicineName = appt.medicine ? await getMedicineName(appt.medicine) : 'Not set';
     } catch (e) { appt.medicineName = 'Medicine not found'; }
+
+    try {
+      appt.time = appt.appointmentTime ? formatTo12HourTime(appt.appointmentTime) : 'Not set';
+    } catch (e) { appt.appointmentTime = 'Time format error'; }
+
+    try {
+      appt.date = appt.appointmentDate ? formatDate(appt.appointmentDate) : 'Not set';
+    } catch (e) { appt.appointmentDate = 'Date format error'; }
   }
 
   // create Tabulator
@@ -145,44 +168,19 @@ const renderAppointmentReportTable = async (appointments) => {
     pagination: "local",
     paginationSize: 10,
     columns: [
-      { title: "Municipality", field: "municipality" },
-      { title: "Barangay", field: "barangay" },
-      { title: "Service", field: "serviceName" },
+      { title: "Municipality", field: "municipality", hozAlign: "center" },
+      { title: "Barangay", field: "barangay", hozAlign: "center" },
+      { title: "Service", field: "serviceName", hozAlign: "center" },
       { title: "Swine Type", field: "swineType" },
-      { title: "Count", field: "swineCount" },
-      { title: "Male", field: "swineMale" },
-      { title: "Female", field: "swineFemale" },
-      { title: "Symptoms", field: "swineSymptoms" },
-      { title: "Age (months)", field: "swineAge" },
-      {
-        title: "Date",
-        field: "appointmentDate",
-        formatter: function (cell) {
-          const date = new Date(cell.getValue());
-          return date.toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "long",
-            day: "numeric"
-          });
-        }
-      },
-      {
-        title: "Time",
-        field: "appointmentTime",
-        formatter: function (cell) {
-          // support values like "08:30" or "08:30:00"
-          const raw = cell.getValue();
-          const time = new Date(`1970-01-01T${raw}`);
-          return isNaN(time.getTime()) ? raw : time.toLocaleTimeString("en-US", {
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true
-          });
-        }
-      },
-      { title: "Type", field: "appointmentType" },
-      { title: "Dosage", field: "dosage" },
-      { title: "Medicine", field: "medicineName" },
+      { title: "Count", field: "swineCount", hozAlign: "center" },
+      { title: "Male", field: "swineMale", hozAlign: "center" },
+      { title: "Female", field: "swineFemale", hozAlign: "center" },
+      { title: "Age (months)", field: "swineAge", hozAlign: "center" },
+      { title: "Date", field: "date", hozAlign: "center"},
+      { title: "Time", field: "time", hozAlign: "center" },
+      { title: "Type", field: "appointmentType", hozAlign: "center" },
+      { title: "Dosage", field: "dosage", hozAlign: "center" },
+      { title: "Medicine", field: "medicineName", hozAlign: "center" },
       { title: "Vet Personnel", field: "vetName" }
     ]
   });

@@ -26,6 +26,7 @@ if (downloadCurrentBtn) {
       tableContainer._tabulator.download("pdf", fileName, {
         orientation: "landscape",
         title: `Swine Report - ${monthList[month]}/${year}`,
+        jsPDF: { format: 'legal' } 
       });
     } else {
       alert("No table to export!");
@@ -43,6 +44,7 @@ if (downloadPastBtn) {
       tableContainer._tabulator.download("pdf", fileName, {
         orientation: "landscape",
         title: `Swine Report - ${monthList[month-1]}/${year}`,
+        jsPDF: { format: 'legal' } 
       });
     } else {
       alert("No table to export!");
@@ -286,21 +288,27 @@ const displaySwineReport = async () => {
   let chart; // holds ApexCharts instance
 
   const updateDonutChart = (filteredReports) => {
-    let pigletTotal = 0;
-    let growerTotal = 0;
-    let sowTotal = 0;
-    let boarTotal = 0;
+    let mogpogTotal = 0;
+    let boacTotal = 0;
+    let gasanTotal = 0;
+    let buenavistaTotal = 0;
+    let staCruzTotal = 0;
+    let torrijosTotal = 0;
 
     filteredReports.forEach(report => {
       report.swineData.forEach(entry => {
-        pigletTotal += entry.piglet;
-        growerTotal += entry.grower;
-        sowTotal += entry.sow;
-        boarTotal += entry.boar;
+        switch (entry.municipality) {
+          case "Mogpog": mogpogTotal += entry.total; break;
+          case "Boac": boacTotal += entry.total; break;
+          case "Gasan": gasanTotal += entry.total; break;
+          case "Buenavista": buenavistaTotal += entry.total; break;
+          case "Sta Cruz": staCruzTotal += entry.total; break;
+          case "Torrijos": torrijosTotal += entry.total; break;
+        }
       });
     });
 
-    const series = [pigletTotal, growerTotal, sowTotal, boarTotal];
+    const series = [mogpogTotal, boacTotal, gasanTotal, buenavistaTotal, staCruzTotal, torrijosTotal];
 
     if (chart) {
       chart.updateSeries(series);
@@ -327,7 +335,7 @@ const displaySwineReport = async () => {
           fontSize: '18px',  // ✅ now properly applied
           position: 'right'
         },
-        labels: ['Piglet', 'Grower', 'Sow', 'Boar'],
+        labels: ['Mogpog', 'Boac', 'Gasan', 'Buenavista', 'Sta Cruz', 'Torrijos'],
         responsive: [{
           breakpoint: 480,
           options: {

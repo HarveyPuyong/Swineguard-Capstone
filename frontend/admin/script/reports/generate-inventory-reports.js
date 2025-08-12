@@ -2,7 +2,9 @@
 import fetchInventory from "../../api/fetch-inventory.js";
 import popupAlert from "../../utils/popupAlert.js";
 import api from "../../utils/axiosConfig.js";
+import { fetchAppointments } from "../../api/fetch-appointments.js";
 import { fetchInventoryReports } from "../../api/fetch-report.js";
+import { formatDate, formatedQuantity } from "../../utils/formated-date-time.js";
 
 // Buttons
 const downloadIventoryBtn = document.querySelector('.inventory-download-btn');
@@ -23,6 +25,7 @@ if (downloadIventoryBtn) {
       tableContainer._tabulator.download("pdf", fileName, {
         orientation: "landscape",
         title: `Inventory Report - ${monthList[month]}/${year}`,
+        jsPDF: { format: 'legal' } 
       });
     } else {
       alert("No table to export!");
@@ -35,7 +38,10 @@ if (downloadIventoryBtn) {
 // ==========================
 
 const generateInventoryReport = async () => {
+
   const reports = await fetchInventory();
+  const appointments = await fetchAppointments();
+
   if (!reports || reports.length === 0) {
     tableContainer.innerHTML = 'No inventory data available';
     return;
@@ -102,33 +108,55 @@ const generateInventoryReport = async () => {
     }
   };
 
-  const renderTable = (data) => {
+  const renderTable = (inventory, appointments) => {
     if (tableContainer._tabulator) {
       tableContainer._tabulator.destroy();
     }
 
+    // Step 1: Sum dosage per medicine
+    const usedDosages = {};
+    appointments
+      .filter(app => app.appointmentStatus === "completed" && app.medicine) // skip undefined
+      .forEach(app => {
+        const medId = String(app.medicine);
+        const dosageNum = parseFloat(app.dosage) || 0;
+        usedDosages[medId] = (usedDosages[medId] || 0) + dosageNum;
+      });
+
+    // Step 2: Merge into inventory
+    const mergedData = inventory.map(item => {
+      const itemId = String(item._id || item.id); // support _id or id
+      const used = usedDosages[itemId] || 0;
+      return {
+        ...item,
+        expirationDate: item.expiryDate ? formatDate(item.expiryDate) : 'Not set',
+        itemQuantity: item.quantity ? formatedQuantity(item.quantity) : 'Not set',
+        usedDosage: formatedQuantity(used)
+      };
+    });
+
+    // console.log("Inventory IDs:", inventory.map(i => i.id || i._id));
+    // console.log("Appointment Medicine IDs:", appointments.map(a => a.medicine));
+
     tableContainer._tabulator = new Tabulator(tableContainer, {
-      data,
+      data: mergedData,
       layout: "fitColumns",
       responsiveLayout: true,
       columns: [
         { title: "Item Name", field: "itemName" },
         { title: "Type", field: "itemType", hozAlign: "center" },
         { title: "Dosage (mg)", field: "dosage", hozAlign: "center" },
-        { title: "Quantity", field: "quantity", hozAlign: "center" },
+        { title: "Used Item", field: "usedDosage", hozAlign: "center" },
+        { title: "Quantity", field: "itemQuantity", hozAlign: "center" },
         { title: "Status", field: "itemStatus", hozAlign: "center" },
-        { title: "Expiry Date", field: "expiryDate", hozAlign: "center", formatter: cell => {
-            const date = new Date(cell.getValue());
-            return date.toLocaleDateString();
-          }
-        },
+        { title: "Expiry Date", field: "expirationDate", hozAlign: "center" },
         { title: "Description", field: "description" }
       ]
     });
   };
 
   updateDonutChart(reports);
-  renderTable(reports);
+  renderTable(reports, appointments);
 
   if (saveBtn) {
     saveBtn.addEventListener('click', async () => {
@@ -252,6 +280,16 @@ const displayInventoryReport = async () => {
       tableContainer._tabulator.destroy();
     }
 
+    for (const item of allInventoryData) {
+      try {
+        item.expirationDate = item.expiryDate ? formatDate(item.expiryDate) : 'Not set';
+      } catch (e) { item.expiryDate = 'Date format error'; }
+
+      try {
+        item.itemQuantity = item.quantity ? formatedQuantity(item.quantity) : 'Not set';
+      } catch (e) { item.quantity = 'Quantity format error'; }
+    }
+
     tableContainer._tabulator = new Tabulator(tableContainer, {
       data: allInventoryData,
       layout: "fitColumns",
@@ -260,14 +298,10 @@ const displayInventoryReport = async () => {
         { title: "Item Name", field: "itemName" },
         { title: "Type", field: "itemType", hozAlign: "center", formatter: cell => toTitleCase(cell.getValue()) },
         { title: "Dosage (mg)", field: "dosage", hozAlign: "center" },
-        { title: "Quantity", field: "quantity", hozAlign: "center" },
+        { title: "Used Item (mg)", field: "usedDosage", hozAlign: "center" },
+        { title: "Quantity", field: "itemQuantity", hozAlign: "center" },
         { title: "Status", field: "itemStatus", hozAlign: "center" },
-        {
-          title: "Expiry Date", field: "expiryDate", hozAlign: "center", formatter: cell => {
-            const date = new Date(cell.getValue());
-            return date.toLocaleDateString();
-          }
-        },
+        { title: "Expiry Date", field: "expirationDate", hozAlign: "center"},
         { title: "Description", field: "description" }
       ]
     });

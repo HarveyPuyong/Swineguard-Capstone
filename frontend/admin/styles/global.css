@@ -121,7 +121,8 @@ select:focus{
 .current-download-report-btn,
 .past-download-report-btn,
 .inventory-download-btn,
-.display-inventory-download-btn {
+.display-inventory-download-btn,
+.appointment-download-btn {
   padding: .2rem 1rem;
   margin-bottom: 8px;
   background-color: #2FC375;
