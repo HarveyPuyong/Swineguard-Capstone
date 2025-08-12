@@ -1,5 +1,7 @@
 import handleClientLogout from "./auth/logout-client.js";
 import {displayClientProfileSetting, displayClientName} from "./setting/display-setting.js";
+import handleClientEditSettings from "./setting/edit-user-profile.js";
+import addressesData from "../../admin/static-data/addresses.js";
 
 // ======================================
 // ========== Hide Profile Container
@@ -25,12 +27,65 @@ const toggleEditMode = () => {
   enableEditModeBtn.addEventListener('click', () => {
     profileForm.classList.remove('view-mode');
     profileForm.classList.add('edit-mode');
+
+    // Make inputs editable
+    profileForm.querySelectorAll('input, select').forEach(el => {
+      el.removeAttribute('readonly');
+      el.removeAttribute('disabled');
+    });
   });
 
   // disable
   disableEditModeBtn.addEventListener('click', () => {
     profileForm.classList.add('view-mode');
     profileForm.classList.remove('edit-mode');
+
+    // Lock inputs again
+    profileForm.querySelectorAll('input, select').forEach(el => {
+      if (el.tagName.toLowerCase() === 'input') {
+        el.setAttribute('readonly', true);
+      } else if (el.tagName.toLowerCase() === 'select') {
+        el.setAttribute('disabled', true);
+      }
+    });
+  });
+}
+
+// ======================================
+// ========== Set up addresses
+// ======================================
+const populateAddresses = () => {
+  const municipalitySelect = document.querySelector('#profile-detail__select-municipal');
+  const barangaySelect = document.querySelector('#profile-detail__select-barangay');
+
+  if(!municipalitySelect || !barangaySelect) return;
+
+  const municipals = Object.keys(addressesData);
+
+  municipals.forEach(municipal => {
+      const option = document.createElement("option");
+      option.value = municipal;
+      option.textContent = municipal;
+      municipalitySelect.appendChild(option);
+  });
+
+  municipalitySelect.addEventListener("change", () => {
+    const selectedMunicipality = municipalitySelect.value;
+
+    // ✅ Clear previous barangay options
+    barangaySelect.innerHTML = '<option value="">Select barangay</option>';
+
+    if (selectedMunicipality && addressesData[selectedMunicipality]) {
+      addressesData[selectedMunicipality].forEach(barangay => {
+        const option = document.createElement("option");
+        option.value = barangay;
+        option.textContent = barangay;
+        barangaySelect.appendChild(option);
+      });
+      barangaySelect.disabled = false;
+    } else {
+      barangaySelect.disabled = true;
+    }
   });
 }
 
@@ -53,15 +108,17 @@ const handleLogoutBtn = () => {
 // ======================================
 document.addEventListener('renderClientProfile', () => {
   toggleEditMode(); // Runs only after profile HTML is rendered
+  populateAddresses();
 });
 
 
 // ======================================
 // ========== Main Function - Setup Profile
 // ======================================
-export default async function setupProfile() {
+export default function setupProfile() {
   displayClientName();
-  await displayClientProfileSetting();
+  displayClientProfileSetting();
   hideProfileContainer();
   handleLogoutBtn();
+  handleClientEditSettings();
 }

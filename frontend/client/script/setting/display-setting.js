@@ -26,7 +26,7 @@ const displayClientProfileSetting = async() => {
             <p class="profile-detail-value">${_id}</p>
         </div>
 
-        <div class="profile-detail detail editable">
+        <div class="profile-detail detail editable client-name">
             <p class="profile-detail-label">Name:</p>
             <div class="profile-detail__name-inputs-group">
                 <input class="profile-detail-value" id="profile-detail__firstname-input" value="${firstName}" readonly/>
@@ -66,13 +66,13 @@ const displayClientProfileSetting = async() => {
 
         <div class="profile-detail detail editable">
             <p class="profile-detail-label">Email:</p>
-            <input class="profile-detail-value" id="email-input" value="${email}" readonly />
+            <input class="profile-detail-value" id="profile-detail__email-input" value="${email}" readonly />
         </div>
 
         <div class="profile-details-list__buttons-container">
-        <button class="profile-details-list__edit-btn enable-edit-mode-button" type="button">Edit</button>
-        <button class="profile-details-list__cancel-btn disable-edit-mode-button " type="button">Cancel</button>
-        <button class="profile-details-list__save-btn" type="submit" data-user-id=${_id}>Save</button>
+            <button class="profile-details-list__edit-btn enable-edit-mode-button" type="button">Edit</button>
+            <button class="profile-details-list__cancel-btn disable-edit-mode-button " type="button">Cancel</button>
+            <button class="profile-details-list__save-btn" id="client-profile__save-btn" type="submit" data-user-id=${_id}>Save</button>
         </div>
     
     `;

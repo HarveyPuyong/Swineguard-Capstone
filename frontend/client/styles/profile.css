@@ -48,6 +48,7 @@
   height: 70px;
   width: 75px;
   border-radius: 50px;
+  border: 1px solid #adadad;
 }
 
 .profile-image__upload-btn{
@@ -173,11 +174,11 @@
 }
 
 .profile-details-list.view-mode #profile-detail__middlename-input{
-  width: 1ch
+  width: 2ch
 }
 
 .profile-details-list.view-mode #profile-detail__lastname-input{
-  width: 13ch;
+  width: 12ch;
 }
 
 .profile-details-list.view-mode #profile-detail__contact-input{
@@ -243,21 +244,21 @@
 }
 
 .profile-details-list.edit-mode #profile-detail__firstname-input{
-  --size: 45%;
+  --size: 50%;
 
   width: var(--size);
   max-width: var(--size);
 }
 
 .profile-details-list.edit-mode #profile-detail__middlename-input{
-  --size: 10%;
+  --size: 50%;
 
   width: var(--size);
   max-width: var(--size);
 }
 
 .profile-details-list.edit-mode #profile-detail__lastname-input{
-  --size: 45%;
+  --size: 50%;
 
   width: var(--size);
   max-width: var(--size);
@@ -284,3 +285,7 @@
   display: block;
 }
 
+.profile-details-list.edit-mode .profile-detail__name-inputs-group {
+  display: flex;
+  flex-direction: column;
+}
