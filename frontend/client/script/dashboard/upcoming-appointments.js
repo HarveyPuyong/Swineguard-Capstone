@@ -10,8 +10,7 @@ const displayUpcomingAppointments = async() => {
 
     const filteredAppointments = appointments.filter((appointment) => 
                                                       appointment.clientId === _id && 
-                                                      appointment.appointmentStatus === 'accepted' || 
-                                                      appointment.appointmentStatus === 'pending');
+                                                      appointment.appointmentStatus !== 'completed');
 
     let upcomingAppointmentsHTML = '';
 

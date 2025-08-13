@@ -1,3 +1,7 @@
+import fetchSwines from "../../api/fetch-swines.js";
+import fetchUsers from "../../api/fetch-users.js";
+
+
 const swineMapping = () => {
    const chartELement = document.getElementById('swine-type-chart').getContext('2d');
 
@@ -34,4 +38,65 @@ const swineMapping = () => {
 }
 
 
-export default swineMapping;
+// ======================================
+// ========== Number of swine per Municipality Table
+// ======================================
+
+const numOfSwinePerMunicipal = async() => {
+
+    const mogpog = document.querySelector('.municipality.mogpog .number-of-swines');
+    const boac = document.querySelector('.municipality.boac .number-of-swines');
+    const gasan = document.querySelector('.municipality.gasan .number-of-swines');
+    const buenavista = document.querySelector('.municipality.buenavista .number-of-swines');
+    const staCruz = document.querySelector('.municipality.sta-cruz .number-of-swines');
+    const torrijos = document.querySelector('.municipality.torrijos .number-of-swines');
+    const totalSwines = document.querySelector('.total .total-value');
+
+    const swines = await fetchSwines(); // [{ clientId: '...', ... }]
+    const users = await fetchUsers();   // [{ _id: '...', municipal: '...' }]
+
+    // Create a map of userId -> municipal
+    const userMunicipalMap = {};
+
+    users.forEach(user => {
+    if (user._id && user.municipality) {
+        userMunicipalMap[user._id] = user.municipality.toLowerCase();
+    }
+    });
+
+    // Count swines per municipal
+    const municipalCounts = {
+        mogpog: 0,
+        boac: 0,
+        gasan: 0,
+        buenavista: 0,
+        santacruz: 0,
+        torrijos: 0
+    };
+
+    swines.forEach(swine => {
+        const municipal = userMunicipalMap[swine.clientId];
+        if (municipal && municipalCounts.hasOwnProperty(municipal)) {
+            municipalCounts[municipal]++;
+        }
+    });
+
+    // Update DOM
+    if (mogpog) mogpog.textContent = municipalCounts.mogpog;
+    if (boac) boac.textContent = municipalCounts.boac;
+    if (gasan) gasan.textContent = municipalCounts.gasan;
+    if (buenavista) buenavista.textContent = municipalCounts.buenavista;
+    if (staCruz) staCruz.textContent = municipalCounts.santacruz;
+    if (torrijos) torrijos.textContent = municipalCounts.torrijos;
+
+    const total = Object.values(municipalCounts).reduce((sum, value) => sum + value, 0);
+    totalSwines.textContent = total;
+    
+}
+
+
+export {
+    swineMapping,
+    numOfSwinePerMunicipal
+
+};

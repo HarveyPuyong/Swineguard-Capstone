@@ -1,7 +1,7 @@
 import handleRenderSwines from "./display-swines.js";
 import {generateSwineReports, displaySwineReport} from "../reports/generate-swine-report.js";
 import populateReportDates from "../reports/setup-reports.js";
-import swineMapping from "./swine-mapping.js"
+import {swineMapping, numOfSwinePerMunicipal} from "./swine-mapping.js"
 
 
 // ======================================
@@ -130,6 +130,52 @@ const toggleSwineMoreDetails = () => {
 
 
 // ======================================
+// ========== Change Content Functionality
+// ======================================
+const changeContentsFunctionality = () => {
+  const mappingContents = document.querySelector('.swine-section__mapping-contents');
+  const tableContents = document.querySelector('.swines-section__table-contents');
+  const reportContents =  document.querySelector('.swine-section__report-contents');
+
+  const viewMappingContentBtn = document.querySelector('.mapping-contents__show-map-btn');
+
+  // Show Map COntent
+  viewMappingContentBtn.addEventListener('click', () => {
+    tableContents.classList.remove('show');
+    mappingContents.classList.add('show');
+  });
+
+}
+
+
+const mappingContentToggleMapAndGraph = () => {
+  const mapWrapper = document.querySelector('.mapping-contents__map-wrapper');
+  const graphWrapper = document.querySelector('.mapping-contents__swine-type-graph-wrapper');
+
+  const showMapBtn = document.querySelector('.mapping-contents__show-map-btn');
+  const showGraphBtn = document.querySelector('.mapping-contents__show-graph-btn');
+
+  // Show Graph
+  showGraphBtn.addEventListener('click', () => {
+    mapWrapper.classList.remove('show');
+    graphWrapper.classList.add('show');
+    showMapBtn.classList.remove('active');
+    showGraphBtn.classList.add('active');
+  });
+
+  // Show Map
+  showMapBtn.addEventListener('click', () => {
+    mapWrapper.classList.add('show');
+    graphWrapper.classList.remove('show');
+    showMapBtn.classList.add('active');
+    showGraphBtn.classList.remove('active');
+  });
+}
+
+
+
+
+// ======================================
 // ========== Main Function - Setup Swines Section
 // ======================================
 export default function setupSwinesSection() {
@@ -140,4 +186,7 @@ export default function setupSwinesSection() {
   toggleSwineMoreDetails();
   viewBtnsFunctionality();
   swineMapping();
+  changeContentsFunctionality();
+  mappingContentToggleMapAndGraph();
+  numOfSwinePerMunicipal();
 }
