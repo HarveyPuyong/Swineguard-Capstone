@@ -8,8 +8,26 @@ const displayAppointmentCardList = async() => {
         const client = await fetchClient();
         const clientId = client._id;
 
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
         const appointments = await fetchAppointments();
-        const filteredAppointments = appointments.filter(appointment => appointment.clientId === clientId); // Filter appointments
+        const filteredAppointments = appointments.filter(appointment => 
+                                    appointment.clientId === clientId)
+                                    .sort((a, b) => {
+                                    const aDate = new Date(a.createdAt);
+                                    const bDate = new Date(b.createdAt);
+
+                                    const aIsToday = aDate >= today;
+                                    const bIsToday = bDate >= today;
+
+                                    // Put today's appointments first
+                                    if (aIsToday && !bIsToday) return -1;
+                                    if (!aIsToday && bIsToday) return 1;
+
+                                    // Then sort newest to oldest
+                                    return bDate - aDate;
+                                });
 
         let appointmentHTML = '';
 

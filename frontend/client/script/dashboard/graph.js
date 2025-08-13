@@ -1,50 +1,115 @@
 // Appointment Graph
+import { fetchAppointments } from "../../../admin/api/fetch-appointments.js";
+import fetchClient from "../auth/fetch-client.js";
+import { getServiceName } from "../../../admin/api/fetch-services.js";
+import fetchSwines from "../../../admin/api/fetch-swines.js";
 
-const displayDashboardGraphs = async() => {
-    const appointmentGraph = document.getElementById('dashboard-section__appointments-graph').getContext('2d');
 
+let services = []; // Will hold unique service names
+let serviceCounts = {}; // Will hold counts for each service
+
+// FIlter all apointment services users acquired
+const addService = (serviceName) => {
+    if (!services.includes(serviceName)) {
+        services.push(serviceName);
+    }
+    serviceCounts[serviceName] = (serviceCounts[serviceName] || 0) + 1;
+};
+
+
+const displayDashboardGraphs = async () => {
+
+    const appointmentGraph = document
+        .getElementById('dashboard-section__appointments-graph')
+        .getContext('2d');
+
+    // Fetch all appointments
+    const appointments = await fetchAppointments();
+
+    // Get logged-in client ID
+    const { _id } = await fetchClient();
+
+    // Filter only this client's appointments
+    const filteredAppointments = appointments.filter(
+        (appointment) => appointment.clientId === _id
+    );
+
+    // Add each service and count how many times it appears
+    for (const appointment of filteredAppointments) {
+        const serviceName = await getServiceName(appointment.appointmentService);
+        addService(serviceName);
+    }
+
+    // Prepare Chart.js data
     const appointmentChart = new Chart(appointmentGraph, {
         type: 'bar',
         data: {
-            labels: ['Deworming', 'Iron Supplementation', 'Castration'],
-            datasets: [{
-            data: [5, 8, 4], 
-            backgroundColor: 'rgba(86, 141, 255, 0.5)', 
-            borderRadius: 5,
-            barThickness: 30
-            }]
+            labels: services, // Unique service names
+            datasets: [
+                {
+                    data: services.map((name) => serviceCounts[name]), // Counts for each service
+                    backgroundColor: 'rgba(86, 141, 255, 0.5)',
+                    borderRadius: 5,
+                    barThickness: 30,
+                },
+            ],
         },
         options: {
-            indexAxis: 'y', 
+            indexAxis: 'y',
             responsive: true,
             maintainAspectRatio: false,
             plugins: {
-            legend: {
-                display: false
-            }
+                legend: {
+                    display: false,
+                },
             },
             scales: {
-            x: {
-                beginAtZero: true,
-                ticks: {
-                precision: 0
-                }
-            }
-            }
-        }
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        precision: 0,
+                    },
+                },
+            },
+        },
     });
 
 
 
+    let pigletCount = 0;
+    let growerCount = 0;
+    let sowCount = 0;
+    let boarCount = 0;
+
     // Swine Graph
     const swineGraph = document.getElementById('dashboard-section__swines-graph').getContext('2d');
+
+    const swines = await fetchSwines();
+    const fileteredSwines = swines.filter((swine) => swine.clientId === _id);
+
+    fileteredSwines.forEach(swine => {
+        switch (swine.type.toLowerCase()) {
+            case 'piglet':
+                pigletCount++;
+                break;
+            case 'grower':
+                growerCount++;
+                break;
+            case 'sow':
+                sowCount++;
+                break;
+            case 'boar':
+                boarCount++;
+                break;
+        }
+    });
 
     const swineChart = new Chart(swineGraph, {
         type: 'bar',
         data: {
-            labels: ['Piglet', 'Barrow', 'Gilt', 'Grower', 'Boar', 'Sow'],
+            labels: ['Piglet', 'Grower', 'Boar', 'Sow'],
             datasets: [{
-            data: [2, 2, 1, 6, 1, 1], 
+            data: [pigletCount, growerCount, boarCount, sowCount], 
             backgroundColor: [
                 '#76f1f2', 
                 '#33b8d5', 
@@ -79,39 +144,10 @@ const displayDashboardGraphs = async() => {
 
 
 
-    // Swine Table
-    const swineTableData = [
-    { type: "Piglet", heads: 2 },
-    { type: "Gilt", heads: 1 },
-    { type: "Barrow", heads: 2 },
-    { type: "Grower", heads: 6 },
-    { type: "Boar", heads: 1 },
-    { type: "Sow", heads: 1 }
-    ];
+};
 
-    const table = new Tabulator("#dashboard-section__swine-table", {
-        data: swineTableData,
-        layout: "fitColumns",
-        columns: [
-            { title: "Types", field: "type", hozAlign: "center" },
-            {
-            title: "Heads",
-            field: "heads",
-            hozAlign: "center",
-            bottomCalc: "sum",
-            bottomCalcFormatter: "plaintext",
-            bottomCalcFormatterParams: {
-                precision: 0
-            }
-            }
-        ],
-        rowHeight: 30,
-        responsiveLayout: true,
-        movableColumns: false,
-        rowFormatter: row => {
-            row.getElement().style.marginBottom = "6px"; 
-        }
-    });
-}
+
+
+
 
 export default displayDashboardGraphs;

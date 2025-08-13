@@ -6,7 +6,7 @@ const ROLE_LIST = require('./../config/role_list');
 const verifyJWT = require('./../middlewares/verifyJWT');
 
 router.post('/add', verifyJWT,  verifyRoles(ROLE_LIST.Admin), addServices); // Add services
-router.put('/edit/:id',verifyJWT,  verifyRoles(ROLE_LIST.Admin), editServices); // Edit services name and description
+router.put('/edit/:id',verifyJWT, editServices); // Edit services name and description
 router.get('/get/all',verifyJWT, getAllServices); // Get all services
 router.get('/get/:id',verifyJWT, getServiceById); // Get service by Id
 
