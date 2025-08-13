@@ -1,6 +1,7 @@
 import handleRenderSwines from "./display-swines.js";
 import {generateSwineReports, displaySwineReport} from "../reports/generate-swine-report.js";
 import populateReportDates from "../reports/setup-reports.js";
+import swineMapping from "./swine-mapping.js"
 
 
 // ======================================
@@ -138,4 +139,5 @@ export default function setupSwinesSection() {
   filterSwines();
   toggleSwineMoreDetails();
   viewBtnsFunctionality();
+  swineMapping();
 }
