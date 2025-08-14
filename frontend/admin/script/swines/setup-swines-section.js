@@ -1,7 +1,7 @@
 import handleRenderSwines from "./display-swines.js";
 import {generateSwineReports, displaySwineReport} from "../reports/generate-swine-report.js";
 import populateReportDates from "../reports/setup-reports.js";
-import {swineMapping, numOfSwinePerMunicipal} from "./swine-mapping.js"
+import { toggleMunicipality, numOfSwinePerMunicipalTable, handleGraphNavButton, swineMapping} from "./swine-mapping.js"
 
 
 // ======================================
@@ -161,6 +161,8 @@ const mappingContentToggleMapAndGraph = () => {
     graphWrapper.classList.add('show');
     showMapBtn.classList.remove('active');
     showGraphBtn.classList.add('active');
+    // Display the default graph
+    swineMapping('all');
   });
 
   // Show Map
@@ -185,8 +187,9 @@ export default function setupSwinesSection() {
   filterSwines();
   toggleSwineMoreDetails();
   viewBtnsFunctionality();
-  swineMapping();
   changeContentsFunctionality();
   mappingContentToggleMapAndGraph();
-  numOfSwinePerMunicipal();
+  toggleMunicipality();
+  numOfSwinePerMunicipalTable();
+  handleGraphNavButton();
 }

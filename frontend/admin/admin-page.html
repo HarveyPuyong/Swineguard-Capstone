@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="styles/sections-style/staff-section.css">
     <link rel="stylesheet" href="styles/sections-style/services-section.css">
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
+    <link rel="stylesheet" href="styles/sections-style/notification.css">
 
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -265,6 +266,21 @@
           </div>
         </section>
 
+        <!-- ========== Notification Section ========== -->
+        <section class="notification hide">
+          <div class="notif-container">
+            <div class="header-notif">
+              <h2>Notification</h2>
+            </div>
+            <div class="notif-list">
+              <div class="notif">
+                <p class="notif-title">Title:</p>
+                <p class="notif-short-text">Short Text...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- ========== Swines Section ========== -->
         <section id="swines-section" class="hide">
           <!-- Swine Section: Table contents -->
@@ -312,25 +328,15 @@
             </div>
           </div>
 
-
-
-
-
-
-
-
-
-
-
           <!-- Swine Section: Mapping contents -->
           <div class="swine-section__mapping-contents">
             <h1 class="section__heading">Swines Mapping</h1>
                       
             <!--buttons-container (back-to-table, show-map, show-type-graph) -->
             <div class="mapping-contents__buttons-container">             
-            <button class="mapping-contents__back-table-btn back-table-btn">Back to table</button>    
-            <button class="mapping-contents__show-map-btn active">Swine Map</button>
-            <button class="mapping-contents__show-graph-btn">Swine Graph</button>
+              <button class="mapping-contents__back-table-btn back-table-btn">Back to table</button>    
+              <button class="mapping-contents__show-map-btn active">Swine Map</button>
+              <button class="mapping-contents__show-graph-btn">Swine Graph</button>
             </div>
             
             <!-- map wrapper -->
@@ -342,38 +348,38 @@
                 <img class="marinduque-map-container__full-map" src="images-and-icons/images/marinduque-full-map.png" alt="marinduque-map">
 
                 <div class="marinduque-map-container__mogpog-highlight marinduque-map-container__municipal-highlight">
-                  <p class="municipal-highlight--swine-percent-population">50.60%</p>
+                  <p class="municipal-highlight--swine-percent-population" id="mogpog-percentage">0.0%</p>
                   <p class="municipal-highlight--municipan-name">Mogpog</p>
                   <img class="municipal-highlight--img" src="images-and-icons/images/Mogpog-highlight.png" alt="mogpog-map-hightlight">
                 </div>
 
                 <div class="marinduque-map-container__boac-highlight marinduque-map-container__municipal-highlight">
-                  <p class="municipal-highlight--swine-percent-population">70.20%</p>
+                  <p class="municipal-highlight--swine-percent-population" id="boac-percentage">0.0%</p>
                   <p class="municipal-highlight--municipan-name">Boac</p>
                   <img class="municipal-highlight--img" src="images-and-icons/images/Boac-highlight.png" alt="boac-map-hightlight">
                 </div>
                 
                 <div class="marinduque-map-container__gasan-highlight marinduque-map-container__municipal-highlight">
-                  <p class="municipal-highlight--swine-percent-population">80.20%</p>
+                  <p class="municipal-highlight--swine-percent-population" id="gasan-percentage">0.0%</p>
                   <p class="municipal-highlight--municipan-name">Gasan</p>
                   <img class="municipal-highlight--img" src="images-and-icons/images/Gasan-highlight.png" alt="gasan-map-hightlight">
                 </div>
 
                 <div class="marinduque-map-container__buenavista-highlight marinduque-map-container__municipal-highlight">
-                  <p class="municipal-highlight--swine-percent-population">30.20%</p>
+                  <p class="municipal-highlight--swine-percent-population" id="buenavista-percentage">0.0%</p>
                   <p class="municipal-highlight--municipan-name">Buenavista</p>
                   <img class="municipal-highlight--img" src="images-and-icons/images/Buenavista-highlight.png" alt="buenavista-map-hightlight">
                 </div>
                 
                 <div class="marinduque-map-container__sta-cruz-highlight marinduque-map-container__municipal-highlight">
-                  <p class="municipal-highlight--swine-percent-population">30.20%</p>
+                  <p class="municipal-highlight--swine-percent-population" id="santacruz-percentage">0.0%</p>
                   <p class="municipal-highlight--municipan-name">Sta Cruz</p>
                   <img class="municipal-highlight--img" src="images-and-icons/images/Sta-Cruz-highlight.png" alt="sta-cruz-map-highlight">
                 </div>
 
                 <div class="marinduque-map-container__torrijos-highlight marinduque-map-container__municipal-highlight">
-                  <p class="municipal-highlight--swine-percent-population">30.20%</p>
-                  <p class="municipal-highlight--municipan-name">Sta Cruz</p>
+                  <p class="municipal-highlight--swine-percent-population" id="torrijos-percentage">0.0%</p>
+                  <p class="municipal-highlight--municipan-name">Torrijos</p>
                   <img class="municipal-highlight--img" src="images-and-icons/images/Torrijos-highlight.png" alt="torrijos-map-highlight">
                 </div>
               </div>
@@ -383,6 +389,7 @@
                 <div class="select-swine-status-container">
                   <h3 class="select-swine-status-container__heading">Swine Status</h3>
                   <select class="mapping-contents__select-swine-status" name="select-swine-status" id="mapping-contents__select-swine-status">
+                    <option value="all">Select here</option>
                     <option value="all">All</option>
                     <option value="healthy">Healthy</option>
                     <option value="pregnant">Pregnant</option>
@@ -408,46 +415,46 @@
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Mogpog</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="municipality boac">
                       <p class="td">
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Boac</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="municipality gasan">
                       <p class="td">
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Gasan</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="municipality buenavista">
                       <p class="td">
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Buenavista</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="municipality sta-cruz">
                       <p class="td">
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Sta. Cruz</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="municipality torrijos">
                       <p class="td">
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Torrijos</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                                      
                     <div class="total">
                       <p class="td total-label">Total</p>
-                      <p class="td total-value">1000</p>
+                      <p class="td total-value">0</p>
                     </div>                                      
                   </div>
                 </div>
@@ -458,7 +465,8 @@
             <div class="mapping-contents__swine-type-graph-wrapper mapping-contents__wrapper">
               <h4 class="mapping-contents__wrapper-heading">Swine Types</h4>            
               <div class="swine-types-list-nav">
-                <p class="swine-types-list-nav__type active">Piglet</p>
+                <p class="swine-types-list-nav__type active">All</p>
+                <p class="swine-types-list-nav__type">Piglet</p>
                 <p class="swine-types-list-nav__type">Grower</p>
                 <p class="swine-types-list-nav__type">Boar</p>
                 <p class="swine-types-list-nav__type">Sow</p>
@@ -467,7 +475,7 @@
               <!-- swine type chart -->
               <canvas id="swine-type-chart"></canvas>
               
-              <div class="population-table-container">
+              <div class="population-table-container" id="graph-table">
                 <h5 class="total-population-table__label">Total Population</h5>
                 <div class="total-population-table">
                   <div class="total-population-table__thead">
@@ -481,70 +489,52 @@
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Mogpog</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="municipality boac">
                       <p class="td">
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Boac</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="municipality gasan">
                       <p class="td">
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Gasan</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="municipality buenavista">
                       <p class="td">
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Buenavista</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="municipality sta-cruz">
                       <p class="td">
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Sta. Cruz</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="municipality torrijos">
                       <p class="td">
                         <span class="municipality-identifier"></span>
                         <span class="municipality-label">Torrijos</span>        
                       </p>
-                      <p class="td number-of-swines">365</p>
+                      <p class="td number-of-swines">0</p>
                     </div>                   
                     <div class="total">
                       <p class="td total-label">Total</p>
-                      <p class="td total-value">1553</p>
+                      <p class="td total-value">0</p>
                     </div>                   
                   </div>
                 </div>
               </div>
             </div>
-
-
-
-
           </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
           <!-- Swine Section: Generate reports contents -->
           <div class="swine-section__report-contents reports-content">

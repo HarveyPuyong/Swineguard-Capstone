@@ -7,6 +7,7 @@ import setupMessagesSection from './messages/setup-messages-section.js';
 import setupServicesSection from './services/setup-services-section.js';
 import displayDashboardGraphs from './dashboard/graph.js';
 import displayUpcomingAppointments from './dashboard/upcoming-appointments.js';
+import handleNotification from '../../admin/script/notification/handle-notification.js';
 
 setupHeader();
 sideNavFuntionality();
@@ -17,4 +18,5 @@ setupMessagesSection();
 setupServicesSection();
 displayDashboardGraphs();
 displayUpcomingAppointments();
+handleNotification();
 

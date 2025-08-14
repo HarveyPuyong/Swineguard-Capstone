@@ -1,0 +1,78 @@
+.notification{
+  display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  max-width: 380px;
+  height: 90%;
+  background-color: white;
+  overflow-y: scroll;
+  z-index: 1000;
+  border: 2px solid var(--main-color);
+  padding: 0;
+}
+
+.notification.show{
+  display: block;
+}
+.notification.hide{
+  display: none;
+}
+
+.header-notif {
+    background-color: var(--main-color);
+    text-align: center;
+    width: 100%;
+    color: white;
+    padding: .5rem 0;
+}
+
+.notif-list, .notif {
+    width: 100%;
+}
+
+.notif h2{
+  margin: 0; /* removes default browser margins */
+  padding: 0.3rem; /* optional: your own spacing */
+  background-color: var(--main-color);      
+}
+
+.header-notif h2 {
+  margin: 0;
+  padding: 0.5rem;
+  font-size: 1.2rem;
+}
+.notif-list {
+  padding: .2rem;
+}
+.notif {
+    background-color: #d1d1d1;
+    max-height: 200px;
+    height: 100%;
+    padding: 1rem;
+}
+.notif-title {
+    font-weight: 600;
+    font-size: 1rem;
+}
+.notif-short-text {
+    color: #707070;
+}
+
+@media (max-width: 600px) {
+  .header-notif h2 {
+    font-size: 1rem;
+  }
+  .notif-title {
+    font-weight: 600;
+    font-size: .9rem;
+  }
+  .notif-short-text {
+    font-size: .75rem;
+  }
+  .notif {
+    padding: .8rem;
+  }
+}

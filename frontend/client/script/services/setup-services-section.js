@@ -1,4 +1,5 @@
 import displayServices from "./display-services.js";
+import sideNavFuntionality from "../side-nav.js";
 
 // ======================================
 // ========== Toggle More Details
@@ -33,7 +34,28 @@ const toggleMoreDetails = () => {
 // ======================================
 document.addEventListener('renderClientServices', () => {
   toggleMoreDetails(); // Runs only after profile HTML is rendered
+  redirectTorequestAppointments();
 });
+
+
+
+// ======================================
+// ========== Go to profile details in settings section
+// ======================================
+const redirectTorequestAppointments = () => {
+  const sections = document.querySelectorAll('section')
+  const servicesLink = document.querySelector('.services-card__title');
+
+  servicesLink.addEventListener('click', () => {
+    sections.forEach(section => {
+      section.classList.remove('show');
+      section.classList.add('hide');
+
+      if(section.id === 'appointments-section') section.classList.add('show');
+      sideNavFuntionality();
+    })
+  });
+}
 
 
 

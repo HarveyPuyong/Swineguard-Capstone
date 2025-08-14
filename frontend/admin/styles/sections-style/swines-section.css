@@ -395,6 +395,8 @@
 
 .mapping-contents__map-wrapper.show{
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .marinduque-map-container{
@@ -419,7 +421,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 1.5rem;
-  color: white;
+  color: #252525;
 }
 
 .municipal-highlight--municipan-name{
@@ -556,6 +558,8 @@
 }
 .mapping-contents__swine-type-graph-wrapper.show{
   display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .swine-types-list-nav{
@@ -681,4 +685,24 @@
 .total-population-table .total-value{
   background-color: var(--main-color);
   font-weight: 600
+}
+
+
+.marinduque-map-container__municipal-highlight {
+  display: none;
+}
+.marinduque-map-container__municipal-highlight.hide {
+  display: none;
+}
+.marinduque-map-container__municipal-highlight.show {
+  display: block;
+}
+
+.municipality {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.municipality:hover {
+  background-color: #68acec59; /* light hover effect */
 }

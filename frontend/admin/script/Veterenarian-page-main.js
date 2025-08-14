@@ -5,6 +5,8 @@ import setupMessagesSection from "./messages/setup-messages-section.js";
 import setupVeterinarian from "./veterinarian/setup-veterinarian.js";
 import {fetchAppointments} from "./../api/fetch-appointments.js"
 import fetchUser from "./auth/fetchUser.js";
+import handleLogout from "./auth/logout.js";
+import handleNotification from "./notification/handle-notification.js";
 
 
 setupHeader();
@@ -12,6 +14,7 @@ sideNavFuntionality();
 setupMessagesSection();
 setupSettingsSection();
 setupVeterinarian();
+handleNotification();
 
 
 

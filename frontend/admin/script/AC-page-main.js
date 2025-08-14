@@ -6,6 +6,7 @@ import setupAppointmentSection from "./appointments/setup-appointment-section.js
 import setupMessagesSection from "./messages/setup-messages-section.js";
 import setupTechniciansSection from "./technicians/setup-technician-section.js";
 import setupSettingsSection from "./setting/setup-setting-section.js";
+import handleNotification from "./notification/handle-notification.js";
 
 roleRidirectPage();
 setupHeader();
@@ -15,3 +16,4 @@ setupAppointmentSection();
 setupMessagesSection();
 setupTechniciansSection();
 setupSettingsSection();
+handleNotification();

@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <link rel="stylesheet" href="styles/sections-style/messages-section.css">
     <link rel="stylesheet" href="styles/sections-style/services-section.css">
+    <link rel="stylesheet" href="../admin/styles/sections-style/notification.css">
     <title>User Page</title>
 
     <!-- Font Awesome CDN -->
@@ -105,6 +106,21 @@
         </form>
         <button type="button" class="profile-details-list__logout-btn" id="client-logout-btn">Logout</button>
       </div>
+
+        <!-- ========== Notification Section ========== -->
+        <section class="notification hide">
+          <div class="notif-container">
+            <div class="header-notif">
+              <h2>Notification</h2>
+            </div>
+            <div class="notif-list">
+              <div class="notif">
+                <p class="notif-title">Title:</p>
+                <p class="notif-short-text">Short Text...</p>
+              </div>
+            </div>
+          </div>
+        </section>
 
       <div class="sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
@@ -225,7 +241,7 @@
           <h1 class="section__heading">Appointments</h1>
           <div class="appointments-section__buttons-container">
             <button class="request-appointment-btn">Request Appointment</button>
-            <button class="go-to-schedules-section-btn">Schedules</button>
+            <!-- <button class="go-to-schedules-section-btn">Schedules</button> -->
           </div>
 
           <!-- Appointment Card List -->
