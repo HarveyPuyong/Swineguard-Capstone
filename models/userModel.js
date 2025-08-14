@@ -25,6 +25,11 @@ const userSchema = new mongoose.Schema({
     refreshToken: {
       type: [String], 
       default: []
+    },
+
+    profileImage: {
+      type: String,
+      required: false
     }
 
 }, { collection: 'users', timestamps: true });

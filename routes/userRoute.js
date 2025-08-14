@@ -5,6 +5,7 @@ const verifyRoles = require('./../middlewares/verifyRoles');
 const verifyJWT = require('./../middlewares/verifyJWT');
 const {editUserDetails, addStaff, getTechandVets, getAllStaffs, resetUserPassword, verifyUserAccount } = require('./../controllers/userController');
 const {getUsers, getUser, getUserById, checkExistingEmail} = require('./../controllers/getUsersController')
+const upload = require('./../middlewares/upload'); 
 
 
 router.post('/add/staff', verifyJWT,  verifyRoles(ROLE_LIST.Admin), addStaff);
@@ -20,7 +21,7 @@ router.patch('/verify/:id', verifyJWT, verifyRoles(ROLE_LIST.Admin), verifyUserA
 router.patch('/reset/:id', verifyJWT, resetUserPassword) // Reset user password
 
 
-router.put('/edit/:id', verifyJWT, editUserDetails);
+router.put('/edit/:id', verifyJWT, upload.single('profileImage'), editUserDetails);
 
 router.get('/users',verifyJWT, getUsers); 
 

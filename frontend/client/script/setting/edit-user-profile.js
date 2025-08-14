@@ -11,39 +11,46 @@ const handleClientEditSettings = () => {
     const userId = saveBtn.dataset.userId;
 
     form.addEventListener('submit', async (e) => {
-      e.preventDefault(); 
+      e.preventDefault();
 
-        const settingsFormData = { 
-            firstName: form.querySelector('#profile-detail__firstname-input').value.trim(), 
-            middleName: form.querySelector('#profile-detail__middlename-input').value.trim(), 
-            lastName: form.querySelector('#profile-detail__lastname-input').value.trim(), 
-            contactNum: form.querySelector('#profile-detail__contact-input').value.trim(), 
-            barangay: form.querySelector('#profile-detail__select-barangay').value.trim(), 
-            municipality: form.querySelector('#profile-detail__select-municipal').value.trim(), 
-            email: form.querySelector('#profile-detail__email-input').value.trim()
+      const formData = new FormData();
+      formData.append('firstName', form.querySelector('#profile-detail__firstname-input').value.trim());
+      formData.append('middleName', form.querySelector('#profile-detail__middlename-input').value.trim());
+      formData.append('lastName', form.querySelector('#profile-detail__lastname-input').value.trim());
+      formData.append('contactNum', form.querySelector('#profile-detail__contact-input').value.trim());
+      formData.append('barangay', form.querySelector('#profile-detail__select-barangay').value.trim());
+      formData.append('municipality', form.querySelector('#profile-detail__select-municipal').value.trim());
+      formData.append('email', form.querySelector('#profile-detail__email-input').value.trim());
+
+      // 👇 Get the file
+      const fileInput = form.querySelector('#profile-image-input');
+      if (fileInput.files.length > 0) {
+        formData.append('profileImage', fileInput.files[0]); // field name must match your backend
+      }
+
+      try {
+        const token = localStorage.getItem('accessToken');
+        const response = await api.put(`/edit/${userId}`, formData, {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        if (response.status === 200) {
+          popupAlert('success', 'Success!', 'Successfully updated the settings').then(() => {
+            displayClientProfileSetting();
+            profileForm.classList.add('view-mode');
+            profileForm.classList.remove('edit-mode');
+          });
         }
-
-
-        try {
-            const token = localStorage.getItem('accessToken');
-
-            const response = await api.put(`/edit/${userId}`, settingsFormData);
-
-            if (response.status === 200) {
-                popupAlert('success', 'Success!', 'Successfully updated the settings')
-                .then( () => 
-                    displayClientProfileSetting(),
-                    profileForm.classList.add('view-mode'),
-                    profileForm.classList.remove('edit-mode')
-                );
-            }
-
-        } catch (err) {
-            console.log(err);
-            const errMessage = err.response?.data?.message || err.response?.data?.error;
-            popupAlert('error', 'Error!', errMessage);
-        }
+      } catch (err) {
+        console.log(err);
+        const errMessage = err.response?.data?.message || err.response?.data?.error;
+        popupAlert('error', 'Error!', errMessage);
+      }
     });
+
   });
 };
 

@@ -29,6 +29,9 @@ app.use(cookieParser());
 
 app.use(Express.static(path.join(__dirname, 'frontend')));
 
+// Serve uploaded files
+app.use('/uploads', Express.static(path.join(__dirname, 'uploads')));
+
 app.get('/', (req, res) => {
   return res.redirect('/admin/login.html');
 });
