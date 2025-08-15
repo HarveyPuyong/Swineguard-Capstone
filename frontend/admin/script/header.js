@@ -1,5 +1,6 @@
 import updateSidenav from '../utils/updateSidenav.js';
 import handleLogout from './auth/logout.js';
+import header from '../components/display-header.js';
 
 // ======================================
 // ========== Toggles Sidenav
@@ -70,7 +71,14 @@ const logout = () => {
 }
 
 
-
+// ======================================
+// ========== Handle Header Components
+// ======================================
+document.addEventListener('renderAdminHeader', () => {
+  showProfileDetails();
+  toggleLogoutBtn();
+  logout();
+});
 
 
 // ======================================
@@ -78,7 +86,5 @@ const logout = () => {
 // ======================================
 export default function setupHeader() {
   toggleSidenav();
-  showProfileDetails();
-  toggleLogoutBtn();
-  logout();
+  header();
 } 

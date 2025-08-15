@@ -1,6 +1,7 @@
 import api from "../../client-utils/axios-config.js";
 import popupAlert from "../../client-utils/client-popupAlert.js"
 import { displayClientProfileSetting } from "./display-setting.js";
+import dipslayHeaderProfileImg from "../../components/display-header.js";
 
 const handleClientEditSettings = () => {
 
@@ -40,6 +41,7 @@ const handleClientEditSettings = () => {
         if (response.status === 200) {
           popupAlert('success', 'Success!', 'Successfully updated the settings').then(() => {
             displayClientProfileSetting();
+            dipslayHeaderProfileImg();
             profileForm.classList.add('view-mode');
             profileForm.classList.remove('edit-mode');
           });

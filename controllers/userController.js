@@ -66,6 +66,11 @@ const editUserDetails = async (req, res) => {
             firstName, middleName, lastName, contactNum,
             barangay, municipality, email
         };
+        const hasEmpty = Object.values(updateData).some(
+            value => value === "" || value === null || value === undefined
+        );
+
+        if (hasEmpty) return res.status(404).json({ message: 'All fields required' });
 
         if (profileImage) {
             updateData.profileImage = profileImage; // only update if image is uploaded

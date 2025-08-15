@@ -42,7 +42,7 @@ const displayClientConversation = async (staffId) => {
         <div class="convo-list__vetStaff-chat">
           <div class="convo-list__vetStaff-chat-time-sent time-sent">${timeSent}</div>
           <div class="convo-list__vetStaff-chat-details">
-            <img class="convo-list__vetStaff-chat-details--img" src="${vetStaff.profilePic || 'images-and-icons/images/example-user-profile-pic.jpg'}" alt="user-image">
+            <img class="convo-list__vetStaff-chat-details--img" src="${vetStaff.profileImage ? '/uploads/' + vetStaff.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="user-image">
             <p class="convo-list__vetStaff-chat-details--name">${capitalize(vetStaff.firstName)}</p>
           </div>
           <p class="convo-list__vetStaff-chat-message chat-message">${msg.content}</p>
@@ -53,7 +53,7 @@ const displayClientConversation = async (staffId) => {
 
   // Header
   const chatHTML = `
-    <img class="chat-box__header-user-img" src="${vetStaff.profilePic || 'images-and-icons/images/example-user-profile-pic.jpg'}" alt="user-img">
+    <img class="chat-box__header-user-img" src="${vetStaff.profileImage ? '/uploads/' + vetStaff.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="user-img">
     <div class="chat-box__header-user-name-and-active-status">
         <p class="chat-box__header-user-name">${capitalize(vetStaff.firstName)} ${capitalize(vetStaff.lastName)}</p>
         <p class="chat-box__header-user-active-status">

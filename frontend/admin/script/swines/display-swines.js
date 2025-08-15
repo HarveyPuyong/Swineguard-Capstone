@@ -43,7 +43,7 @@ const handleRenderSwines = async() => {
               <div class="column left">
                 <p class="column__detail">
                   <span class="column__detail-label">Swine ID:</span>
-                  <span class="column__detail-value swine-id">${swine._id}</span>
+                  <span class="column__detail-value swine-id">${swine.swineFourDigitId}</span>
                 </p>
                 <p class="column__detail">
                   <span class="column__detail-label">Type:</span>
@@ -79,10 +79,6 @@ const handleRenderSwines = async() => {
                 <p class="column__detail">
                   <span class="column__detail-label">Location:</span>
                   <span class="column__detail-value swine-location">${swinesOwnerAddress}, Marinduque</span>
-                </p>
-                <p class="column__detail">
-                  <span class="column__detail-label">Medication:</span>
-                  <span class="column__detail-value swine-medication">Deworming</span>
                 </p>
               </div>
             </div>

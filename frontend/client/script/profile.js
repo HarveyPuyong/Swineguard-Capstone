@@ -2,6 +2,7 @@ import handleClientLogout from "./auth/logout-client.js";
 import {displayClientProfileSetting, displayClientName} from "./setting/display-setting.js";
 import handleClientEditSettings from "./setting/edit-user-profile.js";
 import addressesData from "../../admin/static-data/addresses.js";
+import fetchClient from "./auth/fetch-client.js";
 
 // ======================================
 // ========== Hide Profile Container
@@ -24,9 +25,12 @@ const toggleEditMode = () => {
   const disableEditModeBtn = document.querySelector('.profile-details-list__cancel-btn.disable-edit-mode-button');
 
   // enable
-  enableEditModeBtn.addEventListener('click', () => {
+  enableEditModeBtn.addEventListener('click', async() => {
     profileForm.classList.remove('view-mode');
     profileForm.classList.add('edit-mode');
+    const user = await fetchClient();
+    const middleNameInput = document.getElementById('profile-detail__middlename-input');
+    middleNameInput.value = user.middleName;
 
     // Make inputs editable
     profileForm.querySelectorAll('input, select').forEach(el => {

@@ -1,5 +1,7 @@
 import fetchUsers from "../../api/fetch-users.js"
 import fetchSwines from "../../api/fetch-swines.js";
+import { fetchAppointments } from "../../api/fetch-appointments.js";
+import { getServiceName } from "../../api/fetch-services.js";
 import { calculateSwineAge, calculateUserAge } from "../../utils/calculate-months-years.js";
 import { handleResetUser } from "./reset-verify-remove-handler.js";
 
@@ -30,7 +32,7 @@ const handleUserFullview = async (userId) => {
         // Main Info Container
         const mainInfoHTML = `
             <div class="main-info-container__user-pic">
-                <img class="main-info-container__user-pic--img" src="images-and-icons/icons/default-profile.png" alt="user-picture">
+                <img class="main-info-container__user-pic--img" src="${user.profileImage ? '/uploads/' + user.profileImage : './images-and-icons/icons/default-profile.png'}" alt="user-picture">
                 <label class="main-info-container__user-pic--upload" title="change photo">
                     <input type="file" hidden />
                     <i class="fas fa-camera icon"></i> 
@@ -117,10 +119,24 @@ const handleUserFullview = async (userId) => {
 
         // Swine Info Container
         let userSwineHTML = '';
+        const appointments = await fetchAppointments();
+        const filteredAppointments = appointments.filter(appointment => appointment.clientId === userId);
 
         for (const swine of swines) {
             const swineAgeInMonths = calculateSwineAge(swine.birthdate);
             const clientName = `${user.firstName} ${user.middleName?.charAt(0).toUpperCase() || ''}. ${user.lastName} ${user.suffix || ''}`;
+
+            // Find the appointment for this swine
+            const relatedAppointments = filteredAppointments.filter(app => 
+                app.swineIds.includes(swine._id)
+            );
+
+            // Get medicine names from those appointments
+            let medicationList = [];
+            for (const app of relatedAppointments) {
+                const servicesAcquired = await getServiceName(app.appointmentService); 
+                medicationList.push(servicesAcquired);
+            }
 
             userSwineHTML += `
                 <div class="swine">
@@ -140,7 +156,7 @@ const handleUserFullview = async (userId) => {
                         <div class="swine__more-details-heading">Swine Details:</div>
                             <div class="swine__more-details-columns">
                             <div class="column left">
-                                <p class="column__detail"><span class="column__detail-label">Swine ID:</span><span class="column__detail-value">${swine._id}</span></p>
+                                <p class="column__detail"><span class="column__detail-label">Swine ID:</span><span class="column__detail-value">${swine.swineFourDigitId}</span></p>
                                 <p class="column__detail"><span class="column__detail-label">Type:</span><span class="column__detail-value">${swine.type}</span></p>
                                 <p class="column__detail"><span class="column__detail-label">Breed:</span><span class="column__detail-value">${swine.breed}</span></p>
                                 <p class="column__detail"><span class="column__detail-label">Age:</span><span class="column__detail-value">${swineAgeInMonths} month(s)</span></p>
@@ -151,7 +167,7 @@ const handleUserFullview = async (userId) => {
                                 <p class="column__detail"><span class="column__detail-label">Weight:</span><span class="column__detail-value">${swine.weight} kg</span></p>
                                 <p class="column__detail"><span class="column__detail-label">Owner:</span><span class="column__detail-value">${clientName}</span></p>
                                 <p class="column__detail"><span class="column__detail-label">Location:</span><span class="column__detail-value">${user.barangay}, ${user.municipality}, Marinduque</span></p>
-                                <p class="column__detail"><span class="column__detail-label">Medication:</span><span class="column__detail-value">Deworming</span></p>
+                                <p class="column__detail"><span class="column__detail-label">Medication:</span><span class="column__detail-value">${medicationList}</span></p>
                             </div>
                         </div>
                     </div>

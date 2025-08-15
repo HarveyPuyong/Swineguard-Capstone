@@ -55,11 +55,11 @@ const displayClientProfileSetting = async() => {
             <p class="profile-detail-label">Address:</p>
             <div class="profile-detail__select-group">
                 <select name="select-municipal" id="profile-detail__select-municipal" class="profile-detail-value">
-                <option value="">${municipality}</option>
+                <option value="${municipality}">${municipality}</option>
                 </select>
                 <span class="group-seperator">,</span>
                 <select name="select-barangay" id="profile-detail__select-barangay" class="profile-detail-value">
-                <option value="">${barangay}</option>
+                <option value="${barangay}">${barangay}</option>
                 </select>
             </div>
         </div>

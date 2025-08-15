@@ -56,6 +56,21 @@ const showConversation = () => {
   });
 };
 
+
+// ======================================
+// ========== Profile view click even
+// ======================================
+const viewProfilePopBox = () => {
+  const profileBox = document.querySelector('.profile-view');
+  profileHTML = `
+    <img class="profile-view__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user image" >
+    <h2 class="profile-view__user-name">User Name</h2>
+    <p class="profile-view__user-email">user@gmail.com</p>
+    <button class="profile-view__back-btn">Back</button>
+  `
+}
+
+
 // ======================================
 // ========== Main Function - Setup Messages Section
 // ======================================

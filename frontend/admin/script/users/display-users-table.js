@@ -2,13 +2,11 @@ import fetchUsers from '../../api/fetch-users.js';
 
 async function handleRenderUsersTable() {
   try {
-    const allUsers = await fetchUsers();
-    const clients = allUsers.filter(user => user.roles.includes('user'));
-
+    const users = await fetchUsers();
 
     let clientHTML = '';
 
-    clients.forEach(client => {
+    users.forEach(client => {
       clientHTML += `
         <div class="user">
           <p class="td first-name">${client.firstName}</p>

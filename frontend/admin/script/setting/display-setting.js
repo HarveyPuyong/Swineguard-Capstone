@@ -2,9 +2,10 @@ import fetchUser from './../auth/fetchUser.js';
 
 const displaySetting = async() => {
   try {
+    const user = await fetchUser();
     const { _id, firstName, middleName, lastName,
             contactNum, email, barangay, municipality
-           } = await fetchUser();
+           } = user;
 
 
     const settingHTML = `
@@ -18,9 +19,9 @@ const displaySetting = async() => {
         </div>
         <div class="setting-form__details-list">
           <div class="admin-image detail">
-            <img src="images-and-icons/icons/default-profile.png" alt="Profile Picture" />
+            <img src="${user.profileImage ? '/uploads/' + user.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="Profile Picture" />
             <label class="admin-image__upload-btn">
-              <input type="file" hidden />
+              <input type="file" id="admin__profile-image-input" hidden />
               <i class="fas fa-upload"></i> Upload
             </label>
           </div>
@@ -31,14 +32,16 @@ const displaySetting = async() => {
 
           <div class="admin-detail detail editable">
             <p class="admin-detail-label">Name:</p>
-            <input class="admin-detail-value" id="fullname-input" value="${firstName} ${middleName} ${lastName}" readonly />
+            <input class="admin-detail-value name" id="admin-profile__firstName-input" value="${firstName}" readonly />
+            <input class="admin-detail-value name" id="admin-profile__middleName-input" value="${middleName}" readonly/>
+            <input class="admin-detail-value name" id="admin-profile__lastName-input" value="${lastName}" readonly/>
           </div>
 
           <div class="admin-detail detail editable">
             <p class="admin-detail-label">Contact:</p>
             <input
               class="admin-detail-value"
-              id="contact-input"
+              id="admin-profile__contact-input"
               type="tel"
               maxlength="11"
               pattern="09[0-9]{9}"
@@ -51,17 +54,22 @@ const displaySetting = async() => {
 
           <div class="admin-detail detail editable">
             <p class="admin-detail-label">Address:</p>
-            <input class="admin-detail-value" id="adress-input" value="${barangay}, ${municipality}, Marinduque" readonly />
+            <select name="select-municipal" id="admin-profile__select-municipal" class="admin-detail-value address" disabled>
+              <option value="${municipality}">${municipality}</option>
+            </select>
+            <select name="select-barangay" id="admin-profile__select-barangay" class="admin-detail-value address" disabled>
+              <option value="${barangay}">${barangay}</option>
+            </select>
           </div>
 
           <div class="admin-detail detail editable">
             <p class="admin-detail-label">Email:</p>
-            <input class="admin-detail-value" id="email-input" value="${email}" readonly />
+            <input class="admin-detail-value email" id="admin-profile__email-input" value="${email}" readonly />
           </div>
 
           <div class="admin-detail detail editable">
             <p class="admin-detail-label">Password:</p>
-            <input class="admin-detail-value" value="Admin Password" readonly />
+            <input class="admin-detail-value email" value="Admin Password" readonly />
           </div>
         </div>
         
