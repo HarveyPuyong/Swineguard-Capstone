@@ -1,5 +1,6 @@
 import displayContactList from "./display-contact-list.js";
 import displayClientConversation from "./display-messages.js";
+import fetchUsers from "../../../admin/api/fetch-users.js";
 
 // ======================================
 // ========== Show Conversation
@@ -60,15 +61,58 @@ const showConversation = () => {
 // ======================================
 // ========== Profile view click even
 // ======================================
-const viewProfilePopBox = () => {
+const viewProfilePopBox = async(staffId) => {
   const profileBox = document.querySelector('.profile-view');
-  profileHTML = `
-    <img class="profile-view__user-image" src="images-and-icons/images/example-user-profile-pic.jpg" alt="user image" >
-    <h2 class="profile-view__user-name">User Name</h2>
-    <p class="profile-view__user-email">user@gmail.com</p>
+
+  const users = await fetchUsers();
+  const vetStaff = users.find(user => user._id === staffId);
+
+  const profileHTML = `
+    <img class="profile-view__user-image" src="${vetStaff.profileImage ? '/uploads/' + vetStaff.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="user image" >
+    <h2 class="profile-view__user-name">${vetStaff?.firstName || 'User'} ${vetStaff?.lastName || 'Name'}</h2>
+    <p class="profile-view__user-email">${vetStaff?.email || 'user email'}</p>
     <button class="profile-view__back-btn">Back</button>
-  `
+  `;
+
+  document.querySelector('.profile-view').innerHTML = profileHTML;
+  document.dispatchEvent(new Event('renderProfilePopUpView'));
+
 }
+
+
+
+// ======================================
+// ========== Profile view click even
+// ======================================
+const toggleProfileView = () => {
+  const profileImage = document.querySelector('.chat-box__header .chat-box__header-user-img');
+  const popUpProfileView = document.querySelector('.profile-view');
+  const vetId =  profileImage.dataset.vetId;
+
+  profileImage.addEventListener('click', () => {
+    popUpProfileView.classList.remove('hide');
+    popUpProfileView.classList.add('show');
+    viewProfilePopBox(vetId);
+  });
+
+  // Wait until profile HTML is rendered
+  document.addEventListener('renderProfilePopUpView', () => {
+    const profileViewBackBtn = document.querySelector('.profile-view .profile-view__back-btn');
+    if (profileViewBackBtn) {
+      profileViewBackBtn.addEventListener('click', () => {
+        popUpProfileView.classList.remove('show');
+        popUpProfileView.classList.add('hide');
+      });
+    }
+  });
+
+}
+
+
+
+document.addEventListener('renderClientConversation', () => {
+  toggleProfileView();
+})
 
 
 // ======================================

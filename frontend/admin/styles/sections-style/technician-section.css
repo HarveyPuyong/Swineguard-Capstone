@@ -46,6 +46,7 @@
   height: 107px;
   margin-bottom: 3px;
   border-radius: 2px;
+  border: 2px solid #6b6b6b;
 }
 
 .technician__profile-name{

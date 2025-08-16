@@ -53,9 +53,9 @@ const displayClientConversation = async (staffId) => {
 
   // Header
   const chatHTML = `
-    <img class="chat-box__header-user-img" src="${vetStaff.profileImage ? '/uploads/' + vetStaff.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="user-img">
+    <img class="chat-box__header-user-img" data-vet-id="${vetStaff._id}" src="${vetStaff.profileImage ? '/uploads/' + vetStaff.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="user-img">
     <div class="chat-box__header-user-name-and-active-status">
-        <p class="chat-box__header-user-name">${capitalize(vetStaff.firstName)} ${capitalize(vetStaff.lastName)}</p>
+        <p class="chat-box__header-user-name" data-vet-id="${vetStaff._id}">${capitalize(vetStaff.firstName)} ${capitalize(vetStaff.lastName)}</p>
         <p class="chat-box__header-user-active-status">
             <span class="chat-box__header-user-active-status--dot"></span>
             <span class="chat-box__header-user-active-status--label">Active</span>

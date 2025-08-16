@@ -31,6 +31,7 @@
 
 .notif-list, .notif {
     width: 100%;
+    margin-bottom: .2rem;
 }
 
 .notif h2{
@@ -46,6 +47,7 @@
 }
 .notif-list {
   padding: .2rem;
+  overflow: auto;
 }
 .notif {
     background-color: #d1d1d1;

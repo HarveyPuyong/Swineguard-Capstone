@@ -86,7 +86,7 @@ const handleRenderTechnicians = async () => {
       technicianHTML += `
         <div class="technician" data-technician-id="${technician._id}">
           <div class="technician__profile">
-            <img class="technician__profile-img" src="images-and-icons/icons/default-profile.png" alt="technician-img">
+            <img class="technician__profile-img" src="${technician.profileImage ? '/uploads/' + technician.profileImage : './images-and-icons/icons/default-profile.png'}" alt="technician-img">
             <p class="technician__profile-name">${fullName}</p>
             <p class="technician__profile-position">${technician.roles.map(role => role.charAt(0).toUpperCase() + role.slice(1).toLowerCase()).join(', ')}</p>
           </div>

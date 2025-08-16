@@ -4,51 +4,6 @@ const ROLE_LIST = require('./../config/role_list');
 const { isValidInput, containsEmoji, hasNumber, containsSpecialChar }= require('./../utils/inputChecker');
 const {generateAccessToken, generateRefreshToken} = require('./../utils/generateTokens');
 
-// Edit User Details
-// const editUserDetails = async (req, res) => {
-//     const { id } = req.params;
-//     const  {
-//         firstName, middleName, lastName, contactNum,
-//         barangay, municipality, email
-//     } = req.body;
-
-//     console.log(id)
-
-//     // Check the id is it is exist
-//     if (!id) return res.status(400).json({ message: 'User Id not found.' });
-
-//     // Check for Emojis
-//     if (containsEmoji(firstName) || containsEmoji(middleName) || containsEmoji(lastName)) {
-//     return res.status(400).json({ message: 'Emoji are not allowed for service name.'});
-//     }
-
-//     // Check for Numbers
-//     if (hasNumber(firstName) || hasNumber(middleName) || hasNumber(lastName)) {
-//     return res.status(400).json({ message: 'Numbers are not allowed.'});
-//     }
-
-//     // Check for Special Chracters
-//     if (containsSpecialChar(firstName) || containsSpecialChar(middleName) || containsSpecialChar(lastName)) {
-//     return res.status(400).json({ message: 'Special characters are not allowed.'});
-//     }
-
-//     try {
-        
-//         const updatedUser = await userDB.findByIdAndUpdate(id, {
-//             firstName, middleName, lastName, contactNum,
-//             barangay, municipality, email
-//         }, { new: true });
-
-//         if (!updatedUser) return res.status(404).json({ message: 'User not found.' });
-
-//         res.status(200).json({ message: 'Details updated successfully', user: updatedUser });
-
-//     } catch (err) {
-//         console.error(err);
-//         res.status(500).json({ message: 'Server error while updating user.' });
-//     }
-// }
-
 
 const editUserDetails = async (req, res) => {
     const { id } = req.params;

@@ -76,7 +76,7 @@
   --municipality-width: 130px;
   --barangay-width: 140px;
   --contact-width: 150px;
-  --email-width: 250px;
+  --email-width: 300px;
   --toggle-buttons-width: 20px;
 
   display: block;
@@ -512,3 +512,9 @@
   background-color: #999;
 }
 
+
+.user.not-verified {
+  background-color: rgba(255, 0, 0, 0.08);
+  border-left: 4px solid red;
+  color: #a00; /* dark red text */
+}

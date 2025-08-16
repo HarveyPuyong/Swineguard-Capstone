@@ -120,7 +120,7 @@ const handleUserFullview = async (userId) => {
         // Swine Info Container
         let userSwineHTML = '';
         const appointments = await fetchAppointments();
-        const filteredAppointments = appointments.filter(appointment => appointment.clientId === userId);
+        const filteredAppointments = appointments.filter(appointment => appointment.clientId === userId && appointment.appointmentStatus === 'completed');
 
         for (const swine of swines) {
             const swineAgeInMonths = calculateSwineAge(swine.birthdate);
@@ -148,8 +148,6 @@ const handleUserFullview = async (userId) => {
                         <p class="td weight">${swine.weight} kg</p>
                         <p class="td health-status">${swine.status}</p>
                         <p class="td owner">${clientName}</p>
-                        <p class="td created-date">${new Date(swine.createdAt).toLocaleDateString()}</p>
-                        <p class="td updated-date">${new Date(swine.updatedAt).toLocaleDateString()}</p>
                         <button class="td toggle-more-details-btn">View</button> 
                     </div>
                     <div class="swine__more-details">

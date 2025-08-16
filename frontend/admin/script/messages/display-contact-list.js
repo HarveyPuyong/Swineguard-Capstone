@@ -56,7 +56,7 @@ const displayContactList = async () => {
 
       const chatHTML = `
         <div class="chat-list__user" data-client-id="${client._id}">
-          <img class="chat-list__user-image" src="${client.profilePic || 'images-and-icons/images/example-user-profile-pic.jpg'}" alt="user image">
+          <img class="chat-list__user-image" src="${client.profileImage ? '/uploads/' + client.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="user image">
           <p class="chat-list__user-name-and-message">
             <span class="chat-list__user-name">${fullName}</span>
             <span class="chat-list__user-message">${previewMessage}</span>

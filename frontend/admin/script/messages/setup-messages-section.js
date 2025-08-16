@@ -1,5 +1,6 @@
 import displayContactList from './display-contact-list.js';
 import renderConversation from './handle-display-conversation.js';
+import fetchUsers from '../../api/fetch-users.js';
 
 // ======================================
 // ========== Show Conversation
@@ -57,16 +58,57 @@ const viewProfile = () => {
     const userProfile = document.querySelector('#messages-section .profile-view');
     const userImg = document.querySelector('.chat-box__header-user-img');
     const backBtn = document.querySelector('.profile-view__back-btn');
+    const clientId = userImg.dataset.clientId;
 
     if (userImg && userProfile) {
       userImg.addEventListener('click', () => userProfile.classList.add('show'));
+      userProfile.classList.remove('hide');
+      viewProfilePopBox(clientId);
     }
-
-    if (backBtn && userProfile) {
-      backBtn.addEventListener('click', () => userProfile.classList.remove('show'));
-    }
+    
+    document.addEventListener('renderVetProfilePopUpView', () => {
+      const backBtn = document.querySelector('.profile-view .profile-view__back-btn');
+      if (backBtn) {
+        backBtn.addEventListener('click', () => {
+          userProfile.classList.remove('show');
+          userProfile.classList.add('hide');
+        });
+      }
+    });
   })
 }
+
+
+// ======================================
+// ========== Display Data in Pop up Profile View
+// ======================================
+const viewProfilePopBox = async(clientId) => {
+
+  const users = await fetchUsers();
+  const client = users.find(user => user._id === clientId);
+
+  const profileHTML = `
+    <img class="profile-view__user-image" src="${client.profileImage ? '/uploads/' + client.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="user image" >
+    <h2 class="profile-view__user-name">${client?.firstName || 'User'} ${client?.lastName || 'Name'}</h2>
+    <p class="profile-view__user-email">${client?.email || 'user email'}</p>
+    <button class="profile-view__back-btn">Back</button>
+  `;
+
+  document.querySelector('#messages-section .profile-view').innerHTML = profileHTML;
+  document.dispatchEvent(new Event('renderVetProfilePopUpView'));
+
+}
+
+
+
+
+
+
+
+
+
+
+
 
 
 // ======================================
@@ -104,5 +146,6 @@ export default function setupMessagesSection() {
   searchContactList();
   showConversation();
   viewProfile();
+  //toggleProfileView();
 }
 

@@ -104,6 +104,73 @@ const handleUsersButtonsAction = () => {
 
 
 
+// ======================================
+// ========== Search User
+// ======================================
+const searchUser = () => {
+   document.addEventListener('renderUsersTable', () => {
+      const input = document.querySelector('.users-section__search-input');
+      const users = document.querySelectorAll('.users-table .user');
+
+      if (!input || users.length === 0) return;
+
+      input.addEventListener('input', () => {
+         const query = input.value.trim().toLowerCase();
+
+         users.forEach(user => {
+            const firstName = user.querySelector('.first-name')?.textContent.toLowerCase() || '';
+            const middleName = user.querySelector('.middle-name')?.textContent.toLowerCase() || '';
+            const lastName = user.querySelector('.last-name')?.textContent.toLowerCase() || '';
+            const contact = user.querySelector('.contact')?.textContent.toLowerCase() || '';
+            const email = user.querySelector('.email')?.textContent.toLowerCase() || '';
+            const municipality = user.querySelector('.municipality')?.textContent.toLowerCase() || '';
+            const barangay = user.querySelector('.barangay')?.textContent.toLowerCase() || '';
+
+            const searchableText = `${firstName} ${middleName} ${lastName} ${contact} ${email} ${municipality} ${barangay}`;
+
+            user.style.display = searchableText.includes(query) ? 'flex' : 'none';
+         });
+      });
+   })
+};
+
+
+
+
+// ======================================
+// ========== Filter User
+// ======================================
+const filterUser = () => {
+  document.addEventListener('renderUsersTable', () => {
+    const selectTypeElement = document.querySelector('#users-filter');
+
+    if (!selectTypeElement) return;
+
+    selectTypeElement.addEventListener('change', () => {
+      const selectedValue = selectTypeElement.value.toLowerCase();
+
+      document.querySelectorAll('.users-table__tbody .user').forEach(user => {
+        const role = user.getAttribute('data-role');
+        const verified = user.getAttribute('data-verified');
+
+        // Hide all by default
+        user.style.display = 'none';
+
+        if (selectedValue === 'all') {
+          user.style.display = 'flex';
+        } 
+        else if (selectedValue === role) {
+          user.style.display = 'flex';
+        } 
+        else if (selectedValue === verified) {
+          user.style.display = 'flex';
+        }
+      });
+    });
+  });
+};
+
+
 
 // ======================================
 // ========== Main Function - Setup TUsers Section
@@ -112,4 +179,6 @@ export default function setupUsersSection() {
    handleRenderUsersTable();
    toggleMoreButtons();
    handleUsersButtonsAction();
+   searchUser();
+   filterUser();
 }

@@ -17,7 +17,7 @@ async function handleRenderStaff() {
 
       stafCardHTLML += `
         <div class="staff-card">
-          <img class="staff-card__img" src="images-and-icons/icons/default-profile.png" alt="staff-image">
+          <img class="staff-card__img" src="${person.profileImage ? '/uploads/' + person.profileImage : './images-and-icons/icons/default-profile.png'}" alt="staff-image">
           <div class="staff-card__details-container">
             <div class="staff-card__detail">
               <span class="staff-card__detail--label">Name:</span>

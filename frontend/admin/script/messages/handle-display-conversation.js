@@ -41,7 +41,7 @@ const renderConversation = async (clientId) => {
         <div class="convo-list__user-chat">
           <div class="convo-list__user-chat-time-sent time-sent">${timeSent}</div>
           <div class="convo-list__user-chat-details">
-            <img class="convo-list__user-chat-details--img" src="${clientUser.profilePic || 'images-and-icons/images/example-user-profile-pic.jpg'}" alt="user-image">
+            <img class="convo-list__user-chat-details--img" src="${clientUser.profileImage ? '/uploads/' + clientUser.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="user-image">
             <p class="convo-list__user-chat-details--name">${clientUser.firstName}</p>
           </div>
           <p class="convo-list__user-chat-message chat-message">${msg.content}</p>
@@ -53,7 +53,7 @@ const renderConversation = async (clientId) => {
   //full conversation container
   const chatHTML = `
     <div class="chat-box__header"> 
-      <img class="chat-box__header-user-img" src="${clientUser.profilePic || 'images-and-icons/images/example-user-profile-pic.jpg'}" alt="user-img">
+      <img class="chat-box__header-user-img" data-client-id="${clientUser._id}" src="${clientUser.profileImage ? '/uploads/' + clientUser.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="user-img">
       <div class="chat-box__header-user-name-and-active-status">
         <p class="chat-box__header-user-name">${clientUser.firstName} ${clientUser.lastName}</p>
         <p class="chat-box__header-user-active-status">
@@ -73,10 +73,6 @@ const renderConversation = async (clientId) => {
 
       <input class="chat-input-area__input-message" type="text" placeholder="Type a Message" required>             
 
-      <label for="input-image" class="chat-input-area__input-image" title="Send an image">
-        <i class="icon far fa-image"></i>
-      </label>
-      <input id="input-image" type="file" accept="image/*" style="display: none;">
 
       <button class="chat-box__send-btn" type="submit" id="send-chat-btn" title="Send message">
         <i class="icon fas fa-paper-plane"></i>
