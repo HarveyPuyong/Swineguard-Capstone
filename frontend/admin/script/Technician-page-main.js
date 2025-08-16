@@ -4,7 +4,7 @@ import setupSettingsSection from "./setting/setup-setting-section.js";
 import setupVeterinarian from "./veterinarian/setup-veterinarian.js";
 import {fetchAppointments} from "./../api/fetch-appointments.js"
 import fetchUser from "./auth/fetchUser.js";
-import handleNotification from "./notification/handle-notification.js";
+import {handleNotification} from "./notification/handle-notification.js";
 
 
 setupHeader();
