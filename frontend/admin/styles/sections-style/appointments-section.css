@@ -359,6 +359,19 @@
   margin-right: 0.2rem;
 }
 
+.column__detail.symptoms .column__detail-value {
+  display: block;
+  max-width: 400px; 
+  max-height: 100px;    
+  overflow: auto;     
+  padding: 8px;           
+  border: 1px solid #ccc; 
+  border-radius: 4px;   
+  white-space: pre-wrap;  
+  word-wrap: break-word;  
+  text-align: justify;
+}
+
 .column__detail-value {
   color: rgba(0, 0, 0, 0.8);
 }

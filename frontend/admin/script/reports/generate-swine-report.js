@@ -256,15 +256,31 @@ const generateSwineReports = async() => {
         } 
 
       } catch (error) {
-        // Check for 400: Report already exists
-        if (error.response && error.response.status === 400) {
-          popupAlert('error', 'Report Exists', 'A report for this month already exists.');
-        } else {
-          // Other unexpected errors
-          popupAlert('error', 'Error!', 'Failed to save the report.');
-          console.error('Unexpected error:', error);
+          console.error("Full error object:", error);
+
+          if (error.response) {
+            console.error("Response status:", error.response.status);
+            console.error("Response data:", error.response.data);
+          }
+
+          if (error.response && error.response.status === 409) {
+            const confirmOverwrite = confirm(error.response.data?.message || "Report already exists. Overwrite?");
+            if (confirmOverwrite) {
+              try {
+                const overwriteResponse = await api.post(`/report/save`, { 
+                  ...reportData, 
+                  overwrite: true 
+                });
+                popupAlert('success', 'Success!', overwriteResponse.data.message);
+              } catch (overwriteErr) {
+                popupAlert('error', 'Error!', 'Failed to overwrite the report.');
+              }
+            }
+          } else {
+            popupAlert('error', 'Error!', 'Failed to save the report.');
+            console.error('Unexpected error:', error);
+          }
         }
-      }
     });
   }
   
@@ -302,7 +318,7 @@ const displaySwineReport = async () => {
           case "Boac": boacTotal += entry.total; break;
           case "Gasan": gasanTotal += entry.total; break;
           case "Buenavista": buenavistaTotal += entry.total; break;
-          case "Sta Cruz": staCruzTotal += entry.total; break;
+          case "SantaCruz": staCruzTotal += entry.total; break;
           case "Torrijos": torrijosTotal += entry.total; break;
         }
       });

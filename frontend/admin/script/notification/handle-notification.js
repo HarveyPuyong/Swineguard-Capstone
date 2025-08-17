@@ -37,7 +37,7 @@ const displayACNotificationList = async() => {
                 <div class="notif">
                     <p class="notif-title">New Pending Appointment</p>
                     <p class="notif-short-text">Raiser request <strong>${serviceName}</strong> services on ${formattedDate(appt.appointmentDate)} at ${formatTo12HourTime(appt.appointmentTime)}</p>
-                    <p class="notif-user-name">Requested by <strong>${appt.clientFirstname}</strong></p>
+                    <p class="notif-short-text">Requested by <strong>${appt.clientFirstname}</strong></p>
                 </div>
             `;
         }
@@ -106,7 +106,7 @@ const displayVetNotification = async(staffId) => {
                 <div class="notif">
                     <p class="notif-title">New Appointment Schedule</p>
                     <p class="notif-short-text">Raiser request <strong>${serviceName}</strong> services on ${formattedDate(appointment.appointmentDate)} at ${formatTo12HourTime(appointment.appointmentTime)}</p>
-                    <p class="notif-user-name">Requested by <strong>${appointment.clientFirstname}</strong></p>                
+                    <p class="notif-short-text">Requested by <strong>${appointment.clientFirstname}</strong></p>                
                 </div>
             `;
         }
@@ -121,7 +121,7 @@ const displayVetNotification = async(staffId) => {
 
 const displayClientNotificationList = async(userId) => {
     const appointments = await fetchAppointments();
-    const filteredAppointment = appointments.filter(appt => appt.appointmentStatus === 'accepted' || appt.appointmentStatus === 'reschedule' && appt.clientId === userId);
+    const filteredAppointment = appointments.filter(appt => (appt.appointmentStatus === 'accepted' || appt.appointmentStatus === 'reschedule') && appt.clientId === userId);
 
     let notificationHTML = '';
     let notifCount = '';
@@ -140,9 +140,9 @@ const displayClientNotificationList = async(userId) => {
             const vet = await getTechnicianName(appt.vetPersonnel);
             notificationHTML += `
                 <div class="notif">
-                    <p class="notif-title">Your Appointment has been Accepted</p>
+                    <p class="notif-title">Your Appointment has been ${appt.appointmentStatus.charAt(0).toUpperCase() + appt.appointmentStatus.slice(1)}</p>
                     <p class="notif-short-text">Appointment Service <strong>${serviceName}</strong> services on ${formattedDate(appt.appointmentDate)} at ${formatTo12HourTime(appt.appointmentTime)}</p>
-                    <p class="notif-user-name">Personnel: <strong>${vet}</strong></p>
+                    <p class="notif-short-text">Personnel: <strong>${vet}</strong></p>
                 </div>
             `;
         }

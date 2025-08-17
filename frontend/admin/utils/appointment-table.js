@@ -56,6 +56,10 @@ async function appointmentsTable(appointments, table) {
                 <span class="column__detail-label">Address:</span>
                 <span class="column__detail-value">${appointment.municipality}, ${appointment.barangay}, Marinduqe</span>
               </p>
+              <p class="column__detail symptoms">
+                <span class="column__detail-label">Note:</span>
+                <span class="column__detail-value">${appointment.swineSymptoms}</span>
+              </p>
             </div>
             <div class="column right"> 
               <p class="column__detail">

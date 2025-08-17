@@ -190,7 +190,8 @@ select:focus{
 
 .login-form__login-btn,
 .signup-form__next-btn,
-.signup-form__finish-btn{
+.signup-form__finish-btn,
+.signup-form__submit-btn{
   width: 100%;
   border-radius: 8px;
   border: 2px solid white;
