@@ -8,6 +8,7 @@ const handleUpdateButtons = () => {
     const editBtn = document.querySelector('.setting-form__header-edit-btn');
     const cancelBtn = document.querySelector('.setting-form__header-cancel-btn');
     const saveBtn = document.querySelector('.setting-form__header-save-btn');
+    const nameFieldTag = document.querySelector('.name-input-field');
     const editableDetails = document.querySelectorAll(
       '.setting-form__details-list .admin-detail.editable input, .setting-form__details-list .admin-detail.editable select'
     );
@@ -18,6 +19,7 @@ const handleUpdateButtons = () => {
       editBtn.classList.remove('show')
       cancelBtn.classList.add('show');
       saveBtn.classList.add('show');
+      nameFieldTag.classList.add('edit-mode');
 
       uploadImgBtn.classList.add('show');
 
@@ -36,6 +38,7 @@ const handleUpdateButtons = () => {
       editBtn.classList.add('show')
       cancelBtn.classList.remove('show');
       saveBtn.classList.remove('show');
+      nameFieldTag.classList.remove('edit-mode');
 
       uploadImgBtn.classList.remove('show');
 

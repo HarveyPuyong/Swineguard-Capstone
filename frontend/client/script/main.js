@@ -7,7 +7,16 @@ import setupMessagesSection from './messages/setup-messages-section.js';
 import setupServicesSection from './services/setup-services-section.js';
 import displayDashboardGraphs from './dashboard/graph.js';
 import displayUpcomingAppointments from './dashboard/upcoming-appointments.js';
-import handleNotification from '../../admin/script/notification/handle-notification.js';
+import {handleNotification, displayClientNotificationList} from '../../admin/script/notification/handle-notification.js';
+import fetchClient from './auth/fetch-client.js';
+
+const filteredNotification = async() => {
+  const client = await fetchClient();
+  const { _id } = client;
+  
+  displayClientNotificationList( _id );
+
+}
 
 setupHeader();
 sideNavFuntionality();
@@ -19,4 +28,5 @@ setupServicesSection();
 displayDashboardGraphs();
 displayUpcomingAppointments();
 handleNotification();
+filteredNotification();
 

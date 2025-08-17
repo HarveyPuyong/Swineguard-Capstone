@@ -168,4 +168,15 @@
   .setting-form__details-list .admin-detail-value{
     width: 100%;
   }
+
+  .admin-detail .name-input-field {
+    display: flex;
+    gap: 0;
+  }
+  .admin-detail .name-input-field.edit-mode {
+    display: block;
+  } 
+  .name-input-field.edit-mode input {
+    margin-bottom: 3px;
+  }
 }

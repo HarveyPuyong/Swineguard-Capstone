@@ -6,7 +6,15 @@ import setupVeterinarian from "./veterinarian/setup-veterinarian.js";
 import {fetchAppointments} from "./../api/fetch-appointments.js"
 import fetchUser from "./auth/fetchUser.js";
 import handleLogout from "./auth/logout.js";
-import {handleNotification} from "./notification/handle-notification.js";
+import {handleNotification, displayVetNotification} from "./notification/handle-notification.js";
+
+const filteredNotification = async() => {
+  const admin = await fetchUser();
+  const { _id } = admin;
+  
+  displayVetNotification( _id );
+
+}
 
 
 setupHeader();
@@ -15,6 +23,7 @@ setupMessagesSection();
 setupSettingsSection();
 setupVeterinarian();
 handleNotification();
+filteredNotification();
 
 
 
@@ -62,3 +71,4 @@ handleNotification();
       }
     }
   });
+

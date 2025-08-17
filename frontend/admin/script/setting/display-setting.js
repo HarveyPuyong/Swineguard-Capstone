@@ -32,9 +32,11 @@ const displaySetting = async() => {
 
           <div class="admin-detail detail editable">
             <p class="admin-detail-label">Name:</p>
-            <input class="admin-detail-value name" id="admin-profile__firstName-input" value="${firstName}" readonly />
-            <input class="admin-detail-value name" id="admin-profile__middleName-input" value="${middleName}" readonly/>
-            <input class="admin-detail-value name" id="admin-profile__lastName-input" value="${lastName}" readonly/>
+            <div class="name-input-field">
+              <input class="admin-detail-value name" id="admin-profile__firstName-input" value="${firstName}" readonly />
+              <input class="admin-detail-value name" id="admin-profile__middleName-input" value="${middleName}" readonly/>
+              <input class="admin-detail-value name" id="admin-profile__lastName-input" value="${lastName}" readonly/>
+            </div>
           </div>
 
           <div class="admin-detail detail editable">

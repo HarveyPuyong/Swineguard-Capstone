@@ -136,7 +136,7 @@
 */
 .profile-details-list.view-mode .profile-detail__name-inputs-group,
 .profile-details-list.view-mode .profile-detail__select-group{
-  gap: 0px
+  gap: 5px
 }
 
 .profile-details-list.view-mode .profile-detail input{

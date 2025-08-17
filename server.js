@@ -66,9 +66,6 @@ app.use('/', require('./routes/userRoute'));
 // Get report routing
 app.use('/report', require('./routes/reportRoute'));
 
-// Notification
-app.use('/notification', require('./routes/notificationRoute'));
-
 //Pang Test Lang ito boi
 app.use('/test', Express.static(path.join(__dirname, 'test')));
 

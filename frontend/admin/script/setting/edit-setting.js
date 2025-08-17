@@ -12,18 +12,6 @@ const handleEditSettings = () => {
     form.addEventListener('submit', async (e) => {
       e.preventDefault(); 
 
-      // const fullName = form.querySelector('#fullname-input').value.trim();
-      // const [firstName = '', middleName = '', lastName = ''] = fullName.split(' ').map(part => part.trim());
-
-      // const address = form.querySelector('#adress-input').value.trim();
-      // const [barangay = '', municipality = ''] = address.split(',').map(part => part.trim());
-
-      // const contactNum = form.querySelector('#contact-input').value.trim();
-      // const email = form.querySelector('#email-input').value.trim()
-
-      // const settingsFormData = { firstName, middleName, lastName, contactNum, barangay, municipality, email }
-
-
       const formData = new FormData();
       formData.append('firstName', form.querySelector('#admin-profile__firstName-input').value.trim());
       formData.append('middleName', form.querySelector('#admin-profile__middleName-input').value.trim());
