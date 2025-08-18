@@ -38,6 +38,9 @@
   overflow: hidden;
   cursor: pointer;
 }
+.go-to-schedules-section-btn.hide {
+  display: none;
+}
 
 .swine-card__image{
   --size: 65px;

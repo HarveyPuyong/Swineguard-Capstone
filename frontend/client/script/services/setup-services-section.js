@@ -34,7 +34,7 @@ const toggleMoreDetails = () => {
 // ======================================
 document.addEventListener('renderClientServices', () => {
   toggleMoreDetails(); // Runs only after profile HTML is rendered
-  redirectTorequestAppointments();
+  availServiceListener();
 });
 
 
@@ -42,21 +42,52 @@ document.addEventListener('renderClientServices', () => {
 // ======================================
 // ========== Go to profile details in settings section
 // ======================================
-const redirectTorequestAppointments = () => {
-  const sections = document.querySelectorAll('section')
-  const servicesLink = document.querySelector('.services-card__title');
+const availServiceListener = () => {
+  const sections = document.querySelectorAll('section');
+  const serviceCardAvailBtn = document.querySelectorAll('.service-card-btn .service-card-request-appointment-btn');
 
-  servicesLink.addEventListener('click', () => {
-    sections.forEach(section => {
-      section.classList.remove('show');
-      section.classList.add('hide');
-
-      if(section.id === 'appointments-section') section.classList.add('show');
-      sideNavFuntionality();
-    })
+  serviceCardAvailBtn.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const serviceId = e.currentTarget.dataset.serviceid; 
+      alert(`Service ID: ${serviceId}`);
+      
+    });
   });
-}
+};
 
+
+
+// ======================================
+// ========== Go to profile details in settings section
+// ======================================
+const redirectNotifToAppointmentSection = () => {
+  const sections = document.querySelectorAll('section');
+  const notificationCards = document.querySelectorAll('.notif-list .notif');
+
+  notificationCards.forEach(notifCard => {
+    notifCard.addEventListener('click', () => {
+      // Hide all sections
+      sections.forEach(section => {
+        section.classList.remove('show');
+        section.classList.add('hide');
+      });
+
+      // Show appointments section
+      const appointmentSection = document.getElementById('appointments-section');
+      if (appointmentSection) {
+        appointmentSection.classList.remove('hide');
+        appointmentSection.classList.add('show');
+      }
+
+      // Optional: re-run sidenav highlight/active logic
+      sideNavFuntionality();
+    });
+  });
+};
+
+document.addEventListener('renderClientNotification', () => {
+  redirectNotifToAppointmentSection();
+})
 
 
 // ======================================

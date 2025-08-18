@@ -35,9 +35,9 @@ const displayAppointmentCardList = async() => {
             const serviceName = await getServiceName(appointment.appointmentService);
             appointmentHTML += `
                 <div class="appointment-card">
-                    <div class="appointment-card__image-container">
-                    <img class="appointment-card__image-container--img" src="images-and-icons/icons/Veterenarian-icon.png" alt="appointment-card-image">
-                    <p class="appointment-card__image-container--label">Swine ${appointment.appointmentType.charAt(0).toUpperCase() + appointment.appointmentType.slice(1)}</p>
+                    <div class="appointment-card__image-container ${appointment.appointmentStatus}">
+                        <img class="appointment-card__image-container--img" src="images-and-icons/icons/Veterenarian-icon.png" alt="appointment-card-image">
+                        <p class="appointment-card__image-container--label">Swine ${appointment.appointmentType.charAt(0).toUpperCase() + appointment.appointmentType.slice(1)}</p>
                     </div>
                     <div class="appointment-card__details-and-more-details-container">
                         <div class="appointment-card__details-container">

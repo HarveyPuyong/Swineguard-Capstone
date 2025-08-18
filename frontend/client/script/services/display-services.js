@@ -18,7 +18,10 @@ const displayServices = async() => {
                         <span class="services-card__description--more-details">&nbsp; &nbsp; &nbsp;&nbsp;${service.description}</span>
                     </p>
 
-                    <button class="service-card-show-more-description-btn">Read more...</button>
+                    <div class="service-card-btn">
+                        <button class="service-card-request-appointment-btn" data-serviceid="${service._id}">Avail service</button>
+                        <button class="service-card-show-more-description-btn">Read more...</button>
+                    </div>
                 </div>
             `; 
         });

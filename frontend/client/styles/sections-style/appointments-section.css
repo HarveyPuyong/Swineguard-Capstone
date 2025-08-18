@@ -8,7 +8,7 @@
   margin-bottom: 40px;
 }
 
-.appointments-section__buttons-container button{
+.appointments-section__buttons-container button {
   padding: 13px 14px;
   font-weight: 600;
   border-radius: 5px;
@@ -31,12 +31,17 @@
    ============== Appointments Cards List ==============
    ===================================================
 */
-.appointments-card-list{
+.appointments-card-list.show{
   display: grid;
   row-gap: 25px;
   column-gap: 25px;
   padding-bottom: 25px;
 }
+
+.appointments-card-list.hide {
+  display: none;
+}
+
 
 .appointment-card{
   position: relative;
@@ -58,9 +63,17 @@
   justify-content: center;
   min-width: 120px;
   gap: 15px;
-  background-color: #0f6593;
+  background-color: #474747;
   border-radius: 5px;
   padding: 16px 12px;
+}
+
+.appointment-card__image-container.accepted {
+  background-color: #0f6593;
+}
+
+.appointment-card__image-container.completed {
+  background-color: var(--main-color);
 }
 
 .appointment-card__image-container--img{
@@ -249,6 +262,39 @@
 .request-appointment-form__submit-btn{
   background-color: #18a95c;
 }
+
+
+/* 
+  Caledar Container
+*/
+.back-to-appointment-list-btn.hide {
+  display: none;
+}
+
+.back-to-appointment-list-btn.show {
+  display: block;
+}
+
+.client-schedule-container.hide {
+  width: 100%;
+  min-height: 600px;
+  display: none;
+}
+
+.client-schedule-container.show {
+  display: block;
+}
+
+.client-appointment-schedule {
+  background-color: #2FC375;
+}
+
+.fc-theme-standard td, 
+.fc-theme-standard th {
+  border-color: black !important;
+}
+
+
 
 
 @media(width >= 500px){

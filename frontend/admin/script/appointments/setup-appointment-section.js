@@ -477,36 +477,6 @@ const toggleAppointentMoreDetails = () => {
   })
 }
 
-
-// ======================================
-// ========== View Button (View Graph, Generate Report) Buttons Functionality
-// ======================================
-// const viewBtnsFunctionality = () => {
-//   const inventoryTableContents = document.querySelector('.inventory-section__table-contents');
-//   const backToTableBtn = document.querySelector('.inventory-back-table-btn');
-//   const inventoryReportContents = document.querySelector('.inventory-section__report-contents');
-//   const viewReportsBtn = document.querySelector('.inventory-section__view-report-btn');
-
-//   // When 'Generate Report' is clicked
-//   if (viewReportsBtn) {
-//     viewReportsBtn.addEventListener('click', () => {
-//       inventoryTableContents.classList.remove('show');
-//       inventoryReportContents.classList.add('show');
-
-//       setTimeout(() => {
-//         generateInventoryReport();
-//         displayInventoryReport();
-//       }, 100);
-//     });
-//   }
-
-//   if (backToTableBtn) {
-//     backToTableBtn.addEventListener('click', () => {
-//       inventoryTableContents.classList.add('show');
-//       inventoryReportContents.classList.remove('show');
-//     });
-//   }
-// };
     
 
 // ======================================

@@ -9,6 +9,8 @@ import displayDashboardGraphs from './dashboard/graph.js';
 import displayUpcomingAppointments from './dashboard/upcoming-appointments.js';
 import {handleNotification, displayClientNotificationList} from '../../admin/script/notification/handle-notification.js';
 import fetchClient from './auth/fetch-client.js';
+import handleClientSchedule from './calendar/setup-client-calendar.js';
+
 
 const filteredNotification = async() => {
   const client = await fetchClient();
@@ -29,4 +31,5 @@ displayDashboardGraphs();
 displayUpcomingAppointments();
 handleNotification();
 filteredNotification();
+handleClientSchedule();
 

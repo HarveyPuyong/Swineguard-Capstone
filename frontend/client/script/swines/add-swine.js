@@ -23,7 +23,16 @@ const addSwine = () => {
                 clientId: clientId
             }
 
-            console.log(swineData);
+            // ✅ Validation: check if any field is empty
+            const requiredFields = ['breed', 'type', 'birthdate', 'sex', 'status', 'weight'];
+            const hasEmptyField = requiredFields.some(field => !swineData[field]);
+
+            if (hasEmptyField) {
+                popupAlert('warning', 'Incomplete Form', 'Kindly fill the required fields.');
+                return; 
+            }
+
+            //console.log(swineData);
             const response = await api.post('/swine/add', swineData);
             
             if(response.status === 201) {
