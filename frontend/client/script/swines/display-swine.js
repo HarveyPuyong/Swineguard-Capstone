@@ -114,6 +114,7 @@ const displayFullSwineDetails = async (swineId) => {
                     <option value="healthy">Healthy</option>
                     <option value="pregnant">Pregnant</option>
                     <option value="sick">Sick</option>
+                    <option value="sold">Sold</option>
                     <option value="deceased">Deceased</option>
                 </select>
             </div>
@@ -121,7 +122,7 @@ const displayFullSwineDetails = async (swineId) => {
                 <span class="detail-label">Weight/kg</span>
                 <input class="detail-value" id="swine-weight" type="number" step="any" value="${swine.weight || ''}" placeholder="kg">
             </div>
-            <div class="detail">
+            <div class="detail" style="display:none;">
                 <span class="detail-label">Cause:</span><br>
                 <input id="death-cause" name="death-cause" class="detail-value" type="text" value="${swine.cause || ''}" placeholder="Cause">
             </div>

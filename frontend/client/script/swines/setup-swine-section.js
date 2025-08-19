@@ -48,7 +48,7 @@ const toggleEditMode = () => {
 
   enableBtn.addEventListener('click', () => {
     const swineId = enableBtn.getAttribute('data-set-swine-id');
-    console.log(swineId)
+    //console.log(swineId)
     updateSwineDetails(swineId);
     container.classList.remove('view-mode');
     container.classList.add('edit-mode');

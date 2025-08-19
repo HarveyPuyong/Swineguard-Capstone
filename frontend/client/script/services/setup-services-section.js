@@ -1,5 +1,6 @@
 import displayServices from "./display-services.js";
 import sideNavFuntionality from "../side-nav.js";
+import setupAppointmentSection from "../appointments/setup-appointment-section.js";
 
 // ======================================
 // ========== Toggle More Details
@@ -44,15 +45,44 @@ document.addEventListener('renderClientServices', () => {
 // ======================================
 const availServiceListener = () => {
   const sections = document.querySelectorAll('section');
+  const form = document.querySelector('#request-appointment-form');
   const serviceCardAvailBtn = document.querySelectorAll('.service-card-btn .service-card-request-appointment-btn');
+  const closeFormBtn = document.querySelector('.request-appointment-form__back-btn');
 
   serviceCardAvailBtn.forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const serviceId = e.currentTarget.dataset.serviceid; 
-      alert(`Service ID: ${serviceId}`);
-      
+    btn.addEventListener('click', async (e) => {
+      const serviceId = e.currentTarget.dataset.serviceid;
+
+      // Show form
+      form.classList.add('show');
+
+      // Pre-select the service in dropdown
+      const serviceSelect = document.querySelector("#select-appointment-service");
+      if (serviceSelect && serviceId) {
+        serviceSelect.value = serviceId;
+      }
+
+      // Hide all sections
+      sections.forEach(section => {
+        section.classList.remove('show');
+        section.classList.add('hide');
+      });
+
+      // Show appointments section
+      const appointmentSection = document.getElementById('appointments-section');
+      if (appointmentSection) {
+        appointmentSection.classList.remove('hide');
+        appointmentSection.classList.add('show');
+      }
+
+      // Optional: re-run sidenav highlight/active logic
+      sideNavFuntionality();
+
     });
   });
+
+  // Close form
+  closeFormBtn?.addEventListener('click', () => form.classList.remove('show'));
 };
 
 

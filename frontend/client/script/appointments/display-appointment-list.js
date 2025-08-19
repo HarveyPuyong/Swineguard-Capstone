@@ -51,7 +51,7 @@ const displayAppointmentCardList = async() => {
                             </p>
                             <p class="appointment-card__date--first-dose appointment-card__detail">
                             <span class="appointment-card__detail--label">Appointment Date:</span>
-                            <span class="appointment-card__detail--value">${formattedDate(appointment.appointmentDate)} <span class="dose-status">(1st Dose)</span></span>
+                            <span class="appointment-card__detail--value">${formattedDate(appointment.appointmentDate)} <span class="dose-status"style="display:none;">(1st Dose)</span></span>
                             </p>
                         </div>
                         
@@ -64,10 +64,12 @@ const displayAppointmentCardList = async() => {
                             <span class="appointment-card__detail--label">Status:</span>
                             <span class="appointment-card__detail--value">${appointment.appointmentStatus.charAt(0).toUpperCase() + appointment.appointmentStatus.slice(1)}</span>
                             </p>
-                            <p class="appointment-card__date--second-dose appointment-card__detail">
+
+                            <p class="appointment-card__date--second-dose appointment-card__detail" style="display:none;">
                             <span class="appointment-card__detail--label">Second Dose Date:</span>
                             <span class="appointment-card__detail--value">(To be update) <span class="dose-status">(2nd Dose)</span></span>
                             </p>
+                            
                         </div>
                     </div>
 
