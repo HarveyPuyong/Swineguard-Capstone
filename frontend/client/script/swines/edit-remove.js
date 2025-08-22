@@ -4,63 +4,6 @@ import {displayClientSwines} from './display-swine.js';
 
 let currentSwineId = null;
 
-// const handleFormSubmit = async (e) => {
-//   e.preventDefault();
-
-//   const editSwineForm = document.querySelector('#swines-full-info');
-//   if (!currentSwineId) return;
-
-//   try {
-//     const typeInput = editSwineForm.querySelector('#select-swine-type');
-//     const statusInput = editSwineForm.querySelector('#select-swine-health-status');
-//     const weightInput = editSwineForm.querySelector('#swine-weight');
-//     const causeInput = editSwineForm.querySelector('#death-cause');
-
-//     const currentDate = new Date();
-//     const month = currentDate.getMonth() + 1;
-//     const year = currentDate.getFullYear();
-
-//     const swineData = {
-//       type: typeInput?.value,
-//       status: statusInput?.value,
-//       weight: weightInput?.value,
-//       cause: causeInput?.value,
-//     };
-
-//     const swineDataForMonthlyRecords = {
-//       monthlyStatus: statusInput?.value,
-//       monthlyWeight: weightInput?.value,
-//       swineId: currentSwineId,
-//       month: month,
-//       year: year
-//     };
-
-//     const response = await api.put(`/swine/edit/${currentSwineId}`, swineData);
-
-//     // Monthly Swine Records
-//     const swineMonthlyRecords = await api.post('/swine/add/montly-swine-records', swineDataForMonthlyRecords);
-
-//     if (response.status === 200) {
-//       popupAlert('success', 'Success', `Swine edited successfully`).then(() => {
-//         editSwineForm.reset();
-//         editSwineForm.classList.remove('edit-mode');
-//         editSwineForm.classList.add('view-mode');
-//         editSwineForm.classList.remove('show');
-//         displayClientSwines();
-//         currentSwineId = null;
-//       });
-//     }
-
-//     if (swineMonthlyRecords.status === 201) { console.log('Successfully Save Montly Swine Records'); }
-
-//   } catch (error) {
-//     console.log(error);
-//     popupAlert('error', 'Error', `Editing swine failed: ${error}`);
-//   }
-// };
-
-
-
 const handleFormSubmit = async (e) => {
   e.preventDefault();
 
