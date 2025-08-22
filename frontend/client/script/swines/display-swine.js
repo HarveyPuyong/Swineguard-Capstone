@@ -21,7 +21,7 @@ const displayClientSwines = async() => {
             <div class="swine-card ${swine.status}" data-set-swine-id="${swine._id}">
                 <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
                 <div class="swine-card__swine-info">
-                    <p class="swine-card__id">${swine.swineFourDigitId}</p>
+                    <p class="swine-card__id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</p>
                     <p class="swine-card__type">${swine.type.charAt(0).toUpperCase() + swine.type.slice(1)}</p>
                     <p class="swine-card__status">${swine.status.charAt(0).toUpperCase() + swine.status.slice(1)}</p>
                 </div>
@@ -78,7 +78,7 @@ const displayFullSwineDetails = async (swineId) => {
         <div class="swines-full-info__details">
             <div class="detail">
                 <span class="detail-label">ID</span>
-                <p class="detail-value">${swine.swineFourDigitId}</p>
+                <p class="detail-value">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</p>
             </div>
             <div class="detail">
                 <span class="detail-label">Type</span>

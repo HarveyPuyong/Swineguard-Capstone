@@ -1,4 +1,4 @@
-const swineDB = require('./../models/swineModel');
+const {swineSchema, swineHealthRecordSchema} = require('./../models/swineModel');
 const generateSwineId = require('./../utils/generate-swine-id')
 const mongoose = require('mongoose');
 
@@ -30,7 +30,7 @@ exports.addSwine = async (req, res) => {
 
 
     try {
-        const newSwine = new swineDB ({ ...swineData });
+        const newSwine = new swineSchema ({ ...swineData });
 
         await newSwine.save();
         return res.status(201).json({
@@ -73,7 +73,7 @@ exports.editSwine = async (req, res) => {
     if(!id) return res.status(400).json({message: "Swine id not found."});
 
     try {
-        const updatedSwineData = await swineDB.findByIdAndUpdate(
+        const updatedSwineData = await swineSchema.findByIdAndUpdate(
             id,
             { ...swineData },
             { new: true }
@@ -103,7 +103,7 @@ exports.removeSwine = async (req, res) => {
     // Validate Object Id
     if(!isValidSwineId(id)) return res.status(400).json({ message: "Invalid Swine Id." });
     try {
-        const removedSwine = await swineDB.findByIdAndUpdate(
+        const removedSwine = await swineSchema.findByIdAndUpdate(
             id,
             { status: "removed" },
             { new: true }
@@ -131,7 +131,7 @@ exports.restoreSwine = async (req, res) => {
     if (!isValidSwineId(id)) return res.status(400).json({ message: 'Invalid Swine Id.' });
 
     try {
-        const restoredSwine = await swineDB.findByIdAndUpdate (
+        const restoredSwine = await swineSchema.findByIdAndUpdate (
             id,
             { status: 'active' },
             {new: true}
@@ -160,7 +160,7 @@ exports.deleteSwine = async (req, res) => {
     if(!isValidSwineId(id)) return res.status(400).json({ message: "Invalid Swine Id." });
 
     try {
-        const deletedSwine = await swineDB.findByIdAndDelete(id);
+        const deletedSwine = await swineSchema.findByIdAndDelete(id);
 
         if(!deletedSwine) return res.status(404).json({ message: "Swine not found." });
 
@@ -175,7 +175,7 @@ exports.deleteSwine = async (req, res) => {
 // Get all Swine
 exports.getSwine = async (req, res) => {
     try {
-        const swines = await swineDB.find();
+        const swines = await swineSchema.find();
         res.status(200).json(swines);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -186,11 +186,110 @@ exports.getSwine = async (req, res) => {
 exports.getSwineById = async (req, res) => {
     const { id } = req.params;
     try {
-        const swineFound = await swineDB.findById(id);
+        const swineFound = await swineSchema.findById(id);
         res.status(200).json(swineFound);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
+}
+
+
+
+// // ======================================
+// // ========== Save Swine Montly Records
+// // ======================================
+// exports.saveSwineMonthlyRecords = async (req, res) => {
+//     const { monthlyWeight, monthlyStatus, swineId,  month, year } = req.body;
+
+//     // Validate swine weight
+//     if(!isValidNumber(monthlyWeight)) return res.status(400).json({ message: 'Swine weight must be valid numbers greater than 0' });
+
+//     // ✅ Convert to numbers after validation
+//     const numericMonthlyWeight = Number(monthlyWeight);
+
+//     const swineData = { monthlyWeight: numericMonthlyWeight, monthlyStatus, swineId, month, year };
+
+//     // Validate input fields
+//     if (Object.values(swineData).some(field => field === undefined || field === null)) {
+//         return res.status(400).json({ message: 'Kindly check your swine details' });
+//     }
+
+//     try {
+//         const newMonthlySwineRecords = new swineHealthRecordSchema ({ ...swineData });
+
+//         await newMonthlySwineRecords.save();
+//         return res.status(201).json({
+//             message: "Swine record saved successfully.",
+//             item: newMonthlySwineRecords
+//         });
+
+//     } catch (err) {
+//         console.error(`Error: ${err}`); 
+//         console.log(`Cause of error: ${err.message}`);
+
+//         return res.status(500).json({
+//             message: 'Something went wrong while saving montly swine records.',
+//         });
+//     }
+// }
+
+
+
+exports.saveSwineMonthlyRecords = async (req, res) => {
+    const { monthlyWeight, monthlyStatus, swineId, month, year, overwrite } = req.body;
+
+    try {
+        const existingRecord = await swineHealthRecordSchema.findOne({ swineId, month, year });
+
+        if (existingRecord) {
+            if (!overwrite) {
+                return res.status(409).json({
+                    message: 'Monthly record already exists. Do you want to overwrite it?'
+                });
+            }
+
+            // Overwrite existing record
+            existingRecord.monthlyWeight = Number(monthlyWeight);
+            existingRecord.monthlyStatus = monthlyStatus;
+            await existingRecord.save();
+
+            return res.status(200).json({
+                message: 'Swine monthly record overwritten successfully.'
+            });
+        }
+
+        // Create new record
+        const newRecord = new swineHealthRecordSchema({
+            swineId,
+            monthlyWeight: Number(monthlyWeight),
+            monthlyStatus,
+            month,
+            year
+        });
+
+        await newRecord.save();
+
+        return res.status(200).json({
+            message: 'Swine monthly record saved successfully.'
+        });
+
+    } catch (error) {
+        console.error('Save swine monthly record error:', error);
+        res.status(500).json({ message: 'Failed to save swine monthly record.' });
+    }
+};
+
+
+
+
+
+
+
+
+
+// Check item Id
+function isValidSwineId(id) {
+    return mongoose.Types.ObjectId.isValid(id);
 }
 
 // Validate inputs letters and negative numbers are not allowed
@@ -203,8 +302,3 @@ function isValidNumber (value) {
     const number = Number(value);
     return !isNaN(number) && isFinite(number) && number > 0;
 };
-
-// Check item Id
-function isValidSwineId(id) {
-    return mongoose.Types.ObjectId.isValid(id);
-}

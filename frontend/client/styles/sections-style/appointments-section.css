@@ -5,7 +5,20 @@
 .appointments-section__buttons-container{
   display: flex;
   gap: 15px;  
-  margin-bottom: 40px;
+  margin-bottom: 10px;
+}
+
+.filter-appointments__select-tag {
+  margin-bottom: 10px;
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.filter-appointments__select-tag select {
+  width: 200px;
+  padding: .2rem .3rem;
+  border-radius: 8px;
 }
 
 .appointments-section__buttons-container button {

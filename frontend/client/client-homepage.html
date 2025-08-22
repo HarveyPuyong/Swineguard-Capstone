@@ -245,6 +245,15 @@
             <button class="go-to-schedules-section-btn">Schedules</button>
             <button class="back-to-appointment-list-btn hide">Back</button>
           </div>
+          <div class="filter-appointments__select-tag">
+            <select name="filter-client-appointments" id="filter-client-appointments">
+              <option value="all">All</option>
+              <option value="pending">Pending</option>
+              <option value="accepted">Accepted</option>
+              <option value="completed">Completed</option>
+              <option value="reschedule">Reschedule</option>
+            </select>
+          </div>
 
           <!-- Appointment Card List -->
           <div class="appointments-card-list show">
@@ -298,24 +307,6 @@
             </div>
 
             <div class="form-group-detail">
-              <div class="form-detail" for="select-municipal"> 
-                <span class="form-detail__label">Municipal:</span>
-                <select class="form-detail__value" id="select-municipal" name="select-municipal" required>
-                  <option value="">Select Municipal</option>
-                  <!-- setupRequestAppointments.js -->
-                </select>
-              </div>
-
-              <div class="form-detail" for="select-barangay"> 
-                <span class="form-detail__label">Barangay:</span>
-                <select class="form-detail__value" id="select-barangay" name="select-barangay" required>
-                  <option value="">Select Barangay</option>
-                  <!-- setupRequestAppointments.js -->
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group-detail">
               <div class="form-detail" for="input-date"> 
                 <span class="form-detail__label">Date:</span>
                 <input class="form-detail__value" id="input-date" type="date" placeholder="Schedule Date" required>
@@ -324,18 +315,6 @@
               <div class="form-detail" for="input-time"> 
                 <span class="form-detail__label">Time:</span>
                 <input class="form-detail__value" id="input-time" type="time" placeholder="Schedule Time" required>
-              </div>
-            </div>
-
-            <div class="form-group-detail">
-              <div class="form-detail" for="input-contact-number"> 
-                <span class="form-detail__label">Contact Number:</span>
-                <input class="form-detail__value" type="number" name="input-contact-number" id="input-contact-number" placeholder="09+" required>
-              </div>
-
-              <div class="form-detail" for="input-email"> 
-                <span class="form-detail__label">Email:</span>
-                <input class="form-detail__value" type="email" name="input-email" id="input-email" placeholder="email@gmail.com" required>
               </div>
             </div>
 

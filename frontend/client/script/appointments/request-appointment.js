@@ -28,7 +28,7 @@ const sendRequestAppointment = () => {
 
     try {
       const client = await fetchClient();
-      const { _id, firstName, lastName } = client;
+      const { _id, firstName, lastName, email, municipality, barangay, contactNum } = client;
 
       const swines = await fetchSwines();
       const selectedSwineCheckboxes = document.querySelectorAll('input[name="swines"]:checked');
@@ -70,10 +70,10 @@ const sendRequestAppointment = () => {
 
         clientFirstname: firstName,
         clientLastname: lastName,
-        clientEmail: document.querySelector('#input-email').value.trim(),
-        contactNum: document.querySelector('#input-contact-number').value.trim(),
-        municipality: document.querySelector('#select-municipal').value,
-        barangay: document.querySelector('#select-barangay').value,
+        clientEmail: email,
+        contactNum: contactNum,
+        municipality: municipality,
+        barangay: barangay,
         appointmentService: document.querySelector('#select-appointment-service').value,
         appointmentType: document.querySelector('#select-appointment-type').value,
 

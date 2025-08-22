@@ -36,11 +36,25 @@ const addSwine = () => {
             const response = await api.post('/swine/add', swineData);
             
             if(response.status === 201) {
+                const newSwine = response.data.item; // This contains the full swine object
+                const currentSwineId = newSwine._id;
+
+                const swineDataForMontlyRecords = {
+                    montlyStatus: addSwineForm['select-swine-health-status'].value,
+                    montlyWeight: addSwineForm['swine-weight'].value,
+                    swineId: currentSwineId
+                };
+
                 popupAlert('success', 'Success', `New swine added successully`).
-                then(() => {
+                then(async() => {
+
+                    // Monthly Swine Records
+                    await api.post('/swine/add/montly-swine-records', swineDataForMontlyRecords);
+                    
                     addSwineForm.reset();
                     addSwineForm.classList.remove('show');
                     displayClientSwines();
+
                 });    
             }
 

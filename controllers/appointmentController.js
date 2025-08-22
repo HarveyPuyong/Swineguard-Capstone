@@ -352,9 +352,37 @@ exports.deleteAppointment = async (req, res) => {
 }
 
 //GET ALL APPOINTMENTS
+exports.getAllAppointmentsWithFourDigitId = async (req, res) => {
+    try {
+        const appointments = await appointmentDB.find()
+            .populate("swineIds", "swineFourDigitId type"); 
+            // include type so we can prefix it
+
+        const updatedAppointments = appointments.map(appointment => {
+            const formattedSwines = appointment.swineIds.map(swine => {
+                if (swine.type) {
+                    const prefix = swine.type.charAt(0).toUpperCase(); // Get first letter of type
+                    return `${prefix}${swine.swineFourDigitId}`;
+                }
+                return swine.swineFourDigitId; // fallback if type missing
+            });
+
+            return {
+                ...appointment.toObject(),
+                swineIds: formattedSwines
+            };
+        });
+
+        res.status(200).json(updatedAppointments);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
 exports.getAllAppointments = async (req, res) => {
     try {
         const appointments = await appointmentDB.find();
+
         res.status(200).json(appointments);
     } catch (error) {
         res.status(500).json({ message: error.message });

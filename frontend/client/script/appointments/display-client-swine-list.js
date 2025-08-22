@@ -13,7 +13,7 @@ const displaySwineList = async() => {
 
         filterClientSwine.forEach(swine => {
             swineList += `
-                <label><input type="checkbox" name="swines" value="${swine._id}"> ${swine.swineFourDigitId}</label>
+                <label><input type="checkbox" name="swines" value="${swine._id}">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</label>
             `;
         });
         document.querySelector('#client-swine-list').innerHTML = swineList;

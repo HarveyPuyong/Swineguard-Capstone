@@ -44,41 +44,7 @@ const setupRequestAppointmentForm = async () => {
     });
   });
 
-  const municipalitySelect = document.querySelector("#select-municipal");
-  const barangaySelect = document.querySelector("#select-barangay");
   const serviceSelect = document.querySelector("#select-appointment-service");
-
-  if (!municipalitySelect || !barangaySelect) return;
-
-  // Populate Municipality options
-  const municipals = Object.keys(addressesData);
-  municipals.forEach(municipal => {
-    const option = document.createElement("option");
-    option.value = municipal;
-    option.textContent = municipal;
-    municipalitySelect.appendChild(option);
-  });
-
-  // When Municipality changes, populate corresponding Barangays
-  municipalitySelect.addEventListener("change", () => {
-    const selectedMunicipality = municipalitySelect.value;
-
-    // Clear old options
-    barangaySelect.innerHTML = '<option value="">Select Barangay</option>';
-
-    if (selectedMunicipality && addressesData[selectedMunicipality]) {
-      addressesData[selectedMunicipality].forEach(barangay => {
-        const option = document.createElement("option");
-        option.value = barangay;
-        option.textContent = barangay;
-        barangaySelect.appendChild(option);
-      });
-
-      barangaySelect.disabled = false;
-    } else {
-      barangaySelect.disabled = true;
-    }
-  });
 
   // Populate Service Options
   const services = await fetchServices();
@@ -89,23 +55,6 @@ const setupRequestAppointmentForm = async () => {
       option.textContent = service.serviceName;
       serviceSelect.appendChild(option);
     });
-  }
-
-  // Populate Contact Info & Address
-  const client = await fetchClient();
-  document.querySelector('#input-email').value = client.email || '';
-  document.querySelector('#input-contact-number').value = client.contactNum || '';
-
-  const clientMunicipality = client.municipality || '';
-  const clientBarangay = client.barangay || '';
-
-  if (clientMunicipality) {
-    municipalitySelect.value = clientMunicipality;
-
-    // Trigger change to load barangays
-    municipalitySelect.dispatchEvent(new Event("change"));
-
-    barangaySelect.value = clientBarangay;
   }
 
 };

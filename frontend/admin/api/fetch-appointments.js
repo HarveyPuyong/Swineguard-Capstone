@@ -23,5 +23,17 @@ const getAppointmentServiceName = async(appointmentId) => {
   }
 }
 
+// /all/return/4-digit-id
+const fetchAppointmentFourDigitId = async() => {
+  try {
+    const response = await api.get('/appointment/all/return/4-digit-id', {withCredentials: true});
 
-export {fetchAppointments, getAppointmentServiceName};
+    if(response.status === 200) return response.data;
+  } catch (error) {
+    cconsole.error('Failed to fetch appointments:', error);
+    throw error; 
+  }
+}
+
+
+export {fetchAppointments, getAppointmentServiceName, fetchAppointmentFourDigitId};

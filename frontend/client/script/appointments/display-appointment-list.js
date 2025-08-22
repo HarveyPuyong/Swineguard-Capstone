@@ -1,4 +1,4 @@
-import {fetchAppointments} from "./../../../admin/api/fetch-appointments.js"
+import {fetchAppointments, fetchAppointmentFourDigitId} from "./../../../admin/api/fetch-appointments.js"
 import { getServiceName } from "../../../admin/api/fetch-services.js";
 import fetchClient from "../auth/fetch-client.js";
 import { formattedDate, formatTo12HourTime } from "../../../admin/utils/formated-date-time.js";
@@ -11,7 +11,7 @@ const displayAppointmentCardList = async() => {
         const today = new Date();
         today.setHours(0, 0, 0, 0);
 
-        const appointments = await fetchAppointments();
+        const appointments = await fetchAppointmentFourDigitId();
         const filteredAppointments = appointments.filter(appointment => 
                                     appointment.clientId === clientId)
                                     .sort((a, b) => {
@@ -42,12 +42,18 @@ const displayAppointmentCardList = async() => {
                     <div class="appointment-card__details-and-more-details-container">
                         <div class="appointment-card__details-container">
                             <p class="appointment-card__title appointment-card__detail">
+                            <span class="appointment-card__detail--label">Swine Id:</span>
+                            <span class="appointment-card__detail--value">
+                                ${appointment.swineIds.join(', ')}
+                            </span>
+                            </p>
+                            <p class="appointment-card__title appointment-card__detail">
                             <span class="appointment-card__detail--label">Title:</span>
                             <span class="appointment-card__detail--value">${serviceName}</span>
                             </p>
                             <p class="appointment-card__count appointment-card__detail">
                             <span class="appointment-card__detail--label">SwinesCount:</span>
-                            <span class="appointment-card__detail--value">${appointment.swineCount} Swines</span>
+                            <span class="appointment-card__detail--value">${appointment.swineCount}</span>
                             </p>
                             <p class="appointment-card__date--first-dose appointment-card__detail">
                             <span class="appointment-card__detail--label">Appointment Date:</span>

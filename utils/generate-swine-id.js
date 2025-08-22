@@ -1,4 +1,4 @@
-const Swine = require('./../models/swineModel'); // adjust this
+const { swineSchema } = require('./../models/swineModel'); // adjust this
 
 async function generateUniqueFourDigitId() {
   let isUnique = false;
@@ -8,7 +8,7 @@ async function generateUniqueFourDigitId() {
     const randomNum = Math.floor(1 + Math.random() * 9999);
     id = String(randomNum).padStart(4, '0');
 
-    const existing = await Swine.findOne({ swineFourDigitId: id });
+    const existing = await swineSchema.findOne({ swineFourDigitId: id });
     if (!existing) isUnique = true;
   }
 

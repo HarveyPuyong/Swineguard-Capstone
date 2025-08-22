@@ -22,6 +22,8 @@ router.delete('/delete/:id', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordin
 
 router.get('/all', appointmentController.getAllAppointments); 
 
+router.get('/all/return/4-digit-id', appointmentController.getAllAppointmentsWithFourDigitId); 
+
 router.get('/:id', verifyJWT, appointmentController.getAppointmentById); 
 
 
