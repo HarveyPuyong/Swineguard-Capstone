@@ -7,6 +7,10 @@ import { fetchAppointments } from '../../../admin/api/fetch-appointments.js';
 import { getServiceName } from '../../../admin/api/fetch-services.js';
 import { getMedicineName } from '../../../admin/api/fetch-medicine.js';
 
+
+// ======================================
+// ========== Display Client Swines
+// ======================================
 const displayClientSwines = async() => {
     try {
         const user = await fetchClient();
@@ -58,6 +62,10 @@ const displayClientSwines = async() => {
     });
 }
 
+
+// ======================================
+// ========== Display Full Details
+// ======================================
 const displayFullSwineDetails = async (swineId) => {
   const swine = await fetchSwineById(swineId);
   if (!swine) return;
@@ -128,11 +136,26 @@ const displayFullSwineDetails = async (swineId) => {
             </div>
         </div>
         
-        <div class="medical-history__container">
-            <h3>Medical History</h3>
-            <div class="swine-medical__history-list" id="swine-medical__history-list">
-                <hr>
-                <p>No Medical History.</p>
+        <div class="history-nav-btns">
+            <button class="history-nav-btns__nav swine-medical-history-btn active">Medical History</button>
+            <button class="history-nav-btns__nav swine-health-history-btn">Health History</button>
+        </div>
+
+        <div class="swine-history-container">
+            <div class="medical-history__container swine-history show">
+                <h3>Medical History</h3>
+                <div class="swine-medical__history-list swine-history__list" id="swine-medical__history-list">
+                    <hr>
+                    <p>No Medical History.</p>
+                </div>
+            </div>
+
+            <div class="health-history__container swine-history">
+                <h3>Health History</h3>
+                <div class="swine-health__history-list swine-history__list" id="swine-health__history-list">
+                    <hr>
+                    <p>No Health History.</p>
+                </div>
             </div>
         </div>
 
@@ -143,10 +166,17 @@ const displayFullSwineDetails = async (swineId) => {
     `;
 
     document.querySelector('#swines-full-info').innerHTML = swineFullDetails;
-    await getSwineHistoryRecords(swineId);
+    await getSwineMedicalHistory(swineId);
+    await getSwineHealthHistory(swineId);
+
+    document.dispatchEvent(new Event('renderFullSwineDetails')); 
 };
 
-const getSwineHistoryRecords = async(swineId) => {
+
+// ======================================
+// ========== Get Swine Medical History Records
+// ======================================
+const getSwineMedicalHistory = async(swineId) => {
     try {
         const appointments = await fetchAppointments();
         const filteredCompletedAppointments = appointments.filter(appointment => appointment.swineIds.includes(swineId) && appointment.appointmentStatus === 'completed');
@@ -170,6 +200,37 @@ const getSwineHistoryRecords = async(swineId) => {
         console.error("Something went wrong went getting swine records");
     }
 }
+
+
+// ======================================
+// ========== Get Swine Health History
+// ======================================
+const getSwineHealthHistory = async(swineId) => {
+    try {
+        const appointments = await fetchAppointments();
+        const filteredCompletedAppointments = appointments.filter(appointment => appointment.swineIds.includes(swineId) && appointment.appointmentStatus === 'completed');
+
+        let swineHealthRecordsHTML = '';
+        for (const appointment of filteredCompletedAppointments) {
+            const serviceName = await getServiceName(appointment.appointmentService)
+            const medicineName = await getMedicineName(appointment.medicine);
+            swineHealthRecordsHTML += `
+                <hr>
+                <p><strong>Service:</strong> ${serviceName}</p>
+                <p><strong>Date:</strong> ${formattedDate(appointment.appointmentDate)}</p>
+                <p><strong>Medicine:</strong> ${medicineName}</p>
+                <p><strong>Dosage:</strong> ${(appointment.dosage)/appointment.swineCount} mg</p>
+            `;
+        }
+
+        document.querySelector('#swine-health__history-list').innerHTML = swineHealthRecordsHTML;
+
+    } catch (err){
+        console.error("Something went wrong went getting swine records");
+    }
+}
+
+
 
 export {
     displayClientSwines,

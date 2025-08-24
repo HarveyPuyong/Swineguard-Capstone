@@ -81,6 +81,34 @@ const toggleAddSwineForm = () => {
 
 
 // ======================================
+// ========== Toggle Swine Medical and Healh History
+// ======================================
+const toggleMedicalAndHealthHistory = () => {
+  document.addEventListener('renderFullSwineDetails', () => {
+    const medicalHistoryContainer = document.querySelector('.medical-history__container');
+    const healthHistoryContainer = document.querySelector('.health-history__container');
+
+    const medicalHistoryBtn = document.querySelector(".swines-full-info .history-nav-btns .swine-medical-history-btn");
+    const healthHistoryBtn = document.querySelector(".swines-full-info .history-nav-btns .swine-health-history-btn");
+
+    medicalHistoryBtn.addEventListener('click', () => {
+      medicalHistoryContainer.classList.add('show');
+      medicalHistoryBtn.classList.add('active');
+      healthHistoryContainer.classList.remove('show');
+      healthHistoryBtn.classList.remove('active');
+    });
+
+    healthHistoryBtn.addEventListener('click', () => {
+      medicalHistoryContainer.classList.remove('show');
+      medicalHistoryBtn.classList.remove('active');
+      healthHistoryContainer.classList.add('show');
+      healthHistoryBtn.classList.add('active');
+    });
+  });
+}
+
+
+// ======================================
 // ========== Main Function - Setup Swines Section
 // ======================================
 export default function setupSwinesSection() {
@@ -90,4 +118,5 @@ export default function setupSwinesSection() {
   toggleEditMode();
   setupSwineFormListener();
   addSwine();
+  toggleMedicalAndHealthHistory()
 }

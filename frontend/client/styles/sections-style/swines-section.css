@@ -224,27 +224,49 @@
   z-index: 900;
 }
 
-.swines-full-info .medical-history__container{
+.swine-history-container{
   width: 100%;
-  padding: .5rem .3rem;
-  margin-top: 1rem;
-}
-.swine-medical__history-list {
-  line-height: 1.2rem;
-}
-
-.swines-full-info .medical-history__container.hide {
-  display: none;
-}
-.swines-full-info .medical-history__container.show {
   display: block;
 }
-.medical-history__container h3 {
-  text-align: center;
-  margin-bottom: .5rem;
+
+.swines-full-info .swine-history{
+  display: none;
+  margin-top: 30px;
+  width: 100%;
 }
-.swine-medical__history-list hr{
-  margin: .5rem 0rem;
+
+.swines-full-info .swine-history.show{
+  display: block;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.swines-full-info .swine-history h3{
+  margin-bottom: 10px;
+}
+
+.swine-history__list{
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+
+/* History Nav Button */
+.history-nav-btns{
+  margin-top: 50px;
+  display: flex;
+  gap: 60px
+}
+
+.history-nav-btns button{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.history-nav-btns button.active{
+  text-decoration: underline;
 }
 
 

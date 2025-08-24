@@ -1,7 +1,6 @@
 require('dotenv').config();
 
 const bcrypt = require('bcrypt');
-const {generateAccessToken, generateRefreshToken} = require('./../utils/generateTokens');
 
 const User = require('./../models/userModel');
 const ROLE_LIST = require('./../config/role_list');
@@ -18,7 +17,6 @@ const mongoURI = process.env.DB_URI || 'mongodb://localhost:27017/swineguard_db'
     const existingAdminAcc = await User.findOne({email: adminEmail});
 
     if (!existingAdminAcc) {
-        // Generating Administrator Account
         const hashedPassword = await bcrypt.hash(adminPassword, 10);
         const newAdmin = new User(
             { 
