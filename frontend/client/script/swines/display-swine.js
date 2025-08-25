@@ -137,14 +137,15 @@ const displayFullSwineDetails = async (swineId) => {
             </div>
         </div>
         
-        <div class="history-nav-btns">
-            <button class="history-nav-btns__nav swine-medical-history-btn active">Medical History</button>
-            <button class="history-nav-btns__nav swine-health-history-btn">Health History</button>
-        </div>
 
-        <div class="swine-history-container">
+        <div class="swine-history-container show">
+
+            <div class="history-nav-btns">
+                <button class="history-nav-btns__nav swine-medical-history-btn active" type="button">Medical History</button>
+                <button class="history-nav-btns__nav swine-health-history-btn" type="button">Health History</button>
+            </div>
+
             <div class="medical-history__container swine-history show">
-                <h3>Medical History</h3>
                 <div class="swine-medical__history-list swine-history__list" id="swine-medical__history-list">
                     <hr>
                     <p>No Medical History.</p>
@@ -152,7 +153,6 @@ const displayFullSwineDetails = async (swineId) => {
             </div>
 
             <div class="health-history__container swine-history">
-                <h3>Health History</h3>
                 <div class="swine-health__history-list swine-history__list" id="swine-health__history-list">
                     <hr>
                     <p>No Health History.</p>
@@ -182,6 +182,11 @@ const getSwineMedicalHistory = async(swineId) => {
         const appointments = await fetchAppointments();
         const filteredCompletedAppointments = appointments.filter(appointment => appointment.swineIds.includes(swineId) && appointment.appointmentStatus === 'completed');
 
+        if (filteredCompletedAppointments.length === 0) {
+            document.querySelector('#swine-medical__history-list').innerHTML = 'No Medical History.';
+            return; // stop execution
+        }
+
         let swineHealthRecordsHTML = '';
         for (const appointment of filteredCompletedAppointments) {
             const serviceName = await getServiceName(appointment.appointmentService)
@@ -206,37 +211,56 @@ const getSwineMedicalHistory = async(swineId) => {
 // ======================================
 // ========== Get Swine Health History
 // ======================================
-const getSwineHealthHistory = async(swineId) => {
+const getSwineHealthHistory = async (swineId) => {
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
+
     try {
-        const user = await fetchClient();
-        const userId = user._id;
-
-        const swineRecords = await getSwineRecords();
-        const filteredSwine = swineRecords.filter(swine => swine.swineId === swineId);
-
-        const swines = await fetchSwines();
+        const swineRecordsResponse = await getSwineRecords();
+        const filteredSwine = swineRecordsResponse.records
+            .filter(swine => swine.swineId === swineId)
+            .sort((a, b) => (a.year - b.year) || (a.month - b.month)); // Sort by year then month
 
         let swineHealthRecordsHTML = '';
+        let previousWeight = null;
 
-        for (const swine of filteredSwine ) {
-            const foundSwine = swines.find(data => data._id === swineId);
-            const swineFourDigitId = foundSwine ? foundSwine.swineFourDigitId : 'Unknown';
-            
+        if (filteredSwine.length === 0) {
+            document.querySelector('#swine-health__history-list').innerHTML = 'No Swine Records.';
+            return; // stop execution
+        }
+
+        filteredSwine.forEach(record => {
+            let swineState = 'stable'; // default
+
+            if (previousWeight !== null) {
+                if (record.monthlyWeight > previousWeight) {
+                    swineState = 'increase';
+                } else if (record.monthlyWeight < previousWeight) {
+                    swineState = 'decrease';
+                }
+            }
+
             swineHealthRecordsHTML += `
                 <hr>
-                <p><strong>Swine Id:</strong> ${swineFourDigitId} </p>
-                <p><strong>Date:</strong> ${swine.month}/${swine.year} </p>
-                <p><strong>Weight:</strong> ${swine.monthlyWeight}kg</p>
-                <p><strong>Heath Status:</strong> ${swine.monthlyStatus}</p>
+                <p><strong>Date:</strong> ${months[record.month - 1]} - ${record.year}</p>
+                <p><strong>Weight:</strong> ${record.monthlyWeight}kg 
+                    <span class="swine-state">(${swineState})</span>
+                </p>
+                <p><strong>Health Status:</strong> ${record.monthlyStatus}</p>
             `;
-        }
+
+            previousWeight = record.monthlyWeight; // update for next iteration
+        });
 
         document.querySelector('#swine-health__history-list').innerHTML = swineHealthRecordsHTML;
 
-    } catch (err){
-        console.error("Something went wrong went getting swine records");
+    } catch (err) {
+        console.error("Something went wrong when getting swine records", err);
     }
-}
+};
+
 
 
 

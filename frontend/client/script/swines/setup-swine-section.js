@@ -42,7 +42,7 @@ const toggleEditMode = () => {
   const container = document.querySelector('#swines-full-info');
   const enableBtn = container.querySelector('.swines-full-info__edit-btn.enable-edit-mode-btn');
   const disableBtn = container.querySelector('.swines-full-info__cancel-btn.disable-edit-mode-btn');
-  const swineHistory = container.querySelector('.medical-history__container');
+  const swineHistory = container.querySelector('.swine-history-container');
 
   if (!enableBtn || !disableBtn) return;
 
