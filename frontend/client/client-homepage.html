@@ -156,6 +156,7 @@
         <section id="swines-section" class="hide">
           <h1 class="section__heading">Manage Swines</h1>
 
+          
           <button class="show-add-swine-form-btn" type="button">Add Swine</button>
           
           <!-- Add swine form -->
@@ -169,6 +170,10 @@
             
             <p class="add-swine-form__info-label">Swine Info</p>
             <div class="add-swine-form__info">
+              <div for="select-swine-sex"><!-- swine count -->
+                <span class="label-txt">Swine count</span>
+                <input type="number" id="swine-count-input" placeholder="Enter swine count here." required>
+              </div>
               <div for="select-swine-sex"><!-- swine sex -->
                 <span class="label-txt">Sex</span>
                 <select name="select-swine-sex" id="select-swine-sex">
