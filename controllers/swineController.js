@@ -195,46 +195,6 @@ exports.getSwineById = async (req, res) => {
 
 
 
-// // ======================================
-// // ========== Save Swine Montly Records
-// // ======================================
-// exports.saveSwineMonthlyRecords = async (req, res) => {
-//     const { monthlyWeight, monthlyStatus, swineId,  month, year } = req.body;
-
-//     // Validate swine weight
-//     if(!isValidNumber(monthlyWeight)) return res.status(400).json({ message: 'Swine weight must be valid numbers greater than 0' });
-
-//     // ✅ Convert to numbers after validation
-//     const numericMonthlyWeight = Number(monthlyWeight);
-
-//     const swineData = { monthlyWeight: numericMonthlyWeight, monthlyStatus, swineId, month, year };
-
-//     // Validate input fields
-//     if (Object.values(swineData).some(field => field === undefined || field === null)) {
-//         return res.status(400).json({ message: 'Kindly check your swine details' });
-//     }
-
-//     try {
-//         const newMonthlySwineRecords = new swineHealthRecordSchema ({ ...swineData });
-
-//         await newMonthlySwineRecords.save();
-//         return res.status(201).json({
-//             message: "Swine record saved successfully.",
-//             item: newMonthlySwineRecords
-//         });
-
-//     } catch (err) {
-//         console.error(`Error: ${err}`); 
-//         console.log(`Cause of error: ${err.message}`);
-
-//         return res.status(500).json({
-//             message: 'Something went wrong while saving montly swine records.',
-//         });
-//     }
-// }
-
-
-
 exports.saveSwineMonthlyRecords = async (req, res) => {
     const { monthlyWeight, monthlyStatus, swineId, month, year, overwrite } = req.body;
 
@@ -279,10 +239,15 @@ exports.saveSwineMonthlyRecords = async (req, res) => {
     }
 };
 
-
-
-
-
+// Get swine Montly Records
+exports.getSwineMontlyRecords = async (req, res) => {
+    try {
+        const swineRecords = await swineHealthRecordSchema.find();
+        res.status(200).json({ records: swineRecords });
+    } catch (err) {
+        res.status(500).json({ message: 'Something went wrong getting swine monthly records' })
+    }
+}
 
 
 

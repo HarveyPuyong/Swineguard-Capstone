@@ -6,6 +6,7 @@ import { removeSwine } from './edit-remove.js';
 import { fetchAppointments } from '../../../admin/api/fetch-appointments.js';
 import { getServiceName } from '../../../admin/api/fetch-services.js';
 import { getMedicineName } from '../../../admin/api/fetch-medicine.js';
+import getSwineRecords from './fetch-swine-records.js';
 
 
 // ======================================
@@ -207,19 +208,26 @@ const getSwineMedicalHistory = async(swineId) => {
 // ======================================
 const getSwineHealthHistory = async(swineId) => {
     try {
-        const appointments = await fetchAppointments();
-        const filteredCompletedAppointments = appointments.filter(appointment => appointment.swineIds.includes(swineId) && appointment.appointmentStatus === 'completed');
+        const user = await fetchClient();
+        const userId = user._id;
+
+        const swineRecords = await getSwineRecords();
+        const filteredSwine = swineRecords.filter(swine => swine.swineId === swineId);
+
+        const swines = await fetchSwines();
 
         let swineHealthRecordsHTML = '';
-        for (const appointment of filteredCompletedAppointments) {
-            const serviceName = await getServiceName(appointment.appointmentService)
-            const medicineName = await getMedicineName(appointment.medicine);
+
+        for (const swine of filteredSwine ) {
+            const foundSwine = swines.find(data => data._id === swineId);
+            const swineFourDigitId = foundSwine ? foundSwine.swineFourDigitId : 'Unknown';
+            
             swineHealthRecordsHTML += `
                 <hr>
-                <p><strong>Service:</strong> ${serviceName}</p>
-                <p><strong>Date:</strong> ${formattedDate(appointment.appointmentDate)}</p>
-                <p><strong>Medicine:</strong> ${medicineName}</p>
-                <p><strong>Dosage:</strong> ${(appointment.dosage)/appointment.swineCount} mg</p>
+                <p><strong>Swine Id:</strong> ${swineFourDigitId} </p>
+                <p><strong>Date:</strong> ${swine.month}/${swine.year} </p>
+                <p><strong>Weight:</strong> ${swine.monthlyWeight}kg</p>
+                <p><strong>Heath Status:</strong> ${swine.monthlyStatus}</p>
             `;
         }
 
