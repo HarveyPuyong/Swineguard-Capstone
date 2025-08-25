@@ -2,7 +2,27 @@
   font-size: clamp(1.15rem, 4vw, 2rem);
 }
 
-.show-add-swine-form-btn{
+/* .add-swine-btn-container {
+  display: flex;
+  gap: .5rem;
+  position: absolute;
+  top: 70px;
+  right: 4.5%;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  border: none;
+  background-color: #17a75a;
+  cursor: pointer;
+}
+
+.add-swine-btn-container button {
+  background-color: #17a75a;
+  border-radius: 5px;
+  padding: 8px 30px;
+  color: white;
+  border: none;
+} */
+
+.show-add-swine-form-btn {
   position: absolute;
   top: 23px;
   right: 4.5%;
@@ -15,6 +35,8 @@
   cursor: pointer;
 }
 
+
+
 /* ===================================================
    ============== Swine Cards List ==============
    ===================================================
@@ -24,7 +46,7 @@
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   row-gap: 23px;
   column-gap: 20px;
-  margin-top: 50px;
+  margin-top: 70px;
   padding-bottom: 15px;
 }
 
@@ -480,7 +502,8 @@
 }
 
 @media(width >= 800px){
-  .show-add-swine-form-btn{
+  .show-add-swine-form-btn,
+  .show-add-multiple-swine-form-btn{
     top: 33px;
     padding: 10px 40px;
   }
