@@ -6,6 +6,8 @@ router.post('/add', swineController.addSwine); // Add Swine
 
 router.post('/add/montly-swine-records', swineController.saveSwineMonthlyRecords); // Save swine montly records
 
+router.post('/save/monthly-records', swineController.saveMultipleSwineMonthlyRecords); // Save swine montly records
+
 router.get('/get/montly-swine-records', swineController.getSwineMontlyRecords); // Get swine montly records
 
 router.put('/edit/:id', swineController.editSwine); // Edit Swine

@@ -143,33 +143,26 @@ const searchUser = () => {
 const filterUser = () => {
   document.addEventListener('renderUsersTable', () => {
     const selectTypeElement = document.querySelector('#users-filter');
-
     if (!selectTypeElement) return;
 
     selectTypeElement.addEventListener('change', () => {
       const selectedValue = selectTypeElement.value.toLowerCase();
 
       document.querySelectorAll('.users-table__tbody .user').forEach(user => {
-        const role = user.getAttribute('data-role');
-        const verified = user.getAttribute('data-verified');
+        const roles = user.getAttribute('data-role').toLowerCase();
+        const verified = user.getAttribute('data-verified').toLowerCase();
 
-        // Hide all by default
         user.style.display = 'none';
 
-        if (selectedValue === 'all') {
-          user.style.display = 'flex';
-        } 
-        else if (selectedValue === role) {
-          user.style.display = 'flex';
-        } 
-        else if (selectedValue === verified) {
+        if (selectedValue === 'all' ||
+            roles.includes(selectedValue) ||
+            verified === selectedValue) {
           user.style.display = 'flex';
         }
       });
     });
   });
 };
-
 
 
 // ======================================

@@ -1,70 +1,91 @@
 import api from '../../client-utils/axios-config.js';
 import popupAlert from '../../../admin/utils/popupAlert.js';
-import {displayClientSwines} from './display-swine.js';
+import { displayClientSwines } from './display-swine.js';
 import fetchClient from '../auth/fetch-client.js';
 
 const addSwine = () => {
     const addSwineForm = document.querySelector('#add-swine-form');
-    addSwineForm.addEventListener('submit', async(e) => {
+    const swineFieldsContainer = document.getElementById('swine-fields-container'); // ✅ needed to clear fields later
+
+    addSwineForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         try {
             const user = await fetchClient();
             const clientId = user._id;
-            
-            //Swine Details
-            const swineData = {
-                breed: addSwineForm['select-swine-breed'].value,
-                type: addSwineForm['select-swine-type'].value,
-                birthdate: addSwineForm['input-swine-birthdate'].value,
-                sex: addSwineForm['select-swine-sex'].value,
-                status: addSwineForm['select-swine-health-status'].value,
-                weight: addSwineForm['swine-weight'].value,
-                clientId: clientId
+
+            const swineGroups = document.querySelectorAll('.swine-input-group');
+
+            if (swineGroups.length === 0) {
+                popupAlert('warning', 'No Swine Added', 'Please add at least one swine.');
+                return;
             }
 
-            // ✅ Validation: check if any field is empty
-            const requiredFields = ['breed', 'type', 'birthdate', 'sex', 'status', 'weight'];
-            const hasEmptyField = requiredFields.some(field => !swineData[field]);
+            let swineDataArray = [];
 
-            if (hasEmptyField) {
-                popupAlert('warning', 'Incomplete Form', 'Kindly fill the required fields.');
-                return; 
+            swineGroups.forEach(group => {
+                const breed = group.querySelector('[data-field="breed"]').value;
+                const type = group.querySelector('[data-field="type"]').value;
+                const birthdate = group.querySelector('[data-field="birthdate"]').value;
+                const sex = group.querySelector('[data-field="sex"]').value;
+                const status = group.querySelector('[data-field="healthStatus"]').value;
+                const weight = group.querySelector('[data-field="weight"]').value;
+
+                if (breed && type && birthdate && sex && status && !isNaN(weight)) {
+                    swineDataArray.push({
+                        breed,
+                        type,
+                        birthdate,
+                        sex,
+                        status,
+                        weight,
+                        clientId
+                    });
+                }
+            });
+
+            if (swineDataArray.length === 0) {
+                popupAlert('warning', 'Incomplete Form', 'Please fill in all fields for each swine.');
+                return;
             }
 
-            //console.log(swineData);
-            const response = await api.post('/swine/add', swineData);
-            
-            if(response.status === 201) {
-                const newSwine = response.data.item; // This contains the full swine object
-                const currentSwineId = newSwine._id;
+            // ✅ Send all swines in one request
+            const response = await api.post('/swine/add', { swines: swineDataArray, clientId });
 
-                const swineDataForMontlyRecords = {
-                    montlyStatus: addSwineForm['select-swine-health-status'].value,
-                    montlyWeight: addSwineForm['swine-weight'].value,
-                    swineId: currentSwineId
-                };
+            if (response.status === 201) {
 
-                popupAlert('success', 'Success', `New swine added successully`).
-                then(async() => {
+                // ✅ Prepare monthly records array
+                const currentDate = new Date();
+                const currentMonth = currentDate.getMonth() + 1; // 1-12
+                const currentYear = currentDate.getFullYear();
 
-                    // Monthly Swine Records
-                    await api.post('/swine/add/montly-swine-records', swineDataForMontlyRecords);
-                    
+                const monthlyRecords = response.data.newSwines.map(swine => ({
+                    swineId: swine._id,
+                    monthlyStatus: swine.status,
+                    monthlyWeight: swine.weight,
+                    month: currentMonth,
+                    year: currentYear,
+                    overwrite: false
+                }));
+
+                // ✅ Send all records in one request
+                await api.post('/swine/save/monthly-records', { records: monthlyRecords });
+                
+
+                popupAlert('success', 'Success', `${swineDataArray.length} swine(s) added successfully.`)
+                .then(() => {
                     addSwineForm.reset();
+                    swineFieldsContainer.innerHTML = ''; // ✅ clear dynamic fields
                     addSwineForm.classList.remove('show');
                     displayClientSwines();
-
-                });    
+                });
             }
 
         } catch (error) {
-            console.log(error)
-            popupAlert('error', 'Error', `Adding swine error ${error}`)
+            console.error(error);
+            popupAlert('error', 'Error', `Adding swine error: ${error.response?.data?.message || error.message}`);
         }
-
     });
-}
-
+};
 
 export default addSwine;

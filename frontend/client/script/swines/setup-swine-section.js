@@ -109,6 +109,77 @@ const toggleMedicalAndHealthHistory = () => {
 
 
 // ======================================
+// ========== Set up add swine Form
+// ======================================
+const setupAddSwineForm = () => {
+    const swineCountInput = document.getElementById('swine-count-input');
+    const swineFieldsContainer = document.getElementById('swine-fields-container');
+
+    swineCountInput.addEventListener('input', () => {
+        const count = parseInt(swineCountInput.value);
+        swineFieldsContainer.innerHTML = ''; // Clear previous inputs
+
+        if (count > 0) {
+            for (let i = 1; i <= count; i++) {
+                const swineGroup = document.createElement('div');
+                swineGroup.classList.add('swine-input-group'); // ✅ match with addSwine query
+                swineGroup.innerHTML = `
+                    <h3>Swine ${i}</h3>
+                    <div>
+                        <label>Sex:</label>
+                        <select data-field="sex" required>
+                            <option value="">Select sex</option>
+                            <option value="male">Male</option>
+                            <option value="female">Female</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Breed:</label>
+                        <select data-field="breed" required>
+                            <option value="">Select breed</option>
+                            <option value="native">Native</option>
+                            <option value="half-breed">Half Breed</option>
+                            <option value="high-breed">High Breed</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Type:</label>
+                        <select data-field="type" required>
+                            <option value="">Select type</option>
+                            <option value="piglet">Piglet</option>
+                            <option value="grower">Grower</option>
+                            <option value="boar">Boar</option>
+                            <option value="sow">Sow</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Birth Date:</label>
+                        <input type="date" data-field="birthdate" required>
+                    </div>
+                    <div>
+                        <label>Health Status:</label>
+                        <select data-field="healthStatus" required>
+                            <option value="">Select health status</option>
+                            <option value="healthy">Healthy</option>
+                            <option value="pregnant">Pregnant</option>
+                            <option value="sick">Sick</option>
+                            <option value="deceased">Deceased</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Weight (kg):</label>
+                        <input type="number" data-field="weight" step="any" placeholder="kg" required>
+                    </div>
+                    <hr>
+                `;
+                swineFieldsContainer.appendChild(swineGroup);
+            }
+        }
+    });
+};
+
+
+// ======================================
 // ========== Main Function - Setup Swines Section
 // ======================================
 export default function setupSwinesSection() {
@@ -119,4 +190,5 @@ export default function setupSwinesSection() {
   setupSwineFormListener();
   addSwine();
   toggleMedicalAndHealthHistory()
+  setupAddSwineForm()
 }

@@ -89,6 +89,10 @@
             <img class="side-nav__link-icon" src="images-and-icons/icons/services-icon.png" alt="services-icon">
             <p class="side-nav__link-label">Services</p>
           </li>
+          <li class="side-nav__link" data-value="records-section" title="records-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/records.png" alt="records-icon">
+            <p class="side-nav__link-label">Swine Records</p>
+          </li>
           <li class="side-nav__link logout-btn" data-value="logout-btn">
             <p class="side-nav__link-label">Logout</p>
           </li>
@@ -170,54 +174,14 @@
             
             <p class="add-swine-form__info-label">Swine Info</p>
             <div class="add-swine-form__info">
+              
               <div for="select-swine-sex"><!-- swine count -->
                 <span class="label-txt">Swine count</span>
                 <input type="number" id="swine-count-input" placeholder="Enter swine count here." required>
               </div>
-              <div for="select-swine-sex"><!-- swine sex -->
-                <span class="label-txt">Sex</span>
-                <select name="select-swine-sex" id="select-swine-sex">
-                  <option value="">Select sex</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                </select>
-              </div>
-              <div for="select-swine-breed"><!-- swine breed -->
-                <span class="label-txt">Breed</span>
-                <select name="select-swine-breed" id="select-swine-breed">
-                  <option value="">Select breed</option>
-                  <option value="native">Native</option>
-                  <option value="half-breed">Half Breed</option>
-                  <option value="high-breed">High Breed</option>
-                </select>
-              </div>
-              <div for="select-swine-type"><!-- swine type -->
-                <span class="label-txt">Type</span>
-                <select name="select-swine-type" id="select-swine-type">
-                  <option value="piglet">Piglet</option>
-                  <option value="grower">Grower</option>
-                  <option value="boar">Boar</option>
-                  <option value="sow">Sow</option>
-                </select>
-              </div>
-              <div for="input-swine-birthdate"><!-- swine birth date-->
-                <span class="label-txt">Birth Date</span>
-                <input id="input-swine-birthdate" name="input-swine-birthdate" type="text" placeholder="Birthdate" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
-              </div>
-              <div for="select-swine-health-status"><!-- swine health status-->
-                <span class="label-txt">Health Status</span>
-                <select name="select-swine-health-status" id="select-swine-health-status">
-                  <option value="">Select health Status</option>
-                  <option value="healthy">Healthy</option>
-                  <option value="pregnant">Pregnant</option>
-                  <option value="sick">Sick</option>
-                  <option value="deceased">Deceased</option>
-                </select>
-              </div>
-              <div for="input-swine-weight"><!-- swine wwight-->
-                <span class="label-txt">Weight</span>
-                <input type="number" name="swine-weight" step="any" placeholder="kg" >
-              </div>
+
+              <div id="swine-fields-container"></div>
+
             </div>
 
             <button class="add-swine-form__create-btn" type="submit">Create</button>       
@@ -400,6 +364,15 @@
             <!-- display-setting.js -->
           </div>
         </section>
+
+        <!-- ========== Records Section ========== -->
+         <section id="records-section" class="hide">
+          <h1 class="section__heading">Swine Records</h1>
+
+          <div class="records-container">
+            <h3>No Content</h3>
+          </div>
+         </section>
       </div>
     </main>
 

@@ -242,13 +242,17 @@ const getSwineHealthHistory = async (swineId) => {
                 }
             }
 
+            //<img src="./images-and-icons/icons/decrease.png" alt="swine-state">
+            //<img src="./images-and-icons/icons/increase.png" alt="swine-state"></img>
+
             swineHealthRecordsHTML += `
                 <hr>
                 <p><strong>Date:</strong> ${months[record.month - 1]} - ${record.year}</p>
-                <p><strong>Weight:</strong> ${record.monthlyWeight}kg 
-                    <span class="swine-state">(${swineState})</span>
+                <p class="swine-state-wrapper"><strong>Weight: </strong> ${record.monthlyWeight}kg 
+                    (<span class="swine-state ${swineState}">${swineState}</span>
+                    <img class="swine-state__img" src="./images-and-icons/icons/${swineState}.png" alt="swine-state">)
                 </p>
-                <p><strong>Health Status:</strong> ${record.monthlyStatus}</p>
+                <p><strong>Health Status:</strong> ${record.monthlyStatus.charAt(0).toUpperCase() + record.monthlyStatus.slice(1)}</p>
             `;
 
             previousWeight = record.monthlyWeight; // update for next iteration

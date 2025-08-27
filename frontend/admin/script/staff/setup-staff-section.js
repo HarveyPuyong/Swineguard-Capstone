@@ -54,6 +54,10 @@ const setupAddStaffForm = () => {
   municipalitySelect.addEventListener("change", () => {
     const selectedMunicipality = municipalitySelect.value;
 
+    // Reset barangay options
+    barangaySelect.innerHTML = '<option value="" hidden>Select barangay</option>';
+    barangaySelect.disabled = true;
+
     if (selectedMunicipality && addressesData[selectedMunicipality]) {
       addressesData[selectedMunicipality].forEach(barangay => {
         const option = document.createElement("option");
@@ -62,8 +66,6 @@ const setupAddStaffForm = () => {
         barangaySelect.appendChild(option);
       });
       barangaySelect.disabled = false;
-    } else {
-      barangaySelect.disabled = true;
     }
   });
 };

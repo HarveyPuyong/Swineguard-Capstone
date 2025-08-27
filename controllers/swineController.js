@@ -4,49 +4,66 @@ const mongoose = require('mongoose');
 
 // Add Swine
 exports.addSwine = async (req, res) => {
+    const { swines, clientId } = req.body;
 
-    const {swineFourDigitId, breed, type, birthdate, sex, status, weight, clientId} = req.body;
-
-    // Validate birthdate of swine
-    if (new Date(birthdate) > new Date()) {
-        return res.status(400).json({ message: 'Birthdate cannot be in the future.' });
+    if (!Array.isArray(swines) || swines.length === 0) {
+        return res.status(400).json({ message: 'No swine added. Please provide at least one swine.' });
     }
-
-    // Validate swine weight
-    if(!isValidNumber(weight)) return res.status(400).json({ message: 'Swine weight must be valid numbers greater than 0' });
-
-    // ✅ Convert to numbers after validation
-    const numericWeight = Number(weight);
-
-    // Generate Unique 4 digit swine Id:
-    const generatedSwineId = await generateSwineId();
-    
-    const swineData = {swineFourDigitId: generatedSwineId, breed, type, birthdate, sex, status, weight: numericWeight, clientId};
-
-    // Validate input fields
-    if (Object.values(swineData).some(field => field === undefined || field === null)) {
-        return res.status(400).json({ message: 'Kindly check your swine details' });
-    }
-
 
     try {
-        const newSwine = new swineSchema ({ ...swineData });
+        const newSwines = [];
 
-        await newSwine.save();
+        for (const swine of swines) {
+            const { breed, type, birthdate, sex, status, weight } = swine;
+
+            // Validate birthdate
+            if (new Date(birthdate) > new Date()) {
+                return res.status(400).json({ message: 'Birthdate cannot be in the future.' });
+            }
+
+            // Validate weight
+            if (!isValidNumber(weight)) {
+                return res.status(400).json({ message: 'Swine weight must be valid numbers greater than 0.' });
+            }
+
+            const numericWeight = Number(weight);
+
+            // Generate Unique 4-digit ID
+            const generatedSwineId = await generateSwineId();
+
+            const swineData = {
+                swineFourDigitId: generatedSwineId,
+                breed,
+                type,
+                birthdate,
+                sex,
+                status,
+                weight: numericWeight,
+                clientId
+            };
+
+            if (Object.values(swineData).some(field => field === undefined || field === null)) {
+                return res.status(400).json({ message: 'Kindly check your swine details.' });
+            }
+
+            const newSwine = new swineSchema(swineData);
+            await newSwine.save();
+            newSwines.push(newSwine);
+        }
+
         return res.status(201).json({
-            message: "Swine added successfully.",
-            item: newSwine
+            message: `${newSwines.length} swine(s) added successfully.`,
+            newSwines
         });
 
     } catch (err) {
-        console.error(`Error: ${err}`); 
-        console.log(`Cause of error: ${err.message}`);
-
+        console.error(`Error: ${err}`);
         return res.status(500).json({
             message: 'Something went wrong while adding swine.',
+            error: err.message
         });
     }
-}
+};
 
 // Update Swine
 exports.editSwine = async (req, res) => {
@@ -194,7 +211,7 @@ exports.getSwineById = async (req, res) => {
 }
 
 
-
+// Edit and save swine data to the montly records
 exports.saveSwineMonthlyRecords = async (req, res) => {
     const { monthlyWeight, monthlyStatus, swineId, month, year, overwrite } = req.body;
 
@@ -239,6 +256,63 @@ exports.saveSwineMonthlyRecords = async (req, res) => {
     }
 };
 
+
+
+exports.saveMultipleSwineMonthlyRecords = async (req, res) => {
+    const { records } = req.body;
+
+    if (!Array.isArray(records) || records.length === 0) {
+        return res.status(400).json({ message: 'No records provided.' });
+    }
+
+    try {
+        const results = [];
+
+        for (const record of records) {
+            const { swineId, monthlyWeight, monthlyStatus, month, year, overwrite } = record;
+
+            if (!swineId || isNaN(monthlyWeight) || monthlyWeight <= 0 || !month || !year) {
+                results.push({ swineId, status: 'failed', reason: 'Invalid data' });
+                continue;
+            }
+
+            const existingRecord = await swineHealthRecordSchema.findOne({ swineId, month, year });
+
+            if (existingRecord) {
+                if (!overwrite) {
+                    results.push({ swineId, status: 'skipped', reason: 'Record exists' });
+                    continue;
+                }
+
+                existingRecord.monthlyWeight = monthlyWeight;
+                existingRecord.monthlyStatus = monthlyStatus;
+                await existingRecord.save();
+                results.push({ swineId, status: 'updated' });
+            } else {
+                const newRecord = new swineHealthRecordSchema({
+                    swineId,
+                    monthlyWeight,
+                    monthlyStatus,
+                    month,
+                    year
+                });
+                await newRecord.save();
+                results.push({ swineId, status: 'created' });
+            }
+        }
+
+        return res.status(200).json({ message: 'Monthly records processed', results });
+
+    } catch (error) {
+        console.error('Save multiple monthly records error:', error);
+        res.status(500).json({ message: 'Failed to save monthly records.' });
+    }
+};
+
+
+
+
+
 // Get swine Montly Records
 exports.getSwineMontlyRecords = async (req, res) => {
     try {
@@ -248,8 +322,6 @@ exports.getSwineMontlyRecords = async (req, res) => {
         res.status(500).json({ message: 'Something went wrong getting swine monthly records' })
     }
 }
-
-
 
 
 // Check item Id

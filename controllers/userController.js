@@ -74,8 +74,13 @@ const addStaff = async (req, res) => {
         userDB.findOne({ firstName, middleName, lastName, suffix }).exec(), 
     ]);
 
+    const existingEmail = await userDB.findOne({ email: email }).exec();
+    if (existingEmail) {
+        return res.status(409).json({ message: 'Email already existed' });
+    }
+
     // Check if the staff is already existed
-    if(duplicateFullname) return res.status(409).json({message: "Full name already in use. Try changing the first, middle, or last name"});
+    if(duplicateFullname) return res.status(409).json({message: "User Already existed"});
 
     //na check kung yung password at confirmPassword ay tama
     if(password.trim() !== confirmPassword.trim()) return res.status(400).json({message: 'Passowords does not match'});

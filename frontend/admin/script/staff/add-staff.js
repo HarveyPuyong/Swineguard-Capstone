@@ -42,7 +42,28 @@ const handleAddStaff = () => {
       }
 
     } catch (error) {
-      console.log(error)
+      if (error.response) {
+        // Server responded with a status outside 2xx
+        const status = error.response.status;
+        const message = error.response.data.message;
+
+        if (status === 409) {
+          // Handle duplicate email or user exists
+          popupAlert('error', 'Duplicate Entry', message);
+        } else if (status === 400) {
+          // Handle validation errors
+          popupAlert('error', 'Validation Error', message);
+        } else {
+          // Other server errors
+          popupAlert('error', 'Error', message || 'Something went wrong.');
+        }
+      } else if (error.request) {
+        // No response from server
+        popupAlert('error', 'Network Error', 'No response from server. Please try again.');
+      } else {
+        // Error in setting up the request
+        popupAlert('error', 'Error', 'Request error occurred.');
+      }
     }
   });
 }

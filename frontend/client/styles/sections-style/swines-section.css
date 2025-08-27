@@ -2,26 +2,6 @@
   font-size: clamp(1.15rem, 4vw, 2rem);
 }
 
-/* .add-swine-btn-container {
-  display: flex;
-  gap: .5rem;
-  position: absolute;
-  top: 70px;
-  right: 4.5%;
-  font-size: clamp(1rem, 2vw, 1.2rem);
-  border: none;
-  background-color: #17a75a;
-  cursor: pointer;
-}
-
-.add-swine-btn-container button {
-  background-color: #17a75a;
-  border-radius: 5px;
-  padding: 8px 30px;
-  color: white;
-  border: none;
-} */
-
 .show-add-swine-form-btn {
   position: absolute;
   top: 23px;
@@ -183,8 +163,8 @@
 }
 
 .add-swine-form__info{
-  display: grid;
-  grid-template-columns: 1fr;
+  display: flex;
+  flex-direction: column;
   gap: 13px;
   text-align: left;
   width: 100%;
@@ -475,7 +455,26 @@
   display: flex;
 }
 
-
+/* 
+  Change color of the swine state
+*/
+.swine-state.increase {
+  color: var(--main-color);
+}
+.swine-state.stable {
+  color: #4d4dd4;
+}
+.swine-state.decrease {
+  color: #ca2f2f;
+}
+.swine-state-wrapper {
+  display: flex;
+  align-items: center;
+}
+#swine-health__history-list .swine-state__img {
+  width: 20px;
+  margin-left: 2px;
+}
 
 
 @media(width >= 500px){
@@ -516,4 +515,11 @@
     top: 33px;
     padding: 10px 40px;
   }
+}
+
+
+/* Add swine hr */
+
+#swine-fields-container hr {
+  margin: 1rem 0;
 }
