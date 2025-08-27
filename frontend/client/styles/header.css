@@ -82,6 +82,7 @@ header{
   width: var(--admin-pic-size);
   border-radius: 30px;
   cursor: pointer;
+  object-fit: cover;
 }
 
 .header__toggle-logout-btn{

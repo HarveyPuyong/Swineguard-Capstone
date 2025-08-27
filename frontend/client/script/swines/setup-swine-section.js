@@ -1,4 +1,4 @@
-import {displayClientSwines, displayFullSwineDetails} from "./display-swine.js";
+import {displayClientSwines, displayFullSwineDetails, displayAllSwineWeight} from "./display-swine.js";
 import addSwine from "./add-swine.js";
 import {updateSwineDetails, setupSwineFormListener } from './edit-remove.js'
 
@@ -189,6 +189,7 @@ export default function setupSwinesSection() {
   toggleEditMode();
   setupSwineFormListener();
   addSwine();
-  toggleMedicalAndHealthHistory()
-  setupAddSwineForm()
+  toggleMedicalAndHealthHistory();
+  setupAddSwineForm();
+  displayAllSwineWeight();
 }

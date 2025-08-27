@@ -7,6 +7,7 @@ import { fetchAppointments } from '../../../admin/api/fetch-appointments.js';
 import { getServiceName } from '../../../admin/api/fetch-services.js';
 import { getMedicineName } from '../../../admin/api/fetch-medicine.js';
 import getSwineRecords from './fetch-swine-records.js';
+import { barGraph, lineGraph } from './swine-graph.js';
 
 
 // ======================================
@@ -169,6 +170,7 @@ const displayFullSwineDetails = async (swineId) => {
     document.querySelector('#swines-full-info').innerHTML = swineFullDetails;
     await getSwineMedicalHistory(swineId);
     await getSwineHealthHistory(swineId);
+    
 
     document.dispatchEvent(new Event('renderFullSwineDetails')); 
 };
@@ -212,53 +214,63 @@ const getSwineMedicalHistory = async(swineId) => {
 // ========== Get Swine Health History
 // ======================================
 const getSwineHealthHistory = async (swineId) => {
-    const months = [
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    ];
 
     try {
+
+        let swineMontlyWeight = [];
+
         const swineRecordsResponse = await getSwineRecords();
-        const filteredSwine = swineRecordsResponse.records
-            .filter(swine => swine.swineId === swineId)
-            .sort((a, b) => (a.year - b.year) || (a.month - b.month)); // Sort by year then month
+        const filteredSwine = swineRecordsResponse.records.filter(swine => swine.swineId === swineId);
 
-        let swineHealthRecordsHTML = '';
-        let previousWeight = null;
+        // Month names for display
+        const monthNames = [
+            "January", "February", "March", "April", "May", "June",
+            "July", "August", "September", "October", "November", "December"
+        ];
 
-        if (filteredSwine.length === 0) {
-            document.querySelector('#swine-health__history-list').innerHTML = 'No Swine Records.';
-            return; // stop execution
-        }
-
-        filteredSwine.forEach(record => {
-            let swineState = 'stable'; // default
-
-            if (previousWeight !== null) {
-                if (record.monthlyWeight > previousWeight) {
-                    swineState = 'increase';
-                } else if (record.monthlyWeight < previousWeight) {
-                    swineState = 'decrease';
-                }
-            }
-
-            //<img src="./images-and-icons/icons/decrease.png" alt="swine-state">
-            //<img src="./images-and-icons/icons/increase.png" alt="swine-state"></img>
-
-            swineHealthRecordsHTML += `
-                <hr>
-                <p><strong>Date:</strong> ${months[record.month - 1]} - ${record.year}</p>
-                <p class="swine-state-wrapper"><strong>Weight: </strong> ${record.monthlyWeight}kg 
-                    (<span class="swine-state ${swineState}">${swineState}</span>
-                    <img class="swine-state__img" src="./images-and-icons/icons/${swineState}.png" alt="swine-state">)
-                </p>
-                <p><strong>Health Status:</strong> ${record.monthlyStatus.charAt(0).toUpperCase() + record.monthlyStatus.slice(1)}</p>
-            `;
-
-            previousWeight = record.monthlyWeight; // update for next iteration
+        filteredSwine.forEach(data => {
+            swineMontlyWeight.push({
+                month: monthNames[data.month - 1],  // Convert 7 -> July
+                weight: data.monthlyWeight
+            });
         });
 
-        document.querySelector('#swine-health__history-list').innerHTML = swineHealthRecordsHTML;
+
+        lineGraph(swineMontlyWeight);
+
+    } catch (err) {
+        console.error("Something went wrong when getting swine records", err);
+    }
+};
+
+
+// ======================================
+// ========== Get Swine Health History
+// ======================================
+const displayAllSwineWeight = async () => {
+    const client = await fetchClient();
+    const { _id } = client;
+
+    try {
+        const swinesResponse = await fetchSwines();
+        const clientSwines = swinesResponse.filter(swine => swine.clientId === _id);
+
+        // ✅ X-axis categories (Swine Types)
+        const categories = ["Sow", "Boar", "Piglet", "Grower"];
+
+        // ✅ Create series: each swine as a series
+        const series = clientSwines.map(swine => {
+            const typeIndex = categories.indexOf(swine.type.charAt(0).toUpperCase() + swine.type.slice(1));
+            let data = [0, 0, 0, 0];
+            data[typeIndex] = swine.weight || 0;
+
+            return {
+                name: swine.swineFourDigitId, // Swine ID as series name
+                data: data
+            };
+        });
+
+        barGraph(categories, series);
 
     } catch (err) {
         console.error("Something went wrong when getting swine records", err);
@@ -268,7 +280,9 @@ const getSwineHealthHistory = async (swineId) => {
 
 
 
+
 export {
     displayClientSwines,
-    displayFullSwineDetails
+    displayFullSwineDetails,
+    displayAllSwineWeight
 };

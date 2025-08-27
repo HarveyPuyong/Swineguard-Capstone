@@ -11,7 +11,7 @@ const showConversation = () => {
     const chatboxContainer = document.querySelector('.chat-box');
     const backToContactListBtn = document.querySelector('.back-to-contact-list-btn');
     const chatboxConvo = document.querySelector('.chat-box__main-contents');
-    const chatboxDescription = document.querySelector('.chat-box__description');
+    const chatboxDescription = document.querySelector('.pre-heading-text');
     const contactListContainer = document.querySelector('.sidebar-chat-panel');
     const contactList = document.querySelectorAll('.sidebar-chat-panel .chat-list__user');
 
@@ -98,17 +98,6 @@ const viewProfilePopBox = async(clientId) => {
   document.dispatchEvent(new Event('renderVetProfilePopUpView'));
 
 }
-
-
-
-
-
-
-
-
-
-
-
 
 
 // ======================================

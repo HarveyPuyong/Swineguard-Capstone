@@ -133,6 +133,7 @@
   width: var(--size);
   height: var(--size);
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .chat-list__user-name-and-message{
@@ -232,6 +233,7 @@
   width: var(--size);
   border-radius: 50%;
   cursor: pointer;
+  object-fit: cover;
 }
 
 .chat-box__header-user-name{
@@ -336,6 +338,7 @@
   width: var(--size);
   border-radius: 50%;
   margin-right: 10px;
+  object-fit: cover;
 }
 
 .convo-list__user-chat-details--name{
@@ -532,4 +535,37 @@
     right: -60px;
     margin-right: 1.5em;
   }
+}
+
+
+/* 
+Messages
+*/
+
+.pre-heading-text.hide {
+  display: none;
+}
+.pre-heading-text.show {
+  display: flex;
+}
+
+.pre-heading-text {
+  margin-top: 15%;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+  width: 100%;
+  padding: 1rem;
+  align-items: center;
+}
+
+.pre-heading-text h1 {
+  font-size: 2rem;
+  color: #555555;
+  font-weight: 900;
+}
+.pre-heading-text p {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #3d3d3d;
 }

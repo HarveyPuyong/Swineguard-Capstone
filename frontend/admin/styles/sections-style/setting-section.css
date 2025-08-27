@@ -63,12 +63,13 @@
 
 
 .setting-form .admin-image img{
-  --size: 60px;
+  --size: 100px;
 
   height: var(--size);
   width: var(--size);
   border-radius: 50%;
   border: 1.5px solid rgb(26, 26, 26);
+  object-fit: cover;
 }
 
 .setting-form .admin-image__upload-btn{
@@ -151,6 +152,11 @@
     margin-left: 0;
     padding-left: 20px;
     padding-right: 20px;
+  }
+
+  .setting-form .admin-image img{
+    margin: 0 auto;
+    display: block;
   }
 
   #setting-form{

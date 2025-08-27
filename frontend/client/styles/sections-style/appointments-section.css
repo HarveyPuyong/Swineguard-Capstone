@@ -66,7 +66,7 @@
   box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.3);
   border-radius: 5px;
   padding: 15px 22px;
-  padding-bottom: 50px;
+  padding-bottom: 25px;
 }
 
 .appointment-card__image-container{
@@ -103,17 +103,28 @@
   font-weight: 600;
 }
 
-.appointment-card__toggle-more-details-btn{
-  position: absolute;
-  right: 25px;
-  font-size: 0.95rem;
-  bottom: 10px;
+.appointment-card__toggle-more-details-btn {
   border: none;
   background: transparent;
   color: #0f6593;
   font-weight: 600;
   cursor: pointer;
+  position: absolute; 
+  right: 25px; 
+  font-size: 0.95rem; 
+  bottom: 10px;
 }
+
+.appointment-status {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  position: absolute; 
+  font-size: 0.95rem; 
+  bottom: 10px;
+}
+
+
 
 .appointment-card__detail{
   font-size: 0.95rem;

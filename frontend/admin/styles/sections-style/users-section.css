@@ -350,8 +350,10 @@
 }
 
 .main-info-container__user-pic--img{
-  max-width: 100px;
+  width: 100px;
+  height: 100px;
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .main-info-container__user-pic--upload{

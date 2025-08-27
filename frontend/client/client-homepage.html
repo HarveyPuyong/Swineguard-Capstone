@@ -21,6 +21,7 @@
 
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -325,11 +326,7 @@
             </div>
             <!-- convo box -->
             <div class="chat-box show" id="client-message-box"> 
-              <!-- convo box description-->
-              <div class="chat-box__description"> 
-                <h2>Open client messages</h2>
-                <p>Click the icon or messages in the left side of the screen.</p>
-              </div>
+
               <div class="chat-box__main-contents" id="client-convo-list">
                 <!-- convo box header -->
 
@@ -369,7 +366,7 @@
          <section id="records-section" class="hide">
           <h1 class="section__heading">Swine Records</h1>
 
-          <div class="records-container">
+          <div class="records-container" id="swine-records-graph">
             <h3>No Content</h3>
           </div>
          </section>
