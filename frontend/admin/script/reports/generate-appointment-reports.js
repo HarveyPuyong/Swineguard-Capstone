@@ -15,22 +15,69 @@ let currentChart = null;
 
 const monthList = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
+// if (downloadAppointmentBtn) {
+//   downloadAppointmentBtn.addEventListener('click', () => {
+//     const currentDate = new Date();
+//     const year = currentDate.getFullYear();
+//     const month = currentDate.getMonth();
+//     const fileName = `appointment-report-${monthList[month]}-${year}.pdf`;
+
+//     if (tableContainer._tabulator) {
+//       tableContainer._tabulator.download("pdf", fileName, {
+//         orientation: "landscape",
+//         title: `Appointment Report - ${monthList[month]}/${year}`,
+//         jsPDF: { format: 'legal' } 
+//       });
+//     } else {
+//       popupAlert('error', 'Error', 'No table to export!')
+//     }
+//   });
+// }
+
 if (downloadAppointmentBtn) {
   downloadAppointmentBtn.addEventListener('click', () => {
-    const currentDate = new Date();
-    const year = currentDate.getFullYear();
-    const month = currentDate.getMonth();
-    const fileName = `appointment-report-${monthList[month]}-${year}.pdf`;
-
-    if (tableContainer._tabulator) {
-      tableContainer._tabulator.download("pdf", fileName, {
-        orientation: "landscape",
-        title: `Appointment Report - ${monthList[month]}/${year}`,
-        jsPDF: { format: 'legal' } 
-      });
-    } else {
-      popupAlert('error', 'Error', 'No table to export!')
+    const reportTable = Tabulator.findTable("#appointment-report-table")[0];
+    if (!reportTable) {
+      alert("No current appointment table found!");
+      return;
     }
+
+    const year = yearSelect.value;
+    const month = monthSelect.value;
+    const fileName = `appointment-report-${monthList[month-1]}-${year}.pdf`;
+
+    reportTable.download("pdf", fileName, {
+      orientation: "landscape",
+      jsPDF: { format: 'legal' },
+      autoTable: (doc) => {
+        const pageWidth = doc.internal.pageSize.getWidth();
+        let y = 50; // initial top margin for header
+
+        // Draw header
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.text("PROVINCIAL VETERINARY OFFICE of MARINDUQUE", pageWidth / 2, y, { align: "center" });
+
+        y += 25; // spacing to next line
+        doc.setFontSize(12);
+        doc.text(`APPOINTMENT REPORT ${year}`, pageWidth / 2, y, { align: "center" });
+
+        y += 15; // spacing to next line
+        doc.text(`for ${monthList[month-1]} ${year}`, pageWidth / 2, y, { align: "center" });
+
+        y += 20; // add extra space before table
+
+        // Table starts **after header**
+        return {
+          startY: y,
+          margin: { left: 20, right: 20 },
+          styles: { lineColor: [0,0,0], lineWidth: 0.5, textColor: [0,0,0], fontSize: 10 },
+          headStyles: { fillColor: [200,200,200], textColor: [0,0,0] },
+          bodyStyles: { lineColor: [0,0,0], lineWidth: 0.5 },
+          theme: "grid",
+        };
+      }
+    });
   });
 }
 

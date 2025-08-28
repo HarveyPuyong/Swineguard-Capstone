@@ -39,36 +39,44 @@ filteredNotification();
   document.querySelector('#complete-value').textContent = completedTask;
 
   const myPieChart = new Chart(donutChart, {
-    type: 'doughnut',
-    data: {
-      labels: ['Complete', 'Incomplete'],
-      datasets: [{
-        label: 'Appointments Complete Status',
-        data: [completedTask, incompleteTask], 
-        backgroundColor: ['#ef6c6d', '#365a98'],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'bottom'
-        },
-        tooltip: {
-          callbacks: {
-            callbacks: {
-              label: function(context) {
-                const dataset = context.dataset.data;
-                const total = dataset.reduce((sum, val) => sum + val, 0);
-                const value = context.parsed;
-                const percentage = ((value / total) * 100).toFixed(1) + '%';
-                return `${context.label}: ${percentage}`;
-              }
-            }
+  type: 'doughnut',
+  data: {
+    labels: ['Complete', 'Incomplete'],
+    datasets: [{
+      label: 'Appointments Complete Status',
+      data: [completedTask, incompleteTask], 
+      backgroundColor: ['#ef6c6d', '#365a98'],
+      borderWidth: 1
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: {
+      legend: { position: 'bottom' },
+      tooltip: {
+        callbacks: {
+          label: function(context) {
+            const dataset = context.dataset.data;
+            const total = dataset.reduce((sum, val) => sum + val, 0);
+            const value = context.parsed;
+            const percentage = ((value / total) * 100).toFixed(1) + '%';
+            return `${context.label}: ${value} (${percentage})`;
           }
         }
+      },
+      datalabels: {
+        color: '#fff',          // text color
+        formatter: (value, context) => {
+          const dataset = context.chart.data.datasets[0].data;
+          const total = dataset.reduce((sum, val) => sum + val, 0);
+          const percentage = ((value / total) * 100).toFixed(1);
+          return percentage + '%';
+        },
+        font: { weight: 'bold', size: 14 }
       }
     }
-  });
+  },
+  plugins: [ChartDataLabels] // enable the plugin
+});
+
 

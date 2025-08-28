@@ -17,44 +17,106 @@ const monthList = [ "January", "February", "March", "April", "May", "June", "Jul
 
 if (downloadCurrentBtn) {
   downloadCurrentBtn.addEventListener('click', () => {
+    const reportTable = Tabulator.findTable("#swines-report-table")[0];
+    if (!reportTable) {
+      alert("No current report table found!");
+      return;
+    }
+
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
     const fileName = `swine-report-${monthList[month]}-${year}.pdf`;
 
-    if (tableContainer._tabulator) {
-      tableContainer._tabulator.download("pdf", fileName, {
-        orientation: "landscape",
-        title: `Swine Report - ${monthList[month]}/${year}`,
-        jsPDF: { format: 'legal' } 
-      });
-    } else {
-      alert("No table to export!");
-    }
+    reportTable.download("pdf", fileName, {
+      orientation: "portrait",
+      jsPDF: { format: 'legal' },
+      autoTable: (doc) => {
+        const pageWidth = doc.internal.pageSize.getWidth();
+        let y = 50; // initial top margin for header
+
+        // Draw header
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.text("OFFICE OF THE MUNICIPAL AGRICULTURIST MARINDUQUE", pageWidth / 2, y, { align: "center" });
+
+        y += 25; // spacing to next line
+        doc.setFontSize(12);
+        doc.text(`SWINE INVENTORY ${year}`, pageWidth / 2, y, { align: "center" });
+
+        y += 15; // spacing to next line
+        doc.text(`for ${monthList[month]} ${year}`, pageWidth / 2, y, { align: "center" });
+
+        y += 20; // add extra space before table
+
+        // Table starts **after header**
+        return {
+          startY: y,
+          margin: { left: 20, right: 20 },
+          styles: { lineColor: [0,0,0], lineWidth: 0.5, textColor: [0,0,0], fontSize: 10 },
+          headStyles: { fillColor: [200,200,200], textColor: [0,0,0] },
+          bodyStyles: { lineColor: [0,0,0], lineWidth: 0.5 },
+          theme: "grid",
+        };
+      }
+    });
   });
 }
 
+
 if (downloadPastBtn) {
   downloadPastBtn.addEventListener('click', () => {
+    const pastTable = Tabulator.findTable("#display-monthly-swines-report-table")[0];
+    if (!pastTable) {
+      alert("No past report table found!");
+      return;
+    }
+
     const year = document.querySelector('.reports-content__select-year')?.value || 'AllYears';
     const month = document.querySelector('.reports-content__select-month')?.value || 'AllMonths';
     const fileName = `swine-report-${monthList[month-1]}-${year}.pdf`;
 
-    if (tableContainer._tabulator) {
-      tableContainer._tabulator.download("pdf", fileName, {
-        orientation: "landscape",
-        title: `Swine Report - ${monthList[month-1]}/${year}`,
-        jsPDF: { format: 'legal' } 
-      });
-    } else {
-      alert("No table to export!");
-    }
+    pastTable.download("pdf", fileName, {
+      orientation: "portrait",
+      jsPDF: { format: 'legal' },
+      autoTable: (doc) => {
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageMargin = 20; // margin from left/right
+        let y = 50; // initial top margin
+
+        // Line 1: Main header
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.text("OFFICE OF THE MUNICIPAL AGRICULTURIST MARINDUQUE", pageWidth / 2, y, { align: "center" });
+
+        // Line 2: Sub-header
+        y += 25; // spacing after line 1
+        doc.setFontSize(12);
+        doc.text(`SWINE INVENTORY ${year}`, pageWidth / 2, y, { align: "center" });
+
+        // Line 3: Report month/year
+        y += 15; // spacing after line 2
+        doc.text(`for ${monthList[month-1]} ${year}`, pageWidth / 2, y, { align: "center" });
+
+        y += 20; // extra space before table
+
+        // Table starts after header
+        return {
+          startY: y,
+          margin: { left: pageMargin, right: pageMargin },
+          styles: { lineColor: [0,0,0], lineWidth: 0.5, textColor: [0,0,0], fontSize: 10 },
+          headStyles: { fillColor: [200,200,200], textColor: [0,0,0], lineColor: [0,0,0], lineWidth: 0.5 },
+          bodyStyles: { lineColor: [0,0,0], lineWidth: 0.5 },
+          theme: "grid",
+        };
+      }
+    });
   });
 }
 
-// ======================================
-// ==========Handle Reports Appointment
-// ======================================
+
+
+
 
 let doughnutChartInstance = null;
 let swinesTable = [];
@@ -156,12 +218,6 @@ const generateSwineReports = async() => {
     window.apexDonutInstance.render();
   }
 
-  // console.log('swines:', swines);
-  // console.log('raisers:', raisers);
-  // console.log('userMunicipalityMap:', userMunicipalityMap);
-  // console.log('municipalitySwineCount:', municipalitySwineCount);
-  // console.log('swineCounts:', swineCounts);
-
   // ============================
   // Swine Table
   // ============================
@@ -190,12 +246,30 @@ const generateSwineReports = async() => {
       groupedData[key] = {
         municipality: municipality,
         barangay: barangay,
+        raisersCount: 0,
+        maleRaisers: 0,
+        femaleRaisers: 0,
         total: 0,
         piglet: 0,
         grower: 0,
         sow: 0,
-        boar: 0,
+        boar: 0
       };
+    }
+
+    // Count raiser and gender only once per client
+    if (!groupedData[key][swine.clientId]) {
+      groupedData[key][swine.clientId] = true; // mark raiser counted
+      groupedData[key].raisersCount++; // ✅ update count
+
+      const raiser = raisers.find(r => r._id === swine.clientId);
+      if (raiser && raiser.sex) {
+        if (raiser.sex.toLowerCase() === "male") {
+          groupedData[key].maleRaisers++;
+        } else if (raiser.sex.toLowerCase() === "female") {
+          groupedData[key].femaleRaisers++;
+        }
+      }
     }
 
     // Update swine counts
@@ -212,14 +286,17 @@ const generateSwineReports = async() => {
     data: swinesTable,
     layout: "fitColumns",
     responsiveLayout: true,
-    groupBy: "municipality", // 👈 Group by municipality
+    groupBy: "municipality",
     columns: [
       { title: "Barangay", field: "barangay" },
+      { title: "No. of Raisers", field: "raisersCount", hozAlign: "center" }, 
+      { title: "Male", field: "maleRaisers", hozAlign: "center" },       
+      { title: "Female", field: "femaleRaisers", hozAlign: "center" },
       { title: "No. of Swine", field: "total", hozAlign: "center" },
       { title: "Piglet", field: "piglet", hozAlign: "center" },
       { title: "Grower", field: "grower", hozAlign: "center" },
       { title: "Sow", field: "sow", hozAlign: "center" },
-      { title: "Boar", field: "boar", hozAlign: "center" },
+      { title: "Boar", field: "boar", hozAlign: "center" } 
     ]
   });
 
@@ -244,9 +321,20 @@ const generateSwineReports = async() => {
       const currentDate = new Date();
 
       const reportData = {
-        month: currentDate.getMonth() + 1 ,
+        month: currentDate.getMonth() + 1,
         year: parseInt(currentDate.getFullYear()),
-        swineData: swinesTable  // swinesTable must be globally available
+        swineData: swinesTable.map(item => ({
+          municipality: item.municipality,
+          barangay: item.barangay,
+          raisersCount: item.raisersCount,
+          maleRaisers: item.maleRaisers,
+          femaleRaisers: item.femaleRaisers,
+          total: item.total,
+          piglet: item.piglet,
+          grower: item.grower,
+          sow: item.sow,
+          boar: item.boar
+        }))
       };
 
       try {
@@ -385,19 +473,25 @@ const displaySwineReport = async () => {
           aggregatedDataMap[key] = {
             municipality: entry.municipality,
             barangay: entry.barangay,
-            total: 0,
-            piglet: 0,
-            grower: 0,
-            sow: 0,
-            boar: 0,
+            raisersCount: entry.raisersCount || 0,
+            maleRaisers: entry.maleRaisers || 0,
+            femaleRaisers: entry.femaleRaisers || 0,
+            total: entry.total || 0,
+            piglet: entry.piglet || 0,
+            grower: entry.grower || 0,
+            sow: entry.sow || 0,
+            boar: entry.boar || 0
           };
+        } else {
+          aggregatedDataMap[key].raisersCount += entry.raisersCount || 0;
+          aggregatedDataMap[key].maleRaisers += entry.maleRaisers || 0;
+          aggregatedDataMap[key].femaleRaisers += entry.femaleRaisers || 0;
+          aggregatedDataMap[key].total += entry.total || 0;
+          aggregatedDataMap[key].piglet += entry.piglet || 0;
+          aggregatedDataMap[key].grower += entry.grower || 0;
+          aggregatedDataMap[key].sow += entry.sow || 0;
+          aggregatedDataMap[key].boar += entry.boar || 0;
         }
-
-        aggregatedDataMap[key].total += entry.total;
-        aggregatedDataMap[key].piglet += entry.piglet;
-        aggregatedDataMap[key].grower += entry.grower;
-        aggregatedDataMap[key].sow += entry.sow;
-        aggregatedDataMap[key].boar += entry.boar;
       });
     });
 
@@ -414,11 +508,14 @@ const displaySwineReport = async () => {
       groupBy: "municipality",
       columns: [
         { title: "Barangay", field: "barangay" },
+        { title: "No. of Raisers", field: "raisersCount", hozAlign: "center" },
+        { title: "Male", field: "maleRaisers", hozAlign: "center" },
+        { title: "Female", field: "femaleRaisers", hozAlign: "center" },
         { title: "No. of Swine", field: "total", hozAlign: "center" },
         { title: "Piglet", field: "piglet", hozAlign: "center" },
         { title: "Grower", field: "grower", hozAlign: "center" },
         { title: "Sow", field: "sow", hozAlign: "center" },
-        { title: "Boar", field: "boar", hozAlign: "center" },
+        { title: "Boar", field: "boar", hozAlign: "center" }
       ]
     });
   };

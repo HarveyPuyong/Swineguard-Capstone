@@ -1,5 +1,6 @@
 import displayTaskList from "./display-appoinment-task.js";
 import { handleCompleteAppointment } from "../appointments/complete-restore-delete-appointment.js";
+import renderSwineGraph from "./swine-graph.js";
 
 
 // ======================================
@@ -46,4 +47,5 @@ document.addEventListener('renderTaskList', () => {
 
 export default function setupVeterinarian () {
     displayTaskList();
+    renderSwineGraph();
 }

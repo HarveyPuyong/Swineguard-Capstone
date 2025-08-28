@@ -17,6 +17,8 @@
 
         <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
 
     <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -83,7 +85,12 @@
       <div class="technician-veterenarian-page__section-wrapper sections-wrapper">
         <!-- ========== Dashboard Section ========== -->
         <section id="dashboard-section" > 
-          <h1 class="section__heading">Dashboard</h1>
+          <h1 class="section__heading">Dashboard</h1>    
+          
+          <!-- Swine Graph -->
+          <div class="swine-graph"></div>
+
+          <!-- Pie graph -->
           <div class="dashboard-content">
             <!-- dashboard donut chart-->
             <canvas id="appointment-doughnut-chart" class="dashboard-content__doughnut-chart"></canvas>   
@@ -100,7 +107,7 @@
                 <span class="dashboard-content__progress-count--value" id="complete-value">100</span>
               </p>
             </div>
-          </div>      
+          </div>
         </section>
 
         <!-- ========== Notification Section ========== -->

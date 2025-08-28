@@ -106,17 +106,6 @@ const handleResetUser = async (userId) => {
 };
 
 
-
-
-
-
-
-
-
-
-
-
-
 export {
   handleVerifyUser,
   handleResetUser

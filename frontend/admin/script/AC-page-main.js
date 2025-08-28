@@ -7,6 +7,7 @@ import setupMessagesSection from "./messages/setup-messages-section.js";
 import setupTechniciansSection from "./technicians/setup-technician-section.js";
 import setupSettingsSection from "./setting/setup-setting-section.js";
 import {handleNotification, displayACNotificationList} from "./notification/handle-notification.js";
+import { appointmentCoordinatorNotifListener } from "./notification/notification-listener.js";
 
 
 roleRidirectPage();
@@ -19,3 +20,4 @@ setupTechniciansSection();
 setupSettingsSection();
 handleNotification();
 displayACNotificationList();
+appointmentCoordinatorNotifListener();

@@ -53,6 +53,7 @@
 .staff-card__img{
   max-width: 100px;
   border-radius: 5px;
+  object-fit: cover;
 }
 
 .staff-card__details-container{

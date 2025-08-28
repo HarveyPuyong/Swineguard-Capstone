@@ -16,20 +16,49 @@ const monthList = [ "January", "February", "March", "April", "May", "June", "Jul
 
 if (downloadIventoryBtn) {
   downloadIventoryBtn.addEventListener('click', () => {
+    const reportTable = Tabulator.findTable("#inventory-report-table")[0];
+    if (!reportTable) {
+      alert("No current report table found!");
+      return;
+    }
+
     const currentDate = new Date();
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
-    const fileName = `inventory-report-${monthList[month]}-${year}.pdf`;
+    const fileName = `swine-report-${monthList[month]}-${year}.pdf`;
 
-    if (tableContainer._tabulator) {
-      tableContainer._tabulator.download("pdf", fileName, {
-        orientation: "landscape",
-        title: `Inventory Report - ${monthList[month]}/${year}`,
-        jsPDF: { format: 'legal' } 
-      });
-    } else {
-      alert("No table to export!");
-    }
+    reportTable.download("pdf", fileName, {
+      orientation: "portrait",
+      jsPDF: { format: 'legal' },
+      autoTable: (doc) => {
+        const pageWidth = doc.internal.pageSize.getWidth();
+        let y = 50; // initial top margin for header
+
+        // Draw header
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(14);
+        doc.text("PROVINCIAL VETERINARY OFFICE of MARINDUQUE", pageWidth / 2, y, { align: "center" });
+
+        y += 25; // spacing to next line
+        doc.setFontSize(12);
+        doc.text(`MEDICINE INVENTORY ${year}`, pageWidth / 2, y, { align: "center" });
+
+        y += 15; // spacing to next line
+        doc.text(`for ${monthList[month]} ${year}`, pageWidth / 2, y, { align: "center" });
+
+        y += 20; // add extra space before table
+
+        // Table starts **after header**
+        return {
+          startY: y,
+          margin: { left: 20, right: 20 },
+          styles: { lineColor: [0,0,0], lineWidth: 0.5, textColor: [0,0,0], fontSize: 10 },
+          headStyles: { fillColor: [200,200,200], textColor: [0,0,0] },
+          bodyStyles: { lineColor: [0,0,0], lineWidth: 0.5 },
+          theme: "grid",
+        };
+      }
+    });
   });
 }
 
@@ -149,8 +178,7 @@ const generateInventoryReport = async () => {
         { title: "Used Item", field: "usedDosage", hozAlign: "center" },
         { title: "Quantity", field: "itemQuantity", hozAlign: "center" },
         { title: "Status", field: "itemStatus", hozAlign: "center" },
-        { title: "Expiry Date", field: "expirationDate", hozAlign: "center" },
-        { title: "Description", field: "description" }
+        { title: "Expiry Date", field: "expirationDate", hozAlign: "center" }
       ]
     });
   };
@@ -301,8 +329,7 @@ const displayInventoryReport = async () => {
         { title: "Used Item (mg)", field: "usedDosage", hozAlign: "center" },
         { title: "Quantity", field: "itemQuantity", hozAlign: "center" },
         { title: "Status", field: "itemStatus", hozAlign: "center" },
-        { title: "Expiry Date", field: "expirationDate", hozAlign: "center"},
-        { title: "Description", field: "description" }
+        { title: "Expiry Date", field: "expirationDate", hozAlign: "center"}
       ]
     });
   };

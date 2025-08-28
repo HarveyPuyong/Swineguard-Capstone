@@ -54,6 +54,7 @@
     max-height: 200px;
     height: 100%;
     padding: 1rem;
+    cursor: pointer;
 }
 .notif-title {
     font-weight: 600;

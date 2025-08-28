@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const reportItemSchema = new mongoose.Schema({
   municipality: { type: String, required: true },
   barangay: { type: String, required: true },
+  raisersCount: { type: Number, default: 0 },
+  maleRaisers: { type: Number, default: 0 },  
+  femaleRaisers: { type: Number, default: 0 }, 
   total: { type: Number, default: 0 },
   piglet: { type: Number, default: 0 },
   grower: { type: Number, default: 0 },
@@ -17,10 +20,9 @@ const monthlySwineReportSchema = new mongoose.Schema({
   swineData: [reportItemSchema]
 }, {
   collection: 'reports',
-  timestamps: true 
+  timestamps: true
 });
 
-// Enforce uniqueness on (month, year)
 monthlySwineReportSchema.index({ month: 1, year: 1 }, { unique: true });
 
 const SwineReport = mongoose.model('MonthlySwineReport', monthlySwineReportSchema);
@@ -34,8 +36,7 @@ const inventoryItemSchema = new mongoose.Schema({
   usedDosage: { type: Number, required: true },
   quantity: { type: Number, required: true },
   expiryDate: { type: Date, required: true },
-  itemStatus: { type: String, required: true },
-  description: { type: String }
+  itemStatus: { type: String, required: true }
 }, { _id: false });
 
 const inventoryReportSchema = new mongoose.Schema({

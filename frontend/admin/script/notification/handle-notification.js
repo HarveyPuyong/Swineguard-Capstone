@@ -15,6 +15,39 @@ const handleNotification = () => {
 };
 
 
+const displayAdminNotificationList = async() => {
+    const users = await fetchUsers();
+    const filteredUserAccount = users.filter(user => !user.isRegistered);
+
+    let notificationHTML = '';
+    let notifCount = '';
+
+    if (filteredUserAccount.length === 0) {  
+        notificationHTML = `
+            <div class="notif">
+                <p class="notif-title">No Notification</p>
+            </div>
+        `;
+        notifCount = ''; 
+        
+    } else {
+        for (const user of filteredUserAccount) {
+            notificationHTML += `
+                <div class="notif">
+                    <p class="notif-title">New user account created</p>
+                    <p class="notif-short-text">New account created named <strong>${user.firstName}</strong></p>
+                </div>
+            `;
+        }
+        notifCount = filteredUserAccount.length;
+    }
+
+    document.querySelector('.notification .notif-list').innerHTML = notificationHTML;
+    document.querySelector('.header__notification-label').textContent = notifCount;
+    document.dispatchEvent(new Event('renderAdminNotification'));
+}
+
+
 const displayACNotificationList = async() => {
     const appointments = await fetchAppointments();
     const filteredAppointment = appointments.filter(appt => appt.appointmentStatus === 'pending');
@@ -47,39 +80,6 @@ const displayACNotificationList = async() => {
     document.querySelector('.notification .notif-list').innerHTML = notificationHTML;
     document.querySelector('.header__notification-label').textContent = notifCount;
     document.dispatchEvent(new Event('renderACNotification'));
-}
-
-
-const displayAdminNotificationList = async() => {
-    const users = await fetchUsers();
-    const filteredUserAccount = users.filter(user => !user.isRegistered);
-
-    let notificationHTML = '';
-    let notifCount = '';
-
-    if (filteredUserAccount.length === 0) {  
-        notificationHTML = `
-            <div class="notif">
-                <p class="notif-title">No Notification</p>
-            </div>
-        `;
-        notifCount = ''; 
-        
-    } else {
-        for (const user of filteredUserAccount) {
-            notificationHTML += `
-                <div class="notif">
-                    <p class="notif-title">New user account created</p>
-                    <p class="notif-short-text">New account created named <strong>${user.firstName}</strong></p>
-                </div>
-            `;
-        }
-        notifCount = filteredUserAccount.length;
-    }
-
-    document.querySelector('.notification .notif-list').innerHTML = notificationHTML;
-    document.querySelector('.header__notification-label').textContent = notifCount;
-    document.dispatchEvent(new Event('renderAdminNotification'));
 }
 
 
