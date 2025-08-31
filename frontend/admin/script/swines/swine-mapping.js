@@ -218,8 +218,6 @@ const toggleMunicipality = () => {
 
 
 
-
-
 // ======================================
 // ========== Number of swine per Municipality Table
 // ======================================

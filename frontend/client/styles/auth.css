@@ -40,8 +40,13 @@ a{
 
 
 body{
-  background-color: var(--neutral-color);
   font-family: "Poppins", sans-serif;
+  height: 100%;
+  width: 100%;
+  background-image: url('./../images-and-icons/images/veterenary-office.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .main-wrapper{
@@ -103,8 +108,11 @@ header{
    ===================================================
 */
 form{ 
-  position: relative;
-  max-width: 700px; 
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(350px, 30vw, 700px); 
   color: white;
   background: linear-gradient(to bottom, #00EB6D, #29a865);
   border-top-right-radius: 4px;
@@ -113,7 +121,6 @@ form{
   border-bottom-right-radius: 15px;
   padding: 20px 16px;
   padding-bottom: 35px;
-  margin-top: 90px;
   margin-inline: auto;
 }
 

@@ -2,6 +2,7 @@ import handleRenderSwines from "./display-swines.js";
 import {generateSwineReports, displaySwineReport} from "../reports/generate-swine-report.js";
 import populateReportDates from "../reports/setup-reports.js";
 import { toggleMunicipality, numOfSwinePerMunicipalTable, handleGraphNavButton, swineMapping} from "./swine-mapping.js"
+import handleSelectMunicipalOnChange from "./swine-population-table.js";
 
 
 // ======================================
@@ -79,7 +80,7 @@ const searchSwines = () => {
 
 
 // ======================================
-// ========== Filter Appointments
+// ========== Filter Swine
 // ======================================
 const filterSwines = () => {
   document.addEventListener('renderAppointments', () => {
@@ -151,6 +152,7 @@ const changeContentsFunctionality = () => {
 const mappingContentToggleMapAndGraph = () => {
   const mapWrapper = document.querySelector('.mapping-contents__map-wrapper');
   const graphWrapper = document.querySelector('.mapping-contents__swine-type-graph-wrapper');
+  const swinePopulationTableContainer = document.querySelector('.swine-population-table');
 
   const showMapBtn = document.querySelector('.mapping-contents__show-map-btn');
   const showGraphBtn = document.querySelector('.mapping-contents__show-graph-btn');
@@ -159,8 +161,11 @@ const mappingContentToggleMapAndGraph = () => {
   showGraphBtn.addEventListener('click', () => {
     mapWrapper.classList.remove('show');
     graphWrapper.classList.add('show');
+    swinePopulationTableContainer.classList.add('show');
+
     showMapBtn.classList.remove('active');
     showGraphBtn.classList.add('active');
+
     // Display the default graph
     swineMapping('all');
   });
@@ -169,6 +174,8 @@ const mappingContentToggleMapAndGraph = () => {
   showMapBtn.addEventListener('click', () => {
     mapWrapper.classList.add('show');
     graphWrapper.classList.remove('show');
+    swinePopulationTableContainer.classList.remove('show');
+
     showMapBtn.classList.add('active');
     showGraphBtn.classList.remove('active');
   });
@@ -192,4 +199,5 @@ export default function setupSwinesSection() {
   toggleMunicipality();
   numOfSwinePerMunicipalTable();
   handleGraphNavButton();
+  handleSelectMunicipalOnChange();
 }

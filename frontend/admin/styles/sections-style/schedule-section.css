@@ -28,7 +28,7 @@
   display: flex;
   justify-content: space-between;
   gap: 14px;
-  background-color: rgb(170, 170, 170);
+  background-color: #D2D2D2;
   border-radius: 5px;
   padding: 3%;
 }

@@ -1,6 +1,6 @@
 //  Verify inputs empty or too short
 const isValidInput = (userInput) => {
-    return typeof userInput === 'string' && userInput.trim().length > 2;
+    return typeof userInput === 'string' && userInput.trim().length > 1;
 }
 
 // Check for emojis

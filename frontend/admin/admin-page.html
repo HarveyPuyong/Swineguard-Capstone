@@ -458,6 +458,7 @@
                 </div>
               </div>
             </div>
+            
 
             <!-- swine-type-graph wrapper -->
             <div class="mapping-contents__swine-type-graph-wrapper mapping-contents__wrapper">
@@ -531,7 +532,43 @@
                   </div>
                 </div>
               </div>
+
             </div>
+
+            <div class="swine-population-table">
+              <h3>Number of Swines in <span id="municipal-for-population">Municipal</span></h3> 
+              <select name="population-municipality" id="population-municipality">
+                <option value="">Select municipality</option>
+                <option value="Mogpog">Mogpog</option>
+                <option value="Boac">Boac</option>
+                <option value="Gasan">Gasan</option>
+                <option value="Buenavista">Buenavista</option>
+                <option value="SantaCruz">Sta. Cruz</option>
+                <option value="Torrijos">Torrijos</option>
+              </select>
+
+              <!-- render at swine-population.js -->
+              <div class="swine-population__table-container"> 
+                  <table>
+                    <thead>
+                        <tr>
+                            <th>Barangay</th>
+                            <th>No. of Swine</th>
+                            <th>Piglet</th>
+                            <th>Grower</th>
+                            <th>Gilt/Barrow</th>
+                            <th>Boar</th>
+                            <th>Sow</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td colspan="7">Kindly select municipality to display swines</td></tr>
+                    </tbody>
+                </table>
+              </div>
+
+            </div>
+
           </div>
 
           <!-- Swine Section: Generate reports contents -->

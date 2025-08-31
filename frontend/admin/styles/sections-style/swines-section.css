@@ -553,7 +553,8 @@
 }
 
 /* ============== Swine Type Graph Wrapper ============== */
-.mapping-contents__swine-type-graph-wrapper{
+.mapping-contents__swine-type-graph-wrapper, 
+.swine-population-table {
   display: none;
 }
 .mapping-contents__swine-type-graph-wrapper.show{
@@ -561,6 +562,42 @@
   align-items: center;
   justify-content: center;
 }
+
+.swine-population-table.show{
+  display: block;
+  width: 100%;
+  background-color: green;
+  padding: 2rem 1rem;
+  margin: 3rem 0;
+}
+
+/* 
+  Table Design
+*/
+table {
+  width: 50%;
+  margin: 20px auto;
+  border-collapse: collapse; /* No borders */
+  font-family: Arial, sans-serif;
+  border: 1px solid black;
+}
+th, td {
+  padding: 10px 15px;
+  text-align: left;
+  border: 1px solid black;
+}
+th {
+  font-weight: bold;
+}
+
+.swine-population-table select{
+  padding: .2rem .3rem;
+  border-radius: 4px;
+  width: 200px;
+}
+
+
+
 
 .swine-types-list-nav{
   position: absolute;
