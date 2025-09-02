@@ -328,6 +328,49 @@
   font-size: 1rem;
 }
 
+/* 
+  Add Swine COntainer
+*/
+.add-swine-population-container {
+  display: none;
+}
+
+.add-swine-population-container.show {
+  display: block;
+  display: 100%;
+  margin-top: 40px;
+  position: relative;
+  border: 2px solid rgba(43, 43, 43, 0.376);
+  box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.2);
+  padding: 40px 25px;
+  padding-bottom: 40px;
+  border-radius: 6px;
+  background-color: white;
+}
+.add-swine-population-container h3 {
+  text-align: center;
+}
+
+.table-btn-container {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: flex-end;
+}
+.table-btn-container button {
+  padding: .3rem 1.2rem;
+  background-color: #009947;
+  color: white;
+  font-size: 1rem;
+  border: 2px solid #00833d;
+  border-radius: 4px;
+}
+.table-btn-container button:nth-child(2) {
+  background-color: #ff5a5a;
+  border: 2px solid #cc3939;
+  color: #960000;
+}
+
 
 
 
@@ -364,6 +407,10 @@
 }
 
 .mapping-contents__buttons-container button.active{
+  background-color: #005026;
+}
+
+.mapping-contents__show-add-swine-btn.active{
   background-color: #005026;
 }
 
@@ -566,19 +613,22 @@
 .swine-population-table.show{
   display: block;
   width: 100%;
-  background-color: green;
-  padding: 2rem 1rem;
+  background-color: white;
+  padding: 2rem 3rem;
   margin: 3rem 0;
+  border: 2px solid rgba(43, 43, 43, 0.376);
+  box-shadow: 0 0 2px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 6px;
+  
 }
 
 /* 
   Table Design
 */
 table {
-  width: 50%;
+  width: 100%;
   margin: 20px auto;
-  border-collapse: collapse; /* No borders */
-  font-family: Arial, sans-serif;
+  border-collapse: collapse;
   border: 1px solid black;
 }
 th, td {
@@ -588,13 +638,38 @@ th, td {
 }
 th {
   font-weight: bold;
+  text-align: center;
 }
 
-.swine-population-table select{
+.swine-population-table select,
+#add-population-municipality {
   padding: .2rem .3rem;
   border-radius: 4px;
   width: 200px;
+  margin-top: .5rem;
+  border: 1px solid rgba(43, 43, 43, 0.376);
 }
+#add-population-municipality {
+  text-align: left;
+}
+
+tr .td-brgy {
+  text-align: left;
+}
+tr .header-brgy {
+  text-align: left;
+}
+
+tr td {
+  text-align: center;
+}
+
+td input {
+  width: 100%;
+  text-align: center;
+}
+
+
 
 
 

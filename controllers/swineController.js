@@ -1,4 +1,4 @@
-const {swineSchema, swineHealthRecordSchema} = require('./../models/swineModel');
+const {swineSchema, swineHealthRecordSchema, SwinePopulation} = require('./../models/swineModel');
 const generateSwineId = require('./../utils/generate-swine-id')
 const mongoose = require('mongoose');
 
@@ -257,7 +257,7 @@ exports.saveSwineMonthlyRecords = async (req, res) => {
 };
 
 
-
+// Save multiple swine
 exports.saveMultipleSwineMonthlyRecords = async (req, res) => {
     const { records } = req.body;
 
@@ -310,9 +310,6 @@ exports.saveMultipleSwineMonthlyRecords = async (req, res) => {
 };
 
 
-
-
-
 // Get swine Montly Records
 exports.getSwineMontlyRecords = async (req, res) => {
     try {
@@ -338,4 +335,59 @@ function isValidNumber (value) {
 
     const number = Number(value);
     return !isNaN(number) && isFinite(number) && number > 0;
+};
+
+
+
+
+
+// Add Swine Population
+exports.addSwinePopulation = async (req, res) => {
+  try {
+    const { municipality, barangays, month, year } = req.body;
+
+    if (!municipality || !Array.isArray(barangays) || barangays.length === 0) {
+      return res.status(400).json({ message: "Municipality and barangays data required" });
+    }
+
+    const population = new SwinePopulation({
+      municipality,
+      barangays,
+      month,
+      year,
+    });
+
+    await population.save();
+    res.status(201).json({ message: "Swine population saved successfully", data: population });
+  } catch (error) {
+    console.error("Error saving swine population:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// ✅ Get all swine population records
+exports.getSwinePopulations = async (req, res) => {
+  try {
+    const data = await SwinePopulation.find().sort({ createdAt: -1 });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
+// ✅ Get by municipality / month / year
+exports.getSwinePopulationByFilter = async (req, res) => {
+  try {
+    const { municipality, month, year } = req.query;
+    const filter = {};
+
+    if (municipality) filter.municipality = municipality;
+    if (month) filter.month = Number(month);
+    if (year) filter.year = Number(year);
+
+    const data = await SwinePopulation.find(filter);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(500).json({ message: "Server error" });
+  }
 };

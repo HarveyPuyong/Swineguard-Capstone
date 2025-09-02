@@ -3,6 +3,7 @@ import {generateSwineReports, displaySwineReport} from "../reports/generate-swin
 import populateReportDates from "../reports/setup-reports.js";
 import { toggleMunicipality, numOfSwinePerMunicipalTable, handleGraphNavButton, swineMapping} from "./swine-mapping.js"
 import handleSelectMunicipalOnChange from "./swine-population-table.js";
+import renderAddSwineTable from "./add-swine-population.js";
 
 
 // ======================================
@@ -153,18 +154,22 @@ const mappingContentToggleMapAndGraph = () => {
   const mapWrapper = document.querySelector('.mapping-contents__map-wrapper');
   const graphWrapper = document.querySelector('.mapping-contents__swine-type-graph-wrapper');
   const swinePopulationTableContainer = document.querySelector('.swine-population-table');
+  const addSwinePopulationTableContainer = document.querySelector('.add-swine-population-container');
 
   const showMapBtn = document.querySelector('.mapping-contents__show-map-btn');
   const showGraphBtn = document.querySelector('.mapping-contents__show-graph-btn');
+  const addSwineBtn = document.querySelector('.mapping-contents__show-add-swine-btn')
 
   // Show Graph
   showGraphBtn.addEventListener('click', () => {
     mapWrapper.classList.remove('show');
     graphWrapper.classList.add('show');
     swinePopulationTableContainer.classList.add('show');
+    addSwinePopulationTableContainer.classList.remove('show');
 
     showMapBtn.classList.remove('active');
     showGraphBtn.classList.add('active');
+    addSwineBtn.classList.remove('active');
 
     // Display the default graph
     swineMapping('all');
@@ -175,10 +180,24 @@ const mappingContentToggleMapAndGraph = () => {
     mapWrapper.classList.add('show');
     graphWrapper.classList.remove('show');
     swinePopulationTableContainer.classList.remove('show');
+    addSwinePopulationTableContainer.classList.remove('show');
 
     showMapBtn.classList.add('active');
     showGraphBtn.classList.remove('active');
+    addSwineBtn.classList.remove('active');
   });
+
+  //Show Add swine Table
+  addSwineBtn.addEventListener('click', () => {
+    mapWrapper.classList.remove('show');
+    graphWrapper.classList.remove('show');
+    swinePopulationTableContainer.classList.remove('show');
+    addSwinePopulationTableContainer.classList.add('show');
+
+    showMapBtn.classList.remove('active');
+    showGraphBtn.classList.remove('active');
+    addSwineBtn.classList.add('active');
+  })
 }
 
 
@@ -200,4 +219,5 @@ export default function setupSwinesSection() {
   numOfSwinePerMunicipalTable();
   handleGraphNavButton();
   handleSelectMunicipalOnChange();
+  renderAddSwineTable();
 }

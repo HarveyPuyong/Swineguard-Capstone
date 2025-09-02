@@ -332,6 +332,7 @@
             <!--buttons-container (back-to-table, show-map, show-type-graph) -->
             <div class="mapping-contents__buttons-container">             
               <button class="mapping-contents__back-table-btn back-table-btn">Back to table</button>    
+              <button class="mapping-contents__show-add-swine-btn">Add Swine</button>    
               <button class="mapping-contents__show-map-btn active">Swine Map</button>
               <button class="mapping-contents__show-graph-btn">Swine Graph</button>
             </div>
@@ -535,6 +536,7 @@
 
             </div>
 
+            <!-- Swine Population Table -->
             <div class="swine-population-table">
               <h3>Number of Swines in <span id="municipal-for-population">Municipal</span></h3> 
               <select name="population-municipality" id="population-municipality">
@@ -549,22 +551,73 @@
 
               <!-- render at swine-population.js -->
               <div class="swine-population__table-container"> 
-                  <table>
+                <table>
+                  <thead>
+                      <tr>
+                          <th rowspan="2">Barangay</th>
+                          <th rowspan="2">Total</th>
+                          <th colspan="4">Native</th>
+                          <th colspan="4">Cross Breed</th>
+                      </tr>
+                      <tr>
+                          <th>Boar</th>
+                          <th>Gilt/Sow</th>
+                          <th>Grower</th>
+                          <th>Piglet</th>
+
+                          <th>Boar</th>
+                          <th>Gilt/Sow</th>
+                          <th>Grower</th>
+                          <th>Piglet</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                    <tr><td colspan="14">Kindly select municipality to display Swine</td></tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+
+            <!-- add swine by table -->
+            <div class="add-swine-population-container">
+              <h3>Add Swine Population</h3>
+              <select name="add-population-municipality" id="add-population-municipality">
+                <option value="">Select municipality</option>
+                <option value="Mogpog">Mogpog</option>
+                <option value="Boac">Boac</option>
+                <option value="Gasan">Gasan</option>
+                <option value="Buenavista">Buenavista</option>
+                <option value="SantaCruz">Sta. Cruz</option>
+                <option value="Torrijos">Torrijos</option>
+              </select>
+
+              <div class="add-swine-table">
+                <!-- render swine table using add-swine-population.js -->
+                 <table>
                     <thead>
-                        <tr>
-                            <th>Barangay</th>
-                            <th>No. of Swine</th>
-                            <th>Piglet</th>
-                            <th>Grower</th>
-                            <th>Gilt/Barrow</th>
-                            <th>Boar</th>
-                            <th>Sow</th>
-                        </tr>
+                      <tr>
+                          <th rowspan="2">Barangay</th>
+                          <th colspan="4">Native</th>
+                          <th colspan="4">Cross Breed</th>
+                      </tr>
+                      <tr>
+                          <th>Boar</th>
+                          <th>Gilt/Sow</th>
+                          <th>Grower</th>
+                          <th>Piglet</th>
+
+                          <th>Boar</th>
+                          <th>Gilt/Sow</th>
+                          <th>Grower</th>
+                          <th>Piglet</th>
+                      </tr>
                     </thead>
                     <tbody>
-                        <tr><td colspan="7">Kindly select municipality to display swines</td></tr>
+                      <tr><td colspan="14">Select Municipality to add Swine</td></tr>
                     </tbody>
                 </table>
+
               </div>
 
             </div>

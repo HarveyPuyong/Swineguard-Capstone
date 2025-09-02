@@ -40,7 +40,35 @@ const swineHealthRecordsSchema = new mongoose.Schema({
 
 const swineHealthRecordSchema = mongoose.model('SwineHealthRecords', swineHealthRecordsSchema);
 
+
+
+// For admin adding swine records
+const swineDataSchema = new mongoose.Schema({
+  boar: { type: Number, default: 0 },
+  gilt_sow: { type: Number, default: 0 },
+  grower: { type: Number, default: 0 },
+  piglet: { type: Number, default: 0 },
+});
+
+const barangayPopulationSchema = new mongoose.Schema({
+  barangay: { type: String, required: true },
+  native: swineDataSchema,
+  crossBreed: swineDataSchema,
+});
+
+const swinePopulationSchema = new mongoose.Schema({
+  municipality: { type: String, required: true },
+  barangays: [barangayPopulationSchema],
+  month: { type: Number, required: true }, // e.g. 1 = January
+  year: { type: Number, required: true },
+  createdAt: { type: Date, default: Date.now },
+});
+
+
+const SwinePopulation = mongoose.model("SwinePopulation", swinePopulationSchema);
+
 module.exports = {
     swineSchema,
-    swineHealthRecordSchema
+    swineHealthRecordSchema,
+    SwinePopulation
 }
