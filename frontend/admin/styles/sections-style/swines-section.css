@@ -364,11 +364,17 @@
   font-size: 1rem;
   border: 2px solid #00833d;
   border-radius: 4px;
+  cursor: pointer;
 }
 .table-btn-container button:nth-child(2) {
   background-color: #ff5a5a;
   border: 2px solid #cc3939;
   color: #960000;
+}
+
+.highlight-row {
+  background-color: #aad4ee9d;
+  transition: background-color 0.2s ease;
 }
 
 

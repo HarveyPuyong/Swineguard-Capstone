@@ -70,6 +70,17 @@ const renderAddSwineTable = () => {
         addSwineContainer.innerHTML = tableHTML;
 
 
+        // Highlight row on input focus
+        const rowsHighlights = document.querySelectorAll('tbody tr');
+        rowsHighlights.forEach(row => {
+            const inputs = row.querySelectorAll('input');
+            inputs.forEach(input => {
+                input.addEventListener('focus', () => {
+                    rowsHighlights.forEach(r => r.classList.remove('highlight-row'));
+                    row.classList.add('highlight-row');
+                });
+            });
+        });
 
         const form = document.querySelector('#add-swine-population-form');
         
@@ -116,7 +127,7 @@ const renderAddSwineTable = () => {
                 const res = await api.post("/swine/add/swine-population", payload);
                 popupAlert("success", res.data.message || "Swine population saved!");
                 //console.log("📦 Backend Response:", res.data);
-                form.reset();
+                //form.reset();
             } catch (error) {
                 console.error("❌ Error saving data:", error);
                 popupAlert("error", error.response?.data?.message || "Failed to save swine population");

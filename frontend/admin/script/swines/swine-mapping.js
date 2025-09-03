@@ -1,12 +1,13 @@
 import fetchSwines from "../../api/fetch-swines.js";
 import fetchUsers from "../../api/fetch-users.js";
+import fetchSwinePopulation from "../../api/fetch-swine-population.js";
 
 
 // ======================================
 // ========== Number of swine per Municipality Table
 // ======================================
 
-const numOfSwinePerMunicipal = async(status) => {
+const numOfSwinePerMunicipal = async (status) => {
   //Table
   const mogpog = document.querySelector('.municipality.mogpog .number-of-swines');
   const boac = document.querySelector('.municipality.boac .number-of-swines');
@@ -24,84 +25,89 @@ const numOfSwinePerMunicipal = async(status) => {
   const santacruzPercentage = document.querySelector('#santacruz-percentage');
   const torrijosPercentage = document.querySelector('#torrijos-percentage');
 
-  const swines = await fetchSwines(); // [{ clientId: '...', ... }]
-  const users = await fetchUsers();   // [{ _id: '...', municipal: '...' }]
+  const swines = await fetchSwines(); 
+  const users = await fetchUsers();   
+  const populations = await fetchSwinePopulation();
+
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear();
+  
+  const populationsFromManual = populations.filter(population => population.month === currentMonth && population.year === currentYear);
 
   // Create a map of userId -> municipal
   const userMunicipalMap = {};
-
   users.forEach(user => {
-  if (user._id && user.municipality) {
+    if (user._id && user.municipality) {
       userMunicipalMap[user._id] = user.municipality.toLowerCase();
-  }
+    }
   });
 
   // Count swines per municipal
   const municipalCounts = {
-      mogpog: 0,
-      boac: 0,
-      gasan: 0,
-      buenavista: 0,
-      santacruz: 0,
-      torrijos: 0
+    mogpog: 0,
+    boac: 0,
+    gasan: 0,
+    buenavista: 0,
+    santacruz: 0,
+    torrijos: 0
   };
 
-  // Filter from select tag
-  if (status === 'all') {
-    swines.forEach(swine => {
-      const municipal = userMunicipalMap[swine.clientId];
-      if (municipal && municipalCounts.hasOwnProperty(municipal) &&
-        swine.status !== 'deceased' &&
-        swine.status !== 'removed') {
-        municipalCounts[municipal]++;
-      }
-    });
-  } else if (status === 'healthy'){
-    swines.forEach(swine => {
-      const municipal = userMunicipalMap[swine.clientId];
-      if (municipal && municipalCounts.hasOwnProperty(municipal) &&
-        swine.status === status &&
-        swine.status !== 'deceased' &&
-        swine.status !== 'removed') {
-        municipalCounts[municipal]++;
-      }
-    });
-  } else if (status === 'pregnant'){
-    swines.forEach(swine => {
-      const municipal = userMunicipalMap[swine.clientId];
-      if (municipal && municipalCounts.hasOwnProperty(municipal) &&
-        swine.status === status &&
-        swine.status !== 'deceased' &&
-        swine.status !== 'removed') {
-        municipalCounts[municipal]++;
-      }
-    });
-  } else if (status === 'sick'){
-    swines.forEach(swine => {
-      const municipal = userMunicipalMap[swine.clientId];
-      if (municipal && municipalCounts.hasOwnProperty(municipal) &&
-        swine.status === status &&
-        swine.status !== 'deceased' &&
-        swine.status !== 'removed') {
-        municipalCounts[municipal]++;
-      }
-    });
-  } else if (status === 'deceased'){
-    swines.forEach(swine => {
-      const municipal = userMunicipalMap[swine.clientId];
-      if (municipal && municipalCounts.hasOwnProperty(municipal) &&
-        swine.status === status &&
-        swine.status !== 'removed') {
-        municipalCounts[municipal]++;
-      }
-    });
-  }
+  // ======================
+  // 1) Digital swine records
+  // ======================
+  swines.forEach(swine => {
+    const municipal = userMunicipalMap[swine.clientId];
+    if (!municipal || !municipalCounts.hasOwnProperty(municipal)) return;
 
-  
+    const isValid = swine.status !== 'removed'; // removed should never count
+    if (!isValid) return;
 
+    if (status === 'all' && swine.status !== 'deceased') {
+      municipalCounts[municipal]++;
+    } else if (status === 'healthy' && swine.status === 'healthy') {
+      municipalCounts[municipal]++;
+    } else if (status === 'pregnant' && swine.status === 'pregnant') {
+      municipalCounts[municipal]++;
+    } else if (status === 'sick' && swine.status === 'sick') {
+      municipalCounts[municipal]++;
+    } else if (status === 'deceased' && swine.status === 'deceased') {
+      municipalCounts[municipal]++;
+    }
+  });
+
+  // ======================
+  // 2) Manual census (always healthy)
+  // ======================
+  populationsFromManual.forEach(record => {
+    const municipal = record.municipality?.toLowerCase();
+    if (!municipalCounts.hasOwnProperty(municipal)) return;
+
+    let total = 0;
+
+    record.barangays.forEach(brgy => {
+      total +=
+        (brgy.native?.boar || 0) +
+        (brgy.native?.gilt_sow || 0) +
+        (brgy.native?.grower || 0) +
+        (brgy.native?.piglet || 0) +
+        (brgy.crossBreed?.boar || 0) +
+        (brgy.crossBreed?.gilt_sow || 0) +
+        (brgy.crossBreed?.grower || 0) +
+        (brgy.crossBreed?.piglet || 0);
+    });
+
+    // ✅ Always add to healthy count
+    if (status === 'all' || status === 'healthy') {
+      municipalCounts[municipal] += total;
+    }
+  });
+
+  // ======================
+  // 3) Totals + Percentages
+  // ======================
   const total = Object.values(municipalCounts).reduce((sum, value) => sum + value, 0);
 
-  // Function to calculate percentage safely
   const getPercentage = (count, total) => {
     return total > 0 ? ((count / total) * 100).toFixed(1) : "0.0";
   };
@@ -133,8 +139,8 @@ const numOfSwinePerMunicipal = async(status) => {
   }
 
   totalSwines.textContent = total;
-    
-}
+};
+
 
 
 
@@ -235,6 +241,13 @@ const numOfSwinePerMunicipalTable = async () => {
 
   const swines = await fetchSwines();
   const users = await fetchUsers();
+  const populations = await fetchSwinePopulation();
+
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear();
+  
+  const manualSwinesPopulation = populations.filter(population => population.month === currentMonth && population.year === currentYear);
 
   // Map userId -> municipality
   const userMunicipalMap = {};
@@ -263,6 +276,27 @@ const numOfSwinePerMunicipalTable = async () => {
       swine.status !== 'removed'
     ) {
       municipalCounts[municipal]++;
+    }
+  });
+
+  manualSwinesPopulation.forEach(doc => {
+    const municipal = doc.municipality.toLowerCase();
+    if (municipalCounts.hasOwnProperty(municipal)) {
+      let manualTotal = 0;
+      doc.barangays.forEach(b => {
+        manualTotal += (b.native.boar || 0);
+        manualTotal += (b.native.gilt_sow || 0);
+        manualTotal += (b.native.grower || 0);
+        manualTotal += (b.native.piglet || 0);
+
+        manualTotal += (b.crossBreed.boar || 0);
+        manualTotal += (b.crossBreed.gilt_sow || 0);
+        manualTotal += (b.crossBreed.grower || 0);
+        manualTotal += (b.crossBreed.piglet || 0);
+      });
+
+      // ✅ add manual counts to the digital ones
+      municipalCounts[municipal] += manualTotal;
     }
   });
 
@@ -315,7 +349,7 @@ const handleGraphNavButton = () => {
       swineMapping(type);
     } else if (type === 'grower') {
       swineMapping(type);
-    } else if (type === 'sow') {
+    } else if (type === 'gilt/sow') { type = 'sow'; 
       swineMapping(type);
     } else if (type === 'boar') {
       swineMapping(type);
@@ -337,6 +371,14 @@ const swineMapping = async (type) => {
   const swines = await fetchSwines();
   const users = await fetchUsers();
 
+  const populations = await fetchSwinePopulation();
+
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear();
+  
+  const populationsFromManual = populations.filter(population => population.month === currentMonth && population.year === currentYear);
+
   // Map userId -> municipality
   const userMunicipalMap = {};
   users.forEach(user => {
@@ -345,7 +387,7 @@ const swineMapping = async (type) => {
     }
   });
 
-  // Count swines per municipal
+  // Count swines per municipal (digital + manual)
   const municipalCounts = {
     mogpog: 0,
     boac: 0,
@@ -355,7 +397,9 @@ const swineMapping = async (type) => {
     torrijos: 0
   };
 
-  // Loop once instead of repeating for each type
+  // ======================
+  // 1) Digital records
+  // ======================
   swines.forEach(swine => {
     const municipal = userMunicipalMap[swine.clientId];
     const swineType = swine.type?.toLowerCase();
@@ -365,18 +409,61 @@ const swineMapping = async (type) => {
       municipal &&
       municipalCounts.hasOwnProperty(municipal) &&
       isValidStatus &&
-      (type === 'all' || swineType === type)
+      (
+        type === 'all' ||
+        swineType === type ||
+        (type === 'grower' && swineType === 'barrow') // ✅ treat barrow as grower
+      )
     ) {
       municipalCounts[municipal]++;
     }
   });
 
-  // Destroy previous chart if exists to avoid overlap
+  // ======================
+  // 2) Manual census (swinePopulation)
+  // ======================
+  populationsFromManual.forEach(record => {
+    const municipal = record.municipality?.toLowerCase();
+    if (!municipalCounts.hasOwnProperty(municipal)) return;
+
+    let total = 0;
+
+    record.barangays.forEach(brgy => {
+      if (type === 'all') {
+        total +=
+          (brgy.native?.boar || 0) +
+          (brgy.native?.gilt_sow || 0) +
+          (brgy.native?.grower || 0) +
+          (brgy.native?.piglet || 0) +
+          (brgy.crossBreed?.boar || 0) +
+          (brgy.crossBreed?.gilt_sow || 0) +
+          (brgy.crossBreed?.grower || 0) +
+          (brgy.crossBreed?.piglet || 0);
+      } else if (type === 'boar') {
+        total += (brgy.native?.boar || 0) + (brgy.crossBreed?.boar || 0);
+      } else if (type === 'sow') {
+        total += (brgy.native?.gilt_sow || 0) + (brgy.crossBreed?.gilt_sow || 0);
+      } else if (type === 'grower' || type === 'barrow') {
+        total += (brgy.native?.grower || 0) + (brgy.crossBreed?.grower || 0);
+      } else if (type === 'piglet') {
+        total += (brgy.native?.piglet || 0) + (brgy.crossBreed?.piglet || 0);
+      }
+    });
+
+    municipalCounts[municipal] += total;
+  });
+
+
+
+  //console.log(municipalCounts)
+
+  // ======================
+  // 3) Render Chart
+  // ======================
   if (window.swineChart) {
     window.swineChart.destroy();
   }
 
-  // Create new chart
   window.swineChart = new Chart(chartElement, {
     type: 'bar',
     data: {
@@ -407,14 +494,12 @@ const swineMapping = async (type) => {
         legend: { display: false }
       },
       scales: {
-        y: {
-          beginAtZero: true,
-          max: 80
-        }
+        y: { beginAtZero: true }
       }
     }
   });
 };
+
 
 
 

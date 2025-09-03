@@ -1,11 +1,12 @@
 import fetchSwines from "../../api/fetch-swines.js";
 import fetchUsers from "../../api/fetch-users.js";
+import fetchSwinePopulation from "../../api/fetch-swine-population.js";
 
 const renderSwinePopulationTable = async (municipal) => {
     const tableContainer = document.querySelector('.swine-population__table-container');
 
     try {
-        const [swines, users] = await Promise.all([fetchSwines(), fetchUsers()]);
+        const [swines, users, populations] = await Promise.all([fetchSwines(), fetchUsers(), fetchSwinePopulation()]);
 
         // Map userId to barangay and municipality
         const userMap = {};
@@ -43,6 +44,42 @@ const renderSwinePopulationTable = async (municipal) => {
                 group[category]++;
             }
         });
+
+
+        populations.forEach(pop => {
+            if (pop.municipality.toLowerCase() !== municipal.toLowerCase()) return;
+
+            console.log("Matched municipality:", pop.municipality, "Barangays:", pop.barangays.length);
+
+            pop.barangays.forEach(bar => {
+                const barangay = bar.barangay;
+
+                if (!barangayData[barangay]) {
+                    barangayData[barangay] = {
+                        native: { piglet: 0, grower: 0, gilt: 0, barrow: 0, boar: 0, sow: 0 },
+                        cross: { piglet: 0, grower: 0, gilt: 0, barrow: 0, boar: 0, sow: 0 }
+                    };
+                }
+
+                // Merge native
+                barangayData[barangay].native.boar    += bar.native.boar || 0;
+                barangayData[barangay].native.gilt    += bar.native.gilt_sow || 0;
+                barangayData[barangay].native.grower  += bar.native.grower || 0;
+                barangayData[barangay].native.piglet  += bar.native.piglet || 0;
+
+                // Merge cross
+                barangayData[barangay].cross.boar     += bar.crossBreed.boar || 0;
+                barangayData[barangay].cross.gilt     += bar.crossBreed.gilt_sow || 0;
+                barangayData[barangay].cross.grower   += bar.crossBreed.grower || 0;
+                barangayData[barangay].cross.piglet   += bar.crossBreed.piglet || 0;
+            });
+        });
+
+
+        console.log(populations);
+
+
+
 
         // Build table rows dynamically
         let rows = '';

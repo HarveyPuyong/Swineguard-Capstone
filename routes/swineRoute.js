@@ -12,6 +12,8 @@ router.post('/save/monthly-records', swineController.saveMultipleSwineMonthlyRec
 
 router.get('/get/montly-swine-records', swineController.getSwineMontlyRecords); // Get swine montly records
 
+router.get('/get/montly-swine-population', swineController.getSwinePopulations); // Get swine montly population
+
 router.put('/edit/:id', swineController.editSwine); // Edit Swine
 
 router.patch('/remove/:id', swineController.removeSwine); // Remove Swine
