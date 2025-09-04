@@ -24,6 +24,8 @@ const renderAddSwineTable = () => {
                         <td><input type="number" min="0"></td>
                         <td><input type="number" min="0"></td>
                         <td><input type="number" min="0"></td>
+                        <td><input type="number" min="0"></td>
+                        <td><input type="number" min="0"></td>
                         
                         <td><input type="number" min="0"></td>
                         <td><input type="number" min="0"></td>
@@ -40,10 +42,15 @@ const renderAddSwineTable = () => {
                 <thead>
                     <tr>
                         <th rowspan="2">Barangay</th>
-                        <th colspan="4">Native</th>
-                        <th colspan="4">Cross Breed</th>
+                        <th colspan="2">No. of Raisers</th>
+                        <th colspan="4">Number of Swine (Native)</th>
+                        <th colspan="4">Number of Swine (Cross Breed)</th>
                     </tr>
                     <tr>
+
+                        <th>Male</th>
+                        <th>Female</th>
+
                         <th>Boar</th>
                         <th>Gilt/Sow</th>
                         <th>Grower</th>
@@ -96,17 +103,19 @@ const renderAddSwineTable = () => {
 
                 const swineData = {
                     barangay,
+                    maleCount: Number(inputs[0].value) || 0,
+                    femaleCount: Number(inputs[1].value) || 0,
                     native: {
-                        boar: Number(inputs[0].value) || 0,
-                        gilt_sow: Number(inputs[1].value) || 0,
-                        grower: Number(inputs[2].value) || 0,
-                        piglet: Number(inputs[3].value) || 0,
+                        boar: Number(inputs[2].value) || 0,
+                        gilt_sow: Number(inputs[3].value) || 0,
+                        grower: Number(inputs[4].value) || 0,
+                        piglet: Number(inputs[5].value) || 0,
                     },
                     crossBreed: {
-                        boar: Number(inputs[4].value) || 0,
-                        gilt_sow: Number(inputs[5].value) || 0,
-                        grower: Number(inputs[6].value) || 0,
-                        piglet: Number(inputs[7].value) || 0,
+                        boar: Number(inputs[6].value) || 0,
+                        gilt_sow: Number(inputs[7].value) || 0,
+                        grower: Number(inputs[8].value) || 0,
+                        piglet: Number(inputs[9].value) || 0,
                     }
                 };
 

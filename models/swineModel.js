@@ -52,6 +52,8 @@ const swineDataSchema = new mongoose.Schema({
 
 const barangayPopulationSchema = new mongoose.Schema({
   barangay: { type: String, required: true },
+  maleCount: {type: Number, required: true},
+  femaleCount: {type: Number, required: true},
   native: swineDataSchema,
   crossBreed: swineDataSchema,
 });

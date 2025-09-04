@@ -4,6 +4,7 @@ import { getServiceName } from "../../api/fetch-services.js";
 import { getTechnicianName } from "../../api/fetch-technicians.js";
 import { getMedicineName } from "../../api/fetch-medicine.js";
 import { formatTo12HourTime, formatDate } from "../../utils/formated-date-time.js";
+import fetchUser from "../auth/fetchUser.js";
 
 // DOM refs
 const downloadAppointmentBtn = document.querySelector('.appointment-download-btn');
@@ -15,27 +16,19 @@ let currentChart = null;
 
 const monthList = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
-// if (downloadAppointmentBtn) {
-//   downloadAppointmentBtn.addEventListener('click', () => {
-//     const currentDate = new Date();
-//     const year = currentDate.getFullYear();
-//     const month = currentDate.getMonth();
-//     const fileName = `appointment-report-${monthList[month]}-${year}.pdf`;
+const { firstName, lastName, middleName, sex } = await fetchUser();
+const prefixMap = {
+  male: "Mr",
+  female: "Mrs",
+};
+const AdminPrefix = prefixMap[sex?.toLowerCase()] || "";
 
-//     if (tableContainer._tabulator) {
-//       tableContainer._tabulator.download("pdf", fileName, {
-//         orientation: "landscape",
-//         title: `Appointment Report - ${monthList[month]}/${year}`,
-//         jsPDF: { format: 'legal' } 
-//       });
-//     } else {
-//       popupAlert('error', 'Error', 'No table to export!')
-//     }
-//   });
-// }
+const AdminName = `${AdminPrefix}. ${firstName} ${middleName.charAt(0).toUpperCase()}. ${lastName}`;
+//console.log(AdminName)
+
 
 if (downloadAppointmentBtn) {
-  downloadAppointmentBtn.addEventListener('click', () => {
+  downloadAppointmentBtn.addEventListener("click", () => {
     const reportTable = Tabulator.findTable("#appointment-report-table")[0];
     if (!reportTable) {
       alert("No current appointment table found!");
@@ -44,42 +37,83 @@ if (downloadAppointmentBtn) {
 
     const year = yearSelect.value;
     const month = monthSelect.value;
-    const fileName = `appointment-report-${monthList[month-1]}-${year}.pdf`;
+    const fileName = `appointment-report-${monthList[month - 1]}-${year}.pdf`;
 
     reportTable.download("pdf", fileName, {
       orientation: "landscape",
-      jsPDF: { format: 'legal' },
+      jsPDF: { format: "legal" },
       autoTable: (doc) => {
         const pageWidth = doc.internal.pageSize.getWidth();
-        let y = 50; // initial top margin for header
+        let y = 50;
 
-        // Draw header
+        // === Header ===
         doc.setFont("helvetica", "bold");
         doc.setFontSize(14);
         doc.text("PROVINCIAL VETERINARY OFFICE of MARINDUQUE", pageWidth / 2, y, { align: "center" });
 
-        y += 25; // spacing to next line
+        y += 25;
         doc.setFontSize(12);
         doc.text(`APPOINTMENT REPORT ${year}`, pageWidth / 2, y, { align: "center" });
 
-        y += 15; // spacing to next line
-        doc.text(`for ${monthList[month-1]} ${year}`, pageWidth / 2, y, { align: "center" });
+        y += 15;
+        doc.text(`for ${monthList[month - 1]} ${year}`, pageWidth / 2, y, { align: "center" });
 
-        y += 20; // add extra space before table
+        y += 20;
 
-        // Table starts **after header**
         return {
           startY: y,
-          margin: { left: 20, right: 20 },
-          styles: { lineColor: [0,0,0], lineWidth: 0.5, textColor: [0,0,0], fontSize: 10 },
-          headStyles: { fillColor: [200,200,200], textColor: [0,0,0] },
-          bodyStyles: { lineColor: [0,0,0], lineWidth: 0.5 },
+          margin: { left: 20, right: 20, bottom: 100 }, // reserve space for signature
+          styles: { lineColor: [0, 0, 0], lineWidth: 0.5, textColor: [0, 0, 0], fontSize: 10 },
+          headStyles: { fillColor: [200, 200, 200], textColor: [0, 0, 0] },
+          bodyStyles: { lineColor: [0, 0, 0], lineWidth: 0.5 },
           theme: "grid",
+          didDrawPage: (data) => {
+            // (Optional) footer text like page number can go here
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+            doc.setFontSize(9);
+            doc.text(
+              `Page ${doc.internal.getNumberOfPages()}`,
+              pageWidth - 60,
+              pageHeight - 30
+            );
+          }
         };
-      }
+      },
+      documentProcessing: (doc) => {
+        // === Add signatures ONLY ONCE, after table is done ===
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const yPos = pageHeight - 60;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+
+        // Left signature
+        doc.line(60, yPos - 15, 220, yPos - 15);
+        doc.text(`${AdminName}`, 60, yPos);
+        doc.text("Agriculture Technician II", 60, yPos + 15);
+
+        // Right signature
+        doc.line(pageWidth - 220, yPos - 15, pageWidth - 60, yPos - 15);
+        doc.text("Dr. Josque M. Victoria", pageWidth - 220, yPos);
+        doc.text("Provincial Veterinarian", pageWidth - 220, yPos + 15);
+
+        // === Download + Print ===
+        const blob = doc.output("blob");
+        const url = URL.createObjectURL(blob);
+        const printWindow = window.open(url);
+        if (printWindow) {
+          printWindow.onload = () => {
+            printWindow.print();
+          };
+        }
+      },
     });
   });
 }
+
+
 
 
 const generateAppointmentReport = async (year, month) => {
@@ -188,6 +222,10 @@ const renderAppointmentReportTable = async (appointments) => {
   // If any id is falsy, helper should return a friendly default.
   for (const appt of appointments) {
     try {
+      appt.clientName = appt.clientFirstname && appt.clientLastname ? `${appt.clientFirstname} ${appt.clientLastname}` : "Not set";
+    } catch (e) { appt.clientName = 'Client not found'; }
+
+    try {
       appt.serviceName = appt.appointmentService ? await getServiceName(appt.appointmentService) : 'Not set';
     } catch (e) { appt.serviceName = 'Service not found'; }
 
@@ -216,6 +254,7 @@ const renderAppointmentReportTable = async (appointments) => {
     paginationSize: 10,
     columns: [
       { title: "Municipality", field: "municipality", hozAlign: "center" },
+      { title: "Raisers", field: "clientName", hozAlign: "center" },
       { title: "Barangay", field: "barangay", hozAlign: "center" },
       { title: "Service", field: "serviceName", hozAlign: "center" },
       { title: "Swine Type", field: "swineType" },
@@ -224,8 +263,6 @@ const renderAppointmentReportTable = async (appointments) => {
       { title: "Female", field: "swineFemale", hozAlign: "center" },
       { title: "Age (months)", field: "swineAge", hozAlign: "center" },
       { title: "Date", field: "date", hozAlign: "center"},
-      { title: "Time", field: "time", hozAlign: "center" },
-      { title: "Type", field: "appointmentType", hozAlign: "center" },
       { title: "Dosage", field: "dosage", hozAlign: "center" },
       { title: "Medicine", field: "medicineName", hozAlign: "center" },
       { title: "Vet Personnel", field: "vetName" }

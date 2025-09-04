@@ -5,6 +5,8 @@ import addressesData from "../../static-data/addresses.js";
 import api from "../../utils/axiosConfig.js";
 import popupAlert from "../../utils/popupAlert.js";
 import {fetchSwineReports} from "../../api/fetch-report.js";
+import fetchSwinePopulation from "../../api/fetch-swine-population.js";
+import fetchUser from "../auth/fetchUser.js";
 
 // Buttons
 const downloadCurrentBtn = document.querySelector('.current-download-report-btn');
@@ -15,8 +17,18 @@ const saveBtn = document.querySelector('.reports-content__save-report-btn');
 const tableContainer = document.querySelector('#display-monthly-swines-report-table');
 const monthList = [ "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" ];
 
+
+const { firstName, lastName, middleName, sex } = await fetchUser();
+const prefixMap = {
+  male: "Mr",
+  female: "Mrs",
+};
+const AdminPrefix = prefixMap[sex?.toLowerCase()] || "";
+
+const AdminName = `${AdminPrefix}. ${firstName} ${middleName.charAt(0).toUpperCase()}. ${lastName}`;
+
 if (downloadCurrentBtn) {
-  downloadCurrentBtn.addEventListener('click', () => {
+  downloadCurrentBtn.addEventListener('click', async () => {
     const reportTable = Tabulator.findTable("#swines-report-table")[0];
     if (!reportTable) {
       alert("No current report table found!");
@@ -28,28 +40,49 @@ if (downloadCurrentBtn) {
     const month = currentDate.getMonth();
     const fileName = `swine-report-${monthList[month]}-${year}.pdf`;
 
+    // ✅ Get chart image (base64) from ApexCharts instance
+    let chartImg = null;
+    if (window.apexDonutInstance) {
+      try {
+        const dataURI = await window.apexDonutInstance.dataURI();
+        chartImg = dataURI.imgURI; // base64 PNG
+      } catch (err) {
+        console.error("Error generating chart image:", err);
+      }
+    }
+
     reportTable.download("pdf", fileName, {
       orientation: "portrait",
       jsPDF: { format: 'legal' },
       autoTable: (doc) => {
         const pageWidth = doc.internal.pageSize.getWidth();
-        let y = 50; // initial top margin for header
+        let y = 40;
 
-        // Draw header
+        // Header
         doc.setFont("helvetica", "bold");
         doc.setFontSize(14);
         doc.text("OFFICE OF THE MUNICIPAL AGRICULTURIST MARINDUQUE", pageWidth / 2, y, { align: "center" });
 
-        y += 25; // spacing to next line
+        y += 20;
         doc.setFontSize(12);
         doc.text(`SWINE INVENTORY ${year}`, pageWidth / 2, y, { align: "center" });
 
-        y += 15; // spacing to next line
+        y += 15;
         doc.text(`for ${monthList[month]} ${year}`, pageWidth / 2, y, { align: "center" });
 
-        y += 20; // add extra space before table
+        // ✅ Insert chart image if available
+        if (chartImg) {
+          y += 15;
+          const imgWidth = pageWidth * 0.7;   // scale chart
+          const imgHeight = imgWidth * 0.6;   // keep aspect ratio
+          const x = (pageWidth - imgWidth) / 2;
+          doc.addImage(chartImg, "PNG", x, y, imgWidth, imgHeight);
+          y += imgHeight + 20; // move down after chart
+        } else {
+          y += 20; // spacing if no chart
+        }
 
-        // Table starts **after header**
+        // Table after chart
         return {
           startY: y,
           margin: { left: 20, right: 20 },
@@ -58,49 +91,106 @@ if (downloadCurrentBtn) {
           bodyStyles: { lineColor: [0,0,0], lineWidth: 0.5 },
           theme: "grid",
         };
-      }
+      },
+      documentProcessing: (doc) => {
+        // === Add signatures ONLY ONCE, after table is done ===
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const yPos = pageHeight - 60;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+
+        // Left signature
+        doc.line(60, yPos - 15, 220, yPos - 15);
+        doc.text(`${AdminName}`, 60, yPos);
+        doc.text("Agriculture Technician II", 60, yPos + 15);
+
+        // Right signature
+        doc.line(pageWidth - 220, yPos - 15, pageWidth - 60, yPos - 15);
+        doc.text("Dr. Josque M. Victoria", pageWidth - 220, yPos);
+        doc.text("Provincial Veterinarian", pageWidth - 220, yPos + 15);
+
+        // ✅ In addition to download, also open for printing
+        const blob = doc.output("blob");
+        const url = URL.createObjectURL(blob);
+        const printWindow = window.open(url);
+        if (printWindow) {
+          printWindow.onload = () => {
+            printWindow.print();
+          };
+        }
+      },
     });
   });
 }
 
 
+
 if (downloadPastBtn) {
-  downloadPastBtn.addEventListener('click', () => {
+  downloadPastBtn.addEventListener('click', async () => {
     const pastTable = Tabulator.findTable("#display-monthly-swines-report-table")[0];
     if (!pastTable) {
       alert("No past report table found!");
       return;
     }
 
+    // ✅ Use the chart instance created in displaySwineReport
+    let chartImg = null;
+    if (window.apexPastDonut) {
+      try {
+        const dataURI = await window.apexPastDonut.dataURI();
+        chartImg = dataURI.imgURI; // base64 PNG
+      } catch (err) {
+        console.error("Error generating chart image:", err);
+      }
+    }
+
     const year = document.querySelector('.reports-content__select-year')?.value || 'AllYears';
     const month = document.querySelector('.reports-content__select-month')?.value || 'AllMonths';
-    const fileName = `swine-report-${monthList[month-1]}-${year}.pdf`;
+
+    // ✅ Fix filename to avoid NaN when month = "AllMonths"
+    let monthLabel = "AllMonths";
+    if (!isNaN(month) && month > 0) {
+      monthLabel = monthList[month - 1];
+    }
+    const fileName = `swine-report-${monthLabel}-${year}.pdf`;
 
     pastTable.download("pdf", fileName, {
       orientation: "portrait",
       jsPDF: { format: 'legal' },
       autoTable: (doc) => {
         const pageWidth = doc.internal.pageSize.getWidth();
-        const pageMargin = 20; // margin from left/right
-        let y = 50; // initial top margin
+        const pageMargin = 20;
+        let y = 50;
 
-        // Line 1: Main header
+        // Header line 1
         doc.setFont("helvetica", "bold");
         doc.setFontSize(14);
         doc.text("OFFICE OF THE MUNICIPAL AGRICULTURIST MARINDUQUE", pageWidth / 2, y, { align: "center" });
 
-        // Line 2: Sub-header
-        y += 25; // spacing after line 1
+        // Header line 2
+        y += 25;
         doc.setFontSize(12);
         doc.text(`SWINE INVENTORY ${year}`, pageWidth / 2, y, { align: "center" });
 
-        // Line 3: Report month/year
-        y += 15; // spacing after line 2
-        doc.text(`for ${monthList[month-1]} ${year}`, pageWidth / 2, y, { align: "center" });
+        // Header line 3
+        y += 15;
+        doc.text(`for ${monthLabel} ${year}`, pageWidth / 2, y, { align: "center" });
 
-        y += 20; // extra space before table
+        // ✅ Insert chart if available
+        if (chartImg) {
+          y += 15;
+          const imgWidth = pageWidth * 0.7;
+          const imgHeight = imgWidth * 0.6;
+          const x = (pageWidth - imgWidth) / 2;
+          doc.addImage(chartImg, "PNG", x, y, imgWidth, imgHeight);
+          y += imgHeight + 20;
+        } else {
+          y += 20;
+        }
 
-        // Table starts after header
+        // Table after chart
         return {
           startY: y,
           margin: { left: pageMargin, right: pageMargin },
@@ -109,10 +199,40 @@ if (downloadPastBtn) {
           bodyStyles: { lineColor: [0,0,0], lineWidth: 0.5 },
           theme: "grid",
         };
-      }
+      },
+      documentProcessing: (doc) => {
+        // === Add signatures ONLY ONCE, after table is done ===
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+        const yPos = pageHeight - 60;
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(11);
+
+        // Left signature
+        doc.line(60, yPos - 15, 220, yPos - 15);
+        doc.text(`${AdminName}`, 60, yPos);
+        doc.text("Agriculture Technician II", 60, yPos + 15);
+
+        // Right signature
+        doc.line(pageWidth - 220, yPos - 15, pageWidth - 60, yPos - 15);
+        doc.text("Dr. Josque M. Victoria", pageWidth - 220, yPos);
+        doc.text("Provincial Veterinarian", pageWidth - 220, yPos + 15);
+        
+        // ✅ In addition to download, also open for printing
+        const blob = doc.output("blob");
+        const url = URL.createObjectURL(blob);
+        const printWindow = window.open(url);
+        if (printWindow) {
+          printWindow.onload = () => {
+            printWindow.print();
+          };
+        }
+      },
     });
   });
 }
+
 
 
 
@@ -136,6 +256,14 @@ const generateSwineReports = async() => {
   // ============================
   const swines = await fetchSwines();
   const raisers = await fetchUsers();
+  const populations = await fetchSwinePopulation();
+
+  //Date
+  const currentDate = new Date();
+  const currentMonth = currentDate.getMonth() + 1;
+  const currentYear = currentDate.getFullYear();
+
+  const populationsFromManual = populations.filter(population => population.month === currentMonth && population.year === currentYear);
 
   // Create a map of userId → municipality
   const userMunicipalityMap = {};
@@ -155,6 +283,48 @@ const generateSwineReports = async() => {
       municipalitySwineCount[userMunicipality]++;
     }
   });
+
+
+  // Data from manual inputs of admin
+  const manualCounts = {};
+
+  populationsFromManual.forEach(record => {
+    const muni = record.municipality;
+
+    // Sum all male + female counts per barangay
+    const total = record.barangays.reduce((sum, b) => {
+      const nativeCount =
+      (b.native.boar || 0) +
+      (b.native.gilt_sow || 0) +
+      (b.native.grower || 0) +
+      (b.native.piglet || 0)
+    ;
+
+    const crossBreedCount =
+      (b.crossBreed.boar || 0) +
+      (b.crossBreed.gilt_sow || 0) +
+      (b.crossBreed.grower || 0) +
+      (b.crossBreed.piglet || 0)
+    ;
+
+    return sum + nativeCount + crossBreedCount;
+
+    }, 0);
+
+    manualCounts[muni] = (manualCounts[muni] || 0) + total;
+  });
+  //console.log(manualCounts)
+
+
+  // Merge the manual data
+  for (const muni in manualCounts) {
+    if (municipalitySwineCount.hasOwnProperty(muni)) {
+      municipalitySwineCount[muni] += manualCounts[muni];
+    } else {
+      municipalitySwineCount[muni] = manualCounts[muni]; // if new municipality
+    }
+  }
+
 
   // Prepare data for ApexCharts
   const swineCounts = municipality.map(muni => municipalitySwineCount[muni]);
@@ -279,6 +449,64 @@ const generateSwineReports = async() => {
     }
   });
 
+
+  // ============================
+  // Merge manual barangay data
+  // ============================
+  populationsFromManual.forEach(record => {
+    const muni = record.municipality;
+
+    record.barangays.forEach(b => {
+      const key = `${muni}--${b.barangay}`;
+      const male = b.maleCount || 0;
+      const female = b.femaleCount || 0;
+
+      if (!groupedData[key]) {
+        // ✅ Initialize with raiser counts right away
+        groupedData[key] = {
+          municipality: muni,
+          barangay: b.barangay,
+          raisersCount: male + female,
+          maleRaisers: male,
+          femaleRaisers: female,
+          total: 0,
+          piglet: 0,
+          grower: 0,
+          sow: 0,
+          boar: 0
+        };
+      } else {
+        // ✅ Add raisers if already exists
+        groupedData[key].maleRaisers += male;
+        groupedData[key].femaleRaisers += female;
+        groupedData[key].raisersCount += male + female;
+      }
+
+      // ✅ Compute native + crossBreed totals
+      const nativeCount =
+        (b.native.boar || 0) +
+        (b.native.gilt_sow || 0) +
+        (b.native.grower || 0) +
+        (b.native.piglet || 0);
+
+      const crossBreedCount =
+        (b.crossBreed.boar || 0) +
+        (b.crossBreed.gilt_sow || 0) +
+        (b.crossBreed.grower || 0) +
+        (b.crossBreed.piglet || 0);
+
+      const total = nativeCount + crossBreedCount;
+
+      groupedData[key].total += total;
+      groupedData[key].boar += (b.native.boar || 0) + (b.crossBreed.boar || 0);
+      groupedData[key].sow += (b.native.gilt_sow || 0) + (b.crossBreed.gilt_sow || 0); // treating gilt_sow as sow
+      groupedData[key].grower += (b.native.grower || 0) + (b.crossBreed.grower || 0);
+      groupedData[key].piglet += (b.native.piglet || 0) + (b.crossBreed.piglet || 0);
+    });
+  });
+
+
+
   // Step 3: Convert to array
   swinesTable = Object.values(groupedData);
 
@@ -295,7 +523,7 @@ const generateSwineReports = async() => {
       { title: "No. of Swine", field: "total", hozAlign: "center" },
       { title: "Piglet", field: "piglet", hozAlign: "center" },
       { title: "Grower", field: "grower", hozAlign: "center" },
-      { title: "Sow", field: "sow", hozAlign: "center" },
+      { title: "Sow/Gilt", field: "sow", hozAlign: "center" },
       { title: "Boar", field: "boar", hozAlign: "center" } 
     ]
   });
@@ -390,6 +618,9 @@ const displaySwineReport = async () => {
   const donutElement = document.querySelector(".record-pie-chart");
 
   let chart; // holds ApexCharts instance
+  if (!window.apexPastDonut) {
+    window.apexPastDonut = null;
+  }
 
   const updateDonutChart = (filteredReports) => {
     let mogpogTotal = 0;
@@ -414,29 +645,31 @@ const displaySwineReport = async () => {
 
     const series = [mogpogTotal, boacTotal, gasanTotal, buenavistaTotal, staCruzTotal, torrijosTotal];
 
-    if (chart) {
-      chart.updateSeries(series);
+    if (window.apexPastDonut) {
+      // ✅ update old chart if it exists
+      window.apexPastDonut.updateSeries(series);
     } else {
+      // ✅ create the chart and assign globally
       const options = {
         series,
         chart: {
           type: 'donut',
           toolbar: {
-            show: true, // ✅ show the dropdown menu
+            show: true,
             tools: {
-              download: true,  // allows image download
+              download: true,
               selection: false,
               zoom: false,
               zoomin: false,
               zoomout: false,
               pan: false,
               reset: false,
-              customIcons: [] // you can add your own buttons here if needed
+              customIcons: []
             }
           }
         },
         legend: {
-          fontSize: '18px',  // ✅ now properly applied
+          fontSize: '18px',
           position: 'right'
         },
         labels: ['Mogpog', 'Boac', 'Gasan', 'Buenavista', 'Sta Cruz', 'Torrijos'],
@@ -448,8 +681,8 @@ const displaySwineReport = async () => {
           }
         }]
       };
-      chart = new ApexCharts(donutElement, options);
-      chart.render();
+      window.apexPastDonut = new ApexCharts(donutElement, options);
+      window.apexPastDonut.render();
     }
   };
 

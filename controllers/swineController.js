@@ -368,7 +368,7 @@ exports.addSwinePopulation = async (req, res) => {
 // ✅ Get all swine population records
 exports.getSwinePopulations = async (req, res) => {
   try {
-    const data = await SwinePopulation.find().sort({ createdAt: -1 });
+    const data = await SwinePopulation.find();
     res.status(200).json(data);
   } catch (error) {
     res.status(500).json({ message: "Server error" });
