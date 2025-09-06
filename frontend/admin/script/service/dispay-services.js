@@ -15,7 +15,9 @@ async function handleRenderServices () {
           </div>
 
           <div class="service-card__name-and-description">
-            <h3 class="service-card__name">${service.serviceName}</h3>
+            <div class="service-title">
+              <h3 class="service-card__name">${service.serviceName}</h3> (<span>${service.serviceType ? service.serviceType.charAt(0).toUpperCase() + service.serviceType.slice(1) : "Not set"}</span>)
+            </div>
 
             <div class="service-card__description">
               <span class="service-card__description--label">Description: </span>
@@ -24,8 +26,12 @@ async function handleRenderServices () {
               <span class="service-card__description--value item-types">${service.applicableItemTypes}</span>
             </div>
 
-          </div>       
-          <button class="service-card__edit-btn" data-service-id="${service._id}">Edit</button>
+          </div>   
+          
+          <div class="services-btn">
+            <button class="service-card__edit-btn" data-service-id="${service._id}">Edit</button>
+            <button class="service-card__delete-btn" data-service-id="${service._id}">Delete</button>
+          </div>
         </div>
             `
     });

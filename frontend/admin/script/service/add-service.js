@@ -7,12 +7,21 @@ function handleAddService (){
 
   addServiceForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const selectedRadio = addServiceForm.querySelector('input[name="service__type"]:checked');
+
+    if (!selectedRadio) {
+    popupAlert("error", "Error", "Please fill the required fields (Service Type).");
+    return; // stop the form from submitting
+  }
 
     const serviceFormData = {
       serviceName: addServiceForm.querySelector('.service-name-input').value.trim(),
       description: addServiceForm.querySelector('.service-description-input').value.trim(),
-      applicableItemTypes: getSelectedApplicableMedicines()
+      applicableItemTypes: getSelectedApplicableMedicines(),
+      serviceType: selectedRadio.value
     }
+
+    console.log(serviceFormData);
 
     try {
       const response = await api.post('/service/add', serviceFormData);
@@ -27,7 +36,14 @@ function handleAddService (){
       }
     
     } catch (error) {
-      console.log(error)
+      // ✅ Handle backend validation messages
+      if (error.response && error.response.data && error.response.data.message) {
+        popupAlert("error", "Error", error.response.data.message);
+      } else {
+        popupAlert("error", "Error", "Something went wrong while adding the service.");
+      }
+
+      console.error("Add service error:", error);
     }
   })
 

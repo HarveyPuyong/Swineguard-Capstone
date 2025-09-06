@@ -1,0 +1,33 @@
+import api from "../../utils/axiosConfig.js";
+import handleRenderServices from "./dispay-services.js";
+
+const handleDeleteService = async(serviceId) => {
+    // Show confirmation dialog
+    Swal.fire({
+        title: "Are you sure?",
+        text: "This action cannot be undone!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#d33",
+        cancelButtonColor: "#3085d6",
+        confirmButtonText: "Yes, delete it!",
+        cancelButtonText: "Cancel"
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            try {
+            const response = await api.delete(`/service/delete/${serviceId}`);
+
+            if (response.status === 200) {
+                Swal.fire("Deleted!", "Service has been deleted.", "success");
+                handleRenderServices(); // refresh list
+            }
+            } catch (err) {
+            const errMessage =
+                err.response?.data?.message || err.response?.data?.error || "Something went wrong.";
+            popupAlert("error", "Error!", errMessage);
+            }
+        }
+    });
+}
+
+export default handleDeleteService;

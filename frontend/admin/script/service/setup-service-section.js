@@ -2,6 +2,8 @@ import handleRenderServices from "./dispay-services.js";
 import handleAddService from "./add-service.js";
 import handleEditService from "./edit-service.js";
 import { fetchServices, getServiceName } from "../../api/fetch-services.js";
+import handleDeleteService from "./delete-service.js";
+//import deletePopUpAlert from "../../utils/delete-alert.js";
 
 
 // ======================================
@@ -22,10 +24,12 @@ const toggleAddServiceForm = () => {
 //            Dito ko na call ang function handleEditService()       
 // ======================================
 const toggleEditServiceForm = () => {
+
   document.addEventListener('renderServices', () => {
     const editForm = document.querySelector('#edit-service-form');
     const closeForm = document.querySelector('#edit-service-form .service-form__cancel-btn');
     const editButtons = document.querySelectorAll('.service-card__edit-btn');
+    const deleteButtons = document.querySelectorAll('.service-card__delete-btn');
 
     editButtons.forEach(button => {
       button.addEventListener('click', () => {
@@ -34,6 +38,14 @@ const toggleEditServiceForm = () => {
         const serviceId = button.dataset.serviceId;
         setupEditForm(serviceId);
         handleEditService(serviceId);
+      });
+    });
+
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const serviceId = button.dataset.serviceId;
+        handleDeleteService(serviceId);
+        //deletePopUpAlert(`/service/delete/${serviceId}`, 'services')
       });
     });
 

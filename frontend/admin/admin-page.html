@@ -155,18 +155,6 @@
         <section id="users-section" class="hide">
           <h1 class="section__heading">Users</h1>
 
-          <!-- Verify Form -->
-          <div class="verify-user-popup-backdrop">
-            <form class="verify-user-popup-textbox">
-              <label for="verify-user-txt">Type <strong>"CONFIRM"</strong> to complete the process</label>
-              <input type="text" maxlength="7" id="verify-user-txt" required placeholder="Type CONFIRM">
-              <div class="verify-buttons">
-                <button type="submit" id="verify-user-btn">Verify</button>
-                <button type="button" id="cancel-verfiy-btn">Cancel</button>
-              </div>
-            </form>
-          </div>
-
           <!-- Users Section: Table contents -->
           <div class="user-section__table-contents show">
             <!-- user search -->
@@ -1122,6 +1110,19 @@
                   <input type="checkbox" name="none" id="none" value="none">
                   <label for="none">None</label>
                 </div>
+              </div>
+            </div>
+
+            <div class="service-type">
+              <span>Service Type:</span>
+
+              <div class="radio-group">
+                <input type="radio" id="service" value="service" name="service__type">
+                <label for="service">Service</label>
+              </div>
+              <div class="radio-group">
+                <input type="radio" id="visit" value="visit" name="service__type">
+                <label for="visit">Visit</label>
               </div>
             </div>
 

@@ -13,6 +13,6 @@ const containsEmoji = (text) => {
 const hasNumber = (input) => /\d/.test(input);
 
 // Check for Special Characters
-const containsSpecialChar = (input) => /[^a-zA-Z0-9\s]/.test(input);
+const containsSpecialChar = (input) => /[^a-zA-Z0-9\s-]/.test(input);
 
 module.exports = { isValidInput, containsEmoji, hasNumber, containsSpecialChar };

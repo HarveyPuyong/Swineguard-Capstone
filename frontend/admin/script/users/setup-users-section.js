@@ -70,7 +70,7 @@ const handleUsersButtonsAction = () => {
             }
             else if(button.classList.contains('verify-user-btn')){
                handleVerifyUser(userId);
-               verifyUserForm.classList.add('show');
+               //verifyUserForm.classList.add('show');
 
                const cancelVerifyBtn = document.querySelector('#cancel-verfiy-btn');
                if (cancelVerifyBtn) {

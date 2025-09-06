@@ -5,7 +5,7 @@ const { isValidInput, containsEmoji, hasNumber, containsSpecialChar }= require('
 
 // Add Services
 const addServices = async (req, res) => {
-    const { serviceName, description, applicableItemTypes } = req.body;
+    const { serviceName, description, applicableItemTypes, serviceType } = req.body;
 
     // Check the length of inputs
     if (!isValidInput(serviceName) || !isValidInput(description)) return res.status(400).json({ message: 'Please provide valid and longer input.'});
@@ -28,7 +28,7 @@ const addServices = async (req, res) => {
         if(existingServices) return res.status(409).json({message: "Service already exists."});
 
         //Proceed to saving
-        const newService = new serviceDB ({ serviceName, description, applicableItemTypes });
+        const newService = new serviceDB ({ serviceName, description, applicableItemTypes, serviceType });
         await newService.save();
         return res.status(201).json({ 
             service: newService, 
@@ -82,6 +82,18 @@ const editServices = async (req, res) => {
     }
 }
 
+// Delete Service
+const deleteService = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const deletedService = await serviceDB.findByIdAndDelete(id);
+        if(!deletedService) return res.status(404).json({ message: 'Service not found.' });
+        res.status(200).json({ message: 'Service deleted successfully.',  deletedService})
+    } catch (error) {
+        res.status(500).json({ Error: 'Something went wrong when deleteing service' })
+    }
+}
+
 // Get Services
 const getAllServices = async (req, res) => {
     try {
@@ -105,4 +117,9 @@ const getServiceById = async (req, res) => {
     }
 }
 
-module.exports = { addServices, editServices, getAllServices, getServiceById }
+module.exports = { addServices, 
+                    editServices, 
+                    getAllServices, 
+                    getServiceById, 
+                    deleteService 
+                }

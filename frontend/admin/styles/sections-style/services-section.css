@@ -76,6 +76,23 @@
   --height: 145px;
   height: var(--height);
   max-height: var(--height);
+  overflow-y: auto;
+}
+.service-title {
+  display: flex;
+  gap: .5rem;
+  align-items: center; 
+  height: 30px;   
+  padding: 0 .5rem;  
+}
+
+.service-title h3 {
+  margin: 0; /* remove default margin so it centers properly */
+}
+.service-title span {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0F7E43;
 }
 
 .service-card__description--label{
@@ -86,16 +103,28 @@
   line-height: 1.5em;
 }
 
-.service-card__edit-btn{
+.services-btn {
   position: absolute;
   top: 10px;
   right: 50px;
+  display: flex;
+  gap: .5rem;
+}
+
+.service-card__edit-btn, 
+.service-card__delete-btn {
+  
   border: 1.3px solid rgb(45, 184, 82);
   background-color: #1ba25a;
   color: white;
   border-radius: 3px;
   padding: 3px 25px;
   cursor: pointer;
+}
+
+.service-card__delete-btn {
+  border: 1.3px solid #EB3636;
+  background-color: #f05858;
 }
 
 
@@ -231,4 +260,20 @@
 .checkbox-item label {
   cursor: pointer;
   user-select: none;
+}
+
+.service-type {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+}
+
+.service-type .radio-group {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.service-type span {
+  font-weight: 600;
 }
