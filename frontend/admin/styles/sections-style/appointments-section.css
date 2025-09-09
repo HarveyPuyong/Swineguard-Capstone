@@ -157,7 +157,7 @@
   --firstname-width: 155px;
   --lastname-width: 155px;
   --appointment-name-width: 210px;
-  --date-time-width: 210px;
+  --date-time-width: 300px;
   --status-width: 150px;
   --action-width: 150px;
   --view-width: 50px;
@@ -427,12 +427,15 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 70%;
-  height: 600px;
+  height: 700px;
   background-color: white;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   z-index: 1;
   padding: 20px 50px;
+  overflow-y: auto;   
+  overflow-x: hidden; 
+  padding-bottom: 1rem;
 }
 
 .add-appointment-container.show{
@@ -495,7 +498,8 @@
 }
 
 .add-appointments-form #appointment-date,
-.add-appointments-form #appointment-time{
+.add-appointments-form #appointment-time,
+.add-appointments-form #appointment-type {
   width: 50%;
 }
 
@@ -529,7 +533,8 @@
 }
 
 /* Appointment Schedule Form */
-.appointment-schedule-form{
+.appointment-schedule-form, 
+.appointment-reschedule-form {
   display: none; 
   position: fixed;
   top: 53%;
@@ -543,18 +548,23 @@
   padding: 1rem 2rem;
 }
 
-.appointment-schedule-form.show{
+.appointment-schedule-form.show, 
+.appointment-reschedule-form.show {
   display: block;
 }
 
-.appointment-schedule-form__heading{
+.appointment-schedule-form__heading,
+.appointment-reschedule-form__heading
+{
   font-size: 20px;
   font-weight: 500;
   text-align: center;
   margin-bottom: 2.7rem;
 }
 
-.appointment-schedule-form__service-name{
+.appointment-schedule-form__service-name, 
+.appointment-reschedule-form__service-name
+{
   color: green
 }
 
@@ -563,17 +573,23 @@
   gap: 1.2rem;
 }
 
-.appointment-schedule-form__details-columns .column-left{
+.appointment-schedule-form__details-columns .column-left,
+.appointment-reschedule-form__details-columns .column-left
+{
   flex: 0.7;
 }
 
-.appointment-schedule-form__details-columns .column-right{
+.appointment-schedule-form__details-columns .column-right,
+.appointment-reschedule-form__details-columns .column-right
+ {
   flex: 1;
 }
 
 .appointment-schedule-form input,
 .appointment-schedule-form select,
-.appointment-schedule-form textarea{
+.appointment-schedule-form textarea,
+.appointment-reschedule-form input,
+.appointment-reschedule-form select {
   width: 100%;
   margin-top: 0.2rem;
   margin-bottom: 0.8rem;
@@ -585,11 +601,15 @@
   height: 7rem;
 }
 
-.appointment-schedule-form label{
+.appointment-schedule-form label, 
+.appointment-reschedule-form label
+{
   color: #009947;
 }
 
-.appointment-schedule-form__buttons{
+.appointment-schedule-form__buttons,
+.appointment-reschedule-form__buttons
+{
   display: flex;
   align-items: center;
   gap: 1.3rem;
@@ -606,20 +626,27 @@
 }
 
 .appointment-schedule-form__confirm-btn,
-.appointment-schedule-form__close-btn{
+.appointment-schedule-form__close-btn,
+.appointment-reschedule-form__confirm-btn,
+.appointment-reschedule-form__close-btn
+{
   height: 30px;
   width: 100px;
   border-radius: 8px;
   cursor: pointer;
 }
 
-.appointment-schedule-form__confirm-btn{
+.appointment-schedule-form__confirm-btn,
+.appointment-reschedule-form__confirm-btn
+{
   background-color: #B0DDC5;
   border: 1px solid #009947;
   color: #232C27;
 }
 
-.appointment-schedule-form__close-btn{
+.appointment-schedule-form__close-btn,
+.appointment-reschedule-form__close-btn
+{
   background-color: #EECDCD;
   border: 1px solid #FF0000;
   color: #FF0000;
@@ -854,3 +881,48 @@ Pie Graph design
 #report-container__doughnut-chart-appointment {
   width: 752px;
 }
+
+
+.buttons-container button:disabled {
+  opacity: 0.5;       /* makes it look faded */
+  cursor: not-allowed; /* show "🚫" cursor */
+  pointer-events: none; /* make sure it's not clickable */
+}
+
+
+/* Clinical SIgns */
+.clinical-signs {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 equal columns */
+  gap: 8px 20px; /* row gap, col gap */
+}
+
+.clinical-signs .title {
+  grid-column: span 2; /* title full width */
+  margin-bottom: 5px;
+}
+
+.clinical-signs label {
+  display: grid;
+  grid-template-columns: 20px auto; /* checkbox column + text column */
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+}
+.clinical-signs .others label {
+  text-align: left;
+}
+.clinical-signs-txtarea{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  margin-top: 1rem;
+}
+
+.clinical-signs .others input[type="text"] {
+  flex: 1;
+  padding: 4px 6px;
+  font-size: 14px;
+}
+

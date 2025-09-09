@@ -3,7 +3,7 @@ import updateSidenav from "../../utils/updateSidenav.js"; // Import the updateSi
 import handleAddAppointment from "./add-appointment.js";
 import handleRenderAppointments from "./display-appointment.js";
 import { setupAppointmentFormListener, acceptAppointmentRequest } from "./accept-appointment.js";
-import handleRescheduleAppointment from './reschedule-appointment.js';
+import { setupReschedAppointmentFormListener, rescheduleAppointmentRequest } from './reschedule-appointment.js';
 import handleRemoveAppointment from "./remove-appointment.js";
 import {handleCompleteAppointment,
         handleRestoreAppointment,
@@ -295,11 +295,61 @@ const setupAddAppointmentForm = async() => {
 // ======================================
 const setupScheduleAppointmentForm = async(appointmentId) => {
   try{
+    const personnelTask = [];
+
+    const allUsers = await fetchUsers();
+    const technicians = allUsers.filter(user => user.roles.includes('technician') || user.roles.includes('veterinarian'));
+
+    //All appointments
+    const appointments = await fetchAppointments();
+    const appointment = appointments.find(app => app._id === appointmentId);
+    const serviceName = await getServiceName(appointment.appointmentService);
+    document.querySelector('.appointment-schedule-form__service-name').innerText = `${serviceName}`;
+
+    //Personal Select Element
+    const personnelSelectElement = document.querySelector('.appointment-schedule-form #available-personnel');
+    if(!personnelSelectElement) return;
+
+    technicians.forEach(technician => {
+      const prefix = technician.roles.includes('veterinarian') ? 'Doc.' : technician.roles.includes('technician') ? 'Mr.' : '';
+      const middleInitial = technician.middleName ? technician.middleName.charAt(0).toUpperCase() + '.' : '';
+      const technicianFullname = `${prefix} ${technician.firstName} ${middleInitial} ${technician.lastName}`;
+
+      // count how many appointments assigned to this technician
+      const assignedAppointments = appointments.filter(app => app.vetPersonnel === technician._id && (app.appointmentStatus === 'accepted' || app.appointmentStatus === 'reschedule'));
+      const isOverloaded = assignedAppointments.length >= 5;
+
+      const option = document.createElement('option');
+      option.value = technician._id;
+      option.textContent = `${technicianFullname} ${isOverloaded ? '(Fully booked)' : ''}`;
+      if (isOverloaded) {
+        option.disabled = true; // disable if they already have 10
+      }
+
+      personnelSelectElement.appendChild(option);
+
+      // const option = document.createElement('option');
+      // option.value = technician._id;
+      // option.textContent = technicianFullname;
+
+      // personnelSelectElement.appendChild(option);
+    });
+
+    //console.log(appointment)
+
+  } catch(err) {
+    console.log(err)
+  }
+}
+
+
+const setupRescheduleAppointmentForm = async(appointmentId) => {
+  try{
     const allUsers = await fetchUsers();
     const technicians = allUsers.filter(user => user.roles.includes('technician') || user.roles.includes('veterinarian'));
 
     //Personal Select Element
-    const personnelSelectElement = document.querySelector('.appointment-schedule-form #available-personnel');
+    const personnelSelectElement = document.querySelector('.appointment-reschedule-form #reschedule-available-personnel');
     if(!personnelSelectElement) return;
 
     technicians.forEach(technician => {
@@ -317,8 +367,12 @@ const setupScheduleAppointmentForm = async(appointmentId) => {
     const appointments = await fetchAppointments();
     const appointment = appointments.find(app => app._id === appointmentId);
     const serviceName = await getServiceName(appointment.appointmentService);
-    document.querySelector('.appointment-schedule-form__service-name').innerText = `${serviceName}`;
-    console.log(appointment)
+    document.querySelector('.appointment-reschedule-form__service-name').innerText = `${serviceName}`;
+    //console.log(appointment)
+
+    const appointment_type = appointment.appointmentType ? appointment.appointmentType : 'Not set'
+    const appointmentType = document.querySelector('#reschedule-appointment-type').value = appointment_type;
+    //console.log(appointment_type)
 
   } catch(err) {
     console.log(err)
@@ -337,6 +391,21 @@ const toggleAddAppointmentForm = () => {
 
   showFormBtn.addEventListener('click', () => formContainer.classList.add('show'));
   closeFormBtn.addEventListener('click', () => formContainer.classList.remove('show'));
+}
+
+const toggleRescheduleAppointmentForm = () => {
+  // Reschedule Form
+  const rescheduleAppointmentForm = document.querySelector('.appointment-reschedule-form');
+  rescheduleAppointmentForm.classList.add('show');
+
+  const rescheduleSelectTag = document.querySelector('')
+
+  const rescheduleCancelBtn = document.getElementById('reschedule-cancel-btn');
+
+  rescheduleCancelBtn.addEventListener('click', () => {
+    rescheduleAppointmentForm.classList.remove('show');
+    rescheduleAppointmentForm.reset();
+  });
 }
 
 
@@ -382,8 +451,13 @@ const handleAppointmentSelectActions = () => {
           populateAppointmentDateAndTime(appointmentId);
           setupScheduleAppointmentForm(appointmentId);
           populateFilteredMedicines(appointmentId);
+
         } else if(actionSelect.value === 'reschedule'){
-          handleRescheduleAppointment(appointmentId);
+          toggleRescheduleAppointmentForm();
+          populateAppointmentDateAndTime(appointmentId);
+          rescheduleAppointmentRequest(appointmentId);
+          setupRescheduleAppointmentForm(appointmentId);
+          
         }
         else if(actionSelect.value === 'remove'){
           handleRemoveAppointment(appointmentId)
@@ -496,5 +570,6 @@ export default function setupAppointmentSection () {
   toggleAppointentMoreDetails();
   viewBtnsFunctionality();
   setupAppointmentFormListener();
+  setupReschedAppointmentFormListener();
 }
 

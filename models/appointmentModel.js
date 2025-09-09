@@ -52,7 +52,7 @@ const appointmentSchema = new mongoose.Schema({
     },
     
     dosage: { type: String, default: 'not set' },
-    vetMessage: { type: String, default: 'no set' }
+    clinicalSigns: [{ type: String }],
 
     
 }, { collection: 'appointments', timestamps: true });

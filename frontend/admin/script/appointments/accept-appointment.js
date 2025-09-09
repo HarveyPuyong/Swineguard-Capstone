@@ -37,7 +37,7 @@ const handleAcceptAppointment = async (e) => {
     medicine: appointmentMedicine,
     dosage: medicineDosage,
     vetPersonnel: document.querySelector('.appointment-schedule-form #available-personnel').value.trim(),
-    vetMessage: document.querySelector('.appointment-schedule-form #vet-message').value.trim(),
+    //vetMessage: document.querySelector('.appointment-schedule-form #vet-message').value.trim(),
   };
 
   try {

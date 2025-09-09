@@ -93,7 +93,7 @@ const handleRenderTechnicians = async () => {
           <div class="technician__task">
             <h4 class="technician__task-heading">Task:</h4>
             ${taskCards}
-            <p class="technician__task-availability-status">${assignedTechnicians.length > 5 ? 'NOT AVAILABLE' : 'AVAILABLE'}</p>
+            <p class="technician__task-availability-status ${assignedTechnicians.length >= 5 ? 'not-available' : 'available'}">${assignedTechnicians.length >= 5 ? 'NOT AVAILABLE' : 'AVAILABLE'}</p>
           </div>
         </div>
       `;

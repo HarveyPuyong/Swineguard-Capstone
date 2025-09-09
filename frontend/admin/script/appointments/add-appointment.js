@@ -2,18 +2,31 @@ import popupAlert from './../../utils/popupAlert.js';
 import handleRenderAppointments from './display-appointment.js';
 import api from './../../utils/axiosConfig.js'
 import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
+import { fetchServices } from '../../api/fetch-services.js';
 
 
-const handleAddAppointment = () => {
+const handleAddAppointment = async() => {
   // Sanitize all inputs text type
   const inputs = document.querySelectorAll('#add-appointments-form input[type="text"]:not(#client-email):not(#appointment-date):not(#appointment-time)');
   
   inputs.forEach(input => {
-      input.addEventListener('input', () => {
-        input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
-      });
+    input.addEventListener('input', () => {
+      input.value = input.value.replace(/[^a-zA-Z\s]/g, '');
+    });
   });
 
+
+  const serviceSelect = document.getElementById("appointment-service");
+  const appointmentTypeInput = document.getElementById("add-appointment-type");
+
+  // When the user selects a service
+  serviceSelect.addEventListener("change", async () => {
+    const services = await fetchServices();
+    const selectedService = services.find(service => service._id === serviceSelect.value);
+
+    const serviceType = selectedService ? selectedService.serviceType : "Not set";
+    appointmentTypeInput.value = serviceType;
+  });
 
   const addAppointmentForm = document.querySelector('#add-appointments-form');
 
@@ -33,7 +46,7 @@ const handleAddAppointment = () => {
         barangay: document.querySelector('#barangay').value,
         
         appointmentService: document.querySelector('#appointment-service').value,
-        appointmentType: document.querySelector('#appointment-type').value,
+        appointmentType: appointmentTypeInput.value,
         appointmentDate: document.querySelector('#appointment-date').value,
         appointmentTime: document.querySelector('#appointment-time').value,
 
@@ -42,8 +55,7 @@ const handleAddAppointment = () => {
         swineCount: Number(document.querySelector('#swine-count').value),
         swineFemale: Number(document.querySelector('#swine-female').value),
         swineMale: Number(document.querySelector('#swine-male').value),
-        swineSymptoms: document.querySelector('#swine-symptoms').value.trim(),
-        appointmentStatus: 'ongoing'
+        clinicalSigns: getClinicalSigns()
       };
 
 
@@ -67,6 +79,23 @@ const handleAddAppointment = () => {
     }
   })
 }
+
+const getClinicalSigns = () => {
+  const clinicalSigns = [];
+
+  // Get all checked checkboxes
+  document.querySelectorAll('input[name="clinicalSigns"]:checked').forEach(cb => {
+    clinicalSigns.push(cb.value);
+  });
+
+  // Handle the "Others" textarea
+  const othersInput = document.querySelector('#clinical-signs-others');
+  if (othersInput && othersInput.value.trim() !== "") {
+    clinicalSigns.push(`Others: ${othersInput.value.trim()}`);
+  }
+
+  return clinicalSigns;
+};
 
 
 export default handleAddAppointment;

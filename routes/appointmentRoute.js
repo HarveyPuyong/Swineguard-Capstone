@@ -10,7 +10,7 @@ router.post('/add', verifyJWT, appointmentController.addAppointment);
 
 router.put('/accept/:id', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordinator), appointmentController.acceptAppointment); 
 
-router.patch('/reschedule/:id', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordinator), appointmentController.rescheduleAppointment); 
+router.put('/reschedule/:id', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordinator), appointmentController.rescheduleAppointment); 
 
 router.patch('/remove/:id', verifyJWT, appointmentController.removeAppointment); 
 

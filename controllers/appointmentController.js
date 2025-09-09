@@ -20,11 +20,11 @@ exports.addAppointment = async (req, res) => {
         swineCount, 
         appointmentDate, 
         appointmentTime, 
-        swineSymptoms, 
         swineAge, 
         swineMale, 
         swineFemale, 
-        appointmentType
+        appointmentType,
+        clinicalSigns, 
     } = req.body;
 
     // Validate text only and not allow emojis
@@ -45,7 +45,7 @@ exports.addAppointment = async (req, res) => {
         !appointmentDate ||
         !appointmentTime ||
         !swineType ||
-        !swineSymptoms ||
+        !clinicalSigns ||
         swineCount == null ||
         swineAge == null ||
         swineMale == null ||
@@ -100,11 +100,11 @@ exports.addAppointment = async (req, res) => {
         appointmentTime, 
         appointmentType,
         swineType,       
-        swineCount,      
-        swineSymptoms, 
+        swineCount,    
         swineAge, 
         swineMale, 
-        swineFemale
+        swineFemale,
+        clinicalSigns
     };
 
     try {
@@ -132,7 +132,7 @@ exports.addAppointment = async (req, res) => {
 
 // Accept appointment
 exports.acceptAppointment = async (req, res) => {
-    const { appointmentDate, appointmentTime, vetPersonnel, medicine, dosage, vetMessage } = req.body;
+    const { appointmentDate, appointmentTime, vetPersonnel, medicine, dosage } = req.body;
     const appointmentId = req.params.id;
 
     // Check Object Id
@@ -188,7 +188,7 @@ exports.acceptAppointment = async (req, res) => {
         appointmentTime,
         appointmentStatus: 'accepted',
         vetPersonnel,
-        vetMessage
+        //vetMessage
     };
 
     if (appointmentType === 'visit') {
@@ -215,32 +215,71 @@ exports.acceptAppointment = async (req, res) => {
 
 // Reschedule appointment
 exports.rescheduleAppointment = async (req, res) => {
-    try {
-        const {id} = req.params;
+  const { appointmentDate, appointmentTime, vetPersonnel, vetMessage } = req.body;
+  const appointmentId = req.params.id;
 
-        // Check Object Id if exist or valid
-        if(!isValidAppointmentId(id)) return res.status(400).json({ message: 'Invalid Appointment Id.' });
+  // Validate ObjectId
+  if (!isValidAppointmentId(appointmentId)) {
+    return res.status(400).json({ message: 'Invalid Appointment Id.' });
+  }
 
-        const update = await appointmentDB.findByIdAndUpdate(
-            id,
-            { appointmentStatus: "reschedule" },
-            { new: true }
-        );
+  // Find appointment
+  const existingAppointment = await appointmentDB.findById(appointmentId);
+  if (!existingAppointment) {
+    return res.status(404).json({ message: 'Appointment not found.' });
+  }
 
-        if (!update) {
-            return res.status(404).json({ error: "Appointment not found" });
-        }
+  // Validate fields
+  if (!appointmentDate || !appointmentTime || !vetPersonnel) {
+    return res.status(400).json({ message: 'Date, Time, and Personnel are required.' });
+  }
 
-        res.status(200).json({
-            message: "Appointment rescheduled successfully.",
-            data: update
-        });
+  // Date validation
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const apptDate = new Date(appointmentDate);
+  apptDate.setHours(0, 0, 0, 0);
 
-    } catch (err) {
-        console.error("❌ Error rescheduling appointment:", err.message);
-        res.status(500).json({ error: "Failed to reschedule appointment" });
-    }
-}
+  if (apptDate < today) {
+    return res.status(400).json({ message: 'Past dates are not allowed for appointments.' });
+  }
+
+  // Check time conflict
+  const checkAppointmentTime = await isValidAppointmentTime(
+    appointmentDate,
+    appointmentTime,
+    existingAppointment.municipality
+  );
+  if (!checkAppointmentTime.valid) {
+    return res.status(400).json({ message: checkAppointmentTime.message });
+  }
+
+  // Check swine count
+  const swineCheck = await checkSwineCountLimit(appointmentDate, existingAppointment.swineCount);
+  if (!swineCheck.success) {
+    return res.status(400).json({ message: swineCheck.message });
+  }
+
+  // Prepare update
+  const updateData = {
+    appointmentDate,
+    appointmentTime,
+    appointmentStatus: 'reschedule'
+  };
+
+  // Update
+  const updated = await appointmentDB.findByIdAndUpdate(
+    appointmentId,
+    updateData,
+    { new: true }
+  );
+
+  return res.status(200).json({
+    message: 'Appointment rescheduled successfully.',
+    data: updated
+  });
+};
+
 
 
 // Complete appointment

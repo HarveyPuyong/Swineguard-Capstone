@@ -2,14 +2,27 @@ import { formattedDate, formatTo12HourTime } from './formated-date-time.js';
 import { getMedicineName } from './../api/fetch-medicine.js';
 import { getTechnicianName } from './../api/fetch-technicians.js';
 import { getServiceName } from './../api/fetch-services.js';
+import fetchUser from '../script/auth/fetchUser.js';
 
 async function appointmentsTable(appointments, table) {
+  const user = await fetchUser();
+  const role = user.roles;
+
+  //console.log(role[0])
+
   let appointmentTableHTML = '';
 
   for (const appointment of appointments) {
     const medicineName = await getMedicineName(appointment.medicine);
     const TechnicianName = await getTechnicianName(appointment.vetPersonnel);
     const serviceName = await getServiceName(appointment.appointmentService);
+
+    const clinicalSignsContainer = document.querySelector('#clinical-signs-display');
+
+    const clinicalSignsHTML = (appointment.clinicalSigns && appointment.clinicalSigns.length > 0)
+      ? `<ul>${appointment.clinicalSigns.map(sign => `<li>• ${sign}</li>`).join('')}</ul>`
+      : "None"
+    ;
 
     appointmentTableHTML += `
       <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
@@ -23,10 +36,10 @@ async function appointmentsTable(appointments, table) {
              ${appointment.appointmentStatus}
           </p>
           <p class="td action">
-            <select class="select-appointment-action" data-appointment-id=${appointment._id} name="appointment-action" id="appointment-action">
+            <select class="select-appointment-action" data-appointment-id=${appointment._id} name="appointment-action" id="appointment-action" ${role[0] === 'admin' || appointment.appointmentStatus === 'completed' ? 'disabled' : ''}>
               <option value="">Action</option>
-              <option value="accept">Accept</option>
-              <option value="reschedule">Reschedule</option>
+              <option value="accept" ${appointment.appointmentStatus === 'reschedule' ? 'disabled' : ''}>Accept</option>
+              <option value="reschedule" ${appointment.appointmentStatus === 'pending' ? 'disabled' : ''}>Reschedule</option>
               <option value="remove">Remove</option>
             </select> 
           </p>
@@ -56,9 +69,9 @@ async function appointmentsTable(appointments, table) {
                 <span class="column__detail-label">Address:</span>
                 <span class="column__detail-value">${appointment.municipality}, ${appointment.barangay}, Marinduqe</span>
               </p>
-              <p class="column__detail symptoms">
+              <p class="column__detail">
                 <span class="column__detail-label">Note:</span>
-                <span class="column__detail-value">${appointment.swineSymptoms}</span>
+                <span class="column__detail-value" id="clinical-signs-display">${clinicalSignsHTML}</span>
               </p>
             </div>
             <div class="column right"> 
@@ -93,10 +106,10 @@ async function appointmentsTable(appointments, table) {
             </div>
           </div>
           <div class="buttons-container">
-            <button data-appointment-id=${appointment._id} id="completed-btn" class="completed-btn btn">Completed</button>
-            <button data-appointment-id=${appointment._id} id="set-schedule-btn" class="set-schedule-btn btn">Set Schedule</button>
-            <button data-appointment-id=${appointment._id} id="restore-btn" class="restore-btn btn">Restore</button>
-            <button data-appointment-id=${appointment._id} id="delete-btn" class="delete-btn btn">Delete</button>
+            <button data-appointment-id=${appointment._id} id="completed-btn" class="completed-btn btn" ${role[0] === 'admin' ? 'disabled' : ''}>Completed</button>
+            <button data-appointment-id=${appointment._id} id="set-schedule-btn" class="set-schedule-btn btn" ${role[0] === 'admin' ? 'disabled' : ''}>Set Schedule</button>
+            <button data-appointment-id=${appointment._id} id="restore-btn" class="restore-btn btn" ${role[0] === 'admin' ? 'disabled' : ''}>Restore</button>
+            <button data-appointment-id=${appointment._id} id="delete-btn" class="delete-btn btn" ${role[0] === 'admin' ? 'disabled' : ''}>Delete</button>
           </div>
         </div>
       </div>

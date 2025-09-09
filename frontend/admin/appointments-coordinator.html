@@ -187,11 +187,7 @@
                     <option value="">Select Service</option>
                     <!-- Populate using fetch-services.js -->
                   </select>
-                  <select id="appointment-type" name="appointment-type">
-                    <option value="">Select Appointment Type</option>
-                    <option value="visit">Visit</option>
-                    <option value="service">Service</option>
-                  </select>
+                  <input id="add-appointment-type" type="text" placeholder="Service/visit" readonly>
                   <input id="appointment-date" type="text" placeholder="Schedule Date" onfocus="(this.type='date')" onblur="if(!this.value)this.type='text'" />
                   <input id="appointment-time" type="text" placeholder="Schedule Time" onfocus="(this.type='time')" onblur="if(!this.value)this.type='text'" />
                 </div>
@@ -201,7 +197,7 @@
                     <option value="">Swine Type</option>
                     <option value="piglet">Piglet</option>
                     <option value="grower">Grower</option>
-                    <option value="sow">Sow</option>
+                    <option value="sow-gilt">Sow/Gilt</option>
                     <option value="boar">Boar</option>
                   </select>
                   <input id="swine-count" type="number" min="0"  placeholder="Heads" required>
@@ -210,8 +206,39 @@
                   <input  id="swine-female" type="number" min="0" placeholder="Number of Female" required>
                   <input id="swine-male" type="number" min="0" placeholder="Number of Male" required>
                 </div>
-                <!-- textarea of swine symptoms message -->
-                <textarea class="swine-symptoms"  name="" id="swine-symptoms" placeholder="Kindly write down the symptoms"></textarea>
+
+                <!-- Clinical Signs -->
+                <div class="clinical-signs">
+                  <div class="title"><strong>Clinical Signs:</strong></div>
+
+                  <label><input type="checkbox" name="clinicalSigns" value="Fever"> Fever</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Enlargement of the Abdomen"> Enlargement of the Abdomen</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Blood in the urine"> Blood in the urine</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Nasal Discharge"> Nasal Discharge</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Vesicle Formation"> Vesicle Formation</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Lameness"> Lameness</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Constipation"> Constipation</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Vomiting"> Vomiting</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="No Milk"> No Milk</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Skin Lesion"> Skin Lesion</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Mastitis"> Mastitis</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Lack of Appetite"> Lack of Appetite</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Diarrhea"> Diarrhea</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Difficulty in breathing"> Difficulty in breathing</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Swelling the genital organs"> Swelling the genital organs</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Skin discoloration"> Skin discoloration</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Loss of weight"> Loss of weight</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Blood in the feces"> Blood in the feces</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Coughing"> Coughing</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Padding"> Padding</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Trembling"> Trembling</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="none"> None</label>
+                </div>
+                <div class="group clinical-signs-txtarea">
+                  <label for="others">Others:</label>
+                  <textarea name="others" id="clinical-signs-others" placeholder="Please specify..."></textarea>
+                </div>
+
                 <button class="submit-appointment-btn" type="submit">Add Appointment</button>
               </form>
             </div>
@@ -244,12 +271,41 @@
                   </select>
                 </div>
               </div>
-              <label for="vet-message">Message</label>
-              <textarea name="vet-message" id="vet-message"></textarea>
+              <!-- <label for="vet-message">Message</label>
+              <textarea name="vet-message" id="vet-message"></textarea> -->
               <div class="appointment-schedule-form__buttons">
                 <a href="#" class="appointment-schedule-form__check-sched-btn">Check Schedules</a>
                   <button class="appointment-schedule-form__confirm-btn" type="submit">Confirm</button>
                   <button class="appointment-schedule-form__close-btn close-form-btn" id="cancel-btn" type="button">Cancel</button>
+              </div>
+            </form>
+
+             <!-- Appointment Reschedule Form -->   
+            <form class="appointment-reschedule-form">
+              <h2 class="appointment-schedule-form__heading">Appointment Reschedule Form (<span class="appointment-reschedule-form__service-name"></span>)</h2>
+              <div class="appointment-schedule-form__details-columns">
+                <div class="column-left">
+                  <label for="reschedule-set-date">Set Date</label>
+                  <input id="reschedule-set-date" type="date" required>
+                  <label for="reschedule-set-time">Set Time</label>
+                  <input id="reschedule-set-time" type="time" required>
+                </div>
+                <div class="column-right">
+                  <label for="reschedule-available-personnel">Avialable Personnel</label>
+                  <select name="reschedule-available-personnel" id="reschedule-available-personnel">
+                    <option value="">Personnel</option>
+                    <!-- Populate using getTechnicians.js -->
+                  </select>
+                  
+                  <label for="reschedule-appointment-type">Appointment Type</label>
+                  <input type="text" name="reschedule-appointment-type" id="reschedule-appointment-type" value="" readonly>
+                </div>
+              </div>
+              
+              <div class="appointment-reschedule-form__buttons">
+                <a href="#" class="appointment-schedule-form__check-sched-btn">Check Schedules</a>
+                  <button class="appointment-reschedule-form__confirm-btn" type="submit">Confirm</button>
+                  <button class="appointment-reschedule-form__close-btn close-form-btn" id="reschedule-cancel-btn" type="button">Cancel</button>
               </div>
             </form>
 
