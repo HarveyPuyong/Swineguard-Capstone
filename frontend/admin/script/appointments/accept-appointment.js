@@ -22,22 +22,10 @@ const handleAcceptAppointment = async (e) => {
 
   const getAppointmentType = appointment.appointmentType;
 
-  let appointmentMedicine, medicineDosage;
-  if (getAppointmentType.toLowerCase() === 'visit') {
-    appointmentMedicine = null;
-    medicineDosage = 0;
-  } else {
-    appointmentMedicine = document.querySelector('.appointment-schedule-form #medicine-list').value.trim();
-    medicineDosage = Number(document.querySelector('.appointment-schedule-form #medicine-amount').value.trim());
-  }
-
   const appointmentData = {
     appointmentDate: document.querySelector('.appointment-schedule-form #set-date').value.trim(),
     appointmentTime: document.querySelector('.appointment-schedule-form #set-time').value.trim(),
-    medicine: appointmentMedicine,
-    dosage: medicineDosage,
-    vetPersonnel: document.querySelector('.appointment-schedule-form #available-personnel').value.trim(),
-    //vetMessage: document.querySelector('.appointment-schedule-form #vet-message').value.trim(),
+    vetPersonnel: document.querySelector('.appointment-schedule-form #available-personnel').value.trim()
   };
 
   try {

@@ -211,6 +211,7 @@
                 <div class="clinical-signs">
                   <div class="title"><strong>Clinical Signs:</strong></div>
 
+                  <label><input type="checkbox" name="clinicalSigns" value="none"> None</label>
                   <label><input type="checkbox" name="clinicalSigns" value="Fever"> Fever</label>
                   <label><input type="checkbox" name="clinicalSigns" value="Enlargement of the Abdomen"> Enlargement of the Abdomen</label>
                   <label><input type="checkbox" name="clinicalSigns" value="Blood in the urine"> Blood in the urine</label>
@@ -232,7 +233,6 @@
                   <label><input type="checkbox" name="clinicalSigns" value="Coughing"> Coughing</label>
                   <label><input type="checkbox" name="clinicalSigns" value="Padding"> Padding</label>
                   <label><input type="checkbox" name="clinicalSigns" value="Trembling"> Trembling</label>
-                  <label><input type="checkbox" name="clinicalSigns" value="none"> None</label>
                 </div>
                 <div class="group clinical-signs-txtarea">
                   <label for="others">Others:</label>
@@ -245,38 +245,31 @@
             
             <!-- Appointment Schedule Form -->   
             <form class="appointment-schedule-form">
-              <h2 class="appointment-schedule-form__heading">Appointment Schedule Form (<span class="appointment-schedule-form__service-name"></span>)</h2>
+              <h2 class="appointment-schedule-form__heading">Appointment Schedule Form <br>(<span class="appointment-schedule-form__service-name"></span>)</h2>
               <div class="appointment-schedule-form__details-columns">
                 <div class="column-left">
                   <label for="set-date">Set Date</label>
                   <input id="set-date" type="date" required>
                   <label for="set-time">Set Time</label>
                   <input id="set-time" type="time" required>
-                  <label for="appointment-type">Appointment Type</label>
-                  <input type="text" name="appointment-type" id="appointment-type" value="" readonly>
-                </div>
-                <div class="column-right">
-                  <label for="medicine-list">Select Medicine</label>
-                  <select name="medicine-list" id="medicine-list">
-                    <option value="">Select Medicine</option>
-                    <!--/script/appointment/setup-appointments-section.js -->
-                  </select>
 
-                  <label for="medicine-amount">Medicine Dosage</label>
-                  <input type="number" id="medicine-amount" min="0" placeholder="Amount/mg here." required>
                   <label for="available-personnel">Avialable Personnel</label>
                   <select name="available-personnel" id="available-personnel">
                     <option value="">Personnel</option>
                     <!-- Populate using getTechnicians.js -->
                   </select>
+
                 </div>
               </div>
-              <!-- <label for="vet-message">Message</label>
-              <textarea name="vet-message" id="vet-message"></textarea> -->
+              
               <div class="appointment-schedule-form__buttons">
-                <a href="#" class="appointment-schedule-form__check-sched-btn">Check Schedules</a>
+                <!-- <a href="#" class="appointment-schedule-form__check-sched-btn">Check Schedules</a> -->
+                <button class="appointment-schedule-form__check-sched-btn" type="button">Schedules</button>
+
+                <div class="below-btn">
                   <button class="appointment-schedule-form__confirm-btn" type="submit">Confirm</button>
                   <button class="appointment-schedule-form__close-btn close-form-btn" id="cancel-btn" type="button">Cancel</button>
+                </div>
               </div>
             </form>
 

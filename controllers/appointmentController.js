@@ -1,6 +1,7 @@
 const appointmentDB = require('./../models/appointmentModel');
 const mongoose = require('mongoose');
 const { checkSwineCountLimit, isValidAppointmentTime } = require('./../utils/appointmentUtils');
+const {isValidNumber} = require('./../utils/inventoryUtils');
 
 // Request Apointments
 exports.addAppointment = async (req, res) => {
@@ -132,7 +133,7 @@ exports.addAppointment = async (req, res) => {
 
 // Accept appointment
 exports.acceptAppointment = async (req, res) => {
-    const { appointmentDate, appointmentTime, vetPersonnel, medicine, dosage } = req.body;
+    const { appointmentDate, appointmentTime, vetPersonnel} = req.body;
     const appointmentId = req.params.id;
 
     // Check Object Id
@@ -151,13 +152,6 @@ exports.acceptAppointment = async (req, res) => {
     // Basic field validation
     if (!appointmentDate || !appointmentTime || !vetPersonnel) {
         return res.status(400).json({ message: 'Date, Time, and Personnel are required.' });
-    }
-
-    // Medicine and dosage validation only for 'service'
-    if (appointmentType === 'service') {
-        if (!medicine || !dosage) {
-            return res.status(400).json({ message: 'Medicine and Dosage are required for Service appointments.' });
-        }
     }
 
     // Appointment date check
@@ -187,17 +181,8 @@ exports.acceptAppointment = async (req, res) => {
         appointmentDate,
         appointmentTime,
         appointmentStatus: 'accepted',
-        vetPersonnel,
-        //vetMessage
+        vetPersonnel
     };
-
-    if (appointmentType === 'visit') {
-        updateData.medicine = null;
-        updateData.dosage = 0;
-    } else {
-        updateData.medicine = medicine;
-        updateData.dosage = dosage;
-    }
 
     // Perform update
     const updated = await appointmentDB.findByIdAndUpdate(
@@ -286,13 +271,25 @@ exports.rescheduleAppointment = async (req, res) => {
 exports.completeAppointment = async (req, res) => {
     try {
         const { id } = req.params;
+        const { medicineAmount, medicine } = req.body;
 
         // Check Object Id if exist or valid
         if(!isValidAppointmentId(id)) return res.status(400).json({ message: 'Invalid Appointment Id.' });
 
+        if (!isValidNumber(medicineAmount)) return res.status(400).json({ message: 'Medicine amount must be valid numbers' });
+
+        const numericAmount = Number(medicineAmount);
+
+        // Prepare update values
+        const updateData = {
+            medicine,
+            medicineAmount: numericAmount,
+            appointmentStatus: 'completed'
+        };
+
         const update = await appointmentDB.findByIdAndUpdate(
             id,
-            { appointmentStatus: "completed" },
+            updateData,
             { new: true }
         );
 

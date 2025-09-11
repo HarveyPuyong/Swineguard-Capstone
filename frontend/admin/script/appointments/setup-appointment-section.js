@@ -5,9 +5,8 @@ import handleRenderAppointments from "./display-appointment.js";
 import { setupAppointmentFormListener, acceptAppointmentRequest } from "./accept-appointment.js";
 import { setupReschedAppointmentFormListener, rescheduleAppointmentRequest } from './reschedule-appointment.js';
 import handleRemoveAppointment from "./remove-appointment.js";
-import {handleCompleteAppointment,
-        handleRestoreAppointment,
-        handleDeleteAppointment,} from "./complete-restore-delete-appointment.js";
+import { handleRestoreAppointment,
+         handleDeleteAppointment,} from "./complete-restore-delete-appointment.js";
 import handleAppointmentCalendarContent from "./appointment-calendar.js";
 import fetchUsers from "../../api/fetch-users.js"
 import populateAppointmentDateAndTime from "../../api/fetch-appointment-date-and-time.js";
@@ -16,6 +15,7 @@ import { getServiceName } from '../../api/fetch-services.js';
 import { fetchAppointments } from '../../api/fetch-appointments.js';
 import populateFilteredMedicines from '../../utils/filter-service-medicine.js';
 import { handleReportChange } from '../reports/generate-appointment-reports.js';
+
 
 
 
@@ -328,12 +328,8 @@ const setupScheduleAppointmentForm = async(appointmentId) => {
 
       personnelSelectElement.appendChild(option);
 
-      // const option = document.createElement('option');
-      // option.value = technician._id;
-      // option.textContent = technicianFullname;
-
-      // personnelSelectElement.appendChild(option);
     });
+
 
     //console.log(appointment)
 
@@ -398,13 +394,16 @@ const toggleRescheduleAppointmentForm = () => {
   const rescheduleAppointmentForm = document.querySelector('.appointment-reschedule-form');
   rescheduleAppointmentForm.classList.add('show');
 
-  const rescheduleSelectTag = document.querySelector('')
+  const filterSelect = document.querySelector('.filter-apointments-status')
+  const filterSelectTech = document.querySelector('#reschedule-available-personnel');
 
   const rescheduleCancelBtn = document.getElementById('reschedule-cancel-btn');
 
   rescheduleCancelBtn.addEventListener('click', () => {
     rescheduleAppointmentForm.classList.remove('show');
     rescheduleAppointmentForm.reset();
+    filterSelect.selectedIndex = 0;
+    filterSelectTech.innerHTML = '<option value="">Personnel</option>';
   });
 }
 
@@ -513,12 +512,11 @@ const handleAppointmentButtonsActions = () => {
           else if(button.id === 'delete-btn') {
             handleDeleteAppointment(appointmentId)
           }
-          else if(button.id === 'set-schedule-btn') {
-            toggleAcceptAppointmentForm(null);
-            handleAcceptAppointment(appointmentId);
-          }
-          else if(button.id === 'completed-btn') {
-            handleCompleteAppointment(appointmentId)
+          // else if(button.id === 'completed-btn') {
+          //   completeAppointmentRequest(appointmentId)
+          // }
+          else if(button.id === 'print-download-btn') {
+            alert(`Print & Download has been clicked! \n Appointment Id: ${appointmentId}` )
           }
         });
       })

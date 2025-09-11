@@ -62,7 +62,7 @@ async function appointmentsTable(appointments, table) {
                 <span class="column__detail-value appointment-date-send">${formattedDate(appointment.createdAt)}</span>
               </p>
               <p class="column__detail">
-                <span class="column__detail-label">Actual Schedule:</span>
+                <span class="column__detail-label">Schedule:</span>
                 <span class="column__detail-value">${formattedDate(appointment.appointmentDate)} at ${formatTo12HourTime(appointment.appointmentTime)}</span>
               </p>
               <p class="column__detail">
@@ -106,8 +106,7 @@ async function appointmentsTable(appointments, table) {
             </div>
           </div>
           <div class="buttons-container">
-            <button data-appointment-id=${appointment._id} id="completed-btn" class="completed-btn btn" ${role[0] === 'admin' ? 'disabled' : ''}>Completed</button>
-            <button data-appointment-id=${appointment._id} id="set-schedule-btn" class="set-schedule-btn btn" ${role[0] === 'admin' ? 'disabled' : ''}>Set Schedule</button>
+            <button data-appointment-id=${appointment._id} id="print-download-btn" class="print-download-btn btn">Print & Download</button>
             <button data-appointment-id=${appointment._id} id="restore-btn" class="restore-btn btn" ${role[0] === 'admin' ? 'disabled' : ''}>Restore</button>
             <button data-appointment-id=${appointment._id} id="delete-btn" class="delete-btn btn" ${role[0] === 'admin' ? 'disabled' : ''}>Delete</button>
           </div>

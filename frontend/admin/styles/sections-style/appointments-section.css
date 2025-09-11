@@ -396,12 +396,13 @@
   cursor: pointer;
 }
 
-.appointment.status-accepted #completed-btn,
-.appointment.status-reschedule .set-schedule-btn{
+.appointment.status-accepted #print-download-btn, 
+.appointment.status-completed #print-download-btn, 
+.appointment.status-reschedule #print-download-btn {
   display: block;
-  border: 1px solid #009947;
-  background-color: #1dff8722;
-  color: #009947;
+  border: 1px solid #000b70;
+  background-color: #6775f8;
+  color: #000b70;
 }
 
 .appointment.status-removed .restore-btn{
@@ -499,7 +500,7 @@
 
 .add-appointments-form #appointment-date,
 .add-appointments-form #appointment-time,
-.add-appointments-form #appointment-type {
+.add-appointments-form #add-appointment-type {
   width: 50%;
 }
 
@@ -534,7 +535,8 @@
 
 /* Appointment Schedule Form */
 .appointment-schedule-form, 
-.appointment-reschedule-form {
+.appointment-reschedule-form,
+.complete-task-form {
   display: none; 
   position: fixed;
   top: 53%;
@@ -548,8 +550,13 @@
   padding: 1rem 2rem;
 }
 
+.appointment-schedule-form, 
+.appointment-reschedule-form {
+  width: 500px;
+}
+
 .appointment-schedule-form.show, 
-.appointment-reschedule-form.show {
+.appointment-reschedule-form.show{
   display: block;
 }
 
@@ -565,7 +572,9 @@
 .appointment-schedule-form__service-name, 
 .appointment-reschedule-form__service-name
 {
-  color: green
+  color: green;
+  font-style: italic;
+  font-size: 18px;
 }
 
 .appointment-schedule-form__details-columns{
@@ -576,13 +585,7 @@
 .appointment-schedule-form__details-columns .column-left,
 .appointment-reschedule-form__details-columns .column-left
 {
-  flex: 0.7;
-}
-
-.appointment-schedule-form__details-columns .column-right,
-.appointment-reschedule-form__details-columns .column-right
- {
-  flex: 1;
+  width: 100%;
 }
 
 .appointment-schedule-form input,
@@ -612,40 +615,47 @@
 {
   display: flex;
   align-items: center;
-  gap: 1.3rem;
-  padding-left: 0.5rem;
+  gap: .4rem;
+  flex-direction: column;
+}
+.appointment-schedule-form__buttons .below-btn {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: .4rem;
 }
 
-.appointment-schedule-form__check-sched-btn{
-  margin-right: auto;
-  background-color: #B1AEAE;
-  border: 1px solid #7D7D7D;
-  border-radius: 8px;
-  color: #232C27;
-  padding: 0.5rem 1rem;
-}
 
 .appointment-schedule-form__confirm-btn,
 .appointment-schedule-form__close-btn,
+.appointment-schedule-form__check-sched-btn,
 .appointment-reschedule-form__confirm-btn,
 .appointment-reschedule-form__close-btn
 {
   height: 30px;
-  width: 100px;
+  width: 100%;
   border-radius: 8px;
   cursor: pointer;
 }
 
 .appointment-schedule-form__confirm-btn,
-.appointment-reschedule-form__confirm-btn
+.appointment-reschedule-form__confirm-btn,
+#complete-task-form__complete-btn
 {
   background-color: #B0DDC5;
   border: 1px solid #009947;
   color: #232C27;
 }
 
+.appointment-schedule-form__check-sched-btn {
+  background-color: #B1AEAE;
+  border: 1px solid #7D7D7D;
+  color: #232C27;
+}
+
 .appointment-schedule-form__close-btn,
-.appointment-reschedule-form__close-btn
+.appointment-reschedule-form__close-btn,
+#complete-task-form__cancel-btn
 {
   background-color: #EECDCD;
   border: 1px solid #FF0000;
@@ -891,15 +901,17 @@ Pie Graph design
 
 
 /* Clinical SIgns */
+
 .clinical-signs {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 equal columns */
+  grid-template-columns: 1fr 1fr 1fr; /* 2 equal columns */
   gap: 8px 20px; /* row gap, col gap */
 }
 
 .clinical-signs .title {
-  grid-column: span 2; /* title full width */
+  grid-column: span 3; /* title full width */
   margin-bottom: 5px;
+  width: 100%;
 }
 
 .clinical-signs label {
@@ -926,3 +938,33 @@ Pie Graph design
   font-size: 14px;
 }
 
+/* Veterinarian and Technician Complete Form */
+.complete-task-form.show {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+  width: 400px;
+}
+.complete-task-form h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+.complete-task-form input,
+.complete-task-form select {
+  width: 100%;
+  margin-top: 0.2rem;
+  margin-bottom: 0.8rem;
+  padding: 0.8rem 0.5rem;
+  font-size: 0.9rem;
+}
+.complete-task-form__btn {
+  display: flex;
+  gap: .2rem;
+  margin-bottom: 1rem;
+}
+.complete-task-form button {
+  height: 30px;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+}

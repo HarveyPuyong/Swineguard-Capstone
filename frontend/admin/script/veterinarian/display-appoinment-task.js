@@ -18,6 +18,7 @@ const displayTaskList = async () => {
         filteredAppointments = filteredAppointments.filter(a => a.appointmentStatus !== 'completed');
     }
 
+
     // Sort so incomplete is first
     filteredAppointments.sort((a, b) => {
         if (a.appointmentStatus === 'completed' && b.appointmentStatus !== 'completed') return 1;
@@ -31,15 +32,17 @@ const displayTaskList = async () => {
         const serviceName = await getServiceName(appointment.appointmentService);
         const medicineName = await getMedicineName(appointment.medicine);
 
+        const clinicalSignsHTML = (appointment.clinicalSigns && appointment.clinicalSigns.length > 0)
+            ? `<ul>${appointment.clinicalSigns.map(sign => `<li>• ${sign}</li>`).join('')}</ul>`
+            : "None"
+        ;
+
         taskListHTML += `
             <div class="schedule">
                 <div class="schedule-info">
                     <div class="schedule-detail">
                         <div class="appointment-name">${serviceName}</div>
-                        <div class="detail type">
-                            <span class="detail-label">Appointment Type:</span>
-                            <span class="detail-value">${appointment.appointmentType.charAt(0).toUpperCase() + appointment.appointmentType.slice(1)}</span>
-                        </div>
+
                         <div class="detail date">
                             <span class="detail-label">Date:</span>
                             <span class="detail-value">${formattedDate(appointment.appointmentDate)}</span>
@@ -75,13 +78,17 @@ const displayTaskList = async () => {
                             <span class="detail-label">Swine Count:</span>
                             <span class="detail-value">${appointment.swineCount}</span>
                         </div>
+                        <div class="detail clinical-signs">
+                            <span class="detail-label">Clinical Signs:</span>
+                            <span class="detail-value">${clinicalSignsHTML}</span>
+                        </div>
                         <div class="detail medicine">
                             <span class="detail-label">Medicine:</span>
-                            <span class="detail-value">${medicineName}</span>
+                            <span class="detail-value">${medicineName ? medicineName : 'not set'}</span>
                         </div>
-                        <div class="detail dosage">
-                            <span class="detail-label">Dosage</span>
-                            <span class="detail-value">${appointment.dosage} (mg)</span>
+                        <div class="detail medicine=amount">
+                            <span class="detail-label">Amount:</span>
+                            <span class="detail-value">${appointment.medicineAmount ? appointment.medicineAmount : '0'} ml</span>
                         </div>
                     </div>
                 </div>
