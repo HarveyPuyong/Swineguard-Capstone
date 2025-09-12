@@ -57,6 +57,19 @@ const setupRequestAppointmentForm = async () => {
     });
   }
 
+
+  const serviceTypeInput = document.querySelector('#select-appointment-type');
+
+  // When the user selects a service
+  serviceSelect.addEventListener("change", async () => {
+    const selectedService = services.find(service => service._id === serviceSelect.value);
+
+    const serviceType = selectedService ? selectedService.serviceType : "Not set";
+    serviceTypeInput.value = serviceType;
+  });
+
+  
+
 };
 
 
@@ -71,7 +84,9 @@ const toggleRequestAppointmentForm = async() => {
     addEventListener('click', () => form.classList.add('show'));
 
   const closeFormBtn = document.querySelector('.request-appointment-form__back-btn').
-    addEventListener('click', () => form.classList.remove('show'))
+    addEventListener('click', () => {
+      form.classList.remove('show'); form.reset();
+    });
 }
 
 

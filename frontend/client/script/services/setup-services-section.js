@@ -1,6 +1,7 @@
 import displayServices from "./display-services.js";
 import sideNavFuntionality from "../side-nav.js";
 import setupAppointmentSection from "../appointments/setup-appointment-section.js";
+import { fetchServices } from "../../../admin/api/fetch-services.js";
 
 // ======================================
 // ========== Toggle More Details
@@ -60,6 +61,7 @@ const availServiceListener = () => {
       const serviceSelect = document.querySelector("#select-appointment-service");
       if (serviceSelect && serviceId) {
         serviceSelect.value = serviceId;
+        getServiceType(serviceId);
       }
 
       // Hide all sections
@@ -85,6 +87,17 @@ const availServiceListener = () => {
   closeFormBtn?.addEventListener('click', () => form.classList.remove('show'));
 };
 
+
+// get service type using service id
+const getServiceType = async(serviceId) => {
+  const services = await fetchServices();
+  const selectedService = services.find(service => service._id === serviceId);
+  
+  const serviceTypeInput = document.querySelector('#select-appointment-type');
+
+  const serviceType = selectedService ? selectedService.serviceType : "Not set";
+  serviceTypeInput.value = serviceType;
+}
 
 
 // ======================================

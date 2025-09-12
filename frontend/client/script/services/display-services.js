@@ -12,7 +12,7 @@ const displayServices = async() => {
                 : service.description;
             servicesHTML += `
                 <div class="service-card">
-                    <h2 class="services-card__title">${service.serviceName}</h2>
+                    <h2 class="services-card__title">${service.serviceName} <span class="client-side__service-type">(${service.serviceType ? service.serviceType.charAt(0).toUpperCase() + service.serviceType.slice(1): 'Not updated'})</span></h2>
                     <p class="services-card__description">
                         <span class="services-card__description--details">&nbsp; &nbsp; &nbsp;&nbsp;${shortText}</span>
                         <span class="services-card__description--more-details">&nbsp; &nbsp; &nbsp;&nbsp;${service.description}</span>

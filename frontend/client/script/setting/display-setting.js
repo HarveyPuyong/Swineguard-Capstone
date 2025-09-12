@@ -15,7 +15,7 @@ const displayClientProfileSetting = async() => {
 
     const settingHTML = `
         <div class="profile-image detail">
-            <img src="${user.profileImage ? '/uploads/' + user.profileImage : 'images-and-icons/icons/default-profile.png'}" alt="Profile Picture" />
+            <img src="${user.profileImage ? '/uploads/' + user.profileImage : 'images-and-icons/icons/default-profile.png'}" id="client-profile-img" alt="Profile Picture" />
             <label class="profile-image__upload-btn show">
                 <input type="file" hidden id="profile-image-input"/>
                 <i class="fas fa-upload"></i> Upload

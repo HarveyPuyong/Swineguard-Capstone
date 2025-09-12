@@ -268,11 +268,7 @@
 
               <div class="form-detail" for="select-appointment-type"> 
                 <span class="form-detail__label">Appointment Type:</span>
-                <select class="form-detail__value" id="select-appointment-type" name="select-appointment-type" required>
-                  <option value="">Select Type</option>
-                  <option value="service">Service</option>
-                  <option value="visit">Visit</option>
-                </select>
+                <input class="form-detail__value" id="select-appointment-type" name="select-appointment-type" readonly>
               </div>
             </div>
 
@@ -289,8 +285,40 @@
             </div>
 
             <div class="form-detail" for="input-note"> 
-              <span class="form-detail__label">Note:</span>
-              <textarea class="form-detail__value" name="input-note" id="input-note" placeholder="Type your appointment note"></textarea>
+              <!-- <span class="form-detail__label">Clinical Signs:</span> -->
+              <!-- <textarea class="form-detail__value" name="input-note" id="input-note" placeholder="Type your appointment note"></textarea> -->
+
+              <div class="client-side__clinical-signs">
+                  <div class="title"><strong>Clinical Signs:</strong></div>
+
+                  <label><input type="checkbox" name="clinicalSigns" value="none"> None</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Fever"> Fever</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Enlargement of the Abdomen"> Enlargement of the Abdomen</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Blood in the urine"> Blood in the urine</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Nasal Discharge"> Nasal Discharge</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Vesicle Formation"> Vesicle Formation</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Lameness"> Lameness</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Constipation"> Constipation</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Vomiting"> Vomiting</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="No Milk"> No Milk</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Skin Lesion"> Skin Lesion</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Mastitis"> Mastitis</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Lack of Appetite"> Lack of Appetite</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Diarrhea"> Diarrhea</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Difficulty in breathing"> Difficulty in breathing</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Swelling the genital organs"> Swelling the genital organs</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Skin discoloration"> Skin discoloration</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Loss of weight"> Loss of weight</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Blood in the feces"> Blood in the feces</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Coughing"> Coughing</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Padding"> Padding</label>
+                  <label><input type="checkbox" name="clinicalSigns" value="Trembling"> Trembling</label>
+                </div>
+                <div class="group clinical-signs-txtarea">
+                  <label for="others">Others:</label>
+                  <textarea name="others" id="client-side__clinical-signs-others" placeholder="Please specify..."></textarea>
+                </div>
+
             </div>
 
             <div class="request-appointment-form__buttons-container">

@@ -50,6 +50,8 @@ const handleUpdateButtons = () => {
         }
         detail.classList.remove('editable');
       });
+
+      displaySetting();
     });
   });
 };
@@ -93,8 +95,36 @@ const populateAddresses = () => {
   });
 }
 
+
+// ======================================
+// ========== Pre Display user profile input
+// ======================================
+const preDisplayProfileImg = () => {
+
+  const profileImgInput =  document.querySelector('#admin__profile-image-input');
+  const profileImg = document.querySelector('#appointment-coordinator__profile-image');
+
+  profileImgInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        profileImg.src = reader.result;
+      });
+
+      reader.readAsDataURL(file); // Read file as data URL
+    } else {
+      profileImg.src = 'images-and-icons/icons/default-profile.png';
+      return
+    }
+  });
+}
+
+
 document.addEventListener('renderSettings', () => {
   populateAddresses();
+  preDisplayProfileImg();
 })
 
 

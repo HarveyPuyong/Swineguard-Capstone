@@ -52,6 +52,8 @@ const toggleEditMode = () => {
         el.setAttribute('disabled', true);
       }
     });
+
+    displayClientProfileSetting();
   });
 }
 
@@ -108,11 +110,38 @@ const handleLogoutBtn = () => {
 
 
 // ======================================
+// ========== Pre Display user profile input
+// ======================================
+const preDisplayProfileImg = () => {
+
+  const profileImgInput =  document.querySelector('#profile-image-input');
+  const profileImg = document.querySelector('#client-profile-img');
+
+  profileImgInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+
+      reader.addEventListener('load', function () {
+        profileImg.src = reader.result;
+      });
+
+      reader.readAsDataURL(file); // Read file as data URL
+    } else {
+      profileImg.src = 'images-and-icons/icons/default-profile.png';
+      return
+    }
+  });
+}
+
+
+// ======================================
 // ✅ Event listener for dynamic content
 // ======================================
 document.addEventListener('renderClientProfile', () => {
   toggleEditMode(); // Runs only after profile HTML is rendered
   populateAddresses();
+  preDisplayProfileImg();
 });
 
 
