@@ -24,9 +24,9 @@ const handleCompleteAppointment = async(e) => {
   }
 
   const formData = {
-      medicine: completeTaskForm.querySelector('#completeTaskForm__set-medicine-list').value,
-      medicineAmount: completeTaskForm.querySelector('#completeTaskForm__set-medicine-amount').value
-    }
+    medicine: completeTaskForm.querySelector('#completeTaskForm__set-medicine-list').value,
+    medicineAmount: completeTaskForm.querySelector('#completeTaskForm__set-medicine-amount').value
+  }
 
   try {
     // Get the appointment details first to extract the medicine ID

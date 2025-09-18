@@ -1,6 +1,7 @@
 import fetchUsers from "./../../api/fetch-users.js"
 import fetchSwines from "./../../api/fetch-swines.js";
 import { calculateSwineAge } from "../../utils/calculate-months-years.js";
+import api from "../../utils/axiosConfig.js";
 
 const handleRenderSwines = async() => {
   try{

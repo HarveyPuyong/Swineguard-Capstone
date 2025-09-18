@@ -12,7 +12,7 @@ const displayTaskList = async () => {
         .filter(({ vetPersonnel }) => vetPersonnel === _id);
 
     // Apply dropdown filter
-    if (statusFilter === 'complete') {
+    if (statusFilter === 'completed') {
         filteredAppointments = filteredAppointments.filter(a => a.appointmentStatus === 'completed');
     } else if (statusFilter === 'incomplete') {
         filteredAppointments = filteredAppointments.filter(a => a.appointmentStatus !== 'completed');
@@ -78,7 +78,7 @@ const displayTaskList = async () => {
                             <span class="detail-label">Swine Count:</span>
                             <span class="detail-value">${appointment.swineCount}</span>
                         </div>
-                        <div class="detail clinical-signs">
+                        <div class="detail personnel-clinical-signs">
                             <span class="detail-label">Clinical Signs:</span>
                             <span class="detail-value">${clinicalSignsHTML}</span>
                         </div>
@@ -103,6 +103,17 @@ const displayTaskList = async () => {
                 </div>
             </div>
         `;
+    }
+
+    // After the loop
+    if (!taskListHTML) {
+        if (statusFilter === 'complete') {
+            taskListHTML = `<p class="no-task-msg">No completed tasks.</p>`;
+        } else if (statusFilter === 'incomplete') {
+            taskListHTML = `<p class="no-task-msg">No pending tasks.</p>`;
+        } else {
+            taskListHTML = `<p class="no-task-msg">No tasks found.</p>`;
+        }
     }
 
     // Update DOM once after loop

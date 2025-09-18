@@ -3,21 +3,24 @@ import toPercent from "../../utils/toPercent.js";
 import formatItemStatus from './../../utils/format-item-status.js';
 
 
+const upcoming = 'Upcoming';
+
+
 const inventoryDashboard = async () => {
   try {
     const inventory = await fetchInventory();
 
     const totalItems = inventory.length;
 
-    const inStockItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'in-stock').length;
-    const outOfStockItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'out-of-stock').length;
-    const lessStockItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'less-stock').length;
-    const expiredItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'expired').length;
+    // const inStockItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'in-stock').length;
+    // const outOfStockItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'out-of-stock').length;
+    // const lessStockItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'less-stock').length;
+    // const expiredItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'expired').length;
 
-    const inStockPercent = toPercent(inStockItem, totalItems);
-    const outOfStockPercent = toPercent(outOfStockItem, totalItems);
-    const lessStockPercent = toPercent(lessStockItem, totalItems);
-    const expiredPercent = toPercent(expiredItem, totalItems);
+    // const inStockPercent = toPercent(inStockItem, totalItems);
+    // const outOfStockPercent = toPercent(outOfStockItem, totalItems);
+    // const lessStockPercent = toPercent(lessStockItem, totalItems);
+    // const expiredPercent = toPercent(expiredItem, totalItems);
 
 
 
@@ -27,7 +30,7 @@ const inventoryDashboard = async () => {
         <img class="dashboard__card-icon" src="images-and-icons/icons/stocks-icon.png" alt="stocks-icon">
         <p class="dashboard__card-label">
           Total Stocks: 
-          <span class="dashboard__card-label--value">${totalItems}</span>
+          <span class="dashboard__card-label--value">${upcoming}</span>
         </p>
       </div>
 
@@ -35,15 +38,15 @@ const inventoryDashboard = async () => {
       <div class="dashboard__card in-stocks">
         <p class="dashboard__card-label">
           In Stocks: 
-          <span class="dashboard__card-label--value">${inStockItem}</span>
+          <span class="dashboard__card-label--value">${upcoming}</span>
         </p>
         <div class="dashboard__card-progress-bar-container">
           <div class="dashboard__card-progress-bar">
             <div class="dashboard__card-progress-barOverflow"></div>
-            <div class="dashboard__card-progress-value" style="width:${inStockPercent}%"></div>
+            <div class="dashboard__card-progress-value" style="width:${upcoming}%"></div>
           </div>
           <div class="dashboard__card-progress-slicer"></div>
-          <p class="dashboard__card-progress-txt">${inStockPercent}%</p>
+          <p class="dashboard__card-progress-txt">${upcoming}%</p>
         </div>
       </div>
 
@@ -51,15 +54,15 @@ const inventoryDashboard = async () => {
       <div class="dashboard__card out-of-stocks">
         <p class="dashboard__card-label">
           Out of Stocks: 
-          <span class="dashboard__card-label--value">${outOfStockItem}</span>
+          <span class="dashboard__card-label--value">${upcoming}</span>
         </p>
         <div class="dashboard__card-progress-bar-container">
           <div class="dashboard__card-progress-bar">
             <div class="dashboard__card-progress-barOverflow"></div>
-            <div class="dashboard__card-progress-value" style="width:${outOfStockPercent}%"></div>
+            <div class="dashboard__card-progress-value" style="width:${upcoming}%"></div>
           </div>
           <div class="dashboard__card-progress-slicer"></div>
-          <p class="dashboard__card-progress-txt">${outOfStockPercent}%</p>
+          <p class="dashboard__card-progress-txt">${upcoming}%</p>
         </div>
       </div>
 
@@ -67,15 +70,15 @@ const inventoryDashboard = async () => {
       <div class="dashboard__card less-stocks">
         <p class="dashboard__card-label">
           Less Stocks: 
-          <span class="dashboard__card-label--value">${lessStockItem}</span>
+          <span class="dashboard__card-label--value">${upcoming}</span>
         </p>
         <div class="dashboard__card-progress-bar-container">
           <div class="dashboard__card-progress-bar">
             <div class="dashboard__card-progress-barOverflow"></div>
-            <div class="dashboard__card-progress-value" style="width:${lessStockPercent}%"></div>
+            <div class="dashboard__card-progress-value" style="width:${upcoming}%"></div>
           </div>
           <div class="dashboard__card-progress-slicer"></div>
-          <p class="dashboard__card-progress-txt">${lessStockPercent}%</p>
+          <p class="dashboard__card-progress-txt">${upcoming}%</p>
         </div>
       </div>
 
@@ -83,15 +86,15 @@ const inventoryDashboard = async () => {
       <div class="dashboard__card expired-stocks">
         <p class="dashboard__card-label">
           Expired: 
-          <span class="dashboard__card-label--value">${expiredItem}</span>
+          <span class="dashboard__card-label--value">${upcoming}</span>
         </p>
         <div class="dashboard__card-progress-bar-container">
           <div class="dashboard__card-progress-bar">
             <div class="dashboard__card-progress-barOverflow"></div>
-            <div class="dashboard__card-progress-value" style="width:${expiredPercent}%"></div>
+            <div class="dashboard__card-progress-value" style="width:${upcoming}%"></div>
           </div>
           <div class="dashboard__card-progress-slicer"></div>
-          <p class="dashboard__card-progress-txt">${expiredPercent}%</p>
+          <p class="dashboard__card-progress-txt">${upcoming}%</p>
         </div>
       </div>
     `;

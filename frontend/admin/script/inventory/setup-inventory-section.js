@@ -1,8 +1,11 @@
 import handleRenderInventory from "./display-inventory.js";
-import handleAddItem from "./add-item.js";
+import handleAddItem from "./add-medicine.js";
 import handleEditItem from "./edit-item.js";
 import {handleRemoveItem, handleRestoreItem, handleDeleteItem} from "./remove-restore-delete-item.js";
 import {generateInventoryReport, displayInventoryReport} from "../reports/generate-inventory-reports.js";
+import fetchUser from "../auth/fetchUser.js";
+import {createInventoryTable, getMedicineId, getCurrentMedicineId} from "./create-inventory-table.js";
+import { addItem } from "./add-item-add-stock-edit.js";
 
 // ======================================
 // ========== Search Inventory
@@ -256,6 +259,88 @@ const viewBtnsFunctionality = () => {
 };
 
 
+const displayMedicineTable = async() => {
+
+  const user = await fetchUser();
+  const userRole = user.roles[0];
+  //console.log("Current role:", userRole);
+
+  // Only Appointment Coordinator can use this feature
+  if (userRole !== "inventoryCoordinator") {
+    //console.log("❌ Add appointment form disabled for role:", userRole);
+    return; // 🚪 exit early
+  }
+
+  const inventoryContainer = document.querySelector('.inventory-table__container');
+  const medicine = document.querySelectorAll('.inventory-table__tbody .medicine');
+  const cancelBtn = document.querySelector('.add-inventory-container__close-form-btn');
+  
+
+  medicine.forEach( med => {
+    const medicineId = med.dataset.itemId;
+
+    med.onclick = () => {  // replaces any previous handler
+      //console.log(medicineId);
+      getMedicineId(medicineId);
+      inventoryContainer.classList.add('show');
+
+      // Create Table for stocks
+      createInventoryTable();
+    };
+
+  })
+
+  // Hide the table
+  cancelBtn.addEventListener('click', () => {
+    inventoryContainer.classList.remove('show');
+  })
+
+
+}
+
+
+const handleRenderingPreheadMeds = () => {
+  document.addEventListener('renderInventoryPreHeading', () => {
+    displayMedicineTable();
+  });
+}
+
+// ======================================
+// ========== Handle Stocks Management
+// ======================================
+const handleInventoryStocks = () => {
+  document.addEventListener('renderInventoryStockTable', () => {
+
+    // Get Id of the Medicine
+    const medicineId = getCurrentMedicineId();
+    handleInventoryStocksBtn(medicineId);
+
+  })
+}
+
+const handleInventoryStocksBtn = (medicineId) => {
+  // Add Item in clicked Medicine
+  const addItemBtn = document.querySelector('.add-item__medicine-table');
+  const cancelAddItemBtn = document.querySelector('.add-item__cancel-btn');
+  const addItemForm = document.querySelector('#add-item-form');
+  if (!addItemBtn) return;
+
+  addItemBtn.onclick = () => {
+    //alert(`Add Item, Item Id: ${medicineId}`);
+    addItemForm.classList.add('show');
+    addItem(medicineId);
+  };
+
+  if (cancelAddItemBtn) {
+    cancelAddItemBtn.addEventListener('click', () => {
+      addItemForm.classList.remove('show');
+      addItemForm.reset();
+    })
+  }
+
+}
+
+
 
 export default function setupInventorySection() {
   toggleMedicineButtons();
@@ -268,6 +353,8 @@ export default function setupInventorySection() {
   toggleAddMedicineForm();
   changeStatusColor();
   viewBtnsFunctionality();
+  handleRenderingPreheadMeds();
+  handleInventoryStocks();
 }
 
 

@@ -11,6 +11,7 @@ import setupServiceSection from "./service/setup-service-section.js";
 import setupSettingsSection from './setting/setup-setting-section.js';
 import {handleNotification, displayAdminNotificationList} from "./notification/handle-notification.js";
 import { adminNotifListener } from "./notification/notification-listener.js";
+import { automaticallyUpdateSwineType } from "./swines/swine-mapping.js";
 
 
 roleRidirectPage()
@@ -27,4 +28,5 @@ setupSettingsSection();
 handleNotification();
 displayAdminNotificationList();
 adminNotifListener();
+automaticallyUpdateSwineType();
 

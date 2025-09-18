@@ -233,6 +233,10 @@
   max-width: var(--status-width);
 }
 
+.appointment-table__tbody .td.date-time.true {
+  color: #f85353;
+}
+
 .appointment-table__tbody .td.status {
   border: 1px solid var(--color);
   color: var(--color);
@@ -328,7 +332,7 @@
   background-color: #d2d2d2cc;
   padding: 0 2rem;
   padding-top: 1.7rem;
-  height: 19rem;
+  height: auto;
 }
 
 .appointment__more-details.show{
@@ -552,7 +556,7 @@
 
 .appointment-schedule-form, 
 .appointment-reschedule-form {
-  width: 500px;
+  width: 600px;
 }
 
 .appointment-schedule-form.show, 
@@ -618,11 +622,13 @@
   gap: .4rem;
   flex-direction: column;
 }
-.appointment-schedule-form__buttons .below-btn {
+.appointment-schedule-form__buttons .below-btn, 
+.appointment-reschedule-form__buttons .below-btn {
   display: flex;
   flex-direction: row;
   width: 100%;
   gap: .4rem;
+  margin-top: 1rem;
 }
 
 
@@ -968,3 +974,4 @@ Pie Graph design
   border-radius: 8px;
   cursor: pointer;
 }
+

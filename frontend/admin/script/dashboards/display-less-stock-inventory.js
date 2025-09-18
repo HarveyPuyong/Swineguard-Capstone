@@ -7,8 +7,9 @@ async function displayLessStockInventory (){
     const inventory = await fetchInventory();
 
     const filteredInventory = inventory.filter(item => {
-      const status = formatItemStatus(item.itemStatus);
-      return status === 'less-stock' || status === 'out-of-stock';
+      //const status = formatItemStatus(item.itemStatus);
+      // return status === 'less-stock' || status === 'out-of-stock';
+      return 'Upcoming';
     });
 
     const inventoryTableElement = document.querySelector('#dashboard-section .inventory-table__tbody');

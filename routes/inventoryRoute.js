@@ -7,20 +7,24 @@ const verifyRoles = require('./../middlewares/verifyRoles');
 
 
 
-router.post('/add', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.AddItem); 
+router.post('/add/medicine', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.AddMedicine); // Add medicine Name
 
-router.put('/edit/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.editItem); 
+router.post('/add/item', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.AddItem); // Add Item
 
-router.patch('/remove/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.removeItem); 
+// router.put('/edit/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.editItem); 
 
-router.patch('/restore/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.restoreItem); 
+// router.patch('/remove/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.removeItem); 
 
-router.delete('/delete/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator),  inventoryController.deleteItem); 
+// router.patch('/restore/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.restoreItem); 
 
-router.get('/all', verifyJWT,  inventoryController.getAllItem); 
+// router.delete('/delete/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator),  inventoryController.deleteItem); 
 
-router.get('/:id', verifyJWT, inventoryController.getItemId);
+router.get('/all/medicines', verifyJWT,  inventoryController.getAllMedicine); 
 
-router.put('/update-quantity/:id', verifyJWT, inventoryController.updateItemQuantity);
+router.get('/all/items', verifyJWT,  inventoryController.getAllItem); 
+
+// router.get('/:id', verifyJWT, inventoryController.getItemId);
+
+// router.put('/update-quantity/:id', verifyJWT, inventoryController.updateItemQuantity);
 
 module.exports = router;

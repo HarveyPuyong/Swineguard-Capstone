@@ -24,13 +24,17 @@ async function appointmentsTable(appointments, table) {
       : "None"
     ;
 
+    const appointment_date = new Date(appointment.appointmentDate)
+    let isAppointmentPastDate = appointment.appointmentStatus === 'accepted' && appointment_date <= new Date();
+    console.log(isAppointmentPastDate)
+
     appointmentTableHTML += `
       <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
         <div class="appointment__details">
           <p class="td first-name">${appointment.clientFirstname}</p>
           <p class="td last-name">${appointment.clientLastname}</p>
           <p class="td appointment-name">${serviceName}</p>
-          <p class="td date-time">${formattedDate(appointment.appointmentDate)} at ${formatTo12HourTime(appointment.appointmentTime)}</p>
+          <p class="td date-time ${isAppointmentPastDate}">${formattedDate(appointment.appointmentDate)} at ${formatTo12HourTime(appointment.appointmentTime)}</p>
           <p class="td status status--${appointment.appointmentStatus.toLowerCase()}"
              data-status-value=${appointment.appointmentStatus.toLowerCase()}>
              ${appointment.appointmentStatus}
@@ -71,7 +75,7 @@ async function appointmentsTable(appointments, table) {
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Note:</span>
-                <span class="column__detail-value" id="clinical-signs-display">${clinicalSignsHTML}</span>
+                <span class="column__detail-value scrollable-text" id="clinical-signs-display">${clinicalSignsHTML}</span>
               </p>
             </div>
             <div class="column right"> 

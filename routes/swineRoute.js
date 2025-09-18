@@ -26,4 +26,8 @@ router.get('/all', swineController.getSwine); // Get Swines
 
 router.get('/:id', swineController.getSwineById); // Get Swine by Id
 
+router.put('/update/swine-type', swineController.updateSwineTypes) // update the swine type
+
+router.put('/update/swine-type/user/:id', swineController.updateUserSwineTypes) // update the user swine type
+
 module.exports = router;

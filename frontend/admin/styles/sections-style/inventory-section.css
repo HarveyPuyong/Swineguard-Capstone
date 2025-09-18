@@ -134,7 +134,9 @@
 }
 
 /*medicine form */
-.medicine-form{
+.medicine-form,
+.add-item-form
+{
   display: none;
   position: fixed;
   top: 52%;
@@ -142,9 +144,9 @@
   transform: translate(-50%, -50%);
   flex-direction: column;
   gap: 17px;
-  width: 50%;
-  height: 500px;
-  background-color: white;
+  width: 25%;
+  height: auto;
+  background-color: #ffffff;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   z-index: 1;
@@ -165,19 +167,24 @@
   display: flex;
 }
 
-.medicine-form__heading{
+.medicine-form__heading, 
+.add-item-form__heading
+{
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
 }
 
-.medicine-form label{
+.medicine-form label,
+.add-item-form label
+{
   color: var(--main-color);
   font-weight: 500;
   width: 100%;
 }
 
 .medicine-form input, 
-.medicine-form select{
+.add-item-form input
+{
   padding: 6px;
   width: 100%;
   margin-top: 5px;
@@ -186,34 +193,44 @@
 
 .medicine-form__group{
   display: flex;
-  gap: 50px;
+  gap: 10px;
 }
 
-.medicine-form__buttons-container{
-  position: absolute;
-  bottom: 35px;
-  right: 50px;
+.medicine-form__buttons-container,
+.add-item-form__buttons-container
+{
   display: flex;
+  width: 100%;
   gap: 15px;
 }
 
-.medicine-form__buttons-container button{
+.add-item-form__buttons-container {
+  margin-top: 1rem;
+}
+
+.medicine-form__buttons-container button,
+.add-item-form__buttons-container button
+{
   color: var(--color);
   background-color: var(--bg-color);
   border: 1px solid var(--color);
-  width: 110px;
+  width: 100%;
   padding: 5px 0;
   border-radius: 5px;
   cursor: pointer;
 }
 
-.medicine-form__buttons-container button.cancel-btn{
+.medicine-form__buttons-container button.cancel-btn,
+.add-item-form__buttons-container .add-item__cancel-btn
+{
   --color: #FF0000;
   --bg-color: #EECDCD;
 }
 
 .medicine-form__buttons-container button.add-btn,
-.medicine-form__buttons-container button.update-btn{
+.medicine-form__buttons-container button.update-btn,
+.add-item-form__buttons-container .add-item__add-btn
+{
   --color: #009947;
   --bg-color: #B0DDC5;
 }
@@ -247,10 +264,12 @@
   box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.276);
 }
 
+/* Gap for meds */
 .inventory-table__thead,
 .inventory-table__tbody .medicine{
   display: flex;
-  gap: var(--elements-gap);
+  gap: 8rem;
+  cursor: pointer;
 }
 
 .inventory-table__thead{
@@ -335,7 +354,7 @@
   width: var(--updated-date);
 }
 
-.inventory-table .th.toggle-buttons-icon,
+/* .inventory-table .th.toggle-buttons-icon,
 .inventory-table .td.toggle-buttons-icon {
   width: var(--toggle-buttons-icon);
 }
@@ -346,7 +365,7 @@
 
 .inventory-table .td.toggle-buttons-icon .icon{
   cursor: pointer;
-}
+} */
 
 .inventory-table__tbody .medicine .buttons-container{
   display: none;
@@ -420,5 +439,91 @@
 }
 
 .inventory-section__report-contents.show{
+  display: block;
+}
+
+
+
+/* 
+  For Inventory table adding stocks
+*/
+
+.add-inventory-container__close-form-btn {
+  position: absolute;
+  right: 3%;
+  top: 3%;
+  font-size: 2rem;
+  cursor: pointer;
+  border: 2px solid red;
+  border-radius: 50%;
+  color: red;
+  padding: 0px 5px;
+}
+
+.inventory-table__container {
+  width: 65%;
+  background-color: #ffffff;
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  overflow: hidden;
+  font-size: 0.9rem;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.276);
+  height: clamp(300px, 35vw, 750px);
+  min-height: 200px;
+  max-height: 758px;
+  padding: 2rem;
+  border-radius: 8px;
+}
+
+.inventory-table__container.show {
+  display: block;
+}
+
+.inventory-table__container h2 {
+  text-align: center;
+}
+
+.inventory-table__container table {
+  width: 100%;
+  margin-top: 3rem;
+}
+
+.inventory-table__container table,
+.inventory-table__container th,
+.inventory-table__container td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.inventory-table__container th,
+.inventory-table__container td {
+  padding: 8px 12px;
+  text-align: center;
+}
+
+tbody tr td:last-child button {
+  margin: 0 0.5rem;
+  cursor: pointer;
+  padding: .2rem .5rem;
+  border-radius: 4px;
+  border: 1.5px solid #747474;
+}
+
+.no-medicine p {
+  font-size: 2rem;
+  font-weight: 800;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #55555598;
+}
+
+
+
+.add-item-form.show{
   display: block;
 }

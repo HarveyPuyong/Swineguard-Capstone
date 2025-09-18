@@ -104,6 +104,27 @@
   background: none;
 }
 
+.detail.clinical-signs .detail-value {
+  display: block;        /* ensure it behaves like a box */
+  max-height: 200px;     /* prevent overflowing */
+  overflow-y: auto;      /* scroll if too long */
+  padding: 4px 8px;
+  background: #f9f9f9;   /* light background */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.detail.clinical-signs .detail-value ul {
+  margin: 0;
+  
+}
+
+.detail.clinical-signs .detail-value li {
+  margin-bottom: 4px;
+  font-size: 0.95rem;
+}
+
 
 @media(width >= 600px){
   #schedule-section{

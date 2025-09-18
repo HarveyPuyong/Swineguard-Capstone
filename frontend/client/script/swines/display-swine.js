@@ -8,6 +8,7 @@ import { getServiceName } from '../../../admin/api/fetch-services.js';
 import { getMedicineName } from '../../../admin/api/fetch-medicine.js';
 import getSwineRecords from './fetch-swine-records.js';
 import { barGraph, lineGraph } from './swine-graph.js';
+import api from '../../client-utils/axios-config.js';
 
 
 // ======================================
@@ -278,10 +279,29 @@ const displayAllSwineWeight = async () => {
 };
 
 
+// ======================================
+// ========== Update User Swine Type
+// ======================================
+const automaticallyUpdateSwineType = async() => {
+    const user = await fetchClient();
+    const clientId = user._id;
+
+    try {
+        const response = await api.put(`/swine/update/swine-type/user/${clientId}`);
+        if (response.status === 200) {
+            console.log(response.data.message);
+        }
+    } catch (err) {
+        console.error("Error updating swine types:", err);
+    }
+    
+}
+
 
 
 
 export {
+    automaticallyUpdateSwineType,
     displayClientSwines,
     displayFullSwineDetails,
     displayAllSwineWeight

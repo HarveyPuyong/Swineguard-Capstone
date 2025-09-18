@@ -122,7 +122,8 @@ select:focus{
 .past-download-report-btn,
 .inventory-download-btn,
 .display-inventory-download-btn,
-.appointment-download-btn {
+.appointment-download-btn,
+.add-item__medicine-table {
   padding: .2rem 1rem;
   margin-bottom: 8px;
   background-color: #2FC375;

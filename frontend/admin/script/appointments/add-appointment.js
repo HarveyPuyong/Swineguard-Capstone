@@ -3,9 +3,21 @@ import handleRenderAppointments from './display-appointment.js';
 import api from './../../utils/axiosConfig.js'
 import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
 import { fetchServices } from '../../api/fetch-services.js';
+import fetchUser from '../auth/fetchUser.js';
 
 
 const handleAddAppointment = async() => {
+
+  const user = await fetchUser();
+  const userRole = user.roles[0];
+  //console.log("Current role:", userRole);
+
+  // Only Appointment Coordinator can use this feature
+  if (userRole !== "appointmentCoordinator") {
+    //console.log("❌ Add appointment form disabled for role:", userRole);
+    return; // 🚪 exit early
+  }
+
   // Sanitize all inputs text type
   const inputs = document.querySelectorAll('#add-appointments-form input[type="text"]:not(#client-email):not(#appointment-date):not(#appointment-time)');
   

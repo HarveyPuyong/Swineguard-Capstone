@@ -15,6 +15,7 @@ import { getServiceName } from '../../api/fetch-services.js';
 import { fetchAppointments } from '../../api/fetch-appointments.js';
 import populateFilteredMedicines from '../../utils/filter-service-medicine.js';
 import { handleReportChange } from '../reports/generate-appointment-reports.js';
+//import createCompleteTaskForm from '../../components/complete-task-form.js';
 
 
 
@@ -339,41 +340,62 @@ const setupScheduleAppointmentForm = async(appointmentId) => {
 }
 
 
+// ======================================
+// ========== Add Data to reschedule-appointment-form
+// ======================================
 const setupRescheduleAppointmentForm = async(appointmentId) => {
-  try{
+  try {
     const allUsers = await fetchUsers();
-    const technicians = allUsers.filter(user => user.roles.includes('technician') || user.roles.includes('veterinarian'));
+    const technicians = allUsers.filter(user =>
+      user.roles.includes('technician') || user.roles.includes('veterinarian')
+    );
 
     //Personal Select Element
     const personnelSelectElement = document.querySelector('.appointment-reschedule-form #reschedule-available-personnel');
-    if(!personnelSelectElement) return;
+    if (!personnelSelectElement) return;
 
+    // get current appointment
+    const appointments = await fetchAppointments();
+    const appointment = appointments.find(app => app._id === appointmentId);
+
+    // populate select
     technicians.forEach(technician => {
-      const prefix = technician.roles.includes('veterinarian') ? 'Doc.' : technician.roles.includes('technician') ? 'Mr.' : '';
-      const middleInitial = technician.middleName ? technician.middleName.charAt(0).toUpperCase() + '.' : '';
+      const prefix = technician.roles.includes('veterinarian')
+        ? 'Doc.'
+        : technician.roles.includes('technician')
+          ? 'Mr.'
+          : '';
+      const middleInitial = technician.middleName
+        ? technician.middleName.charAt(0).toUpperCase() + '.'
+        : '';
       const technicianFullname = `${prefix} ${technician.firstName} ${middleInitial} ${technician.lastName}`;
 
       const option = document.createElement('option');
       option.value = technician._id;
       option.textContent = technicianFullname;
 
+      // ✅ Pre-select if previously assigned
+      if (appointment.vetPersonnel === technician._id) {
+        option.selected = true;
+      }
+
       personnelSelectElement.appendChild(option);
     });
 
-    const appointments = await fetchAppointments();
-    const appointment = appointments.find(app => app._id === appointmentId);
+    // set service name
     const serviceName = await getServiceName(appointment.appointmentService);
     document.querySelector('.appointment-reschedule-form__service-name').innerText = `${serviceName}`;
-    //console.log(appointment)
 
-    const appointment_type = appointment.appointmentType ? appointment.appointmentType : 'Not set'
-    const appointmentType = document.querySelector('#reschedule-appointment-type').value = appointment_type;
-    //console.log(appointment_type)
+    // set appointment type
+    const appointment_type = appointment.appointmentType ? appointment.appointmentType : 'Not set';
+    document.querySelector('#reschedule-appointment-type').value = appointment_type;
 
-  } catch(err) {
-    console.log(err)
+  } catch (err) {
+    console.log(err);
   }
-}
+};
+
+
 
 // ======================================
 // ==========Toggle Popup Add Appointment Form
@@ -388,6 +410,8 @@ const toggleAddAppointmentForm = () => {
   showFormBtn.addEventListener('click', () => formContainer.classList.add('show'));
   closeFormBtn.addEventListener('click', () => formContainer.classList.remove('show'));
 }
+
+
 
 const toggleRescheduleAppointmentForm = () => {
   // Reschedule Form
@@ -406,6 +430,7 @@ const toggleRescheduleAppointmentForm = () => {
     filterSelectTech.innerHTML = '<option value="">Personnel</option>';
   });
 }
+
 
 
 // ======================================
@@ -569,5 +594,6 @@ export default function setupAppointmentSection () {
   viewBtnsFunctionality();
   setupAppointmentFormListener();
   setupReschedAppointmentFormListener();
+  //createCompleteTaskForm();
 }
 

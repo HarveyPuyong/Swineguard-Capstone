@@ -1,4 +1,4 @@
-import {displayClientSwines, displayFullSwineDetails, displayAllSwineWeight} from "./display-swine.js";
+import {displayClientSwines, displayFullSwineDetails, displayAllSwineWeight, automaticallyUpdateSwineType} from "./display-swine.js";
 import addSwine from "./add-swine.js";
 import {updateSwineDetails, setupSwineFormListener } from './edit-remove.js'
 
@@ -143,16 +143,6 @@ const setupAddSwineForm = () => {
                         </select>
                     </div>
                     <div>
-                        <label>Type:</label>
-                        <select data-field="type" required>
-                            <option value="">Select type</option>
-                            <option value="piglet">Piglet</option>
-                            <option value="grower">Grower</option>
-                            <option value="boar">Boar</option>
-                            <option value="sow">Sow</option>
-                        </select>
-                    </div>
-                    <div>
                         <label>Birth Date:</label>
                         <input type="date" data-field="birthdate" required>
                     </div>
@@ -183,6 +173,7 @@ const setupAddSwineForm = () => {
 // ========== Main Function - Setup Swines Section
 // ======================================
 export default function setupSwinesSection() {
+  automaticallyUpdateSwineType();
   displayClientSwines();
   toggleAddSwineForm();
   toggleSwineFullDetails();

@@ -7,6 +7,7 @@ import { getSwineAgeInMonths,
          getSwineGenderFemale } from "../../client-utils/get-swine-data.js";
 import { checkAppointmentDate, checkTime } from "../../client-utils/checkDates.js";
 import displayAppointmentCardList from "./display-appointment-list.js";
+import { fetchServices } from "../../../admin/api/fetch-services.js";
 
 
 const sendRequestAppointment = () => {
@@ -25,6 +26,18 @@ const sendRequestAppointment = () => {
     const isTimeValid = checkTime(selectedTime);
 
     if (!isDateValid || !isTimeValid) return;
+
+    const serviceSelect = document.getElementById("select-appointment-service");
+    const appointmentTypeInput = document.getElementById("select-appointment-type");
+
+    // When the user selects a service
+    serviceSelect.addEventListener("change", async () => {
+      const services = await fetchServices();
+      const selectedService = services.find(service => service._id === serviceSelect.value);
+
+      const serviceType = selectedService ? selectedService.serviceType : "Not set";
+      appointmentTypeInput.value = serviceType;
+    });
 
     try {
       const client = await fetchClient();
@@ -70,12 +83,15 @@ const sendRequestAppointment = () => {
 
         clientFirstname: firstName,
         clientLastname: lastName,
+
         clientEmail: email,
         contactNum: contactNum,
+
         municipality: municipality,
         barangay: barangay,
+
         appointmentService: document.querySelector('#select-appointment-service').value,
-        appointmentType: document.querySelector('#select-appointment-type').value,
+        appointmentType: appointmentTypeInput.value,
 
         appointmentDate: document.querySelector('#input-date').value,
         appointmentTime: document.querySelector('#input-time').value,
@@ -85,7 +101,7 @@ const sendRequestAppointment = () => {
         swineCount: selectedSwineIds.length,
         swineMale: totalMale,
         swineFemale: totalFemale,
-        swineSymptoms: document.querySelector('#input-note').value
+        clinicalSigns: getClinicalSigns()
       };
       
       console.log(appointmentFormData);
@@ -104,6 +120,23 @@ const sendRequestAppointment = () => {
       popupAlert('error', 'Error!', errMessage);
     }
   });
+};
+
+const getClinicalSigns = () => {
+  const clinicalSigns = [];
+
+  // Get all checked checkboxes
+  document.querySelectorAll('input[name="client-side__clinicalSigns"]:checked').forEach(cb => {
+    clinicalSigns.push(cb.value);
+  });
+
+  // Handle the "Others" textarea
+  const othersInput = document.querySelector('#client-side__clinical-signs-others');
+  if (othersInput && othersInput.value.trim() !== "") {
+    clinicalSigns.push(`Others: ${othersInput.value.trim()}`);
+  }
+
+  return clinicalSigns;
 };
 
 export default sendRequestAppointment;

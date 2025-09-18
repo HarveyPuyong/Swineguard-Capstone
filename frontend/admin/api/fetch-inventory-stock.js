@@ -1,8 +1,8 @@
 import api from '../utils/axiosConfig.js';
 
-const fetchInventory = async() => {
+const fetchInventoryStocks = async() => {
   try {
-    const response = await api.get('/inventory/all/medicines', {withCredentials: true});
+    const response = await api.get('/inventory/all/items', {withCredentials: true});
 
     if(response.status === 200) return response.data
   } catch (error) {
@@ -11,4 +11,4 @@ const fetchInventory = async() => {
   }
 }
 
-export default fetchInventory;
+export default fetchInventoryStocks;

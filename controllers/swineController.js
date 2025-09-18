@@ -1,6 +1,23 @@
 const {swineSchema, swineHealthRecordSchema, SwinePopulation} = require('./../models/swineModel');
 const generateSwineId = require('./../utils/generate-swine-id')
+const { getSwineType } = require('./../utils/get-swine-types');
 const mongoose = require('mongoose');
+
+// Check item Id
+function isValidSwineId(id) {
+    return mongoose.Types.ObjectId.isValid(id);
+}
+
+// Validate inputs letters and negative numbers are not allowed
+function isValidNumber (value) {
+    if (typeof value !== 'string') return false; // Only allow strings
+
+    // Reject exponential, letters, negatives, etc.
+    if (!/^\d+(\.\d+)?$/.test(value)) return false;
+
+    const number = Number(value);
+    return !isNaN(number) && isFinite(number) && number > 0;
+};
 
 // Add Swine
 exports.addSwine = async (req, res) => {
@@ -14,7 +31,7 @@ exports.addSwine = async (req, res) => {
         const newSwines = [];
 
         for (const swine of swines) {
-            const { breed, type, birthdate, sex, status, weight } = swine;
+            const { breed, birthdate, sex, status, weight } = swine;
 
             // Validate birthdate
             if (new Date(birthdate) > new Date()) {
@@ -31,10 +48,13 @@ exports.addSwine = async (req, res) => {
             // Generate Unique 4-digit ID
             const generatedSwineId = await generateSwineId();
 
+            // Determine the swine types
+            const swineType = getSwineType(birthdate, sex);
+
             const swineData = {
                 swineFourDigitId: generatedSwineId,
                 breed,
-                type,
+                type: swineType,
                 birthdate,
                 sex,
                 status,
@@ -321,21 +341,7 @@ exports.getSwineMontlyRecords = async (req, res) => {
 }
 
 
-// Check item Id
-function isValidSwineId(id) {
-    return mongoose.Types.ObjectId.isValid(id);
-}
 
-// Validate inputs letters and negative numbers are not allowed
-function isValidNumber (value) {
-    if (typeof value !== 'string') return false; // Only allow strings
-
-    // Reject exponential, letters, negatives, etc.
-    if (!/^\d+(\.\d+)?$/.test(value)) return false;
-
-    const number = Number(value);
-    return !isNaN(number) && isFinite(number) && number > 0;
-};
 
 
 
@@ -390,4 +396,52 @@ exports.getSwinePopulationByFilter = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }
+};
+
+
+// Automatic swine updates for the types:
+exports.updateSwineTypes = async (req, res) => {
+    try {
+        const swines = await swineSchema.find();
+        let updated = 0;
+
+    for (let swine of swines) {
+        const newType = getSwineType(swine.birthdate, swine.sex);
+
+        if (swine.type !== newType) {
+            swine.type = newType;
+            await swine.save();
+            updated++;
+        }
+    }
+
+        res.status(200).json({ message: `✅ ${updated} swines updated.` });
+    } catch (err) {
+        console.error("Error updating swine types:", err);
+        res.status(500).json({ message: "Something went wrong", error: err.message });
+    }
+};
+
+exports.updateUserSwineTypes = async (req, res) => {
+    const { id } = req.params; // this should be clientId
+    try {
+        // Find all swines belonging to this client
+        const swines = await swineSchema.find({ clientId: id });
+        let updated = 0;
+
+        for (let swine of swines) {
+            const newType = getSwineType(swine.birthdate, swine.sex);
+
+            if (swine.type !== newType) {
+                swine.type = newType;
+                await swine.save();
+                updated++;
+            }
+        }
+
+        res.status(200).json({ message: `✅ ${updated} swines updated.` });
+    } catch (err) {
+        console.error("Error updating swine types:", err);
+        res.status(500).json({ message: "Something went wrong", error: err.message });
+    }
 };

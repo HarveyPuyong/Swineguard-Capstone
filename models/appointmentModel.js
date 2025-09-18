@@ -51,7 +51,7 @@ const appointmentSchema = new mongoose.Schema({
         required: false,
     },
     
-    medicineAmount: { type: Number, default: 'not set' },
+    medicineAmount: { type: Number, required: false},
     clinicalSigns: [{ type: String }],
 
     

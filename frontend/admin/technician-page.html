@@ -12,11 +12,13 @@
     <link rel="stylesheet" href="styles/sections-style/schedule-section.css">
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
     <link rel="stylesheet" href="styles/sections-style/notification.css">
+    <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
 
     <title>Technian Page</title>
 
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -80,6 +82,10 @@
         <section id="dashboard-section" class="show"> 
           <h1 class="section__heading">Dashboard</h1>
           <div class="dashboard-content">
+
+            <!-- Swine Graph -->
+            <div class="swine-graph"></div>
+
             <!-- dashboard donut chart-->
             <canvas id="appointment-doughnut-chart" class="dashboard-content__doughnut-chart"></canvas>   
                   
@@ -120,12 +126,41 @@
           <select name="select-schedule-status" id="select-schedule-status">
             <option value="">All</option>
             <option value="incomplete">Incomplete</option>
-            <option value="complete">Complete</option>
+            <option value="completed">Complete</option>
           </select>
 
           <div class="schedule-list">
-            
+            <!-- display-appointment-task.js -->
           </div>
+
+          <!-- Complete Task Form -->
+          <form class="complete-task-form">
+
+            <h2>Complete Task Form</h2>
+
+            <div class="task-name">
+              <label for="completeTaskForm__name">Appointment:</label><br>
+              <input type="text" id="completeTaskForm__name"  placeholder="Task name" readonly>
+            </div>
+
+            <div class="medicine-box">
+              <label for="completeTaskForm__set-medicine-list">Select Medicine:</label><br>
+              <select name="completeTaskForm__set-medicine-list" id="completeTaskForm__set-medicine-list">
+                <option value="">Select Medicine</option>
+                <!--/script/appointment/setup-appointments-section.js -->
+              </select>
+            </div>
+
+            <div class="amount-box">
+              <label for="completeTaskForm__set-medicine-amount">Medicine Amount:</label><br>
+              <input type="number" id="completeTaskForm__set-medicine-amount" min="0" placeholder="0 ml" required>
+            </div>
+            <div class="complete-task-form__btn">
+              <button type="submit" id="complete-task-form__complete-btn">Complete</button>
+              <button type="button" id="complete-task-form__cancel-btn">Cancel</button>
+            </div>
+          </form>
+
         </section>
 
         <!-- ========== Settings Section ========== -->

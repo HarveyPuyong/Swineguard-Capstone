@@ -234,10 +234,6 @@ if (downloadPastBtn) {
 }
 
 
-
-
-
-
 let doughnutChartInstance = null;
 let swinesTable = [];
 

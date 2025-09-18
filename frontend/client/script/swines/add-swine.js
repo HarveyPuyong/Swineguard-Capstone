@@ -25,16 +25,14 @@ const addSwine = () => {
 
             swineGroups.forEach(group => {
                 const breed = group.querySelector('[data-field="breed"]').value;
-                const type = group.querySelector('[data-field="type"]').value;
                 const birthdate = group.querySelector('[data-field="birthdate"]').value;
                 const sex = group.querySelector('[data-field="sex"]').value;
                 const status = group.querySelector('[data-field="healthStatus"]').value;
                 const weight = group.querySelector('[data-field="weight"]').value;
 
-                if (breed && type && birthdate && sex && status && !isNaN(weight)) {
+                if (breed && birthdate && sex && status && !isNaN(weight)) {
                     swineDataArray.push({
                         breed,
-                        type,
                         birthdate,
                         sex,
                         status,

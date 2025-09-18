@@ -1,79 +1,91 @@
-const inventoryDB = require('../models/inventoryModel');
+//const Inventory = require('../models/inventoryModel');
+const { Inventory, InventoryStock } = require('../models/inventoryModel');
 const appointmentDB = require('../models/appointmentModel');
 
 const mongoose = require('mongoose');
 const {isValidNumber, isInvalidInput, checkExpiryDate} = require('./../utils/inventoryUtils');
 
-//Add Item to the collections
-exports.AddItem = async (req, res) => {
-    const { itemName, dosage, quantity, expiryDate, description, itemType, createdBy } = req.body;
 
-    // Check for emojis in itemName and description
-    if (isInvalidInput(itemName, description))
-        return res.status(400).json({ message: 'Item name and description must not be empty or contain emojis.' });
+//Add Medicine Name Main
+exports.AddMedicine = async (req, res) => {
+    const { itemName } = req.body;
 
-    // Validate item dosage and quantity
-    if (!isValidNumber(dosage) || !isValidNumber(quantity))
-        return res.status(400).json({ message: 'Item dosage and quantity must be valid numbers and greater than 0' });
-
-    const numericDosage = Number(dosage);
-    const numericQuantity = Number(quantity);
-
-    const itemDetails = {
-        itemName,
-        dosage: numericDosage,
-        quantity: numericQuantity,
-        expiryDate,
-        description,
-        itemType,
-        createdBy
-    };
-
-    // Check if any details are missing
-    if (Object.values(itemDetails).some(details => details === undefined || details === null || details === ''))
-        return res.status(400).json({ message: 'Kindly check your item details' });
-
-    // Check Expiration Date
-    if (checkExpiryDate(expiryDate))
-        return res.status(400).json({ message: 'Past and current year are not allowed for expiration date.' });
+    if (isInvalidInput(itemName)) {
+        return res.status(400).json({ message: 'Medicine name must not contain emoji' });
+    }
 
     try {
-        // Check if item with same name, dosage, and expiryDate already exists
-        const existingItem = await inventoryDB.findOne({
-            itemName,
-            dosage: numericDosage,
-            expiryDate
-        });
-
-        if (existingItem) {
-            // Just update the quantity
-            existingItem.quantity += numericQuantity;
-            await existingItem.save();
-
-            return res.status(201).json({
-                message: `Item with ${expiryDate} expiry date is already exists. Quantity updated successfully.`,
-                item: existingItem
-            });
-        } else {
-            // Add new item
-            const newItem = new inventoryDB({ ...itemDetails });
-            await newItem.save();
-
-            return res.status(201).json({
-                message: "Item added successfully.",
-                item: newItem
-            });
+        // Check if the medicine already exists (case-insensitive)
+        const existing = await Inventory.findOne({ itemName: new RegExp(`^${itemName}$`, 'i') });
+        if (existing) {
+        return res.status(409).json({ message: 'Medicine name already exists.' });
         }
+
+        // Create new medicine document
+        const newMedicine = new Inventory({ itemName });
+        await newMedicine.save();
+
+        return res.status(201).json({
+        message: "Medicine added successfully.",
+        item: newMedicine
+        });
 
     } catch (err) {
         console.error(`Error: ${err}`);
-        console.log(`Cause of error: ${err.message}`);
-
         return res.status(500).json({
-            message: 'Something went wrong while inserting item.',
+        message: 'Something went wrong while adding medicine.'
         });
     }
-}
+};
+
+
+// Add Item to the collections
+exports.AddItem = async (req, res) => {
+  try {
+    const { medicineId, content, quantity, expiryDate } = req.body;
+
+    // Empty check
+    const itemData = { medicineId, content, quantity, expiryDate };
+    const hasEmpty = Object.values(itemData).some(v => v === undefined || v === null || v === "");
+    if (hasEmpty) {
+      return res.status(400).json({ message: "itemData contains empty fields", itemData });
+    }
+
+    // Validate content/quantity
+    if (!isValidNumber(content) || !isValidNumber(quantity)) {
+      return res.status(400).json({ message: "Item content and quantity must be numbers > 0" });
+    }
+
+    // Validate expiry
+    if (!checkExpiryDate(expiryDate)) {
+      return res.status(400).json({ message: "Expiration must be a future date" });
+    }
+
+    // Convert to numbers
+    const numericContent = Number(content);
+    const numericQuantity = Number(quantity);
+
+    // Find existing
+    const existingItem = await InventoryStock.findOne({ medicineId, content: numericContent, expiryDate });
+    if (existingItem) {
+      existingItem.quantity += numericQuantity;
+      await existingItem.save();
+      return res.status(200).json({ message: "Item already exists. Quantity updated.", item: existingItem });
+    }
+
+    // Create new
+    const newItem = new InventoryStock({ medicineId, content: numericContent, quantity: numericQuantity, expiryDate });
+    await newItem.save();
+
+    return res.status(201).json({ message: "New item added successfully.", item: newItem });
+  } catch (err) {
+    console.error("Error while adding item:", err);
+    return res.status(500).json({ message: "Something went wrong while adding new Item.", error: err.message });
+  }
+};
+
+
+
 
 
 // Edit Items
@@ -106,7 +118,7 @@ exports.editItem = async (req, res) => {
     const itemDetails = {itemName, dosage: numericDosage, quantity: numericQuantity, expiryDate: new Date(expiryDate), description, createdBy};
 
     try {
-        const updatedItem = await inventoryDB.findByIdAndUpdate(
+        const updatedItem = await Inventory.findByIdAndUpdate(
             id,
             { ...itemDetails },
             { new: true }
@@ -129,128 +141,22 @@ exports.editItem = async (req, res) => {
     }
 };
 
-// Remove Item
-exports.removeItem = async (req, res) => {
-    const {id} = req.params;
 
-    // Validate object Id
-    if (!checkItemId(id)){ 
-        return res.status(400).json({ message: "Invalid Item ID." })
-    };
-
+// Get All Medicine
+exports.getAllMedicine = async (req, res) => {
     try {
-        const removedItem = await inventoryDB.findByIdAndUpdate(
-            id,
-            { itemStatus: "removed" },
-            { new: true }
-        );
-
-        if (!removedItem) {
-            return res.status(404).json({ message: 'Item not found.' });
-        }
-
-        return res.status(200).json({
-            message: 'Item removed successfully.',
-            item: removedItem
-        });
-
-    } catch (err) {
-        console.error(`Error: ${err}`);
-        return res.status(500).json({
-            message: 'Something went wrong while removing item.'
-        });
+        const items = await Inventory.find();
+        res.status(200).json(items);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
+};
 
-}
-
-// Restore Item
-exports.restoreItem = async (req, res) => {
-    const {id} = req.params;
-
-    // Validate object Id
-    if (!checkItemId(id)) return res.status(400).json({ message: "Invalid Item ID." });
-
-    try {
-        const restoreItem = await inventoryDB.findByIdAndUpdate(
-            id,
-            { itemStatus: "In Stock" },
-            { new: true }
-        );
-
-        if (!restoreItem) {
-            return res.status(404).json({ message: 'Item not found.' });
-        }
-
-        return res.status(200).json({
-            message: 'Item restored successfully.',
-            item: restoreItem
-        });
-
-    } catch (err) {
-        console.error(`Error: ${err}`);
-        return res.status(500).json({
-            message: 'Something went wrong while restoring item.'
-        });
-    }
-
-}
-
-// Delete Item
-exports.deleteItem = async (req, res) => {
-
-    const { id } = req.params;
-
-    // Validate object Id
-    if (!checkItemId(id)) return res.status(400).json({ message: "Invalid Item ID." });
-
-    try {
-        const deletedItem = await inventoryDB.findByIdAndDelete(id);
-
-        if (!deletedItem) {
-            return res.status(404).json({ message: 'Item not found.' });
-        }
-
-        res.status(200).json({ message: "Item deleted successfully.", item: deletedItem });
-
-    } catch (err) {
-        console.error(`Error: ${err}`);
-        return res.status(500).json({
-            message: 'Something went wrong while deleting item.'
-        });
-    }
-}
-
-// Get All Item
+// Get All Medicine
 exports.getAllItem = async (req, res) => {
     try {
-        const items = await inventoryDB.find();
-        const currentDate = new Date();
-
-        const updatedItems = await Promise.all(
-            items.map(async item => {
-                let newStatus = 'in-stock';
-
-                // 💡 If the item was marked as removed, don't change it
-                if (item.itemStatus === 'removed') {
-                    newStatus = 'removed';
-                } else if (new Date(item.expiryDate) <= currentDate) {
-                    newStatus = 'expired';
-                } else if (item.quantity === 0) {
-                    newStatus = 'out-of-stock';
-                } else if (item.quantity <= 10) {
-                    newStatus = 'less-stock';
-                }
-
-                if (item.itemStatus !== newStatus) {
-                    item.itemStatus = newStatus;
-                    await item.save();
-                }
-
-                return item;
-            })
-        );
-
-        res.status(200).json(updatedItems);
+        const items = await InventoryStock.find();
+        res.status(200).json(items);
     } catch (error) {
         res.status(500).json({ message: error.message });
     }
@@ -261,7 +167,7 @@ exports.getItemId = async (req, res) => {
     const { id } = req.params;
     // if (checkItemId(id)) return res.status(400).json({ message: 'Invalid item Id' })
     try {
-        const existingItem = await inventoryDB.findById(id);
+        const existingItem = await Inventory.findById(id);
         if (!existingItem) return res.status(404).json({ message: 'Item not found.' });
         res.status(200).json(existingItem);
     } catch (error) {
@@ -276,7 +182,7 @@ exports.updateItemQuantity = async (req, res) => {
 
   try {
     // 1. Find the inventory item
-    const item = await inventoryDB.findById(id);
+    const item = await Inventory.findById(id);
     if (!item) {
       return res.status(404).json({ message: 'Inventory item not found.' });
     }
@@ -301,7 +207,7 @@ exports.updateItemQuantity = async (req, res) => {
     const updatedQuantity = Math.max(currentQuantity - unitsUsed, 0);
 
     // 5. Save the updated quantity
-    await inventoryDB.findByIdAndUpdate(id, { quantity: updatedQuantity });
+    await Inventory.findByIdAndUpdate(id, { quantity: updatedQuantity });
 
     res.status(200).json({
       message: 'Item quantity updated successfully.',

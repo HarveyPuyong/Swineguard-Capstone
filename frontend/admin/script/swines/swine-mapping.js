@@ -1,6 +1,7 @@
 import fetchSwines from "../../api/fetch-swines.js";
 import fetchUsers from "../../api/fetch-users.js";
 import fetchSwinePopulation from "../../api/fetch-swine-population.js";
+import api from "../../utils/axiosConfig.js";
 
 
 // ======================================
@@ -501,13 +502,29 @@ const swineMapping = async (type) => {
 };
 
 
+// ======================================
+// ========== Update User Swine Type
+// ======================================
+const automaticallyUpdateSwineType = async() => {
+  try {
+    const response = await api.put(`/swine/update/swine-type`);
+    if (response.status === 200) {
+      console.log(response.data.message);
+    }
+  } catch (err) {
+    console.error("Error updating swine types:", err);
+  }
+    
+}
+
+
 
 
 
 export {
-      swineMapping,
-      toggleMunicipality,
-      numOfSwinePerMunicipalTable,
-      handleGraphNavButton
-
-};
+        swineMapping,
+        toggleMunicipality,
+        numOfSwinePerMunicipalTable,
+        handleGraphNavButton,
+        automaticallyUpdateSwineType
+      };

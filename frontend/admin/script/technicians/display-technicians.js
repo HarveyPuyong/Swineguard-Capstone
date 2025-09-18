@@ -17,7 +17,7 @@ const handleRenderTechnicians = async () => {
 
     for (const technician of technicians) {
       const fullName = `${technician.roles.includes('veterinarian') ? 'Doc.' : 'Mr.'} ${technician.firstName} ${technician.middleName?.charAt(0).toUpperCase() || ''}. ${technician.lastName}`;
-      const assignedTechnicians = allAppointments.filter(app => app.vetPersonnel === technician._id && app.appointmentStatus === 'accepted');
+      const assignedTechnicians = allAppointments.filter(app => app.vetPersonnel === technician._id && (app.appointmentStatus === 'accepted' || app.appointmentStatus === 'reschedule'));
 
       let taskCards = '';
 
