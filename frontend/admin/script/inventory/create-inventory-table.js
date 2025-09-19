@@ -1,5 +1,5 @@
 import fetchInventory from "../../api/fetch-inventory.js";
-import fetchInventoryStocks from "../../api/fetch-inventory-stock.js";
+import {fetchInventoryStocks} from "../../api/fetch-inventory-stock.js";
 import { formatDate, formattedDate } from "../../utils/formated-date-time.js";
 
 // Medicine Id that changes every click of pre heading of medicines
@@ -45,33 +45,39 @@ const createInventoryTable = async () => {
     heading.textContent = medicineName.charAt(0).toUpperCase() + medicineName.slice(1);
 
     let count = 1;
+    let rows = '';
 
     filteredStocks.forEach(stock => {
-        table += `
-            <thead>
-                <tr>
-                    <th>Item No.</th>
-                    <th>Content (ml)</th>
-                    <th>Quantity</th>
-                    <th>Expiration Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-
-            <tbody>
-                <tr>
-                    <td>${count}</td>
-                    <td>${stock.content}</td>
-                    <td>${stock.quantity}</td>
-                    <td>${formattedDate(stock.expiryDate)}</td>
-                    <td>
-                        <button class="add-stock__medicine-table">➕ Add Stock</button>
-                        <button>✏️ Edit</button>
-                    </td>
-                </tr>
-            </tbody>
+        rows += `
+            <tr>
+                <td>${count}</td>
+                <td>${stock.content}</td>
+                <td>${stock.quantity}</td>
+                <td>${formattedDate(stock.expiryDate)}</td>
+                <td>
+                    <button class="add-stock__medicine-table">➕ Add Stock</button>
+                    <button>✏️ Edit</button>
+                </td>
+            </tr>
         `;
+        count++;
     });
+
+    table = `
+        <thead>
+            <tr>
+                <th>Item No.</th>
+                <th>Content (ml)</th>
+                <th>Quantity</th>
+                <th>Expiration Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            ${rows || '<tr><td colspan="4">Click add item to add some stocks</td></tr>'}
+        </tbody>
+    `;
 
     document.querySelector("#inventory-table__stock-management").innerHTML = table;
 

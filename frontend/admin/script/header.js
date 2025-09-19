@@ -53,13 +53,26 @@ const toggleLogoutBtn = () => {
 
   document.addEventListener('click', (e) => {
     if (logoutBtn.classList.contains('show')) {
-      if (!logoutBtn.contains(e.target) && !toggleLogoutBtn.contains(e.target)) {
+       if (!logoutBtn.contains(e.target) && !toggleLogoutBtn.contains(e.target)) {
         logoutBtn.classList.remove('show');
         toggleLogoutBtn.classList.remove('active');
       }
     }
   });
 }
+
+//  document.addEventListener('click', (e) => {
+//     if (logoutBtn.classList.contains('show')) {
+//       if (!logoutBtn.contains(e.target) && !toggleLogoutBtn.contains(e.target)) {
+//         logoutBtn.style.animation = 'fade-out 0.4s forwards';
+
+//         setTimeout(() => {
+//           logoutBtn.classList.remove('show');
+//           toggleLogoutBtn.classList.remove('active');
+//         }, 1000)
+//       }
+//     }
+//   });
 
 
 // ======================================

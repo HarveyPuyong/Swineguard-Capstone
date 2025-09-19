@@ -6,6 +6,16 @@ async function handleRenderServices () {
 
     let serviceCardHTML = '';
 
+    if (services.length === 0) {
+      serviceCardHTML = `
+        <div class="no-service-card">
+          <p class='no-service__header'>No Services<p>
+          <p class='no-service__ds'>Click 'add' to create a services and fill up the corresponding input fields.<p>
+        </div>
+      `;
+      document.querySelector('#services-section .services-card-list').innerHTML = serviceCardHTML;
+    }
+
     services.forEach(service => {
       serviceCardHTML += `
         <div class="service-card">

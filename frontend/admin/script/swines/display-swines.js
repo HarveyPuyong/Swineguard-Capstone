@@ -10,6 +10,16 @@ const handleRenderSwines = async() => {
 
     let swinesTableHTML = '';
 
+    if (swines.length === 0) {
+      swinesTableHTML = `
+        <div class="no-service-card">
+          <p class='no-service__header'>No Swine<p>
+          <p class='no-service__ds'>The user must add a swine to be able to see it here.<p>
+        </div>
+      `;
+      document.querySelector('#swines-section .swines-table__tbody').innerHTML = swinesTableHTML;
+    }
+
     for (const swine of swines ) {
       
       const swinesOwnerId = swine.clientId;

@@ -95,22 +95,33 @@ header{
   cursor: pointer;
 }
 
-.header__logout-btn{
-  display: none;
+/* logout button */
+.header__logout-btn {
   position: absolute;
-  bottom: -12px;
-  right: 25px;
+  top: 100%;              /* place it just BELOW the header__admin-profile */
+  right: 74px;
+
+  transform: translateY(-10px);  /* start hidden slightly UP */
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+
   background-color: red;
   color: white;
   padding: 4px 22px;
   font-weight: 600;
   border-radius: 3px;
-  border: 1px solid rgb(255, 255, 255);
+  border: 1px solid #fff;
   cursor: pointer;
+  z-index: 5;
 }
 
-.header__logout-btn.show{
-  display: block;
+/* show state */
+.header__logout-btn.show {
+  transform: translateY(0);  /* slide DOWN to normal place */
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 0;
 }
 
 
@@ -138,5 +149,20 @@ header{
 
   .header__admin-profile-label{
     display: none;
+  }
+}
+
+
+@keyframes fade-in{
+  to{
+    bottom: -28px;
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out{
+  to{
+    bottom: 15px;
+    opacity: 0;
   }
 }

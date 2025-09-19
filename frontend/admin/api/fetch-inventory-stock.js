@@ -1,4 +1,5 @@
 import api from '../utils/axiosConfig.js';
+import fetchInventory from './fetch-inventory.js';
 
 const fetchInventoryStocks = async() => {
   try {
@@ -11,4 +12,22 @@ const fetchInventoryStocks = async() => {
   }
 }
 
-export default fetchInventoryStocks;
+const returnStockNumber = async(medicine_Id) => {
+
+  const stocks = await fetchInventoryStocks();
+  const filteredStock = stocks.filter(stock => stock.medicineId === medicine_Id);
+
+  let totalQuantity = 0;
+
+  filteredStock.forEach(item => {
+    //totalQuantity.push(item.quantity); 
+    totalQuantity += item.quantity; 
+  });
+
+  return totalQuantity;
+}
+
+export {
+          fetchInventoryStocks,
+          returnStockNumber
+        };

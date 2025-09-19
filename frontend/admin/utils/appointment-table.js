@@ -11,6 +11,15 @@ async function appointmentsTable(appointments, table) {
   //console.log(role[0])
 
   let appointmentTableHTML = '';
+  if (appointments.length === 0) {
+    appointmentTableHTML = `
+      <div class="no-service-card">
+        <p class='no-service__header'>No Appointments<p>
+        <p class='no-service__ds'>Click 'add' to create an appointments or wait for the swine raisers to request an appointment.<p>
+      </div>
+    `;
+    table.innerHTML = appointmentTableHTML;
+  }
 
   for (const appointment of appointments) {
     const medicineName = await getMedicineName(appointment.medicine);
@@ -129,6 +138,16 @@ async function appointmentsTable(appointments, table) {
 // ======================================
 async function adminPageAppointmentTable(appointments, table) {
   let appointmentTableHTML = '';
+  
+  if (appointments.length === 0) {
+    appointmentTableHTML = `
+      <div class="no-service-card">
+        <p class='no-service__header'>No Appointments<p>
+        <p class='no-service__ds'>Click 'add' to create an appointments or wait for the swine raisers to request an appointment.<p>
+      </div>
+    `;
+    table.innerHTML = appointmentTableHTML;
+  }
 
   for (const appointment of appointments) {
     const serviceName = await getServiceName(appointment.appointmentService);
