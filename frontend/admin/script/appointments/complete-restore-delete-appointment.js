@@ -29,18 +29,12 @@ const handleCompleteAppointment = async(e) => {
   }
 
   try {
-    // Get the appointment details first to extract the medicine ID
-    // const appointmentRes = await api.get(`/appointment/${appointmentId}`);
-    // const appointment = appointmentRes.data;
-
-    // const medicineId = appointment.medicine;
-
     // Complete the appointment
     const response = await api.patch(`/appointment/complete/${currentAppointmentId}`, formData);
 
     if (response.status === 200) {
       popupAlert('success', 'Success!', 'Appointment Completed successfully').then(() => {
-        //updatedItemQuantity(medicineId, appointmentId);
+        
         medicineSelectElement.innerHTML = '<option value="">Select medicine</option>';
         completeTaskForm.reset();
         handleRenderAppointments();

@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="styles/sections-style/dashboard-section.css">
     <link rel="stylesheet" href="styles/sections-style/inventory-section.css">
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
+    <link rel="stylesheet" href="styles//sections-style/notification.css">
 
     <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -34,7 +35,8 @@
         </div>
 
         <div class="header__notification">
-          
+          <i class="header__notification-icon fas fa-bell"></i>
+          <span class="header__notification-label">3</span>
         </div>
  
         <div class="header__admin-profile">
@@ -87,6 +89,21 @@
           </div>
         </section>
 
+        <!-- ========== Notification Section ========== -->
+        <section class="notification hide">
+          <div class="notif-container">
+            <div class="header-notif">
+              <h2>Notification</h2>
+            </div>
+            <div class="notif-list">
+              <div class="notif">
+                <p class="notif-title">Title:</p>
+                <p class="notif-short-text">Short Text...</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- ========== Inventory Section ========== -->
         <section id="inventory-section" class="hide">
           <h1 class="section__heading">Inventory</h1>
@@ -105,11 +122,7 @@
             <select class="inventory-sorting__select" name="inventory-sorting" id="inventory-sorting-select">
               <option value="default">Default</option>
               <option value="medicine-name">Medicine Name</option>
-              <option value="dosage">Dosage</option>
               <option value="quantity">Quantity</option>
-              <option value="expiration-date">Exp. Date</option>
-              <option value="created-date">Created Date</option>
-              <option value="updated-date">Updated Date</option>
             </select>
           </div>
 
@@ -234,6 +247,38 @@
                   <!-- create table body -->
                 </tbody>
               </table>
+          </div>
+
+          <!-- Edit Stock for each Item -->
+          <div class="inventory-table__edit-stock">
+            <form class="edit-stock__form">
+              <h2>Edit Stock</h2>
+
+              <label for="edit-stock__content-input">Content (ml)</label><br>
+              <input type="number" id="edit-stock__content-input" placeholder="Type here." required>
+
+              <label for="edit-stock__quantity-input">Stock Number</label><br>
+              <input type="number" id="edit-stock__quantity-input" placeholder="Type here." required>
+
+              <div class="edit-stock__buttons-container">
+                <button class="edit-stock__cancel-btn" type="button">Cancel</button>
+                <button class="edit-stock__add-btn" type="submit">Update</button>
+              </div>
+            </form>
+          </div>
+
+
+          <div class="inventory-table__add-stock">
+            <form class="add-stock__form">
+              <h2>Add Stock</h2>
+              <label for="stock-num-input">Stock Number</label><br>
+              <input type="number" id="stock-num-input" placeholder="Type here." required>
+
+              <div class="add-stock__buttons-container">
+                <button class="add-stock__cancel-btn" type="button">Cancel</button>
+                <button class="add-stock__add-btn" type="submit">Add</button>
+              </div>
+            </form>
           </div>
 
         </section>

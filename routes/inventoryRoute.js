@@ -11,20 +11,13 @@ router.post('/add/medicine', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinat
 
 router.post('/add/item', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.AddItem); // Add Item
 
-// router.put('/edit/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.editItem); 
+router.put('/add/stock/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.addStock); // Add Stocks
 
-// router.patch('/remove/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.removeItem); 
+router.put('/edit/stock/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.editStock); 
 
-// router.patch('/restore/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.restoreItem); 
+router.get('/all/medicines', verifyJWT,  inventoryController.getAllMedicine);  // Get all Medicine
 
-// router.delete('/delete/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator),  inventoryController.deleteItem); 
+router.get('/all/items', verifyJWT,  inventoryController.getAllItem); // get all Item
 
-router.get('/all/medicines', verifyJWT,  inventoryController.getAllMedicine); 
-
-router.get('/all/items', verifyJWT,  inventoryController.getAllItem); 
-
-// router.get('/:id', verifyJWT, inventoryController.getItemId);
-
-// router.put('/update-quantity/:id', verifyJWT, inventoryController.updateItemQuantity);
 
 module.exports = router;

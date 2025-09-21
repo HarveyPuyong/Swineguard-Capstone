@@ -197,7 +197,9 @@
 }
 
 .medicine-form__buttons-container,
-.add-item-form__buttons-container
+.add-item-form__buttons-container,
+.add-stock__buttons-container,
+.edit-stock__buttons-container
 {
   display: flex;
   width: 100%;
@@ -209,7 +211,9 @@
 }
 
 .medicine-form__buttons-container button,
-.add-item-form__buttons-container button
+.add-item-form__buttons-container button,
+.add-stock__buttons-container button,
+.edit-stock__buttons-container button
 {
   color: var(--color);
   background-color: var(--bg-color);
@@ -221,7 +225,9 @@
 }
 
 .medicine-form__buttons-container button.cancel-btn,
-.add-item-form__buttons-container .add-item__cancel-btn
+.add-item-form__buttons-container .add-item__cancel-btn,
+.add-stock__buttons-container .add-stock__cancel-btn,
+.edit-stock__buttons-container .edit-stock__cancel-btn
 {
   --color: #FF0000;
   --bg-color: #EECDCD;
@@ -229,7 +235,9 @@
 
 .medicine-form__buttons-container button.add-btn,
 .medicine-form__buttons-container button.update-btn,
-.add-item-form__buttons-container .add-item__add-btn
+.add-item-form__buttons-container .add-item__add-btn,
+.add-stock__buttons-container .add-stock__add-btn,
+.edit-stock__buttons-container .edit-stock__add-btn
 {
   --color: #009947;
   --bg-color: #B0DDC5;
@@ -304,7 +312,8 @@
 }
 
 .inventory-table .th.medicine-name,
-.inventory-table .td.medicine-name {
+.inventory-table .td.medicine-name
+{
   width: var(--medicine-name);
 }
 
@@ -319,7 +328,8 @@
 }
 
 .inventory-table .th.quantity,
-.inventory-table .td.quantity {
+.inventory-table .td.quantity
+{
   width: var(--quantity);
 }
 
@@ -353,19 +363,6 @@
 .inventory-table .td.updated-date {
   width: var(--updated-date);
 }
-
-/* .inventory-table .th.toggle-buttons-icon,
-.inventory-table .td.toggle-buttons-icon {
-  width: var(--toggle-buttons-icon);
-}
-
-.inventory-table .td.toggle-buttons-icon{
-  position: relative;
-}
-
-.inventory-table .td.toggle-buttons-icon .icon{
-  cursor: pointer;
-} */
 
 .inventory-table__tbody .medicine .buttons-container{
   display: none;
@@ -526,4 +523,45 @@ tbody tr td:last-child button {
 
 .add-item-form.show{
   display: block;
+}
+
+
+.inventory-table__add-stock,
+.inventory-table__edit-stock
+ {
+  background-color: #ffffff;
+  border: 3px solid gray;
+  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  width: 400px;
+  font-size: 1.1rem;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+  display: none;
+}
+.inventory-table__add-stock.show,
+.inventory-table__edit-stock.show
+ {
+  display: block;
+}
+
+.inventory-table__add-stock h2, 
+.inventory-table__edit-stock h2 
+{
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.inventory-table__add-stock input,
+.inventory-table__edit-stock input
+ {
+  font-size: 1.1rem;
+  padding: 6px;
+  width: 100%;
+  border: 1px solid #4b4b4b;
+  margin-bottom: 1rem;
+  border-radius: 4px;
 }

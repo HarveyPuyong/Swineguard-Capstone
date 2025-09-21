@@ -25,8 +25,8 @@ async function inventoryTable(inventories, table) {
       let stockStatus = 'Not set.';
 
       if (totalQuantity === 0) { stockStatus = 'out of stock'; } 
-      else if ( totalQuantity < 30) { stockStatus = 'less stock'; }
-      else if ( totalQuantity >= 30) { stockStatus = 'in stock'; }
+      else if ( totalQuantity < 20) { stockStatus = 'less stock'; }
+      else if ( totalQuantity >= 20) { stockStatus = 'in stock'; }
 
       inventoryTableHTML += `
         <div class="medicine status-${formatItemStatus(stockStatus)}" data-item-id=${item._id}>
@@ -38,20 +38,6 @@ async function inventoryTable(inventories, table) {
         </div>
       `;
     } 
-    
-    // inventories.forEach(item => {
-    //   //const status = formatItemStatus(item.itemStatus);
-
-    //   inventoryTableHTML += `
-    //     <div class="medicine status-${upcoming}" data-item-id=${item._id}>
-    //       <p class="td medicine-name">${item.itemName}</p>
-    //       <p class="td quantity">${item._id}</p>
-    //       <p class="td status" data-status-value=${upcoming}>
-    //         ${upcoming}
-    //       </p>
-    //     </div>
-    //   `;
-    // });
 
   }
 

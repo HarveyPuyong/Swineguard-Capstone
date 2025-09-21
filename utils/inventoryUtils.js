@@ -20,11 +20,27 @@ function isInvalidInput(itemName) {
 
 // Check Expiry Date
 function checkExpiryDate(expiryDate) {
-  const today = new Date();
-  today.setHours(0, 0, 0, 0); // normalize
+  const currentDate = new Date();
   const expirationDate = new Date(expiryDate);
-  return expirationDate > today; // ✅ true if future
+
+  const currentYear = currentDate.getFullYear();
+  const currentMonth = currentDate.getMonth(); // 0-11
+  const expYear = expirationDate.getFullYear();
+  const expMonth = expirationDate.getMonth();
+
+  // ❌ Reject past year
+  if (expYear < currentYear) {
+    return false;
+  }
+
+  // ❌ Reject same year and same month, or past month
+  if (expYear === currentYear && expMonth <= currentMonth) {
+    return false;
+  }
+
+  return true; // ✅ valid (future month or future year)
 }
+
 
 // Validate inputs letters and negative numbers are not allowed
 function isValidNumber (value) {

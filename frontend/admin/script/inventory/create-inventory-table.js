@@ -55,8 +55,8 @@ const createInventoryTable = async () => {
                 <td>${stock.quantity}</td>
                 <td>${formattedDate(stock.expiryDate)}</td>
                 <td>
-                    <button class="add-stock__medicine-table">➕ Add Stock</button>
-                    <button>✏️ Edit</button>
+                    <button class="add-stock__medicine-table" data-set-item-id="${stock._id}">➕ Add Stock</button>
+                    <button class="edit-stock__medicine-table" data-set-item-id="${stock._id}">✏️ Edit</button>
                 </td>
             </tr>
         `;

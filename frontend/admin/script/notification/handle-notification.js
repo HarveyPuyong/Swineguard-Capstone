@@ -3,6 +3,8 @@ import { formatTo12HourTime, formattedDate } from "../../utils/formated-date-tim
 import { getServiceName } from "../../api/fetch-services.js";
 import fetchUsers from "../../api/fetch-users.js";
 import { getTechnicianName } from "../../api/fetch-technicians.js";
+import fetchInventory from "../../api/fetch-inventory.js";
+import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
 
 const handleNotification = () => {
     const notifBtn = document.querySelector('.header__notification');
@@ -83,6 +85,63 @@ const displayACNotificationList = async() => {
 }
 
 
+const LOW_STOCK_THRESHOLD = 20;
+const displayICNotificationList = async () => {
+    const medicines = await fetchInventory();       // all medicines
+    const stocks = await fetchInventoryStocks();    // all stock entries
+
+    let notificationHTML = '';
+    let notifCount = 0;
+
+    // Summarize total quantity per medicine
+    const stockSummary = medicines.map(med => {
+        const relatedStocks = stocks.filter(s => s.medicineId === med._id);
+        const totalQuantity = relatedStocks.reduce((sum, s) => sum + s.quantity, 0);
+        return { name: med.itemName, quantity: totalQuantity };
+    });
+
+    // Categorize
+    const lowStocks = stockSummary.filter(item => item.quantity > 0 && item.quantity < LOW_STOCK_THRESHOLD);
+    const outOfStocks = stockSummary.filter(item => item.quantity === 0);
+
+    // Notifications
+    if (lowStocks.length > 0) {
+        notificationHTML += `
+            <div class="notif">
+            <p class="notif-title">⚠️ Low Stock Alert</p>
+            <p class="notif-short-text">There are <strong>${lowStocks.length}</strong> items running low.</p>
+            </div>
+        `;
+        notifCount++;
+    }
+
+    if (outOfStocks.length > 0) {
+        notificationHTML += `
+            <div class="notif">
+            <p class="notif-title">❌ Out of Stock</p>
+            <p class="notif-short-text">There are <strong>${outOfStocks.length}</strong> items out of stock.</p>
+            </div>
+        `;
+        notifCount++;
+    }
+
+    // No notifications
+    if (notifCount === 0) {
+        notificationHTML = `
+            <div class="notif">
+            <p class="notif-title">No Notification</p>
+            </div>
+        `;
+    }
+
+    // Render
+    document.querySelector('.notification .notif-list').innerHTML = notificationHTML;
+    document.querySelector('.header__notification-label').textContent = notifCount || '';
+    document.dispatchEvent(new Event('renderICNotification'));
+};
+
+
+
 const displayVetNotification = async(staffId) => {
     
     const appointments = await fetchAppointments();
@@ -160,5 +219,6 @@ export {
     displayACNotificationList,
     displayAdminNotificationList,
     displayVetNotification,
-    displayClientNotificationList
+    displayClientNotificationList,
+    displayICNotificationList
 };

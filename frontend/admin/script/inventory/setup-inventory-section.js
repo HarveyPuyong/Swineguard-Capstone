@@ -5,7 +5,12 @@ import {handleRemoveItem, handleRestoreItem, handleDeleteItem} from "./remove-re
 import {generateInventoryReport, displayInventoryReport} from "../reports/generate-inventory-reports.js";
 import fetchUser from "../auth/fetchUser.js";
 import {createInventoryTable, getMedicineId, getCurrentMedicineId} from "./create-inventory-table.js";
-import { addItem } from "./add-item-add-stock-edit.js";
+import { addItem, addStock, setupAddStockFormListener,
+         editStock, setupEditStockFormListener
+        } from "./add-item-add-stock-edit.js";
+
+
+import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
 
 // ======================================
 // ========== Search Inventory
@@ -67,14 +72,14 @@ const filterInventory = () => {
 // ========== Inventory Sorting
 // ======================================
 const inventorySorting = () => {
-  document.addEventListener('renderInventory', () => {
+  document.addEventListener('renderInventoryPreHeading', () => {
     const sortingSelect = document.querySelector('.inventory-sorting__select');
     const inventoryTable = document.querySelector('#inventory-section .inventory-table__tbody');
 
     if (!sortingSelect || !inventoryTable) return;
 
     // Save original order
-    const originalInventory = Array.from(inventoryTable.children);
+    const originalInventory = Array.from(inventoryTable.children).map(el => el.cloneNode(true));
 
     sortingSelect.addEventListener('change', () => {
       const selectedSort = sortingSelect.value;
@@ -83,7 +88,7 @@ const inventorySorting = () => {
       if (selectedSort === 'default') {
         // Restore to original order
         inventoryTable.innerHTML = '';
-        originalInventory.forEach(item => inventoryTable.appendChild(item));
+        originalInventory.forEach(item => inventoryTable.appendChild(item.cloneNode(true))); // use clones again
         return;
       }
 
@@ -96,16 +101,8 @@ const inventorySorting = () => {
         switch (selectedSort) {
           case 'medicine-name':
             return getText(a, '.medicine-name').localeCompare(getText(b, '.medicine-name'));
-          case 'dosage':
-            return getText(a, '.medicine-dosage').localeCompare(getText(b, '.medicine-dosage'));
           case 'quantity':
             return parseInt(getText(a, '.quantity')) - parseInt(getText(b, '.quantity'));
-          case 'expiration-date':
-            return parseDate(a, '.exp-date') - parseDate(b, '.exp-date');
-          case 'created-date':
-            return parseDate(a, '.created-date') - parseDate(b, '.created-date');
-          case 'updated-date':
-            return parseDate(a, '.updated-date') - parseDate(b, '.updated-date');
           default:
             return 0;
         }
@@ -115,6 +112,8 @@ const inventorySorting = () => {
       inventoryTable.innerHTML = '';
       sortedInventories.forEach(item => inventoryTable.appendChild(item));
     });
+
+    displayMedicineTable();
   });
 };
 
@@ -299,12 +298,6 @@ const displayMedicineTable = async() => {
 }
 
 
-const handleRenderingPreheadMeds = () => {
-  document.addEventListener('renderInventoryPreHeading', () => {
-    displayMedicineTable();
-  });
-}
-
 // ======================================
 // ========== Handle Stocks Management
 // ======================================
@@ -314,6 +307,9 @@ const handleInventoryStocks = () => {
     // Get Id of the Medicine
     const medicineId = getCurrentMedicineId();
     handleInventoryStocksBtn(medicineId);
+
+    // Handle adding stocks each item
+    handleAddStock();
 
   })
 }
@@ -341,6 +337,67 @@ const handleInventoryStocksBtn = (medicineId) => {
 }
 
 
+// ======================================
+// ========== Handle Add Stock for each Item
+// ======================================
+const handleAddStock = () => {
+  const addStockFormContainer = document.querySelector('.inventory-table__add-stock');
+  const editStockFormContainer = document.querySelector('.inventory-table__edit-stock');
+
+  const addStockForm = document.querySelector('.inventory-table__add-stock .add-stock__form');
+  const editStockForm = document.querySelector('.inventory-table__edit-stock .edit-stock__form');
+
+  const addStockBtns = document.querySelectorAll('.add-stock__medicine-table');
+  const editStockBtns = document.querySelectorAll('.edit-stock__medicine-table');
+
+  // Add Stock
+  addStockBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const itemId = btn.dataset.setItemId;
+      //alert(`➕ Add Item, Item Id: ${itemId}`);
+      addStockFormContainer.classList.add('show');
+      addStock(itemId);
+    });
+  });
+
+  //Edit Stock
+  editStockBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const itemId = btn.dataset.setItemId;
+      //alert(`✏️ Edit Item, Item Id: ${itemId}`);
+      editStockFormContainer.classList.add('show');
+      setupEditStockForm(itemId);
+      editStock(itemId);
+    });
+  });
+
+  // Hide Form
+  const addStock_cancelBtn = document.querySelector('.inventory-table__add-stock .add-stock__cancel-btn');
+  const editStock_cancelBtn = document.querySelector('.inventory-table__edit-stock .edit-stock__cancel-btn');
+  addStock_cancelBtn.addEventListener('click', function() {
+    addStockFormContainer.classList.remove('show');
+    addStockForm.reset();
+  });
+  editStock_cancelBtn.addEventListener('click', function() {
+    editStockFormContainer.classList.remove('show');
+    editStockForm.reset();
+  });
+};
+
+
+// ======================================
+// ========== Setup Edit Stock Form
+// ======================================
+const setupEditStockForm = async(itemId) => {
+    const allStocks = await fetchInventoryStocks();
+    const stock = allStocks.find(i => i._id === itemId);
+
+    const quantityInputValue = document.querySelector('#edit-stock__quantity-input').value = stock.quantity;
+    const contentInputValue = document.querySelector('#edit-stock__content-input').value = stock.content;
+}
+
+
+
 
 export default function setupInventorySection() {
   toggleMedicineButtons();
@@ -353,8 +410,9 @@ export default function setupInventorySection() {
   toggleAddMedicineForm();
   changeStatusColor();
   viewBtnsFunctionality();
-  handleRenderingPreheadMeds();
   handleInventoryStocks();
+  setupAddStockFormListener(); // Listener for adding Stocks
+  setupEditStockFormListener() // Listener for updating Stocks
 }
 
 

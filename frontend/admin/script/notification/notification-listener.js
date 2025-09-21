@@ -63,8 +63,41 @@ document.addEventListener('renderACNotification', () => {
   appointmentCoordinatorNotifListener();
 });
 
+const inventoryCoordinatorNotifListener = () => {
+  const notificationItems = document.querySelectorAll('.notif-list .notif');
+
+  notificationItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const inventorySection = document.getElementById('inventory-section'); // change to your actual section id
+      const sections = document.querySelectorAll('section');
+
+      sections.forEach(section => {
+        if(section === inventorySection){
+          section.classList.add('show');
+          section.classList.remove('hide');
+        } else {
+          section.classList.remove('show');
+          section.classList.add('hide');
+        }
+      });
+
+      // Optionally close side-nav if mobile
+      const sidenav = document.querySelector('nav.side-nav');
+      if(sidenav.classList.contains('show')){
+        sidenav.classList.remove('show');
+      }
+    });
+  });
+};
+
+// Trigger listener every time notifications are rendered
+document.addEventListener('renderICNotification', () => {
+  inventoryCoordinatorNotifListener();
+});
+
 // Export the function
 export {
     adminNotifListener,
-    appointmentCoordinatorNotifListener
+    appointmentCoordinatorNotifListener,
+    inventoryCoordinatorNotifListener
 };

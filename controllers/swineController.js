@@ -341,12 +341,6 @@ exports.getSwineMontlyRecords = async (req, res) => {
 }
 
 
-
-
-
-
-
-
 // Add Swine Population
 exports.addSwinePopulation = async (req, res) => {
   try {
@@ -371,6 +365,7 @@ exports.addSwinePopulation = async (req, res) => {
   }
 };
 
+
 // ✅ Get all swine population records
 exports.getSwinePopulations = async (req, res) => {
   try {
@@ -380,6 +375,7 @@ exports.getSwinePopulations = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
+
 
 // ✅ Get by municipality / month / year
 exports.getSwinePopulationByFilter = async (req, res) => {
@@ -421,6 +417,7 @@ exports.updateSwineTypes = async (req, res) => {
         res.status(500).json({ message: "Something went wrong", error: err.message });
     }
 };
+
 
 exports.updateUserSwineTypes = async (req, res) => {
     const { id } = req.params; // this should be clientId
