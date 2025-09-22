@@ -1,102 +1,97 @@
 import fetchInventory from "../../api/fetch-inventory.js";
+import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
 import toPercent from "../../utils/toPercent.js";
 import formatItemStatus from './../../utils/format-item-status.js';
 
 
 const upcoming = 'Upcoming';
 
-
+const LOW_STOCK_THRESHOLD = 20;
 const inventoryDashboard = async () => {
   try {
-    const inventory = await fetchInventory();
+    const medicines = await fetchInventory();
+    const stocks = await fetchInventoryStocks();
 
-    const totalItems = inventory.length;
+    let totalStocks = 0;
+    stocks.forEach(stock => {
+      totalStocks += stock.quantity;
+    });
 
-    // const inStockItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'in-stock').length;
-    // const outOfStockItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'out-of-stock').length;
-    // const lessStockItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'less-stock').length;
-    // const expiredItem = inventory.filter(item => formatItemStatus(item.itemStatus) === 'expired').length;
+    // Summarize total quantity per medicine
+    const stockSummary = medicines.map(med => {
+        const relatedStocks = stocks.filter(s => s.medicineId === med._id);
+        const totalQuantity = relatedStocks.reduce((sum, s) => sum + s.quantity, 0);
+        return { name: med.itemName, quantity: totalQuantity };
+    });
 
-    // const inStockPercent = toPercent(inStockItem, totalItems);
-    // const outOfStockPercent = toPercent(outOfStockItem, totalItems);
-    // const lessStockPercent = toPercent(lessStockItem, totalItems);
-    // const expiredPercent = toPercent(expiredItem, totalItems);
+    // Categorize
+    const lowStocks = stockSummary.filter(item => item.quantity > 0 && item.quantity < LOW_STOCK_THRESHOLD);
+    const outOfStocks = stockSummary.filter(item => item.quantity === 0);
+    const inStock = stockSummary.filter(item => item.quantity >= LOW_STOCK_THRESHOLD);
 
-
+    const totalMedicineNum = lowStocks.length + outOfStocks.length + inStock.length;
+    const lowStockPercentage = ((lowStocks.length / totalMedicineNum) * 100).toFixed(1);
+    const outOfStockPercentage = ((outOfStocks.length / totalMedicineNum) * 100).toFixed(1);
+    const inStockPercentage = ((inStock.length / totalMedicineNum) * 100).toFixed(1); 
 
     const dashboardHTML = `
       <!-- Total stocks card -->
       <div class="dashboard__card total-stocks total-card">
         <img class="dashboard__card-icon" src="images-and-icons/icons/stocks-icon.png" alt="stocks-icon">
         <p class="dashboard__card-label">
-          Total Stocks: 
-          <span class="dashboard__card-label--value">${upcoming}</span>
+          Total Medicine Stocks: 
+          <span class="dashboard__card-label--value">${totalStocks}</span>
         </p>
       </div>
 
       <!-- In-stock card -->
       <div class="dashboard__card in-stocks">
         <p class="dashboard__card-label">
-          In Stocks: 
-          <span class="dashboard__card-label--value">${upcoming}</span>
+          Medicine with stocks: 
+          <span class="dashboard__card-label--value">${inStock.length}</span>
         </p>
         <div class="dashboard__card-progress-bar-container">
           <div class="dashboard__card-progress-bar">
             <div class="dashboard__card-progress-barOverflow"></div>
-            <div class="dashboard__card-progress-value" style="width:${upcoming}%"></div>
+            <div class="dashboard__card-progress-value" style="width:${inStockPercentage}%"></div>
           </div>
           <div class="dashboard__card-progress-slicer"></div>
-          <p class="dashboard__card-progress-txt">${upcoming}%</p>
+          <p class="dashboard__card-progress-txt">${inStockPercentage}%</p>
         </div>
       </div>
 
       <!-- Out-of-stock card -->
       <div class="dashboard__card out-of-stocks">
         <p class="dashboard__card-label">
-          Out of Stocks: 
-          <span class="dashboard__card-label--value">${upcoming}</span>
+          Medicine with no stocks: 
+          <span class="dashboard__card-label--value">${outOfStocks.length}</span>
         </p>
         <div class="dashboard__card-progress-bar-container">
           <div class="dashboard__card-progress-bar">
             <div class="dashboard__card-progress-barOverflow"></div>
-            <div class="dashboard__card-progress-value" style="width:${upcoming}%"></div>
+            <div class="dashboard__card-progress-value" style="width:${outOfStockPercentage}%"></div>
           </div>
           <div class="dashboard__card-progress-slicer"></div>
-          <p class="dashboard__card-progress-txt">${upcoming}%</p>
+          <p class="dashboard__card-progress-txt">${outOfStockPercentage}%</p>
         </div>
       </div>
 
       <!-- Less stock card -->
       <div class="dashboard__card less-stocks">
         <p class="dashboard__card-label">
-          Less Stocks: 
-          <span class="dashboard__card-label--value">${upcoming}</span>
+          Medicine with less stocks: 
+          <span class="dashboard__card-label--value">${lowStocks.length}</span>
         </p>
         <div class="dashboard__card-progress-bar-container">
           <div class="dashboard__card-progress-bar">
             <div class="dashboard__card-progress-barOverflow"></div>
-            <div class="dashboard__card-progress-value" style="width:${upcoming}%"></div>
+            <div class="dashboard__card-progress-value" style="width:${lowStockPercentage}%"></div>
           </div>
           <div class="dashboard__card-progress-slicer"></div>
-          <p class="dashboard__card-progress-txt">${upcoming}%</p>
+          <p class="dashboard__card-progress-txt">${lowStockPercentage}%</p>
         </div>
       </div>
 
-      <!-- Expired stock card -->
-      <div class="dashboard__card expired-stocks">
-        <p class="dashboard__card-label">
-          Expired: 
-          <span class="dashboard__card-label--value">${upcoming}</span>
-        </p>
-        <div class="dashboard__card-progress-bar-container">
-          <div class="dashboard__card-progress-bar">
-            <div class="dashboard__card-progress-barOverflow"></div>
-            <div class="dashboard__card-progress-value" style="width:${upcoming}%"></div>
-          </div>
-          <div class="dashboard__card-progress-slicer"></div>
-          <p class="dashboard__card-progress-txt">${upcoming}%</p>
-        </div>
-      </div>
     `;
 
     const inventoryDashboard = document.querySelector('.inventory-dashboard .dashboard__cards-container');

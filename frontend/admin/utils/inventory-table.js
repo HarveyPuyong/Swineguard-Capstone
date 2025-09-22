@@ -1,4 +1,4 @@
-import { returnStockNumber } from '../api/fetch-inventory-stock.js';
+import { returnStockNumber, fetchInventoryStocks } from '../api/fetch-inventory-stock.js';
 import formatItemStatus from './format-item-status.js';
 
   const upcoming = 'Upcoming';
@@ -10,8 +10,6 @@ import formatItemStatus from './format-item-status.js';
 async function inventoryTable(inventories, table) {
   let inventoryTableHTML = '';
 
-  //console.log(inventories)
-
   if (!inventories || inventories.length === 0) {
     inventoryTableHTML = `
       <div class="no-medicine">
@@ -19,14 +17,26 @@ async function inventoryTable(inventories, table) {
       </div>
     `;
   } else {
+    const allStocks = await fetchInventoryStocks();
+    const today = new Date();
 
     for (const item of inventories) {
       const totalQuantity = await returnStockNumber(item._id);
-      let stockStatus = 'Not set.';
 
-      if (totalQuantity === 0) { stockStatus = 'out of stock'; } 
-      else if ( totalQuantity < 20) { stockStatus = 'less stock'; }
-      else if ( totalQuantity >= 20) { stockStatus = 'in stock'; }
+      // 🔎 get this medicine's stock entries
+      const relatedStocks = allStocks.filter(s => s.medicineId === item._id);
+
+      // 🔎 check expired
+      const expiredItem = relatedStocks.filter(s => new Date(s.expiryDate) < today).length;
+
+      let stockStatus = 'Not set.';
+      if (totalQuantity === 0) { 
+        stockStatus = 'out of stock'; 
+      } else if (totalQuantity < 20) { 
+        stockStatus = 'less stock'; 
+      } else { 
+        stockStatus = 'in stock'; 
+      }
 
       inventoryTableHTML += `
         <div class="medicine status-${formatItemStatus(stockStatus)}" data-item-id=${item._id}>
@@ -35,10 +45,12 @@ async function inventoryTable(inventories, table) {
           <p class="td status" data-status-value=${formatItemStatus(stockStatus)}>
             ${stockStatus.charAt(0).toUpperCase() + stockStatus.slice(1)}
           </p>
+          <p class="td number-of-expired">
+            ${expiredItem > 0 ? `${expiredItem} <span>(expired)</span>` : ""}
+          </p>
         </div>
       `;
-    } 
-
+    }
   }
 
   if (table) table.innerHTML = inventoryTableHTML;

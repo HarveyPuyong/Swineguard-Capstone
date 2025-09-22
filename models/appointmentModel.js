@@ -28,7 +28,6 @@ const appointmentSchema = new mongoose.Schema({
 
     swineType: { type: String, required: true },
     swineCount: { type: Number, required: true },
-    swineSymptoms: { type: String, required: false },
     swineAge: { type: Number, required: true },
     swineMale: { type: Number, required: true },
     swineFemale: { type: Number, required: true },

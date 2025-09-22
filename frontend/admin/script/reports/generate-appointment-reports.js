@@ -2,7 +2,7 @@ import { fetchAppointments } from "../../api/fetch-appointments.js";
 import popupAlert from "../../utils/popupAlert.js";
 import { getServiceName } from "../../api/fetch-services.js";
 import { getTechnicianName } from "../../api/fetch-technicians.js";
-import { getMedicineName } from "../../api/fetch-medicine.js";
+import { fetchMedicines } from "../../api/fetch-medicine.js";
 import { formatTo12HourTime, formatDate } from "../../utils/formated-date-time.js";
 import fetchUser from "../auth/fetchUser.js";
 
@@ -234,7 +234,7 @@ const renderAppointmentReportTable = async (appointments) => {
     } catch (e) { appt.vetName = 'Vet not found'; }
 
     try {
-      appt.medicineName = appt.medicine ? await getMedicineName(appt.medicine) : 'Not set';
+      appt.medicineName = appt.medicine ? await appt.medicine : 'Not set';
     } catch (e) { appt.medicineName = 'Medicine not found'; }
 
     try {

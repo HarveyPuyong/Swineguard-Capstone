@@ -39,7 +39,12 @@ const displayAppointmentCardList = async (filterStatus = 'all') => {
         let appointmentHTML = '';
 
         if (filteredAppointments.length === 0) {
-            appointmentHTML = `<p class="no-appointments">No appointments found.</p>`;
+            appointmentHTML = `
+                <div class="no-appointments">
+                    <p class="highlighted-txt">No Appointments</p>
+                    <p class="mini-text">Click 'request' to send an appoint to the PVET.</p>
+                </div>
+            `;
         } else {
             for (const appointment of filteredAppointments) {
                 const serviceName = await getServiceName(appointment.appointmentService);

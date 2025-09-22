@@ -17,7 +17,7 @@ function handleAddService (){
     const serviceFormData = {
       serviceName: addServiceForm.querySelector('.service-name-input').value.trim(),
       description: addServiceForm.querySelector('.service-description-input').value.trim(),
-      applicableItemTypes: getSelectedApplicableMedicines(),
+      //applicableItemTypes: getSelectedApplicableMedicines(),
       serviceType: selectedRadio.value
     }
 

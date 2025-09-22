@@ -93,16 +93,26 @@ const displayICNotificationList = async () => {
     let notificationHTML = '';
     let notifCount = 0;
 
+    const today = new Date(); // Date today
+
     // Summarize total quantity per medicine
     const stockSummary = medicines.map(med => {
         const relatedStocks = stocks.filter(s => s.medicineId === med._id);
         const totalQuantity = relatedStocks.reduce((sum, s) => sum + s.quantity, 0);
-        return { name: med.itemName, quantity: totalQuantity };
+        // expired count
+        const expiredCount = relatedStocks.filter(s => new Date(s.expiryDate) < today).length;
+
+        return { 
+            name: med.itemName, 
+            quantity: totalQuantity,
+            expired: expiredCount
+        };
     });
 
     // Categorize
     const lowStocks = stockSummary.filter(item => item.quantity > 0 && item.quantity < LOW_STOCK_THRESHOLD);
     const outOfStocks = stockSummary.filter(item => item.quantity === 0);
+    const expired = stockSummary.filter(item => item.expired > 0);
 
     // Notifications
     if (lowStocks.length > 0) {
@@ -120,6 +130,16 @@ const displayICNotificationList = async () => {
             <div class="notif">
             <p class="notif-title">❌ Out of Stock</p>
             <p class="notif-short-text">There are <strong>${outOfStocks.length}</strong> items out of stock.</p>
+            </div>
+        `;
+        notifCount++;
+    }
+
+    if (expired.length > 0) {
+        notificationHTML += `
+            <div class="notif">
+            <p class="notif-title">⏰ Expired Stock</p>
+            <p class="notif-short-text">There are <strong>${expired.length}</strong> items with expired stocks.</p>
             </div>
         `;
         notifCount++;

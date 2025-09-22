@@ -1,5 +1,5 @@
 import { formattedDate, formatTo12HourTime } from './formated-date-time.js';
-import { getMedicineName } from './../api/fetch-medicine.js';
+import { fetchMedicines } from './../api/fetch-medicine.js';
 import { getTechnicianName } from './../api/fetch-technicians.js';
 import { getServiceName } from './../api/fetch-services.js';
 import fetchUser from '../script/auth/fetchUser.js';
@@ -22,7 +22,7 @@ async function appointmentsTable(appointments, table) {
   }
 
   for (const appointment of appointments) {
-    const medicineName = await getMedicineName(appointment.medicine);
+    //const medicineName = 'To be Update';
     const TechnicianName = await getTechnicianName(appointment.vetPersonnel);
     const serviceName = await getServiceName(appointment.appointmentService);
 
@@ -98,7 +98,7 @@ async function appointmentsTable(appointments, table) {
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Medicine:</span>
-                <span class="column__detail-value">${medicineName}</span>
+                <span class="column__detail-value">Id: ${appointment.medicine}</span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Dosage:</span>

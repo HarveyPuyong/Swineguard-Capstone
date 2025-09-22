@@ -5,7 +5,7 @@ import { formattedDate } from '../../../admin/utils/formated-date-time.js';
 import { removeSwine } from './edit-remove.js';
 import { fetchAppointments } from '../../../admin/api/fetch-appointments.js';
 import { getServiceName } from '../../../admin/api/fetch-services.js';
-import { getMedicineName } from '../../../admin/api/fetch-medicine.js';
+//import { getMedicineName } from '../../../admin/api/fetch-medicine.js';
 import getSwineRecords from './fetch-swine-records.js';
 import { barGraph, lineGraph } from './swine-graph.js';
 import api from '../../client-utils/axios-config.js';
@@ -22,6 +22,15 @@ const displayClientSwines = async() => {
         const swines = await fetchSwines();
         const filterClientSwine = swines.filter(swine => swine.clientId === userId && swine.status !== 'removed');
         let swineHTML = '';
+
+        if (filterClientSwine.length === 0) {
+            swineHTML = `
+                <div class="no-swine">
+                    <p class="highlghted-txt">No Swine</p>
+                    <p>Click 'Add' to create swine</p>
+                </div>
+            `;
+        }
 
         filterClientSwine.forEach(swine => {
             swineHTML += `
@@ -193,7 +202,7 @@ const getSwineMedicalHistory = async(swineId) => {
         let swineHealthRecordsHTML = '';
         for (const appointment of filteredCompletedAppointments) {
             const serviceName = await getServiceName(appointment.appointmentService)
-            const medicineName = await getMedicineName(appointment.medicine);
+            const medicineName = 'To be updated';
             swineHealthRecordsHTML += `
                 <hr>
                 <p><strong>Service:</strong> ${serviceName}</p>

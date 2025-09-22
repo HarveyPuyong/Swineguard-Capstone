@@ -114,6 +114,7 @@ const inventorySorting = () => {
     });
 
     displayMedicineTable();
+    changeStatusColor();
   });
 };
 
@@ -134,9 +135,6 @@ const setStatusColor = (statusValue, element) => {
   } else if(statusValue === 'expired'){
       element.style.setProperty('--color', 'rgb(230, 54, 0)'); 
       element.style.setProperty('--BGcolor', 'rgba(220, 84, 30, 0.29)');
-  } else if(statusValue === 'removed'){
-      element.style.setProperty('--color', 'rgb(95, 95, 95)');
-      element.style.setProperty('--BGcolor', 'rgba(105, 105, 105, 0.25)');
   } else{
       element.style.setProperty('--color', 'black');
       element.style.setProperty('--BGcolor', 'white');
@@ -147,15 +145,13 @@ const setStatusColor = (statusValue, element) => {
 // ========== Change Inventory Status Color
 // ======================================
 const changeStatusColor = () => {
-  document.addEventListener('renderInventory', () => {
-    const items = document.querySelectorAll('.inventory-table__tbody .medicine');
+  const items = document.querySelectorAll('.inventory-table__tbody .medicine');
 
-    items.forEach(item => {
-      const status = item.querySelector('.td.status');
-      const statusValue = status.getAttribute('data-status-value');
+  items.forEach(item => {
+    const status = item.querySelector('.td.status');
+    const statusValue = status.getAttribute('data-status-value');
 
-      setStatusColor(statusValue, status);
-    });
+    setStatusColor(statusValue, status);
   });
 }
 
@@ -408,7 +404,6 @@ export default function setupInventorySection() {
   filterInventory();
   inventorySorting();
   toggleAddMedicineForm();
-  changeStatusColor();
   viewBtnsFunctionality();
   handleInventoryStocks();
   setupAddStockFormListener(); // Listener for adding Stocks

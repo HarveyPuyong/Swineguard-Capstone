@@ -5,9 +5,6 @@
   display: block;
 }
 
-
-
-
 #inventory-section .section__heading{
   margin-bottom: 20px;
 }
@@ -317,16 +314,6 @@
   width: var(--medicine-name);
 }
 
-.inventory-table .th.medicine-dosage,
-.inventory-table .td.medicine-dosage {
-  width: var(--medicine-dosage);
-}
-
-.medicine-dosage-label{
-  font-size: 0.75rem;
-  color: rgba(5, 5, 5, 0.684);
-}
-
 .inventory-table .th.quantity,
 .inventory-table .td.quantity
 {
@@ -564,4 +551,15 @@ tbody tr td:last-child button {
   border: 1px solid #4b4b4b;
   margin-bottom: 1rem;
   border-radius: 4px;
+}
+
+.td.number-of-expired {
+  color: red;
+  font-weight: 600;
+}
+
+.expired-row {
+  background-color: rgba(255, 0, 0, 0.1); /* light red background */
+  color: #b00020; /* dark red text */
+  font-weight: bold;
 }

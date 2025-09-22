@@ -20,4 +20,5 @@ router.get('/all/medicines', verifyJWT,  inventoryController.getAllMedicine);  /
 router.get('/all/items', verifyJWT,  inventoryController.getAllItem); // get all Item
 
 
+
 module.exports = router;

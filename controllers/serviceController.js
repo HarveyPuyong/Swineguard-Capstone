@@ -5,7 +5,7 @@ const { isValidInput, containsEmoji, hasNumber, containsSpecialChar }= require('
 
 // Add Services
 const addServices = async (req, res) => {
-    const { serviceName, description, applicableItemTypes, serviceType } = req.body;
+    const { serviceName, description, serviceType } = req.body;
 
     // Check the length of inputs
     if (!isValidInput(serviceName) || !isValidInput(description)) return res.status(400).json({ message: 'Please provide valid and longer input.'});
@@ -28,7 +28,7 @@ const addServices = async (req, res) => {
         if(existingServices) return res.status(409).json({message: "Service already exists."});
 
         //Proceed to saving
-        const newService = new serviceDB ({ serviceName, description, applicableItemTypes, serviceType });
+        const newService = new serviceDB ({ serviceName, description, serviceType });
         await newService.save();
         return res.status(201).json({ 
             service: newService, 
