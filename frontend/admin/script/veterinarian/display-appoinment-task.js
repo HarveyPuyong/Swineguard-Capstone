@@ -30,6 +30,8 @@ const displayTaskList = async () => {
 
     for (const appointment of filteredAppointments) {
         const serviceName = await getServiceName(appointment.appointmentService);
+
+        //Get Medicine Name
         const medicineName = await getMedicineName(appointment.medicine);
 
         const clinicalSignsHTML = (appointment.clinicalSigns && appointment.clinicalSigns.length > 0)
@@ -84,7 +86,7 @@ const displayTaskList = async () => {
                         </div>
                         <div class="detail medicine">
                             <span class="detail-label">Medicine:</span>
-                            <span class="detail-value">${medicineName ? medicineName : 'not set'}</span>
+                            <span class="detail-value">${medicineName}</span>
                         </div>
                         <div class="detail medicine=amount">
                             <span class="detail-label">Amount:</span>
@@ -122,6 +124,6 @@ const displayTaskList = async () => {
 };
 
 // Listen for dropdown changes
-document.querySelector('#select-schedule-status').addEventListener('change', displayTaskList);
+//document.querySelector('#select-schedule-status').addEventListener('change', displayTaskList);
 
 export default displayTaskList;

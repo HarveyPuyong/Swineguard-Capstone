@@ -89,7 +89,7 @@ exports.addSwine = async (req, res) => {
 exports.editSwine = async (req, res) => {
     const { id } = req.params;
 
-    const {type, weight, status, cause} = req.body;
+    const { weight, status, cause} = req.body;
 
     // Validate object Id
     if (!isValidSwineId(id)) return res.status(400).json({ message: "Invalid Swine ID." });
@@ -100,7 +100,7 @@ exports.editSwine = async (req, res) => {
     // ✅ Convert to numbers after validation
     const numericWeight = Number(weight);
 
-    const swineData = {type, weight: numericWeight, status, cause};
+    const swineData = { weight: numericWeight, status, cause};
 
     // Validate input fields
     if (Object.values(swineData).some(field => field === undefined || field === null)) {

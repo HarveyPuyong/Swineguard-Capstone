@@ -273,10 +273,18 @@ exports.completeAppointment = async (req, res) => {
         const { id } = req.params;
         const { medicineAmount, medicine } = req.body;
 
+        if (!medicineAmount || isNaN(medicineAmount)) {
+            return res.status(400).json({ message: 'Medicine Amount is required and must be a number' });
+        }
+
+        if (!medicine || medicine.trim() === "") {
+            return res.status(400).json({ message: 'Medicine is required' });
+        }
+
         // Check Object Id if exist or valid
         if(!isValidAppointmentId(id)) return res.status(400).json({ message: 'Invalid Appointment Id.' });
 
-        if (!isValidNumber(medicineAmount)) return res.status(400).json({ message: 'Medicine amount must be valid numbers' });
+        if (!isValidNumber(medicineAmount)) return res.status(400).json({ message: 'Medicine amount must be valid numbers and greater than 0' });
 
         const numericAmount = Number(medicineAmount);
 

@@ -11,7 +11,6 @@ const handleFormSubmit = async (e) => {
   if (!currentSwineId) return;
 
   try {
-    const typeInput = editSwineForm.querySelector('#select-swine-type');
     const statusInput = editSwineForm.querySelector('#select-swine-health-status');
     const weightInput = editSwineForm.querySelector('#swine-weight');
     const causeInput = editSwineForm.querySelector('#death-cause');
@@ -21,7 +20,6 @@ const handleFormSubmit = async (e) => {
     const year = currentDate.getFullYear();
 
     const swineData = {
-      type: typeInput?.value,
       status: statusInput?.value,
       weight: weightInput?.value,
       cause: causeInput?.value,

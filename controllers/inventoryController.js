@@ -180,6 +180,88 @@ exports.getAllItem = async (req, res) => {
 };
 
 
+// Use Medicine (subtract based on ml and stock content)
+exports.useMedicine = async (req, res) => {
+  try {
+    const { medicineId, amountUsed } = req.body;
+
+    if (!isValidNumber(amountUsed)) {
+      return res.status(400).json({ message: "Amount used must be a valid number > 0" });
+    }
+
+    let remainingMl = Number(amountUsed);
+
+    // Fetch medicine stocks sorted by expiry (soonest first)
+    let stocks = await InventoryStock.find({ medicineId }).sort({ expiryDate: 1 });
+
+    if (!stocks || stocks.length === 0) {
+      return res.status(404).json({ message: "No stock available for this medicine." });
+    }
+
+    const updates = [];
+
+    for (let stock of stocks) {
+      if (remainingMl <= 0) break;
+
+      // how many ml this stock can provide
+      let stockCapacityMl = stock.content * stock.quantity;
+
+      if (stockCapacityMl > 0) {
+        // how much we take from this stock (in ml)
+        let deductMl = Math.min(stockCapacityMl, remainingMl);
+
+        // how many full units we need to remove
+        let unitsToDeduct = Math.floor(deductMl / stock.content);
+
+        // if there’s leftover ml smaller than 1 full unit, still consume 1 unit
+        if (deductMl % stock.content > 0) {
+          unitsToDeduct += 1;
+        }
+
+        // but don’t remove more units than available
+        unitsToDeduct = Math.min(unitsToDeduct, stock.quantity);
+
+        // update stock
+        stock.quantity -= unitsToDeduct;
+        await stock.save();
+
+        // reduce the ml still needed
+        remainingMl -= unitsToDeduct * stock.content;
+
+        updates.push({
+          stockId: stock._id,
+          deductedUnits: unitsToDeduct,
+          unitContent: stock.content,
+          deductedMl: unitsToDeduct * stock.content,
+          leftUnits: stock.quantity
+        });
+      }
+    }
+
+    if (remainingMl > 0) {
+      return res.status(400).json({
+        message: `Not enough stock. Short by ${remainingMl} ml.`,
+        updates
+      });
+    }
+
+    return res.status(200).json({
+      message: "Medicine usage recorded successfully.",
+      updates
+    });
+
+  } catch (err) {
+    console.error("Error while using medicine:", err);
+    return res.status(500).json({
+      message: "Something went wrong while using medicine.",
+      error: err.message
+    });
+  }
+};
+
+
+
+
 
 // Check item Id
 function checkItemId (id) {

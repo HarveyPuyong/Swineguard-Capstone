@@ -16,7 +16,7 @@ async function getServiceName(serviceId) {
   try {
 
     if (!serviceId) {
-      return 'not set';
+      return 'No Services';
     }
 
     const response = await api.get(`/service/get/${serviceId}`);

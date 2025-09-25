@@ -35,7 +35,7 @@ async function appointmentsTable(appointments, table) {
 
     const appointment_date = new Date(appointment.appointmentDate)
     let isAppointmentPastDate = appointment.appointmentStatus === 'accepted' && appointment_date <= new Date();
-    console.log(isAppointmentPastDate)
+    //console.log(isAppointmentPastDate)
 
     appointmentTableHTML += `
       <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
@@ -98,11 +98,11 @@ async function appointmentsTable(appointments, table) {
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Medicine:</span>
-                <span class="column__detail-value">Id: ${appointment.medicine}</span>
+                <span class="column__detail-value">${appointment.medicine ? appointment.medicine : 'Not set'}</span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Dosage:</span>
-                <span class="column__detail-value">${appointment.dosage} (mg)</span>
+                <span class="column__detail-value">${appointment.dosage ? appointment.dosage : 'Not set'} (mg)</span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Personnel:</span>

@@ -5,7 +5,7 @@ import { formattedDate } from '../../../admin/utils/formated-date-time.js';
 import { removeSwine } from './edit-remove.js';
 import { fetchAppointments } from '../../../admin/api/fetch-appointments.js';
 import { getServiceName } from '../../../admin/api/fetch-services.js';
-//import { getMedicineName } from '../../../admin/api/fetch-medicine.js';
+import { getMedicineName } from '../../../admin/api/fetch-medicine.js';
 import getSwineRecords from './fetch-swine-records.js';
 import { barGraph, lineGraph } from './swine-graph.js';
 import api from '../../client-utils/axios-config.js';
@@ -102,13 +102,7 @@ const displayFullSwineDetails = async (swineId) => {
             </div>
             <div class="detail">
                 <span class="detail-label">Type</span>
-                <select class="detail-value" id="select-swine-type">
-                    <option value="${swine.type}">${swine.type}</option>
-                    <option value="piglet">Piglet</option>
-                    <option value="grower">Grower</option>
-                    <option value="boar">Boar</option>
-                    <option value="sow">Sow</option>
-                </select>
+                <p class="detail-value">${swine.type.charAt(0).toUpperCase() + swine.type.slice(1)}</p>
             </div>
             <div class="detail">
                 <span class="detail-label">Sex</span>
@@ -202,13 +196,13 @@ const getSwineMedicalHistory = async(swineId) => {
         let swineHealthRecordsHTML = '';
         for (const appointment of filteredCompletedAppointments) {
             const serviceName = await getServiceName(appointment.appointmentService)
-            const medicineName = 'To be updated';
+            const medicineName = await getMedicineName(appointment.medicine);
             swineHealthRecordsHTML += `
                 <hr>
                 <p><strong>Service:</strong> ${serviceName}</p>
                 <p><strong>Date:</strong> ${formattedDate(appointment.appointmentDate)}</p>
                 <p><strong>Medicine:</strong> ${medicineName}</p>
-                <p><strong>Dosage:</strong> ${(appointment.dosage)/appointment.swineCount} mg</p>
+                <p><strong>Used:</strong> ${(appointment.medicineAmount)/appointment.swineCount} ml</p>
             `;
         }
 

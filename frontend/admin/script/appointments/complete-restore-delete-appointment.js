@@ -2,8 +2,9 @@ import popupAlert from '../../utils/popupAlert.js';
 import handleRenderAppointments from './display-appointment.js';
 import api from '../../utils/axiosConfig.js';
 import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
-import updatedItemQuantity from './../../utils/calculate-item-quantity.js';
+import updatedItemQuantity from '../../utils/deduct-item-stock.js';
 import { fetchAppointments } from '../../api/fetch-appointments.js';
+import displayTaskList from '../veterinarian/display-appoinment-task.js';
 
 
 // ======================================
@@ -33,22 +34,27 @@ const handleCompleteAppointment = async(e) => {
     const response = await api.patch(`/appointment/complete/${currentAppointmentId}`, formData);
 
     if (response.status === 200) {
+      
       popupAlert('success', 'Success!', 'Appointment Completed successfully').then(() => {
-        
+        updatedItemQuantity(formData.medicine, formData.medicineAmount); // Subtract to the database
         medicineSelectElement.innerHTML = '<option value="">Select medicine</option>';
         completeTaskForm.reset();
         handleRenderAppointments();
         appointmentsDashboard();
+        displayTaskList();
         completeTaskForm.classList.remove('show');
       });
     }
   } catch (err) {
       console.error("❌ Error completing appointment:", err); // log full error in console
-      const errMessage = err.response?.data?.message 
-                      || err.response?.data?.error 
-                      || err.message 
-                      || 'Unknown error';
-      popupAlert('error', 'Error!', errMessage);
+      const errMessage =
+        err.response?.data?.message ||
+        err.response?.data?.error ||
+        err.message ||                 
+        "Something went wrong. Please try again."
+      ;
+
+    popupAlert('error', 'Error!', errMessage);
   }
 }
 

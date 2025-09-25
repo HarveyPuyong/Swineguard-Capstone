@@ -56,7 +56,7 @@ const setupPersonnelCompleteForm = async(appoinmentId) => {
     const completeForm = document.querySelector('.complete-task-form');
     const appoinmentNameTxtView = completeForm.querySelector('#completeTaskForm__name');
     const medicineSelectTag = completeForm.querySelector('#completeTaskForm__set-medicine-list');
-    const appoinmentAmountINput = completeForm.querySelector('#completeTaskForm__set-medicine-amount');
+    const appoinmentAmountInput = completeForm.querySelector('#completeTaskForm__set-medicine-amount');
 
     const appoinments = await fetchAppointments();
     const appoinment = appoinments.find(app => app._id === appoinmentId);

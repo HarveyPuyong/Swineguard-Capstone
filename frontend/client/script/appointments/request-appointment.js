@@ -8,6 +8,7 @@ import { getSwineAgeInMonths,
 import { checkAppointmentDate, checkTime } from "../../client-utils/checkDates.js";
 import displayAppointmentCardList from "./display-appointment-list.js";
 import { fetchServices } from "../../../admin/api/fetch-services.js";
+import displaySwineList from "./display-client-swine-list.js";
 
 
 const sendRequestAppointment = () => {
@@ -112,6 +113,7 @@ const sendRequestAppointment = () => {
         appointmentForm.reset();
         displayAppointmentCardList();
         appointmentForm.classList.remove('show');
+        displaySwineList();
       }
 
     } catch (error) {
