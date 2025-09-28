@@ -1,5 +1,5 @@
 import { formattedDate, formatTo12HourTime } from './formated-date-time.js';
-import { fetchMedicines } from './../api/fetch-medicine.js';
+import { getMedicineName } from './../api/fetch-medicine.js';
 import { getTechnicianName } from './../api/fetch-technicians.js';
 import { getServiceName } from './../api/fetch-services.js';
 import fetchUser from '../script/auth/fetchUser.js';
@@ -25,6 +25,7 @@ async function appointmentsTable(appointments, table) {
     //const medicineName = 'To be Update';
     const TechnicianName = await getTechnicianName(appointment.vetPersonnel);
     const serviceName = await getServiceName(appointment.appointmentService);
+    const medicineName = await getMedicineName(appointment.medicine);
 
     const clinicalSignsContainer = document.querySelector('#clinical-signs-display');
 
@@ -98,11 +99,11 @@ async function appointmentsTable(appointments, table) {
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Medicine:</span>
-                <span class="column__detail-value">${appointment.medicine ? appointment.medicine : 'Not set'}</span>
+                <span class="column__detail-value">${medicineName}</span>
               </p>
               <p class="column__detail">
-                <span class="column__detail-label">Dosage:</span>
-                <span class="column__detail-value">${appointment.dosage ? appointment.dosage : 'Not set'} (mg)</span>
+                <span class="column__detail-label">Medicine Amount:</span>
+                <span class="column__detail-value amount">${appointment.medicineAmount ? appointment.medicineAmount : 'Not set'} <span class="amount">(ml)</span></span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Personnel:</span>
@@ -143,7 +144,7 @@ async function adminPageAppointmentTable(appointments, table) {
     appointmentTableHTML = `
       <div class="no-service-card">
         <p class='no-service__header'>No Appointments<p>
-        <p class='no-service__ds'>Click 'add' to create an appointments or wait for the swine raisers to request an appointment.<p>
+        <p class='no-service__ds'>It will be displayed if there is an accepted one.<p>
       </div>
     `;
     table.innerHTML = appointmentTableHTML;
@@ -203,11 +204,11 @@ async function adminPageAppointmentTable(appointments, table) {
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Medicine:</span>
-                <span class="column__detail-value">${appointment.medicine}</span>
+                <span class="column__detail-value">${appointment.medicine ? appointment.medicine : 'not set'}</span>
               </p>
               <p class="column__detail">
-                <span class="column__detail-label">Dosage:</span>
-                <span class="column__detail-value">${appointment.dosage} (mg)</span>
+                <span class="column__detail-label">Medicine Amount:</span>
+                <span class="column__detail-value amount">${appointment.medicineAmount ? appointment.medicineAmount : 'Not set'} <span class="amount">(ml)</span></span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Personnel:</span>

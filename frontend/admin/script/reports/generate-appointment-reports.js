@@ -2,7 +2,7 @@ import { fetchAppointments } from "../../api/fetch-appointments.js";
 import popupAlert from "../../utils/popupAlert.js";
 import { getServiceName } from "../../api/fetch-services.js";
 import { getTechnicianName } from "../../api/fetch-technicians.js";
-import { fetchMedicines } from "../../api/fetch-medicine.js";
+import { getMedicineName } from "../../api/fetch-medicine.js";
 import { formatTo12HourTime, formatDate } from "../../utils/formated-date-time.js";
 import fetchUser from "../auth/fetchUser.js";
 
@@ -124,7 +124,7 @@ const generateAppointmentReport = async (year, month) => {
   const reports = await fetchAppointments();
 
   if (!reports || reports.length === 0) {
-    if (tableContainer) tableContainer.innerHTML = 'No appointment data available';
+    if (tableContainer) tableContainer.innerHTML = `<div class="no-appointment-report"><p>No Appointment Data Available</p></div>`;
     if (currentChart) {
       currentChart.destroy();
       currentChart = null;
@@ -133,12 +133,12 @@ const generateAppointmentReport = async (year, month) => {
   }
 
   // filter by status + selected month/year (if selected)
-  const filteredReports = reports.filter(appointment => appointment.appointmentStatus !== 'removed' && 
+  const filteredReports = reports.filter(appointment => appointment.appointmentStatus === 'completed' && 
                                                         new Date(appointment.appointmentDate).getFullYear() === year &&
                                                         new Date(appointment.appointmentDate).getMonth() + 1 === month);
 
   if (filteredReports.length === 0) {
-    tableContainer.innerHTML = 'No appointment data available';
+    tableContainer.innerHTML = `<div class="no-appointment-report"><p>No Appointment Data Available</p></div>`;
     if (currentChart) {
       currentChart.destroy();
       currentChart = null;
@@ -234,7 +234,7 @@ const renderAppointmentReportTable = async (appointments) => {
     } catch (e) { appt.vetName = 'Vet not found'; }
 
     try {
-      appt.medicineName = appt.medicine ? await appt.medicine : 'Not set';
+      appt.medicineName = appt.medicine ? await getMedicineName(appt.medicine) : 'No medicine';
     } catch (e) { appt.medicineName = 'Medicine not found'; }
 
     try {

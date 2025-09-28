@@ -29,6 +29,8 @@ const handleCompleteAppointment = async(e) => {
     medicineAmount: completeTaskForm.querySelector('#completeTaskForm__set-medicine-amount').value
   }
 
+  const itemId = completeTaskForm.querySelector('#completeTaskForm__set-medicine-var').value;
+
   try {
     // Complete the appointment
     const response = await api.patch(`/appointment/complete/${currentAppointmentId}`, formData);
@@ -36,7 +38,7 @@ const handleCompleteAppointment = async(e) => {
     if (response.status === 200) {
       
       popupAlert('success', 'Success!', 'Appointment Completed successfully').then(() => {
-        updatedItemQuantity(formData.medicine, formData.medicineAmount); // Subtract to the database
+        updatedItemQuantity(itemId, formData.medicineAmount); // Subtract to the database
         medicineSelectElement.innerHTML = '<option value="">Select medicine</option>';
         completeTaskForm.reset();
         handleRenderAppointments();

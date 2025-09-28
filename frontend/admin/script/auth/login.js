@@ -1,6 +1,7 @@
 import togglePasswordVisibility from '../../utils/togglePasswordVisiblity.js';
 import api from '../../utils/axiosConfig.js';
 import fetchUser from './fetchUser.js';
+import popupAlert from '../../utils/popupAlert.js';
 
 // ======================================
 // ========== Ridirect To Assign Role If Have Access Token
@@ -46,7 +47,7 @@ loginForm.addEventListener('submit', async(e) => {
 
   }catch(err){
     console.log(err);
-    alert(err.response.data.message);
+    popupAlert('error', 'Error', err.response.data.message);
   }
 });
 

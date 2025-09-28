@@ -15,7 +15,6 @@ import { getServiceName } from '../../api/fetch-services.js';
 import { fetchAppointments } from '../../api/fetch-appointments.js';
 import populateFilteredMedicines from '../../utils/filter-service-medicine.js';
 import { handleReportChange } from '../reports/generate-appointment-reports.js';
-//import createCompleteTaskForm from '../../components/complete-task-form.js';
 
 
 

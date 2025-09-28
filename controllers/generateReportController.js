@@ -1,4 +1,5 @@
 const { SwineReport, InventoryReport } = require('../models/monthlyReportModel');
+const { Inventory, InventoryStock } = require('./../models/inventoryModel');
 
 // ======================================
 // ========== Monthly Swine Report
@@ -54,39 +55,49 @@ exports.getMonthlyReport = async (req, res) => {
 // ======================================
 // ========== Monthly Inventory Report
 // ======================================
-
 exports.saveInventoryReport = async (req, res) => {
   const { month, year, inventoryData } = req.body;
+  console.log("Incoming report data:", req.body); // <--- add this
+
   try {
     const existingReport = await InventoryReport.findOne({ month, year });
 
-    if (existingReport) return res.status(400).json({ message: 'Monthly report already existed.' });
+    if (existingReport) {
+      return res.status(400).json({ message: 'Monthly report already existed.' });
+    }
 
-    // No report yet — create a new one
     const newInventoryReport = new InventoryReport({
-        month,
-        year,
-        inventoryData
+      month,
+      year,
+      inventoryData
     });
 
     await newInventoryReport.save();
     res.status(200).json({ message: 'Monthly report saved successfully.' });
 
   } catch (error) {
-    console.error('Save report error:', error);
+    console.error('Save report error:', error); // <--- check this
     if (error.code === 11000) {
       return res.status(400).json({ message: 'Monthly report already exists (duplicate).' });
     }
     res.status(500).json({ message: 'Failed to save monthly report.' });
-}
+  }
 };
 
-// Get all inventory reports
-exports.getAllInventoryReports = async (req, res) => {
+exports.fetchFullInventory = async (req, res) => {
   try {
-    const reports = await InventoryReport.find();
-    res.status(200).json(reports);
-  } catch (error) {
-    res.status(500).json({ message: 'Failed to fetch inventory reports', error });
+    const stocks = await InventoryStock.find().populate("medicineId", "itemName");
+    const formatted = stocks.map(stock => ({
+      _id: stock.medicineId,
+      itemName: stock.medicineId.itemName, // from Inventory
+      content: stock.content,               // stock
+      quantity: stock.quantity,
+      expiryDate: stock.expiryDate,
+      createdAt: stock.createdAt,
+      updatedAt: stock.updatedAt,
+    }));
+    res.status(200).json(formatted);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to fetch inventory" });
   }
 };

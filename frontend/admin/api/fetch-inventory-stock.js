@@ -27,7 +27,19 @@ const returnStockNumber = async(medicine_Id) => {
   return totalQuantity;
 }
 
+const fetchFullInventory = async() => {
+  try {
+    const response = await api.get('/report/inventory/full', {withCredentials: true});
+
+    if(response.status === 200) return response.data
+  } catch (error) {
+    cconsole.error('Failed to fetch full inventory:', error);
+    throw error; 
+  } 
+}
+
 export {
           fetchInventoryStocks,
-          returnStockNumber
+          returnStockNumber,
+          fetchFullInventory
         };

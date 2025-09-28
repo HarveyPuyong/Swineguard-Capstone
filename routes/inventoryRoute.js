@@ -19,7 +19,9 @@ router.get('/all/medicines', verifyJWT,  inventoryController.getAllMedicine);  /
 
 router.get('/all/items', verifyJWT,  inventoryController.getAllItem); // get all Item
 
-router.put('/deduct/medicine', verifyJWT, inventoryController.useMedicine); // Update the Stock and deduct the used ml
+//router.put('/deduct/medicine', verifyJWT, inventoryController.useMedicine); // Update the Stock and deduct the used ml
+
+router.put('/deduct/stock/:id', verifyJWT, inventoryController.deductStock); // Update the Stock and deduct the used quantity
 
 
 

@@ -6,6 +6,8 @@ import { fetchAppointments } from "../../api/fetch-appointments.js";
 import fetchUser from "../auth/fetchUser.js";
 import { getServiceName } from "../../api/fetch-services.js";
 import { fetchMedicines } from "../../api/fetch-medicine.js";
+import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
+import { formatedDateForCalendar } from "../../utils/formated-date-time.js";
 
 
 
@@ -52,31 +54,81 @@ const handleCompleteTaskBtn = () => {
 // ======================================
 // ========== Complete Button Activation completeTaskForm__name
 // ======================================
-const setupPersonnelCompleteForm = async(appoinmentId) => {
+const setupPersonnelCompleteForm = async (appointmentId) => {
     const completeForm = document.querySelector('.complete-task-form');
     const appoinmentNameTxtView = completeForm.querySelector('#completeTaskForm__name');
     const medicineSelectTag = completeForm.querySelector('#completeTaskForm__set-medicine-list');
+    const medicineVarSelectTag = completeForm.querySelector('#completeTaskForm__set-medicine-var');
     const appoinmentAmountInput = completeForm.querySelector('#completeTaskForm__set-medicine-amount');
 
+    //Date Today
+    const today = new Date();
+    today.setHours(0,0,0,0);
+
     const appoinments = await fetchAppointments();
-    const appoinment = appoinments.find(app => app._id === appoinmentId);
+    const appoinment = appoinments.find(app => app._id === appointmentId);
     const serviceName = await getServiceName(appoinment.appointmentService);
 
     const medicines = await fetchMedicines();
+    const stocks = await fetchInventoryStocks();
 
+    // --- Fill medicine dropdown ---
     medicineSelectTag.innerHTML = `<option value="">Select Medicine</option>`;
-
     medicines.forEach(med => {
         const option = document.createElement('option');
         option.value = med._id;
         option.textContent = med.itemName;
-        
         medicineSelectTag.appendChild(option);
-    })
+    });
 
+    // --- Disable variations until a medicine is selected ---
+    medicineVarSelectTag.disabled = true;
+    appoinmentAmountInput.disabled = true;
+    medicineVarSelectTag.innerHTML = `<option value="">Select Variation</option>`;
+
+    // --- Listen for changes on medicine dropdown ---
+    medicineSelectTag.addEventListener('change', () => {
+        const selectedMedicineId = medicineSelectTag.value;
+
+        // Reset variations
+        medicineVarSelectTag.innerHTML = `<option value="">Select Variation</option>`;
+        
+        if (!selectedMedicineId) {
+            medicineVarSelectTag.disabled = true;
+            return;
+        }
+
+        // Filter stocks by selected medicine
+        const selectedMedicineVariation = stocks.filter(stock => stock.medicineId === selectedMedicineId && new Date(stock.expiryDate) >= today);
+
+        // Populate variation dropdown
+        selectedMedicineVariation.forEach(v => {
+            const option = document.createElement('option');
+            option.value = v._id;
+            option.textContent = `${v.content} ml (${formatedDateForCalendar(v.expiryDate)})`;
+            medicineVarSelectTag.appendChild(option);
+        });
+
+        // Enable dropdown if we have variations
+        medicineVarSelectTag.disabled = selectedMedicineVariation.length === 0;
+    });
+
+    medicineVarSelectTag.addEventListener('change', () => {
+        if (!medicineVarSelectTag.value) {
+            // No variation selected → keep amount input disabled
+            appoinmentAmountInput.disabled = true;
+            appoinmentAmountInput.value = "";
+        } else {
+            // A variation is selected → enable amount input
+            appoinmentAmountInput.disabled = false;
+            appoinmentAmountInput.value = 0;
+        }
+    });
+
+    // --- Set appointment name ---
     appoinmentNameTxtView.value = serviceName;
+};
 
-}
 
 
 // ======================================

@@ -183,7 +183,7 @@ exports.getAllItem = async (req, res) => {
 // Use Medicine (subtract based on ml and stock content)
 exports.useMedicine = async (req, res) => {
   try {
-    const { medicineId, amountUsed } = req.body;
+    const { id, amountUsed } = req.body;
 
     if (!isValidNumber(amountUsed)) {
       return res.status(400).json({ message: "Amount used must be a valid number > 0" });
@@ -192,7 +192,7 @@ exports.useMedicine = async (req, res) => {
     let remainingMl = Number(amountUsed);
 
     // Fetch medicine stocks sorted by expiry (soonest first)
-    let stocks = await InventoryStock.find({ medicineId }).sort({ expiryDate: 1 });
+    let stocks = await InventoryStock.find({ id }).sort({ expiryDate: 1 });
 
     if (!stocks || stocks.length === 0) {
       return res.status(404).json({ message: "No stock available for this medicine." });
@@ -258,6 +258,49 @@ exports.useMedicine = async (req, res) => {
     });
   }
 };
+
+
+// Update Quantity
+exports.deductStock = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { usedQuantity } = req.body;
+
+    if (!isValidNumber(usedQuantity)) {
+      return res.status(400).json({ message: "Amount used must be a valid number > 0" });
+    }
+
+    numericQuantity = Number(usedQuantity);
+
+    // Find the stock by its ID
+    const stock = await InventoryStock.findById(id);
+    if (!stock) {
+      return res.status(404).json({ message: "Stock not found." });
+    }
+
+    // Check if enough quantity is available
+    if (stock.quantity < numericQuantity) {
+      return res.status(400).json({ message: "Not enough stock available." });
+    }
+
+    // Deduct stock
+    stock.quantity -= numericQuantity;
+    await stock.save();
+
+    return res.status(200).json({
+      message: "Stock used recorded successfully.",
+      updatedStock: stock
+    });
+
+
+  } catch (err) {
+    console.error("Error while using medicine:", err);
+    return res.status(500).json({
+      message: "Something went wrong while using medicine.",
+      error: err.message
+    });
+  }
+}
 
 
 

@@ -90,7 +90,7 @@ const displayTaskList = async () => {
                         </div>
                         <div class="detail medicine=amount">
                             <span class="detail-label">Amount:</span>
-                            <span class="detail-value">${appointment.medicineAmount ? appointment.medicineAmount : '0'} ml</span>
+                            <span class="detail-value">${appointment.medicineAmount ? appointment.medicineAmount : '0'}</span>
                         </div>
                     </div>
                 </div>

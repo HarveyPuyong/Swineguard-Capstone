@@ -1,10 +1,10 @@
-import { fetchSwineReports, fetchInventoryReports } from "../../api/fetch-report.js";
+import { fetchSwineReports } from "../../api/fetch-report.js";
 
 async function populateReportDates() {
   try {
 
     const swineReports = await fetchSwineReports();
-    const inventoryReports = await fetchInventoryReports();
+    //const inventoryReports = await fetchInventoryReports();
 
     const selectTag = document.querySelector('.past-report-container .reports-content__select-year');
     const inventorySelectTag = document.querySelector('.display-inventory-records .reports-content__select-year');
@@ -14,7 +14,7 @@ async function populateReportDates() {
 
     // Extract unique years
     const uniqueYears = [...new Set(swineReports.map(report => report.year))];
-    const uniqueInventoryYears = [...new Set(inventoryReports.map(report => report.year))];
+    //const uniqueInventoryYears = [...new Set(inventoryReports.map(report => report.year))];
 
     uniqueYears.forEach(year => {
         const option = document.createElement('option');
@@ -24,13 +24,13 @@ async function populateReportDates() {
         selectTag.appendChild(option);
     });
 
-    uniqueInventoryYears.forEach(year => {
-        const option = document.createElement('option');
-        option.value = year;
-        option.textContent = year;
+    // uniqueInventoryYears.forEach(year => {
+    //     const option = document.createElement('option');
+    //     option.value = year;
+    //     option.textContent = year;
 
-        inventorySelectTag.appendChild(option);
-    });
+    //     inventorySelectTag.appendChild(option);
+    // });
 
 
 
@@ -42,12 +42,12 @@ async function populateReportDates() {
       selectTag.appendChild(option);
     }
 
-    if (uniqueInventoryYears.length === 0) {
-      const option = document.createElement('option');
-      option.disabled = true;
-      option.textContent = 'No reports available';
-      inventorySelectTag.appendChild(option);
-    }
+    // if (uniqueInventoryYears.length === 0) {
+    //   const option = document.createElement('option');
+    //   option.disabled = true;
+    //   option.textContent = 'No reports available';
+    //   inventorySelectTag.appendChild(option);
+    // }
 
 
     // ======================================

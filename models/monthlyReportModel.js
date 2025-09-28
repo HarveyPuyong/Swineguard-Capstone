@@ -31,12 +31,11 @@ const SwineReport = mongoose.model('MonthlySwineReport', monthlySwineReportSchem
 // --- Inventory Report Schema ---
 const inventoryItemSchema = new mongoose.Schema({
   itemName: { type: String, required: true },
-  itemType: { type: String, required: true },
-  dosage: { type: Number, required: true },
-  usedDosage: { type: Number, required: true },
+  totalQuantity: { type: Number, required: true },
+  usedAmount: { type: Number, required: true },
   quantity: { type: Number, required: true },
-  expiryDate: { type: Date, required: true },
-  itemStatus: { type: String, required: true }
+  expirationDate: { type: Date, required: true },
+  status: { type: String, required: true }
 }, { _id: false });
 
 const inventoryReportSchema = new mongoose.Schema({
