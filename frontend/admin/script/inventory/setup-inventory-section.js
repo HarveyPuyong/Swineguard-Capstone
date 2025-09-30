@@ -2,7 +2,7 @@ import handleRenderInventory from "./display-inventory.js";
 import handleAddItem from "./add-medicine.js";
 import handleEditItem from "./edit-item.js";
 import {handleRemoveItem, handleRestoreItem, handleDeleteItem} from "./remove-restore-delete-item.js";
-import {generateInventoryReport, /*displayInventoryReport*/} from "../reports/generate-inventory-reports.js";
+import {generateInventoryReport, displayInventoryReport} from "../reports/generate-inventory-reports.js";
 import fetchUser from "../auth/fetchUser.js";
 import {createInventoryTable, getMedicineId, getCurrentMedicineId} from "./create-inventory-table.js";
 import { addItem, addStock, setupAddStockFormListener,
@@ -240,7 +240,7 @@ const viewBtnsFunctionality = () => {
 
       setTimeout(() => {
         generateInventoryReport();
-        //displayInventoryReport();
+        displayInventoryReport();
       }, 100);
     });
   }

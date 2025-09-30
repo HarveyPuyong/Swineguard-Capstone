@@ -84,6 +84,16 @@ exports.saveInventoryReport = async (req, res) => {
   }
 };
 
+exports.fetchInventoryReport = async (req, res) => {
+  try {
+    const reports = await InventoryReport.find();
+    res.status(200).json({reports});
+  } catch (error) {
+      console.error('Get report error:', error);
+      res.status(500).json({ message: 'Failed to get report.' });
+    }
+}
+
 exports.fetchFullInventory = async (req, res) => {
   try {
     const stocks = await InventoryStock.find().populate("medicineId", "itemName");

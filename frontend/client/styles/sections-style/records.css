@@ -1,0 +1,110 @@
+.swine-records-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* 2 equal columns */
+  gap: 20px; /* space between columns */
+}
+
+.swine-records-two > div {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  border: 2px solid #80808096;
+}
+
+.swine-weight__heading {
+    text-align: center;
+}
+
+.progress-header 
+{
+  display: flex;
+  align-items: center;
+}
+
+.progress-header .line {
+  flex: 1; /* take up the space in between */
+  border-bottom: 1px solid #505050; /* the line */
+  margin: 0 8px; /* space around the line */
+}
+
+.client-swine {
+    width: 100%;
+    margin: .5rem 0;
+}
+
+.swine-four-digit-id {
+    font-weight: 600;
+}
+
+progress {
+  width: 100%;
+  height: 10px;
+  appearance: none; /* reset default */
+}
+
+/* Background (remaining part) */
+progress::-webkit-progress-bar {
+  background-color: #b4b4b4; /* light gray */
+  border-radius: 10px;
+}
+
+/* Value (filled part) */
+progress::-webkit-progress-value {
+  background-color: #4da6ff; /* light blue */
+  border-radius: 10px;
+}
+
+/* Firefox */
+progress::-moz-progress-bar {
+  background-color: #4da6ff; /* light blue */
+  border-radius: 10px;
+}
+
+.progress-percentage-div {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.sold-swine-card {
+    margin: 1rem 0;
+}
+
+/* 
+To remain below the box
+*/
+.swine-to-sell {
+  display: flex;
+  flex-direction: column;
+  height: 100%; /* make it stretch if inside a fixed-height parent */
+}
+
+.swine-to-sell__swine-container {
+  flex: 1; /* take remaining space */
+}
+
+/* push progress to bottom */
+.progress-main-div {
+  margin-top: auto;
+}
+
+.no-grower-heading {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #555555cb;
+    text-align: center;
+    margin-top: 10%;
+}
+
+
+
+
+
+
+/* 📱 Responsive: below 800px -> 1 column */
+@media (max-width: 800px) {
+  .swine-records-two {
+    grid-template-columns: 1fr; /* single column */
+  }
+}

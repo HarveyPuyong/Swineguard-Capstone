@@ -12,6 +12,8 @@ const renderSwinePopulationTable = async (municipal) => {
       fetchSwinePopulation()
     ]);
 
+    console.log(swines);
+
     const now = new Date();
     const currentMonth = now.getMonth() + 1;
     const currentYear = now.getFullYear();
@@ -49,7 +51,8 @@ const renderSwinePopulationTable = async (municipal) => {
     // ============================================
     // 1) Aggregate REGISTERED swines
     // ============================================
-    swines.forEach(swine => {
+    const filteredSwines = swines.filter(swine => swine.status !== 'sold');
+    filteredSwines.forEach(swine => {
       const ownerId = swine.clientId;
       const owner = userMap[ownerId];
       if (!owner) return;

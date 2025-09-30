@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="styles/sections-style/messages-section.css">
     <link rel="stylesheet" href="styles/sections-style/services-section.css">
     <link rel="stylesheet" href="../admin/styles/sections-style/notification.css">
+    <link rel="stylesheet" href="styles/sections-style/records.css">
     <title>User Page</title>
 
     <!-- Font Awesome CDN -->
@@ -394,9 +395,49 @@
          <section id="records-section" class="hide">
           <h1 class="section__heading">Swine Records</h1>
 
+          <!-- Weight Bar graph -->
+          <h2 class="swine-weight__heading">Swines' Weight</h2>
           <div class="records-container" id="swine-records-graph">
             <h3>No Content</h3>
           </div>
+
+          <div class="swine-records-two">
+            <!-- Swines that ready to sell -->
+            <div class="swine-to-sell">
+              <h2>Ready for Market</h2>
+              <div class="swine-to-sell__swine-container">
+
+                <!-- ready to sell.js -->
+                <div class="client-swine">
+                  <!-- swine-records.js -->
+                </div>
+              </div>
+
+              <div class="progress-main-div">
+                <div class="progress-percentage-div">
+                  <p id="progress-bar__Txt">Swine percentage:</p> <span id="client-swine__to-sell__percentage">85%</span>
+                </div>
+                <progress value="85" max="100" id="client-swine__progress-bar"></progress>
+              </div>
+
+            </div>
+
+            <!-- Swine already sold -->
+            <div class="sold-swine">
+              <h2>Previously Sold</h2>
+              <div class="sold-swine__container">
+                <!-- sold-swine.js -->
+              </div>
+            </div>
+
+            <!-- Dito naman yung namatay na swine -->
+            <div class="deceased-swine">
+              <h2>Deceased</h2>
+              <p>Cause: <span>No deaths</span></p>
+            </div>
+
+          </div>
+
          </section>
       </div>
     </main>

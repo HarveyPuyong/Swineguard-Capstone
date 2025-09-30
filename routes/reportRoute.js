@@ -11,7 +11,9 @@ router.get('/get/all', verifyJWT, verifyRoles(ROLE_LIST.Admin), reportController
 
 router.post('/inventory/save', verifyJWT, verifyRoles(ROLE_LIST.Admin), reportController.saveInventoryReport); // Save inventory Report
 
-router.get('/inventory/full', reportController.fetchFullInventory); // Get inventory Report
+router.get('/inventory/full', verifyJWT, reportController.fetchFullInventory); // Get inventory Report
 //router.get('/inventory/full', verifyJWT, verifyRoles(ROLE_LIST.Admin), reportController.fetchFullInventory); // Get inventory Report
+
+router.get('/inventory/all', verifyJWT, verifyRoles(ROLE_LIST.Admin), reportController.fetchInventoryReport); // Get inventory Report
 
 module.exports = router

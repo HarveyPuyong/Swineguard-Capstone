@@ -33,9 +33,8 @@ const inventoryItemSchema = new mongoose.Schema({
   itemName: { type: String, required: true },
   totalQuantity: { type: Number, required: true },
   usedAmount: { type: Number, required: true },
-  quantity: { type: Number, required: true },
-  expirationDate: { type: Date, required: true },
-  status: { type: String, required: true }
+  status: { type: String, required: true },
+  expirationCount: { type: String, required: true }
 }, { _id: false });
 
 const inventoryReportSchema = new mongoose.Schema({

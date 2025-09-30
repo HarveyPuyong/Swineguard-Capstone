@@ -29,7 +29,22 @@ const checkTime = (time) => {
     return true;
 }
 
+const formatDate = (dateInput) => {
+  const date = new Date(dateInput);
+
+  // Array of month short names
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", 
+                  "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+  const month = months[date.getMonth()];
+  const day = String(date.getDate()).padStart(2, "0");
+  const year = String(date.getFullYear()).slice(-2); // last 2 digits
+
+  return `${month}-${day}-${year}`;
+}
+
 export {
     checkAppointmentDate,
-    checkTime
+    checkTime,
+    formatDate
 };

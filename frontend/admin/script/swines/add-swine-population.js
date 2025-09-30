@@ -134,7 +134,9 @@ const renderAddSwineTable = () => {
 
             try {
                 const res = await api.post("/swine/add/swine-population", payload);
-                popupAlert("success", res.data.message || "Swine population saved!");
+                popupAlert("success", res.data.message || "Swine population saved!").then(() => {
+                    form.reset();
+                })
                 //console.log("📦 Backend Response:", res.data);
                 //form.reset();
             } catch (error) {

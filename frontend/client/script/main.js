@@ -10,6 +10,7 @@ import displayUpcomingAppointments from './dashboard/upcoming-appointments.js';
 import {handleNotification, displayClientNotificationList} from '../../admin/script/notification/handle-notification.js';
 import fetchClient from './auth/fetch-client.js';
 import handleClientSchedule from './calendar/setup-client-calendar.js';
+import swineRecords from './records/swine-all-records.js';
 
 
 const filteredNotification = async() => {
@@ -32,4 +33,5 @@ displayUpcomingAppointments();
 handleNotification();
 filteredNotification();
 handleClientSchedule();
+swineRecords();
 

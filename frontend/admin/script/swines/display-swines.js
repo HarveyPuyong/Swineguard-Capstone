@@ -20,7 +20,9 @@ const handleRenderSwines = async() => {
       document.querySelector('#swines-section .swines-table__tbody').innerHTML = swinesTableHTML;
     }
 
-    for (const swine of swines ) {
+    const filteredSwines = swines.filter(swine => swine.status !== 'sold');
+
+    for (const swine of filteredSwines ) {
       
       const swinesOwnerId = swine.clientId;
       const swinesOwner = users.find(user => user._id === swinesOwnerId);

@@ -57,7 +57,9 @@ const numOfSwinePerMunicipal = async (status) => {
   // ======================
   // 1) Digital swine records
   // ======================
-  swines.forEach(swine => {
+  const filteredSwines = swines.filter(swine => swine.status !== 'sold');
+
+  filteredSwines.forEach(swine => {
     const municipal = userMunicipalMap[swine.clientId];
     if (!municipal || !municipalCounts.hasOwnProperty(municipal)) return;
 
@@ -268,7 +270,8 @@ const numOfSwinePerMunicipalTable = async () => {
     torrijos: 0
   };
 
-  swines.forEach(swine => {
+  const filteredSwines = swines.filter(swine => swine.status !== 'sold');
+  filteredSwines.forEach(swine => {
     const municipal = userMunicipalMap[swine.clientId];
     if (
       municipal &&

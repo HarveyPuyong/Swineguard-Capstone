@@ -92,7 +92,7 @@ const displayFullSwineDetails = async (swineId) => {
             
         <div class="swine-full-info__details-label-btn-container">
             <p class="swines-full-info__info-label">Swine Info</p>
-            <button class="swines-full-info__edit-btn enable-edit-mode-btn" type="button" data-set-swine-id="${swine._id}">Edit</button>       
+            <button class="swines-full-info__edit-btn enable-edit-mode-btn" type="button" data-set-swine-id="${swine._id}" ${swine.status === 'sold' ? 'hidden' : ''}>Edit</button>       
         </div>
 
         <div class="swines-full-info__details">
@@ -202,7 +202,6 @@ const getSwineMedicalHistory = async(swineId) => {
                 <p><strong>Service:</strong> ${serviceName}</p>
                 <p><strong>Date:</strong> ${formattedDate(appointment.appointmentDate)}</p>
                 <p><strong>Medicine:</strong> ${medicineName}</p>
-                <p><strong>Used:</strong> ${(appointment.medicineAmount)/appointment.swineCount} ml</p>
             `;
         }
 
@@ -257,7 +256,7 @@ const displayAllSwineWeight = async () => {
 
     try {
         const swinesResponse = await fetchSwines();
-        const clientSwines = swinesResponse.filter(swine => swine.clientId === _id);
+        const clientSwines = swinesResponse.filter(swine => swine.clientId === _id && (swine.status !== 'sold' && swine.status !== 'deceased'));
 
         // ✅ X-axis categories (Swine Types)
         const categories = ["Sow", "Boar", "Piglet", "Grower"];
