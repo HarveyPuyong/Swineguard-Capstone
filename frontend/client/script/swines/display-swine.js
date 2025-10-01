@@ -14,65 +14,114 @@ import api from '../../client-utils/axios-config.js';
 // ======================================
 // ========== Display Client Swines
 // ======================================
-const displayClientSwines = async() => {
-    try {
-        const user = await fetchClient();
-        const userId = user._id;
+const displayClientSwines = async () => {
+  try {
+    const user = await fetchClient();
+    const userId = user._id;
 
-        const swines = await fetchSwines();
-        const filterClientSwine = swines.filter(swine => swine.clientId === userId && swine.status !== 'removed');
-        let swineHTML = '';
+    const swines = await fetchSwines();
+    const filterClientSwine = swines.filter(
+      swine => swine.clientId === userId && swine.status !== 'removed'
+    );
 
-        if (filterClientSwine.length === 0) {
-            swineHTML = `
-                <div class="no-swine">
-                    <p class="highlghted-txt">No Swine</p>
-                    <p>Click 'Add' to create swine</p>
-                </div>
-            `;
-        }
+    // Get selected filter value
+    const filterSelectTag = document.querySelector('#filter-client-swine').value;
 
-        filterClientSwine.forEach(swine => {
-            swineHTML += `
-            <div class="swine-card ${swine.status}" data-set-swine-id="${swine._id}">
-                <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
-                <div class="swine-card__swine-info">
-                    <p class="swine-card__id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</p>
-                    <p class="swine-card__type">${swine.type.charAt(0).toUpperCase() + swine.type.slice(1)}</p>
-                    <p class="swine-card__status">${swine.status.charAt(0).toUpperCase() + swine.status.slice(1)}</p>
-                </div>
-                <i class="swine-card__delete-btn fa-solid fa-trash" id="remove-swine" data-set-swine-id="${swine._id}"></i>
+    // Apply filter (skip if "all")
+    const filtered = filterSelectTag === "all"
+      ? filterClientSwine
+      : filterClientSwine.filter(swine => swine.status === filterSelectTag);
+
+    let swineHTML = '';
+
+    if (filtered.length === 0) {
+        swineHTML = `
+            <div class="no-swine">
+            <p class="highlghted-txt">No Swine</p>
+            <p>Click 'Add' to create swine</p>
             </div>
-            `; 
+        `;
+    } else {
+        // Group swines by type
+        const groups = {
+            piglet: [],
+            grower: [],
+            gilt: [],
+            sow: [],
+            boar: []
+        };
+
+        filtered.forEach(swine => {
+            if (groups[swine.type]) {
+            groups[swine.type].push(swine);
+            }
         });
 
-        document.querySelector('.swines-card-list').innerHTML = swineHTML;
+        // Render groups with headers
+        for (const [type, swineList] of Object.entries(groups)) {
+            if (swineList.length > 0) {
+                // Section header
+                swineHTML += `
+                <div class="swine-section">
+                    <h3 class="swine-section__header">
+                    ${type.charAt(0).toUpperCase() + type.slice(1)}
+                    </h3>
+                    <hr class="swine-section__divider" />
+                    <div class="swine-section__cards">
+                `;
 
-        document.dispatchEvent(new Event('renderClientSwine')); 
-    } catch (err) {
+                // Cards inside that section
+                swineList.forEach(swine => {
+                swineHTML += `
+                    <div class="swine-card ${swine.status}" data-set-swine-id="${swine._id}">
+                    <img class="swine-card__image" src="${swine.swineProfileImage ? '/uploads/' + swine.swineProfileImage : 'images-and-icons/icons/swine-image.png'}" alt="swine-image">
+                    <div class="swine-card__swine-info">
+                        <p class="swine-card__id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</p>
+                        <p class="swine-card__type">${swine.type.charAt(0).toUpperCase() + swine.type.slice(1)}</p>
+                        <p class="swine-card__status">${swine.status.charAt(0).toUpperCase() + swine.status.slice(1)}</p>
+                    </div>
+                    <i class="swine-card__delete-btn fa-solid fa-trash" id="remove-swine" data-set-swine-id="${swine._id}"></i>
+                    </div>
+                `;
+                });
+
+                // Close the grid container
+                swineHTML += `</div></div>`;
+            }
+        }
+
+    }
+
+    document.querySelector('.swines-card-list').innerHTML = swineHTML;
+
+    document.dispatchEvent(new Event('renderClientSwine'));
+
+  } catch (err) {
     console.error("Error loading services:", err);
   }
 
-    document.querySelectorAll('#remove-swine').forEach(btn => {
-        btn.addEventListener('click', async (e) => {
-            e.stopPropagation(); // prevent triggering swine full details
-            const swineId = btn.getAttribute('data-set-swine-id');
+  // Rebind delete buttons
+  document.querySelectorAll('#remove-swine').forEach(btn => {
+    btn.addEventListener('click', async (e) => {
+      e.stopPropagation();
+      const swineId = btn.getAttribute('data-set-swine-id');
 
-            const confirmDelete = await Swal.fire({
-                title: 'Are you sure?',
-                text: 'Do you want to remove this swine?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, remove it!',
-                cancelButtonText: 'No, cancel'
-            });
+      const confirmDelete = await Swal.fire({
+        title: 'Are you sure?',
+        text: 'Do you want to remove this swine?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, remove it!',
+        cancelButtonText: 'No, cancel'
+      });
 
-            if (confirmDelete.isConfirmed) {
-                removeSwine(swineId); // This is your function from edit-remove.js
-            }
-        });
+      if (confirmDelete.isConfirmed) {
+        removeSwine(swineId);
+      }
     });
-}
+  });
+};
+
 
 
 // ======================================
@@ -88,7 +137,14 @@ const displayFullSwineDetails = async (swineId) => {
             <i class="swines-full-info__back-btn--arrow fas fa-arrow-left"></i> 
             <span class="swines-full-info__back-btn--label">Back</span>
         </button>
-        <img class="swines-full-info__swine-img" src="images-and-icons/icons/swine-image.png" alt="Swine Image" />
+        <img class="swines-full-info__swine-img" src="${swine.swineProfileImage ? '/uploads/' + swine.swineProfileImage : 'images-and-icons/icons/swine-image.png'}" alt="Swine Image" />
+
+        <div class="swine-profile-btn__container">
+            <label for="swine-profile__image-input" class="swine-profile-image__upload-btn">
+                <i class="fas fa-upload"></i> Upload
+            </label>
+            <input type="file" id="swine-profile__image-input" hidden />
+        </div>
             
         <div class="swine-full-info__details-label-btn-container">
             <p class="swines-full-info__info-label">Swine Info</p>

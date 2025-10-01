@@ -35,9 +35,19 @@ function formatedQuantity(quantity) {
   return quantity.toFixed(1); 
 }
 
+function getMonthText(monthNum) {
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+
+  return months[monthNum];
+}
+
 
 export { formatedDateForCalendar, 
          formattedDate, 
          formatTo12HourTime, 
          formatDate, 
-         formatedQuantity };
+         formatedQuantity,
+         getMonthText };

@@ -15,6 +15,10 @@ const appointmentSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User', 
         required: true 
+    },
+    swineProfileImage: {
+      type: String,
+      required: false
     }
 
     

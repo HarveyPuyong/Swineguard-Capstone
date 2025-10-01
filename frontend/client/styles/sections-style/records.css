@@ -2,6 +2,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr; /* 2 equal columns */
   gap: 20px; /* space between columns */
+  margin-bottom: 2rem;
 }
 
 .swine-records-two > div {

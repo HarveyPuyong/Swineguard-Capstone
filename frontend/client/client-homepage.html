@@ -162,9 +162,6 @@
         <section id="swines-section" class="hide">
           <h1 class="section__heading">Manage Swines</h1>
 
-          
-          <button class="show-add-swine-form-btn" type="button">Add Swine</button>
-          
           <!-- Add swine form -->
           <form id="add-swine-form" class="add-swine-form">
             <button class="add-swine-form__back-btn" type="button">
@@ -190,16 +187,19 @@
           </form>
 
           <!-- Swines cards list -->
+           <div class="filter-swine__select-tag">
+            <button class="show-add-swine-form-btn" type="button">Add Swine</button>
+            <select name="filter-client-swine" id="filter-client-swine">
+              <option value="all">All</option>
+              <option value="sold">Sold</option>
+              <option value="healthy">Healthy</option>
+              <option value="deceased">Deceased</option>
+              <option value="pregnant">Pregnant</option>
+            </select>
+          </div>
+
           <div class="swines-card-list">
-            <div class="swine-card healthy show">
-              <img class="swine-card__image" src="images-and-icons/icons/swine-image.png" alt="swine-image">
-              <div class="swine-card__swine-info">
-                <p class="swine-card__id">0001</p>
-                <p class="swine-card__type">Sow</p>
-                <p class="swine-card__status">Healthy</p>
-              </div>
-              <i class="swine-card__delete-btn fa-solid fa-trash"></i>
-            </div>
+            <!-- display-swine.js -->
           </div>
 
           <!-- Swines Full Details -->

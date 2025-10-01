@@ -4,6 +4,7 @@ import populateReportDates from "../reports/setup-reports.js";
 import { toggleMunicipality, numOfSwinePerMunicipalTable, handleGraphNavButton, swineMapping} from "./swine-mapping.js"
 import handleSelectMunicipalOnChange from "./swine-population-table.js";
 import renderAddSwineTable from "./add-swine-population.js";
+import { getMonthText } from "../../utils/formated-date-time.js";
 
 
 // ======================================
@@ -201,6 +202,15 @@ const mappingContentToggleMapAndGraph = () => {
 }
 
 
+// ======================================
+// ========== Header Current Month
+// ======================================
+const displayCurrentMonth = () => {
+  const date = new Date();
+  const currentMonth = getMonthText(date.getMonth());
+  document.querySelector('#current-month').textContent = `(${currentMonth})`;
+}
+
 
 
 // ======================================
@@ -220,4 +230,5 @@ export default function setupSwinesSection() {
   handleGraphNavButton();
   handleSelectMunicipalOnChange();
   renderAddSwineTable();
+  displayCurrentMonth(); // Display current Month on the header
 }

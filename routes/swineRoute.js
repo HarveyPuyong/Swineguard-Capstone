@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const swineController = require('./../controllers/swineController');
+const upload = require('./../middlewares/upload'); 
 
 router.post('/add', swineController.addSwine); // Add Swine
 
@@ -14,7 +15,7 @@ router.get('/get/montly-swine-records', swineController.getSwineMontlyRecords); 
 
 router.get('/get/montly-swine-population', swineController.getSwinePopulations); // Get swine montly population
 
-router.put('/edit/:id', swineController.editSwine); // Edit Swine
+router.put('/edit/:id', upload.single('swineProfileImage'), swineController.editSwine); // Edit Swine
 
 router.patch('/remove/:id', swineController.removeSwine); // Remove Swine
 

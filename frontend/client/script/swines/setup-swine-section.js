@@ -27,13 +27,29 @@ const toggleSwineFullDetails = () => {
 
         // ✅ Attach edit/cancel buttons
         toggleEditMode();  // ⬅ Moved here so it only runs after DOM is updated
+        preDisplaySwineProfileImg();
 
         // ✅ Show panel
         swineFullDetailsContainer.classList.add('show');
       });
     });
+
+    
   });
+  
 };
+
+
+// ======================================
+// ========== Filter Swine
+// ======================================
+document.addEventListener('DOMContentLoaded', () => {
+  displayClientSwines();
+
+  document.querySelector('#filter-client-swine')
+    .addEventListener('change', displayClientSwines);
+});
+
 
 // ======================================
 // ========== Toggle Edit Mode
@@ -43,6 +59,7 @@ const toggleEditMode = () => {
   const enableBtn = container.querySelector('.swines-full-info__edit-btn.enable-edit-mode-btn');
   const disableBtn = container.querySelector('.swines-full-info__cancel-btn.disable-edit-mode-btn');
   const swineHistory = container.querySelector('.swine-history-container');
+  const uploadSwineImageContainer = container.querySelector('.swine-profile-btn__container');
 
   if (!enableBtn || !disableBtn) return;
 
@@ -54,6 +71,7 @@ const toggleEditMode = () => {
     container.classList.add('edit-mode');
     swineHistory.classList.remove('show');
     swineHistory.classList.add('hide');
+    uploadSwineImageContainer.classList.add('show');
     
   });
 
@@ -62,6 +80,8 @@ const toggleEditMode = () => {
     container.classList.remove('edit-mode');
     swineHistory.classList.remove('hide');
     swineHistory.classList.add('show');
+    uploadSwineImageContainer.classList.add('hide');
+    displayClientSwines();
   });
 };
 
@@ -170,6 +190,30 @@ const setupAddSwineForm = () => {
 
 
 // ======================================
+// ========== Pre Display user profile input
+// ======================================
+const preDisplaySwineProfileImg = () => {
+  const swineProfileImgInput = document.querySelector('#swine-profile__image-input');
+  const swineProfileImg = document.querySelector('.swines-full-info__swine-img');
+
+  //if (!swineProfileImgInput || !swineProfileImg) return; // prevent error
+
+  swineProfileImgInput.addEventListener('change', function () {
+    const file = this.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.addEventListener('load', function () {
+        swineProfileImg.src = reader.result;
+      });
+      reader.readAsDataURL(file);
+    } else {
+      swineProfileImg.src = 'images-and-icons/icons/swine-image.png';
+    }
+  });
+};
+
+
+// ======================================
 // ========== Main Function - Setup Swines Section
 // ======================================
 export default function setupSwinesSection() {
@@ -183,4 +227,5 @@ export default function setupSwinesSection() {
   toggleMedicalAndHealthHistory();
   setupAddSwineForm();
   displayAllSwineWeight();
+  
 }

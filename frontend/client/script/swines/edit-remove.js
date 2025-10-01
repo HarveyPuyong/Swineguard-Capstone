@@ -25,6 +25,18 @@ const handleFormSubmit = async (e) => {
       cause: causeInput?.value,
     };
 
+    // ✅ Prepare FormData for swine update
+    const formData = new FormData();
+    formData.append('status', statusInput?.value || '');
+    formData.append('weight', weightInput?.value || '');
+    formData.append('cause', causeInput?.value || '');
+
+    const fileInput = editSwineForm.querySelector('#swine-profile__image-input');
+    if (fileInput.files.length > 0) {
+      formData.append('swineProfileImage', fileInput.files[0]); // field name must match backend
+    }
+
+
     const swineDataForMonthlyRecords = {
       monthlyStatus: statusInput?.value,
       monthlyWeight: weightInput?.value,
@@ -34,7 +46,7 @@ const handleFormSubmit = async (e) => {
     };
 
     // ✅ Update swine details first
-    const response = await api.put(`/swine/edit/${currentSwineId}`, swineData);
+    const response = await api.put(`/swine/edit/${currentSwineId}`, formData);
     if (response.status === 200) {
       popupAlert('success', 'Success', `Swine edited successfully`);
     }
@@ -83,9 +95,6 @@ const handleFormSubmit = async (e) => {
     popupAlert('error', 'Error', `Editing swine failed: ${error}`);
   }
 };
-
-
-
 
 
 const updateSwineDetails = (swineId) => {

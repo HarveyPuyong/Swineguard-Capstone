@@ -91,6 +91,8 @@ exports.editSwine = async (req, res) => {
 
     const { weight, status, cause} = req.body;
 
+    const swineProfileImage = req.file ? req.file.filename : undefined;
+
     // Validate object Id
     if (!isValidSwineId(id)) return res.status(400).json({ message: "Invalid Swine ID." });
 
@@ -100,19 +102,22 @@ exports.editSwine = async (req, res) => {
     // ✅ Convert to numbers after validation
     const numericWeight = Number(weight);
 
-    const swineData = { weight: numericWeight, status, cause};
-
-    // Validate input fields
-    if (Object.values(swineData).some(field => field === undefined || field === null)) {
-        return res.status(400).json({ message: 'Kindly check your swine details' });
-    }
-
-    if(!id) return res.status(400).json({message: "Swine id not found."});
-
     try {
+        const swineData = { weight: numericWeight, status, cause};
+
+        const hasEmpty = Object.values(swineData).some(
+            value => value === "" || value === null || value === undefined
+        );
+
+        if (hasEmpty) return res.status(404).json({ message: 'All fields required' });
+        
+        if (swineProfileImage) {
+            swineData.swineProfileImage = swineProfileImage; // only update if image is uploaded
+        }
+
         const updatedSwineData = await swineSchema.findByIdAndUpdate(
             id,
-            { ...swineData },
+            swineData,
             { new: true }
         );
 

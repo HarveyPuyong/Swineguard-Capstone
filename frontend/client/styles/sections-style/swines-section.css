@@ -2,18 +2,30 @@
   font-size: clamp(1.15rem, 4vw, 2rem);
 }
 
-.show-add-swine-form-btn {
+.filter-swine__select-tag  {
   position: absolute;
   top: 23px;
   right: 4.5%;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+.filter-swine__select-tag button,
+.filter-swine__select-tag select
+{
   font-size: clamp(1rem, 2vw, 1.2rem);
   border: none;
-  background-color: #17a75a;
-  color: white;
+  background-color: #ffffff;
   border-radius: 5px;
   padding: 8px 30px;
   cursor: pointer;
 }
+
+.filter-swine__select-tag button {
+  background-color: #17a75a;
+  color: white;
+}
+
 
 
 
@@ -21,13 +33,17 @@
    ============== Swine Cards List ==============
    ===================================================
 */
-.swines-card-list{
+/* .swines-card-list{
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   row-gap: 23px;
   column-gap: 20px;
   margin-top: 70px;
   padding-bottom: 15px;
+} */
+
+.swines-card-list {
+  margin: 70px 0;
 }
 
 .swine-card{
@@ -39,7 +55,25 @@
   padding: 7px 15px;
   overflow: hidden;
   cursor: pointer;
+  margin-top: .5rem;
 }
+
+.swine-section__header {
+  margin-bottom: 1rem 0;
+  padding-top: 1rem;
+  padding-bottom: .3rem;
+}
+
+.swine-section__cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Always 3 columns */
+  gap: 10px;
+}
+
+
+
+
+
 .go-to-schedules-section-btn.hide {
   display: none;
 }
@@ -75,6 +109,8 @@
   z-index: 8;
 }
 
+
+
 /* ===================================================
    ============== Swine Health Status Coloring ==============
    ===================================================
@@ -93,6 +129,10 @@
 
 .swine-card.pregnant .swine-card__status{
   color: #1d0808;
+}
+
+.swine-card.sold .swine-card__status{
+  color: blue;
 }
 
 
@@ -493,13 +533,14 @@
   .swines-full-info__details .detail {
     grid-column: span 1 !important;
   }
+  
 }
 
 @media(width >= 700px){
   .add-swine-form,
   .swines-full-info{
     width: clamp(600px, 40vw, 750px);
-    height: clamp(550px, 37vw, 580px);
+    height: clamp(700px, 37vw, 580px);
     top: 52%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -510,10 +551,29 @@
 }
 
 @media(width >= 800px){
-  .show-add-swine-form-btn,
-  .show-add-multiple-swine-form-btn{
+  .show-add-swine-form-btn{
     top: 33px;
     padding: 10px 40px;
+  }
+  .filter-swine__select-tag {
+    top: 90px;
+  }
+  .filter-swine__select-tag select {
+    padding: 5px 40px;
+  }
+}
+
+/* Tablet view → 2 columns */
+@media (max-width: 900px) {
+  .swine-section__cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Phone view → 1 column */
+@media (max-width: 600px) {
+  .swine-section__cards {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -539,4 +599,36 @@
 .highlghted-txt {
   font-size: 2rem;
   font-weight: 800;
+}
+
+/* 
+  upload swine image
+*/
+.swine-profile-btn__container {
+  display: none;
+}
+.swine-profile-btn__container.show {
+  display: block;
+}
+
+.swine-profile-image__upload-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #2fc375;
+  color: white;
+  padding: 8px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  font-weight: 500;
+  transition: background 0.2s ease;
+}
+
+.swine-profile-image__upload-btn:hover {
+  background: #27a764;
+}
+
+.swine-profile-image__upload-btn i {
+  font-size: 1rem;
 }
