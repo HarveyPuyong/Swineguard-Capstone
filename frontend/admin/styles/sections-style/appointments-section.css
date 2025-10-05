@@ -561,6 +561,26 @@
   padding: 1rem 2rem;
 }
 
+.complete-task-form {
+  width: 400px;
+  height: auto;
+  overflow: auto;
+  scrollbar-width: 1px;
+}
+
+.complete-task-form .swine-cause__death {
+  display: none;
+}
+
+.swine-cause__death--heading {
+  text-align: center;
+  font-weight: 800;
+}
+
+.swine-cause__death.show {
+  display: block;
+}
+
 .appointment-schedule-form, 
 .appointment-reschedule-form {
   width: 600px;
@@ -973,13 +993,19 @@ Pie Graph design
 .complete-task-form__btn {
   display: flex;
   gap: .2rem;
-  margin-bottom: 1rem;
 }
 .complete-task-form button {
   height: 30px;
   width: 100%;
   border-radius: 8px;
   cursor: pointer;
+}
+#complete-task-form__monitoring-btn {
+  background-color: #9ca6ff;
+  border: 1px solid #000b70;
+}
+#complete-task-form__monitoring-btn:disabled {
+  display: none;
 }
 
 /* 
@@ -1077,4 +1103,10 @@ Download Hard copy
 
 .form__options label{
   margin-left: .5rem;
+}
+
+@media (max-width: 500px) {
+  .appointment-name {
+    flex-direction: column;
+  }
 }

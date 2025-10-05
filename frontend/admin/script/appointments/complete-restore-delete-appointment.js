@@ -26,7 +26,9 @@ const handleCompleteAppointment = async(e) => {
 
   const formData = {
     medicine: completeTaskForm.querySelector('#completeTaskForm__set-medicine-list').value,
-    medicineAmount: completeTaskForm.querySelector('#completeTaskForm__set-medicine-amount').value
+    medicineAmount: completeTaskForm.querySelector('#completeTaskForm__set-medicine-amount').value,
+    healthStatus: completeTaskForm.querySelector('#completeTaskForm__select-swine-health-status').value || 'none',
+    causeOfDeath: completeTaskForm.querySelector('#completeTaskForm__cause-of-death').value || 'none',
   }
 
   const itemId = completeTaskForm.querySelector('#completeTaskForm__set-medicine-var').value;
@@ -84,7 +86,7 @@ const handleRestoreAppointment = async(appointmentId) => {
           .then(() => {
             handleRenderAppointments();
             appointmentsDashboard();
-          });;
+          });
       }
   
   } catch(err){

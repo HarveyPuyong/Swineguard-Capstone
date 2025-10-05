@@ -43,7 +43,7 @@ const displayTaskList = async () => {
             <div class="schedule">
                 <div class="schedule-info">
                     <div class="schedule-detail">
-                        <div class="appointment-name">${serviceName}</div>
+                        <div class="appointment-name">${serviceName} <span class="appointment-monitoring ${appointment.underMonitoring}">(Under Monitoring)<span></div>
 
                         <div class="detail date">
                             <span class="detail-label">Date:</span>

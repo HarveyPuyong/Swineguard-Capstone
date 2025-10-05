@@ -7,6 +7,7 @@ import {fetchAppointments} from "./../api/fetch-appointments.js"
 import fetchUser from "./auth/fetchUser.js";
 import handleLogout from "./auth/logout.js";
 import {handleNotification, displayVetNotification} from "./notification/handle-notification.js";
+import { veterinarianNotifListener } from "./notification/notification-listener.js";
 
 const filteredNotification = async() => {
   const admin = await fetchUser();
@@ -24,6 +25,7 @@ setupSettingsSection();
 setupVeterinarian();
 handleNotification();
 filteredNotification();
+veterinarianNotifListener();
 
 
 

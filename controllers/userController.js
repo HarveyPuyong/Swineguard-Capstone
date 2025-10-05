@@ -83,7 +83,7 @@ const addStaff = async (req, res) => {
     if(duplicateFullname) return res.status(409).json({message: "User Already existed"});
 
     //na check kung yung password at confirmPassword ay tama
-    if(password.trim() !== confirmPassword.trim()) return res.status(400).json({message: 'Passowords does not match'});
+    if(password.trim() !== confirmPassword.trim()) return res.status(400).json({message: 'Passwords does not match'});
 
     // hash password
     const hashPassword = await bcrypt.hash(password, 10);

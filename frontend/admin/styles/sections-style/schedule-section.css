@@ -61,6 +61,19 @@
   font-size: 1.2rem;
   margin-bottom: 15px;
   color: #065d2f;
+  display: flex;
+  gap: .5rem;
+}
+
+.appointment-name .appointment-monitoring {
+  display: none;
+  color: black;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+.appointment-name .true {
+  display: block;
 }
 
 .schedule__buttons-container{

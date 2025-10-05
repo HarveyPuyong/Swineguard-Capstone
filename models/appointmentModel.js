@@ -38,6 +38,10 @@ const appointmentSchema = new mongoose.Schema({
     appointmentStatus: { type: String, default: 'pending' },
     appointmentType: { type: String, required: true },
 
+    underMonitoring: {type: Boolean, required: false},
+    healthStatus: {type: String, required: false},
+    causeOfDeath: {type: String, required: false},
+
     vetPersonnel: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User', 

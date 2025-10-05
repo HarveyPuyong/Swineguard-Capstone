@@ -271,7 +271,7 @@ exports.rescheduleAppointment = async (req, res) => {
 exports.completeAppointment = async (req, res) => {
     try {
         const { id } = req.params;
-        const { medicineAmount, medicine } = req.body;
+        const { medicineAmount, medicine, healthStatus, causeOfDeath } = req.body;
 
         if (!medicineAmount || isNaN(medicineAmount)) {
             return res.status(400).json({ message: 'Medicine Amount is required and must be a number' });
@@ -292,7 +292,10 @@ exports.completeAppointment = async (req, res) => {
         const updateData = {
             medicine,
             medicineAmount: numericAmount,
-            appointmentStatus: 'completed'
+            appointmentStatus: 'completed',
+            underMonitoring: false,
+            healthStatus, 
+            causeOfDeath 
         };
 
         const update = await appointmentDB.findByIdAndUpdate(
@@ -313,6 +316,36 @@ exports.completeAppointment = async (req, res) => {
     } catch (err) {
         console.error("❌ Error completing appointment:", err.message);
         res.status(500).json({ error: "Failed to complete appointment" });
+    }
+}
+
+
+// Mark appointment as under monitoring
+exports.underMonitoringAppointment = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        // Check Object Id if exist or valid
+        if(!isValidAppointmentId(id)) return res.status(400).json({ message: 'Invalid Appointment Id.' });
+
+        const update = await appointmentDB.findByIdAndUpdate(
+            id,
+            { underMonitoring: true },
+            { new: true }
+        );
+
+        if (!update) {
+            return res.status(404).json({ error: "Appointment not found" });
+        }
+
+        res.status(200).json({
+            message: "Appointment is under monitoring.",
+            data: update
+        });
+
+    } catch (err) {
+        console.error("❌ Error removing appointment:", err.message);
+        res.status(500).json({ error: "Failed to monitor appointment" });
     }
 }
 

@@ -171,10 +171,27 @@
               <input type="number" id="completeTaskForm__set-medicine-amount" min="0" placeholder="Quantity" >
             </div>
 
+            <!-- Cause of deaths of the swine -->
+            <div class="swine-cause__death">
+              <p class="swine-cause__death--heading">Swine Status:</p>
+              <span class="detail-label">Health Status</span>
+              <select class="detail-value" id="completeTaskForm__select-swine-health-status">
+                <option value="">Select here</option>
+                <option value="healthy">Healthy</option>
+                <option value="sick">Sick</option>
+                <option value="deceased">Deceased</option>
+              </select>
+
+              <span class="detail-label">Cause:</span>
+              <input type="text" id="completeTaskForm__cause-of-death" placeholder="Cause of deaths or Illnes">
+            </div>
+
+
             <div class="complete-task-form__btn">
               <button type="submit" id="complete-task-form__complete-btn">Complete</button>
               <button type="button" id="complete-task-form__cancel-btn">Cancel</button>
             </div>
+            <button type="button" id="complete-task-form__monitoring-btn">Mark as under monitoring</button>
           </form>
 
         </section>

@@ -8,6 +8,7 @@ import { getServiceName } from "../../api/fetch-services.js";
 import { fetchMedicines } from "../../api/fetch-medicine.js";
 import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
 import { formatedDateForCalendar } from "../../utils/formated-date-time.js";
+import { handleUnderMonitoringSwine } from "./handle-under-monitoring.js";
 
 
 
@@ -37,18 +38,42 @@ const handleCompleteTaskBtn = () => {
     completeButton.forEach(btn => {
         btn.addEventListener('click', () => {
             const appointmentId = btn.dataset.setAppointmentId;
+
             completeAppointmentRequest(appointmentId);
             displayTaskList();
             completeTaskForm.classList.add('show');
             setupPersonnelCompleteForm(appointmentId);
 
+            // ✅ Store the appointmentId for later use (like monitoring)
+            completeTaskForm.dataset.appointmentId = appointmentId;
+
         })
-    })
+    });
     cancelButton.addEventListener('click', () => {
         completeTaskForm.classList.remove('show');
         completeTaskForm.reset();
-    })
+    });
+
 }
+
+
+// ======================================
+// ========== CHandle Mark as Under Monitoring
+// ======================================
+const handleUnderMonitoringBtn = async() => {
+    const completeTaskForm = document.querySelector('.complete-task-form');
+    const addToMonitoringList = document.querySelector('#complete-task-form__monitoring-btn');
+
+    addToMonitoringList.addEventListener('click', () => {
+        // ✅ Get appointment ID from form dataset
+        const appointmentId = completeTaskForm.dataset.appointmentId;
+
+        //alert(`Appointment Id: ${appointmentId}`);
+        handleUnderMonitoringSwine(appointmentId);
+
+    });
+}
+
 
 
 // ======================================
@@ -127,6 +152,23 @@ const setupPersonnelCompleteForm = async (appointmentId) => {
 
     // --- Set appointment name ---
     appoinmentNameTxtView.value = serviceName;
+
+    // Set up the addToMonitoringList Button
+    const findAppointment = appoinments.find(app => app._id === appointmentId);
+    const addToMonitoringList = document.querySelector('#complete-task-form__monitoring-btn');
+    const causeOFDeathBox = document.querySelector('.swine-cause__death');
+    const isUnderMonitoring = findAppointment.underMonitoring;
+
+    if (isUnderMonitoring === true) {
+        addToMonitoringList.disabled = true;
+        //addToMonitoringList.textContent = 'Under Monitoring';
+        causeOFDeathBox.classList.add('show');
+    } else {
+        causeOFDeathBox.classList.remove('show');
+        addToMonitoringList.disabled = false;
+    }
+
+    
 };
 
 
@@ -145,4 +187,5 @@ export default function setupVeterinarian () {
     displayTaskList();
     renderSwineGraph();
     setupCompleteAppointmentFormListener();
+    handleUnderMonitoringBtn();
 }

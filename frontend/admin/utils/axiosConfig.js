@@ -33,7 +33,7 @@ api.interceptors.response.use(
       } catch (refreshErr) {
         console.error("Token refresh failed", refreshErr);
         localStorage.removeItem('accessToken');
-        window.location.href = '/login.html';
+        window.location.href = '/admin/login.html';
       }
     }
 
