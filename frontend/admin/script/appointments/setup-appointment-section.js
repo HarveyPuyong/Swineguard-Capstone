@@ -15,6 +15,7 @@ import { getServiceName } from '../../api/fetch-services.js';
 import { fetchAppointments } from '../../api/fetch-appointments.js';
 import populateFilteredMedicines from '../../utils/filter-service-medicine.js';
 import { handleReportChange } from '../reports/generate-appointment-reports.js';
+//import createAppointmentForm from '../../components/appointment-form.js';
 
 
 
@@ -522,6 +523,7 @@ const handleDisabledActionOptions = () => {
 const handleAppointmentButtonsActions = () => {
    document.addEventListener('renderAppointments', () => {
     const appointments = document.querySelectorAll('.appointment-table .appointment');
+    const appointmentFormHardCopy = document.querySelector('.appointment-form__hard-copy');
 
     appointments.forEach(appointment => {
       const buttons = appointment.querySelectorAll(`.appointment__more-details .buttons-container button`);
@@ -540,13 +542,42 @@ const handleAppointmentButtonsActions = () => {
           //   completeAppointmentRequest(appointmentId)
           // }
           else if(button.id === 'print-download-btn') {
-            alert(`Print & Download has been clicked! \n Appointment Id: ${appointmentId}` )
+            //alert(`Print & Download has been clicked! \n Appointment Id: ${appointmentId}` )
+            createAppointmentForm(appointmentId);
+            appointmentFormHardCopy.classList.add('show');
           }
         });
       })
     });
   });
 }
+
+
+// ======================================
+// ========== Toggle Appointment Form Hard Copt to be Print
+// ======================================
+const handleToggleHardCopy_Of_ApptForm = () => {
+  document.addEventListener('renderAppointmentFormHardCopy', () => {
+    //Buttons
+    const printBtn = document.querySelector('#print-appointment__hard-copy-print');
+    const printCancelBtn = document.querySelector('#print-appointment__hard-copy-cancel');
+
+    const appointmentFormHardCopy = document.querySelector('.appointment-form__hard-copy');
+
+    if(printBtn) {
+      printBtn.addEventListener('click', () => {
+        alert('Print Button Clicked!')
+      });
+    }
+
+    if(printCancelBtn) {
+      printCancelBtn.addEventListener('click', () => {
+        appointmentFormHardCopy.classList.remove('show');
+      });
+    }
+  })
+}
+
 
 
 // ======================================
@@ -593,6 +624,6 @@ export default function setupAppointmentSection () {
   viewBtnsFunctionality();
   setupAppointmentFormListener();
   setupReschedAppointmentFormListener();
-  //createCompleteTaskForm();
+  //handleToggleHardCopy_Of_ApptForm(); // Appointment Hard Copy
 }
 

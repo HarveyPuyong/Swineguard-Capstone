@@ -120,9 +120,8 @@ async function appointmentsTable(appointments, table) {
             </div>
           </div>
           <div class="buttons-container">
-            <button data-appointment-id=${appointment._id} id="print-download-btn" class="print-download-btn btn">Print & Download</button>
-            <button data-appointment-id=${appointment._id} id="restore-btn" class="restore-btn btn" ${role[0] === 'admin' ? 'disabled' : ''}>Restore</button>
-            <button data-appointment-id=${appointment._id} id="delete-btn" class="delete-btn btn" ${role[0] === 'admin' ? 'disabled' : ''}>Delete</button>
+            <button data-appointment-id=${appointment._id} id="restore-btn" class="restore-btn btn" ${role[0] === 'admin' ? 'style="display:none"' : ''}>Restore</button>
+            <button data-appointment-id=${appointment._id} id="delete-btn" class="delete-btn btn" ${role[0] === 'admin' ? 'style="display:none"' : ''}>Delete</button>
           </div>
         </div>
       </div>

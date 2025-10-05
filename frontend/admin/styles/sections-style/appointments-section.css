@@ -396,6 +396,10 @@
   gap: 0.7rem;
 }
 
+.buttons-container .hide {
+  display: none !important;
+}
+
 .appointment__more-details .btn{
   display: none;
   padding: 4px 30px;
@@ -997,4 +1001,80 @@ Report
   font-weight: 800;
   letter-spacing: .1rem;
   color: #3d3d3d;
+}
+
+
+
+/* 
+Download Hard copy
+*/
+
+.appointment-form__hard-copy {
+  display: none;
+}
+.appointment-form__hard-copy.show {
+  display: block;
+  background-color: white;
+  border: 2px solid black;
+  padding: 3rem;
+
+  position: relative;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -60%);
+  overflow: auto;
+  width: 1000px;
+}
+
+.appointment-form__hard-copy form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.appointment-form__hard-copy form h1 {
+  text-align: center;
+}
+
+.form__row,
+.form__row__client-name,
+.form__row__client-address 
+{
+  margin-bottom: 1.5rem;
+}
+
+.hard-copy__form__header, 
+.form__row__client-name,
+.form__row__client-address
+{
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.hard-copy__form__header input,
+.form__row__client-name input,
+.form__row__client-address input,
+.check-box--input
+{
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  text-align: center;
+}
+
+.client-name__field, 
+.client-address__field,
+.client-premises__field
+{
+  width: 100px;
+  text-align: left;
+}
+
+.form__field--checkbox {
+  display: flex;
+}
+
+.form__options label{
+  margin-left: .5rem;
 }
