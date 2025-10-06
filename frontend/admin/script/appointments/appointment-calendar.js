@@ -12,47 +12,47 @@ async function renderAppointmentCalendar() {
 
 
   try {
-  const data = await fetchAppointments();
+    const data = await fetchAppointments();
 
-  const appointments = data.filter(appointment => appointment.appointmentStatus === 'accepted');
+    const appointments = data.filter(appointment => appointment.appointmentStatus === 'accepted' || appointment.appointmentStatus === 'reschedule');
 
-      // appointments custom event
-      const events = await Promise.all(
-        appointments.map(async (appointment) => {
-          const serviceName = await getServiceName(appointment.appointmentService);
+    // appointments custom event
+    const events = await Promise.all(
+      appointments.map(async (appointment) => {
+        const serviceName = await getServiceName(appointment.appointmentService);
 
-          return {
-            start: `${formatedDateForCalendar(appointment.appointmentDate)}T${appointment.appointmentTime}`,
-            title: serviceName,
-            appointmentId: appointment._id,
-            appointmentService: serviceName,
-            appointmentType: appointment.appointmentType,
-            appointmentTime: appointment.appointmentTime,
-            appointmentAdress: `${appointment.municipality}, ${appointment.barangay}`,
-          };
-        })
-      );
+        return {
+          start: `${formatedDateForCalendar(appointment.appointmentDate)}T${appointment.appointmentTime}`,
+          title: serviceName,
+          appointmentId: appointment._id,
+          appointmentService: serviceName,
+          appointmentType: appointment.appointmentType,
+          appointmentTime: appointment.appointmentTime,
+          appointmentAdress: `${appointment.municipality}, ${appointment.barangay}`,
+        };
+      })
+    );
 
-      // calendar
-      const calendar = new FullCalendar.Calendar(appointmentCalendarElement, {
-        initialView: 'dayGridMonth',
-        events: events,
-        eventContent: (content) => {
-          const event = content.event;
-          const {appointmentId, appointmentService, appointmentType, appointmentTime, appointmentAdress} = event.extendedProps;
+    // calendar
+    const calendar = new FullCalendar.Calendar(appointmentCalendarElement, {
+      initialView: 'dayGridMonth',
+      events: events,
+      eventContent: (content) => {
+        const event = content.event;
+        const {appointmentId, appointmentService, appointmentType, appointmentTime, appointmentAdress} = event.extendedProps;
 
-          return {
-            html: `
-              <div class="custom-event appointment-type-${appointmentType.toLowerCase()}"  data-appointment-id=${appointmentId}>
-                <p class="custom-event__title"><span class="label">Title:</span> ${appointmentService}</p>
-                <p class="custom-event__type"><span class="label">Type:</span> ${appointmentType[0].toUpperCase() + appointmentType.slice(1).toLowerCase()}</p>
-                <p class="custom-event__time"><span class="label">Time:</span> ${formatTo12HourTime(appointmentTime)}</p>
-                <p class="custom-event__time"><span class="label">Adress:</span> ${appointmentAdress}</p>
-              </div>
-            `
-          };
-        }
-      });
+        return {
+          html: `
+            <div class="custom-event appointment-type-${appointmentType.toLowerCase()}"  data-appointment-id=${appointmentId}>
+              <p class="custom-event__title"><span class="label">Title:</span> ${appointmentService}</p>
+              <p class="custom-event__type"><span class="label">Type:</span> ${appointmentType[0].toUpperCase() + appointmentType.slice(1).toLowerCase()}</p>
+              <p class="custom-event__time"><span class="label">Time:</span> ${formatTo12HourTime(appointmentTime)}</p>
+              <p class="custom-event__time"><span class="label">Adress:</span> ${appointmentAdress}</p>
+            </div>
+          `
+        };
+      }
+    });
 
     calendar.render();
 

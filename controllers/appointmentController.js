@@ -200,7 +200,7 @@ exports.acceptAppointment = async (req, res) => {
 
 // Reschedule appointment
 exports.rescheduleAppointment = async (req, res) => {
-  const { appointmentDate, appointmentTime, vetPersonnel, vetMessage } = req.body;
+  const { appointmentDate, appointmentTime, vetPersonnel } = req.body;
   const appointmentId = req.params.id;
 
   // Validate ObjectId
@@ -249,7 +249,8 @@ exports.rescheduleAppointment = async (req, res) => {
   const updateData = {
     appointmentDate,
     appointmentTime,
-    appointmentStatus: 'reschedule'
+    appointmentStatus: 'reschedule',
+    vetPersonnel
   };
 
   // Update
