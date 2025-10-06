@@ -1110,3 +1110,62 @@ Download Hard copy
     flex-direction: column;
   }
 }
+
+/* ===== Responsive Fix for 1366x768 and smaller screens ===== */
+@media (max-width: 1400px) {
+  .add-appointment-container {
+    width: 80%;          /* was 70% */
+    max-height: 500px;       /* was 700px */
+    padding: 20px 30px;  /* reduce inner padding */
+    top: 60%;
+    left: 50%;
+    transform: translate(-45%, -55%);
+  }
+
+  .add-appointments-form {
+    padding: 0 20px;     /* reduce form padding */
+  }
+
+  .add-appointments-form input,
+  .add-appointments-form select,
+  .add-appointments-form textarea {
+    font-size: 0.8rem;   /* reduce input font size slightly */
+    padding: 10px 8px;   /* reduce padding */
+  }
+
+  .add-appointment-container__heading {
+    font-size: 1.4rem;   /* smaller heading */
+  }
+
+  .add-appointments-form .group {
+    flex-direction: column; /* stack vertically */
+  }
+
+  .add-appointments-form #appointment-date,
+  .add-appointments-form #appointment-time,
+  .add-appointments-form #add-appointment-type,
+  .add-appointments-form #swine-count {
+    width: 100%;  /* full width for narrow screens */
+  }
+
+  .add-appointments-form .submit-appointment-btn {
+    position: static;      /* prevent overflowing */
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+  }
+}
+
+/* Even smaller (laptop or tablet screens) */
+@media (max-width: 1024px) {
+  .add-appointment-container {
+    width: 95%;
+    height: auto;
+    max-height: 90vh;  /* fit within viewport */
+  }
+
+  .appointment__more-details-columns {
+    flex-direction: column;
+    column-gap: 0;
+  }
+}

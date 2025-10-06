@@ -101,8 +101,11 @@
 .dashboard__card-progress-bar-container{
   position: relative;
   width: fit-content;
-  margin-left: 35%;
+  /* margin-left: 35%; */
   margin-top: 20px;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .dashboard__card-progress-bar{

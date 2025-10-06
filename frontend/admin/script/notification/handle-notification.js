@@ -165,7 +165,7 @@ const displayICNotificationList = async () => {
 const displayVetNotification = async(staffId) => {
     
     const appointments = await fetchAppointments();
-    const filteredAppointment = appointments.filter(appointment => appointment.vetPersonnel === staffId && appointment.appointmentStatus === 'accepted');
+    const filteredAppointment = appointments.filter(appointment => appointment.vetPersonnel === staffId && (appointment.appointmentStatus === 'accepted' || appointment.appointmentStatus === 'reschedule'));
 
     let notificationHTML = '';
     let notifCount = '';

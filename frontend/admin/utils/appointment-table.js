@@ -50,7 +50,9 @@ async function appointmentsTable(appointments, table) {
              ${appointment.appointmentStatus}
           </p>
           <p class="td action">
-            <select class="select-appointment-action" data-appointment-id=${appointment._id} name="appointment-action" id="appointment-action" ${role[0] === 'admin' || appointment.appointmentStatus === 'completed' ? 'disabled' : ''}>
+            <select class="select-appointment-action" data-appointment-id=${appointment._id} name="appointment-action" id="appointment-action" 
+            ${role[0] === 'admin' || appointment.appointmentStatus === 'completed' || appointment.appointmentStatus === 'removed' ? 'disabled' : ''}>
+            
               <option value="">Action</option>
               <option value="accept" ${appointment.appointmentStatus === 'reschedule' ? 'disabled' : ''}>Accept</option>
               <option value="reschedule" ${appointment.appointmentStatus === 'pending' ? 'disabled' : ''}>Reschedule</option>
