@@ -41,6 +41,7 @@ const appointmentSchema = new mongoose.Schema({
     underMonitoring: {type: Boolean, required: false},
     healthStatus: {type: String, required: false},
     causeOfDeath: {type: String, required: false},
+    numberOfDeaths: {type: Number, required: false},
 
     vetPersonnel: { 
         type: mongoose.Schema.Types.ObjectId, 

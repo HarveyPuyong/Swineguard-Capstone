@@ -432,6 +432,11 @@ exports.updateUserSwineTypes = async (req, res) => {
         let updated = 0;
 
         for (let swine of swines) {
+            // 🚫 Skip swines that are sold or deceased
+            if (swine.status === 'sold' || swine.status === 'deceased') {
+                continue;
+            }
+
             const newType = getSwineType(swine.birthdate, swine.sex);
 
             if (swine.type !== newType) {
@@ -446,4 +451,68 @@ exports.updateUserSwineTypes = async (req, res) => {
         console.error("Error updating swine types:", err);
         res.status(500).json({ message: "Something went wrong", error: err.message });
     }
+};
+
+
+// Mark Swines as under monitoring
+exports.underMonitoringSwines = async (req, res) => {
+  try {
+    const { swineIds } = req.body; // ✅ use body instead of params if it's an array
+
+    // Validate that swineIds is an array
+    if (!Array.isArray(swineIds) || swineIds.length === 0) {
+      return res.status(400).json({ message: 'Invalid or empty swineIds array.' });
+    }
+
+    // Update all swines in the array
+    const updateResult = await swineSchema.updateMany(
+      { _id: { $in: swineIds } }, // match all IDs
+      { $set: { isUnderMonitoring: true, status: 'sick' } } // update field
+    );
+
+    if (updateResult.modifiedCount === 0) {
+      return res.status(404).json({ error: "No matching swines found." });
+    }
+
+    res.status(200).json({
+      message: "Swines are now under monitoring.",
+      data: updateResult
+    });
+
+  } catch (err) {
+    console.error("❌ Error monitoring swines:", err.message);
+    res.status(500).json({ error: "Failed to update swines for monitoring." });
+  }
+};
+
+
+// update Swine Status
+exports.underMonitoringSwinesSecondAction = async (req, res) => {
+  try {
+    const { swineIds, status, cause } = req.body; // ✅ use body instead of params if it's an array
+
+    // Validate that swineIds is an array
+    if (!Array.isArray(swineIds) || swineIds.length === 0) {
+      return res.status(400).json({ message: 'Invalid or empty swineIds array.' });
+    }
+
+    // Update all swines in the array
+    const updateResult = await swineSchema.updateMany(
+      { _id: { $in: swineIds } }, // match all IDs
+      { $set: { isUnderMonitoring: false, status, cause } } // update field
+    );
+
+    if (updateResult.modifiedCount === 0) {
+      return res.status(404).json({ error: "No matching swines found." });
+    }
+
+    res.status(200).json({
+      message: "Swines are now under monitoring second complete.",
+      data: updateResult
+    });
+
+  } catch (err) {
+    console.error("❌ Error monitoring swines:", err.message);
+    res.status(500).json({ error: "Failed to update swines for monitoring second." });
+  }
 };

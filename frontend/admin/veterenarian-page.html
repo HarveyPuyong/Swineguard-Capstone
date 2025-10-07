@@ -182,10 +182,19 @@
                 <option value="deceased">Deceased</option>
               </select>
 
-              <span class="detail-label">Cause:</span>
-              <input type="text" id="completeTaskForm__cause-of-death" placeholder="Cause of deaths or Illnes">
-            </div>
+              <label class="detail-label__cause-of-death hide">Cause:
+                <input type="text" id="completeTaskForm__cause-of-death" placeholder="Cause of deaths or Illnes">
+              </label>
 
+              <label class="detail-label__num-of-deaths hide">Number of Deaths:
+                <input type="text" id="completeTaskForm__num-of-death" placeholder="Death count.">
+              </label>
+
+              <div class="check-box__swine-Ids hide">
+                <!-- swine-checkboxes.js -->
+              </div>
+
+            </div>
 
             <div class="complete-task-form__btn">
               <button type="submit" id="complete-task-form__complete-btn">Complete</button>

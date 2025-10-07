@@ -15,6 +15,7 @@ const swines = await fetchSwines();
 const clientSwines = swines.filter(swine => swine.clientId === clientId && ((swine.status === 'healthy' && swine.type === 'grower') && swine.weight >= Min_Swine_Weight)).sort((a, b) => b.weight - a.weight);
 const swineTotal = swines.filter(swine => swine.clientId === clientId && (swine.status !== 'sold' && swine.status !== 'deceased'));
 const soldSwines = swines.filter(swine => swine.clientId === clientId && swine.status === 'sold');
+const deceasedSwines = swines.filter(swine => swine.status === 'deceased');
 
 
 // ======================================
@@ -31,9 +32,15 @@ const displayReadyToSellSwine = () => {
         readyToSellHTML += `
             <div class="client-swine">
                 <div class="progress-header">
-                    <span class="left">Swine: <span class="swine-four-digit-id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</span></span>
+                    <img class="swine-card-record__image" src="${swine.swineProfileImage ? '/uploads/' + swine.swineProfileImage : 'images-and-icons/icons/swine-image.png'}" alt="swine-image">
+                    <div class="left">
+                        <p class="swine-four-digit-id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</p>
+                        <p>${swine.type.charAt(0).toUpperCase()}${swine.type.slice(1)}</p>
+                    </div>
                     <span class="line"></span>
-                    <span class="right">${swine.weight} kg</span>
+                    <div class="right">
+                        <p>${swine.weight} kg</p>
+                    </div>
                 </div>
             </div>
         `;
@@ -77,12 +84,18 @@ const displaySoldSwine = () => {
 
     soldSwines.forEach(swine => {
         soldSwineHTML += `
-            <div class="sold-swine-card">
+            <div class="client-swine">
                 <p>Date: ${formatDate(swine.updatedAt)}</p>
-                <div class="progress-header sold">
-                  <span class="left">Swine: <span class="swine-four-digit-id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</span></span>
-                  <span class="line"></span>
-                  <span class="right">${swine.weight} kg</span>
+                <div class="progress-header">
+                    <img class="swine-card-record__image" src="${swine.swineProfileImage ? '/uploads/' + swine.swineProfileImage : 'images-and-icons/icons/swine-image.png'}" alt="swine-image">
+                    <div class="left">
+                        <p class="swine-four-digit-id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</p>
+                        <p>${swine.type.charAt(0).toUpperCase()}${swine.type.slice(1)}</p>
+                    </div>
+                    <span class="line"></span>
+                    <div class="right">
+                        <p>${swine.weight} kg</p>
+                    </div>
                 </div>
             </div>
         `;
@@ -91,7 +104,44 @@ const displaySoldSwine = () => {
 }
 
 
+// ======================================
+// ========== Already Sold Swine
+// ======================================
+const displayDeceasedSwine = () => {
+    let deceasedSwineHTML = '';
+
+    if(deceasedSwines.length === 0 ) {
+        deceasedSwineHTML = `
+            <div class="deceased-swine__no-swine">
+                <p>No Deceased Swine</p>
+            </div>
+        `;
+    }
+
+    deceasedSwines.forEach(swine => {
+        deceasedSwineHTML += `
+            <div class="client-swine">
+                <div class="progress-header">
+                    <img class="swine-card-record__image" src="${swine.swineProfileImage ? '/uploads/' + swine.swineProfileImage : 'images-and-icons/icons/swine-image.png'}" alt="swine-image">
+                    <div class="left">
+                        <p class="swine-four-digit-id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</p>
+                        <p>${swine.type.charAt(0).toUpperCase()}${swine.type.slice(1)}</p>
+                    </div>
+                    <span class="line"></span>
+                    <div class="right">
+                        <p>${swine.cause}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    document.querySelector('.deceased-swine__container').innerHTML = deceasedSwineHTML;
+}
+
+
+
 export default function swineRecords() {
     displayReadyToSellSwine();
     displaySoldSwine();
+    displayDeceasedSwine();
 }

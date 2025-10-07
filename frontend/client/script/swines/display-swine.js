@@ -69,20 +69,28 @@ const displayClientSwines = async () => {
                     <hr class="swine-section__divider" />
                     <div class="swine-section__cards">
                 `;
-
+                
                 // Cards inside that section
                 swineList.forEach(swine => {
-                swineHTML += `
-                    <div class="swine-card ${swine.status}" data-set-swine-id="${swine._id}">
-                    <img class="swine-card__image" src="${swine.swineProfileImage ? '/uploads/' + swine.swineProfileImage : 'images-and-icons/icons/swine-image.png'}" alt="swine-image">
-                    <div class="swine-card__swine-info">
-                        <p class="swine-card__id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</p>
-                        <p class="swine-card__type">${swine.type.charAt(0).toUpperCase() + swine.type.slice(1)}</p>
-                        <p class="swine-card__status">${swine.status.charAt(0).toUpperCase() + swine.status.slice(1)}</p>
-                    </div>
-                    <i class="swine-card__delete-btn fa-solid fa-trash" id="remove-swine" data-set-swine-id="${swine._id}"></i>
-                    </div>
-                `;
+
+                    let isMonitored = swine.isUnderMonitoring;
+                    let isMonitoredTxt = '';
+                    if(isMonitored === true) { isMonitoredTxt = '(Under Monitoring)'; }
+                    else { isMonitoredTxt = ''; }
+
+                    swineHTML += `
+                        <div class="swine-card ${swine.status}" data-set-swine-id="${swine._id}">
+                            <img class="swine-card__image" src="${swine.swineProfileImage ? '/uploads/' + swine.swineProfileImage : 'images-and-icons/icons/swine-image.png'}" alt="swine-image">
+                            <div class="swine-card__swine-info">
+                                <p class="swine-card__id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}
+                                    <span class="is-monitored ${swine.isUnderMonitoring}">${isMonitoredTxt}<span>
+                                </p>
+                                <p class="swine-card__type">${swine.type.charAt(0).toUpperCase() + swine.type.slice(1)}</p>
+                                <p class="swine-card__status">${swine.status.charAt(0).toUpperCase() + swine.status.slice(1)}</p>
+                            </div>
+                            <i class="swine-card__delete-btn fa-solid fa-trash" id="remove-swine" data-set-swine-id="${swine._id}"></i>
+                        </div>
+                    `;
                 });
 
                 // Close the grid container
@@ -148,7 +156,7 @@ const displayFullSwineDetails = async (swineId) => {
             
         <div class="swine-full-info__details-label-btn-container">
             <p class="swines-full-info__info-label">Swine Info</p>
-            <button class="swines-full-info__edit-btn enable-edit-mode-btn" type="button" data-set-swine-id="${swine._id}" ${swine.status === 'sold' ? 'hidden' : ''}>Edit</button>       
+            <button class="swines-full-info__edit-btn enable-edit-mode-btn" type="button" data-set-swine-id="${swine._id}" ${swine.status === 'sold' || swine.status === 'deceased' ? 'hidden' : ''}>Edit</button>       
         </div>
 
         <div class="swines-full-info__details">

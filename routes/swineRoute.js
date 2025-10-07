@@ -31,4 +31,8 @@ router.put('/update/swine-type', swineController.updateSwineTypes) // update the
 
 router.put('/update/swine-type/user/:id', swineController.updateUserSwineTypes) // update the user swine type
 
+router.patch('/is-under/monitoring', swineController.underMonitoringSwines) // update swines as under monitoring
+
+router.patch('/update/is-under/monitoring', swineController.underMonitoringSwinesSecondAction) // update swines as under monitoring
+
 module.exports = router;

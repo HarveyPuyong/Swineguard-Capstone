@@ -563,7 +563,7 @@
 
 .complete-task-form {
   width: 400px;
-  height: auto;
+  max-height: 600px;
   overflow: auto;
   scrollbar-width: 1px;
 }
@@ -572,9 +572,28 @@
   display: none;
 }
 
+.detail-label__cause-of-death.hide,
+.detail-label__num-of-deaths.hide,
+.check-box__swine-Ids.hide
+{
+  display: none;
+}
+
+.check-box__swine-Ids label
+{
+  display: flex;
+  gap: .1rem;
+}
+
+
 .swine-cause__death--heading {
   text-align: center;
   font-weight: 800;
+}
+
+.swine-checkbox__header {
+  font-weight: 600;
+  margin-bottom: .5rem;
 }
 
 .swine-cause__death.show {

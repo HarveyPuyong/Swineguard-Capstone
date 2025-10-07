@@ -176,7 +176,7 @@
               
               <div for="select-swine-sex"><!-- swine count -->
                 <span class="label-txt">Swine count</span>
-                <input type="number" id="swine-count-input" placeholder="Enter swine count here." required>
+                <input type="number" id="swine-count-input" min="1" max="30" placeholder="Enter swine count here." required>
               </div>
 
               <div id="swine-fields-container"></div>
@@ -191,10 +191,11 @@
             <button class="show-add-swine-form-btn" type="button">Add Swine</button>
             <select name="filter-client-swine" id="filter-client-swine">
               <option value="all">All</option>
-              <option value="sold">Sold</option>
-              <option value="healthy">Healthy</option>
               <option value="deceased">Deceased</option>
+              <option value="healthy">Healthy</option>
               <option value="pregnant">Pregnant</option>
+              <option value="sick">Sick</option>
+              <option value="sold">Sold</option>
             </select>
           </div>
 
@@ -404,7 +405,10 @@
           <div class="swine-records-two">
             <!-- Swines that ready to sell -->
             <div class="swine-to-sell">
-              <h2>Ready for Market</h2>
+              <div class="client-swine__headers">
+                <h2>Ready for Market</h2>
+                <h4>Weight</h4>
+              </div>
               <div class="swine-to-sell__swine-container">
 
                 <!-- ready to sell.js -->
@@ -424,7 +428,10 @@
 
             <!-- Swine already sold -->
             <div class="sold-swine">
-              <h2>Previously Sold</h2>
+              <div class="client-swine__headers">
+                <h2>Previously Sold</h2>
+                <h4>Weight</h4>
+              </div>
               <div class="sold-swine__container">
                 <!-- sold-swine.js -->
               </div>
@@ -432,8 +439,27 @@
 
             <!-- Dito naman yung namatay na swine -->
             <div class="deceased-swine">
-              <h2>Deceased</h2>
-              <p>Cause: <span>No deaths</span></p>
+              <div class="client-swine__headers">
+                <h2>Deceased</h2>
+                <h4>Cause</h4>
+              </div>
+              <div class="deceased-swine__container">
+                <!-- deceased-swine.js -->
+              </div>
+            </div>
+
+            <!-- Dito naman yung may sakit na swine -->
+            <div class="sick-swine">
+              <div class="client-swine__headers">
+                <h2>Sick & Under Monitoring</h2>
+                <h4>Monitoring Date</h4>
+              </div>
+              <div class="deceased-swine__container">
+                <!-- sick-under-monitoring-swine.js -->
+                 <div class="sick-swine__no-swine">
+                      <p>No Sick or Under Monitoring Swine</p>
+                  </div>
+              </div>
             </div>
 
           </div>

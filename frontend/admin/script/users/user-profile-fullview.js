@@ -15,7 +15,7 @@ const handleUserFullview = async (userId) => {
     try {
         const users = await fetchUsers();
         const allSwines = await fetchSwines();
-        const swines = allSwines.filter(swine => swine.clientId === userId); // ✅ FIXED
+        const swines = allSwines.filter(swine => swine.clientId === userId && swine.status !== 'sold'); // ✅ FIXED
         const userSwineCount = swines.length; 
         
         if (!users) {

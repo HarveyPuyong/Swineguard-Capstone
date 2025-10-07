@@ -9,6 +9,7 @@ import { fetchMedicines } from "../../api/fetch-medicine.js";
 import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
 import { formatedDateForCalendar } from "../../utils/formated-date-time.js";
 import { handleUnderMonitoringSwine } from "./handle-under-monitoring.js";
+import { getSwineFourDigitId } from "../../../client/client-utils/get-swine-data.js";
 
 
 
@@ -35,6 +36,10 @@ const handleCompleteTaskBtn = () => {
     const completeButton = document.querySelectorAll('.schedule__toggle-complete-btn');
     const cancelButton = document.querySelector('#complete-task-form__cancel-btn');
     const completeTaskForm = document.querySelector('.complete-task-form');
+    const causeInput = document.querySelector('.detail-label__cause-of-death');
+    const deathNumInput = document.querySelector('.detail-label__num-of-deaths');
+    const checkBoxContainer = document.querySelector(".check-box__swine-Ids");
+
     completeButton.forEach(btn => {
         btn.addEventListener('click', () => {
             const appointmentId = btn.dataset.setAppointmentId;
@@ -52,6 +57,19 @@ const handleCompleteTaskBtn = () => {
     cancelButton.addEventListener('click', () => {
         completeTaskForm.classList.remove('show');
         completeTaskForm.reset();
+
+        // Reset everything to default hidden state
+        causeInput.classList.remove('hide');
+        deathNumInput.classList.remove('hide');
+        checkBoxContainer.classList.remove('hide'); // Remove if there is hide
+
+        causeInput.classList.add('hide'); // then Readd the hide
+        deathNumInput.classList.add('hide');
+        checkBoxContainer.classList.add('hide');
+        checkBoxContainer.innerHTML = '';
+
+        // Remove stored appointmentId
+        delete completeTaskForm.dataset.appointmentId;
     });
 
 }
@@ -168,6 +186,66 @@ const setupPersonnelCompleteForm = async (appointmentId) => {
         addToMonitoringList.disabled = false;
     }
 
+
+    // Select Swine Health Status
+    const newSwineStatusSelectTag = document.querySelector('#completeTaskForm__select-swine-health-status');
+    const causeInput = document.querySelector('.detail-label__cause-of-death');
+    const deathNumInput = document.querySelector('.detail-label__num-of-deaths');
+    const checkBoxContainer = document.querySelector(".check-box__swine-Ids");
+
+    // 🔧 Remove any previous listener by cloning the node (clean way)
+    const clonedSelect = newSwineStatusSelectTag.cloneNode(true);
+    newSwineStatusSelectTag.parentNode.replaceChild(clonedSelect, newSwineStatusSelectTag);
+
+    clonedSelect.addEventListener('change', async() => {
+        if (clonedSelect.value === 'sick') {
+            causeInput.classList.remove('hide');
+            deathNumInput.classList.add('hide');
+            checkBoxContainer.classList.add('hide');
+        } 
+        else if (clonedSelect.value === 'deceased') {
+            causeInput.classList.remove('hide');
+
+            if (appoinment.swineIds && appoinment.swineIds.length === 0) {
+                deathNumInput.classList.remove('hide');
+                checkBoxContainer.classList.add('hide');
+            } 
+            else if (appoinment.swineIds && appoinment.swineIds.length > 0) {
+                deathNumInput.classList.add('hide');
+                checkBoxContainer.classList.remove('hide');
+
+                // Render swine checkboxes
+                checkBoxContainer.innerHTML = '';
+                const listOfSwineId = appoinment.swineIds;
+
+                const header = document.createElement('p');
+                header.textContent = 'Number of Deaths:';
+                header.classList.add('swine-checkbox__header');
+                checkBoxContainer.appendChild(header);
+
+                for ( const swineId of listOfSwineId ) {
+
+                    const fourDigitId = await getSwineFourDigitId(swineId);
+                    const checkbox = document.createElement('label');
+
+                    checkbox.innerHTML = `
+                        <label>
+                            <input type="checkbox" value="${swineId}"> ${fourDigitId}
+                        </label>
+                    `;
+                    checkBoxContainer.appendChild(checkbox);
+                };
+                
+            }
+        } 
+        else {
+            causeInput.classList.add('hide');
+            deathNumInput.classList.add('hide');
+            checkBoxContainer.classList.add('hide');
+            checkBoxContainer.innerHTML = '';
+        }
+    });
+
     
 };
 
@@ -180,6 +258,10 @@ document.addEventListener('renderTaskList', () => {
     toggleAppointmentTask();
     handleCompleteTaskBtn();
 });
+
+
+
+
 
 
 

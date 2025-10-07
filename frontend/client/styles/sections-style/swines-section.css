@@ -516,6 +516,18 @@
   margin-left: 2px;
 }
 
+/* 
+  Swine Under Monitoring
+*/
+.is-monitored.true {
+  color: black;
+}
+.is-monitored.false {
+  display: none;
+}
+
+
+
 
 @media(width >= 500px){
   .add-swine-form__info {

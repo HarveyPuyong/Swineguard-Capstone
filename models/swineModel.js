@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const appointmentSchema = new mongoose.Schema({
+const swineSchemaModel = new mongoose.Schema({
 
     swineFourDigitId: {type: String, required: true, unique: true},
     breed: { type: String, required: true },
@@ -10,6 +10,7 @@ const appointmentSchema = new mongoose.Schema({
     weight: { type: Number, required: true },
     status: { type: String, default: 'healthy' },
     cause: { type: String, default: 'none' },
+    isUnderMonitoring: { type: Boolean, required: false },
 
     clientId: {
         type: mongoose.Schema.Types.ObjectId, 
@@ -24,7 +25,7 @@ const appointmentSchema = new mongoose.Schema({
     
 }, { collection: 'swines', timestamps: true });
 
-const swineSchema = mongoose.model('Swine', appointmentSchema);
+const swineSchema = mongoose.model('Swine', swineSchemaModel);
 
 
 const swineHealthRecordsSchema = new mongoose.Schema({

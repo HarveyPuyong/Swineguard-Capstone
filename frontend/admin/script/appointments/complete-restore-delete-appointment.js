@@ -13,22 +13,28 @@ import displayTaskList from '../veterinarian/display-appoinment-task.js';
 let currentAppointmentId = null;
 const completeTaskForm = document.querySelector('.complete-task-form');
 const medicineSelectElement = document.querySelector('#completeTaskForm__set-medicine-list');
+const checkBoxContainer = document.querySelector(".check-box__swine-Ids"); // CheckBoxes of swine Ids
 
 const handleCompleteAppointment = async(e) => {
   e.preventDefault(); // ✅ Prevent page reload
 
   const allAppointments = await fetchAppointments();
-  const appointment = allAppointments.find(app => app._id === currentAppointmentId); // ✅ Fix here too!
+  const appointment = allAppointments.find(app => app._id === currentAppointmentId);
+  
   if (!appointment) {
     popupAlert('error', 'Error!', 'Appointment not found.');
     return;
   }
+
+  // Get selected swines
+  const selectedSwines = Array.from( checkBoxContainer.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value);
 
   const formData = {
     medicine: completeTaskForm.querySelector('#completeTaskForm__set-medicine-list').value,
     medicineAmount: completeTaskForm.querySelector('#completeTaskForm__set-medicine-amount').value,
     healthStatus: completeTaskForm.querySelector('#completeTaskForm__select-swine-health-status').value || 'none',
     causeOfDeath: completeTaskForm.querySelector('#completeTaskForm__cause-of-death').value || 'none',
+    numberOfDeaths: completeTaskForm.querySelector('#completeTaskForm__num-of-death').value || 0
   }
 
   const itemId = completeTaskForm.querySelector('#completeTaskForm__set-medicine-var').value;
@@ -38,7 +44,15 @@ const handleCompleteAppointment = async(e) => {
     const response = await api.patch(`/appointment/complete/${currentAppointmentId}`, formData);
 
     if (response.status === 200) {
-      
+      // Update Swine When Appointment is completed
+      await api.patch(`/swine/update/is-under/monitoring`, {
+        swineIds: selectedSwines,
+        status: formData.healthStatus,
+        cause: formData.causeOfDeath
+      });
+
+      console.log(selectedSwines);
+    
       popupAlert('success', 'Success!', 'Appointment Completed successfully').then(() => {
         updatedItemQuantity(itemId, formData.medicineAmount); // Subtract to the database
         medicineSelectElement.innerHTML = '<option value="">Select medicine</option>';

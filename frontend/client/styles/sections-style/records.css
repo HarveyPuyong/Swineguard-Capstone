@@ -30,12 +30,12 @@
 }
 
 .client-swine {
-    width: 100%;
-    margin: .5rem 0;
+  width: 100%;
+  margin: .5rem 0;
 }
 
-.swine-four-digit-id {
-    font-weight: 600;
+.swine-four-digit-id, .swine-death__cause {
+  font-weight: 600;
 }
 
 progress {
@@ -98,9 +98,42 @@ To remain below the box
     margin-top: 10%;
 }
 
+.deceased-swine__no-swine,
+.sick-swine__no-swine
+{
+  width: 100%;
+  padding: 1rem;
+  font-weight: 800;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6e6e6e;
+  text-align: center;
+}
 
+.swine-card-record__image {
+  width: 45px;
+  height: 45px;
+  margin-right: .3rem;
+  border-radius: 100%;
+}
 
+.client-swine__headers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: .1rem 0;
+}
 
+.client-swine__headers h4 {
+  color: #424242;
+  text-align: right;
+}
+
+.client-swine__headers h2 {
+  text-align: left;
+}
 
 
 /* 📱 Responsive: below 800px -> 1 column */
