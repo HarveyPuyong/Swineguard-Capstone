@@ -6,6 +6,14 @@ import { formatTo12HourTime, formattedDate } from "../../utils/formated-date-tim
 
 const displayTaskList = async () => {
     const { _id } = await fetchUser();
+    // const admin = await fetchUser();
+    // const role = admin.roles;
+
+    // if (role[0] !== 'technician' || role[0] !== 'veterinarian') {
+    //     return;
+    // }
+
+
     const statusFilter = document.querySelector('#select-schedule-status').value;
 
     let filteredAppointments = (await fetchAppointments())
@@ -21,7 +29,7 @@ const displayTaskList = async () => {
 
     // Sort so incomplete is first
     filteredAppointments.sort((a, b) => {
-        if (a.appointmentStatus === 'completed' && b.appointmentStatus !== 'completed') return 1;
+        if (a.appointmentStatus === 'completed' && b.appointmentStatus !== 'completed' ) return 1;
         if (a.appointmentStatus !== 'completed' && b.appointmentStatus === 'completed') return -1;
         return 0;
     });
@@ -124,6 +132,8 @@ const displayTaskList = async () => {
 };
 
 // Listen for dropdown changes
-//document.querySelector('#select-schedule-status').addEventListener('change', displayTaskList);
-
+const selectStatus = document.querySelector('#select-schedule-status');
+    if (selectStatus) {
+        selectStatus.addEventListener('change', displayTaskList);
+    }
 export default displayTaskList;

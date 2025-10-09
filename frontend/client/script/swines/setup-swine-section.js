@@ -219,15 +219,30 @@ const preDisplaySwineProfileImg = () => {
 
   swineProfileImgInput.addEventListener('change', function () {
     const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.addEventListener('load', function () {
-        swineProfileImg.src = reader.result;
-      });
-      reader.readAsDataURL(file);
-    } else {
+
+    if (!file) {
       swineProfileImg.src = 'images-and-icons/icons/swine-image.png';
+      return;
     }
+
+    // ✅ Allowed file types
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
+    // ✅ Validate file type
+    if (!allowedTypes.includes(file.type)) {
+      popupAlert('error', 'Error' ,'Invalid image extension! Please upload a JPG, JPEG, or PNG file.');
+      this.value = ''; // clear the input
+      swineProfileImg.src = 'images-and-icons/icons/swine-image.png';
+      return;
+    }
+
+    // ✅ Preview the image if valid
+    const reader = new FileReader();
+    reader.addEventListener('load', function () {
+      swineProfileImg.src = reader.result;
+    });
+    reader.readAsDataURL(file);
+
   });
 };
 

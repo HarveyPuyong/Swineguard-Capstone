@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
     <link rel="stylesheet" href="styles/sections-style/notification.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
+    <link rel="stylesheet" href="styles/sections-style/monitoring-section.css">
 
     <title>Technian Page</title>
 
@@ -66,6 +67,10 @@
            <li class="side-nav__link" data-value="schedule-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/schedule (1).png" alt="schedule-icon">
             <p class="side-nav__link-label">Schedule</p>
+          </li>
+          <li class="side-nav__link" data-value="monitoring-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/monitoring-swine.png" alt="setting-icon">
+            <p class="side-nav__link-label">Swine Monitoring</p>
           </li>
           <li class="side-nav__link" data-value="setting-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="setting-icon">
@@ -126,7 +131,7 @@
           <select name="select-schedule-status" id="select-schedule-status">
             <option value="">All</option>
             <option value="incomplete">Incomplete</option>
-            <option value="completed">Complete</option>
+            <option value="completed">Completed</option>
           </select>
 
           <div class="schedule-list">
@@ -175,10 +180,19 @@
                 <option value="deceased">Deceased</option>
               </select>
 
-              <span class="detail-label">Cause:</span>
-              <input type="text" id="completeTaskForm__cause-of-death" placeholder="Cause of deaths or Illnes">
-            </div>
+              <label class="detail-label__cause-of-death hide">Cause:
+                <input type="text" id="completeTaskForm__cause-of-death" placeholder="Cause of deaths or Illnes">
+              </label>
 
+              <label class="detail-label__num-of-deaths hide">Number of Deaths:
+                <input type="text" id="completeTaskForm__num-of-death" placeholder="Death count.">
+              </label>
+
+              <div class="check-box__swine-Ids hide">
+                <!-- swine-checkboxes.js -->
+              </div>
+
+            </div>
 
             <div class="complete-task-form__btn">
               <button type="submit" id="complete-task-form__complete-btn">Complete</button>
@@ -186,6 +200,41 @@
             </div>
             <button type="button" id="complete-task-form__monitoring-btn">Mark as under monitoring</button>
           </form>
+
+        </section>
+
+        <!-- ========== Swine Monitoring Section ========== -->
+        <section id="monitoring-section" class="hide">
+          <h1 class="section__heading">Swine Monitoring</h1>
+
+          <div class="swine-monitoring-list">
+            <!-- create-swine-monitoring-list.js -->
+          </div>
+
+          <div class="update-monitoring__client-swine">
+            <form id="update-swine__monitoring">
+              <h2>Update Swine Health</h2>
+              <p>Swine: <span  id="swine-four__digit-id">G12345</span></p><br>
+              <span class="detail-label">Health Status</span>
+              <select class="detail-value" id="update-form-monitoring__select-swine-health-status">
+                <option value="">Select here</option>
+                <option value="healthy">Healthy</option>
+                <option value="sick">Sick</option>
+                <option value="deceased">Deceased</option>
+              </select>
+              
+              <div class="monitoring__cause-input">
+                <label class="monitoring__cause">Cause:</label>
+                <input type="text" id="update-form__monitoring-cause" class="monitoring__cause"  placeholder="Cause of deaths or Illnes">
+              </div>
+
+              <div class="monitoring__btn-container">
+                <button type="button" id="edit-form-monitoring__cancel-btn">Cancel</button>
+                <button type="submit" id="edit-form-monitoring__update-btn">Update</button>
+              </div>
+              
+            </form>
+          </div>
 
         </section>
 

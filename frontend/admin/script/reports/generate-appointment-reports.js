@@ -263,7 +263,6 @@ const renderAppointmentReportTable = async (appointments) => {
       { title: "Female", field: "swineFemale", hozAlign: "center" },
       { title: "Age (months)", field: "swineAge", hozAlign: "center" },
       { title: "Date", field: "date", hozAlign: "center"},
-      { title: "Dosage", field: "dosage", hozAlign: "center" },
       { title: "Medicine", field: "medicineName", hozAlign: "center" },
       { title: "Vet Personnel", field: "vetName" }
     ]

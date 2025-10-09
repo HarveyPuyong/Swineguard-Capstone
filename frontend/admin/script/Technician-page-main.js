@@ -5,6 +5,7 @@ import setupVeterinarian from "./veterinarian/setup-veterinarian.js";
 import {fetchAppointments} from "./../api/fetch-appointments.js"
 import fetchUser from "./auth/fetchUser.js";
 import {handleNotification, displayVetNotification} from "./notification/handle-notification.js";
+import setupSwineMonitoring from "./veterinarian/monitoring/setup-monitoring.js";
 
 const filteredNotification = async() => {
   const admin = await fetchUser();
@@ -20,7 +21,7 @@ setupSettingsSection();
 setupVeterinarian();
 handleNotification();
 filteredNotification();
-
+setupSwineMonitoring();
 
 
 // appointment complete status donot chart

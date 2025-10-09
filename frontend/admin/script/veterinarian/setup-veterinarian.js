@@ -250,6 +250,13 @@ const setupPersonnelCompleteForm = async (appointmentId) => {
 };
 
 
+// ======================================
+// Filtering for complete and pending
+// ======================================
+const filterTaskList = () => {
+    
+}
+
 
 // ======================================
 // ✅ Event listener for dynamic content

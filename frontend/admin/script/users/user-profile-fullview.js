@@ -34,14 +34,14 @@ const handleUserFullview = async (userId) => {
             <div class="main-info-container__user-pic">
                 <img class="main-info-container__user-pic--img" src="${user.profileImage ? '/uploads/' + user.profileImage : './images-and-icons/icons/default-profile.png'}" alt="user-picture">
                 <label class="main-info-container__user-pic--upload" title="change photo">
-                    <input type="file" hidden />
+                    <input type="file" hidden disabled/>
                     <i class="fas fa-camera icon"></i> 
                 </label>
                 </div>
 
                 <div class="main-info-container__details">
                 <h4 class="main-info-container__user-name">${user.firstName} ${user.middleName?.charAt(0).toUpperCase() || ''}. ${user.lastName} ${user.suffix || ''}</h4>
-                <p class="main-info-container__user-id">${user._id}</p>
+                <p class="main-info-container__user-id"><i>${user._id}</i></p>
                 <p class="main-info-container__user-email">${user.email}</p>
             </div>
 

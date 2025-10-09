@@ -45,22 +45,27 @@ const handleCompleteAppointment = async(e) => {
 
     if (response.status === 200) {
       // Update Swine When Appointment is completed
-      await api.patch(`/swine/update/is-under/monitoring`, {
-        swineIds: selectedSwines,
-        status: formData.healthStatus,
-        cause: formData.causeOfDeath
-      });
+      if (selectedSwines > 0) {
+        await api.patch(`/swine/update/is-under/monitoring`, {
+          swineIds: selectedSwines,
+          status: formData.healthStatus,
+          cause: formData.causeOfDeath
+        });  
+      }
 
-      console.log(selectedSwines);
+      //console.log(selectedSwines);
     
       popupAlert('success', 'Success!', 'Appointment Completed successfully').then(() => {
+
         updatedItemQuantity(itemId, formData.medicineAmount); // Subtract to the database
+
         medicineSelectElement.innerHTML = '<option value="">Select medicine</option>';
         completeTaskForm.reset();
         handleRenderAppointments();
         appointmentsDashboard();
         displayTaskList();
         completeTaskForm.classList.remove('show');
+
       });
     }
   } catch (err) {

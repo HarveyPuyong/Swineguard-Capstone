@@ -3,6 +3,7 @@ import {displayClientProfileSetting, displayClientName} from "./setting/display-
 import handleClientEditSettings from "./setting/edit-user-profile.js";
 import addressesData from "../../admin/static-data/addresses.js";
 import fetchClient from "./auth/fetch-client.js";
+import popupAlert from "../client-utils/client-popupAlert.js";
 
 // ======================================
 // ========== Hide Profile Container
@@ -119,20 +120,32 @@ const preDisplayProfileImg = () => {
 
   profileImgInput.addEventListener('change', function () {
     const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-
-      reader.addEventListener('load', function () {
-        profileImg.src = reader.result;
-      });
-
-      reader.readAsDataURL(file); // Read file as data URL
-    } else {
+    
+    if (!file) {
       profileImg.src = 'images-and-icons/icons/default-profile.png';
-      return
+      return;
     }
+
+    // ✅ Allowed file types
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
+    // ✅ Validate file type
+    if (!allowedTypes.includes(file.type)) {
+      popupAlert('error', 'Error' ,'Invalid image extension! Please upload a JPG, JPEG, or PNG file.');
+      this.value = ''; // clear the input
+      profileImg.src = 'images-and-icons/icons/default-profile.png';
+      return;
+    }
+
+    // ✅ Preview the image if valid
+    const reader = new FileReader();
+    reader.addEventListener('load', function () {
+      profileImg.src = reader.result;
+    });
+    reader.readAsDataURL(file);
   });
 }
+
 
 
 // ======================================

@@ -34,6 +34,7 @@
     margin-bottom: .2rem;
 }
 
+
 .notif h2{
   margin: 0; /* removes default browser margins */
   padding: 0.3rem; /* optional: your own spacing */
@@ -56,6 +57,14 @@
     padding: 1rem;
     cursor: pointer;
 }
+
+.notif.notif--danger {
+  background-color: #ff8686ce;
+}
+.notif.notif--danger .notif-short-text {
+  color: #131313;
+}
+
 .notif-title {
     font-weight: 600;
     font-size: 1rem;

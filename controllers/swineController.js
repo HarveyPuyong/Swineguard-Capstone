@@ -407,6 +407,10 @@ exports.updateSwineTypes = async (req, res) => {
         let updated = 0;
 
     for (let swine of swines) {
+        if (swine.status === 'sold' || swine.status === 'deceased') {
+            continue;
+        }
+
         const newType = getSwineType(swine.birthdate, swine.sex);
 
         if (swine.type !== newType) {

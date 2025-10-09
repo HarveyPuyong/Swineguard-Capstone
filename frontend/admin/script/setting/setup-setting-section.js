@@ -1,6 +1,7 @@
 import displaySetting from "./display-setting.js";
 import handleEditSettings from "./edit-setting.js";
 import addressesData from "../../static-data/addresses.js";
+import popupAlert from "../../utils/popupAlert.js";
 
 
 const handleUpdateButtons = () => {
@@ -99,27 +100,59 @@ const populateAddresses = () => {
 // ======================================
 // ========== Pre Display user profile input
 // ======================================
-const preDisplayProfileImg = () => {
+// const preDisplayProfileImg = () => {
 
-  const profileImgInput =  document.querySelector('#admin__profile-image-input');
+//   const profileImgInput =  document.querySelector('#admin__profile-image-input');
+//   const profileImg = document.querySelector('#appointment-coordinator__profile-image');
+
+//   profileImgInput.addEventListener('change', function () {
+//     const file = this.files[0];
+//     if (file) {
+//       const reader = new FileReader();
+
+//       reader.addEventListener('load', function () {
+//         profileImg.src = reader.result;
+//       });
+
+//       reader.readAsDataURL(file); // Read file as data URL
+//     } else {
+//       profileImg.src = 'images-and-icons/icons/default-profile.png';
+//       return
+//     }
+//   });
+// }
+const preDisplayProfileImg = () => {
+  const profileImgInput = document.querySelector('#admin__profile-image-input');
   const profileImg = document.querySelector('#appointment-coordinator__profile-image');
 
   profileImgInput.addEventListener('change', function () {
     const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
 
-      reader.addEventListener('load', function () {
-        profileImg.src = reader.result;
-      });
-
-      reader.readAsDataURL(file); // Read file as data URL
-    } else {
+    if (!file) {
       profileImg.src = 'images-and-icons/icons/default-profile.png';
-      return
+      return;
     }
+
+    // ✅ Allowed file types
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
+    // ✅ Validate file type
+    if (!allowedTypes.includes(file.type)) {
+      popupAlert('error', 'Error' ,'Invalid image extension! Please upload a JPG, JPEG, or PNG file.');
+      this.value = ''; // clear the input
+      profileImg.src = 'images-and-icons/icons/default-profile.png';
+      return;
+    }
+
+    // ✅ Preview the image if valid
+    const reader = new FileReader();
+    reader.addEventListener('load', function () {
+      profileImg.src = reader.result;
+    });
+    reader.readAsDataURL(file);
   });
-}
+};
+
 
 
 document.addEventListener('renderSettings', () => {
