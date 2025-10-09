@@ -11,6 +11,7 @@ import {handleNotification, displayClientNotificationList} from '../../admin/scr
 import fetchClient from './auth/fetch-client.js';
 import handleClientSchedule from './calendar/setup-client-calendar.js';
 import swineRecords from './records/swine-all-records.js';
+import reminders from './dashboard/reminder-list.js';
 
 
 const filteredNotification = async() => {
@@ -34,4 +35,5 @@ handleNotification();
 filteredNotification();
 handleClientSchedule();
 swineRecords();
+reminders();
 

@@ -20,4 +20,35 @@ const calculateUserAge = (birthdate) => {
     return userAge;
 }
 
-export { calculateSwineAge, calculateUserAge };
+function getAgeText(birthDate) {
+    if (!birthDate) return "age unknown";
+
+    const birth = new Date(birthDate);
+    const today = new Date();
+
+    // Calculate total difference in months and days
+    let months =
+    (today.getFullYear() - birth.getFullYear()) * 12 +
+    (today.getMonth() - birth.getMonth());
+
+    let days = today.getDate() - birth.getDate();
+
+    // Adjust if days go negative
+    if (days < 0) {
+    months--;
+    const prevMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+    days += prevMonth.getDate();
+    }
+
+    if (months < 0) return "invalid date";
+
+    // Build readable text
+    let ageText = "";
+    if (months > 0) ageText += `${months} month${months > 1 ? "s" : ""}`;
+    if (days > 0) ageText += `${months > 0 ? " and " : ""}${days} day${days > 1 ? "s" : ""}`;
+    if (!ageText) ageText = "0 days old";
+
+    return ageText;
+}
+
+export { calculateSwineAge, calculateUserAge, getAgeText };

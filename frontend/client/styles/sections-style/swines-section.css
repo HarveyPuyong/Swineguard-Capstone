@@ -156,6 +156,7 @@
   padding-bottom: 20px;
   overflow-y: scroll;
   z-index: 100;
+  max-height: 550px;
 }
 
 .add-swine-form.show{
@@ -191,6 +192,7 @@
   height: var(--size);
   border-radius: 50px;
   margin-bottom: 25px;
+  object-fit: cover;
 }
 
 .add-swine-form__info-label{

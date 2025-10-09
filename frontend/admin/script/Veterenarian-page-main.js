@@ -8,6 +8,8 @@ import fetchUser from "./auth/fetchUser.js";
 import handleLogout from "./auth/logout.js";
 import {handleNotification, displayVetNotification} from "./notification/handle-notification.js";
 import { veterinarianNotifListener } from "./notification/notification-listener.js";
+import setupSwineMonitoring from "./veterinarian/monitoring/setup-monitoring.js";
+
 
 const filteredNotification = async() => {
   const admin = await fetchUser();
@@ -26,6 +28,7 @@ setupVeterinarian();
 handleNotification();
 filteredNotification();
 veterinarianNotifListener();
+setupSwineMonitoring();
 
 
 

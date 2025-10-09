@@ -18,7 +18,7 @@ const displaySwineList = async () => {
 
     // Fetch all swine for the client
     const swines = await fetchSwines();
-    const filteredSwines = swines.filter(swine => swine.status !== 'sold' || swine.status !== 'deceased');
+    const filteredSwines = swines.filter(swine => swine.status !== 'sold' && swine.status !== 'deceased' && swine.isUnderMonitoring !== true);
 
     const availableSwines = filteredSwines.filter(swine =>
       swine.clientId === clientId &&

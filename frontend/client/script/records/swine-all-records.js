@@ -16,6 +16,7 @@ const clientSwines = swines.filter(swine => swine.clientId === clientId && ((swi
 const swineTotal = swines.filter(swine => swine.clientId === clientId && (swine.status !== 'sold' && swine.status !== 'deceased'));
 const soldSwines = swines.filter(swine => swine.clientId === clientId && swine.status === 'sold');
 const deceasedSwines = swines.filter(swine => swine.status === 'deceased');
+const underMonitoring = swines.filter(swine => swine.isUnderMonitoring === true);
 
 
 // ======================================
@@ -105,7 +106,7 @@ const displaySoldSwine = () => {
 
 
 // ======================================
-// ========== Already Sold Swine
+// ========== Deceased Swine
 // ======================================
 const displayDeceasedSwine = () => {
     let deceasedSwineHTML = '';
@@ -139,9 +140,46 @@ const displayDeceasedSwine = () => {
 }
 
 
+// ======================================
+// ========== Sick and Under Monitoring Swine
+// ======================================
+const displayUnderMonitoringSwine = () => {
+    let underMonitoringSwineHTML = '';
+
+    if(underMonitoring.length === 0 ) {
+        underMonitoringSwineHTML = `
+            <div class="sick-swine__container">
+                <div class="sick-swine__no-swine">
+                    <p>No Sick or Under Monitoring Swine</p>
+                </div>
+            </div>
+        `;
+    }
+
+    underMonitoring.forEach(swine => {
+        underMonitoringSwineHTML += `
+            <div class="client-swine">
+                <div class="progress-header">
+                    <img class="swine-card-record__image" src="${swine.swineProfileImage ? '/uploads/' + swine.swineProfileImage : 'images-and-icons/icons/swine-image.png'}" alt="swine-image">
+                    <div class="left">
+                        <p class="swine-four-digit-id">${swine.type.charAt(0).toUpperCase()}${swine.swineFourDigitId}</p>
+                        <p>${swine.type.charAt(0).toUpperCase()}${swine.type.slice(1)}</p>
+                    </div>
+                    <span class="line"></span>
+                    <div class="right">
+                        <p>${formatDate(swine.updatedAt)}</p>
+                    </div>
+                </div>
+            </div>
+        `;
+    });
+    document.querySelector('.under-monitoring-swine__container').innerHTML = underMonitoringSwineHTML;
+}
+
 
 export default function swineRecords() {
     displayReadyToSellSwine();
     displaySoldSwine();
     displayDeceasedSwine();
+    displayUnderMonitoringSwine();
 }

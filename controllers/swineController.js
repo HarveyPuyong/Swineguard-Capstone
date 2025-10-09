@@ -516,3 +516,36 @@ exports.underMonitoringSwinesSecondAction = async (req, res) => {
     res.status(500).json({ error: "Failed to update swines for monitoring second." });
   }
 };
+
+
+// update swine status and is underMOnitoring
+exports.updateSwineStatus = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const { status, cause } = req.body;
+
+        const swineData = { status, cause, isUnderMonitoring: false }
+
+        if (!status || status.trim() === '') return res.status(404).json({ message: 'Swine status is required!' });
+        if (!cause || cause.trim() === '') return res.status(404).json({ message: 'Cause is required!' });
+
+        const update = await swineSchema.findByIdAndUpdate(
+            id,
+            swineData,
+            { new: true }
+        );
+
+        if (!update) {
+            return res.status(404).json({ error: "Appointment not found" });
+        }
+
+        res.status(200).json({
+            message: "Appointment restored successfully.",
+            data: update
+        });
+
+    } catch (err) {
+        console.error("❌ Error monitoring swines:", err.message);
+        res.status(500).json({ error: "Failed to update swines for monitoring." });
+    }
+}

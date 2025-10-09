@@ -45,13 +45,19 @@
   margin-bottom: 40px;
 }
 
-.upcoming-vaccinations-list-heading{
+.upcoming-vaccinations-list-heading,
+.reminder-list-heading{
   color: rgb(127, 0, 0);
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.upcoming-vaccinations-list{
+.reminder-list-heading {
+  margin-top: 1rem;
+}
+
+.upcoming-vaccinations-list,
+.reminder-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
   gap: 15px;
@@ -64,7 +70,8 @@
   padding: 2%;
 }
 
-.upcoming-vaccinations-list .vaccination{
+.upcoming-vaccinations-list .vaccination,
+.reminder-list .reminder{
   background-color: #9de3be;
   border-radius: 3px;
   font-size:  clamp(0.9rem, 2vw, 1rem);

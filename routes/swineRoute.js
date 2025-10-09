@@ -35,4 +35,6 @@ router.patch('/is-under/monitoring', swineController.underMonitoringSwines) // u
 
 router.patch('/update/is-under/monitoring', swineController.underMonitoringSwinesSecondAction) // update swines as under monitoring
 
+router.put('/update/swine/status/:id', swineController.updateSwineStatus) // update swines as under monitoring
+
 module.exports = router;
