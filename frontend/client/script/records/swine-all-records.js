@@ -6,6 +6,8 @@ import { formatDate } from "../../client-utils/checkDates.js";
 const client = await fetchClient();
 const clientId = client._id;
 
+console.log(clientId);
+
 // Max weight to sell
 const Min_Swine_Weight = 50;
 const Max_Swine_Weight = 100;
@@ -15,8 +17,8 @@ const swines = await fetchSwines();
 const clientSwines = swines.filter(swine => swine.clientId === clientId && ((swine.status === 'healthy' && swine.type === 'grower') && swine.weight >= Min_Swine_Weight)).sort((a, b) => b.weight - a.weight);
 const swineTotal = swines.filter(swine => swine.clientId === clientId && (swine.status !== 'sold' && swine.status !== 'deceased'));
 const soldSwines = swines.filter(swine => swine.clientId === clientId && swine.status === 'sold');
-const deceasedSwines = swines.filter(swine => swine.status === 'deceased');
-const underMonitoring = swines.filter(swine => swine.isUnderMonitoring === true);
+const deceasedSwines = swines.filter(swine => swine.clientId === clientId && swine.status === 'deceased');
+const underMonitoring = swines.filter(swine => swine.clientId === clientId && swine.isUnderMonitoring === true);
 
 
 // ======================================

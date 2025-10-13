@@ -79,5 +79,8 @@ app.use(errorHandler);
 
 mongoose.connection.once('open', () => {
   console.log(`Connected to MongoDB database: ${mongoose.connection.name}`);
-  app.listen(PORT, () => console.log(`Server is listen to port: http://localhost:${PORT}`));
+  // app.listen(PORT, () => console.log(`Server is listen to port: http://localhost:${PORT}`));
+  app.listen(PORT, '0.0.0.0', () => 
+    console.log(`Server is listening on: http://0.0.0.0:${PORT}`)
+  );
 });
