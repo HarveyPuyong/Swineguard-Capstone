@@ -5,7 +5,7 @@ const serviceSchema = new mongoose.Schema({
     serviceName: { type: String, required: true },
     description: { type: String, required: true },
 
-    //applicableItemTypes: [{ type: String }],
+    withClinicalSigns: { type: Boolean, default: false },
     serviceType: { type: String, required: true}
 
 }, { collection: 'services', timestamps: true });   

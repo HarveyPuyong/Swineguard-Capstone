@@ -532,6 +532,7 @@
 
 
 @media(width >= 500px){
+  
   .add-swine-form__info {
     grid-template-columns: 1fr 1fr;
   }

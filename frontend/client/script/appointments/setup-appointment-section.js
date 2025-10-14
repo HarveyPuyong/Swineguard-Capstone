@@ -66,6 +66,9 @@ const setupRequestAppointmentForm = async () => {
 
     const serviceType = selectedService ? selectedService.serviceType : "Not set";
     serviceTypeInput.value = serviceType;
+
+    toggleClinicalSigns(selectedService.withClinicalSigns);
+    
   });
 
   
@@ -81,7 +84,9 @@ const toggleRequestAppointmentForm = async() => {
   const form = document.querySelector('#request-appointment-form');
 
   const showFormBtn = document.querySelector('.request-appointment-btn').
-    addEventListener('click', () => form.classList.add('show'));
+    addEventListener('click', () => {  
+      form.classList.add('show');
+    });
 
   const closeFormBtn = document.querySelector('.request-appointment-form__back-btn').
     addEventListener('click', () => {
@@ -97,6 +102,16 @@ const toggleRequestAppointmentForm = async() => {
 document.addEventListener('renderClientAppointmentList', () => {
   toggleAppointmentMoreDetails(); 
 });
+
+
+// ======================================
+// Handle Clinical sign toggle
+// ======================================
+const toggleClinicalSigns = (BoolValue) => {
+  const clinicalSignContainer = document.querySelector('#form-detail__clinical-signs');
+  
+  clinicalSignContainer.style.display = BoolValue ? 'block' : 'none';
+}
 
 
 

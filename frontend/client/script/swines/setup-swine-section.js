@@ -98,7 +98,7 @@ const toggleAddSwineForm = () => {
     addEventListener('click', () => form.classList.add('show'));
   
   const closeFormBtn = document.querySelector('.add-swine-form__back-btn').
-    addEventListener('click', () => form.classList.remove('show'));
+    addEventListener('click', () =>  form.classList.remove('show'));
 }
 
 

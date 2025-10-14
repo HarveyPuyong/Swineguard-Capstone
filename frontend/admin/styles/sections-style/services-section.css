@@ -262,19 +262,21 @@
   user-select: none;
 }
 
-.service-type {
+.service-type, .service-with__clinical-signs {
   display: flex;
   gap: 1rem;
   align-items: center;
 }
 
-.service-type .radio-group {
+.service-type .radio-group, 
+.service-with__clinical-signs .radio-group {
   display: flex;
   align-items: center;
   gap: 0.4rem;
 }
 
-.service-type span {
+.service-type span,
+.service-with__clinical-signs span {
   font-weight: 600;
 }
 

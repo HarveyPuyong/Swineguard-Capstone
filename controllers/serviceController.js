@@ -5,7 +5,7 @@ const { isValidInput, containsEmoji, hasNumber, containsSpecialChar }= require('
 
 // Add Services
 const addServices = async (req, res) => {
-    const { serviceName, description, serviceType } = req.body;
+    const { serviceName, description, serviceType, withClinicalSigns } = req.body;
 
     // Check the length of inputs
     if (!isValidInput(serviceName) || !isValidInput(description)) return res.status(400).json({ message: 'Please provide valid and longer input.'});
@@ -28,7 +28,7 @@ const addServices = async (req, res) => {
         if(existingServices) return res.status(409).json({message: "Service already exists."});
 
         //Proceed to saving
-        const newService = new serviceDB ({ serviceName, description, serviceType });
+        const newService = new serviceDB ({ serviceName, description, serviceType, withClinicalSigns });
         await newService.save();
         return res.status(201).json({ 
             service: newService, 
@@ -47,7 +47,7 @@ const addServices = async (req, res) => {
 // Edit Services
 const editServices = async (req, res) => {
     const { id } = req.params;
-    const { serviceName, description } = req.body;
+    const { serviceName, description, withClinicalSigns } = req.body;
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(400).json({ message: 'Invalid service ID format.' });
 
     // Check the length of inputs
@@ -65,7 +65,7 @@ const editServices = async (req, res) => {
     try {
         // Check services id if exist
         const updatedService = await serviceDB.findByIdAndUpdate( id, {
-            serviceName, description 
+            serviceName, description, withClinicalSigns 
         }, { new: true});
 
         if (!updatedService) return res.status(404).json({ message: 'Services not found.' });

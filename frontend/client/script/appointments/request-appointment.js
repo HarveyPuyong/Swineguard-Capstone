@@ -114,6 +114,7 @@ const sendRequestAppointment = () => {
         displayAppointmentCardList();
         appointmentForm.classList.remove('show');
         displaySwineList();
+        document.body.classList.remove('modal-open');
       }
 
     } catch (error) {

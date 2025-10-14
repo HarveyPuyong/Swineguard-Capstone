@@ -7,10 +7,12 @@ function handleEditService (serviceId){
 
   editServiceForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const selectedRadio_With_ClinicalSigns = editServiceForm.querySelector('input[name="edit__clinical-signs"]:checked');
     
     const serviceFormData = {
       serviceName: editServiceForm.querySelector('.service-name-input').value.trim(),
-      description: editServiceForm.querySelector('.service-description-input').value.trim()
+      description: editServiceForm.querySelector('.service-description-input').value.trim(),
+      withClinicalSigns: selectedRadio_With_ClinicalSigns.value,
     }
 
     try {

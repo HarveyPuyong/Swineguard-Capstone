@@ -210,7 +210,7 @@
 
 .request-appointment-form__swines-list--grid{
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   row-gap: 15px;
   column-gap: 15px;
   padding: var(--container-padding);
@@ -249,6 +249,10 @@
 .form-detail{
   margin-bottom: 25px;
   width: 100%;
+}
+
+.form-detail.clinical-signs {
+  display: none;
 }
 
 .request-appointment-form .form-detail__label{
@@ -363,7 +367,7 @@
 
 
 
-@media(width >= 500px){
+@media(min-width: 500px){
   .request-appointment-form .form-group-detail{
     display: flex;
     width: 100%;
@@ -371,7 +375,7 @@
   }
 }
 
-@media(width >= 700px){
+@media(min-width: 700px){
   .request-appointment-form{
     top: 51%;
     left: 50%;
@@ -382,10 +386,14 @@
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.493);
     padding: 25px 35px;
   }
+
+  .request-appointment-form__swines-list--grid {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
 
-@media(width >= 800px){
+@media(min-width: 800px){
   .appointments-card-list{
     grid-template-columns: 1fr 1fr;
   }
@@ -397,7 +405,7 @@
 }
 
 
-@media(width >= 1170px){
+@media(min-width: 1170px){
   .appointments-card-list{
     grid-template-columns: 1fr 1fr 1fr;
   }
@@ -421,3 +429,4 @@
   font-size: 1.3rem;
   font-weight: 800;
 }
+
