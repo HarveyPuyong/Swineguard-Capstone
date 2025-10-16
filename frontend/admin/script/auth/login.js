@@ -3,6 +3,8 @@ import api from '../../utils/axiosConfig.js';
 import fetchUser from './fetchUser.js';
 import popupAlert from '../../utils/popupAlert.js';
 
+//console.log('BASE_URL:', process.env.BASE_URL);
+
 // ======================================
 // ========== Ridirect To Assign Role If Have Access Token
 // ======================================

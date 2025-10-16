@@ -14,8 +14,66 @@
   display: flex;
   gap: 10px;
   height: 33px;
-  margin-bottom: 35px;
+  margin-bottom: 15px;
 }
+
+
+
+/* 
+--color: rgb(0, 153, 71); --BGcolor: rgba(29, 255, 135, 0.13);
+--color: rgb(153, 115, 0); --BGcolor: rgba(255, 191, 0, 0.30);
+--color: rgb(230, 7, 7); --BGcolor: rgba(226, 35, 35, 0.23);
+*/
+
+.filtering-tab__btn {
+  display: flex;
+  position: absolute;
+  right: 55px;
+  top: 65px;
+  border-radius: 8px;
+  border: 2px solid var(--main-color);
+  gap: 2px;
+  background-color: var(--main-color);
+}
+.filtering-tab__btn button {
+  width: 200px;
+  text-align: center;
+  padding: 10px 0;
+  cursor: pointer;
+  border: none;
+  color: var(--main-color);
+  background-color: #ffffff;
+}
+
+.in-stock__btn {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.out-of-stock__btn {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.in-stock__btn.active {
+  background-color: var(--main-color);
+  color: #ffffff;
+}
+.less-stock__btn.active {
+  background-color: var(--main-color);
+  color: #ffffff;
+}
+.out-of-stock__btn.active {
+  background-color: var(--main-color);
+  color: #ffffff;
+}
+
+
+
+
+
+
+
+
 
 .inventory-section__search{
   position: relative;
@@ -266,7 +324,8 @@
   text-align: center;
   padding: 20px 25px;
   gap: 0.5rem;
-  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.276);
+  /* box-shadow: 1px 2px 12px 2px rgba(97, 97, 97, 0.5); */
+  border: 2px solid #b6b6b6;
 }
 
 /* Gap for meds */
@@ -328,17 +387,6 @@
 .inventory-table .th.status,
 .inventory-table .td.status {
   width: var(--status);
-}
-
-.inventory-table .td.status{
-  --color: /* modify in js */; 
-  --BGcolor: /* modify in js */;
-
-  color: var(--color);
-  background-color: var(--BGcolor);
-  border: 1px solid var(--color);
-  border-radius: 3px;
-  padding: 3px 2px;
 }
 
 .inventory-table .th.created-date,

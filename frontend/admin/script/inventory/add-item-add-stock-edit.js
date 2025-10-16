@@ -2,7 +2,6 @@ import api from "../../utils/axiosConfig.js"
 import handleRenderInventory from "./display-inventory.js";
 import { createInventoryTable } from "./create-inventory-table.js";
 import popupAlert from "../../utils/popupAlert.js";
-import { checkExpiryDate } from "../../utils/check-expiration-date.js"; // if you have this
 
 
 
@@ -23,13 +22,7 @@ const addItem = async (medicineId) => {
       quantity: document.querySelector('#item-quantity-input').value.trim(),
       expiryDate: document.querySelector('#item-expiry-input').value.trim(),
     };
-    console.log(itemFormData);
-
-    // ✅ Local validation first
-    if (checkExpiryDate(itemFormData.expiryDate)) {
-      popupAlert('error', 'Invalid Date', 'Expiry date must be at least 8 days ahead and within 1 year.');
-      return; // stop here, keep listener alive
-    }
+    //console.log(itemFormData);
     
 
     try {
@@ -47,7 +40,8 @@ const addItem = async (medicineId) => {
     } catch (error) {
       console.log(error);
       const errMessage = error.response?.data?.message || error.response?.data?.error || "Something went wrong";
-      popupAlert('error', 'Error!', errMessage);
+      popupAlert('error', 'Failed', errMessage);
+      document.getElementById('item-expiry-input').value = '';
     }
   };
 };

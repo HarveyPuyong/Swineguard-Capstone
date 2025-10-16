@@ -58,7 +58,7 @@ exports.AddItem = async (req, res) => {
 
     // Validate expiry
     if (!checkExpiryDate(expiryDate)) {
-      return res.status(400).json({ message: "Expiration must be a future date" });
+      return res.status(400).json({ message: "Expiration must be 1 month ahead or future date" });
     }
 
     // Convert to numbers

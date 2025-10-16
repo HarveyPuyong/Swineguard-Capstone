@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="styles/sections-style/setting-section.css">
     <link rel="stylesheet" href="styles//sections-style/notification.css">
 
+    <link rel="icon" type="image/png" href="images-and-icons/icons/swineGuard-logo.png">
+
     <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
@@ -116,24 +118,12 @@
             <button class="inventory-section__add-btn">Add</button>
           </div>
 
-          <!-- inventory sorting-->
-          <div class="inventory-sorting">
-            <p class="inventory-sorting__label">Sort by:</p>
-            <select class="inventory-sorting__select" name="inventory-sorting" id="inventory-sorting-select">
-              <option value="default">Default</option>
-              <option value="medicine-name">Medicine Name</option>
-              <option value="quantity">Quantity</option>
-            </select>
-          </div>
-
           <!-- filter inventory -->
-          <select class="filter-inventory-status" name="inventory-filter" id="inventory-filter">
-            <option value="all">All</option>
-            <option value="in-stock">In Stock</option>
-            <option value="less-stock">Less Stock</option>
-            <option value="out-of-stock">Out of Stock</option>
-            <option value="expired">Expired</option>
-          </select>
+          <div class="filtering-tab__btn">
+            <button type="button" class="in-stock__btn active">In Stock</button>
+            <button type="button" class="less-stock__btn">Less Stock</button>
+            <button type="button" class="out-of-stock__btn">Out of Stock</button>
+          </div>
 
           <!-- add medicine form -->
           <form id="add-medicine-form" class="add-medicine-form medicine-form">

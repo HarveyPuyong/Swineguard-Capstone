@@ -61,6 +61,10 @@
   width: var(--sidenav-link-icon);
 }
 
+.side-nav__link.active img {
+  filter: brightness(0) invert(1);
+}
+
 .side-nav__link-label{
   display: none;
   font-size: 0.9rem;

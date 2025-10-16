@@ -12,6 +12,7 @@ import { addItem, addStock, setupAddStockFormListener,
 
 import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
 
+
 // ======================================
 // ========== Search Inventory
 // ======================================
@@ -41,119 +42,6 @@ const searchInventory = () => {
     });
   });
 };
-
-// ======================================
-// ========== Filter Inventory
-// ======================================
-const filterInventory = () => {
-  const selectStatus = document.querySelector('.filter-inventory-status');
-
-  selectStatus.addEventListener('change', () => {
-    const selectedValue = selectStatus.value.toLowerCase();
-    setStatusColor(selectedValue, selectStatus);
-
-    document.querySelectorAll('#inventory-section .inventory-table .medicine .td.status')
-      .forEach(status => {
-        const statusValue = status.getAttribute('data-status-value');
-        const medicineItem = status.parentElement;
-        medicineItem.style.display = 'none';
-
-        if(selectedValue === 'all'){
-          medicineItem.style.display = 'flex'
-        } else if (selectedValue === statusValue) {
-          medicineItem.style.display = 'flex';
-        }
-    });
-  });
-}
-
-
-// ======================================
-// ========== Inventory Sorting
-// ======================================
-const inventorySorting = () => {
-  document.addEventListener('renderInventoryPreHeading', () => {
-    const sortingSelect = document.querySelector('.inventory-sorting__select');
-    const inventoryTable = document.querySelector('#inventory-section .inventory-table__tbody');
-
-    if (!sortingSelect || !inventoryTable) return;
-
-    // Save original order
-    const originalInventory = Array.from(inventoryTable.children).map(el => el.cloneNode(true));
-
-    sortingSelect.addEventListener('change', () => {
-      const selectedSort = sortingSelect.value;
-      let sortedInventories;
-
-      if (selectedSort === 'default') {
-        // Restore to original order
-        inventoryTable.innerHTML = '';
-        originalInventory.forEach(item => inventoryTable.appendChild(item.cloneNode(true))); // use clones again
-        return;
-      }
-
-      const inventories = Array.from(inventoryTable.querySelectorAll('.medicine'));
-
-      const getText = (el, selector) => el.querySelector(selector)?.textContent.trim().toLowerCase() || '';
-      const parseDate = (el, selector) => new Date(el.querySelector(selector)?.textContent.trim());
-
-      sortedInventories = inventories.sort((a, b) => {
-        switch (selectedSort) {
-          case 'medicine-name':
-            return getText(a, '.medicine-name').localeCompare(getText(b, '.medicine-name'));
-          case 'quantity':
-            return parseInt(getText(a, '.quantity')) - parseInt(getText(b, '.quantity'));
-          default:
-            return 0;
-        }
-      });
-
-      // Re-render sorted inventories
-      inventoryTable.innerHTML = '';
-      sortedInventories.forEach(item => inventoryTable.appendChild(item));
-    });
-
-    displayMedicineTable();
-    changeStatusColor();
-  });
-};
-
-
-// ======================================
-// ========== Set Status Color
-// ======================================
-const setStatusColor = (statusValue, element) => {
-  if(statusValue === 'in-stock'){
-    element.style.setProperty('--color', 'rgb(0, 153, 71)');
-    element.style.setProperty('--BGcolor', 'rgba(29, 255, 135, 0.13)');
-  } else if (statusValue === 'less-stock'){
-      element.style.setProperty('--color', 'rgb(153, 115, 0)');
-      element.style.setProperty('--BGcolor', 'rgba(255, 191, 0, 0.30)');
-  } else if(statusValue === 'out-of-stock'){
-      element.style.setProperty('--color', 'rgb(230, 7, 7)'); 
-      element.style.setProperty('--BGcolor', 'rgba(226, 35, 35, 0.23)');
-  } else if(statusValue === 'expired'){
-      element.style.setProperty('--color', 'rgb(230, 54, 0)'); 
-      element.style.setProperty('--BGcolor', 'rgba(220, 84, 30, 0.29)');
-  } else{
-      element.style.setProperty('--color', 'black');
-      element.style.setProperty('--BGcolor', 'white');
-  }
-}
-
-// ======================================
-// ========== Change Inventory Status Color
-// ======================================
-const changeStatusColor = () => {
-  const items = document.querySelectorAll('.inventory-table__tbody .medicine');
-
-  items.forEach(item => {
-    const status = item.querySelector('.td.status');
-    const statusValue = status.getAttribute('data-status-value');
-
-    setStatusColor(statusValue, status);
-  });
-}
 
 
 // ======================================
@@ -392,7 +280,9 @@ const setupEditStockForm = async(itemId) => {
     const contentInputValue = document.querySelector('#edit-stock__content-input').value = stock.content;
 }
 
-
+document.addEventListener('renderInventoryPreHeading', () => {
+    displayMedicineTable();
+});
 
 
 export default function setupInventorySection() {
@@ -401,13 +291,9 @@ export default function setupInventorySection() {
   handleAddItem();
   handleItemButtonsActions();
   searchInventory();
-  filterInventory();
-  inventorySorting();
   toggleAddMedicineForm();
   viewBtnsFunctionality();
   handleInventoryStocks();
   setupAddStockFormListener(); // Listener for adding Stocks
   setupEditStockFormListener() // Listener for updating Stocks
 }
-
-

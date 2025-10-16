@@ -18,27 +18,24 @@ function isInvalidInput(itemName) {
   return false;
 }
 
-// Check Expiry Date
+// Check Expiry Date (must be within 30 days from now)
 function checkExpiryDate(expiryDate) {
   const currentDate = new Date();
   const expirationDate = new Date(expiryDate);
 
-  const currentYear = currentDate.getFullYear();
-  const currentMonth = currentDate.getMonth(); // 0-11
-  const expYear = expirationDate.getFullYear();
-  const expMonth = expirationDate.getMonth();
+  // Normalize both to midnight to remove hour/minute bias
+  currentDate.setHours(0, 0, 0, 0);
+  expirationDate.setHours(0, 0, 0, 0);
 
-  // ❌ Reject past year
-  if (expYear < currentYear) {
+  // Difference in days
+  const diffInDays = (expirationDate - currentDate) / (1000 * 60 * 60 * 24);
+
+  // Reject if expiry is today, in the past, or less than 30 days ahead
+  if (diffInDays < 30) {
     return false;
   }
 
-  // ❌ Reject same year and same month, or past month
-  if (expYear === currentYear && expMonth <= currentMonth) {
-    return false;
-  }
-
-  return true; // ✅ valid (future month or future year)
+  return true; // ✅ valid: 30 or more days ahead
 }
 
 
