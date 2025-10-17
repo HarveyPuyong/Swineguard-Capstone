@@ -11,37 +11,40 @@ import { addItem, addStock, setupAddStockFormListener,
 
 
 import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
+import initInventoryFiltering from "../../utils/filter-inventory-items.js";
 
 
 // ======================================
 // ========== Search Inventory
 // ======================================
 const searchInventory = () => {
-  document.addEventListener('renderInventory', () => {
-    const input = document.querySelector('.inventory-section__search-input');
-    const medicines = document.querySelectorAll('.inventory-table .medicine');
+  const input = document.querySelector('.inventory-section__search-input');
+  if (!input) return;
 
-    if (!input || medicines.length === 0) return;
-
-    input.addEventListener('input', () => {
+  let timeout;
+  input.addEventListener('input', () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => {
       const query = input.value.trim().toLowerCase();
+      const medicines = document.querySelectorAll('.inventory-table .medicine');
 
       medicines.forEach(medicine => {
-        const medicineId = medicine.querySelector('.id')?.textContent.toLowerCase() || '';
-        const medicineName = medicine.querySelector('.medicine-name')?.textContent.toLowerCase() || '';
-        const dosage = medicine.querySelector('.medicine-dosage')?.textContent.toLowerCase() || '';
+        const name = medicine.querySelector('.medicine-name')?.textContent.toLowerCase() || '';
         const quantity = medicine.querySelector('.quantity')?.textContent.toLowerCase() || '';
-        const expDate =  medicine.querySelector('.exp-date')?.textContent.toLowerCase() || '';
-        const createdDate =  medicine.querySelector('.created-date')?.textContent.toLowerCase() || '';
-        const updatedDate =  medicine.querySelector('.updated-date')?.textContent.toLowerCase() || '';
-
-        const searchableText = `${medicineId} ${medicineName} ${dosage} ${quantity} ${expDate} ${createdDate} ${updatedDate}`;
-
-        medicine.style.display = searchableText.includes(query) ? 'flex' : 'none';
+        const status = medicine.querySelector('.status')?.textContent.toLowerCase() || '';
+        const text = `${name} ${quantity} ${status}`;
+        medicine.style.display = text.includes(query) ? 'flex' : 'none';
       });
-    });
+    }, 200);
+  });
+
+  // ✅ Optional: clear input each time inventory reloads
+  document.addEventListener('renderInventoryPreHeading', () => {
+    input.value = '';
   });
 };
+
+
 
 
 // ======================================
@@ -59,6 +62,8 @@ const toggleMedicineButtons = () => {
 
       toggleIcon .addEventListener('click', () => buttonsContainer.classList.toggle('show'));
     });
+
+    initInventoryFiltering();
   });
 }
 
@@ -280,9 +285,13 @@ const setupEditStockForm = async(itemId) => {
     const contentInputValue = document.querySelector('#edit-stock__content-input').value = stock.content;
 }
 
-document.addEventListener('renderInventoryPreHeading', () => {
+
+const renderInventoryPreHeading = () => {
+  document.addEventListener('renderInventoryPreHeading', () => {
     displayMedicineTable();
-});
+    searchInventory();
+  });
+}
 
 
 export default function setupInventorySection() {
@@ -290,10 +299,10 @@ export default function setupInventorySection() {
   handleRenderInventory();
   handleAddItem();
   handleItemButtonsActions();
-  searchInventory();
   toggleAddMedicineForm();
   viewBtnsFunctionality();
   handleInventoryStocks();
   setupAddStockFormListener(); // Listener for adding Stocks
   setupEditStockFormListener() // Listener for updating Stocks
+  renderInventoryPreHeading();
 }

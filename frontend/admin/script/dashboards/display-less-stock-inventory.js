@@ -1,16 +1,19 @@
 import fetchInventory from "../../api/fetch-inventory.js";
 import {inventoryTable, adminPageInventoryTable} from '../../utils/inventory-table.js';
-import formatItemStatus from '../../utils/format-item-status.js';
+import { returnStockNumber } from "../../api/fetch-inventory-stock.js";
 
 async function displayLessStockInventory (){
   try {
-    const inventory = await fetchInventory();
+    const inventories = await fetchInventory();
 
-    const filteredInventory = inventory.filter(item => {
-      //const status = formatItemStatus(item.itemStatus);
-      // return status === 'less-stock' || status === 'out-of-stock';
-      return 'Upcoming';
-    });
+    let filteredInventory = [];
+
+    for (const item of inventories) {
+      const totalQuantity = await returnStockNumber(item._id);
+      if (totalQuantity <= 20) {
+        filteredInventory.push(item);
+      }
+    };
 
     const inventoryTableElement = document.querySelector('#dashboard-section .inventory-table__tbody');
     const adminInventoryTableElement = document.querySelector('.admin-page__section-wrapper #dashboard-section .inventory-table__tbody');

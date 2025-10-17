@@ -27,6 +27,13 @@ const returnStockNumber = async(medicine_Id) => {
   return totalQuantity;
 }
 
+const returnItemCount = async(medicineId) => {
+  const stocks = await fetchInventoryStocks();
+  const filteredStock = stocks.filter(stock => stock.medicineId === medicineId);
+
+  return filteredStock.length;
+}
+
 const fetchFullInventory = async() => {
   try {
     const response = await api.get('/report/inventory/full', {withCredentials: true});
@@ -41,5 +48,6 @@ const fetchFullInventory = async() => {
 export {
           fetchInventoryStocks,
           returnStockNumber,
-          fetchFullInventory
+          fetchFullInventory,
+          returnItemCount
         };

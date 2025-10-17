@@ -110,19 +110,22 @@
         <section id="inventory-section" class="hide">
           <h1 class="section__heading">Inventory</h1>
           <!-- search and add-btn -->
-          <div class="inventory-section__search-and-add-btn">
-            <div class="inventory-section__search">
-              <img class="inventory-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
-              <input class="inventory-section__search-input" type="text" placeholder="Search...">   
-            </div>
-            <button class="inventory-section__add-btn">Add</button>
-          </div>
 
-          <!-- filter inventory -->
-          <div class="filtering-tab__btn">
-            <button type="button" class="in-stock__btn active">In Stock</button>
-            <button type="button" class="less-stock__btn">Less Stock</button>
-            <button type="button" class="out-of-stock__btn">Out of Stock</button>
+          <div class="top-part__table">
+            <div class="inventory-section__search-and-add-btn">
+              <div class="inventory-section__search">
+                <img class="inventory-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+                <input class="inventory-section__search-input" type="text" placeholder="Search...">   
+              </div>
+              <button class="inventory-section__add-btn"><span>+</span></button>
+            </div>
+
+            <!-- filter inventory -->
+            <div class="inventory-filtering-tab__btn">
+              <button type="button" class="in-stock__btn active"><span>In Stock</span><span class="medicine-count" id="in-stock__btn-count">0</span></button>
+              <button type="button" class="less-stock__btn"><span>Less Stock</span><span class="medicine-count" id="less-stock__btn-count">0</span></button>
+              <button type="button" class="out-of-stock__btn"><span>Out of Stock</span><span class="medicine-count" id="out-of-stock__btn-count">0</span></button>
+            </div>
           </div>
 
           <!-- add medicine form -->
@@ -210,6 +213,7 @@
             <div class="inventory-table__thead">
               <p class="th medicine-name">Medicine</p>
               <p class="th quantity">Quantity</p>
+              <p class="th item-count">No. of Items</p>
               <p class="th status">Status</p>
             </div>
             <!-- table body -->

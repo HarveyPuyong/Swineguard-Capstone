@@ -1,5 +1,5 @@
 import fetchInventory from '../../api/fetch-inventory.js';
-import {inventoryTable, adminPageInventoryTable} from '../../utils/inventory-table.js';
+import {inventoryTable, adminPageInventoryTable, renderButtonsCount} from '../../utils/inventory-table.js';
 
 
 async function handleRenderInventory() {
@@ -12,6 +12,7 @@ async function handleRenderInventory() {
 
     if(inventoryTableElement) inventoryTable(inventories, inventoryTableElement);
     if(adminInventoryTableElement) adminPageInventoryTable(inventories, adminInventoryTableElement);
+    renderButtonsCount(inventories);
 
     document.dispatchEvent(new Event('renderInventory')); 
   } catch (error) {
