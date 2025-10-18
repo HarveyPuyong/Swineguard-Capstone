@@ -686,26 +686,27 @@
           <div class="appointment-table-content show">
             <h1 class="section__heading">Appointments</h1>
 
-            <!-- search appointment -->
-            <div class="appointments-section__search-and-add-btn">
-              <div class="appointment-section__search">
-                <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
-                <input class="appointment-section__search-input" type="text" placeholder="Search...">   
-              </div>
-            </div>
-
             <!-- filter and view-sched container -->
             <div class="filter-and-view-sched-container">
-              <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
-                <option value="all">All</option>
-                <option value="completed">Completed</option>
-                <option value="accepted">Accepted</option>
-                <option value="reschedule">Reschedule</option>
-                <option value="pending">Pending</option>
-                <option value="removed">Archive</option>
-              </select>
-              <button class="appointment-section__view-schedules-btn view-navigate-btn">View Schedules</button>
-              <button class="appointments-section__view-report-btn view-navigate-btn">Generate Report</button>
+              <button class="appointment-section__view-schedules-btn view-navigate-btn__schedules">View Schedules</button>
+              <button class="appointments-section__view-report-btn view-navigate-btn__generate-reports">Generate Report</button>
+            </div>
+
+            <!-- search appointment -->
+            <div class="top-part__appointment-tbl">
+              <div class="appointments-section__search-and-add-btn">
+                <div class="appointment-section__search">
+                  <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+                  <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+                </div>
+              </div>
+
+              <div class="appointment-filter__btn">
+                <button type="button" class="pending-btn active"><span>Pending</span><span class="appointment-count">0</span></button>
+                <button type="button" class="accepted-btn"><span>Accepted</span><span class="appointment-count">0</span></button>
+                <button type="button" class="rescheduled-btn"><span>Rescheduled</span><span class="appointment-count">0</span></button>
+                <button type="button" class="completed-btn"><span>Completed</span><span class="appointment-count">0</span></button>
+              </div>
             </div>
                      
             <!-- Appointment Table -->
@@ -820,40 +821,27 @@
           <!-- Inventory Section: Table contents -->
           <div class="inventory-section__table-contents show">
             <h1 class="section__heading">Inventory</h1>
-
-            <!-- search inventory -->
-            <div class="inventory-section__search-and-add-btn">
-              <div class="inventory-section__search">
-                <img class="inventory-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
-                <input class="inventory-section__search-input" type="text" placeholder="Search...">   
-              </div>
-            </div>
-
-            <!-- inventory sorting-->
-            <div class="inventory-sorting">
-              <p class="inventory-sorting__label">Sort by:</p>
-              <select class="inventory-sorting__select" name="inventory-sorting" id="inventory-sorting-select">
-                <option value="default">Default</option>
-                <option value="medicine-name">Medicine Name</option>
-                <option value="dosage">Dosage</option>
-                <option value="quantity">Quantity</option>
-                <option value="expiration-date">Exp. Date</option>
-                <option value="created-date">Created Date</option>
-                <option value="updated-date">Updated Date</option>
-              </select>
-            </div>
-
+            
             <!-- filter-inventory and generate-report-btn container -->
             <div class="inventory-section__select-and-btn-container">
-              <select class="filter-inventory-status" name="inventory-filter" id="inventory-filter">
-                <option value="all">All</option>
-                <option value="in-stock">In Stock</option>
-                <option value="less-stock">Less Stock</option>
-                <option value="out-of-stock">Out of Stock</option>
-                <option value="expired">Expired</option>
-                <option value="removed">Archive</option>
-              </select>
               <button class="inventory-section__view-report-btn">Generate Report</button>
+            </div>
+
+            <!-- search inventory -->
+            <div class="top-part__table">
+              <div class="inventory-section__search-and-add-btn">
+                <div class="inventory-section__search">
+                  <img class="inventory-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+                  <input class="inventory-section__search-input" type="text" placeholder="Search...">   
+                </div>
+              </div>
+
+              <!-- filter inventory -->
+              <div class="inventory-filtering-tab__btn">
+                <button type="button" class="in-stock__btn active"><span>In Stock</span><span class="medicine-count" id="in-stock__btn-count">0</span></button>
+                <button type="button" class="less-stock__btn"><span>Less Stock</span><span class="medicine-count" id="less-stock__btn-count">0</span></button>
+                <button type="button" class="out-of-stock__btn"><span>Out of Stock</span><span class="medicine-count" id="out-of-stock__btn-count">0</span></button>
+              </div>
             </div>
 
             <!-- inventory table -->         

@@ -15,7 +15,7 @@ import { getServiceName } from '../../api/fetch-services.js';
 import { fetchAppointments } from '../../api/fetch-appointments.js';
 import populateFilteredMedicines from '../../utils/filter-service-medicine.js';
 import { handleReportChange } from '../reports/generate-appointment-reports.js';
-//import createAppointmentForm from '../../components/appointment-form.js';
+import initAppointmentFiltering from '../../utils/filter-appointment-data.js';
 
 
 
@@ -52,128 +52,6 @@ const searchAppointment = () => {
       });
     });
   })
-};
-
-
-// ======================================
-// ========== Set Filter Appointment Color
-// ======================================
-const setFilterColor = (statusValue, element) =>{
-    if (statusValue === 'pending') {
-      element.style.setProperty('--color', 'rgb(37, 37, 37)');
-      element.style.setProperty('--BGcolor', 'rgba(0, 0, 0, 0.19)');
-    } else if (statusValue === 'accepted') {
-      element.style.setProperty('--color', 'rgb(55, 119, 255)');
-      element.style.setProperty('--BGcolor', 'rgba(73, 130, 254, 0.24)');
-    } else if (statusValue === 'completed') {
-      element.style.setProperty('--color', 'rgb(0, 153, 71)');
-      element.style.setProperty('--BGcolor', 'rgba(29, 255, 135, 0.13)');
-    } else if (statusValue === 'reschedule') {
-      element.style.setProperty('--color', 'rgb(153, 115, 0)');
-      element.style.setProperty('--BGcolor', 'rgba(255, 191, 0, 0.30)');
-    } else if (statusValue === 'removed'){
-      element.style.setProperty('--color', 'rgb(210, 17, 17)'); 
-      element.style.setProperty('--BGcolor', 'rgba(226, 35, 35, 0.21)');
-    } else{
-      element.style.setProperty('--color', 'black');
-      element.style.setProperty('--BGcolor', 'white');
-    }
-}
-
-
-// ======================================
-// ========== Filter Appointments
-// ======================================
-const filterAppointments = () => {
-  document.addEventListener('renderAppointments', () => {
-    const selectStatus = document.querySelector('.filter-apointments-status');
-
-    selectStatus.addEventListener('change', () => {
-      const selectedValue = selectStatus.value.toLowerCase();
-      setFilterColor(selectedValue, selectStatus);
-
-      document.querySelectorAll('#appointments-section .appointment-table .appointment .td.status')
-        .forEach(status => {
-          const statusValue = status.getAttribute('data-status-value');
-          const appointment = status.parentElement.parentElement;
-          appointment.style.display = 'none';
-
-          if(selectedValue === 'all'){
-            appointment.style.display = 'block';
-          } else if (selectedValue === statusValue) {
-            appointment.style.display = 'block';
-          }
-      });
-    });
-  })
-}
-
-
-// ======================================
-// ========== Appointment Sorting
-// ======================================
-const appointmentsSorting = () => {
-  document.addEventListener('renderAppointments', () => {
-    const sortingSelect = document.querySelector('.appointment-sorting__select');
-    const appointmentTable = document.querySelector('#appointments-section .appointment-table__tbody'); 
-
-    if (!sortingSelect || !appointmentTable) return;
-
-    const originalAppointments = Array.from(appointmentTable.children);
-
-    sortingSelect.addEventListener('change', () => {
-      const selectedSort = sortingSelect.value;
-      
-      if (selectedSort === 'default') {
-        appointmentTable.innerHTML = '';
-        originalAppointments.forEach(app => appointmentTable.appendChild(app));
-        return;
-      }
-
-      const appointments = Array.from(appointmentTable.querySelectorAll('.appointment'));
-
-      const sortedAppointments = appointments.sort((a, b) => {
-        if (selectedSort === 'last-name') {
-          const aValue = a.querySelector('.last-name')?.textContent.trim().toLowerCase();
-          const bValue = b.querySelector('.last-name')?.textContent.trim().toLowerCase();
-          return aValue.localeCompare(bValue);
-        }
-
-        if (selectedSort === 'date') {
-          const parseDateTime = (text) => {
-            const [datePart, timePart] = text.split(' at ');
-            if (!datePart || !timePart) return new Date(0); 
-
-            const [time, modifier] = timePart.trim().split(' ');
-            let [hours, minutes] = time.split(':').map(Number);
-            if (modifier === 'PM' && hours < 12) hours += 12;
-            if (modifier === 'AM' && hours === 12) hours = 0;
-
-            const isoDateTime = `${datePart.trim()}T${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:00`;
-            return new Date(isoDateTime);
-          };
-
-          const aDateText = a.querySelector('.date-time')?.textContent.trim();
-          const bDateText = b.querySelector('.date-time')?.textContent.trim();
-          const aDate = parseDateTime(aDateText);
-          const bDate = parseDateTime(bDateText);
-
-          return aDate - bDate;
-        }
-
-        if (selectedSort === 'address') {
-          const aAddress = a.querySelector('.column.left .column__detail:nth-child(5) .column__detail-value')?.textContent.trim().toLowerCase();
-          const bAddress = b.querySelector('.column.left .column__detail:nth-child(5) .column__detail-value')?.textContent.trim().toLowerCase();
-          return aAddress.localeCompare(bAddress);
-        }
-
-        return 0;
-      });
-
-      appointmentTable.innerHTML = '';
-      sortedAppointments.forEach(appointment => appointmentTable.appendChild(appointment));
-    });
-  });
 };
 
 
@@ -458,7 +336,7 @@ const toggleAcceptAppointmentForm = (actionSelect) => {
 //            Dito ko cinall ang mga handleFuntions na (Accept, Reschedule, Remove) Appointment
 // ======================================
 const handleAppointmentSelectActions = () => {
-   document.addEventListener('renderAppointments', () => {
+  document.addEventListener('renderAppointments', () => {
     const appointments = document.querySelectorAll('.appointment-table .appointment');
 
     appointments.forEach(appointment => {
@@ -521,7 +399,7 @@ const handleDisabledActionOptions = () => {
 //            Dito ko cinall lahat ng handleFuntions (Restore, Delete, Complete, Set-Schedule) 
 // ======================================
 const handleAppointmentButtonsActions = () => {
-   document.addEventListener('renderAppointments', () => {
+  document.addEventListener('renderAppointments', () => {
     const appointments = document.querySelectorAll('.appointment-table .appointment');
     const appointmentFormHardCopy = document.querySelector('.appointment-form__hard-copy');
 
@@ -553,32 +431,6 @@ const handleAppointmentButtonsActions = () => {
 }
 
 
-// ======================================
-// ========== Toggle Appointment Form Hard Copt to be Print
-// ======================================
-const handleToggleHardCopy_Of_ApptForm = () => {
-  document.addEventListener('renderAppointmentFormHardCopy', () => {
-    //Buttons
-    const printBtn = document.querySelector('#print-appointment__hard-copy-print');
-    const printCancelBtn = document.querySelector('#print-appointment__hard-copy-cancel');
-
-    const appointmentFormHardCopy = document.querySelector('.appointment-form__hard-copy');
-
-    if(printBtn) {
-      printBtn.addEventListener('click', () => {
-        alert('Print Button Clicked!')
-      });
-    }
-
-    if(printCancelBtn) {
-      printCancelBtn.addEventListener('click', () => {
-        appointmentFormHardCopy.classList.remove('show');
-      });
-    }
-  })
-}
-
-
 
 // ======================================
 // ========== Toggle Appointment More-Details 
@@ -603,7 +455,6 @@ const toggleAppointentMoreDetails = () => {
       });
   })
 }
-
     
 
 // ======================================
@@ -612,11 +463,11 @@ const toggleAppointentMoreDetails = () => {
 export default function setupAppointmentSection () {
   handleAddAppointment();
   handleRenderAppointments();
+  initAppointmentFiltering();
   handleAppointmentSelectActions();
   handleDisabledActionOptions();
   handleAppointmentButtonsActions();
-  filterAppointments();
-  appointmentsSorting();
+  // filterAppointments();
   searchAppointment();
   setupAddAppointmentForm();
   toggleAddAppointmentForm();
@@ -624,6 +475,5 @@ export default function setupAppointmentSection () {
   viewBtnsFunctionality();
   setupAppointmentFormListener();
   setupReschedAppointmentFormListener();
-  //handleToggleHardCopy_Of_ApptForm(); // Appointment Hard Copy
 }
 

@@ -128,35 +128,25 @@
           <div class="appointment-table-content show">
             <h1 class="section__heading">Appointments</h1>
             <!-- search and add-btn appointment -->
-            <div class="appointments-section__search-and-add-btn">
-              <div class="appointment-section__search">
-                <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
-                <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+            <div class="top-part__appointment-tbl">
+              <div class="appointments-section__search-and-add-btn">
+                <div class="appointment-section__search">
+                  <img class="appointment-section__search-icon" src="images-and-icons/icons/search-icon.png" alt="search-icon"></img>
+                  <input class="appointment-section__search-input" type="text" placeholder="Search...">   
+                </div>
+                <button class="appointment-section__add-btn"><span>+</span></button>
               </div>
-              <button class="appointment-section__add-btn">Add</button>
+
+              <div class="appointment-filter__btn">
+                <button type="button" class="pending-btn active"><span>Pending</span><span class="appointment-count">0</span></button>
+                <button type="button" class="accepted-btn"><span>Accepted</span><span class="appointment-count">0</span></button>
+                <button type="button" class="rescheduled-btn"><span>Rescheduled</span><span class="appointment-count">0</span></button>
+                <button type="button" class="completed-btn"><span>Completed</span><span class="appointment-count">0</span></button>
+              </div>
             </div>
 
             <!-- appointment sorting-->
-            <div class="appointment-sorting">
-              <p class="appointment-sorting__label">Sort by:</p>
-              <select class="appointment-sorting__select" name="appointment-sorting" id="appointment-sorting-select">
-                <option value="default">Default</option>
-                <option value="last-name">Last name</option>
-                <option value="date">Date</option>
-                <option value="adress">Address</option>
-              </select>
-            </div>
-
-            <!-- filter and view-sched container -->
-            <div class="filter-and-view-sched-container">
-              <select class="filter-apointments-status" name="appointment-filter" id="appointment-filter">
-                <option value="all">All</option>
-                <option value="completed">Completed</option>
-                <option value="accepted">Accepted</option>
-                <option value="reschedule">Reschedule</option>
-                <option value="pending">Pending</option>
-                <option value="removed">Archive</option>
-              </select>
+            <div class="appointment-calender__btn">
               <button class="appointment-section__view-schedules-btn view-navigate-btn">View Calendar</button>
             </div>
                 

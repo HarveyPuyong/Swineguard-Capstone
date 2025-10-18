@@ -70,6 +70,7 @@
 .inventory-section__add-btn:hover span:first-child {
   transform: scale(1.2); /* scales text visually */
 }
+
 .in-stock__btn {
   border-top-left-radius: 8px;
   border-bottom-left-radius: 8px;
@@ -188,12 +189,14 @@
 .inventory-section__view-report-btn{
   position: absolute;
   right: 55px;
-  top: 80px;
-  width: 220px;
-  border: 1px solid black;
+  top: 20px;
+  width: 200px;
   border-radius: 8px;
   padding: 10px 0;
   cursor: pointer;
+  border: 1px solid #0F7E43;
+  background-color: #2FC375;
+  color: white;
 }
 
 /*medicine form */

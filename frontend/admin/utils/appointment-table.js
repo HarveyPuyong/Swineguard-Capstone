@@ -3,6 +3,7 @@ import { getMedicineName } from './../api/fetch-medicine.js';
 import { getTechnicianName } from './../api/fetch-technicians.js';
 import { getServiceName } from './../api/fetch-services.js';
 import fetchUser from '../script/auth/fetchUser.js';
+import { fetchAppointments } from '../api/fetch-appointments.js';
 
 async function appointmentsTable(appointments, table) {
   const user = await fetchUser();
@@ -237,5 +238,46 @@ async function adminPageAppointmentTable(appointments, table) {
 }
 
 
-export {appointmentsTable, adminPageAppointmentTable};
+// ======================================
+// ==========Render button counts
+// ======================================
+const renderButtonsCount = (appointments) => {
+
+  const pendingBtn = document.querySelector('.appointment-filter__btn .pending-btn .appointment-count');
+  const acceptedBtn = document.querySelector('.appointment-filter__btn .accepted-btn .appointment-count');
+  const rescheduledBtn = document.querySelector('.appointment-filter__btn .rescheduled-btn .appointment-count');
+  const completedBtn = document.querySelector('.appointment-filter__btn .completed-btn .appointment-count');
+
+  let pendingCount = 0;
+  let acceptedCount = 0;
+  let rescheduledCount = 0;
+  let completedCount = 0;
+
+  for (const appointment of appointments) {
+    if (appointment.appointmentStatus === 'completed') {
+      completedCount++;
+    } else if (appointment.appointmentStatus === 'accepted') {
+      acceptedCount++;
+    } else if (appointment.appointmentStatus === 'reschedule') {
+      rescheduledCount++;
+    } else {
+      pendingCount++;
+    }
+  }
+
+  // Always visible, even when 0
+  const updateButton = (btn, count) => {
+    btn.style.display = 'inline-block';
+    btn.textContent = count;
+  };
+
+  updateButton(pendingBtn, pendingCount);
+  updateButton(acceptedBtn, acceptedCount);
+  updateButton(rescheduledBtn, rescheduledCount);
+  updateButton(completedBtn, completedCount);
+
+};
+
+
+export {appointmentsTable, adminPageAppointmentTable, renderButtonsCount};
 

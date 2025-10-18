@@ -50,5 +50,11 @@ async function renderFilteredInventory(inventories, table, filterType) {
   await inventoryTable(filtered, table);
 }
 
-//
+//Button Counts number
+async function apointmentCount() {
+  
+}
+
+
+
 export default initInventoryFiltering;
