@@ -1,6 +1,6 @@
 import api from "../../utils/axiosConfig.js";
 import popupAlert from "../../utils/popupAlert.js";
-import displayTaskList from "./display-appoinment-task.js";
+import {displayTaskList} from "./display-appoinment-task.js";
 import { fetchAppointments } from "../../api/fetch-appointments.js";
 
 

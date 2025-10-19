@@ -130,11 +130,12 @@
         <section id="schedule-section" class="hide">
           <h1 class="section__heading">Appointment Schedule</h1>
 
-          <select name="select-schedule-status" id="select-schedule-status">
-            <option value="">All</option>
-            <option value="incomplete">Incomplete</option>
-            <option value="completed">Completed</option>
-          </select>
+          <div class="filter-appointment__schedule">
+            <div class="filter-btn__container">
+              <button type="button" class="pending_schedule-btn active"><span>Pending Task</span><span class="vet-task__count">0</span></button>
+              <button type="button" class="completed_schedule-btn"><span>Completed Task</span><span class="vet-task__count">0</span></button>
+            </div>
+          </div>
 
           <div class="schedule-list">
             <!-- display-appointment-task.js -->

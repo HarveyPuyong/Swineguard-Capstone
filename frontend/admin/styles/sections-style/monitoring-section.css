@@ -3,7 +3,6 @@
 .swine-monitoring-list {
     width: 100%;
     background-color: white;
-    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.200);
     border-radius: 8px;
     margin-top: 1.5rem;
 
@@ -30,15 +29,25 @@
 
 .client-swine {
     position: relative;              /* make this the positioning context */
-    background-color: #e2e2e2;
-    border: 1px solid #979797;
+    background-color: #ffffff;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.200);
     border-radius: 4px;
-    padding: 1rem .8rem;
+    padding: 1rem;
     display: flex;
     align-items: flex-start;
     gap: 0.5rem;
     max-width: 500px;
+    min-width: 300px;
     flex-direction: column;
+    max-height: 350px;
+}
+
+
+
+.full-details {
+  padding-top: .5rem;
+  padding-bottom: 1.5rem;
 }
 
 .view-more__monitoring-swine {
@@ -60,10 +69,10 @@
 }
 .update-btn__monitoring-swine {
   position: absolute;
-  bottom: 8px;    /* distance from bottom */
-  right: 8px;     /* distance from right */
+  bottom: 0px;    /* distance from bottom */
+  right: 0px;     /* distance from right */
   padding: 2px 10px;
-  border: 1px solid #999999cc;
+  border: 1px solid #0F7E43;
   background-color: #43a047;
   color: white;
   border-radius: 4px;
@@ -116,7 +125,7 @@
     transform: translate(-50%, -50%);
 }
 
-.update-monitoring__client-swine{
+.update-monitoring__client-swine {
     width: 400px;
     height: auto;
     display: none;
@@ -208,6 +217,39 @@
     .monitoring-swine-card__image {
         width: 50px;
         height: 50px;
+    }
+
+}
+@media (max-width: 400px) {
+
+    #monitoring-section {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        padding: 0.5rem;
+    }
+
+    #monitoring-section .section__heading {
+        padding-top: 5rem;
+        margin-left: 1rem;
+    }
+
+    .swine-monitoring-list {
+        grid-template-columns: 1fr; /* single column layout */
+        width: 100%;
+        overflow-x: hidden; 
+        gap: 10px;
+        padding: 4%;
+        margin-left: .2rem;
+    }
+    
+    .monitoring-swine-card__image {
+        width: 50px;
+        height: 50px;
+    }
+
+    .update-monitoring__client-swine {
+        width: 350px;
     }
 
 }

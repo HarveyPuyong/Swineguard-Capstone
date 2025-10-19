@@ -1188,6 +1188,14 @@ Download Hard copy
   }
 }
 
+@media (max-width: 400px) {
+  .complete-task-form.show {
+
+    gap: .3rem;
+    width: 350px;
+}
+}
+
 /* ===== Responsive Fix for 1366x768 and smaller screens ===== */
 @media (max-width: 1400px) {
   .add-appointment-container {

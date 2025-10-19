@@ -1,9 +1,8 @@
-import displayTaskList from "./display-appoinment-task.js";
+import { displayTaskList, getStatusFilter } from "./display-appoinment-task.js";
 import {completeAppointmentRequest,
         setupCompleteAppointmentFormListener } from "../appointments/complete-restore-delete-appointment.js";
 import renderSwineGraph from "./swine-graph.js";
 import { fetchAppointments } from "../../api/fetch-appointments.js";
-import fetchUser from "../auth/fetchUser.js";
 import { getServiceName } from "../../api/fetch-services.js";
 import { fetchMedicines } from "../../api/fetch-medicine.js";
 import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
@@ -250,12 +249,32 @@ const setupPersonnelCompleteForm = async (appointmentId) => {
 };
 
 
-// ======================================
-// Filtering for complete and pending
-// ======================================
-const filterTaskList = () => {
-    
-}
+//
+const setupTaskListFilters = () => {
+    const pendingBtn = document.querySelector('.pending_schedule-btn');
+    const completedBtn = document.querySelector('.completed_schedule-btn');
+
+    if (!pendingBtn || !completedBtn) {
+        console.warn('Task list buttons not found in DOM.');
+        return;
+    }
+
+    // Button event listeners
+    pendingBtn.addEventListener('click', async () => {
+        getStatusFilter('pending');
+        pendingBtn.classList.add('active');
+        completedBtn.classList.remove('active');
+        await displayTaskList();
+    });
+
+    completedBtn.addEventListener('click', async () => {
+        getStatusFilter('completed');
+        completedBtn.classList.add('active');
+        pendingBtn.classList.remove('active');
+        await displayTaskList();
+    });
+};
+
 
 
 // ======================================
@@ -264,6 +283,7 @@ const filterTaskList = () => {
 document.addEventListener('renderTaskList', () => {
     toggleAppointmentTask();
     handleCompleteTaskBtn();
+    setupTaskListFilters();
 });
 
 
@@ -272,8 +292,8 @@ document.addEventListener('renderTaskList', () => {
 
 
 
-export default function setupVeterinarian () {
-    displayTaskList();
+export default async function setupVeterinarian () {
+    await displayTaskList();
     renderSwineGraph();
     setupCompleteAppointmentFormListener();
     handleUnderMonitoringBtn();

@@ -4,7 +4,7 @@ import api from '../../utils/axiosConfig.js';
 import appointmentsDashboard from './../dashboards/appointment-dashboards.js';
 import updatedItemQuantity from '../../utils/deduct-item-stock.js';
 import { fetchAppointments } from '../../api/fetch-appointments.js';
-import displayTaskList from '../veterinarian/display-appoinment-task.js';
+import {displayTaskList} from '../veterinarian/display-appoinment-task.js';
 
 
 // ======================================

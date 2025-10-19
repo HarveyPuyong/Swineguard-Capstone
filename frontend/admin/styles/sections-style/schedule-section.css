@@ -21,14 +21,15 @@
 #schedule-section .schedule-list{
   display: grid;
   gap: 30px;
-  margin-top: 70px;
+  margin-top: 10px;
 }
 
 .schedule-list .schedule{
   display: flex;
   justify-content: space-between;
   gap: 14px;
-  background-color: #D2D2D2;
+  background-color: #ffffff;
+  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.200);
   border-radius: 5px;
   padding: 3%;
 }
@@ -139,6 +140,67 @@
 }
 
 
+/* 
+  filters for Task
+*/
+
+.filter-appointment__schedule {
+  width: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.filter-btn__container {
+  background-color: #0F7E43;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  gap: 2px;
+  border-radius: 8px;
+  border: 1px solid #0F7E43;
+  padding: 1px;
+}
+
+.filter-appointment__schedule button {
+  position: relative;
+  width: 200px;
+  padding: 10px 0;
+  cursor: pointer;
+  border: 1px solid #0F7E43;
+  background-color: #ffffff;
+  color: #0F7E43;
+}
+.pending_schedule-btn {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+.completed_schedule-btn {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+.pending_schedule-btn.active {
+  color: #ffffff;
+  background-color: var(--main-color);
+}
+.completed_schedule-btn.active {
+  color: #ffffff;
+  background-color: var(--main-color);
+}
+
+.vet-task__count {
+  position: absolute;
+  top: -6px;  /* move upward */
+  right: 1px; /* move to the right corner */
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+
 @media(width >= 600px){
   #schedule-section{
     --section-side-spacing: 120px;
@@ -163,5 +225,14 @@
   }
   .schedule-list .schedule{
     padding: 20px 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .schedule-list {
+    margin-left: .5rem;
+  }
+  .filter-appointment__schedule button {
+    width: 150px;
   }
 }
