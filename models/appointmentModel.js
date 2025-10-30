@@ -57,6 +57,7 @@ const appointmentSchema = new mongoose.Schema({
     
     medicineAmount: { type: Number, required: false},
     clinicalSigns: [{ type: String }],
+    swineImage: { type: String, required: false },
 
     
 }, { collection: 'appointments', timestamps: true });

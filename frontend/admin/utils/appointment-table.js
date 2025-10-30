@@ -121,6 +121,11 @@ async function appointmentsTable(appointments, table) {
                 <span class="column__detail-value">0${appointment.contactNum}</span>
               </p>
             </div>
+            <div class="clinical-sign__image-container column right">
+              <img src=${appointment.swineImage ? '/uploads/' + appointment.swineImage : "images-and-icons/icons/default-img__clinical-sign.png"} 
+              data-id="${appointment._id}"
+              class="admin-side__clinical-sign-img" alt="clinical-signs-image">
+            </div>
           </div>
           <div class="buttons-container">
             <button data-appointment-id=${appointment._id} id="restore-btn" class="restore-btn btn" ${role[0] === 'admin' ? 'style="display:none"' : ''}>Restore</button>
@@ -251,16 +256,14 @@ const renderButtonsCount = (appointments) => {
   let pendingCount = 0;
   let acceptedCount = 0;
   let rescheduledCount = 0;
-  let completedCount = 0;
+  // let completedCount = 0;
 
   for (const appointment of appointments) {
-    if (appointment.appointmentStatus === 'completed') {
-      completedCount++;
-    } else if (appointment.appointmentStatus === 'accepted') {
+    if (appointment.appointmentStatus === 'accepted') {
       acceptedCount++;
     } else if (appointment.appointmentStatus === 'reschedule') {
       rescheduledCount++;
-    } else {
+    } else if (appointment.appointmentStatus === 'pending') {
       pendingCount++;
     }
   }
@@ -274,7 +277,7 @@ const renderButtonsCount = (appointments) => {
   updateButton(pendingBtn, pendingCount);
   updateButton(acceptedBtn, acceptedCount);
   updateButton(rescheduledBtn, rescheduledCount);
-  updateButton(completedBtn, completedCount);
+  // updateButton(completedBtn, completedCount);
 
 };
 

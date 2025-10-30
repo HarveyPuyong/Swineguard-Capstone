@@ -1,8 +1,7 @@
 
 const api = axios.create({
-  baseURL: 'http://192.168.1.157:2500',
-  //baseURL: 'http://10.25.2.127:2500',
-  //baseURL: 'http://localhost:2500', //Localhost na nagamit sa pag test'
+  // baseURL: 'http://192.168.1.157:2500',
+  baseURL: 'http://localhost:2500', //Localhost na nagamit sa pag test'
   withCredentials: true
 });
 

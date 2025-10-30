@@ -4,6 +4,7 @@ import fetchClient from "../auth/fetch-client.js";
 import displaySwineList from "./display-client-swine-list.js";
 import sendRequestAppointment from "./request-appointment.js";
 import displayAppointmentCardList from "./display-appointment-list.js";
+import popupAlert from "../../client-utils/client-popupAlert.js";
 
 // ======================================
 // ========== Toggle Appointment More Details
@@ -114,6 +115,74 @@ const toggleClinicalSigns = (BoolValue) => {
 }
 
 
+// ======================================
+// Handle Clinical Sign Image toggle
+// ======================================
+const toggleImageClinicalSign = () => {
+  const overlay = document.querySelector('.clinical-signs-overlay');
+  const popup = document.querySelector('.popUp-image__clinical-sign-container');
+  const clinicalSignImages = document.querySelectorAll('.clinical-signs__images');
+  const hideBtn = document.querySelector('.hide-btn__clinical-sign');
+
+  clinicalSignImages.forEach(img => {
+    img.addEventListener('click', () => {
+      overlay.classList.add('show');
+    });
+  });
+
+  hideBtn.addEventListener('click', () => {
+    overlay.classList.remove('show');
+  });
+
+  // Optional: clicking outside popup closes it
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('show');
+  });
+};
+
+
+// ======================================
+// ========== Pre Display user Swine image input
+// ======================================
+const preDisplaySwineImg = () => {
+  const swineImgInput = document.querySelector('#clinical-sign__swine-image-input');
+  const swineImgPreDisplay = document.querySelector('.clinical-signs__images');
+  const popUp_Image = document.querySelector('.popUp-image__clinical-sign-container .clinical-signs__images');
+
+  //if (!swineProfileImgInput || !swineProfileImg) return; // prevent error
+
+  swineImgInput.addEventListener('change', function () {
+    const file = this.files[0];
+
+    if (!file) {
+      swineImgPreDisplay.src = 'images-and-icons/icons/default-img__clinical-sign.png';
+      return;
+    }
+
+    // ✅ Allowed file types
+    const allowedTypes = ['image/jpeg', 'image/jpg', 'image/png'];
+
+    // ✅ Validate file type
+    if (!allowedTypes.includes(file.type)) {
+      popupAlert('error', 'Error' ,'Invalid image extension! Please upload a JPG, JPEG, or PNG file.');
+      this.value = ''; // clear the input
+      swineImgPreDisplay.src = 'images-and-icons/icons/default-img__clinical-sign.png';
+      popUp_Image.src = 'images-and-icons/icons/default-img__clinical-sign.png';
+      return;
+    }
+
+    // ✅ Preview the image if valid
+    const reader = new FileReader();
+    reader.addEventListener('load', function () {
+      swineImgPreDisplay.src = reader.result;
+      popUp_Image.src = reader.result;
+    });
+    reader.readAsDataURL(file);
+
+  });
+};
+
+
 
 // ======================================
 // ========== Main Function - Setup Appointment Section
@@ -124,4 +193,6 @@ export default function setupAppointmentSection() {
   setupRequestAppointmentForm();
   displaySwineList();
   sendRequestAppointment();
+  toggleImageClinicalSign();
+  preDisplaySwineImg();
 }

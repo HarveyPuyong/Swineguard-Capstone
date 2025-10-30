@@ -72,7 +72,13 @@ const handleAddAppointment = async() => {
 
 
     try {
-      const response = await api.post('/appointment/add', appointmentFormData);
+      // 2️⃣ Create a FormData
+      const formData = new FormData();
+
+      // 3️⃣ Append the JSON data
+      formData.append("data", JSON.stringify(appointmentFormData));
+
+      const response = await api.post('/appointment/add', formData);
 
       if(response.status === 201){
         popupAlert('success', 'Success!', 'New appointment has been created successfully').

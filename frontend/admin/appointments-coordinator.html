@@ -141,7 +141,7 @@
                 <button type="button" class="pending-btn active"><span>Pending</span><span class="appointment-count">0</span></button>
                 <button type="button" class="accepted-btn"><span>Accepted</span><span class="appointment-count">0</span></button>
                 <button type="button" class="rescheduled-btn"><span>Rescheduled</span><span class="appointment-count">0</span></button>
-                <button type="button" class="completed-btn"><span>Completed</span><span class="appointment-count">0</span></button>
+                <button type="button" class="completed-btn"><span>Completed</span></button>
               </div>
             </div>
 
@@ -235,6 +235,7 @@
                 <button class="submit-appointment-btn" type="submit">Add Appointment</button>
               </form>
             </div>
+
             
             <!-- Appointment Schedule Form -->   
             <form class="appointment-schedule-form">
@@ -294,6 +295,14 @@
               </div>
             </form>
 
+            <!-- Pop-ip Images -->
+            <div class="admin-clinical-signs-overlay">
+              <div class="admin-popUp-image__clinical-sign-container">
+                <button class="admin-hide-btn__clinical-sign" type="button">Close</button>
+                <img src="./images-and-icons/icons/default-img__clinical-sign.png" class="clinical-signs__images" alt="uploaded-image">
+              </div>
+            </div>
+
             <!-- Appointment Table -->
             <div class="appointment-table">
               <div class="appointment-table__thead"> <!-- table head -->
@@ -344,6 +353,15 @@
           
               <!-- appointments calendar -->
               <div id='appointment-schedule-calendar' class="appointment-schedule-container__calendar"></div>
+
+              <!-- Pop-up all task in certain date -->
+              <div class="calendar-overlay">
+                <div class="pop-up__calendar-tasks">
+                  <button class="close-calendar-popup">Close</button>
+                  <h2 class="current-clicked-date"></h2>
+                  <div class="task-list__for-the-day"></div>
+                </div>
+              </div>
             </div>
           </div>
 

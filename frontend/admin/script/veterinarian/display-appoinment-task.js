@@ -25,10 +25,8 @@ const displayTaskList = async () => {
 
     // Update task counters
     const pendingCount = allAppointments.filter(a => a.appointmentStatus !== 'completed').length;
-    const completedCount = allAppointments.filter(a => a.appointmentStatus === 'completed').length;
 
     document.querySelector('.pending_schedule-btn .vet-task__count').textContent = pendingCount;
-    document.querySelector('.completed_schedule-btn .vet-task__count').textContent = completedCount;
 
     // Apply filter
     let filteredAppointments = allAppointments.filter(appointment => {
@@ -110,6 +108,12 @@ const displayTaskList = async () => {
                         <div class="detail medicine-amount">
                             <span class="detail-label">Amount:</span>
                             <span class="detail-value">${appointment.medicineAmount ? appointment.medicineAmount : '0'}</span>
+                        </div>
+                        <div class="vet-clinical-sign__image">
+                            <span class="detail-label">Clinical Sign Image:</span><br>
+                            <img src=${appointment.swineImage ? '/uploads/' + appointment.swineImage : "images-and-icons/icons/default-img__clinical-sign.png"} 
+                            data-id="${appointment._id}" 
+                            class="vet-side__clinical-sign-img" alt="clinical-signs-image">
                         </div>
                     </div>
                 </div>

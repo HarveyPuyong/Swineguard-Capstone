@@ -172,50 +172,57 @@ const setupAddAppointmentForm = async() => {
 // ======================================
 // ========== Add Data to schedule-appointment-form
 // ======================================
-const setupScheduleAppointmentForm = async(appointmentId) => {
-  try{
-    const personnelTask = [];
-
+const setupScheduleAppointmentForm = async (appointmentId) => {
+  try {
     const allUsers = await fetchUsers();
-    const technicians = allUsers.filter(user => user.roles.includes('technician') || user.roles.includes('veterinarian'));
+    const technicians = allUsers.filter(user => 
+      user.roles.includes('technician') || user.roles.includes('veterinarian')
+    );
 
-    //All appointments
+    // All appointments
     const appointments = await fetchAppointments();
     const appointment = appointments.find(app => app._id === appointmentId);
     const serviceName = await getServiceName(appointment.appointmentService);
     document.querySelector('.appointment-schedule-form__service-name').innerText = `${serviceName}`;
 
-    //Personal Select Element
+    // Personnel Select Element
     const personnelSelectElement = document.querySelector('.appointment-schedule-form #available-personnel');
-    if(!personnelSelectElement) return;
+    if (!personnelSelectElement) return;
 
+    // 🧹 Clear existing options first
+    personnelSelectElement.innerHTML = '<option value="">Select personnel</option>';
+
+    // Append technicians
     technicians.forEach(technician => {
-      const prefix = technician.roles.includes('veterinarian') ? 'Doc.' : technician.roles.includes('technician') ? 'Mr.' : '';
+      const prefix = technician.roles.includes('veterinarian') ? 'Doc.' :
+                     technician.roles.includes('technician') ? 'Mr.' : '';
       const middleInitial = technician.middleName ? technician.middleName.charAt(0).toUpperCase() + '.' : '';
       const technicianFullname = `${prefix} ${technician.firstName} ${middleInitial} ${technician.lastName}`;
 
-      // count how many appointments assigned to this technician
-      const assignedAppointments = appointments.filter(app => app.vetPersonnel === technician._id && (app.appointmentStatus === 'accepted' || app.appointmentStatus === 'reschedule'));
+      // Count how many appointments assigned to this technician
+      const assignedAppointments = appointments.filter(app =>
+        app.vetPersonnel === technician._id &&
+        (app.appointmentStatus === 'accepted' || app.appointmentStatus === 'reschedule')
+      );
+
       const isOverloaded = assignedAppointments.length >= 5;
 
       const option = document.createElement('option');
       option.value = technician._id;
       option.textContent = `${technicianFullname} ${isOverloaded ? '(Fully booked)' : ''}`;
       if (isOverloaded) {
-        option.disabled = true; // disable if they already have 10
+        option.disabled = true;
       }
 
       personnelSelectElement.appendChild(option);
-
     });
 
-
-    //console.log(appointment)
-
-  } catch(err) {
-    console.log(err)
+  } catch (err) {
+    console.log(err);
   }
-}
+};
+
+
 
 
 // ======================================
@@ -328,12 +335,13 @@ const toggleAcceptAppointmentForm = (actionSelect) => {
     if(actionSelect) actionSelect.value = '' 
     personnelSelectElement.innerHTML = '<option value="">Personnel</option>';
   });
+
+
 }
 
 
 // ======================================
-// ========== Appointment Select Actions.
-//            Dito ko cinall ang mga handleFuntions na (Accept, Reschedule, Remove) Appointment
+// ========== Appointment Select Actions
 // ======================================
 const handleAppointmentSelectActions = () => {
   document.addEventListener('renderAppointments', () => {
@@ -438,23 +446,69 @@ const handleAppointmentButtonsActions = () => {
 const toggleAppointentMoreDetails = () => {
   document.addEventListener('renderAppointments', () => {
     const appointments = document.querySelectorAll('.appointment-table .appointment');
-      appointments.forEach(appointment => {
-        const toggleBtn = appointment.querySelector('.toggle-more-details-btn');
-        const moreDetails = appointment.querySelector('.appointment__more-details');
+    appointments.forEach(appointment => {
+      const toggleBtn = appointment.querySelector('.toggle-more-details-btn');
+      const moreDetails = appointment.querySelector('.appointment__more-details');
 
-        toggleBtn.addEventListener('click', () => {
-          toggleBtn.classList.toggle('active');
+      toggleBtn.addEventListener('click', () => {
+        toggleBtn.classList.toggle('active');
 
-          if(toggleBtn.classList.contains('active')){
-            moreDetails.classList.add('show');
-            console.log(moreDetails)
-          }else{
-            moreDetails.classList.remove('show')
-          }
-        });
+        if(toggleBtn.classList.contains('active')){
+          moreDetails.classList.add('show');
+          console.log(moreDetails)
+        }else{
+          moreDetails.classList.remove('show')
+        }
       });
+    });
+
+    toggleClinicalSignImage();
+
   })
 }
+
+
+// ======================================
+// ========== Toggle Clinical Signs 
+// ======================================
+const toggleClinicalSignImage = () => {
+  const image = document.querySelectorAll('.admin-side__clinical-sign-img');
+  const overlay = document.querySelector('.admin-clinical-signs-overlay');
+  const popup = document.querySelector('.admin-popUp-image__clinical-sign-container');
+  const hideBtn = document.querySelector('.admin-hide-btn__clinical-sign');
+
+  image.forEach(img => {
+    img.addEventListener('click', () => {
+      const appointmentId = img.dataset.id;
+      overlay.classList.add('show');
+      handleClinicalPopUpImage(appointmentId);
+    });
+  })
+
+    hideBtn.addEventListener('click', () => {
+    overlay.classList.remove('show');
+  });
+
+  // Optional: clicking outside popup closes it
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('show');
+  });
+}
+
+
+// ======================================
+// ========== Display Clinical Signs Image
+// ======================================
+const handleClinicalPopUpImage = async(appointmentId) => {
+  const popUp_Image = document.querySelector('.admin-popUp-image__clinical-sign-container .clinical-signs__images');
+  const appointments = await fetchAppointments();
+  const appointment = appointments.find(app => app._id === appointmentId);
+
+  popUp_Image.src = `${appointment.swineImage ? '/uploads/' + appointment.swineImage : "images-and-icons/icons/default-img__clinical-sign.png"}`;
+}
+
+
+
     
 
 // ======================================

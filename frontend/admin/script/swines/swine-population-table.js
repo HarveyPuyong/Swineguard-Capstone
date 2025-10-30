@@ -211,4 +211,85 @@ const handleSelectMunicipalOnChange = () => {
   });
 };
 
+
+// Download table only — nothing else
+document.addEventListener("click", async (e) => {
+  if (e.target.id === "downloadSwinePopulationPDF") {
+    const tableContainer = document.querySelector(".swine-population__table-container");
+    if (!tableContainer || !tableContainer.querySelector("table")) {
+      alert("No table found to download.");
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+
+    // Hide buttons temporarily
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach(btn => (btn.style.visibility = "hidden"));
+
+    // Capture table as canvas
+    const canvas = await html2canvas(tableContainer, {
+      scale: 2,
+      backgroundColor: "#ffffff",
+      useCORS: true
+    });
+
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+
+    // ===== HEADER =====
+    const municipality = document.getElementById("population-municipality")?.value || "Unknown";
+    const now = new Date();
+    const monthName = now.toLocaleString("default", { month: "long" });
+    const year = now.getFullYear();
+
+    const headerTitle = `Swine Inventory Report — ${monthName} ${year}`;
+    const subHeader = `Municipality of ${municipality.charAt(0).toUpperCase() + municipality.slice(1)}`;
+
+    pdf.setFont("helvetica", "bold");
+    pdf.setFontSize(14);
+    pdf.text(headerTitle, pdf.internal.pageSize.getWidth() / 2, 15, { align: "center" });
+    pdf.setFont("helvetica", "normal");
+    pdf.setFontSize(12);
+    pdf.text(subHeader, pdf.internal.pageSize.getWidth() / 2, 22, { align: "center" });
+
+    // ===== TABLE IMAGE (MULTI-PAGE SUPPORT) =====
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const margin = 10;
+    const imgWidth = pageWidth - margin * 2;
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 30; // start below header
+
+    pdf.addImage(imgData, "PNG", margin, position, imgWidth, imgHeight);
+    heightLeft -= (pageHeight - position - margin);
+
+    // Add pages if content is longer than one page
+    while (heightLeft > 0) {
+      pdf.addPage();
+      position = margin;
+      pdf.addImage(
+        imgData,
+        "PNG",
+        margin,
+        position - heightLeft,
+        imgWidth,
+        imgHeight
+      );
+      heightLeft -= pageHeight - margin * 2;
+    }
+
+    // ===== SAVE FILE =====
+    pdf.save(`Swine_Inventory_${municipality}_${monthName}_${year}.pdf`);
+
+    // Restore buttons
+    buttons.forEach(btn => (btn.style.visibility = "visible"));
+  }
+});
+
+
+
+
 export default handleSelectMunicipalOnChange;

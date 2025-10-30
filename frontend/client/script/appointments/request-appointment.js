@@ -104,9 +104,22 @@ const sendRequestAppointment = () => {
         swineFemale: totalFemale,
         clinicalSigns: getClinicalSigns()
       };
+
+      // 2️⃣ Create a FormData
+      const formData = new FormData();
+
+      // 3️⃣ Append the JSON data
+      formData.append("data", JSON.stringify(appointmentFormData));
+
+      // 4️⃣ Append the image(s)
+      const imageInput = document.querySelector('#clinical-sign__swine-image-input');
+      if (imageInput.files.length > 0) {
+        formData.append("swineImage", imageInput.files[0]); // ✅ only first file
+      }
+
       
-      console.log(appointmentFormData);
-      const response = await api.post('/appointment/add', appointmentFormData);
+      // console.log(formData);
+      const response = await api.post('/appointment/add', formData);
 
       if (response.status === 201) {
         popupAlert('success', 'Success!', 'Appointment requested successfully.');

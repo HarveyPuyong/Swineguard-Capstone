@@ -4,9 +4,10 @@ const appointmentController = require('./../controllers/appointmentController');
 const verifyJWT = require('./../middlewares/verifyJWT');
 const ROLE_LIST = require('./../config/role_list');
 const verifyRoles = require('./../middlewares/verifyRoles');
+const upload = require('./../middlewares/upload'); 
 
 
-router.post('/add', verifyJWT, appointmentController.addAppointment); 
+router.post('/add', verifyJWT, upload.single('swineImage'), appointmentController.addAppointment); 
 
 router.put('/accept/:id', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordinator), appointmentController.acceptAppointment); 
 

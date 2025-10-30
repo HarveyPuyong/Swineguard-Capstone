@@ -5,131 +5,139 @@ const {isValidNumber} = require('./../utils/inventoryUtils');
 
 // Request Apointments
 exports.addAppointment = async (req, res) => {
+  try {
+    // 1️⃣ Parse JSON data from FormData
+    const parsedData = JSON.parse(req.body.data);
+
     const { 
-        clientId, 
-        swineIds, 
+      clientId, 
+      swineIds, 
+      clientFirstname, 
+      clientLastname, 
+      contactNum, 
+      clientEmail,
+      municipality, 
+      barangay, 
+      appointmentService, 
+      swineType, 
+      swineCount, 
+      appointmentDate, 
+      appointmentTime, 
+      swineAge, 
+      swineMale, 
+      swineFemale, 
+      appointmentType,
+      clinicalSigns
+    } = parsedData;
 
-        clientFirstname, 
-        clientLastname, 
-        contactNum, 
-        clientEmail,
-        municipality, 
-        barangay, 
-        
-        appointmentService, 
-        swineType, 
-        swineCount, 
-        appointmentDate, 
-        appointmentTime, 
-        swineAge, 
-        swineMale, 
-        swineFemale, 
-        appointmentType,
-        clinicalSigns, 
-    } = req.body;
+    // 2️⃣ Handle single uploaded file
+    const swineImage = req.file ? req.file.filename : null;
 
-    // Validate text only and not allow emojis
+    // 3️⃣ Validation - Names
     const nameRegex = /^[A-Za-z\s\-'.]+$/;
-
-    if (!nameRegex.test(clientFirstname) || !nameRegex.test(clientLastname) ) {
-        return res.status(400).json({ message: 'Name fields must only contain letters, spaces, hyphens, apostrophes, or periods. Numbers and emojis are not allowed.' });
+    if (!nameRegex.test(clientFirstname) || !nameRegex.test(clientLastname)) {
+      return res.status(400).json({
+        message: 'Name fields must only contain letters, spaces, hyphens, apostrophes, or periods. Numbers and emojis are not allowed.'
+      });
     }
 
-    // Validate only the REQUIRED fields based on schema
+    // 4️⃣ Validation - Required fields
     if (
-        !clientFirstname ||
-        !clientLastname ||
-        !contactNum ||
-        !barangay ||
-        !municipality ||
-        !appointmentService ||
-        !appointmentDate ||
-        !appointmentTime ||
-        !swineType ||
-        !clinicalSigns ||
-        swineCount == null ||
-        swineAge == null ||
-        swineMale == null ||
-        swineFemale == null ||
-        !appointmentDate ||
-        !appointmentTime 
+      !clientFirstname ||
+      !clientLastname ||
+      !contactNum ||
+      !barangay ||
+      !municipality ||
+      !appointmentService ||
+      !appointmentDate ||
+      !appointmentTime ||
+      !swineType ||
+      !clinicalSigns ||
+      swineCount == null ||
+      swineAge == null ||
+      swineMale == null ||
+      swineFemale == null
     ) {
-        return res.status(400).json({ message: 'Please fill out all required fields' });
+      return res.status(400).json({ message: 'Please fill out all required fields' });
     }
 
-    // Validate swine count age and number of genders
-    if (![swineCount, swineMale, swineFemale].every(val => typeof val === 'number' && Number.isInteger(val) && val >= 0)) {
-        return res.status(400).json({ message: 'Swine values must be positive whole numbers.' });
+    // 5️⃣ Convert numeric fields (since FormData sends them as strings)
+    const swineCountNum = Number(swineCount);
+    const swineMaleNum = Number(swineMale);
+    const swineFemaleNum = Number(swineFemale);
+    const swineAgeNum = Number(swineAge);
+
+    // 6️⃣ Validate numeric values
+    if (![swineCountNum, swineMaleNum, swineFemaleNum].every(val => Number.isInteger(val) && val >= 0)) {
+      return res.status(400).json({ message: 'Swine values must be positive whole numbers.' });
     }
 
-    if (swineAge < 0) return res.status(400).json({ message: 'Swine age should not be less than 0' });
-
-    if (swineCount === 0) {
-        return res.status(400).json({ message: 'Swine count should not be 0' });
+    if (swineAgeNum < 0) return res.status(400).json({ message: 'Swine age should not be less than 0' });
+    if (swineCountNum === 0) return res.status(400).json({ message: 'Swine count should not be 0' });
+    if (swineCountNum !== (swineFemaleNum + swineMaleNum)) {
+      return res.status(400).json({ message: 'Your swine count does not match with your male and female numbers' });
     }
 
-    // Check swine count and gender count
-    if (swineCount !== (swineFemale + swineMale)){ return res.status(400).json({ message: 'Your swine count do not match with your male and female numbers' })};
-
-    // Check Appointment Date
+    // 7️⃣ Check appointment date (no past dates)
     const today = new Date();
-    today.setHours(0, 0, 0, 0); // Start of today
-
+    today.setHours(0, 0, 0, 0);
     const appointment = new Date(appointmentDate);
-    appointment.setHours(0, 0, 0, 0); // Normalize to compare only dates
-
+    appointment.setHours(0, 0, 0, 0);
     if (appointment < today) {
-        return res.status(400).json({ message: 'Past dates are not allowed for appointments.' });
-    } 
-    
-    // Check Appointment Time
+      return res.status(400).json({ message: 'Past dates are not allowed for appointments.' });
+    }
+
+    // 8️⃣ Check appointment time availability
     const checkAppointmentTime = await isValidAppointmentTime(appointmentDate, appointmentTime, municipality);
-    if(!checkAppointmentTime.valid) return res.status(400).json({ message: checkAppointmentTime.message });
+    if (!checkAppointmentTime.valid) {
+      return res.status(400).json({ message: checkAppointmentTime.message });
+    }
 
+    // 9️⃣ Check swine limit
+    const swineCheck = await checkSwineCountLimit(appointmentDate, swineCountNum);
+    if (!swineCheck.success) {
+      return res.status(400).json({ message: swineCheck.message });
+    }
+
+    // 🔟 Construct appointment object
     const appointmentData = {
-        clientId, 
-        swineIds, 
-
-        clientFirstname, clientLastname, 
-        contactNum, 
-        clientEmail,
-        municipality, 
-        barangay, 
-        
-        appointmentService, 
-        appointmentDate, 
-        appointmentTime, 
-        appointmentType,
-        swineType,       
-        swineCount,    
-        swineAge, 
-        swineMale, 
-        swineFemale,
-        clinicalSigns
+      clientId,
+      swineIds,
+      clientFirstname,
+      clientLastname,
+      contactNum,
+      clientEmail,
+      municipality,
+      barangay,
+      appointmentService,
+      appointmentDate,
+      appointmentTime,
+      appointmentType,
+      swineType,
+      swineCount: swineCountNum,
+      swineAge: swineAgeNum,
+      swineMale: swineMaleNum,
+      swineFemale: swineFemaleNum,
+      clinicalSigns,
+      swineImage // ✅ single image
     };
 
-    try {
+    // 1️⃣1️⃣ Save to database
+    const newAppointment = new appointmentDB(appointmentData);
+    await newAppointment.save();
 
-        // Check total swine count for the day
-        const swineCheck = await checkSwineCountLimit(appointmentDate, swineCount);
-        if (!swineCheck.success) {
-            return res.status(400).json({ message: swineCheck.message });
-        }
+    res.status(201).json({
+      message: 'Appointment added successfully',
+      data: newAppointment
+    });
 
-        // Add appointment action
-        const addAppointment = new appointmentDB({ ...appointmentData });
-
-        await addAppointment.save();
-        res.status(201).json({
-            message: 'Appointment added successfully',
-            data: addAppointment
-        });
+  } catch (err) {
+    console.error('Add appointment error:', err);
+    res.status(500).json({ error: err.message });
+  }
+};
 
 
-    } catch (err) {
-        res.status(500).json({ error: err.message });
-    }
-}
 
 // Accept appointment
 exports.acceptAppointment = async (req, res) => {

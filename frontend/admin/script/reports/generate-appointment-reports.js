@@ -90,11 +90,15 @@ if (downloadAppointmentBtn) {
         doc.setFontSize(11);
 
         // Left signature
+        doc.text("Prepared by:", 60, yPos - 50); 
+
         doc.line(60, yPos - 15, 220, yPos - 15);
         doc.text(`${AdminName}`, 60, yPos);
         doc.text("Agriculture Technician II", 60, yPos + 15);
 
         // Right signature
+        doc.text("Noted by:", pageWidth - 220, yPos - 50);  
+
         doc.line(pageWidth - 220, yPos - 15, pageWidth - 60, yPos - 15);
         doc.text("Dr. Josque M. Victoria", pageWidth - 220, yPos);
         doc.text("Provincial Veterinarian", pageWidth - 220, yPos + 15);

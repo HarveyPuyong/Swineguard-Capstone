@@ -37,6 +37,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+
     <!-- Axios CDN -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     
@@ -534,6 +541,8 @@
                 <option value="Torrijos">Torrijos</option>
               </select>
 
+              <button id="downloadSwinePopulationPDF">Download Table PDF</button>
+
               <!-- render at swine-population.js -->
               <div class="swine-population__table-container"> 
                 <table>
@@ -705,7 +714,16 @@
                 <button type="button" class="pending-btn active"><span>Pending</span><span class="appointment-count">0</span></button>
                 <button type="button" class="accepted-btn"><span>Accepted</span><span class="appointment-count">0</span></button>
                 <button type="button" class="rescheduled-btn"><span>Rescheduled</span><span class="appointment-count">0</span></button>
-                <button type="button" class="completed-btn"><span>Completed</span><span class="appointment-count">0</span></button>
+                <button type="button" class="completed-btn"><span>Completed</span></button>
+              </div>
+            </div>
+
+            
+            <!-- Pop-ip Images -->
+            <div class="admin-clinical-signs-overlay">
+              <div class="admin-popUp-image__clinical-sign-container">
+                <button class="admin-hide-btn__clinical-sign" type="button">Close</button>
+                <img src="./images-and-icons/icons/default-img__clinical-sign.png" class="clinical-signs__images" alt="uploaded-image">
               </div>
             </div>
                      
@@ -758,6 +776,15 @@
           
               <!-- appointments calendar -->
               <div id='appointment-schedule-calendar' class="appointment-schedule-container__calendar"></div>
+
+              <!-- Pop-up all task in certain date -->
+              <div class="calendar-overlay">
+                <div class="pop-up__calendar-tasks">
+                  <button class="close-calendar-popup">Close</button>
+                  <h2 class="current-clicked-date"></h2>
+                  <div class="task-list__for-the-day"></div>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -838,7 +865,7 @@
 
               <!-- filter inventory -->
               <div class="inventory-filtering-tab__btn">
-                <button type="button" class="in-stock__btn active"><span>In Stock</span><span class="medicine-count" id="in-stock__btn-count">0</span></button>
+                <button type="button" class="in-stock__btn active"><span>In Stock</span></button>
                 <button type="button" class="less-stock__btn"><span>Less Stock</span><span class="medicine-count" id="less-stock__btn-count">0</span></button>
                 <button type="button" class="out-of-stock__btn"><span>Out of Stock</span><span class="medicine-count" id="out-of-stock__btn-count">0</span></button>
               </div>

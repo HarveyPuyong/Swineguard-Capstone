@@ -649,12 +649,19 @@ th {
 }
 
 .swine-population-table select,
+#downloadSwinePopulationPDF,
 #add-population-municipality {
   padding: .2rem .3rem;
   border-radius: 4px;
   width: 200px;
   margin-top: .5rem;
   border: 1px solid rgba(43, 43, 43, 0.376);
+}
+
+#downloadSwinePopulationPDF {
+  background-color: #005026;
+  color: white;
+  cursor: pointer;
 }
 #add-population-municipality {
   text-align: left;
@@ -729,6 +736,8 @@ td input {
   border-radius: 2px;
   cursor: pointer;
 }
+
+
 
 /* Total population table */
 .total-population-table__label{
@@ -824,4 +833,18 @@ td input {
 
 .municipality:hover {
   background-color: #68acec59; /* light hover effect */
+}
+
+
+.table-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin: 10px 0;
+}
+
+.table-pagination button {
+  padding: 5px 10px;
+  cursor: pointer;
 }

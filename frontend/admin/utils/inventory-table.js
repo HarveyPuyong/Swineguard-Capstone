@@ -108,11 +108,11 @@ async function adminPageInventoryTable(inventories, table) {
 const renderButtonsCount = async (inventories) => {
   const allStocks = await fetchInventoryStocks();
 
-  const inStockBtn = document.getElementById('in-stock__btn-count');
+  // const inStockBtn = document.getElementById('in-stock__btn-count');
   const lessStockBtn = document.getElementById('less-stock__btn-count');
   const outOfStockBtn = document.getElementById('out-of-stock__btn-count');
 
-  let itemCount_inStock = 0;
+  // let itemCount_inStock = 0;
   let itemCount_lessStock = 0;
   let itemCount_OutofStock = 0;
 
@@ -123,8 +123,6 @@ const renderButtonsCount = async (inventories) => {
       itemCount_OutofStock++;
     } else if (totalQuantity < 20) {
       itemCount_lessStock++;
-    } else {
-      itemCount_inStock++;
     }
   }
 
@@ -134,7 +132,7 @@ const renderButtonsCount = async (inventories) => {
     btn.textContent = count;
   };
 
-  updateButton(inStockBtn, itemCount_inStock);
+  // updateButton(inStockBtn, itemCount_inStock);
   updateButton(lessStockBtn, itemCount_lessStock);
   updateButton(outOfStockBtn, itemCount_OutofStock);
 

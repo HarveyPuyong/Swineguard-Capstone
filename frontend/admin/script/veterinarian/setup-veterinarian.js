@@ -278,15 +278,59 @@ const setupTaskListFilters = () => {
 
 
 // ======================================
+// ========== Toggle Clinical Signs 
+// ======================================
+// ======================================
+// ========== Toggle Clinical Signs 
+// ======================================
+const toggleClinicalSignImage = () => {
+  const image = document.querySelectorAll('.vet-side__clinical-sign-img');
+  const overlay = document.querySelector('.admin-clinical-signs-overlay');
+  const popup = document.querySelector('.admin-popUp-image__clinical-sign-container');
+  const hideBtn = document.querySelector('.admin-hide-btn__clinical-sign');
+
+  image.forEach(img => {
+    img.addEventListener('click', () => {
+        const appointmentId = img.dataset.id;
+        overlay.classList.add('show');
+        handleClinicalPopUpImage(appointmentId);
+    });
+  })
+
+    hideBtn.addEventListener('click', () => {
+    overlay.classList.remove('show');
+  });
+
+  // Optional: clicking outside popup closes it
+  overlay.addEventListener('click', (e) => {
+    if (e.target === overlay) overlay.classList.remove('show');
+  });
+}
+
+
+
+// ======================================
 // ✅ Event listener for dynamic content
 // ======================================
 document.addEventListener('renderTaskList', () => {
     toggleAppointmentTask();
     handleCompleteTaskBtn();
     setupTaskListFilters();
+    toggleClinicalSignImage();
 });
 
 
+
+// ======================================
+// ========== Display Clinical Signs Image
+// ======================================
+const handleClinicalPopUpImage = async(appointmentId) => {
+  const popUp_Image = document.querySelector('.admin-popUp-image__clinical-sign-container .clinical-signs__images');
+  const appointments = await fetchAppointments();
+  const appointment = appointments.find(app => app._id === appointmentId);
+
+  popUp_Image.src = `${appointment.swineImage ? '/uploads/' + appointment.swineImage : "images-and-icons/icons/default-img__clinical-sign.png"}`;
+}
 
 
 
