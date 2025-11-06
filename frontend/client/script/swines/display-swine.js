@@ -211,7 +211,7 @@ const displayFullSwineDetails = async (swineId) => {
 
             <div class="history-nav-btns">
                 <button class="history-nav-btns__nav swine-medical-history-btn active" type="button">Medical History</button>
-                <button class="history-nav-btns__nav swine-health-history-btn" type="button">Health History</button>
+                <button class="history-nav-btns__nav swine-health-history-btn" type="button">Weight History</button>
             </div>
 
             <div class="medical-history__container swine-history show">
