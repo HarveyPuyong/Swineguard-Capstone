@@ -21,7 +21,7 @@ const displayClientSwines = async () => {
 
     const swines = await fetchSwines();
     const filterClientSwine = swines.filter(
-      swine => swine.clientId === userId && swine.status !== 'removed'
+      swine => swine.clientId === userId && (swine.status !== 'removed' && swine.status !== 'deceased' && swine.status !== 'sold')
     );
 
     // Get selected filter value
