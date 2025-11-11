@@ -1,6 +1,8 @@
 
 
-.swine-monitoring-list {
+.swine-monitoring-list,
+.monitoring-history__list
+{
     width: 100%;
     background-color: white;
     border-radius: 8px;
@@ -43,7 +45,10 @@
     max-height: 350px;
 }
 
-
+.monitoring-history__list .client-swine {
+    max-height: 500px;
+    overflow: auto;
+}
 
 .full-details {
   padding-top: .5rem;
@@ -190,10 +195,37 @@
     font-weight: bold;
 }
 
+/* 
+Swine Monitoring History
+*/
+.monitoring-history__container {
+    display: none;
+}
+.monitoring-history__container.show {
+    display: block;
+}
+.swine-monitoring-list.hide {
+    display: none;
+}
+
+/* 
+headline
+*/
+.headline-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.history-btn{
+    padding: .4rem 1rem;
+    margin-top: 2rem;
+}
+
 
 @media (max-width: 1000px) {
 
-    .swine-monitoring-list {
+    .swine-monitoring-list,
+    .monitoring-history__list {
         grid-template-columns: 1fr 1fr; /* single column layout */
         width: 100%;
         overflow-x: hidden; /* remove horizontal scroll on phones */
@@ -205,7 +237,8 @@
 
 @media (max-width: 700px) {
 
-    .swine-monitoring-list {
+    .swine-monitoring-list,
+    .monitoring-history__list {
         grid-template-columns: 1fr; /* single column layout */
         width: 100%;
         overflow-x: hidden; 
@@ -220,6 +253,7 @@
     }
 
 }
+
 @media (max-width: 400px) {
 
     #monitoring-section {
@@ -234,7 +268,8 @@
         margin-left: 1rem;
     }
 
-    .swine-monitoring-list {
+    .swine-monitoring-list,
+    .monitoring-history__list {
         grid-template-columns: 1fr; /* single column layout */
         width: 100%;
         overflow-x: hidden; 
@@ -250,6 +285,11 @@
 
     .update-monitoring__client-swine {
         width: 350px;
+    }
+
+    .history-btn{
+        padding: .1rem .5rem;
+        margin-top: 5rem;
     }
 
 }
