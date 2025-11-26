@@ -19,7 +19,11 @@
 
     <link rel="icon" type="image/png" href="images-and-icons/icons/swineGuard-logo.png">
 
-        <!-- Chart.js CDN -->
+    <!-- FullCalendar CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js"></script>
+
+    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
@@ -72,13 +76,17 @@
             <img class="side-nav__link-icon" src="images-and-icons/icons/schedule (1).png" alt="schedule-icon">
             <p class="side-nav__link-label">Schedule</p>
           </li>
-          <li class="side-nav__link" data-value="messages-section">
-            <img class="side-nav__link-icon" src="images-and-icons/icons/messages-icon.png" alt="message-icon">
-            <p class="side-nav__link-label">Messages</p>
-          </li>
           <li class="side-nav__link" data-value="monitoring-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/monitoring-swine.png" alt="setting-icon">
             <p class="side-nav__link-label">Swine Monitoring</p>
+          </li>
+          <li class="side-nav__link" data-value="availability-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/availability.png" alt="message-icon">
+            <p class="side-nav__link-label">Availability</p>
+          </li>
+          <li class="side-nav__link" data-value="messages-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/messages-icon.png" alt="message-icon">
+            <p class="side-nav__link-label">Messages</p>
           </li>
           <li class="side-nav__link" data-value="setting-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="setting-icon">
@@ -136,6 +144,10 @@
         <!-- =========== Schedule Section ========== -->
         <section id="schedule-section" class="hide">
           <h1 class="section__heading">Appointment Schedule</h1>
+          <!-- appointment sorting-->
+          <div class="appointment-calender__btn">
+            <button class="vet-viewn-calendar-btn">View Calendar</button>
+          </div>
 
           <div class="filter-appointment__schedule">
             <div class="filter-btn__container">
@@ -218,6 +230,81 @@
             </div>
           </div>
 
+
+          <!-- Appointment Section: Schedule calendar contents -->
+          <div class="appointment-schedule-content">
+
+            <div class="appointment-schedule-container">
+              <!-- appointment total services and visit -->
+              <div class="appointment-schedule-total-container">
+                <div class="appointment-schedule-container__total total-service-type">
+                  <p class="appointment-schedule-container__total--label">Total Services:</p>
+                  <p class="appointment-schedule-container__total--value"><!-- value is render in script/appointments/appointment-calendar.js --></p>
+                </div>
+                <div class="appointment-schedule-container__total total-visit-type">
+                  <p class="appointment-schedule-container__total--label">Total Visit:</p>
+                  <p class="appointment-schedule-container__total--value"><!-- value is render in script/appointments/appointment-calendar.js --></p>
+                </div>
+              </div>
+
+              <!-- types identifier container -->
+              <div class="appointment-schedule-container__type-identifier-container">
+                <div class="appointment-schedule-container__type-identifier service-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Service</p>
+                </div>
+                <div class="appointment-schedule-container__type-identifier visit-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Visit</p>
+                </div>
+              </div>
+          
+              <!-- appointments calendar -->
+              <div id='appointment-schedule-calendar' class="appointment-schedule-container__calendar"></div>
+
+              <!-- Pop-up all task in certain date -->
+              <div class="calendar-overlay">
+                <div class="pop-up__calendar-tasks">
+                  <button class="close-calendar-popup">Close</button>
+                  <h2 class="current-clicked-date"></h2>
+                  <div class="task-list__for-the-day"></div>
+                </div>
+
+                <!-- Vet Schedule Form -->
+                <form class="vet-schedule-form">
+                  <h2>Set New Schedule</h2>
+                  <span id="clicked-date">Date: </span>
+
+                  <div class="schedule__input-field">
+                    <label for="schedule-title">Title:</label>
+                    <input type="text" id="schedule-title" placeholder="Enter here." required>
+
+                    <label for="schedule-description">Description:</label>
+                    <textarea id="schedule-description" placeholder="Type here"></textarea>
+
+                  </div>
+
+                  
+
+                  <div class="schedule__btn-container">
+                    <button type="button" id="schedule__back-btn">Back</button>
+                    <button type="submit" id="schedule__save-btn">Save</button>
+                  </div>
+              </form>
+              </div>
+
+              
+            </div>
+          </div>
+
+        </section>
+
+        <!-- ========== Settings Section ========== -->
+        <section id="availability-section" class="hide">
+          <h1 class="section__heading">Availability</h1>
+          <div class="availability-container">
+            No content Yet
+          </div>
         </section>
 
         <!-- ========== Messages Section ========== -->

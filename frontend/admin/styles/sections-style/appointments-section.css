@@ -92,7 +92,8 @@ Medicine count per button
 
 .filter-and-view-sched-container Button,
 .appointment-section__view-schedules-btn.view-navigate-btn,
-.view-btns-container button
+.view-btns-container button,
+.vet-viewn-calendar-btn
 {
   width: 200px;
   border-radius: 8px;
@@ -1001,6 +1002,10 @@ Pie Graph design
 
 #report-container__doughnut-chart-appointment {
   width: 752px;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 0);
 }
 
 
@@ -1355,6 +1360,10 @@ pop-up of dates and appointment schedules
   padding: 3rem 2rem;
   box-shadow: 0 4px 12px rgba(0,0,0,0.3);
   position: relative;
+}
+
+.pop-up__calendar-tasks.hide {
+  display: none;
 }
 
 .close-calendar-popup {

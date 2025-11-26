@@ -9,6 +9,7 @@ import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
 import { formatedDateForCalendar } from "../../utils/formated-date-time.js";
 import { handleUnderMonitoringSwine } from "./handle-under-monitoring.js";
 import { getSwineFourDigitId } from "../../../client/client-utils/get-swine-data.js";
+import handleAppointmentCalendarContent from "../appointments/appointment-calendar.js";
 
 
 
@@ -280,9 +281,6 @@ const setupTaskListFilters = () => {
 // ======================================
 // ========== Toggle Clinical Signs 
 // ======================================
-// ======================================
-// ========== Toggle Clinical Signs 
-// ======================================
 const toggleClinicalSignImage = () => {
   const image = document.querySelectorAll('.vet-side__clinical-sign-img');
   const overlay = document.querySelector('.admin-clinical-signs-overlay');
@@ -335,10 +333,43 @@ const handleClinicalPopUpImage = async(appointmentId) => {
 
 
 
+// ======================================
+// ========== View Calendar Button 
+// ======================================
+const viewCalendarHandler = () => {
+    const filterBtnContainer = document.querySelector('.filter-appointment__schedule');
+    const scheduleTaskContainer = document.querySelector('#schedule-section .schedule-list');
+    const calendarContainer = document.querySelector('.appointment-schedule-content');
+    const viewCalendarBtn = document.querySelector('.vet-viewn-calendar-btn');
+
+    viewCalendarBtn.addEventListener('click', () => {
+        const isCalendarShown = calendarContainer.classList.contains('show');
+
+        if (isCalendarShown) {
+            // Go back to schedule view
+            calendarContainer.classList.remove('show');
+            scheduleTaskContainer.classList.remove('hide');
+            filterBtnContainer.classList.remove('hide');
+            viewCalendarBtn.textContent = "View Calendar";
+        } else {
+            // Go to calendar view
+            scheduleTaskContainer.classList.add('hide');
+            filterBtnContainer.classList.add('hide');
+            calendarContainer.classList.add('show');
+            viewCalendarBtn.textContent = "Back to Schedules";
+            handleAppointmentCalendarContent();
+        }
+    });
+}
+
+
+
 
 export default async function setupVeterinarian () {
     await displayTaskList();
     renderSwineGraph();
     setupCompleteAppointmentFormListener();
     handleUnderMonitoringBtn();
+
+    viewCalendarHandler();
 }

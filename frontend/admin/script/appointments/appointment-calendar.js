@@ -1,7 +1,8 @@
 import { fetchAppointments } from './../../api/fetch-appointments.js';
-import { formatedDateForCalendar, formatTo12HourTime } from './../../utils/formated-date-time.js';
+import { formatedDateForCalendar, formatTo12HourTime, formattedDate } from './../../utils/formated-date-time.js';
 import { getServiceName } from '../../api/fetch-services.js';
 import { getTechnicianName } from '../../api/fetch-technicians.js';
+import fetchUser from '../auth/fetchUser.js';
 
 
 // ======================================
@@ -82,14 +83,21 @@ async function renderAppointmentCalendar() {
   }
 }
 
+
+
 // ======================================
 // ========== Show Appointments for Date
 // ======================================
-function showAppointmentsForDate(clickedDate, events) {
+async function showAppointmentsForDate(clickedDate, events) {
   const overlay = document.querySelector('.calendar-overlay');
   const dateTitle = document.querySelector('.current-clicked-date');
   const taskList = document.querySelector('.task-list__for-the-day');
   const closeBtn = document.querySelector('.close-calendar-popup');
+
+  //User Role
+  const user = await fetchUser();
+  const role = user.roles;
+  const userRole = role[0];
 
   // Format readable date
   const dateObj = new Date(clickedDate);
@@ -119,14 +127,66 @@ function showAppointmentsForDate(clickedDate, events) {
       .join('');
   }
 
+  // 👉 Add Task Button for allowed roles
+  const allowedRoles = ["veterinarian", "user"];
+  // Allowed roles
+  if (userRole === 'veterinarian') {
+    const clicked = new Date(clickedDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    const isPast = clicked < today;
+
+    if (!isPast) {
+      taskList.insertAdjacentHTML(
+        "beforeend",
+        `<button class="add-schedule-btn">+ New Schedule</button>`
+      );
+
+      const newScheduleBtn = taskList.querySelector(".add-schedule-btn");
+      const newScheduleForm = document.querySelector(".vet-schedule-form");
+      const popUpTasks = document.querySelector(".pop-up__calendar-tasks");
+
+      newScheduleBtn.addEventListener("click", () => {
+        newScheduleForm.classList.add("show");
+        popUpTasks.classList.add("hide");
+        document.getElementById('clicked-date').textContent = `Date: ${formattedDate(clickedDate)}`;
+      });
+    }
+  }
+
+  if (userRole === 'user') {
+    taskList.insertAdjacentHTML(
+      "beforeend",
+      `<button class="request-appointment-btn__calendar">Request Appointment</button>`
+    );
+
+    const requestBtn = taskList.querySelector(".request-appointment-btn__calendar");
+
+    requestBtn.addEventListener("click", () => {
+      alert("Request Appointment at Date:" + clickedDate);
+    });
+  }
+
+
   overlay.classList.add('show');
 
   // Close functionality
   closeBtn.onclick = () => overlay.classList.remove('show');
   overlay.onclick = (e) => {
-    if (e.target === overlay) overlay.classList.remove('show');
+    const newScheduleForm = document.querySelector('.vet-schedule-form');
+    const popUpTasks = document.querySelector('.pop-up__calendar-tasks');
+
+    // Clicked exactly outside (the overlay)
+    if (e.target === overlay) {
+      overlay.classList.remove('show');          // close popup
+      newScheduleForm.classList.remove('show');  // hide form
+      popUpTasks.classList.remove('hide');       // show tasks again
+    }
   };
 }
+
+
 
 // ======================================
 // ========== Compute Appointments Types
@@ -167,4 +227,16 @@ async function computeVisitAndServicePercentages() {
 export default function handleAppointmentCalendarContent() {
   renderAppointmentCalendar();
   computeVisitAndServicePercentages();
+
+  // 👉 Add Back button listener ONCE here
+  const backBtn = document.getElementById('schedule__back-btn');
+  const newScheduleForm = document.querySelector('.vet-schedule-form');
+  const popUpTasks = document.querySelector('.pop-up__calendar-tasks');
+
+  if (backBtn) {
+    backBtn.addEventListener('click', () => {
+      newScheduleForm.classList.remove('show');
+      popUpTasks.classList.remove('hide');
+    });
+  }
 }

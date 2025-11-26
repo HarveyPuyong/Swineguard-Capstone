@@ -23,6 +23,9 @@
   gap: 30px;
   margin-top: 10px;
 }
+#schedule-section .schedule-list.hide {
+  display: none;
+}
 
 .schedule-list .schedule{
   display: flex;
@@ -56,6 +59,7 @@
 .schedule-list .schedule .detail-value{
   color: #065d2f;
 }
+
 
 .schedule .appointment-name{
   font-weight: 600;
@@ -151,6 +155,10 @@
   justify-content: center;
   margin-bottom: 1.5rem;
 }
+.filter-appointment__schedule.hide {
+  display: none;
+}
+
 .filter-btn__container {
   background-color: #0F7E43;
   display: flex;
@@ -198,6 +206,85 @@
   padding: 2px 6px;
   font-size: 12px;
   font-weight: bold;
+}
+
+
+/* 
+Set Veterinary Schedule Form
+*/
+.vet-schedule-form span {
+  font-weight: 600;
+}
+.vet-schedule-form {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 2rem;
+  border-radius: 8px;
+  border: 1px solid black;
+  background-color: #ffffff;
+  z-index: 100;
+  display: none;
+  flex-direction: column;
+  gap: 1rem;
+  width: 400px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.vet-schedule-form.show {
+  display: flex;
+}
+
+.vet-schedule-form h2 {
+  text-align: center;
+}
+.vet-schedule-form label {
+  font-weight: 600;
+}
+.schedule__input-field {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.schedule__input-field input,
+.schedule__input-field textarea  {
+  margin-bottom: .5rem;
+  width: 100%;
+  padding: .5rem 1rem;
+  border: 1px solid #808080;
+  border-radius: 4px;
+}
+.schedule__input-field textarea {
+  height: 100px;
+}
+
+.schedule__btn-container {
+  width: 100%;
+  display: flex;
+  gap: .5rem;
+}
+.schedule__btn-container button {
+  width: 100%;
+  padding: .2rem .5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+}
+.schedule__btn-container button:nth-child(1) {
+  background-color: #7676ff;
+  border: 1px solid #0f0fc5;
+  color: #0f0fc5;
+}
+.schedule__btn-container button:nth-child(2),
+.add-schedule-btn {
+  background-color: #B0DDC5;
+  border: 1px solid #009947;
+  color: #232C27;
+}
+.add-schedule-btn {
+  padding: .2rem .5rem;
+  border-radius: 4px;
 }
 
 
