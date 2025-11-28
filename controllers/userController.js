@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const ROLE_LIST = require('./../config/role_list');
 const { isValidInput, containsEmoji, hasNumber, containsSpecialChar }= require('./../utils/inputChecker');
 const {generateAccessToken, generateRefreshToken} = require('./../utils/generateTokens');
+const { NumberOfAppointmentsPerDay } = require('./../models/veterinarianPersonalTaskModel');
 
 
 const editUserDetails = async (req, res) => {
@@ -128,6 +129,16 @@ const addStaff = async (req, res) => {
     newUser.refreshToken = [refreshToken];
 
     await newUser.save();
+
+    // --- AUTOMATICALLY CREATE MAX APPOINTMENT RECORD IF VET OR TECH ---
+    if (newUser.roles.includes('veterinarian') || newUser.roles.includes('technician')) {
+      
+      await NumberOfAppointmentsPerDay.findOneAndUpdate(
+        { userId: newUser._id },
+        { totalAppointment: 5 },
+        { new: true, upsert: true }
+      );
+    }
 
     //kapag successfull na yung pag create ng client ay ga messsage tapos a asama na din yung accessToken sa response
     return res.status(201).json({message: 'Successfully created Technician', data: newUser});

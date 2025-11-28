@@ -10,6 +10,16 @@ import { formatedDateForCalendar } from "../../utils/formated-date-time.js";
 import { handleUnderMonitoringSwine } from "./handle-under-monitoring.js";
 import { getSwineFourDigitId } from "../../../client/client-utils/get-swine-data.js";
 import handleAppointmentCalendarContent from "../appointments/appointment-calendar.js";
+import { renderSchedulesFromCalendar } from "./render-vet-schedules.js";
+import fetchUser from "../auth/fetchUser.js";
+import { handleAddNewScheduleFromSection } from "./handle-schedule-from-calendar.js";
+import { editTotalAppointment } from "./set-num-of-appointment.js";
+import { renderMaxApptPerDay } from "../../components/vet-max-appointment.js";
+
+
+// Vet Id
+const vet = await fetchUser();
+const vetId = vet._id;
 
 
 
@@ -148,7 +158,7 @@ const setupPersonnelCompleteForm = async (appointmentId) => {
         selectedMedicineVariation.forEach(v => {
             const option = document.createElement('option');
             option.value = v._id;
-            option.textContent = `${v.content} ml (${formatedDateForCalendar(v.expiryDate)})`;
+            option.textContent = `${v.content} ml (${v.quantity} pcs) (expry: ${formatedDateForCalendar(v.expiryDate)}) `;
             medicineVarSelectTag.appendChild(option);
         });
 
@@ -356,11 +366,74 @@ const viewCalendarHandler = () => {
             scheduleTaskContainer.classList.add('hide');
             filterBtnContainer.classList.add('hide');
             calendarContainer.classList.add('show');
-            viewCalendarBtn.textContent = "Back to Schedules";
+            viewCalendarBtn.textContent = "Your Schedules";
             handleAppointmentCalendarContent();
         }
     });
 }
+
+
+
+// ======================================
+// ========== Set up Veterinarian Personal Schedule
+// ======================================
+const setUpVetPersonalSchedule = () => {
+    const overlay = document.querySelector('.availability-overlay');
+    const addNewScheBtn = document.getElementById('availability__add-new-schedule');
+    const setMaxAppBtn = document.getElementById('availability__set-max-appointment');
+
+    const backBtn = document.getElementById('availability-schedule__back-btn');
+    const setMaxAppBackBtn = document.getElementById('max-num-input__back-btn');
+
+    const newScheduleForm = document.querySelector('.availability-vet-schedule-form');
+    const setMaxAppForm = document.querySelector('.availability-set__max-appointment');
+
+    // Open "Add New Schedule"
+    addNewScheBtn.addEventListener('click', () => {
+        overlay.classList.add("show");
+        newScheduleForm.classList.add("show");
+        setMaxAppForm.classList.remove("show");
+        handleAddNewScheduleFromSection(vetId);
+    });
+
+    // Open "Set Maximum Appointment"
+    setMaxAppBtn.addEventListener('click', () => {
+        overlay.classList.add("show");
+        setMaxAppForm.classList.add("show");
+        newScheduleForm.classList.remove("show");
+        editTotalAppointment();
+    });
+
+    // Back button for Schedule form
+    backBtn.addEventListener('click', () => {
+        overlay.classList.remove("show");
+        newScheduleForm.classList.remove("show");
+        newScheduleForm.reset();
+    });
+
+    // Back button for Max App form
+    setMaxAppBackBtn.addEventListener('click', () => {
+        overlay.classList.remove("show");
+        setMaxAppForm.classList.remove("show");
+        setMaxAppForm.reset();
+    });
+
+    // Close when clicking outside the popup (overlay click)
+    overlay.onclick = (e) => {
+        if (e.target === overlay) {
+            overlay.classList.remove("show");
+
+            // Hide both forms
+            newScheduleForm.classList.remove("show");
+            setMaxAppForm.classList.remove("show");
+
+            // Reset both
+            newScheduleForm.reset();
+            setMaxAppForm.reset();
+        }
+    };
+};
+
 
 
 
@@ -370,6 +443,8 @@ export default async function setupVeterinarian () {
     renderSwineGraph();
     setupCompleteAppointmentFormListener();
     handleUnderMonitoringBtn();
-
     viewCalendarHandler();
+    renderSchedulesFromCalendar();
+    setUpVetPersonalSchedule();
+    renderMaxApptPerDay();
 }

@@ -1,4 +1,6 @@
 const appointmentDB = require('./../models/appointmentModel');
+
+const { VeterinarianSchedule } = require('./../models/veterinarianPersonalTaskModel');
 const MAX_SWINE_PER_DAY = 30;
 
 // Check Date and Swine Limit for Day
@@ -77,8 +79,28 @@ async function isValidAppointmentTime(appointmentDate, appointmentTime, municipa
     return { valid: true };
 }
 
+
+async function isVetScheduledOnDate(vetId, date) {
+  const targetDate = new Date(date).toDateString(); // Only date part
+
+  // Find if there's a schedule where the vet is unavailable on that date
+  const schedule = await VeterinarianSchedule.findOne({
+    userId: vetId,
+    availability: false,
+    date: {
+      $gte: new Date(date).setHours(0, 0, 0, 0),
+      $lte: new Date(date).setHours(23, 59, 59, 999)
+    }
+  });
+
+  return !!schedule; // true if a conflicting schedule exists
+}
+
+
+
 // ✅ Export both in one object
 module.exports = {
     checkSwineCountLimit,
-    isValidAppointmentTime
+    isValidAppointmentTime,
+    isVetScheduledOnDate
 };

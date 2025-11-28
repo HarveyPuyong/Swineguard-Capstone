@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="styles/sections-style/notification.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <link rel="stylesheet" href="styles/sections-style/monitoring-section.css">
+    <link rel="stylesheet" href="styles/sections-style/vet-schedule-from-calemdar.css">
 
     <link rel="icon" type="image/png" href="images-and-icons/icons/swineGuard-logo.png">
 
@@ -156,6 +157,68 @@
             </div>
           </div>
 
+          <!-- Appointment Section: Schedule calendar contents -->
+          <div class="appointment-schedule-content">
+            <div class="appointment-schedule-container">
+              <!-- appointment total services and visit -->
+              <div class="appointment-schedule-total-container">
+                <div class="appointment-schedule-container__total total-service-type">
+                  <p class="appointment-schedule-container__total--label">Total Services:</p>
+                  <p class="appointment-schedule-container__total--value"><!-- value is render in script/appointments/appointment-calendar.js --></p>
+                </div>
+                <div class="appointment-schedule-container__total total-visit-type">
+                  <p class="appointment-schedule-container__total--label">Total Visit:</p>
+                  <p class="appointment-schedule-container__total--value"><!-- value is render in script/appointments/appointment-calendar.js --></p>
+                </div>
+              </div>
+
+              <!-- types identifier container -->
+              <div class="appointment-schedule-container__type-identifier-container">
+                <div class="appointment-schedule-container__type-identifier service-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Service</p>
+                </div>
+                <div class="appointment-schedule-container__type-identifier visit-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Visit</p>
+                </div>
+              </div>
+          
+              <!-- appointments calendar -->
+              <div id='appointment-schedule-calendar' class="appointment-schedule-container__calendar"></div>
+
+              <!-- Pop-up all task in certain date -->
+              <div class="calendar-overlay">
+                <div class="pop-up__calendar-tasks">
+                  <button class="close-calendar-popup">Close</button>
+                  <h2 class="current-clicked-date"></h2>
+                  <div class="task-list__for-the-day"></div>
+                </div>
+
+                <!-- Vet Schedule Form -->
+                <form class="vet-schedule-form">
+                  <h2>Set New Schedule</h2>
+                  <span id="clicked-date">Date: </span>
+
+                  <div class="schedule__input-field">
+                    <label for="schedule-title">Title:</label>
+                    <input type="text" id="schedule-title" placeholder="Enter here." required>
+
+                    <label for="schedule-description">Description:</label>
+                    <textarea id="schedule-description" placeholder="Type here"></textarea>
+                  </div>
+
+                  <div class="schedule__btn-container">
+                    <button type="button" id="schedule__back-btn">Back</button>
+                    <button type="submit" id="schedule__save-btn">Save</button>
+                  </div>
+                </form>
+              </div>
+
+              
+            </div>
+          </div>
+
           <div class="schedule-list">
             <!-- display-appointment-task.js -->
           </div>
@@ -230,80 +293,69 @@
             </div>
           </div>
 
-
-          <!-- Appointment Section: Schedule calendar contents -->
-          <div class="appointment-schedule-content">
-
-            <div class="appointment-schedule-container">
-              <!-- appointment total services and visit -->
-              <div class="appointment-schedule-total-container">
-                <div class="appointment-schedule-container__total total-service-type">
-                  <p class="appointment-schedule-container__total--label">Total Services:</p>
-                  <p class="appointment-schedule-container__total--value"><!-- value is render in script/appointments/appointment-calendar.js --></p>
-                </div>
-                <div class="appointment-schedule-container__total total-visit-type">
-                  <p class="appointment-schedule-container__total--label">Total Visit:</p>
-                  <p class="appointment-schedule-container__total--value"><!-- value is render in script/appointments/appointment-calendar.js --></p>
-                </div>
-              </div>
-
-              <!-- types identifier container -->
-              <div class="appointment-schedule-container__type-identifier-container">
-                <div class="appointment-schedule-container__type-identifier service-type-identifier">
-                  <div class="appointment-schedule-container__type-identifier--dot"></div>
-                  <p class="appointment-schedule-container__type-identifier--label">Service</p>
-                </div>
-                <div class="appointment-schedule-container__type-identifier visit-type-identifier">
-                  <div class="appointment-schedule-container__type-identifier--dot"></div>
-                  <p class="appointment-schedule-container__type-identifier--label">Visit</p>
-                </div>
-              </div>
-          
-              <!-- appointments calendar -->
-              <div id='appointment-schedule-calendar' class="appointment-schedule-container__calendar"></div>
-
-              <!-- Pop-up all task in certain date -->
-              <div class="calendar-overlay">
-                <div class="pop-up__calendar-tasks">
-                  <button class="close-calendar-popup">Close</button>
-                  <h2 class="current-clicked-date"></h2>
-                  <div class="task-list__for-the-day"></div>
-                </div>
-
-                <!-- Vet Schedule Form -->
-                <form class="vet-schedule-form">
-                  <h2>Set New Schedule</h2>
-                  <span id="clicked-date">Date: </span>
-
-                  <div class="schedule__input-field">
-                    <label for="schedule-title">Title:</label>
-                    <input type="text" id="schedule-title" placeholder="Enter here." required>
-
-                    <label for="schedule-description">Description:</label>
-                    <textarea id="schedule-description" placeholder="Type here"></textarea>
-
-                  </div>
-
-                  
-
-                  <div class="schedule__btn-container">
-                    <button type="button" id="schedule__back-btn">Back</button>
-                    <button type="submit" id="schedule__save-btn">Save</button>
-                  </div>
-              </form>
-              </div>
-
-              
-            </div>
-          </div>
-
         </section>
 
-        <!-- ========== Settings Section ========== -->
+        <!-- ========== Availability Section ========== -->
         <section id="availability-section" class="hide">
-          <h1 class="section__heading">Availability</h1>
           <div class="availability-container">
-            No content Yet
+            <div class="set-availability__conatiner">
+              <h1 class="section__heading">Veterinary Personal Schedule</h1>
+              <div class="availabilty-btn__container">
+                <div class="availabilty-btn__container-inner">
+                  <button type="button" id="availability__set-max-appointment">Set Maximum Appointment</button>
+                  <button type="button" id="availability__add-new-schedule">Add New Schedule</button>
+                </div>
+                <div class="num-of-appointment">
+                  <span class="max-appointment-text">Today Maximum Appointment: </span><span id="max-appointment-num">Not set</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="display-schedule-records">
+              <!-- schedule.js -->
+              <h2 class="today-events__heading">Today Schedule</h2>
+              <div class="today-events"></div><hr>
+              <h2 class="upcoming-events__heading">Upcoming Schedule</h2>
+              <div class="upcoming-events"></div><hr>
+              <h2 class="past-events__heading">Past Schedule</h2>
+              <div class="past-events"></div><hr>
+            </div>
+
+            <div class="availability-overlay">
+              <form class="availability-vet-schedule-form">
+                <h2>Set New Schedule</h2>
+
+                <div class="schedule__input-field">
+                  <label for="availability-schedule-title">Date:</label>
+                  <input type="date" id="availability-schedule-date" required>
+
+                  <label for="availability-schedule-title">Title:</label>
+                  <input type="text" id="availability-schedule-title" placeholder="Enter here." required>
+
+                  <label for="availability-schedule-description">Description:</label>
+                  <textarea id="availability-schedule-description" placeholder="Type here"></textarea>
+                </div>
+
+                <div class="schedule__btn-container">
+                  <button type="button" id="availability-schedule__back-btn">Back</button>
+                  <button type="submit" id="savailability-chedule__save-btn">Save</button>
+                </div>
+              </form>
+              
+              <form class="availability-set__max-appointment">
+                <h2>Set Maximum Appointment</h2>
+
+                <div class="schedule__input-field">
+                  <label for="max-num-input">No. Appointment per day:</label>
+                  <input type="number" id="max-num-input" required>
+                </div>
+
+                <div class="schedule__btn-container">
+                  <button type="button" id="max-num-input__back-btn">Back</button>
+                  <button type="submit" id="max-num-input__save-btn">Save</button>
+                </div>
+              </form>
+            </div>
           </div>
         </section>
 
@@ -401,9 +453,9 @@
                   <i class="fas fa-upload"></i> Upload
                 </label>
               </div>
-              <div class="admin-detail detail">
-                <p class="admin-detail-label">ID:</p>
-                <p class="admin-detail-value">${_id}</p>
+              <div class="admin-detail detail editable">
+                <p class="admin-detail-label">Maximum Appointment per Day:</p>
+                <input class="admin-detail-value" id="num-of-appointment-input" value="${totalNumOfAppointment}" readonly />
               </div>
 
               <div class="admin-detail detail editable">

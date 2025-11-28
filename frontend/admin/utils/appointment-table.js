@@ -256,20 +256,15 @@ const renderButtonsCount = (appointments) => {
   let pendingCount = 0;
   let acceptedCount = 0;
   let rescheduledCount = 0;
-  // let completedCount = 0;
 
   for (const appointment of appointments) {
-    if (appointment.appointmentStatus === 'accepted') {
-      acceptedCount++;
-    } else if (appointment.appointmentStatus === 'reschedule') {
-      rescheduledCount++;
-    } else if (appointment.appointmentStatus === 'pending') {
-      pendingCount++;
-    }
+    if (appointment.appointmentStatus === 'accepted') acceptedCount++;
+    else if (appointment.appointmentStatus === 'reschedule') rescheduledCount++;
+    else if (appointment.appointmentStatus === 'pending') pendingCount++;
   }
 
-  // Always visible, even when 0
   const updateButton = (btn, count) => {
+    if (!btn) return; // ⚠️ check if button exists
     btn.style.display = 'inline-block';
     btn.textContent = count;
   };
@@ -277,9 +272,9 @@ const renderButtonsCount = (appointments) => {
   updateButton(pendingBtn, pendingCount);
   updateButton(acceptedBtn, acceptedCount);
   updateButton(rescheduledBtn, rescheduledCount);
-  // updateButton(completedBtn, completedCount);
-
+  updateButton(completedBtn, 0); // optional
 };
+
 
 
 export {appointmentsTable, adminPageAppointmentTable, renderButtonsCount};

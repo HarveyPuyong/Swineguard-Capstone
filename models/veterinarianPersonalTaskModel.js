@@ -6,28 +6,47 @@ const VeterinarianScheduleSchema = new mongoose.Schema({
     ref: "User",
     required: true
   },
-
-  title: {             // Name of the personal task
+  title: {
     type: String,
     required: true
   },
-
-  description: {       // Optional notes
+  description: {
     type: String
   },
-
-  date: {              // The date of the task
-    type: Date,      // Store as 'YYYY-MM-DD' to simplify matching
+  date: {
+    type: Date,
     required: true
   },
-
-
-  availability: {     // Marks the veterinarian unavailable for appointments
+  availability: {
     type: Boolean,
-    default: false
+    default: true
   },
-
-
 }, { collection: 'vetPersonalSchedule', timestamps: true });
 
-module.exports = { VeterinarianScheduleSchema};
+const numberOfAppointmentsPerDay_Schema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: true
+  },
+  totalAppointment: { type: Number, default: 5 }
+}, { collection: 'numberOfAppointmentPerDay', timestamps: true });
+
+
+// ✅ Create models
+const VeterinarianSchedule = mongoose.model(
+  "VeterinarianSchedule",
+  VeterinarianScheduleSchema
+);
+
+const NumberOfAppointmentsPerDay = mongoose.model(
+  "NumberOfAppointmentsPerDay",
+  numberOfAppointmentsPerDay_Schema
+);
+
+
+// ✅ Export the models
+module.exports = {
+  VeterinarianSchedule,
+  NumberOfAppointmentsPerDay
+};

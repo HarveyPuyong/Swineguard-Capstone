@@ -16,6 +16,7 @@ import { fetchAppointments } from '../../api/fetch-appointments.js';
 import populateFilteredMedicines from '../../utils/filter-service-medicine.js';
 import { handleReportChange } from '../reports/generate-appointment-reports.js';
 import initAppointmentFiltering from '../../utils/filter-appointment-data.js';
+import { fetchNumOfAppt } from '../../api/fetch-schedules.js';
 
 
 
@@ -169,58 +170,77 @@ const setupAddAppointmentForm = async() => {
 };
 
 
+
+
+
+
+
+
+
 // ======================================
 // ========== Add Data to schedule-appointment-form
 // ======================================
 const setupScheduleAppointmentForm = async (appointmentId) => {
   try {
+    const todayStr = new Date().toDateString(); // current date as string
+
     const allUsers = await fetchUsers();
-    const technicians = allUsers.filter(user => 
+    const technicians = allUsers.filter(user =>
       user.roles.includes('technician') || user.roles.includes('veterinarian')
     );
 
-    // All appointments
+    const maxApptPerDayList = await fetchNumOfAppt(); // [{ userId, totalAppointment }, ...]
+
     const appointments = await fetchAppointments();
     const appointment = appointments.find(app => app._id === appointmentId);
     const serviceName = await getServiceName(appointment.appointmentService);
-    document.querySelector('.appointment-schedule-form__service-name').innerText = `${serviceName}`;
+    document.querySelector('.appointment-schedule-form__service-name').innerText = serviceName;
 
-    // Personnel Select Element
     const personnelSelectElement = document.querySelector('.appointment-schedule-form #available-personnel');
     if (!personnelSelectElement) return;
 
-    // 🧹 Clear existing options first
     personnelSelectElement.innerHTML = '<option value="">Select personnel</option>';
 
-    // Append technicians
     technicians.forEach(technician => {
-      const prefix = technician.roles.includes('veterinarian') ? 'Doc.' :
-                     technician.roles.includes('technician') ? 'Mr.' : '';
+      const prefix = technician.roles.includes('veterinarian') ? 'Doc.' : 'Mr.';
       const middleInitial = technician.middleName ? technician.middleName.charAt(0).toUpperCase() + '.' : '';
       const technicianFullname = `${prefix} ${technician.firstName} ${middleInitial} ${technician.lastName}`;
 
-      // Count how many appointments assigned to this technician
-      const assignedAppointments = appointments.filter(app =>
+      // Get this vet's max appointments per day
+      const vetMaxObj = maxApptPerDayList.find(v => v.userId === technician._id);
+      const maxAppointments = vetMaxObj?.totalAppointment || 5;
+
+      // Count assigned appointments for **today**
+      const assignedToday = appointments.filter(app =>
         app.vetPersonnel === technician._id &&
-        (app.appointmentStatus === 'accepted' || app.appointmentStatus === 'reschedule')
+        (app.appointmentStatus === 'accepted' || app.appointmentStatus === 'reschedule') &&
+        new Date(app.appointmentDate).toDateString() === todayStr
       );
 
-      const isOverloaded = assignedAppointments.length >= 5;
+      const isOverloaded = assignedToday.length >= maxAppointments;
 
       const option = document.createElement('option');
       option.value = technician._id;
       option.textContent = `${technicianFullname} ${isOverloaded ? '(Fully booked)' : ''}`;
-      if (isOverloaded) {
-        option.disabled = true;
-      }
+      if (isOverloaded) option.disabled = true;
 
       personnelSelectElement.appendChild(option);
     });
 
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 };
+
+
+
+
+
+
+
+
+
+
 
 
 

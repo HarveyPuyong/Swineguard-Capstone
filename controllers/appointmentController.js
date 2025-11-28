@@ -1,6 +1,6 @@
 const appointmentDB = require('./../models/appointmentModel');
 const mongoose = require('mongoose');
-const { checkSwineCountLimit, isValidAppointmentTime } = require('./../utils/appointmentUtils');
+const { checkSwineCountLimit, isValidAppointmentTime, isVetScheduledOnDate } = require('./../utils/appointmentUtils');
 const {isValidNumber} = require('./../utils/inventoryUtils');
 
 // Request Apointments
@@ -141,25 +141,26 @@ exports.addAppointment = async (req, res) => {
 
 // Accept appointment
 exports.acceptAppointment = async (req, res) => {
-    const { appointmentDate, appointmentTime, vetPersonnel} = req.body;
+  try {
+    const { appointmentDate, appointmentTime, vetPersonnel } = req.body;
     const appointmentId = req.params.id;
 
     // Check Object Id
     if (!isValidAppointmentId(appointmentId)) {
-        return res.status(400).json({ message: 'Invalid Appointment Id.' });
+      return res.status(400).json({ message: 'Invalid Appointment Id.' });
     }
 
     // Get appointment first to access its type
     const existingAppointment = await appointmentDB.findById(appointmentId);
     if (!existingAppointment) {
-        return res.status(400).json({ message: 'Appointment not found.' });
+      return res.status(400).json({ message: 'Appointment not found.' });
     }
 
     const appointmentType = existingAppointment.appointmentType?.toLowerCase();
 
     // Basic field validation
     if (!appointmentDate || !appointmentTime || !vetPersonnel) {
-        return res.status(400).json({ message: 'Date, Time, and Personnel are required.' });
+      return res.status(400).json({ message: 'Date, Time, and Personnel are required.' });
     }
 
     // Appointment date check
@@ -169,41 +170,56 @@ exports.acceptAppointment = async (req, res) => {
     apptDate.setHours(0, 0, 0, 0);
 
     if (apptDate < today) {
-        return res.status(400).json({ message: 'Past dates are not allowed for appointments.' });
+      return res.status(400).json({ message: 'Past dates are not allowed for appointments.' });
     }
 
     // Check appointment time conflict
     const checkAppointmentTime = await isValidAppointmentTime(appointmentDate, appointmentTime, existingAppointment.municipality);
     if (!checkAppointmentTime.valid) {
-        return res.status(400).json({ message: checkAppointmentTime.message });
+      return res.status(400).json({ message: checkAppointmentTime.message });
     }
 
     // Check swine count limit
     const swineCheck = await checkSwineCountLimit(appointmentDate, existingAppointment.swineCount);
     if (!swineCheck.success) {
-        return res.status(400).json({ message: swineCheck.message });
+      return res.status(400).json({ message: swineCheck.message });
+    }
+
+    if (await isVetScheduledOnDate(vetPersonnel, appointmentDate)) {
+        return res.status(400).json({ 
+            message: `Vetrinarian is not available on this date.` 
+        });
     }
 
     // Prepare update values
     const updateData = {
-        appointmentDate,
-        appointmentTime,
-        appointmentStatus: 'accepted',
-        vetPersonnel
+      appointmentDate,
+      appointmentTime,
+      appointmentStatus: 'accepted',
+      vetPersonnel
     };
 
     // Perform update
     const updated = await appointmentDB.findByIdAndUpdate(
-        appointmentId,
-        updateData,
-        { new: true }
+      appointmentId,
+      updateData,
+      { new: true }
     );
 
     return res.status(200).json({
-        message: 'Appointment accepted successfully.',
-        data: updated
+      message: 'Appointment accepted successfully.',
+      data: updated
     });
+    
+  } catch (err) {
+    console.error('Error accepting appointment:', err);
+    return res.status(500).json({
+      message: 'Something went wrong while accepting the appointment.',
+      error: err.message
+    });
+  }
 };
+
 
 
 // Reschedule appointment

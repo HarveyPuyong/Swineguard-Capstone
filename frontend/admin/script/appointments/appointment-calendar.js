@@ -3,7 +3,8 @@ import { formatedDateForCalendar, formatTo12HourTime, formattedDate } from './..
 import { getServiceName } from '../../api/fetch-services.js';
 import { getTechnicianName } from '../../api/fetch-technicians.js';
 import fetchUser from '../auth/fetchUser.js';
-
+import { handleAddNewSchedule } from '../veterinarian/handle-schedule-from-calendar.js';
+import { fetchSchedules } from "../../api/fetch-schedules.js";
 
 // ======================================
 // ========== Render Calendar
@@ -13,7 +14,7 @@ async function renderAppointmentCalendar() {
 
   try {
     const data = await fetchAppointments();
-
+    const vetPersonalSched = await fetchSchedules();
 
     const appointments = data.filter(
       (appointment) =>
@@ -21,8 +22,8 @@ async function renderAppointmentCalendar() {
         appointment.appointmentStatus === 'reschedule'
     );
 
-    // appointments custom event
-    const events = await Promise.all(
+    // Map Appointments
+    const appointmentEvents = await Promise.all(
       appointments.map(async (appointment) => {
         const serviceName = await getServiceName(appointment.appointmentService);
         const technicianName = await getTechnicianName(appointment.vetPersonnel);
@@ -36,44 +37,53 @@ async function renderAppointmentCalendar() {
           appointmentTime: appointment.appointmentTime,
           appointmentAdress: `${appointment.municipality}, ${appointment.barangay}`,
           appointmentPersonnel: technicianName,
+          type: 'appointment',
         };
       })
     );
 
-    // calendar
-    const calendar = new FullCalendar.Calendar(appointmentCalendarElement, {
-      initialView: 'dayGridMonth',
-      events: events,
-
-      eventContent: (content) => {
-        const event = content.event;
-        const {
-          appointmentId,
-          appointmentService,
-          appointmentType,
-          appointmentTime,
-          appointmentAdress,
-          appointmentPersonnel,
-        } = event.extendedProps;
+    // Map Vet Personal Schedules
+    const personalEvents = await Promise.all(
+      vetPersonalSched.map(async (sched) => {
+        const technicianName = await getTechnicianName(sched.userId);
 
         return {
+          start: formatedDateForCalendar(sched.date),
+          title: sched.title,
+          description: sched.description,
+          veterinarian: technicianName, // display this in the calendar popup
+          type: 'personal',
+          classNames: ['vet-personal-event'],
+        };
+      })
+    );
+
+    // Combine both
+    const allEvents = [...appointmentEvents, ...personalEvents];
+
+    // Calendar
+    const calendar = new FullCalendar.Calendar(appointmentCalendarElement, {
+      initialView: 'dayGridMonth',
+      events: allEvents,
+      eventContent: (content) => {
+        const event = content.event;
+        if (event.extendedProps.type === 'personal') {
+          return {
+            html: `<div class="vet-personal-event-box">${event.title}</div>`,
+          };
+        }
+        const { appointmentService, appointmentType, appointmentTime } = event.extendedProps;
+        return {
           html: `
-            <div class="custom-event appointment-type-${appointmentType.toLowerCase()}" data-appointment-id="${appointmentId}">
-              <p class="custom-event__title"> ${appointmentService}</p>
+            <div class="custom-event appointment-type-${appointmentType.toLowerCase()}">
+              <p class="custom-event__title">${appointmentService}</p>
               <p class="custom-event__time">${formatTo12HourTime(appointmentTime)}</p>
             </div>
           `,
         };
       },
-
-      // <p class="custom-event__type"><span class="label">Type:</span> ${
-      //   appointmentType[0].toUpperCase() + appointmentType.slice(1).toLowerCase()
-      // }</p>
-
-      
       dateClick: function (info) {
-        const clickedDate = info.dateStr;
-        showAppointmentsForDate(clickedDate, events);
+        showAppointmentsForDate(info.dateStr, allEvents);
       },
     });
 
@@ -83,63 +93,73 @@ async function renderAppointmentCalendar() {
   }
 }
 
-
-
 // ======================================
-// ========== Show Appointments for Date
+// ========== Show Appointments & Personal Schedules
 // ======================================
-async function showAppointmentsForDate(clickedDate, events) {
+async function showAppointmentsForDate(clickedDate, allEvents) {
   const overlay = document.querySelector('.calendar-overlay');
   const dateTitle = document.querySelector('.current-clicked-date');
   const taskList = document.querySelector('.task-list__for-the-day');
   const closeBtn = document.querySelector('.close-calendar-popup');
 
-  //User Role
+  // User Role
   const user = await fetchUser();
-  const role = user.roles;
-  const userRole = role[0];
+  const userRole = user.roles[0];
+  const userId = user._id;
 
-  // Format readable date
+  // Format date
   const dateObj = new Date(clickedDate);
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
   dateTitle.textContent = dateObj.toLocaleDateString('en-US', options);
 
-  // Filter events matching that date
-  const tasksForDay = events.filter((e) => e.start.startsWith(clickedDate));
+  // Filter tasks for that day
+  const tasksForDay = allEvents.filter((e) => e.start.startsWith(clickedDate));
 
-  // Render them in the popup
   if (tasksForDay.length === 0) {
-    taskList.innerHTML = `<p>No appointments on this date.</p>`;
+    taskList.innerHTML = `<p>No tasks on this date.</p>`;
   } else {
-    taskList.innerHTML = tasksForDay
-      .map(
-        (e) => `
+    // Separate by type
+    let html = '';
+
+    const personal = tasksForDay.filter(e => e.type === 'personal');
+    const appointments = tasksForDay.filter(e => e.type === 'appointment');
+
+    if (personal.length) {
+      html += `<h3>Personal Schedule</h3>`;
+      html += personal.map(e => `
+        <div class="calendar-task personal-sched">
+          <p><strong>📌 ${e.title}</strong></p>
+          <p>Vet: ${e.veterinarian}</p>
+          <p>Description: ${e.description || 'No description'}</p>
+        </div><hr>
+      `).join('');
+    }
+
+    if (appointments.length) {
+      html += `<h3>Appointments</h3>`;
+      html += appointments.map(e => `
         <div class="calendar-task">
           <p><strong>${e.appointmentService}</strong></p>
           <p>Type: ${e.appointmentType}</p>
           <p>Time: ${formatTo12HourTime(e.appointmentTime)}</p>
           <p>Address: ${e.appointmentAdress}</p>
           <p>Personnel: ${e.appointmentPersonnel}</p>
-          <hr>
-        </div>
-      `
-      )
-      .join('');
+        </div><hr>
+      `).join('');
+    }
+
+    taskList.innerHTML = html;
   }
 
-  // 👉 Add Task Button for allowed roles
-  const allowedRoles = ["veterinarian", "user"];
-  // Allowed roles
+  // Veterinarian: add new schedule
   if (userRole === 'veterinarian') {
     const clicked = new Date(clickedDate);
     const today = new Date();
-    today.setHours(0, 0, 0, 0);
+    today.setHours(0,0,0,0);
 
-    const isPast = clicked < today;
-
-    if (!isPast) {
+    if (clicked >= today) {
       taskList.insertAdjacentHTML(
-        "beforeend",
+        'beforeend',
         `<button class="add-schedule-btn">+ New Schedule</button>`
       );
 
@@ -147,41 +167,40 @@ async function showAppointmentsForDate(clickedDate, events) {
       const newScheduleForm = document.querySelector(".vet-schedule-form");
       const popUpTasks = document.querySelector(".pop-up__calendar-tasks");
 
-      newScheduleBtn.addEventListener("click", () => {
-        newScheduleForm.classList.add("show");
-        popUpTasks.classList.add("hide");
+      newScheduleBtn.addEventListener('click', () => {
+        newScheduleForm.classList.add('show');
+        popUpTasks.classList.add('hide');
         document.getElementById('clicked-date').textContent = `Date: ${formattedDate(clickedDate)}`;
+        handleAddNewSchedule(clickedDate, userId);
+        renderAppointmentCalendar();
       });
     }
   }
 
+  // User: request appointment
   if (userRole === 'user') {
     taskList.insertAdjacentHTML(
-      "beforeend",
+      'beforeend',
       `<button class="request-appointment-btn__calendar">Request Appointment</button>`
     );
 
     const requestBtn = taskList.querySelector(".request-appointment-btn__calendar");
-
     requestBtn.addEventListener("click", () => {
       alert("Request Appointment at Date:" + clickedDate);
     });
   }
 
-
   overlay.classList.add('show');
 
-  // Close functionality
+  // Close overlay
   closeBtn.onclick = () => overlay.classList.remove('show');
   overlay.onclick = (e) => {
     const newScheduleForm = document.querySelector('.vet-schedule-form');
     const popUpTasks = document.querySelector('.pop-up__calendar-tasks');
-
-    // Clicked exactly outside (the overlay)
     if (e.target === overlay) {
-      overlay.classList.remove('show');          // close popup
-      newScheduleForm.classList.remove('show');  // hide form
-      popUpTasks.classList.remove('hide');       // show tasks again
+      overlay.classList.remove('show');
+      newScheduleForm.classList.remove('show');
+      popUpTasks.classList.remove('hide');
     }
   };
 }
@@ -221,14 +240,15 @@ async function computeVisitAndServicePercentages() {
   }
 }
 
+
+
 // ======================================
-// ========== Default Export
+// ========== Export
 // ======================================
 export default function handleAppointmentCalendarContent() {
   renderAppointmentCalendar();
   computeVisitAndServicePercentages();
 
-  // 👉 Add Back button listener ONCE here
   const backBtn = document.getElementById('schedule__back-btn');
   const newScheduleForm = document.querySelector('.vet-schedule-form');
   const popUpTasks = document.querySelector('.pop-up__calendar-tasks');
