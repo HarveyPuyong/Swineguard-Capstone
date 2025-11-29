@@ -4,6 +4,7 @@ const ROLE_LIST = require('./../config/role_list');
 const { isValidInput, containsEmoji, hasNumber, containsSpecialChar }= require('./../utils/inputChecker');
 const {generateAccessToken, generateRefreshToken} = require('./../utils/generateTokens');
 const { NumberOfAppointmentsPerDay } = require('./../models/veterinarianPersonalTaskModel');
+const VerificationImage = require('./../models/verificationImageModel');
 
 
 const editUserDetails = async (req, res) => {
@@ -220,11 +221,59 @@ const resetUserPassword = async (req, res) => {
 };
 
 
+//Upload Verification Image
+const uploadVerificationImage = async (req, res) => {
+    const { userId } = req.body;   // or req.params if you want
+
+    if (!userId) {
+        return res.status(400).json({ message: 'User ID is required.' });
+    }
+
+    const imageFile = req.file ? req.file.filename : undefined;
+
+    if (!imageFile) {
+        return res.status(400).json({ message: 'Image file is required.' });
+    }
+
+    try {
+        const newImage = await VerificationImage.create({
+            userId,
+            imageUrl: imageFile
+        });
+
+        res.status(200).json({
+            message: 'Verification image uploaded successfully.',
+            data: newImage
+        });
+
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error while uploading verification image.' });
+    }
+};
+
+const getAllVerificationImage = async (req, res) => {
+
+    try {
+        const images = await VerificationImage.find();
+        res.status(200).json(images);
+            
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Server error while getting all verification image.' });
+    }
+};
+
+
 module.exports = {
     editUserDetails, 
     addStaff, 
     getTechandVets, 
     getAllStaffs, 
     verifyUserAccount,
-    resetUserPassword
+    resetUserPassword,
+    uploadVerificationImage,
+    getAllVerificationImage
 };
+
+

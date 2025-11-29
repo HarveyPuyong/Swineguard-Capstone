@@ -1,5 +1,6 @@
 import handleClientLogout from "./logout-client.js";
 import fetchClient from "./fetch-client.js";
+import handleSendVerificationImage from "./upload-verification-permit.js";
 
 // ======================================
 // ========== Handle unregister okay button
@@ -7,7 +8,7 @@ import fetchClient from "./fetch-client.js";
 const handleLogoutBtn = () => {
   const logoutBtn = document.querySelector('#not-verified-user-btn');
   if (!logoutBtn) {
-    console.log('Client logput button not exist!');
+    console.log('Client logout button not exist!');
     return;
   }
   logoutBtn.addEventListener('click', handleClientLogout);
@@ -23,3 +24,4 @@ const populateMessage = async() => {
 
 populateMessage();
 handleLogoutBtn();
+handleSendVerificationImage();

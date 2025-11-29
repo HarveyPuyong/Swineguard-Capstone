@@ -3,7 +3,7 @@ const router = express.Router();
 const ROLE_LIST = require('./../config/role_list');
 const verifyRoles = require('./../middlewares/verifyRoles');
 const verifyJWT = require('./../middlewares/verifyJWT');
-const {editUserDetails, addStaff, getTechandVets, getAllStaffs, resetUserPassword, verifyUserAccount } = require('./../controllers/userController');
+const {editUserDetails, addStaff, getTechandVets, getAllStaffs, resetUserPassword, verifyUserAccount, uploadVerificationImage, getAllVerificationImage } = require('./../controllers/userController');
 const {getUsers, getUser, getUserById, checkExistingEmail} = require('./../controllers/getUsersController')
 const upload = require('./../middlewares/upload'); 
 
@@ -29,6 +29,9 @@ router.get('/client-profile', verifyJWT, verifyRoles(ROLE_LIST.User), getUser);
 
 router.get('/check-email', verifyJWT, verifyRoles(ROLE_LIST.User), checkExistingEmail);
 
+router.post('/upload/verification-image', upload.single('imageFile'), uploadVerificationImage);
+
+router.get('/get/verification-image', getAllVerificationImage);
 
 
 router.get('/admin-profile', verifyJWT, verifyRoles(ROLE_LIST.Admin,

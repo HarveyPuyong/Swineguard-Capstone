@@ -142,7 +142,7 @@ exports.addAppointment = async (req, res) => {
 // Accept appointment
 exports.acceptAppointment = async (req, res) => {
   try {
-    const { appointmentDate, appointmentTime, vetPersonnel } = req.body;
+    const { appointmentDate, appointmentTime, appointmentType, vetPersonnel } = req.body;
     const appointmentId = req.params.id;
 
     // Check Object Id
@@ -156,7 +156,7 @@ exports.acceptAppointment = async (req, res) => {
       return res.status(400).json({ message: 'Appointment not found.' });
     }
 
-    const appointmentType = existingAppointment.appointmentType?.toLowerCase();
+    //const appointmentType = existingAppointment.appointmentType?.toLowerCase();
 
     // Basic field validation
     if (!appointmentDate || !appointmentTime || !vetPersonnel) {
@@ -195,6 +195,7 @@ exports.acceptAppointment = async (req, res) => {
     const updateData = {
       appointmentDate,
       appointmentTime,
+      appointmentType,
       appointmentStatus: 'accepted',
       vetPersonnel
     };

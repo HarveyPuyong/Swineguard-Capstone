@@ -2,38 +2,145 @@ import api from "../../utils/axiosConfig.js";
 import handleRenderUsersTable from "./display-users-table.js";
 import popupAlert from "../../utils/popupAlert.js";
 import fetchUsers from "../../api/fetch-users.js";
+import fetchVerificationImages from "../../api/fetch-verification-images.js";
+
 
 // ======================================
 // ==========Handle Verify User
 // ======================================
-const handleVerifyUser = (userId) => {
-  Swal.fire({
-    title: "Verify this user?",
-    text: "This action will fully verified user",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#32dc4eff",
-    cancelButtonColor: "#d63038ff",
-    confirmButtonText: "Yes, Verify it!",
-    cancelButtonText: "Cancel"
-  }).then(async (result) => {
+// const handleVerifyUser = async (userId) => {
+//   try {
+//     // 1. Fetch all verification images from backend
+//     const images = await fetchVerificationImages();
+
+//     // 2. Get user’s uploaded permit
+//     const filterUser = images.find(img => img.userId === userId);
+
+//     if (!filterUser) {
+//       return Swal.fire({
+//         icon: "error",
+//         title: "No Verification Image",
+//         text: "This user has not uploaded their permit yet."
+//       });
+//     }
+
+//     const imageOfPermit = filterUser.imageUrl;
+//     const fullPermitImageUrl = `/uploads/${filterUser.imageUrl}`;
+
+//     // 3. SweetAlert dialog with preview of the uploaded permit
+//     Swal.fire({
+//       title: "Verify this user?",
+//       html: `
+//         <p>This user uploaded the following permit:</p>
+//         <img src="${fullPermitImageUrl}" 
+//              style="width: 100%; max-height: 300px; object-fit: contain; border-radius: 8px; margin-top: 10px;" />
+//         <p style="margin-top:10px;">Proceed with verification?</p>
+//       `,
+//       icon: "warning",
+//       showCancelButton: true,
+//       confirmButtonColor: "#32dc4eff",
+//       cancelButtonColor: "#d63038ff",
+//       confirmButtonText: "Yes, Verify User",
+//       cancelButtonText: "Cancel"
+//     }).then(async (result) => {
+
+//       if (result.isConfirmed) {
+//         try {
+//           // 4. Backend PATCH request
+//           const response = await api.patch(`/verify/${userId}`);
+
+//           if (response.status === 200) {
+//             Swal.fire("Success", "User has been verified.", "success");
+//             handleRenderUsersTable(); // refresh list
+//           }
+
+//         } catch (err) {
+//           const errMessage =
+//             err.response?.data?.message ||
+//             err.response?.data?.error ||
+//             "Something went wrong.";
+
+//           popupAlert("error", "Error!", errMessage);
+//         }
+//       }
+//     });
+
+//   } catch (err) {
+//     Swal.fire({
+//       icon: "error",
+//       title: "Error fetching user permit",
+//       text: err.message
+//     });
+//   }
+// };
+
+
+const handleVerifyUser = async (userId) => {
+  try {
+    const images = await fetchVerificationImages();
+    const filterUser = images.find(img => img.userId === userId);
+
+    if (!filterUser) {
+      return Swal.fire({
+        icon: "error",
+        title: "No Verification Image Found",
+        text: "This user has not uploaded any permit image."
+      });
+    }
+
+    const imageUrl = `/uploads/${filterUser.imageUrl}`;
+
+    Swal.fire({
+      title: "Verify this user?",
+      html: `
+        <p>This user uploaded the following permit:</p>
+
+        <!-- CLICKABLE IMAGE THAT OPENS IN NEW TAB -->
+        <a href="${imageUrl}" target="_blank">
+          <img 
+            src="${imageUrl}" 
+            style="width: 100%; max-height: 250px; object-fit: contain; border-radius: 8px; cursor: pointer; margin-top: 10px;"
+          />
+        </a>
+
+        <p style="margin-top: 10px;">Click the image to view it in full size.</p>
+      `,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#32dc4eff",
+      cancelButtonColor: "#d63038ff",
+      confirmButtonText: "Yes, Verify User",
+      cancelButtonText: "Cancel"
+    }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-        const response = await api.patch(`/verify/${userId}`);
+          const response = await api.patch(`/verify/${userId}`);
 
-        if (response.status === 200) {
-          Swal.fire("Success", "User Verified successfully", "success");
-          handleRenderUsersTable(); // refresh list
-        }
+          if (response.status === 200) {
+            Swal.fire("Success", "User verified successfully!", "success");
+            handleRenderUsersTable();
+          }
         } catch (err) {
           const errMessage =
-            err.response?.data?.message || err.response?.data?.error || "Something went wrong.";
-            popupAlert("error", "Error!", errMessage);
-          }
+            err.response?.data?.message ||
+            err.response?.data?.error ||
+            "Something went wrong.";
+
+          popupAlert("error", "Error!", errMessage);
+        }
       }
     });
 
+  } catch (err) {
+    Swal.fire({
+      icon: "error",
+      title: "Error",
+      text: err.message
+    });
+  }
 };
+
+
 
 
 // ======================================

@@ -196,6 +196,14 @@ const setupScheduleAppointmentForm = async (appointmentId) => {
     const serviceName = await getServiceName(appointment.appointmentService);
     document.querySelector('.appointment-schedule-form__service-name').innerText = serviceName;
 
+    // Service Type
+    const serviceTypeSelectTag = document.getElementById('set-appointment-type');
+    serviceTypeSelectTag.value = appointment.appointmentType;
+    // Reset button
+    // serviceTypeSelectTag.addEventListener('click', () => {
+    //   serviceTypeSelectTag.value = ""; // or selectedIndex = 0
+    // });
+
     const personnelSelectElement = document.querySelector('.appointment-schedule-form #available-personnel');
     if (!personnelSelectElement) return;
 

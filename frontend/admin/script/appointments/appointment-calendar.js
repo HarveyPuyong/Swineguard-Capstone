@@ -177,18 +177,7 @@ async function showAppointmentsForDate(clickedDate, allEvents) {
     }
   }
 
-  // User: request appointment
-  if (userRole === 'user') {
-    taskList.insertAdjacentHTML(
-      'beforeend',
-      `<button class="request-appointment-btn__calendar">Request Appointment</button>`
-    );
 
-    const requestBtn = taskList.querySelector(".request-appointment-btn__calendar");
-    requestBtn.addEventListener("click", () => {
-      alert("Request Appointment at Date:" + clickedDate);
-    });
-  }
 
   overlay.classList.add('show');
 

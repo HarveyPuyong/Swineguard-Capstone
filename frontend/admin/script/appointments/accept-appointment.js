@@ -25,6 +25,7 @@ const handleAcceptAppointment = async (e) => {
   const appointmentData = {
     appointmentDate: document.querySelector('.appointment-schedule-form #set-date').value.trim(),
     appointmentTime: document.querySelector('.appointment-schedule-form #set-time').value.trim(),
+    appointmentType: document.querySelector('.appointment-schedule-form #set-appointment-type').value,
     vetPersonnel: document.querySelector('.appointment-schedule-form #available-personnel').value.trim()
   };
 

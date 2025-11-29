@@ -54,3 +54,33 @@ main {
 #client-name {
     font-weight: 600;
 }
+
+.upload-verification-form input {
+    padding: .1rem .3rem;
+    font-size: 16px;
+}
+
+.upload-verification-form h4 {
+    text-align: left;
+}
+
+.button-container {
+    display: flex;
+    gap: .5rem;
+    width: 100%;
+    justify-content: flex-end;
+    padding: .5rem 0;
+}
+
+.button-container button:nth-child(1) {
+    background-color: var(--main-color);
+}
+
+.upload-verification-form.hide {
+    display: none;
+}
+
+.button-container button:disabled {
+    background-color: #8a8a8ace;
+    color: #2b2b2bcb;
+}
