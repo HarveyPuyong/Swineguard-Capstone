@@ -48,8 +48,11 @@ async function renderAppointmentCalendar() {
         const technicianName = await getTechnicianName(sched.userId);
 
         return {
-          start: formatedDateForCalendar(sched.date),
+          //start: formatedDateForCalendar(sched.date),
+          
+          start: sched.date, // ISO string from DB
           title: sched.title,
+          allDay: true,
           description: sched.description,
           veterinarian: technicianName, // display this in the calendar popup
           type: 'personal',
@@ -113,7 +116,13 @@ async function showAppointmentsForDate(clickedDate, allEvents) {
   dateTitle.textContent = dateObj.toLocaleDateString('en-US', options);
 
   // Filter tasks for that day
-  const tasksForDay = allEvents.filter((e) => e.start.startsWith(clickedDate));
+  //const tasksForDay = allEvents.filter((e) => e.start.startsWith(clickedDate));
+  // Filter tasks for that day
+  const tasksForDay = allEvents.filter((e) => {
+    const eventDate = new Date(e.start);
+    const clicked = new Date(clickedDate);
+    return eventDate.toDateString() === clicked.toDateString();
+  });
 
   if (tasksForDay.length === 0) {
     taskList.innerHTML = `<p>No tasks on this date.</p>`;

@@ -21,6 +21,8 @@ router.patch('/restore/:id', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordin
 
 router.patch('/complete/:id', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordinator, ROLE_LIST.Veterinarian, ROLE_LIST.Technician), appointmentController.completeAppointment);
 
+router.patch('/follow-up/:id', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordinator, ROLE_LIST.Veterinarian, ROLE_LIST.Technician), appointmentController.updateAppointments);
+
 router.delete('/delete/:id', verifyJWT, verifyRoles(ROLE_LIST.AppointmentCoordinator), appointmentController.deleteAppointment); 
 
 router.get('/all', appointmentController.getAllAppointments); 

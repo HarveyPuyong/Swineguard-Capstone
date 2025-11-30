@@ -49,11 +49,18 @@ const appointmentSchema = new mongoose.Schema({
         required: false,
     },
 
-    medicine: { 
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'Inventory', 
-        required: false,
-    },
+    // medicine: { 
+    //     type: mongoose.Schema.Types.ObjectId, 
+    //     ref: 'Inventory', 
+    //     required: false,
+    // },
+
+    medications: [
+    {
+        medicine: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
+        amount: { type: Number, required: true }
+    }
+],
     
     medicineAmount: { type: Number, required: false},
     clinicalSigns: [{ type: String }],

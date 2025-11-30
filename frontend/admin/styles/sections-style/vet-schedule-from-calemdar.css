@@ -128,3 +128,8 @@
     font-size: 1.5rem;
     font-weight: 600;
 }
+
+.schedule__toggle-follow-up-btn {
+    height: 30px;
+    padding: 0 .4rem;
+}

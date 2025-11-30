@@ -1,6 +1,7 @@
 import { displayTaskList, getStatusFilter } from "./display-appoinment-task.js";
 import {completeAppointmentRequest,
-        setupCompleteAppointmentFormListener } from "../appointments/complete-restore-delete-appointment.js";
+        setupCompleteAppointmentFormListener,
+        setupFollowUpAppointmentFormListener } from "../appointments/complete-restore-delete-appointment.js";
 import renderSwineGraph from "./swine-graph.js";
 import { fetchAppointments } from "../../api/fetch-appointments.js";
 import { getServiceName } from "../../api/fetch-services.js";
@@ -43,9 +44,12 @@ const toggleAppointmentTask = () => {
 // ========== Complete Button Activation completeTaskForm__name
 // ======================================
 const handleCompleteTaskBtn = () => {
+    const followUpButton = document.querySelectorAll('.schedule__toggle-follow-up-btn');
     const completeButton = document.querySelectorAll('.schedule__toggle-complete-btn');
     const cancelButton = document.querySelector('#complete-task-form__cancel-btn');
+    const cancelButtonFollowUpForm = document.querySelector('#followUp-task-form__cancel-btn');
     const completeTaskForm = document.querySelector('.complete-task-form');
+    const followUpTaskForm = document.querySelector('.follow-up-task-form');
     const causeInput = document.querySelector('.detail-label__cause-of-death');
     const deathNumInput = document.querySelector('.detail-label__num-of-deaths');
     const checkBoxContainer = document.querySelector(".check-box__swine-Ids");
@@ -64,6 +68,22 @@ const handleCompleteTaskBtn = () => {
 
         })
     });
+
+    followUpButton.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const appointmentId = btn.dataset.setAppointmentId;
+            completeAppointmentRequest(appointmentId);
+            followUpTaskForm.classList.add('show');
+            setupPersonnelFollowUpForm(appointmentId);
+            followUpTaskForm.dataset.appointmentId = appointmentId;
+        })
+    });
+
+    cancelButtonFollowUpForm.addEventListener('click', () => {
+        followUpTaskForm.classList.remove('show');
+        followUpTaskForm.reset();
+    })
+
     cancelButton.addEventListener('click', () => {
         completeTaskForm.classList.remove('show');
         completeTaskForm.reset();
@@ -256,8 +276,323 @@ const setupPersonnelCompleteForm = async (appointmentId) => {
         }
     });
 
+
+    const medicineListContainer = document.querySelector("#medicine-list-container");
+    const addMedicineBtn = document.querySelector("#add-medicine-btn");
+
+
+    function addMedicineEntry() {
+
+    const entry = document.createElement("div");
+    entry.classList.add("medicine-entry");
+
+    entry.innerHTML = `
+        <select class="medicine-select">
+            <option value="">Select Medicine</option>
+        </select>
+
+        <select class="variation-select" disabled>
+            <option value="">Select Variation</option>
+        </select>
+
+        <input type="number" class="amount-input" placeholder="Amount" min="0" disabled>
+
+        <button type="button" class="remove-entry-btn">X</button>
+    `;
+
+    medicineListContainer.appendChild(entry);
+
+    // refs
+    const medSelect = entry.querySelector(".medicine-select");
+    const varSelect = entry.querySelector(".variation-select");
+    const amountInput = entry.querySelector(".amount-input");
+    const removeBtn = entry.querySelector(".remove-entry-btn");
+
+    // Populate medicine dropdown
+    medicines.forEach(med => {
+        const option = document.createElement("option");
+        option.value = med._id;
+        option.textContent = med.itemName;
+        medSelect.appendChild(option);
+    });
+
+    // Medicine change handler
+    medSelect.addEventListener("change", () => {
+        const selected = medSelect.value;
+
+        varSelect.innerHTML = `<option value="">Select Variation</option>`;
+        varSelect.disabled = true;
+        amountInput.disabled = true;
+        amountInput.value = "";
+
+        if (!selected) return;
+
+        const today = new Date(); today.setHours(0,0,0,0);
+
+        const variations = stocks.filter(
+            stock => stock.medicineId === selected && new Date(stock.expiryDate) >= today
+        );
+
+        variations.forEach(v => {
+            const option = document.createElement("option");
+            option.value = v._id;
+            option.textContent = `${v.content} ml (${v.quantity} pcs) (exp: ${formatedDateForCalendar(v.expiryDate)})`;
+            varSelect.appendChild(option);
+        });
+
+        varSelect.disabled = variations.length === 0;
+    });
+
+    // Variation selection → enable amount
+    varSelect.addEventListener("change", () => {
+        if (!varSelect.value) {
+            amountInput.disabled = true;
+            amountInput.value = "";
+        } else {
+            amountInput.disabled = false;
+            amountInput.value = 0;
+        }
+    });
+
+    // Remove entry
+    removeBtn.addEventListener("click", () => entry.remove());
+    }
+
+    addMedicineBtn.addEventListener("click", () => addMedicineEntry());
+
+    // Add first empty entry automatically
+    addMedicineEntry();
+
     
 };
+
+
+
+// ======================================
+// ========== Follow-Up Form Setup
+// ======================================
+const setupPersonnelFollowUpForm = async (appointmentId) => {
+
+    // --- Select FOLLOW-UP form ---
+    const form = document.querySelector('.follow-up-task-form');
+
+    // --- Assign form elements (Follow-Up IDs) ---
+    const appoinmentNameTxtView = form.querySelector('#followUpForm__name');
+    const medicineSelectTag = form.querySelector('#followUpForm__medicine-list');
+    const medicineVarSelectTag = form.querySelector('#followUpForm__medicine-var');
+    const appoinmentAmountInput = form.querySelector('#followUpForm__medicine-amount');
+
+    // Data fetch
+    const today = new Date(); today.setHours(0,0,0,0);
+    const appointments = await fetchAppointments();
+    const appointment = appointments.find(app => app._id === appointmentId);
+    const serviceName = await getServiceName(appointment.appointmentService);
+
+    const medicines = await fetchMedicines();
+    const stocks = await fetchInventoryStocks();
+
+
+
+    // --- Populate Medicine List ---
+    medicineSelectTag.innerHTML = `<option value="">Select Medicine</option>`;
+    medicines.forEach(med => {
+        const option = document.createElement('option');
+        option.value = med._id;
+        option.textContent = med.itemName;
+        medicineSelectTag.appendChild(option);
+    });
+
+    // Disable variation + amount until selected
+    medicineVarSelectTag.disabled = true;
+    appoinmentAmountInput.disabled = true;
+    medicineVarSelectTag.innerHTML = `<option value="">Select Variation</option>`;
+
+    // --- Medicine -> Variations ---
+    medicineSelectTag.addEventListener('change', () => {
+        const selectedId = medicineSelectTag.value;
+
+        medicineVarSelectTag.innerHTML = `<option value="">Select Variation</option>`;
+        medicineVarSelectTag.disabled = true;
+        appoinmentAmountInput.disabled = true;
+        appoinmentAmountInput.value = "";
+
+        if (!selectedId) return;
+
+        const variations = stocks.filter(
+            stock => stock.medicineId === selectedId && new Date(stock.expiryDate) >= today
+        );
+
+        variations.forEach(v => {
+            const option = document.createElement('option');
+            option.value = v._id;
+            option.textContent = `${v.content} ml (${v.quantity} pcs) (exp: ${formatedDateForCalendar(v.expiryDate)})`;
+            medicineVarSelectTag.appendChild(option);
+        });
+
+        medicineVarSelectTag.disabled = variations.length === 0;
+    });
+
+    // --- Enable amount when variation chosen ---
+    medicineVarSelectTag.addEventListener('change', () => {
+        if (!medicineVarSelectTag.value) {
+            appoinmentAmountInput.disabled = true;
+            appoinmentAmountInput.value = "";
+        } else {
+            appoinmentAmountInput.disabled = false;
+            appoinmentAmountInput.value = 0;
+        }
+    });
+
+    // --- Set appointment name ---
+    appoinmentNameTxtView.value = serviceName;
+
+    // ======================================
+    //      🔥 Swine Status Logic (Follow-Up)
+    // ======================================
+    const swineStatusSelect = form.querySelector('#followUpForm__swine-status');
+    const causeInput = form.querySelector('.detail-label__cause-of-death');
+    const deathNumInput = form.querySelector('.detail-label__num-of-deaths');
+    const checkBoxContainer = form.querySelector(".check-box__swine-Ids");
+
+    // Clear previous listeners by cloning
+    const clonedSwineStatus = swineStatusSelect.cloneNode(true);
+    swineStatusSelect.parentNode.replaceChild(clonedSwineStatus, swineStatusSelect);
+
+    clonedSwineStatus.addEventListener('change', async () => {
+        const value = clonedSwineStatus.value;
+
+        if (value === 'sick') {
+            causeInput.classList.remove('hide');
+            deathNumInput.classList.add('hide');
+            checkBoxContainer.classList.add('hide');
+        }
+
+        else if (value === 'deceased') {
+            causeInput.classList.remove('hide');
+
+            if (!appointment.swineIds || appointment.swineIds.length === 0) {
+                deathNumInput.classList.remove('hide');
+                checkBoxContainer.classList.add('hide');
+            } else {
+                deathNumInput.classList.add('hide');
+                checkBoxContainer.classList.remove('hide');
+
+                // Render swine checkboxes
+                checkBoxContainer.innerHTML = '';
+
+                const header = document.createElement('p');
+                header.textContent = 'Number of Deaths:';
+                header.classList.add('swine-checkbox__header');
+                checkBoxContainer.appendChild(header);
+
+                for (const swineId of appointment.swineIds) {
+                    const swineCode = await getSwineFourDigitId(swineId);
+                    const wrap = document.createElement('label');
+
+                    wrap.innerHTML = `
+                        <label>
+                            <input type="checkbox" value="${swineId}"> ${swineCode}
+                        </label>
+                    `;
+                    checkBoxContainer.appendChild(wrap);
+                }
+            }
+        }
+
+        else { 
+            causeInput.classList.add('hide');
+            deathNumInput.classList.add('hide');
+            checkBoxContainer.classList.add('hide');
+            checkBoxContainer.innerHTML = '';
+        }
+    });
+
+    // ======================================
+    //      🔥 Dynamic Medicine Entries
+    // ======================================
+    const medicineListContainer = form.querySelector("#followUp-medicine-list-container");
+    const addMedicineBtn = form.querySelector("#followUp-add-medicine-btn");
+
+    function addMedicineEntry() {
+        const entry = document.createElement("div");
+        entry.classList.add("medicine-entry");
+
+        entry.innerHTML = `
+            <select class="medicine-select">
+                <option value="">Select Medicine</option>
+            </select>
+            <select class="variation-select" disabled>
+                <option value="">Select Variation</option>
+            </select>
+            <input type="number" class="amount-input" placeholder="Amount" min="0" disabled>
+            <button type="button" class="remove-entry-btn">X</button>
+        `;
+
+        medicineListContainer.appendChild(entry);
+
+        const medSelect = entry.querySelector(".medicine-select");
+        const varSelect = entry.querySelector(".variation-select");
+        const amountInput = entry.querySelector(".amount-input");
+        const removeBtn = entry.querySelector(".remove-entry-btn");
+
+        // Populate medicine list
+        medicines.forEach(med => {
+            const option = document.createElement("option");
+            option.value = med._id;
+            option.textContent = med.itemName;
+            medSelect.appendChild(option);
+        });
+
+        // Medicine → Variations
+        medSelect.addEventListener("change", () => {
+            const selected = medSelect.value;
+
+            varSelect.innerHTML = `<option value="">Select Variation</option>`;
+            varSelect.disabled = true;
+            amountInput.disabled = true;
+            amountInput.value = "";
+
+            if (!selected) return;
+
+            const variations = stocks.filter(
+                stock => stock.medicineId === selected && new Date(stock.expiryDate) >= today
+            );
+
+            variations.forEach(v => {
+                const opt = document.createElement("option");
+                opt.value = v._id;
+                opt.textContent = `${v.content} ml (${v.quantity} pcs) (exp: ${formatedDateForCalendar(v.expiryDate)})`;
+                varSelect.appendChild(opt);
+            });
+
+            varSelect.disabled = variations.length === 0;
+        });
+
+        // Variation → enable amount
+        varSelect.addEventListener("change", () => {
+            amountInput.disabled = !varSelect.value;
+            amountInput.value = varSelect.value ? 0 : "";
+        });
+
+        // Remove entry
+        removeBtn.addEventListener("click", () => entry.remove());
+    }
+
+    // Add entry button
+    addMedicineBtn.addEventListener("click", addMedicineEntry);
+
+    // Add first entry
+    addMedicineEntry();
+};
+
+
+
+
+
+
+
+
+
 
 
 //
@@ -442,6 +777,7 @@ export default async function setupVeterinarian () {
     await displayTaskList();
     renderSwineGraph();
     setupCompleteAppointmentFormListener();
+    setupFollowUpAppointmentFormListener();
     handleUnderMonitoringBtn();
     viewCalendarHandler();
     renderSchedulesFromCalendar();

@@ -117,12 +117,20 @@ const displayTaskList = async () => {
                         </div>
                     </div>
                 </div>
+                
                 <div class="schedule__buttons-container">
-                    <button class="schedule__toggle-complete-btn" 
-                        data-set-appointment-id="${appointment._id}"
-                        ${appointment.appointmentStatus === 'completed' ? 'disabled' : ''}>
-                        ${appointment.appointmentStatus === 'completed' ? 'Completed' : 'Complete'}
-                    </button>
+                    <div class="action-btn__container">
+                        <button class="schedule__toggle-follow-up-btn" 
+                            data-set-appointment-id="${appointment._id}"
+                            ${appointment.appointmentStatus === 'completed' ? 'disabled' : ''}>
+                            Follow Up
+                        </button>
+                        <button class="schedule__toggle-complete-btn" 
+                            data-set-appointment-id="${appointment._id}"
+                            ${appointment.appointmentStatus === 'completed' ? 'disabled' : ''}>
+                            ${appointment.appointmentStatus === 'completed' ? 'Completed' : 'Complete'}
+                        </button>
+                    </div>
                     <button class="schedule__toggle-more-details-btn">View More</button>
                 </div>
             </div>
