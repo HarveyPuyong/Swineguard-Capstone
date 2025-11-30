@@ -1,11 +1,11 @@
 import api from "./axiosConfig.js";
 
 
-const updatedItemQuantity = async (itemId, amountUsed) => {
+const updatedItemQuantity = async (medications) => {
   try {
 
-    const response = await api.put(`/inventory/deduct/stock/${itemId}`, {
-      usedQuantity: amountUsed
+    const response = await api.put(`/inventory/deduct/stock`, {
+      medications: medications
     });
 
 

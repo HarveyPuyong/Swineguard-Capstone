@@ -1460,3 +1460,7 @@ pop-up of dates and appointment schedules
   cursor: pointer;
   border-radius: 5px;
 }
+
+.ml {
+  text-transform: lowercase;
+}

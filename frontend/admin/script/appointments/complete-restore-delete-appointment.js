@@ -78,7 +78,7 @@ const handleCompleteAppointment = async (e) => {
 
       popupAlert('success', 'Success!', 'Appointment Completed successfully').then(() => {
 
-        // updatedItemQuantity(itemId, formData.medicineAmount);
+        updatedItemQuantity(formData.medications);
 
         completeTaskForm.reset();
         handleRenderAppointments();
@@ -235,6 +235,8 @@ const handleFollowUpAppointment = async (e) => {
         appointmentsDashboard();
         displayTaskList();
         form.classList.remove("show");
+        updatedItemQuantity(followUpData.medications);
+        console.log("Medications payload to update:", followUpData.medications);
       });
     }
 

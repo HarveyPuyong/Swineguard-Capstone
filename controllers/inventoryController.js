@@ -261,46 +261,49 @@ exports.useMedicine = async (req, res) => {
 
 
 // Update Quantity
+// Update Quantity (simple, no filters)
 exports.deductStock = async (req, res) => {
   try {
-    const { id } = req.params;
-    const { usedQuantity } = req.body;
+    const { medications } = req.body;
 
-    if (!isValidNumber(usedQuantity)) {
-      return res.status(400).json({ message: "Amount used must be a valid number > 0" });
+    if (!Array.isArray(medications) || medications.length === 0) {
+      return res.status(400).json({ message: "Medications array is required." });
     }
 
-    numericQuantity = Number(usedQuantity);
+    const updatedStocks = [];
 
-    // Find the stock by its ID
-    const stock = await InventoryStock.findById(id);
-    if (!stock) {
-      return res.status(404).json({ message: "Stock not found." });
+    for (const med of medications) {
+      const stock = await InventoryStock.findById(med.variation);
+
+      if (!stock) {
+        return res.status(404).json({ message: `Stock not found: ${med.variation}` });
+      }
+
+      stock.quantity -= med.amount;
+
+      if (stock.quantity <= 0) stock.status = "Out of Stock";
+
+      await stock.save();
+
+      updatedStocks.push({
+        stockId: stock._id,
+        deducted: med.amount,
+        remaining: stock.quantity
+      });
     }
-
-    // Check if enough quantity is available
-    if (stock.quantity < numericQuantity) {
-      return res.status(400).json({ message: "Not enough stock available." });
-    }
-
-    // Deduct stock
-    stock.quantity -= numericQuantity;
-    await stock.save();
 
     return res.status(200).json({
-      message: "Stock used recorded successfully.",
-      updatedStock: stock
+      message: "Stock deducted successfully.",
+      updatedStocks
     });
-
 
   } catch (err) {
-    console.error("Error while using medicine:", err);
-    return res.status(500).json({
-      message: "Something went wrong while using medicine.",
-      error: err.message
-    });
+    console.error("Error deducting stock:", err);
+    return res.status(500).json({ message: "Something went wrong.", error: err.message });
   }
-}
+};
+
+
 
 
 

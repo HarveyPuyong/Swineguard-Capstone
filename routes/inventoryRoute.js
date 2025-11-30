@@ -15,13 +15,13 @@ router.put('/add/stock/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinat
 
 router.put('/edit/stock/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.editStock); 
 
-router.get('/all/medicines', verifyJWT,  inventoryController.getAllMedicine);  // Get all Medicine
+router.get('/all/medicines',  inventoryController.getAllMedicine);  // Get all Medicine
 
-router.get('/all/items', verifyJWT,  inventoryController.getAllItem); // get all Item
+router.get('/all/items', inventoryController.getAllItem); // get all Item
 
 //router.put('/deduct/medicine', verifyJWT, inventoryController.useMedicine); // Update the Stock and deduct the used ml
 
-router.put('/deduct/stock/:id', verifyJWT, inventoryController.deductStock); // Update the Stock and deduct the used quantity
+router.put('/deduct/stock', verifyJWT, inventoryController.deductStock); // Update the Stock and deduct the used quantity
 
 
 

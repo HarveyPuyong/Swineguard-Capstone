@@ -261,11 +261,25 @@ const getSwineMedicalHistory = async(swineId) => {
         for (const appointment of filteredCompletedAppointments) {
             const serviceName = await getServiceName(appointment.appointmentService)
             const medicineName = await getMedicineName(appointment.medicine);
+
+            let medicinesHTML = "No Medicine";
+
+            if (appointment.medications && appointment.medications.length > 0) {
+                medicinesHTML = "<ul>";
+
+                for (const med of appointment.medications) {
+                    const medName = await getMedicineName(med.medicine);
+                    medicinesHTML += `<li>● ${medName}</li>`;
+                }
+
+                medicinesHTML += "</ul>";
+            }
+
             swineHealthRecordsHTML += `
                 <hr>
                 <p><strong>Service:</strong> ${serviceName}</p>
                 <p><strong>Date:</strong> ${formattedDate(appointment.appointmentDate)}</p>
-                <p><strong>Medicine:</strong> ${medicineName}</p>
+                <p><strong>Medicine:</strong> ${medicinesHTML}</p>
             `;
         }
 

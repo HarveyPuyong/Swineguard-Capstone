@@ -39,6 +39,19 @@ async function appointmentsTable(appointments, table) {
     let isAppointmentPastDate = appointment.appointmentStatus === 'accepted' && appointment_date <= new Date();
     //console.log(isAppointmentPastDate)
 
+    let medicinesHTML = "None";
+
+    if (appointment.medications && appointment.medications.length > 0) {
+      medicinesHTML = "<ul>";
+
+      for (const med of appointment.medications) {
+        const medName = await getMedicineName(med.medicine);
+        medicinesHTML += `<li>${medName} — ${med.amount} (ML)</li>`;
+      }
+
+      medicinesHTML += "</ul>";
+    }
+
     appointmentTableHTML += `
       <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
         <div class="appointment__details">
@@ -101,12 +114,8 @@ async function appointmentsTable(appointments, table) {
                 <span class="column__detail-value">${appointment.swineCount}</span>
               </p>
               <p class="column__detail">
-                <span class="column__detail-label">Medicine:</span>
-                <span class="column__detail-value">${medicineName}</span>
-              </p>
-              <p class="column__detail">
-                <span class="column__detail-label">Medicine Amount:</span>
-                <span class="column__detail-value amount">${appointment.medicineAmount ? appointment.medicineAmount : 'Not set'} <span class="amount">(ml)</span></span>
+                <span class="column__detail-label">Medicines:</span>
+                <span class="column__detail-value">${medicinesHTML}</span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Personnel:</span>
@@ -160,6 +169,19 @@ async function adminPageAppointmentTable(appointments, table) {
   for (const appointment of appointments) {
     const serviceName = await getServiceName(appointment.appointmentService);
 
+    let medicinesHTML = "None";
+
+    if (appointment.medications && appointment.medications.length > 0) {
+      medicinesHTML = "<ul>";
+
+      for (const med of appointment.medications) {
+        const medName = await getMedicineName(med.medicine);
+        medicinesHTML += `<li>${medName} — ${med.amount} (ML)</li>`;
+      }
+
+      medicinesHTML += "</ul>";
+    }
+
     appointmentTableHTML +=  `
       <div class="appointment status-${appointment.appointmentStatus}" data-id=${appointment._id}>
         <div class="appointment__details">
@@ -210,12 +232,8 @@ async function adminPageAppointmentTable(appointments, table) {
                 <span class="column__detail-value">${appointment.swineCount}</span>
               </p>
               <p class="column__detail">
-                <span class="column__detail-label">Medicine:</span>
-                <span class="column__detail-value">${appointment.medicine ? appointment.medicine : 'not set'}</span>
-              </p>
-              <p class="column__detail">
-                <span class="column__detail-label">Medicine Amount:</span>
-                <span class="column__detail-value amount">${appointment.medicineAmount ? appointment.medicineAmount : 'Not set'} <span class="amount">(ml)</span></span>
+                <span class="column__detail-label">Medicines:</span>
+                <span class="column__detail-value">${medicinesHTML}</span>
               </p>
               <p class="column__detail">
                 <span class="column__detail-label">Personnel:</span>

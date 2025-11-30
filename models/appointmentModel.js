@@ -56,13 +56,13 @@ const appointmentSchema = new mongoose.Schema({
     // },
 
     medications: [
-    {
-        medicine: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
-        amount: { type: Number, required: true }
-    }
-],
+        {
+            medicine: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
+            variationId: { type: mongoose.Schema.Types.ObjectId, ref: 'Inventory', required: true },
+            amount: { type: Number, required: true }
+        }
+    ],
     
-    medicineAmount: { type: Number, required: false},
     clinicalSigns: [{ type: String }],
     swineImage: { type: String, required: false },
 

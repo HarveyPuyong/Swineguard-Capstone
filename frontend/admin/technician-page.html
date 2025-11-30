@@ -212,6 +212,7 @@
             <!-- display-appointment-task.js -->
           </div>
 
+
           <!-- Complete form -->
           <form class="complete-task-form">
 
@@ -222,7 +223,7 @@
               <input type="text" id="completeTaskForm__name"  placeholder="Task name" readonly>
             </div>
 
-            <div class="medicine-box">
+            <div class="medicine-box" hidden>
               <label for="completeTaskForm__set-medicine-list">Select Medicine:</label><br>
               <select name="completeTaskForm__set-medicine-list" id="completeTaskForm__set-medicine-list">
                 <option value="">Select Medicine</option>
@@ -230,7 +231,7 @@
               </select>
             </div>
 
-            <div class="medicine-box">
+            <div class="medicine-box" hidden>
               <label for="completeTaskForm__set-medicine-var">Select Variation:</label><br>
               <select name="completeTaskForm__set-medicine-var" id="completeTaskForm__set-medicine-var" >
                 <option value="">Select Variation</option>
@@ -238,10 +239,15 @@
               </select>
             </div>
 
-            <div class="amount-box">
+            <div class="amount-box" hidden>
               <label for="completeTaskForm__set-medicine-amount">Medicine Amount:</label><br>
               <input type="number" id="completeTaskForm__set-medicine-amount" min="0" placeholder="Quantity" >
             </div>
+
+            <div id="medicine-list-container"></div>
+            <button type="button" id="add-medicine-btn" class="add-medicine-btn">
+              + Add Medicine
+            </button>
 
             <!-- Cause of deaths of the swine -->
             <div class="swine-cause__death">
@@ -267,12 +273,86 @@
               </div>
 
             </div>
-
+            
             <div class="complete-task-form__btn">
               <button type="submit" id="complete-task-form__complete-btn">Complete</button>
               <button type="button" id="complete-task-form__cancel-btn">Cancel</button>
             </div>
             <button type="button" id="complete-task-form__monitoring-btn">Mark as under monitoring</button>
+          </form>
+
+          <!-- Follow Up Schedule -->
+          <form class="follow-up-task-form">
+
+              <h2>Follow Up Schedule Form</h2>
+
+              <div class="task-name">
+                <label for="followUpForm__name">Appointment:</label><br>
+                <input type="text" id="followUpForm__name" placeholder="Task name" readonly>
+              </div>
+
+              <!-- ========== MEDICINE LIST ========== -->
+              <div class="medicine-box" hidden>
+                <label>Select Medicine:</label><br>
+                <select id="followUpForm__medicine-list">
+                  <option value="">Select Medicine</option>
+                </select>
+              </div>
+
+              <div class="medicine-box" hidden>
+                <label>Select Variation:</label><br>
+                <select id="followUpForm__medicine-var">
+                  <option value="">Select Variation</option>
+                </select>
+              </div>
+
+              <div class="amount-box" hidden>
+                <label>Medicine Amount:</label><br>
+                <input type="number" id="followUpForm__medicine-amount" min="0" placeholder="Quantity">
+              </div>
+              
+
+              <!-- Dynamic medicine entries -->
+              <div id="followUp-medicine-list-container"></div>
+
+              <button type="button" id="followUp-add-medicine-btn" class="add-medicine-btn">
+                + Add Medicine
+              </button>
+
+              <div class="date-box">
+                <label>Next Schedule:</label><br>
+                <input type="date" id="followUpForm__date" >
+              </div>
+
+              <!-- ========== SWINE STATUS ========== -->
+              <div class="swine-cause__death">
+                <p class="swine-cause__death--heading">Swine Status:</p>
+
+                <span class="detail-label">Health Status</span>
+                <select id="followUpForm__swine-status">
+                  <option value="">Select here</option>
+                  <option value="healthy">Healthy</option>
+                  <option value="sick">Sick</option>
+                  <option value="deceased">Deceased</option>
+                </select>
+
+                <label class="detail-label__cause-of-death hide">Cause:
+                  <input type="text" id="followUpForm__cause">
+                </label>
+
+                <label class="detail-label__num-of-deaths hide">Number of Deaths:
+                  <input type="number" id="followUpForm__death-count">
+                </label>
+
+                <div class="check-box__swine-Ids hide"></div>
+              </div>
+
+
+              <div class="complete-task-form__btn">
+                <button type="submit" id="followUp-task-form__complete-btn">Submit</button>
+                <button type="button" id="followUp-task-form__cancel-btn">Cancel</button>
+              </div>
+
           </form>
 
           <div class="admin-clinical-signs-overlay">
