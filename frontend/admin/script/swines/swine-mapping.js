@@ -145,15 +145,42 @@ const numOfSwinePerMunicipal = async (status) => {
 };
 
 
+const getSickSwines = async () => {
+  const swines = await fetchSwines();
+  const users = await fetchUsers();
+
+  // Create map: userId -> municipal
+  const userMunicipalMap = {};
+  users.forEach(user => {
+    if (user._id && user.municipality) {
+      userMunicipalMap[user._id] = {
+        municipal: user.municipality.toLowerCase(),
+        barangay: user.barangay || "Unknown"
+      };
+    }
+  });
+
+  // Filter sick swines
+  return swines.filter(sw => sw.status === "sick").map(sw => ({
+    ...sw,
+    municipal: userMunicipalMap[sw.clientId]?.municipal || "unknown",
+    barangay: userMunicipalMap[sw.clientId]?.barangay || "Unknown"
+  }));
+};
+
+
+
 
 
 // ======================================
 // ========== Toggle municipality
 // ======================================
-const toggleMunicipality = () => {
+const toggleMunicipality = async() => {
   const municipalCards = document.querySelectorAll('.select-status-and-population-container .municipality');
   const municipalHighlights = document.querySelectorAll('.marinduque-map-container__municipal-highlight');
   const selectStatus = document.querySelector('#mapping-contents__select-swine-status');
+  const conatinerForSickSwine = document.querySelector('.list-of-barangay-affected');
+  const swineTable = document.querySelector('.total-population-table');
 
   const highlightMap = {
     'torrijos': 'torrijos',
@@ -184,7 +211,7 @@ const toggleMunicipality = () => {
   });
 
   // ✅ Show all highlights when "All" is selected
-  selectStatus.addEventListener('change', () => {
+  selectStatus.addEventListener('change', async() => {
     if (selectStatus.value === 'all') {
       municipalHighlights.forEach(highlight => {
         numOfSwinePerMunicipal(selectStatus.value);
@@ -204,17 +231,47 @@ const toggleMunicipality = () => {
         highlight.classList.add('show');
       });
     } else if (selectStatus.value === 'sick') {
+      const sickSwines = await getSickSwines();
+
       municipalHighlights.forEach(highlight => {
         numOfSwinePerMunicipal(selectStatus.value);
         highlight.classList.remove('hide');
         highlight.classList.add('show');
       });
-    } else if (selectStatus.value === 'deceased') {
-      municipalHighlights.forEach(highlight => {
-        numOfSwinePerMunicipal(selectStatus.value);
-        highlight.classList.remove('hide');
-        highlight.classList.add('show');
+
+      // Group results
+      const grouped = {};
+
+      sickSwines.forEach(sw => {
+        const muni = sw.municipal;
+        const brgy = sw.barangay;
+        const cause = sw.cause || "Unknown";
+
+        if (!grouped[muni]) grouped[muni] = {};
+        if (!grouped[muni][brgy]) grouped[muni][brgy] = [];
+
+        grouped[muni][brgy].push(cause);
       });
+
+      // Build UI
+      let html = "";
+
+      Object.keys(grouped).forEach(muni => {
+        html += `<h3 style="margin-top:10px; text-transform:capitalize;">${muni}</h3>`;
+        Object.keys(grouped[muni]).forEach(brgy => {
+          html += `
+            <p><strong>${brgy}</strong></p>
+            <ul>
+              ${grouped[muni][brgy].map(c => `<li>${c}</li>`).join("")}
+            </ul>
+          `;
+        });
+      });
+
+      conatinerForSickSwine.innerHTML = html || "<p>No sick swines reported.</p>";
+
+
+
     } else {
       municipalHighlights.forEach(highlight => {
         highlight.classList.remove('hide');

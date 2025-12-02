@@ -19,8 +19,15 @@ const handleAddMedicine = () => {
       return;
     }
 
+    const categoryInput = document.getElementById('medicine-category-input').value;
+    if (categoryInput === "") {
+      popupAlert('error', 'Error!', "Kindly select a category");
+      return;
+    }
+
     const itemFormData = {
       itemName: document.querySelector('#add-medicine-form .medicine-name-input').value.trim(),
+      category: categoryInput
     };
 
     try {

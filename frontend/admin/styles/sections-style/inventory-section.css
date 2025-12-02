@@ -249,6 +249,7 @@
 }
 
 .medicine-form input, 
+.medicine-form select, 
 .add-item-form input
 {
   padding: 6px;
@@ -410,6 +411,18 @@
 .inventory-table .th.updated-date,
 .inventory-table .td.updated-date {
   width: var(--updated-date);
+}
+
+.inventory-table .th.category {
+  border: none;
+  cursor: pointer;
+  width: 130px;
+  transition: ease .3s;
+}
+
+.inventory-table .th.category:hover {
+  color: var(--main-color);
+  font-weight: 600;
 }
 
 .inventory-table__tbody .medicine .buttons-container{

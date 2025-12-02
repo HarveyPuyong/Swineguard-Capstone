@@ -294,6 +294,27 @@ const renderInventoryPreHeading = () => {
 }
 
 
+function InventoryFiltering() {
+  const categorySelect = document.getElementById("inventory-category");
+  if (!categorySelect) return;
+
+  categorySelect.addEventListener("change", () => {
+    const selected = categorySelect.value.toLowerCase();  // injectable / solution / consumables / all
+    const rows = document.querySelectorAll(".inventory-table__tbody .medicine");
+
+    rows.forEach(row => {
+      const category = row.querySelector(".category")?.textContent.trim().toLowerCase() || "";
+
+      if (selected === "all") {
+        row.style.display = "flex";
+      } else {
+        row.style.display = (category === selected) ? "flex" : "none";
+      }
+    });
+  });
+}
+
+
 export default function setupInventorySection() {
   toggleMedicineButtons();
   handleRenderInventory();
@@ -305,4 +326,5 @@ export default function setupInventorySection() {
   setupAddStockFormListener(); // Listener for adding Stocks
   setupEditStockFormListener() // Listener for updating Stocks
   renderInventoryPreHeading();
+  InventoryFiltering();
 }

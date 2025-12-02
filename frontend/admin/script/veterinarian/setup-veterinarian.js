@@ -16,6 +16,7 @@ import fetchUser from "../auth/fetchUser.js";
 import { handleAddNewScheduleFromSection } from "./handle-schedule-from-calendar.js";
 import { editTotalAppointment } from "./set-num-of-appointment.js";
 import { renderMaxApptPerDay } from "../../components/vet-max-appointment.js";
+import { getItemCategory } from "../../api/fetch-inventory-stock.js";
 
 
 // Vet Id
@@ -105,6 +106,7 @@ const handleCompleteTaskBtn = () => {
 }
 
 
+
 // ======================================
 // ========== CHandle Mark as Under Monitoring
 // ======================================
@@ -145,12 +147,21 @@ const setupPersonnelCompleteForm = async (appointmentId) => {
     const medicines = await fetchMedicines();
     const stocks = await fetchInventoryStocks();
 
+    // Sort medicines alphabetically by itemName
+    const sortedMedicines = medicines.sort((a, b) => {
+        const nameA = a.itemName.toLowerCase();
+        const nameB = b.itemName.toLowerCase();
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
+        return 0;
+    });
+
     // --- Fill medicine dropdown ---
     medicineSelectTag.innerHTML = `<option value="">Select Medicine</option>`;
     medicines.forEach(med => {
         const option = document.createElement('option');
         option.value = med._id;
-        option.textContent = med.itemName;
+        option.textContent = `${med.itemName} (${med.category?.trim() || 'Not set'})`;
         medicineSelectTag.appendChild(option);
     });
 
@@ -281,87 +292,11 @@ const setupPersonnelCompleteForm = async (appointmentId) => {
     const addMedicineBtn = document.querySelector("#add-medicine-btn");
 
 
-    function addMedicineEntry() {
 
-    const entry = document.createElement("div");
-    entry.classList.add("medicine-entry");
 
-    entry.innerHTML = `
-        <select class="medicine-select">
-            <option value="">Select Medicine</option>
-        </select>
-
-        <select class="variation-select" disabled>
-            <option value="">Select Variation</option>
-        </select>
-
-        <input type="number" class="amount-input" placeholder="Amount" min="0" disabled>
-
-        <button type="button" class="remove-entry-btn">X</button>
-    `;
-
-    medicineListContainer.appendChild(entry);
-
-    // refs
-    const medSelect = entry.querySelector(".medicine-select");
-    const varSelect = entry.querySelector(".variation-select");
-    const amountInput = entry.querySelector(".amount-input");
-    const removeBtn = entry.querySelector(".remove-entry-btn");
-
-    // Populate medicine dropdown
-    medicines.forEach(med => {
-        const option = document.createElement("option");
-        option.value = med._id;
-        option.textContent = med.itemName;
-        medSelect.appendChild(option);
+    addMedicineBtn.addEventListener("click", () => {
+        createMedicineEntry(medicineListContainer, medicines, stocks, today );
     });
-
-    // Medicine change handler
-    medSelect.addEventListener("change", () => {
-        const selected = medSelect.value;
-
-        varSelect.innerHTML = `<option value="">Select Variation</option>`;
-        varSelect.disabled = true;
-        amountInput.disabled = true;
-        amountInput.value = "";
-
-        if (!selected) return;
-
-        const today = new Date(); today.setHours(0,0,0,0);
-
-        const variations = stocks.filter(
-            stock => stock.medicineId === selected && new Date(stock.expiryDate) >= today
-        );
-
-        variations.forEach(v => {
-            const option = document.createElement("option");
-            option.value = v._id;
-            option.textContent = `${v.content} ml (${v.quantity} pcs) (exp: ${formatedDateForCalendar(v.expiryDate)})`;
-            varSelect.appendChild(option);
-        });
-
-        varSelect.disabled = variations.length === 0;
-    });
-
-    // Variation selection → enable amount
-    varSelect.addEventListener("change", () => {
-        if (!varSelect.value) {
-            amountInput.disabled = true;
-            amountInput.value = "";
-        } else {
-            amountInput.disabled = false;
-            amountInput.value = 0;
-        }
-    });
-
-    // Remove entry
-    removeBtn.addEventListener("click", () => entry.remove());
-    }
-
-    addMedicineBtn.addEventListener("click", () => addMedicineEntry());
-
-    // Add first empty entry automatically
-    addMedicineEntry();
 
     
 };
@@ -383,22 +318,30 @@ const setupPersonnelFollowUpForm = async (appointmentId) => {
     const appoinmentAmountInput = form.querySelector('#followUpForm__medicine-amount');
 
     // Data fetch
-    const today = new Date(); today.setHours(0,0,0,0);
+    const today = new Date(); today.setHours(0,0,0,0); // Today
     const appointments = await fetchAppointments();
     const appointment = appointments.find(app => app._id === appointmentId);
     const serviceName = await getServiceName(appointment.appointmentService);
 
-    const medicines = await fetchMedicines();
-    const stocks = await fetchInventoryStocks();
+    const medicines = await fetchMedicines(); // ITo yung Medicines
+    const stocks = await fetchInventoryStocks(); //Ito naman yung STocks
 
 
+    // Sort medicines alphabetically by itemName
+    const sortedMedicines = medicines.sort((a, b) => {
+        const nameA = a.itemName.toLowerCase();
+        const nameB = b.itemName.toLowerCase();
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
+        return 0;
+    });
 
     // --- Populate Medicine List ---
     medicineSelectTag.innerHTML = `<option value="">Select Medicine</option>`;
-    medicines.forEach(med => {
+    sortedMedicines.forEach(med => {
         const option = document.createElement('option');
         option.value = med._id;
-        option.textContent = med.itemName;
+        option.textContent = `${med.itemName} (${med.category?.trim() || 'Not set'})`;
         medicineSelectTag.appendChild(option);
     });
 
@@ -510,79 +453,18 @@ const setupPersonnelFollowUpForm = async (appointmentId) => {
     // ======================================
     //      🔥 Dynamic Medicine Entries
     // ======================================
-    const medicineListContainer = form.querySelector("#followUp-medicine-list-container");
+    const medicineListContainer = form.querySelector("#followUp-medicine-list-container"); // Ito yung conatiner
     const addMedicineBtn = form.querySelector("#followUp-add-medicine-btn");
 
-    function addMedicineEntry() {
-        const entry = document.createElement("div");
-        entry.classList.add("medicine-entry");
-
-        entry.innerHTML = `
-            <select class="medicine-select">
-                <option value="">Select Medicine</option>
-            </select>
-            <select class="variation-select" disabled>
-                <option value="">Select Variation</option>
-            </select>
-            <input type="number" class="amount-input" placeholder="Amount" min="0" disabled>
-            <button type="button" class="remove-entry-btn">X</button>
-        `;
-
-        medicineListContainer.appendChild(entry);
-
-        const medSelect = entry.querySelector(".medicine-select");
-        const varSelect = entry.querySelector(".variation-select");
-        const amountInput = entry.querySelector(".amount-input");
-        const removeBtn = entry.querySelector(".remove-entry-btn");
-
-        // Populate medicine list
-        medicines.forEach(med => {
-            const option = document.createElement("option");
-            option.value = med._id;
-            option.textContent = med.itemName;
-            medSelect.appendChild(option);
-        });
-
-        // Medicine → Variations
-        medSelect.addEventListener("change", () => {
-            const selected = medSelect.value;
-
-            varSelect.innerHTML = `<option value="">Select Variation</option>`;
-            varSelect.disabled = true;
-            amountInput.disabled = true;
-            amountInput.value = "";
-
-            if (!selected) return;
-
-            const variations = stocks.filter(
-                stock => stock.medicineId === selected && new Date(stock.expiryDate) >= today
-            );
-
-            variations.forEach(v => {
-                const opt = document.createElement("option");
-                opt.value = v._id;
-                opt.textContent = `${v.content} ml (${v.quantity} pcs) (exp: ${formatedDateForCalendar(v.expiryDate)})`;
-                varSelect.appendChild(opt);
-            });
-
-            varSelect.disabled = variations.length === 0;
-        });
-
-        // Variation → enable amount
-        varSelect.addEventListener("change", () => {
-            amountInput.disabled = !varSelect.value;
-            amountInput.value = varSelect.value ? 0 : "";
-        });
-
-        // Remove entry
-        removeBtn.addEventListener("click", () => entry.remove());
-    }
+    // ✅ Clear previous entries when opening the form
+    medicineListContainer.innerHTML = '';
+    
 
     // Add entry button
-    addMedicineBtn.addEventListener("click", addMedicineEntry);
+    addMedicineBtn.addEventListener("click", () => {
+        createMedicineEntry(medicineListContainer, medicines, stocks, today );
+    });
 
-    // Add first entry
-    addMedicineEntry();
 };
 
 
@@ -768,6 +650,83 @@ const setUpVetPersonalSchedule = () => {
         }
     };
 };
+
+
+
+
+// ===============================================
+// 🔥 Reusable Medicine Entry Creator
+// ===============================================
+function createMedicineEntry(container, medicines, stocks, today ) {
+    
+    const entry = document.createElement("div");
+    entry.classList.add("medicine-entry");
+
+    entry.innerHTML = `
+        <select class="medicine-select">
+            <option value="">Select Medicine</option>
+        </select>
+
+        <select class="variation-select" disabled>
+            <option value="">Select Variation</option>
+        </select>
+
+        <input type="number" class="amount-input" placeholder="Amount" min="0" disabled>
+
+        <button type="button" class="remove-entry-btn">X</button>
+    `;
+
+    container.appendChild(entry);
+
+    const medSelect   = entry.querySelector(".medicine-select");
+    const varSelect   = entry.querySelector(".variation-select");
+    const amountInput = entry.querySelector(".amount-input");
+    const removeBtn   = entry.querySelector(".remove-entry-btn");
+
+    // Populate medicine dropdown
+    medicines.forEach(med => {
+        const option = document.createElement("option");
+        option.value = med._id;
+        option.textContent = `${med.itemName} (${med.category})`;
+        medSelect.appendChild(option);
+    });
+
+    // Medicine change logic
+    medSelect.addEventListener("change", async() => {
+        const selected = medSelect.value;
+
+        varSelect.innerHTML = `<option value="">Select Variation</option>`;
+        varSelect.disabled = true;
+        amountInput.disabled = true;
+        amountInput.value = "";
+
+        if (!selected) return;
+
+        const variations = stocks.filter(
+            stock => stock.medicineId === selected && new Date(stock.expiryDate) >= today
+        );
+
+        for (const v of variations) {
+            const option = document.createElement("option");
+            option.value = v._id;
+
+            const medExt = await getItemCategory(v.medicineId);
+            option.textContent = `${v.content ? v.content : ""} ${medExt} (${v.quantity} pcs) (exp: ${formatedDateForCalendar(v.expiryDate)})`;
+            varSelect.appendChild(option);
+        };
+
+        varSelect.disabled = variations.length === 0;
+    });
+
+    // Variation change
+    varSelect.addEventListener("change", () => {
+        amountInput.disabled = !varSelect.value;
+        amountInput.value = varSelect.value ? 0 : "";
+    });
+
+    // Remove this entry
+    removeBtn.addEventListener("click", () => entry.remove());
+}
 
 
 

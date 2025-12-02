@@ -131,11 +131,20 @@
 
           <!-- add medicine form -->
           <form id="add-medicine-form" class="add-medicine-form medicine-form">
-            <h1 class="medicine-form__heading">Add Medicine</h1>
+            <h1 class="medicine-form__heading">Add Item</h1>
 
             <label for="medicine-name-input">
-              Medicine Name <br>
+              Item Name <br>
               <input id="medicine-name-input" class="medicine-name-input" placeholder="Enter medicine name here" type="text" required>
+            </label>
+            <label for="medicine-category-input">
+              Category <br>
+              <select id="medicine-category-input">
+                <option value="">Select Category</option>
+                <option value="injectable">Injectable</option>
+                <option value="solution">Solution</option>
+                <option value="consumables">Consumables</option>
+              </select>
             </label>
 
             <div class="medicine-form__buttons-container">
@@ -187,11 +196,11 @@
 
           <!-- Add Item Form -->
            <form id="add-item-form" class="add-item-form">
-            <h1 class="add-item-form__heading">Add Item</h1>
+            <h1 class="add-item-form__heading">Add Stock</h1>
 
             <label for="item-content-input">
-              Content (ml) <br>
-              <input id="item-content-input" placeholder="0 ml" type="number" required>
+              (ml/mg/gauge) <br>
+              <input id="item-content-input" placeholder="0 ml/mg/gauge." type="number" required>
             </label>
             <label for="item-quantity-input">
               Quantity <br>
@@ -216,6 +225,12 @@
               <p class="th quantity">Quantity</p>
               <p class="th item-count">No. of Items</p>
               <p class="th status">Status</p>
+              <select class="th category" id="inventory-category">
+                <option value="all">Category</option>
+                <option value="injectable">Injectable</option>
+                <option value="solution">Solution</option>
+                <option value="consumables">Consumables</option>
+              </select>
             </div>
             <!-- table body -->
             <div class="inventory-table__tbody"><!--  Inventory items render in script/inventory/display-inventory.js --></div>
@@ -231,7 +246,7 @@
                 <thead>
                   <tr>
                     <th>Item No.</th>
-                    <th>Content (ml)</th>
+                    <th>(ml/mg/gauge)</th>
                     <th>Quantity</th>
                     <th>Expiration Date</th>
                     <th>Actions</th>

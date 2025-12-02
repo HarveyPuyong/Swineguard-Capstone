@@ -25,7 +25,7 @@ const createInventoryTable = async () => {
           <thead>
               <tr>
                   <th>Item No.</th>
-                  <th>Content (ml)</th>
+                  <th>(ml/mg/guage)</th>
                   <th>Quantity</th>
                   <th>Expiration Date</th>
                   <th>Actions</th>
@@ -78,7 +78,7 @@ const createInventoryTable = async () => {
       <thead>
           <tr>
               <th>Item No.</th>
-              <th>Content (ml)</th>
+              <th>(ml/mg/gauge)</th>
               <th>Quantity</th>
               <th>Expiration Date</th>
               <th>Actions</th>

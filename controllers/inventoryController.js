@@ -8,21 +8,21 @@ const {isValidNumber, isInvalidInput, checkExpiryDate} = require('./../utils/inv
 
 //Add Medicine Name Main
 exports.AddMedicine = async (req, res) => {
-    const { itemName } = req.body;
+    const { itemName, category } = req.body;
 
-    if (isInvalidInput(itemName)) {
+    if (isInvalidInput(itemName) || isInvalidInput(category)) {
         return res.status(400).json({ message: 'Medicine name must not contain emoji' });
     }
 
     try {
         // Check if the medicine already exists (case-insensitive)
-        const existing = await Inventory.findOne({ itemName: new RegExp(`^${itemName}$`, 'i') });
+        const existing = await Inventory.findOne({ itemName: new RegExp(`^${itemName}$`, 'i'), category: category  });
         if (existing) {
         return res.status(409).json({ message: 'Medicine name already exists.' });
         }
 
         // Create new medicine document
-        const newMedicine = new Inventory({ itemName });
+        const newMedicine = new Inventory({ itemName, category });
         await newMedicine.save();
 
         return res.status(201).json({
@@ -40,49 +40,92 @@ exports.AddMedicine = async (req, res) => {
 
 
 // Add Item to the collections
+// Add Item to the collections
 exports.AddItem = async (req, res) => {
   try {
     const { medicineId, content, quantity, expiryDate } = req.body;
 
-    // Empty check
-    const itemData = { medicineId, content, quantity, expiryDate };
-    const hasEmpty = Object.values(itemData).some(v => v === undefined || v === null || v === "");
+    // Fetch medicine to check its category
+    const medicine = await Inventory.findById(medicineId);
+    if (!medicine) {
+      return res.status(404).json({ message: "Medicine not found." });
+    }
+
+    // Force content = 0 if category is consumables
+    let finalContent = content;
+    if (medicine.category === "consumables") {
+      finalContent = 0; 
+    }
+
+    // Empty check (but content is allowed to be 0 for consumables)
+    const itemData = { medicineId, finalContent, quantity, expiryDate };
+    const hasEmpty = Object.values(itemData).some(
+      v => v === undefined || v === null || v === ""
+    );
     if (hasEmpty) {
       return res.status(400).json({ message: "itemData contains empty fields", itemData });
     }
 
-    // Validate content/quantity
-    if (!isValidNumber(content) || !isValidNumber(quantity)) {
-      return res.status(400).json({ message: "Item content and quantity must be numbers > 0" });
+    // Validate quantity only (content is ignored for consumables)
+    if (!isValidNumber(quantity)) {
+      return res.status(400).json({ message: "Quantity must be a number > 0" });
+    }
+
+    // Validate content only if NOT consumables
+    if (medicine.category !== "consumables" && !isValidNumber(finalContent)) {
+      return res.status(400).json({ message: "Content must be a number > 0" });
     }
 
     // Validate expiry
     if (!checkExpiryDate(expiryDate)) {
-      return res.status(400).json({ message: "Expiration must be 1 month ahead or future date" });
+      return res.status(400).json({
+        message: "Expiration must be 1 month ahead or future date",
+      });
     }
 
     // Convert to numbers
-    const numericContent = Number(content);
+    const numericContent = Number(finalContent);
     const numericQuantity = Number(quantity);
 
-    // Find existing
-    const existingItem = await InventoryStock.findOne({ medicineId, content: numericContent, expiryDate });
+    // Find existing item
+    const existingItem = await InventoryStock.findOne({
+      medicineId,
+      content: numericContent,
+      expiryDate,
+    });
+
     if (existingItem) {
       existingItem.quantity += numericQuantity;
       await existingItem.save();
-      return res.status(200).json({ message: "Item already exists. Quantity updated.", item: existingItem });
+      return res.status(200).json({
+        message: "Item already exists. Quantity updated.",
+        item: existingItem,
+      });
     }
 
-    // Create new
-    const newItem = new InventoryStock({ medicineId, content: numericContent, quantity: numericQuantity, expiryDate });
+    // Create new item
+    const newItem = new InventoryStock({
+      medicineId,
+      content: numericContent,
+      quantity: numericQuantity,
+      expiryDate,
+    });
+
     await newItem.save();
 
-    return res.status(201).json({ message: "New item added successfully.", item: newItem });
+    return res.status(201).json({
+      message: "New item added successfully.",
+      item: newItem,
+    });
   } catch (err) {
     console.error("Error while adding item:", err);
-    return res.status(500).json({ message: "Something went wrong while adding new Item.", error: err.message });
+    return res.status(500).json({
+      message: "Something went wrong while adding new Item.",
+      error: err.message,
+    });
   }
 };
+
 
 // Add Stock
 exports.addStock = async (req, res) => {
@@ -304,8 +347,52 @@ exports.deductStock = async (req, res) => {
 };
 
 
+// Edit Stock
+// Edit Medicine Category
+exports.editMedicineCategory = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { category } = req.body;
 
+    // Validate input
+    if (!category || category.trim() === "") {
+      return res.status(400).json({ message: "Category cannot be empty." });
+    }
 
+    const updatedStock = await Inventory.findByIdAndUpdate(
+      id,
+      { category },   // <-- FIX: wrap in an object
+      { new: true }
+    );
+
+    if (!updatedStock) {
+      return res.status(404).json({ message: "Item not found." });
+    }
+
+    return res.status(200).json({
+      message: "Category updated successfully.",
+      item: updatedStock
+    });
+
+  } catch (err) {
+    console.error("Error while updating category:", err);
+    return res.status(500).json({
+      message: "Something went wrong while updating category.",
+      error: err.message
+    });
+  }
+};
+
+// Get All Medicine
+exports.getMedicineById = async (req, res) => {
+    try {
+      const {id} = req.params;
+      const items = await Inventory.findById(id);
+      res.status(200).json(items);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+};
 
 
 

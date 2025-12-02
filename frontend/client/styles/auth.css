@@ -112,7 +112,7 @@ form{
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: clamp(350px, 30vw, 700px); 
+  width: auto; 
   color: white;
   background: linear-gradient(to bottom, #00EB6D, #29a865);
   border-top-right-radius: 4px;
@@ -151,7 +151,7 @@ form{
 .form__label-txt{
   margin-bottom: 3px;
   font-weight: 600;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 input,
@@ -160,7 +160,7 @@ select{
   border: 1px solid rgba(0, 0, 0, 0.491);
   border-radius: 4px;
   padding: 10px 10px;
-  font-size: 1.1rem;
+  font-size: 16px;
   color: rgb(106, 106, 106);
 }
 
@@ -304,11 +304,7 @@ form#login-form.show{
   gap: 5%
 }
 
-/* 1st field (names) */
-.lastname-input-container{
-  width: 70%;
-  display: inline-block;
-}
+
 
 .suffix-select-container{
   width: 30%;
@@ -455,6 +451,28 @@ OTP DESIGN
 }
 
 
+.input-field {
+  display: flex;
+  gap: .5rem;
+}
+
+.signup-form__otp-field {
+  display: none;
+}
+.signup-form__otp-field.show {
+  display: block;
+}
+
+.signup-form__input-field {
+  display: none;
+}
+.signup-form__input-field.show {
+  display: block;
+}
+
+#login-form input {
+  width: 400px;
+}
 
 @media(width >= 500px){
   .gender-radio-list{

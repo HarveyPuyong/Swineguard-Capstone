@@ -49,6 +49,9 @@ async function inventoryTable(inventories, table) {
           <p class="td status" data-status-value=${formatItemStatus(stockStatus)}>
             ${stockStatus.charAt(0).toUpperCase() + stockStatus.slice(1)}
           </p>
+          <p class="td category" >
+            ${item.category?item.category:"Not set"}
+          </p>
           <p class="td number-of-expired">
             ${expiredItem > 0 ? `${expiredItem} <span>(expired)</span>` : ""}
           </p>
@@ -137,6 +140,8 @@ const renderButtonsCount = async (inventories) => {
   updateButton(outOfStockBtn, itemCount_OutofStock);
 
 };
+
+
 
 
 

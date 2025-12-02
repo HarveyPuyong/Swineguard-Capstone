@@ -6,9 +6,10 @@ const fetchInventory = async() => {
 
     if(response.status === 200) return response.data
   } catch (error) {
-    cconsole.error('Failed to fetch inventory:', error);
+    console.error('Failed to fetch inventory:', error);
     throw error; 
   }
 }
+
 
 export default fetchInventory;

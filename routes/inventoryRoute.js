@@ -15,7 +15,12 @@ router.put('/add/stock/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinat
 
 router.put('/edit/stock/:id', verifyJWT, verifyRoles(ROLE_LIST.InventoryCoordinator), inventoryController.editStock); 
 
+
+router.put('/edit/category/:id', inventoryController.editMedicineCategory); 
+
 router.get('/all/medicines',  inventoryController.getAllMedicine);  // Get all Medicine
+
+router.get('/get/medicines/:id',  inventoryController.getMedicineById);  // Get Medicine by Id
 
 router.get('/all/items', inventoryController.getAllItem); // get all Item
 

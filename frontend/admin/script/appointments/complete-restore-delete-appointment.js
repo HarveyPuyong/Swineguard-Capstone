@@ -236,7 +236,7 @@ const handleFollowUpAppointment = async (e) => {
         displayTaskList();
         form.classList.remove("show");
         updatedItemQuantity(followUpData.medications);
-        console.log("Medications payload to update:", followUpData.medications);
+        //console.log("Medications payload to update:", followUpData.medications);
       });
     }
 

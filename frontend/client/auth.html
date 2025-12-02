@@ -54,159 +54,146 @@
       </form>
 
 
-      <!-- ========== Signup Form ========== -->
-      <form id="signup-form" class="hide">
-        <!-- form pig icons -->
-        <img class="form__top-pig" src="images-and-icons/icons/Pig-1.png" alt="form-pig-icon">
-        <img class="form__bottom-pig" src="images-and-icons/icons/Pig-2-right.png" alt="form-pig-icon">
+        <!-- ========== Signup Form ========== -->
+        <form id="signup-form" class="hide">
+          <!-- form pig icons -->
+          <img class="form__top-pig" src="images-and-icons/icons/Pig-1.png" alt="form-pig-icon">
+          <img class="form__bottom-pig" src="images-and-icons/icons/Pig-2-right.png" alt="form-pig-icon">
 
-        <h2 class="form__heading">Signup</h2>
-        <!-- (Firstname, Middlename Lastanme, Suffix) 1st field -->
-        <div class="signup-form__first-field signup-form__field show">
-          <!-- firstname-input -->
-          <div class="input-container firstname-input-container">
-            <p class="form__label-txt">Firstname:</p>
-            <input id="client-input-firstname" type="text" required>
-          </div>
+          <h2 class="form__heading">Signup</h2>
 
-          <!-- middlename-input -->
-          <div class="input-container middle-input-container">
-            <p class="form__label-txt">Middlename:</p>
-            <input id="client-input-middlename" type="text" required>
-          </div>
+          <div class="signup-form__input-field show">
+            <!-- Name-input -->
+            <div class="input-field">
+              <div class="user-details">
+                <p class="form__label-txt">Firstname:</p>
+                <input id="client-input-firstname" type="text" required>
+              </div>
 
-          <div class="signup-form__group">
-            <!-- lastname-input -->
-            <div class="input-container lastname-input-container">
-              <p class="form__label-txt">Lastname:</p>
-              <input id="client-input-lastname" type="text" required>
+              <!-- middlename-input -->
+              <div class="user-details">
+                <p class="form__label-txt">Middlename:</p>
+                <input id="client-input-middlename" type="text" required>
+              </div>
+
+              <div class="user-details">
+                <p class="form__label-txt">Lastname:</p>
+                <input id="client-input-lastname" type="text" required>
+              </div>
+
+              <!-- suffix-select -->
+              <div class="user-details">
+                <p class="form__label-txt">Suffix:</p>
+                <select id="select-suffix-name" name="select-suffixname">
+                  <option value="">Suffix</option>
+                  <option value="jr">Jr.</option>
+                  <option value="sr">Sr.</option>
+                </select>
+              </div>
+
             </div>
 
-            <!-- suffix-select -->
-            <div class="select-container suffix-select-container">
-              <p class="form__label-txt">Suffix:</p>
-              <select id="select-suffix-name" name="select-suffixname">
-                <option value="">Select suffix</option>
-                <option value="jr">Jr.</option>
-                <option value="sr">Sr.</option>
-              </select>
+            <!-- Gender Inout -->
+            <div class="input-field">  
+              <!-- age-input -->
+              <div class="input-container age-input-container">
+                <p class="form__label-txt">Birthday:</p>
+                <input id="client-input-birthday" type="date" required>
+              </div>
+
+              <!-- contact-input -->
+              <div class="input-container contact-input-container">
+                <p class="form__label-txt">Contact number:</p>
+                <input 
+                  id="client-contact-number" 
+                  name="phone" 
+                  type="tel" 
+                  pattern="09[0-9]{9}" 
+                  maxlength="11" 
+                  placeholder="09XXXXXXXXX" 
+                  required 
+                  inputmode="numeric" 
+                  oninput="this.value=this.value.replace(/\D/g,'')"
+                >
+              </div>
+
+              <div class="radio-container gender-radio-container">
+                <p class="form__label-txt">Gender:</p>
+                <div class="gender-radio-list">
+                  <label><input type="radio" name="gender" value="male" required> Male</label>
+                  <label><input type="radio" name="gender" value="female" required> Female</label>
+                </div>      
+              </div>
+
+            </div>
+
+            <div class="input-field">
+              <!-- municipality-select -->
+              <div class="select-container municipality-select-container">
+                <p class="form__label-txt">Municipality:</p>
+                <select id="select-municipality" name="municipality-select" required>
+                  <option value="">Select municipality</option>
+                </select>
+              </div>
+              <!-- barangay-select -->
+              <div class="select-container barangay-select-container">
+                <p class="form__label-txt">Barangay:</p>
+                <select id="select-barangay" name="barangay-select" required>
+                  <option value="">Select barangay</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="input-field">
+              <!-- email-input -->
+              <div class="input-container email-input-container">
+                <p class="form__label-txt">Email:</p>
+                <input id="client-input-email" type="email" placeholder="example@gmail.com" required>
+              </div>
+              <!-- password-input -->
+              <div class="input-container password-input-container">
+                <p class="form__label-txt">Password:</p>
+                <input id="client-input-password" type="password" required>
+                <i class="password-eye-icon fa fa-eye"></i>
+                <div class="eye-slash"></div>
+              </div>
+
+              <!-- confirm-password-input -->
+              <div class="input-container password-input-container">
+                <p class="form__label-txt">Confirm password:</p>
+                <input id="client-input-confirm-password" type="password" required>
+                <i class="password-eye-icon fa fa-eye"></i>
+                <div class="eye-slash"></div>
+              </div>
+            </div>
+
+            <button class="signup-form__next-btn" type="button">Next</button>
+          </div>
+
+
+  
+
+          <!-- (OTP) 5th field -->
+          <div class="signup-form__otp-field">
+            <div class="otp-container">
+              <input type="tel" name="first-digit" id="first-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
+              <input type="tel" name="second-digit" id="second-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
+              <input type="tel" name="third-digit" id="third-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
+              <input type="tel" name="forth-digit" id="forth-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
+            </div>
+
+            <div class="signup-form__buttons-container">
+              <button class="signup-form__back-btn" type="button">Back</button>
+              <button class="signup-form__submit-btn" type="button">Submit</button>
             </div>
           </div>
-          <button class="signup-form__next-btn" type="button" disabled>Next</button>
-        </div>
-
-        <!-- (Gender, Age, Contact) 2nd field -->
-        <div class="signup-form__second-field signup-form__field ">   
-          <!-- gender-list-->
-          <div class="radio-container gender-radio-container">
-            <p class="form__label-txt">Gender:</p>
-            <div class="gender-radio-list">
-              <label><input type="radio" name="gender" value="male" required> Male</label>
-              <label><input type="radio" name="gender" value="female" required> Female</label>
-            </div>      
-          </div>
-
-          <!-- age-input -->
-          <div class="input-container age-input-container">
-            <p class="form__label-txt">Birthday:</p>
-            <input id="client-input-birthday" type="date" required>
-          </div>
-
-          <!-- contact-input -->
-          <div class="input-container contact-input-container">
-            <p class="form__label-txt">Contact number:</p>
-            <input 
-              id="client-contact-number" 
-              name="phone" 
-              type="tel" 
-              pattern="09[0-9]{9}" 
-              maxlength="11" 
-              placeholder="09XXXXXXXXX" 
-              required 
-              inputmode="numeric" 
-              oninput="this.value=this.value.replace(/\D/g,'')"
-            >
-          </div>
-
-          <div class="signup-form__buttons-container">
-            <button class="signup-form__back-btn" type="button">Back</button>
-            <button class="signup-form__next-btn" type="button" disabled>Next</button>
-          </div>
-        </div>
-    
-        <!-- (Municipality, Barangay) 3rd field -->
-        <div class="signup-form__third-field signup-form__field ">
-          <!-- municipality-select -->
-          <div class="select-container municipality-select-container">
-            <p class="form__label-txt">Municipality:</p>
-            <select id="select-municipality" name="municipality-select" required>
-              <option value="">Select municipality</option>
-            </select>
-          </div>
-          <!-- barangay-select -->
-          <div class="select-container barangay-select-container">
-            <p class="form__label-txt">Barangay:</p>
-            <select id="select-barangay" name="barangay-select" required>
-              <option value="">Select barangay</option>
-            </select>
-          </div>
-
-          <div class="signup-form__buttons-container">
-            <button class="signup-form__back-btn" type="button">Back</button>
-            <button class="signup-form__next-btn" type="button" disabled>Next</button>
-          </div>
-        </div>
-
-        <!-- (Email, Password, Confirm-password) 4th field -->
-        <div class="signup-form__fourth-field signup-form__field ">
-          <!-- email-input -->
-          <div class="input-container email-input-container">
-            <p class="form__label-txt">Email:</p>
-            <input id="client-input-email" type="email" placeholder="example@gmail.com" required>
-          </div>
-          <!-- password-input -->
-          <div class="input-container password-input-container">
-            <p class="form__label-txt">Password:</p>
-            <input id="client-input-password" type="password" required>
-            <i class="password-eye-icon fa fa-eye"></i>
-            <div class="eye-slash"></div>
-          </div>
-
-          <!-- confirm-password-input -->
-          <div class="input-container password-input-container">
-            <p class="form__label-txt">Confirm password:</p>
-            <input id="client-input-confirm-password" type="password" required>
-            <i class="password-eye-icon fa fa-eye"></i>
-            <div class="eye-slash"></div>
-          </div>
-
-          <div class="signup-form__buttons-container">
-            <button class="signup-form__back-btn" type="button">Back</button>
-            <button class="signup-form__next-btn" type="button" disabled>Next</button>
-          </div>
-        </div>
-
-        <!-- (OTP) 5th field -->
-        <div class="signup-form__fifth-field signup-form__field ">
-          <div class="otp-container">
-            <input type="tel" name="first-digit" id="first-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
-            <input type="tel" name="second-digit" id="second-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
-            <input type="tel" name="third-digit" id="third-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
-            <input type="tel" name="forth-digit" id="forth-digit" maxlength="1" inputmode="numeric" oninput="this.value=this.value.replace(/\D/g,'')" required>
-          </div>
-
-          <div class="signup-form__buttons-container">
-            <button class="signup-form__back-btn" type="button">Back</button>
-            <button class="signup-form__submit-btn" type="button">Submit</button>
-          </div>
-        </div>
 
 
-        <p class="form__reminder">
-          Already haved an account?
-          <span class="form__reminder-go-to-login change-to-login-btn">Login</span>
-        </p>
-      </form>
+          <p class="form__reminder">
+            Already haved an account?
+            <span class="form__reminder-go-to-login change-to-login-btn">Login</span>
+          </p>
+        </form>
 
     </main>
 

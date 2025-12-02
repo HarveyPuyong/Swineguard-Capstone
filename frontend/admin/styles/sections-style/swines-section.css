@@ -865,3 +865,13 @@ position: absolute;
     right: 50%;
     transform: translate(-50%, -50%);
 */
+
+/* .select-status-and-population-container,
+.total-population-table {
+  width: 400px;
+} */
+
+.list-of-barangay-affected {
+  max-height: 200px;
+  overflow: auto;
+}

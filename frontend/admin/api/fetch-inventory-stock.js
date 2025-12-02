@@ -45,9 +45,38 @@ const fetchFullInventory = async() => {
   } 
 }
 
+const getItemCategory = async (itemId) => {
+  try {
+    const response = await api.get(`/inventory/get/medicines/${itemId}`, { withCredentials: true });
+
+    if (response.status === 200) {
+      const responseData = response.data;
+      const itemCategory = responseData.category;
+
+      switch (itemCategory) {
+        case "injectable":
+          return "ml";
+        case "solution":
+          return "mg";
+        case "consumables":
+          return "";
+        default:
+          return ""; // fallback if category is missing or unknown
+      }
+    } else {
+      throw new Error(`Unexpected response status: ${response.status}`);
+    }
+  } catch (error) {
+    console.error('Failed to fetch inventory:', error);
+    throw error;
+  }
+};
+
+
 export {
           fetchInventoryStocks,
           returnStockNumber,
           fetchFullInventory,
-          returnItemCount
+          returnItemCount,
+          getItemCategory
         };
