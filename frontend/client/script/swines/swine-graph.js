@@ -3,7 +3,7 @@
 const lineGraph = (swineMontlyWeight) => {
 
     // Extract month names and weights
-    const months = swineMontlyWeight.map(item => item.month); 
+    const date = swineMontlyWeight.map(item => item.date); 
     const weights = swineMontlyWeight.map(item => item.weight); 
     var options = {
           series: [{
@@ -34,7 +34,7 @@ const lineGraph = (swineMontlyWeight) => {
           },
         },
         xaxis: {
-          categories: months,
+          categories: date,
         }
     };
 

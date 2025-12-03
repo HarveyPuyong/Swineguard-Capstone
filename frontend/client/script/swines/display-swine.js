@@ -311,7 +311,7 @@ const getSwineHealthHistory = async (swineId) => {
 
         filteredSwine.forEach(data => {
             swineMontlyWeight.push({
-                month: monthNames[data.month - 1],  // Convert 7 -> July
+                date: formattedDate(data.date),  // Convert 7 -> July
                 weight: data.monthlyWeight
             });
         });

@@ -36,8 +36,7 @@ const swineHealthRecordsSchema = new mongoose.Schema({
     },
     monthlyWeight: { type: Number, required: true },
     monthlyStatus: { type: String, default: 'healthy' },
-    month: { type: Number, required: true },
-    year: { type: Number, required: true },
+    date: { type: Date, required: true }
 
 
 

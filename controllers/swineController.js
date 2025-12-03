@@ -238,10 +238,10 @@ exports.getSwineById = async (req, res) => {
 
 // Edit and save swine data to the montly records
 exports.saveSwineMonthlyRecords = async (req, res) => {
-    const { monthlyWeight, monthlyStatus, swineId, month, year, overwrite } = req.body;
+    const { monthlyWeight, monthlyStatus, swineId, date, overwrite } = req.body;
 
     try {
-        const existingRecord = await swineHealthRecordSchema.findOne({ swineId, month, year });
+        const existingRecord = await swineHealthRecordSchema.findOne({ swineId, date});
 
         if (existingRecord) {
             if (!overwrite) {
@@ -265,8 +265,7 @@ exports.saveSwineMonthlyRecords = async (req, res) => {
             swineId,
             monthlyWeight: Number(monthlyWeight),
             monthlyStatus,
-            month,
-            year
+            date
         });
 
         await newRecord.save();
@@ -280,6 +279,10 @@ exports.saveSwineMonthlyRecords = async (req, res) => {
         res.status(500).json({ message: 'Failed to save swine monthly record.' });
     }
 };
+
+
+
+
 
 
 // Save multiple swine

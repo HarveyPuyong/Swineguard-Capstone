@@ -41,8 +41,7 @@ const handleFormSubmit = async (e) => {
       monthlyStatus: statusInput?.value,
       monthlyWeight: weightInput?.value,
       swineId: currentSwineId,
-      month,
-      year
+      date: currentDate
     };
 
     // ✅ Update swine details first
