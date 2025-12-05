@@ -638,7 +638,7 @@
   cursor: pointer;
   font-size: 0.95rem;
   font-weight: 500;
-  transition: background 0.2s ease;
+  transition: 0.2s ease;
 }
 
 .swine-profile-image__upload-btn:hover {
@@ -648,3 +648,19 @@
 .swine-profile-image__upload-btn i {
   font-size: 1rem;
 }
+
+.add-more-swine-btn,
+.remove-swine-btn {
+  width: 100%;
+  padding: .3rem 0;
+  background-color: #4d4dd4;
+  border: none;
+  color: #ffffff;
+}
+
+
+/* .add-swine-form__create-btn {
+  position: relative;
+  bottom: 1rem;
+  right: 0;
+} */

@@ -98,6 +98,28 @@ exports.editVetSchedule = async (req, res) => {
     }
 }
 
+exports.deleteVetSchedule = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deletedVetSchedule = await VeterinarianSchedule.findByIdAndDelete(id);
+        
+        if (!deletedVetSchedule) {
+            return res.status(404).json({ message: 'Schedule not found.' });
+        }
+        
+        return res.status(200).json({ 
+            Deleted: deletedVetSchedule, 
+            message: 'Schedule deleted successfully.' 
+        });
+
+    } catch (err) {
+        console.error(`Error: ${err}`);
+        console.log(`Cause of error: ${err.message}`);
+
+        return res.status(500).json({ message: 'Something went wrong while deleting new schedule.' });
+    }
+}
+
 
 exports.setNUmberOfAppointmentsPerDay = async (req, res) => {
     const { userId, totalAppointment } = req.body;

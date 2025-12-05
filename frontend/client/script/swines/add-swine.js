@@ -61,8 +61,7 @@ const addSwine = () => {
                     swineId: swine._id,
                     monthlyStatus: swine.status,
                     monthlyWeight: swine.weight,
-                    month: currentMonth,
-                    year: currentYear,
+                    date: currentDate,
                     overwrite: false
                 }));
 

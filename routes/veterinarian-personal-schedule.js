@@ -8,6 +8,8 @@ router.get('/get/vet/personal-sched/', vetPersonalSchedController.getVetSchedule
 
 router.put('/edit/vet/personal-sched/:id', vetPersonalSchedController.editVetSchedule); // Edit schedule from the Calendar
 
+router.delete('/delete/vet/personal-sched/:id', vetPersonalSchedController.deleteVetSchedule); // Edit schedule from the Calendar
+
 router.put('/edit/vet/total-num-of-app/:id', vetPersonalSchedController.editNUmberOfAppointmentsPerDay); // Get schedule from the Calendar
 
 router.post('/set/vet/total-num-of-app', vetPersonalSchedController.setNUmberOfAppointmentsPerDay); // Get schedule from the Calendar

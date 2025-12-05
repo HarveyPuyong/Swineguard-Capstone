@@ -2,6 +2,7 @@ import { fetchSchedules } from "../../api/fetch-schedules.js";
 import fetchUser from "../auth/fetchUser.js";
 import { formattedDate } from "../../utils/formated-date-time.js";
 import { handleEditScheduleFromSection } from "./handle-schedule-from-calendar.js";
+import api from "../../utils/axiosConfig.js";
 
 const renderSchedulesFromCalendar = async () => {
     
@@ -29,7 +30,10 @@ const renderSchedulesFromCalendar = async () => {
 
         const card = `
             <div class="schedule-card">
-                <button class="vet-sched__edit-btn" data-set="${schedule._id}">Edit</button>
+                <div class="vet-sched__btn-container">
+                    <button class="vet-sched__edit-btn" data-set="${schedule._id}">Edit</button>
+                    <button class="vet-sched__delete-btn" data-set="${schedule._id}">Delete</button>
+                </div>
                 <p class="schedule-heading">${formattedDate(schedule.date)}</p>
                 <p><strong>Title: </strong>${schedule.title}</p>
                 <p><strong>Description: </strong>${schedule.description}</p>
@@ -68,6 +72,8 @@ const handleVetScheduleEditBtn = async() => {
     const saveBtn = document.getElementById('availability-chedule__save-btn-edit');
     const backBtn = document.getElementById('availability-schedule__back-btn-edit');
 
+    const deleteBtn = document.querySelectorAll('.vet-sched__delete-btn');
+
 
     editBtn.forEach(btn => {
         const id = btn.dataset.set;
@@ -85,6 +91,14 @@ const handleVetScheduleEditBtn = async() => {
         })
     });
 
+    deleteBtn.forEach(btn => {
+        const id = btn.dataset.set;
+        btn.addEventListener('click', () => {
+            handleDeleteBtn(id);
+            //alert('Schedule Id: ' + id)
+        })
+    });
+
     backBtn.addEventListener('click', () => {
         overlay.classList.remove("show");
         editScheduleForm.classList.remove("show");
@@ -97,12 +111,53 @@ const setUpEditScheduleForm = async (scheduleId) => {
     // Populate the data in the Form
     const vetSchedules = await fetchSchedules();
     const filteredSchedule = vetSchedules.find(sched => sched._id === scheduleId)
-    const formatToDateOnly = (isoDate) => isoDate.split("T")[0];
+    const formatToDateOnly = (isoDate) => {
+    const date = new Date(isoDate);
+        date.setDate(date.getDate() + 1);
+        return date.toISOString().split("T")[0];
+    };
 
     document.getElementById('availability-schedule-title-edit').value = filteredSchedule.title;
     document.getElementById('availability-schedule-description-edit').value = filteredSchedule.description;
     document.getElementById('availability-schedule-date-edit').value = formatToDateOnly(filteredSchedule.date);
 }
+
+
+const handleDeleteBtn = async (scheduleId) => {
+  const result = await Swal.fire({
+    title: 'Are you sure?',
+    text: 'Do you really want to Delete this Schedule?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Yes, Delete',
+    cancelButtonText: 'No',
+  });
+
+  if (result.isConfirmed) {
+    try {
+      const response = await api.delete(`/schedule/delete/vet/personal-sched/${scheduleId}`, {});
+
+      if (response.status === 200) {
+        await Swal.fire({
+          icon: 'success',
+          title: 'Deleted',
+          text: 'You have been successfully deleted schedule.',
+          confirmButtonText: 'OK'
+        });
+
+        renderSchedulesFromCalendar();
+      }
+
+    } catch (err) {
+      console.log(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Delete Failed',
+        text: err.response?.data?.message || err.message,
+      });
+    }
+  }
+};
 
 
 export {

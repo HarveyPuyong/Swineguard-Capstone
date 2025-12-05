@@ -134,77 +134,94 @@ const toggleMedicalAndHealthHistory = () => {
 // ========== Set up add swine Form
 // ======================================
 const setupAddSwineForm = () => {
-  const swineCountInput = document.getElementById('swine-count-input');
-  const swineFieldsContainer = document.getElementById('swine-fields-container');
-  let timeout; // ⏳ for debounce
+  const addSwineBtn = document.getElementById("add-swine-btn");
+  const swineFieldsContainer = document.getElementById("swine-fields-container");
 
-  swineCountInput.addEventListener('input', () => {
-    clearTimeout(timeout);
-    timeout = setTimeout(() => {
-      renderSwineFields();
-    }, 300); // adjust delay if needed
-  });
+  let swineCount = 0;
+  const MAX_SWINE = 30;
 
-  function renderSwineFields() {
-    const count = parseInt(swineCountInput.value) || 0;
-    swineFieldsContainer.innerHTML = '';
-
-    // ✅ Limit to 30 swines
-    if (count > 30) {
-      popupAlert('warning', 'Warning', 'You can only register up to 30 swines at a time.');
-      swineCountInput.value = 30;
+  addSwineBtn.addEventListener("click", () => {
+    if (swineCount >= MAX_SWINE) {
+      popupAlert("warning", "Limit reached", "You can only add up to 30 swines.");
       return;
     }
 
-    if (count > 0) {
-      for (let i = 1; i <= count; i++) {
-        const swineGroup = document.createElement('div');
-        swineGroup.classList.add('swine-input-group');
+    swineCount++;
+    addSwineField(swineCount);
+  });
 
-        swineGroup.innerHTML = `
-          <h3>Swine ${i}</h3>
-          <div>
-            <label>Sex:</label>
-            <select data-field="sex" required>
-              <option value="">Select sex</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-            </select>
-          </div>
-          <div>
-            <label>Breed:</label>
-            <select data-field="breed" required>
-              <option value="">Select breed</option>
-              <option value="native">Native</option>
-              <option value="half-breed">Half Breed</option>
-              <option value="high-breed">High Breed</option>
-            </select>
-          </div>
-          <div>
-            <label>Birth Date:</label>
-            <input type="date" data-field="birthdate" required>
-          </div>
-          <div>
-            <label>Health Status:</label>
-            <select data-field="healthStatus" required>
-              <option value="">Select health status</option>
-              <option value="healthy">Healthy</option>
-              <option value="pregnant">Pregnant</option>
-              <option value="sick">Sick</option>
-              <option value="deceased">Deceased</option>
-            </select>
-          </div>
-          <div>
-            <label>Weight (kg):</label>
-            <input type="number" data-field="weight" step="any" placeholder="kg" required>
-          </div>
-          <hr>
-        `;
-        swineFieldsContainer.appendChild(swineGroup);
-      }
-    }
+  function addSwineField(num) {
+    const swineGroup = document.createElement("div");
+    swineGroup.classList.add("swine-input-group");
+
+    swineGroup.innerHTML = `
+      <h3 class="swine-label">Swine ${num}</h3>
+
+      <div>
+        <label>Sex:</label>
+        <select data-field="sex" required>
+          <option value="">Select sex</option>
+          <option value="male">Male</option>
+          <option value="female">Female</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Breed:</label>
+        <select data-field="breed" required>
+          <option value="">Select breed</option>
+          <option value="native">Native</option>
+          <option value="half-breed">Half Breed</option>
+          <option value="high-breed">High Breed</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Birth Date:</label>
+        <input type="date" data-field="birthdate" required>
+      </div>
+
+      <div>
+        <label>Health Status:</label>
+        <select data-field="healthStatus" required>
+          <option value="">Select health status</option>
+          <option value="healthy">Healthy</option>
+          <option value="pregnant">Pregnant</option>
+          <option value="sick">Sick</option>
+          <option value="deceased">Deceased</option>
+        </select>
+      </div>
+
+      <div>
+        <label>Weight (kg):</label>
+        <input type="number" data-field="weight" step="any" placeholder="kg" required>
+      </div>
+
+      <button type="button" class="remove-swine-btn">Remove</button>
+
+      <hr>
+    `;
+
+    swineFieldsContainer.appendChild(swineGroup);
+
+    // Attach delete behavior to this swine block
+    swineGroup.querySelector(".remove-swine-btn").addEventListener("click", () => {
+      swineGroup.remove();
+      swineCount--;
+      renumberSwine();
+    });
+  }
+
+  // Renumber Swine 1, Swine 2, Swine 3... after deletion
+  function renumberSwine() {
+    const swineLabels = swineFieldsContainer.querySelectorAll(".swine-label");
+    swineLabels.forEach((label, index) => {
+      label.textContent = `Swine ${index + 1}`;
+    });
   }
 };
+
+
 
 
 

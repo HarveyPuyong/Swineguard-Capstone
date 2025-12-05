@@ -674,7 +674,7 @@ function createMedicineEntry(container, medicines, stocks, today ) {
 
         <input type="number" class="amount-input" placeholder="Amount" min="0" disabled>
 
-        <button type="button" class="remove-entry-btn">X</button>
+        <button type="button" class="remove-entry-btn">Delete</button>
     `;
 
     container.appendChild(entry);

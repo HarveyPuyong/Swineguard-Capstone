@@ -859,6 +859,9 @@ Medicine count per button
 .appointment-schedule-container__type-identifier.visit-type-identifier{
   --color: #4397CC;
 }
+.appointment-schedule-container__type-identifier.personal-type-identifier{
+  --color: #b8aa45;
+}
 
 .appointment-schedule-container__type-identifier--dot{
   --size: 10px;
