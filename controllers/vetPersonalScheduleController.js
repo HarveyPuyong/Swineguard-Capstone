@@ -52,6 +52,53 @@ exports.getVetSchedule = async (req, res) => {
     }
 }
 
+exports.editVetSchedule = async (req, res) => {
+    const { id } = req.params;
+    const { title, description, date } = req.body;
+
+    // Check the length of inputs
+    if (!isValidInput(title) || !isValidInput(description)) return res.status(400).json({ message: 'Please provide valid and longer input.'});
+
+    // Check for Emojis
+    if (containsEmoji(title) || containsEmoji(description)) return res.status(400).json({ message: 'Emoji are not allowed for title and in description.'});
+
+    // Check for Numbers
+    if (hasNumber(title)) return res.status(400).json({ message: 'Numbers are not allowed.'});
+
+    // Check for Special Chracters
+    if (containsSpecialChar(title)) return res.status(400).json({ message: 'Special characters are not allowed.'});
+
+    const schedDate = new Date(date).setHours(0, 0, 0, 0);
+    if (schedDate < today) return res.status(400).json({ message: 'Past dates are not allowed.'});
+
+    try {
+
+        const scheduleData = { title, description, date: schedDate };
+
+        const editedVetSchedule = await VeterinarianSchedule.findByIdAndUpdate(
+            id,
+            scheduleData,
+            { new: true }
+        );
+        
+        if (!editedVetSchedule) {
+            return res.status(404).json({ message: 'Schedule not found.' });
+        }
+        
+        return res.status(201).json({ 
+            newSchedule: editedVetSchedule, 
+            message: 'Schedule edited successfully.' 
+        });
+
+    } catch (err) {
+        console.error(`Error: ${err}`);
+        console.log(`Cause of error: ${err.message}`);
+
+        return res.status(500).json({ message: 'Something went wrong while editing new schedule.' });
+    }
+}
+
+
 exports.setNUmberOfAppointmentsPerDay = async (req, res) => {
     const { userId, totalAppointment } = req.body;
 

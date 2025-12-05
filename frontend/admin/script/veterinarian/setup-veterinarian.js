@@ -605,6 +605,7 @@ const setUpVetPersonalSchedule = () => {
     const newScheduleForm = document.querySelector('.availability-vet-schedule-form');
     const setMaxAppForm = document.querySelector('.availability-set__max-appointment');
 
+
     // Open "Add New Schedule"
     addNewScheBtn.addEventListener('click', () => {
         overlay.classList.add("show");
@@ -727,6 +728,7 @@ function createMedicineEntry(container, medicines, stocks, today ) {
     // Remove this entry
     removeBtn.addEventListener("click", () => entry.remove());
 }
+
 
 
 

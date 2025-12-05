@@ -84,6 +84,7 @@
 }
 
 .availability-vet-schedule-form,
+.availability-vet-schedule-form-edit,
 .availability-set__max-appointment {
     position: absolute;
     top: 50%;
@@ -102,11 +103,13 @@
 }
 
 .availability-vet-schedule-form h2,
+.availability-vet-schedule-form-edit h2,
 .availability-set__max-appointment h2 {
     text-align: center;
 }
 
 .availability-vet-schedule-form.show,
+.availability-vet-schedule-form-edit.show,
 .availability-set__max-appointment.show {
     display: flex;
 }
@@ -132,4 +135,15 @@
 .schedule__toggle-follow-up-btn {
     height: 30px;
     padding: 0 .4rem;
+}
+
+
+.vet-sched__edit-btn {
+    padding: .2rem .8rem;
+    color: #ffffff;
+    background-color: #4154ff;
+    border: none;
+    border-radius: 4px;
+    float: right;
+    cursor: pointer;
 }

@@ -95,4 +95,48 @@ function handleAddNewScheduleFromSection (userID){
 
 }
 
-export { handleAddNewSchedule, handleAddNewScheduleFromSection }
+function handleEditScheduleFromSection (scheduleId){
+  const editScheduleForm = document.querySelector('.availability-vet-schedule-form-edit');
+
+  editScheduleForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const editScheduleData = {
+      title: document.getElementById('availability-schedule-title-edit').value, 
+      description: document.getElementById('availability-schedule-description-edit').value, 
+      date: document.getElementById('availability-schedule-date-edit').value
+    }
+
+    console.log(editScheduleData);
+    const overlay = document.querySelector('.availability-overlay');
+
+    try {
+      const response = await api.put(`/schedule/edit/vet/personal-sched/${scheduleId}`, editScheduleData);
+
+      if(response.status === 201){
+        popupAlert('success', 'Success', `Schedule "${editScheduleData.title}" edited successully.`).
+          then(() => {
+            editScheduleForm.reset();
+            editScheduleForm.classList.remove('show');
+            overlay.classList.remove('show'); 
+
+            // Render the User Schedule
+            renderSchedulesFromCalendar();
+        });   
+      }
+    
+    } catch (error) {
+      // ✅ Handle backend validation messages
+      if (error.response && error.response.data && error.response.data.message) {
+        popupAlert("error", "Error", error.response.data.message);
+      } else {
+        popupAlert("error", "Error", "Something went wrong while editing the schedule.");
+      }
+
+      console.error("Edit Schedule error:", error);
+    }
+  })
+
+}
+
+export { handleAddNewSchedule, handleAddNewScheduleFromSection, handleEditScheduleFromSection }
