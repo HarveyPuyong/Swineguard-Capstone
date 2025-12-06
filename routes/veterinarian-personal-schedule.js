@@ -14,6 +14,6 @@ router.put('/edit/vet/total-num-of-app/:id', vetPersonalSchedController.editNUmb
 
 router.post('/set/vet/total-num-of-app', vetPersonalSchedController.setNUmberOfAppointmentsPerDay); // Get schedule from the Calendar
 
-router.get('/get/vet/total-num-of-app/', vetPersonalSchedController.getNUmberOfAppointmentsPerDay); // Get schedule from the Calendar
+router.get('/get/vet/total-num-of-app', vetPersonalSchedController.getNUmberOfAppointmentsPerDay); // Get schedule from the Calendar
 
 module.exports = router;

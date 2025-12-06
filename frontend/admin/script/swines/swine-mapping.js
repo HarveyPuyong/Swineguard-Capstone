@@ -217,18 +217,21 @@ const toggleMunicipality = async() => {
         numOfSwinePerMunicipal(selectStatus.value);
         highlight.classList.remove('hide');
         highlight.classList.add('show');
+        conatinerForSickSwine.classList.add('hide');
       });
     } else if (selectStatus.value === 'healthy') {
       municipalHighlights.forEach(highlight => {
         numOfSwinePerMunicipal(selectStatus.value);
         highlight.classList.remove('hide');
         highlight.classList.add('show');
+        conatinerForSickSwine.classList.add('hide');
       });
     } else if (selectStatus.value === 'pregnant') {
       municipalHighlights.forEach(highlight => {
         numOfSwinePerMunicipal(selectStatus.value);
         highlight.classList.remove('hide');
         highlight.classList.add('show');
+        conatinerForSickSwine.classList.add('hide');
       });
     } else if (selectStatus.value === 'sick') {
       const sickSwines = await getSickSwines();
@@ -237,6 +240,7 @@ const toggleMunicipality = async() => {
         numOfSwinePerMunicipal(selectStatus.value);
         highlight.classList.remove('hide');
         highlight.classList.add('show');
+        conatinerForSickSwine.classList.remove('hide');
       });
 
       // Group results

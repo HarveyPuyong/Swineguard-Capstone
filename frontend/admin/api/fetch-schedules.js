@@ -13,7 +13,7 @@ const fetchSchedules = async() => {
 
 const fetchNumOfAppt = async() => {
   try {
-    const response = await api.get('/schedule/get/vet/total-num-of-app/', {withCredentials: true});
+    const response = await api.get('/schedule/get/vet/total-num-of-app', {withCredentials: true});
 
     if(response.status === 200) return response.data
   } catch (error) {

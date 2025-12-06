@@ -18,7 +18,7 @@ const addItem = async (medicineId) => {
 
     const itemFormData = {
       medicineId,
-      content: document.querySelector('#item-content-input').value.trim(),
+      content: document.querySelector('#item-content-input').value.trim() || 0,
       quantity: document.querySelector('#item-quantity-input').value.trim(),
       expiryDate: document.querySelector('#item-expiry-input').value.trim(),
     };
@@ -35,6 +35,7 @@ const addItem = async (medicineId) => {
           addItemForm.classList.remove('show');
           handleRenderInventory();
           createInventoryTable();
+          document.querySelector('.item-content-container').style.display = 'block';
         });
       }
     } catch (error) {

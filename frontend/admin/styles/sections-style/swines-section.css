@@ -875,3 +875,16 @@ position: absolute;
   max-height: 200px;
   overflow: auto;
 }
+
+.list-of-barangay-affected.hide {
+  display: none;
+}
+#ok-btn {
+  padding: .2rem .3rem;
+  margin-right: 2rem;
+  color: #ffffff;
+    background-color: #4154ff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}

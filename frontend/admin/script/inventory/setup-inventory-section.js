@@ -12,6 +12,7 @@ import { addItem, addStock, setupAddStockFormListener,
 
 import { fetchInventoryStocks } from "../../api/fetch-inventory-stock.js";
 import initInventoryFiltering from "../../utils/filter-inventory-items.js";
+import fetchInventory from "../../api/fetch-inventory.js";
 
 
 // ======================================
@@ -203,15 +204,25 @@ const handleInventoryStocks = () => {
   })
 }
 
-const handleInventoryStocksBtn = (medicineId) => {
+const handleInventoryStocksBtn = async (medicineId) => {
   // Add Item in clicked Medicine
   const addItemBtn = document.querySelector('.add-item__medicine-table');
   const cancelAddItemBtn = document.querySelector('.add-item__cancel-btn');
   const addItemForm = document.querySelector('#add-item-form');
   if (!addItemBtn) return;
 
+  const medicine =  await fetchInventory();
+  const findMedicine = medicine.find(med => med._id === medicineId);
+
   addItemBtn.onclick = () => {
     //alert(`Add Item, Item Id: ${medicineId}`);
+    const itemContent = document.querySelector('.item-content-container');
+
+    if ((findMedicine.category).toLowerCase() === 'consumables') {
+      itemContent.style.display = 'none';
+      document.querySelector('#item-content-input').value = 0;
+    }
+
     addItemForm.classList.add('show');
     addItem(medicineId);
   };
@@ -220,6 +231,7 @@ const handleInventoryStocksBtn = (medicineId) => {
     cancelAddItemBtn.addEventListener('click', () => {
       addItemForm.classList.remove('show');
       addItemForm.reset();
+      document.querySelector('.item-content-container').style.display = 'block';
     })
   }
 

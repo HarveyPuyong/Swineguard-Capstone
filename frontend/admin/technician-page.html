@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="styles/sections-style/notification.css">
     <link rel="stylesheet" href="styles/sections-style/appointments-section.css">
     <link rel="stylesheet" href="styles/sections-style/monitoring-section.css">
+    <link rel="stylesheet" href="styles/sections-style/vet-schedule-from-calemdar.css">
 
     <link rel="icon" type="image/png" href="images-and-icons/icons/swineGuard-logo.png">
 
@@ -71,13 +72,17 @@
             <img class="side-nav__link-icon" src="images-and-icons/icons/dashboard-icon.png" alt="dashboard-icon">
             <p class="side-nav__link-label">Dashboard</p>
           </li>
-           <li class="side-nav__link" data-value="schedule-section">
+          <li class="side-nav__link" data-value="schedule-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/schedule (1).png" alt="schedule-icon">
             <p class="side-nav__link-label">Schedule</p>
           </li>
           <li class="side-nav__link" data-value="monitoring-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/monitoring-swine.png" alt="setting-icon">
             <p class="side-nav__link-label">Swine Monitoring</p>
+          </li>
+          <li class="side-nav__link" data-value="availability-section">
+            <img class="side-nav__link-icon" src="images-and-icons/icons/availability.png" alt="availability-icon">
+            <p class="side-nav__link-label">Availability</p>
           </li>
           <li class="side-nav__link" data-value="setting-section">
             <img class="side-nav__link-icon" src="images-and-icons/icons/setting-icon.png" alt="setting-icon">
@@ -170,6 +175,10 @@
                 <div class="appointment-schedule-container__type-identifier visit-type-identifier">
                   <div class="appointment-schedule-container__type-identifier--dot"></div>
                   <p class="appointment-schedule-container__type-identifier--label">Visit</p>
+                </div>
+                <div class="appointment-schedule-container__type-identifier personal-type-identifier">
+                  <div class="appointment-schedule-container__type-identifier--dot"></div>
+                  <p class="appointment-schedule-container__type-identifier--label">Field Staff Schedule</p>
                 </div>
               </div>
           
@@ -450,6 +459,26 @@
                 <div class="schedule__btn-container">
                   <button type="button" id="availability-schedule__back-btn">Back</button>
                   <button type="submit" id="savailability-chedule__save-btn">Save</button>
+                </div>
+              </form>
+
+              <form class="availability-vet-schedule-form-edit">
+                <h2>Edit Schedule</h2>
+
+                <div class="schedule__input-field">
+                  <label for="availability-schedule-date-edit">Date:</label>
+                  <input type="date" id="availability-schedule-date-edit" required>
+
+                  <label for="availability-schedule-title-edit">Title:</label>
+                  <input type="text" id="availability-schedule-title-edit" placeholder="Enter here." required>
+
+                  <label for="availability-schedule-description-edit">Description:</label>
+                  <textarea id="availability-schedule-description-edit" placeholder="Type here"></textarea>
+                </div>
+
+                <div class="schedule__btn-container">
+                  <button type="button" id="availability-schedule__back-btn-edit">Back</button>
+                  <button type="submit" id="savailability-chedule__save-btn-edit">Save</button>
                 </div>
               </form>
               

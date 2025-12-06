@@ -60,15 +60,9 @@ async function editTotalAppointment () {
 }
 
 
-const getTotalAppointment = async() => {
-    const totalAppointmentCount = document.getElementById('max-appointment-num');
 
-    const totalApptOfVet = await fetchNumOfAppt();
-    
-}
 
 
 export {
-    editTotalAppointment,
-    getTotalAppointment
+    editTotalAppointment
 }

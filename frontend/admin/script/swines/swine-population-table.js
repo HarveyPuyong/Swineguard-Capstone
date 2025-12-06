@@ -2,7 +2,7 @@ import fetchSwines from "../../api/fetch-swines.js";
 import fetchUsers from "../../api/fetch-users.js";
 import fetchSwinePopulation from "../../api/fetch-swine-population.js";
 
-const renderSwinePopulationTable = async (municipal) => {
+const renderSwinePopulationTable = async (municipal, month, year) => {
   const tableContainer = document.querySelector('.swine-population__table-container');
 
   try {
@@ -86,7 +86,7 @@ const renderSwinePopulationTable = async (municipal) => {
     // 2) Merge MANUAL populations
     // ============================================
     const populationsFromManual = populations.filter(
-      p => p.month === currentMonth && p.year === currentYear
+      p => p.month === month && p.year === year
     );
 
     populationsFromManual.forEach(pop => {
@@ -205,9 +205,12 @@ const renderSwinePopulationTable = async (municipal) => {
 };
 
 const handleSelectMunicipalOnChange = () => {
-  const selectTag = document.getElementById('population-municipality');
-  selectTag.addEventListener('change', () => {
-    renderSwinePopulationTable(selectTag.value);
+  const okBtn = document.getElementById('ok-btn');
+  const selectTagMunicipality = document.getElementById('population-municipality');
+  const selectTagMonth = document.getElementById('population-month');
+  const selectTagYear = document.getElementById('population-year');
+  okBtn.addEventListener('click', () => {
+    renderSwinePopulationTable(selectTagMunicipality.value, Number(selectTagMonth.value), Number(selectTagYear.value));
   });
 };
 

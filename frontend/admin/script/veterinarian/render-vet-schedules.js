@@ -12,7 +12,9 @@ const renderSchedulesFromCalendar = async () => {
 
     const role = user.roles[0];
 
-    if (role !== "veterinarian") {
+    const allowedUsers = ["veterinarian","technician"];
+
+    if (!allowedUsers.includes(role)) {
         return;
     }
 

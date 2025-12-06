@@ -10,7 +10,9 @@ const renderMaxApptPerDay = async() => {
 
     const role = vet.roles[0];
 
-    if (role !== "veterinarian") {
+    const allowedUsers = ["veterinarian","technician"];
+
+    if (!allowedUsers.includes(role)) {
         return;
     }
 
