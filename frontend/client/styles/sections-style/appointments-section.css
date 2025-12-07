@@ -35,8 +35,9 @@
 }
 
 .go-to-schedules-section-btn{
-  color: #002BFF;
-  background-color: #a5b4ff;
+  border: none;
+  background-color: #4154ff;
+  color: white;
 }
 
 
@@ -532,9 +533,11 @@ Calendar overlay
 }
 
 .request-appointment-btn__calendar {
-  background-color: #B0DDC5;
-  border: 1px solid #009947;
-  color: #232C27;
+  background-color: #2FC375;
+  border: none;
+  color: #ffffff;
+  width: 100%;
+  margin-top: 1rem;
 }
 .request-appointment-btn__calendar {
   padding: .2rem .5rem;

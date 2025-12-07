@@ -104,6 +104,15 @@ Medicine count per button
   color: white;
 }
 
+.filter-and-view-sched-container Button,
+.view-btns-container button,
+.vet-viewn-calendar-btn
+ {
+  border: none;
+  background-color: #4154ff;
+  color: white;
+}
+
 
 .appointment-section__search{
   position: relative;

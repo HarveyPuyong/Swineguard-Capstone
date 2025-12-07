@@ -47,8 +47,9 @@
 
 .setting-form__header-edit-btn.show{
   display: block;
-  border: 1px solid #ff0011;
-  background: #fe7a9b;
+  border: none;
+  background-color: #4154ff;
+  color: white;
 }
 
 .setting-form__header-cancel-btn.show{

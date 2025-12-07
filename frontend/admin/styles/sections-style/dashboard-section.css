@@ -63,16 +63,18 @@
 .dashboard__card{
   position: relative;
   height: 200px;
-  border: 1px solid #2FC375;
+  border: none;
   background-color: white;
-  border-radius: 3px;
   padding: 20px 16px;
   overflow: hidden;
+  border-radius: 12px;
+  /* background-color: #11352bbd; */
+  background-color: #0f7e439a;
 }
 
 .dashboard__card.total-card{
   grid-row: span 2;
-  background-color: #0F7E43;
+  /* background-color: #0F7E43; */
   color: white;
   display: flex;
   flex-direction: column;

@@ -24,18 +24,19 @@
   padding: 20px 80px;
   overflow-y: scroll;
   scrollbar-width: thin;
-  box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.276);
+  /* box-shadow: 0px 0px 10px 2px rgba(0, 0, 0, 0.276); */
 }
 
 .service-card{
   position: relative;
   display: flex;
   gap: 40px;
-  background-color: #D2D2D2;
+  background-color: #ffffff;
   border-radius: 7px;
   padding: 20px 50px;
   height: 250px;
   width: 100%;
+  box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.25);
 }
 
 .service-card__image,
@@ -45,6 +46,9 @@
   height: 100%;
   padding: 15px 30px;
   text-align: justify;
+}
+.service-card__description {
+  background-color: #ffffff;
 }
 
 .item-types {
@@ -114,8 +118,8 @@
 .service-card__edit-btn, 
 .service-card__delete-btn {
   
-  border: 1.3px solid rgb(45, 184, 82);
-  background-color: #1ba25a;
+  border: none;
+  background-color: #4154ff;
   color: white;
   border-radius: 3px;
   padding: 3px 25px;

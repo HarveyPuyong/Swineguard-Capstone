@@ -21,8 +21,9 @@
   cursor: pointer;
 }
 
-.filter-swine__select-tag button {
-  background-color: #17a75a;
+.filter-swine__select-tag button,
+.back-to-appointment-list-btn {
+  background-color: #4154ff;
   color: white;
 }
 
@@ -656,8 +657,12 @@
   background-color: #4d4dd4;
   border: none;
   color: #ffffff;
+  border-radius: 4px;
 }
-
+.remove-swine-btn {
+  background-color: #d44d4d;
+  margin-top: 1rem;
+}
 
 /* .add-swine-form__create-btn {
   position: relative;

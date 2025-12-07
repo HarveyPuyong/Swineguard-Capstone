@@ -77,9 +77,9 @@
 .swines-section__buttons-container button{
   width: 220px;
   border-radius: 8px;
-  border: 1px solid black;
-  background-color: white;
-  color: var(--color);
+  border: none;
+  background-color: #4154ff;
+  color: white;
   text-align: center;
   padding: 10px 0;
   cursor: pointer;
@@ -223,10 +223,12 @@
   padding: 3px 0;
   text-align: center;
   cursor: pointer;
-  transition: 0.3s;
+  transition: ease 0.3s;
 }
 .swines-table__tbody .td.toggle-more-details-btn:hover {
-  background-color: rgb(244, 244, 244);
+  border: 1px solid #4154ff;
+  background-color: #4154ff;
+  color: white;
 }
 
 /* swine more details */
@@ -414,21 +416,20 @@
 }
 
 .mapping-contents__buttons-container button{
-  color: white;
-  background-color: #2FC375;
   border: none;
-  border-radius: 4px;
+  background-color: #4154ff;
   color: white;
+  border-radius: 4px;
   cursor: pointer;
   padding: 10px 30px;
 }
 
 .mapping-contents__buttons-container button.active{
-  background-color: #005026;
+  background-color: #232c83;
 }
 
 .mapping-contents__show-add-swine-btn.active{
-  background-color: #005026;
+  background-color: #232c83;
 }
 
 .mapping-contents__wrapper{
@@ -727,11 +728,12 @@ td input {
 
 /* select swine status element */
 .select-swine-status-container{
-  background-color: #2FC375;
+  background-color: #ffffff;
   padding: 20px 30px;
   padding-bottom: 30px;
   border-radius: 2px;
   margin-bottom: 40px;
+  border: 2px solid rgba(43, 43, 43, 0.376);
 }
 
 .select-swine-status-container__heading{
@@ -742,7 +744,7 @@ td input {
   width: 100%;
   padding: 8px;
   margin-bottom: 7px;
-  border: none;
+  border: 1px solid rgba(43, 43, 43, 0.376);
   border-radius: 2px;
   cursor: pointer;
 }
@@ -876,6 +878,21 @@ position: absolute;
   overflow: auto;
 }
 
+/* Target any scrollable container */
+.list-of-barangay-affected::-webkit-scrollbar {
+  width: 6px;        /* vertical scrollbar width */
+  height: 6px;       /* horizontal scrollbar height */
+}
+
+.list-of-barangay-affected::-webkit-scrollbar-thumb {
+  background: #b3b3b3;  /* scrollbar color */
+  border-radius: 10px;
+}
+
+.list-of-barangay-affected::-webkit-scrollbar-track {
+  background: #f0f0f0;
+}
+
 .list-of-barangay-affected.hide {
   display: none;
 }
@@ -887,4 +904,10 @@ position: absolute;
     border: none;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.view-reports-btn {
+  border: none;
+  background-color: #4154ff;
+  color: white;
 }
