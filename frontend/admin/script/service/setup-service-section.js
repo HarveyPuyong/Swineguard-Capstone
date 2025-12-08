@@ -64,6 +64,23 @@ const setupEditForm = async (serviceId) => {
 }
 
 
+
+const handleServiceTypeOnChange = () => {
+  const serviceTypeRadios = document.querySelectorAll('input[name="service__type"]');
+  const clinicalSignContainer = document.querySelector('.service-with__clinical-signs');
+
+  serviceTypeRadios.forEach(radio => {
+    radio.addEventListener("change", () => {
+      if (radio.value === "service") {
+        clinicalSignContainer.classList.add('hide');
+      } else {
+        clinicalSignContainer.classList.remove('hide');
+      }
+    });
+  });
+}
+
+
 // ======================================
 // ========== Main Function - Setup Service Section
 // ======================================
@@ -72,5 +89,5 @@ export default function setupServiceSection() {
   toggleAddServiceForm();
   toggleEditServiceForm();
   handleAddService();
-
+  handleServiceTypeOnChange();
 }

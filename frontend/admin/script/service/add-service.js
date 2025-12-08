@@ -8,12 +8,15 @@ function handleAddService (){
   addServiceForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const selectedRadio = addServiceForm.querySelector('input[name="service__type"]:checked');
-    const selectedRadio_With_ClinicalSigns = addServiceForm.querySelector('input[name="clinical-signs"]:checked');
+    let selectedRadio_With_ClinicalSigns = addServiceForm.querySelector('input[name="clinical-signs"]:checked');
 
     if (!selectedRadio) {
-    popupAlert("error", "Error", "Please fill the required fields (Service Type).");
-    return; // stop the form from submitting
-  }
+      popupAlert("error", "Error", "Please fill the required fields (Service Type).");
+      return; // stop the form from submitting
+    }
+    if (!selectedRadio_With_ClinicalSigns) {
+      selectedRadio_With_ClinicalSigns = false;
+    }
 
     const serviceFormData = {
       serviceName: addServiceForm.querySelector('.service-name-input').value.trim(),

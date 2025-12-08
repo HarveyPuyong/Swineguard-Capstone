@@ -7,12 +7,16 @@ const toggleCalendar = () => {
     const calendarContainer = document.querySelector('#appointments-section .client-schedule-container');
     const appointmentListContainer = document.querySelector('#appointments-section .appointments-card-list');
 
+    const filterSelectTag = document.querySelector('.filter-appointments__select-tag');
+
     if (scheduleBtn) {
         scheduleBtn.addEventListener('click', () => {
             backBtn.classList.add('show');
             calendarContainer.classList.add('show');
             appointmentListContainer.classList.add('hide');
             scheduleBtn.classList.add('hide');
+
+            filterSelectTag.style.display = "none";
 
             handleClientCalendarContent();
         })
@@ -26,6 +30,7 @@ const toggleCalendar = () => {
             calendarContainer.classList.add('hide');
             appointmentListContainer.classList.remove('hide');
             appointmentListContainer.classList.add('show');
+            filterSelectTag.style.display = "flex";
         })
     }
 

@@ -255,5 +255,5 @@ async function showAppointmentsForDate(clickedDate, allEvents) {
 
 
 export default function handleClientCalendarContent(){
-    renderAppointmentCalendar();
+  renderAppointmentCalendar();
 }
