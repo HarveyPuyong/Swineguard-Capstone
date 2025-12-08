@@ -3,6 +3,7 @@ import fetchUser from "../auth/fetchUser.js";
 import { getServiceName } from "../../api/fetch-services.js";
 import { getMedicineName } from "../../api/fetch-medicine.js";
 import { formatTo12HourTime, formattedDate } from "../../utils/formated-date-time.js";
+import { getItemCategory } from "../../api/fetch-inventory-stock.js";
 
 let statusFilter = "pending";
 
@@ -49,7 +50,23 @@ const displayTaskList = async () => {
 
     for (const appointment of filteredAppointments) {
         const serviceName = await getServiceName(appointment.appointmentService);
-        const medicineName = await getMedicineName(appointment.medicine);
+        //const medicineName = await getMedicineName(appointment.medicine);
+
+        let medicinesHTML = "None";
+
+        if (appointment.medications && appointment.medications.length > 0) {
+        medicinesHTML = "<ul>";
+
+        for (const med of appointment.medications) {
+            const medName = await getMedicineName(med.medicine);
+
+            const medExt = await getItemCategory(med.medicine);
+
+            medicinesHTML += `<li>${medName} — ${med.amount}${medExt?medExt:"pcs"}</li>`;
+        }
+
+        medicinesHTML += "</ul>";
+        }
 
         const clinicalSignsHTML = (appointment.clinicalSigns && appointment.clinicalSigns.length > 0)
             ? `<ul>${appointment.clinicalSigns.map(sign => `<li>• ${sign}</li>`).join('')}</ul>`
@@ -102,12 +119,8 @@ const displayTaskList = async () => {
                             <span class="detail-value">${clinicalSignsHTML}</span>
                         </div>
                         <div class="detail medicine">
-                            <span class="detail-label">Medicine:</span>
-                            <span class="detail-value">${medicineName}</span>
-                        </div>
-                        <div class="detail medicine-amount">
-                            <span class="detail-label">Amount:</span>
-                            <span class="detail-value">${appointment.medicineAmount ? appointment.medicineAmount : '0'}</span>
+                            <span class="detail-label">Medicines:</span>
+                            <span class="detail-value">${medicinesHTML}</span>
                         </div>
                         <div class="vet-clinical-sign__image">
                             <span class="detail-label">Clinical Sign Image:</span><br>

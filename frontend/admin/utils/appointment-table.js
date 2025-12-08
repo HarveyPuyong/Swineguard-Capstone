@@ -4,6 +4,7 @@ import { getTechnicianName } from './../api/fetch-technicians.js';
 import { getServiceName } from './../api/fetch-services.js';
 import fetchUser from '../script/auth/fetchUser.js';
 import { fetchAppointments } from '../api/fetch-appointments.js';
+import { getItemCategory } from '../api/fetch-inventory-stock.js';
 
 async function appointmentsTable(appointments, table) {
   const user = await fetchUser();
@@ -46,7 +47,9 @@ async function appointmentsTable(appointments, table) {
 
       for (const med of appointment.medications) {
         const medName = await getMedicineName(med.medicine);
-        medicinesHTML += `<li>${medName} — ${med.amount} (ML)</li>`;
+        const medExt = await getItemCategory(med.medicine);
+
+        medicinesHTML += `<li>${medName} — ${med.amount}${medExt?medExt:"pcs"}</li>`;
       }
 
       medicinesHTML += "</ul>";
@@ -176,7 +179,8 @@ async function adminPageAppointmentTable(appointments, table) {
 
       for (const med of appointment.medications) {
         const medName = await getMedicineName(med.medicine);
-        medicinesHTML += `<li>${medName} — ${med.amount} (ML)</li>`;
+        const medExt = await getItemCategory(med.medicine);
+        medicinesHTML += `<li>${medName} — ${med.amount}${medExt?medExt:"pcs"}</li>`;
       }
 
       medicinesHTML += "</ul>";

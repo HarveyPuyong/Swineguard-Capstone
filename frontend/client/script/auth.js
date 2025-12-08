@@ -48,7 +48,29 @@ const handleNextInSignupForm = () => {
 
   // Enable/disable button on input change
   nextBtn.addEventListener('click', async() => {
-    //alert("Halloooo");
+
+    // Client Name:
+    const firstName = document.querySelector('#client-input-firstname').value;
+    const middleName = document.querySelector('#client-input-middlename').value;
+    const lastName = document.querySelector('#client-input-lastname').value;
+
+    //Birthday & Phone
+    const birthdayValue = document.querySelector('#client-input-birthday').value;
+    const phoneValue = document.querySelector('#client-contact-number').value;
+
+    const passwordInput = document.querySelector('#client-input-password').value;
+    const confirmPasswordInput = document.querySelector('#client-input-confirm-password').value;
+
+    const isAgeValid = checkUserAge(birthdayValue);
+    const isPhoneValid = checkPhoneNumber(phoneValue);
+    const isNameValid = checkUserNameLength(firstName, lastName, middleName);
+    const isPasswordValid = checkPasswordLength(passwordInput, confirmPasswordInput);
+
+    // ❗ Stop if any validation is false
+    if (!isAgeValid || !isPhoneValid || !isNameValid || !isPasswordValid) {
+      return;
+    }
+    
     userOTPContainer.classList.add('show');
     userDetailsContainer.classList.remove('show');
     await sendOtp(userEmail.value);
