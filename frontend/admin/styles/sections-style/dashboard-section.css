@@ -74,7 +74,7 @@
 
 .dashboard__card.total-card{
   grid-row: span 2;
-  background-color: #0F7E43;
+  background-color: #0f7e439f;
   color: white;
   display: flex;
   flex-direction: column;

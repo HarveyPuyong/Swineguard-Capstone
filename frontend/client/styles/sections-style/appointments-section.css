@@ -528,6 +528,12 @@ Calendar overlay
   padding: 6px 10px;
   cursor: pointer;
 }
+.appointment-total-heading {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-weight: 600;
+}
 .current-clicked-date {
   margin-bottom: .8rem;
 }
@@ -627,6 +633,56 @@ Calendar overlay
 /* Event Title Text */
 .fc-event-title {
   font-size: 0.85rem;
+}
+
+
+.appointment-schedule-container__type-identifier-container{
+  position: absolute;
+  right: 50px;
+  top: 40px;
+  display: none;
+  align-items: center;
+  gap: 40px
+}
+
+.appointment-schedule-container__type-identifier-container.show {
+  display: flex;
+}
+
+.appointment-schedule-container__type-identifier{
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.appointment-schedule-container__type-identifier--label.service {
+  color: #28ce78;
+}
+.appointment-schedule-container__type-identifier--label.visit {
+  color: #4397CC;
+}
+.appointment-schedule-container__type-identifier--label.personal {
+  color: #b8aa45;
+}
+
+
+.appointment-schedule-container__type-identifier-service,
+.appointment-schedule-container__type-identifier-visit,
+.appointment-schedule-container__type-identifier-personal-sched
+{
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: none;
+}
+.appointment-schedule-container__type-identifier-service {
+  background-color: #28ce78;
+}
+.appointment-schedule-container__type-identifier-visit {
+  background-color: #4397CC;
+}
+.appointment-schedule-container__type-identifier-personal-sched {
+  background-color: #b8aa45;
 }
 
 

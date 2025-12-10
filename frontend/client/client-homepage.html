@@ -227,6 +227,7 @@
             <button class="go-to-schedules-section-btn">Schedules</button>
             <button class="back-to-appointment-list-btn hide">Back</button>
           </div>
+
           <div class="filter-appointments__select-tag">
             <select name="filter-client-appointments" id="filter-client-appointments">
               <option value="all">All</option>
@@ -243,6 +244,21 @@
           </div>
 
 
+          <!-- types identifier container -->
+          <div class="appointment-schedule-container__type-identifier-container">
+            <div class="appointment-schedule-container__type-identifier service-type-identifier">
+              <div class="appointment-schedule-container__type-identifier-service"></div>
+              <p class="appointment-schedule-container__type-identifier--label service">Service</p>
+            </div>
+            <div class="appointment-schedule-container__type-identifier visit-type-identifier">
+              <div class="appointment-schedule-container__type-identifier-visit"></div>
+              <p class="appointment-schedule-container__type-identifier--label visit">Visit</p>
+            </div>
+            <div class="appointment-schedule-container__type-identifier personal-type-identifier">
+              <div class="appointment-schedule-container__type-identifier-personal-sched"></div>
+              <p class="appointment-schedule-container__type-identifier--label personal">Veterinarian Schedule</p>
+            </div>
+          </div>
           <div class="client-schedule-container hide">
             <!-- client-calendar.js -->
           </div>
@@ -250,6 +266,7 @@
           <!-- Pop-up all task in certain date -->
           <div class="calendar-overlay">
             <div class="pop-up__calendar-tasks">
+              <p class="appointment-total-heading">Appointment Slots: <span id="total-appointments-pop-up">0</span></p>
               <button class="close-calendar-popup">Close</button>
               <h2 class="current-clicked-date"></h2>
               <div class="task-list__for-the-day"></div>

@@ -4,6 +4,7 @@ import { formatedDateForCalendar, formatTo12HourTime } from "../../../admin/util
 import fetchClient from "../auth/fetch-client.js"
 import { fetchSchedules } from "../../../admin/api/fetch-schedules.js";
 import { getTechnicianName } from "../../../admin/api/fetch-technicians.js";
+import { fetchNumOfAppt } from "../../../admin/api/fetch-schedules.js";
 
 
 // ======================================
@@ -163,6 +164,14 @@ async function showAppointmentsForDate(clickedDate, allEvents) {
   const userRole = user.roles[0];
   const userId = user._id;
 
+  // Get Maximum Appointment of veterinary office
+  const maxAppointments = await fetchNumOfAppt();
+  let totalAppointmentsPerDay = 0;
+
+  maxAppointments.forEach(num => {
+    totalAppointmentsPerDay += num.totalAppointment;
+  });
+
   // Format date
   const dateObj = new Date(clickedDate);
   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
@@ -179,9 +188,11 @@ async function showAppointmentsForDate(clickedDate, allEvents) {
 
   if (tasksForDay.length === 0) {
     taskList.innerHTML = `<p>No tasks on this date.</p>`;
+    document.getElementById('total-appointments-pop-up').innerHTML = `${totalAppointmentsPerDay}`;
   } else {
     // Separate by type
     let html = '';
+    let appointmentCount = 0;
 
     const personal = tasksForDay.filter(e => e.type === 'personal');
     const appointments = tasksForDay.filter(e => e.type === 'appointment');
@@ -208,9 +219,14 @@ async function showAppointmentsForDate(clickedDate, allEvents) {
           <p>Personnel: ${e.appointmentPersonnel}</p>
         </div><hr>
       `).join('');
+
+      appointmentCount = appointments.length;
     }
 
     taskList.innerHTML = html;
+
+    //Total Appointments per day heading
+    document.getElementById('total-appointments-pop-up').innerHTML = Number(totalAppointmentsPerDay) - Number(appointmentCount);
   }
 
   // User: request appointment
@@ -220,22 +236,23 @@ async function showAppointmentsForDate(clickedDate, allEvents) {
     today.setHours(0,0,0,0);
 
     if (clicked >= today) { 
-        taskList.insertAdjacentHTML(
-            'beforeend',
-            `<button class="request-appointment-btn__calendar">Request Appointment</button>`
-        );
+      taskList.insertAdjacentHTML(
+          'beforeend',
+          `<button class="request-appointment-btn__calendar">Request Appointment</button>`
+      );
 
-        const requestBtn = taskList.querySelector(".request-appointment-btn__calendar");
-        requestBtn.addEventListener("click", () => {
-            //alert("Request Appointment at Date:" + clickedDate);
-            const form = document.querySelector('#request-appointment-form');
-            const popUpTasks = document.querySelector('.pop-up__calendar-tasks');
-            form.classList.add('show');
-            overlay.classList.remove('show');
-            popUpTasks.classList.remove('hide');
+      const requestBtn = taskList.querySelector(".request-appointment-btn__calendar");
+      requestBtn.addEventListener("click", () => {
+        //alert("Request Appointment at Date:" + clickedDate);
+        const form = document.querySelector('#request-appointment-form');
+        const popUpTasks = document.querySelector('.pop-up__calendar-tasks');
+        form.classList.add('show');
+        overlay.classList.remove('show');
+        popUpTasks.classList.remove('hide');
 
-            document.querySelector('#input-date').value = clickedDate;
-        });
+        document.querySelector('#input-date').value = clickedDate;
+      });
+
     }
     
   }
